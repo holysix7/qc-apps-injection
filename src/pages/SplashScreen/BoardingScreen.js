@@ -1,6 +1,5 @@
-import Onboarding from 'react-native-onboarding-swiper';
-import React, {useEffect} from 'react';
-import {Container, Button, Text, Header, Content, Form, Item, Label, Input} from "native-base";
+import React, {Component, useState} from 'react';
+import {Container, Button, Text} from "native-base";
 import {Image, View, StyleSheet} from 'react-native';
 import LogoSIP from '../../assets/logo-sip3.png';
 import GeneralStatusBarColor from '../../components/GeneralStatusBarColor';
@@ -33,7 +32,6 @@ const BoardingScreen = ({navigation}) => {
 				</Button>
 			</View>
 		</Container>
-
 	)
 }
 

@@ -1,5 +1,4 @@
-import { AsyncStorage } from 'react-native';
-import TOKEN from '../../Key';
+import AsyncStorage from "@react-native-community/async-storage";
 
 const DeviceStorage = async(data) => {
 	// console.log(data)

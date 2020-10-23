@@ -1,14 +1,11 @@
 import React, {useEffect, useRef} from 'react';
-import {View, Text, Image, StyleSheet, Animated} from 'react-native';
+import {View, Image, StyleSheet, Animated} from 'react-native';
 import LogoSIP from '../../assets/logo-sip3.png';
-import BoardingScreen from './BoardingScreen';
-import GeneralStatusBarColor from '../../components/GeneralStatusBarColor';
 
 const SplashScreen = ({navigation}) => {
     useEffect(() => {
         setTimeout(() => {
             navigation.replace('BoardingScreen')
-            // navigation.replace('Login')
         }, 2000);
 	})
 	
@@ -21,12 +18,9 @@ const SplashScreen = ({navigation}) => {
 		}).start();
 	};
 
-
 	return (
 		<View style={styles.container}>
-			{/* <Animated.View style={[styles.fadingContainer, {opacity: fadeAnim}]} > */}
-				<Image style={{borderTopRightRadius: 20, height: 145, width: 200 }} source={LogoSIP} />
-			{/* </Animated.View> */}
+			<Image style={{borderTopRightRadius: 20, height: 145, width: 200 }} source={LogoSIP} />
 		</View>
 	)
 }
