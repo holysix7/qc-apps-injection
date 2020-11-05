@@ -1,11 +1,46 @@
-import {Image, View, ScrollView, TextInput, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView} from 'react-native';
-import React, {Component, useState} from 'react';
-import { Container, Text, Button } from 'native-base';
+import {Image, View, ScrollView, TextInput, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, TouchableOpacity} from 'react-native';
+import React, {useState} from 'react';
+import { Container, Text, Button, Picker } from 'native-base';
 import LogoSIP from '../../../assets/logo-sip370x50.png';
-import SelectPicker from 'react-native-picker-select';
 
-const MassproBeginProdLeader = () => {
-
+const MassproBeginProdLeader = ({route}) => {
+	const {product_name, customer_name, internal_part_id, customer_part_number, model, machine_name, today, yesterday} = route.params
+	const [item, setItem] = useState("")
+	const [wiProduct, setWiProduct] = useState("")
+	const [packingStandard, setPackingStandard] = useState("")
+	const [workTools, setWorkTools] = useState("")
+	const [prodReport, setProdReport] = useState("")
+	const [lable, setLable] = useState("")
+	const [ngForm, setNgForm] = useState("")
+	const [jig, setJig] = useState("")
+	const [remark, setRemark] = useState("")
+	const date = []
+	const submit = () => {
+		const data = {
+			item,
+			wiProduct,
+			packingStandard,
+			workTools,
+			prodReport,
+			lable,
+			ngForm,
+			jig,
+			remark
+		}
+		console.log(data)
+	}
+	if(today != null)
+	{
+		date.push(
+			<Text key={"key"} style={{marginTop: 1, fontWeight: 'bold', fontSize: 17}}>{today}</Text>
+		)
+	}
+	if(yesterday != null)
+	{
+		date.push(
+			<Text key={"key"} style={{marginTop: 1, fontWeight: 'bold', fontSize: 17}}>{yesterday}</Text>
+		)
+	}
     return(
 		<KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={{flex:1}}>
 			<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -17,210 +52,241 @@ const MassproBeginProdLeader = () => {
 						</View>
 
 						<View style={{flexDirection: 'row'}}>
-							<View style={{borderWidth: 0.3, height: 65, alignItems: 'center', width: "50%", backgroundColor: '#F5F5DC'}}>
-								<Text style={{fontWeight: 'bold', fontSize: 17}}>Edit Daily Inspection</Text>
-								<Text style={{marginTop: 5, fontWeight: 'bold', fontSize: 17}}>YYYY-MM-DD</Text>
-								<Text style={{marginTop: 10, fontWeight: 'bold', fontSize: 11}}>PT. INDONESIA KOITO</Text>
+							<View style={{borderTopWidth: 0.3, borderRightWidth: 0.3, height: 100, justifyContent: 'center', alignItems: 'center', width: "50%", backgroundColor: '#F5F5DC'}}>
+								<Text style={{marginTop: 5, fontWeight: 'bold', fontSize: 17}}>{date}</Text>
+								<Text style={{marginTop: 1, fontWeight: 'bold', fontSize: 17}}>Edit Daily Inspection</Text>
+								<Text style={{marginTop: 1, fontWeight: 'bold', fontSize: 11}}>Masspro Begin Prod. Leader</Text>
+								<Text style={{marginTop: 1, fontWeight: 'bold', fontSize: 11}}>{customer_name}</Text>
 							</View>
-							<View style={{borderWidth: 0.3, height: 65, alignItems: 'center', width: "50%", backgroundColor: '#F5F5DC'}}>
-								<Text style={{fontWeight: 'bold', fontSize: 17}}>31-TOSHIBA 450T</Text>
-								<View style={{borderWidth: 0.5, width: 150, height: 25, justifyContent: 'center', paddingLeft: 30}}>
-									<SelectPicker onValueChange={(value) => console.log(value)} 
-									items={[
-										{label: "Shift 1 - 1", value: "Shift 1 - 1"},
-										{label: "Shift 1 - 2", value: "Shift 1 - 2"},
-										{label: "Shift 1 - 3", value: "Shift 1 - 3"},
-										{label: "Shift 1 - 4", value: "Shift 1 - 4"},
-										{label: "Shift 1 - 5", value: "Shift 1 - 5"},
-										{label: "Shift 1 - 6", value: "Shift 1 - 6"},
-										{label: "Shift 1 - 7", value: "Shift 1 - 7"},
-										{label: "Shift 1 - 8", value: "Shift 1 - 8"},
-										{label: "Shift 2 - 1", value: "Shift 2 - 1"},
-										{label: "Shift 2 - 2", value: "Shift 2 - 2"},
-										{label: "Shift 2 - 3", value: "Shift 2 - 3"},
-										{label: "Shift 2 - 4", value: "Shift 2 - 4"},
-										{label: "Shift 2 - 5", value: "Shift 2 - 5"},
-										{label: "Shift 2 - 6", value: "Shift 2 - 6"},
-										{label: "Shift 2 - 7", value: "Shift 2 - 7"},
-										{label: "Shift 2 - 8", value: "Shift 2 - 8"},
-										{label: "Shift 3 - 1", value: "Shift 3 - 1"},
-										{label: "Shift 3 - 2", value: "Shift 3 - 2"},
-										{label: "Shift 3 - 3", value: "Shift 3 - 3"},
-										{label: "Shift 3 - 4", value: "Shift 3 - 4"},
-										{label: "Shift 3 - 5", value: "Shift 3 - 5"},
-										{label: "Shift 3 - 6", value: "Shift 3 - 6"},
-										{label: "Shift 3 - 7", value: "Shift 3 - 7"},
-										{label: "Shift 3 - 8", value: "Shift 3 - 8"}
-									]}
-									/>
+							<View style={{flexDirection: 'column', width: "100%"}}>
+								<View style={{borderTopWidth: 0.3, height: 65, justifyContent: 'center', alignItems: 'center', width: "50%", flex: 1}}>
+									<Text style={{fontWeight: 'bold', fontSize: 17}}>{machine_name}</Text>
+									<View style={{borderWidth: 0.5, width: 150, height: 25, justifyContent: 'center'}}>
+										<Picker 
+										mode="dropdown"
+										selectedValue={item}
+										onValueChange={(value) => formOke(value)}
+										itemStyle={{marginLeft: 0}}
+										itemTextStyle={{fontSize: 9}}
+										>
+											<Picker.Item label="--Pilih Shift--" value="" />
+											<Picker.Item label="Shift 1 - 1" value="8" />
+											<Picker.Item label="Shift 1 - 2" value="9" />
+											<Picker.Item label="Shift 1 - 3" value="10" />
+											<Picker.Item label="Shift 1 - 4" value="11" />
+											<Picker.Item label="Shift 1 - 5" value="12" />
+											<Picker.Item label="Shift 1 - 6" value="13" />
+											<Picker.Item label="Shift 1 - 7" value="14" />
+											<Picker.Item label="Shift 1 - 8" value="15" />
+											<Picker.Item label="Shift 2 - 1" value="16" />
+											<Picker.Item label="Shift 2 - 2" value="17" />
+											<Picker.Item label="Shift 2 - 3" value="18" />
+											<Picker.Item label="Shift 2 - 4" value="19" />
+											<Picker.Item label="Shift 2 - 5" value="20" />
+											<Picker.Item label="Shift 2 - 6" value="21" />
+											<Picker.Item label="Shift 2 - 7" value="22" />
+											<Picker.Item label="Shift 2 - 8" value="23" />
+											<Picker.Item label="Shift 3 - 1" value="0" />
+											<Picker.Item label="Shift 3 - 2" value="1" />
+											<Picker.Item label="Shift 3 - 3" value="2" />
+											<Picker.Item label="Shift 3 - 4" value="3" />
+											<Picker.Item label="Shift 3 - 5" value="4" />
+											<Picker.Item label="Shift 3 - 6" value="5" />
+											<Picker.Item label="Shift 3 - 7" value="6" />
+											<Picker.Item label="Shift 3 - 8" value="7" />
+										</Picker>
+									</View>
+									<Text style={{fontWeight: 'bold', fontSize: 11}}>{product_name}</Text>
 								</View>
-								<Text style={{marginTop: 10, fontWeight: 'bold', fontSize: 11}}>BODY TL (K59J)</Text>
 							</View>
 						</View>
 
 						<View style={{borderWidth: 0.5, flexDirection: 'row'}}>
 							<View style={{justifyContent: 'center', paddingLeft: 5, height: 25, width: "36%", backgroundColor: '#F5F5DC'}}>
-								<Text style={{fontSize: 13}}>PIA064B00140000</Text>
+								<Text style={{fontSize: 12}}>{internal_part_id}</Text>
 							</View>
 							<View style={{justifyContent: 'center', alignItems: 'center', height: 25, width: "30%", backgroundColor: '#F5F5DC'}}>
-								<Text>22646-8F01F</Text>
+								<Text style={{fontSize: 12}}>{customer_part_number}</Text>
 							</View>
 							<View style={{flex: 1, justifyContent: 'center', alignItems: 'center', height: 25, backgroundColor: '#F5F5DC'}}>
-								<Text>K59J</Text>
+								<Text style={{fontSize: 12}}>{model}</Text>
 							</View>
 						</View>
 
 						<ScrollView style={{flex: 1}}>
-							<View style={{paddingTop: 20, flexDirection: 'row'}}>
-								<View style={{padding: 10, width: "44%"}}>
-									<Text>WI Product</Text>
-								</View>
-								<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-									<Text style={{color: 'black'}}>:</Text>
-								</View>
-								<View style={{padding: 4, width: "50%"}}>
-									<View style={{borderWidth: 0.5, borderRadius: 25, height: 30, justifyContent: 'center', paddingLeft: 5}}>
-										<SelectPicker onValueChange={(value) => console.log(value)} 
-											items={[
-												{label: "OK", value: "OK"},
-												{label: "NG", value: "NG"}
-											]}
-										/>
+							<TouchableOpacity>							
+								<View style={{paddingTop: 20, flexDirection: 'row'}}>
+									<View style={{padding: 10, width: "44%"}}>
+										<Text>WI Product</Text>
+									</View>
+									<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+										<Text style={{color: 'black'}}>:</Text>
+									</View>
+									<View style={{padding: 4, width: "50%"}}>
+										<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+											<Picker 
+											mode="dropdown"
+											selectedValue={wiProduct}
+											onValueChange={(value) => setWiProduct(value)}
+											>
+												<Picker.Item label="Pilih" value="" />
+												<Picker.Item label="OK" value="OK" />
+												<Picker.Item label="NG" value="NG" />
+											</Picker>
+										</View>
 									</View>
 								</View>
-							</View>
 
-							<View style={{paddingTop: 20, flexDirection: 'row'}}>
-								<View style={{padding: 10, width: "44%"}}>
-									<Text>Packing Standard</Text>
-								</View>
-								<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-									<Text style={{color: 'black'}}>:</Text>
-								</View>
-								<View style={{padding: 4, width: "50%"}}>
-									<View style={{borderWidth: 0.5, borderRadius: 25, height: 30, justifyContent: 'center', paddingLeft: 5}}>
-										<SelectPicker onValueChange={(value) => console.log(value)} 
-											items={[
-												{label: "OK", value: "OK"},
-												{label: "NG", value: "NG"}
-											]}
-										/>
+								<View style={{paddingTop: 20, flexDirection: 'row'}}>
+									<View style={{padding: 10, width: "44%"}}>
+										<Text>Packing Standard</Text>
+									</View>
+									<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+										<Text style={{color: 'black'}}>:</Text>
+									</View>
+									<View style={{padding: 4, width: "50%"}}>
+										<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+											<Picker 
+											mode="dropdown"
+											selectedValue={packingStandard}
+											onValueChange={(value) => setPackingStandard(value)}
+											>
+												<Picker.Item label="Pilih" value="" />
+												<Picker.Item label="OK" value="OK" />
+												<Picker.Item label="NG" value="NG" />
+											</Picker>
+										</View>
 									</View>
 								</View>
-							</View>
-							
-							<View style={{paddingTop: 20, flexDirection: 'row'}}>
-								<View style={{padding: 10, width: "44%"}}>
-									<Text>Production Work Tools</Text>
-								</View>
-								<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-									<Text style={{color: 'black'}}>:</Text>
-								</View>
-								<View style={{padding: 4, width: "50%"}}>
-									<View style={{borderWidth: 0.5, borderRadius: 25, height: 30, justifyContent: 'center', paddingLeft: 5}}>
-										<SelectPicker onValueChange={(value) => console.log(value)} 
-											items={[
-												{label: "OK", value: "OK"},
-												{label: "NG", value: "NG"}
-											]}
-										/>
+								
+								<View style={{paddingTop: 20, flexDirection: 'row'}}>
+									<View style={{padding: 10, width: "44%"}}>
+										<Text>Production Work Tools</Text>
+									</View>
+									<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+										<Text style={{color: 'black'}}>:</Text>
+									</View>
+									<View style={{padding: 4, width: "50%"}}>
+										<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+											<Picker 
+											mode="dropdown"
+											selectedValue={workTools}
+											onValueChange={(value) => setWorkTools(value)}
+											>
+												<Picker.Item label="Pilih" value="" />
+												<Picker.Item label="OK" value="OK" />
+												<Picker.Item label="NG" value="NG" />
+											</Picker>
+										</View>
 									</View>
 								</View>
-							</View>
-							
-							<View style={{paddingTop: 20, flexDirection: 'row'}}>
-								<View style={{padding: 10, width: "44%"}}>
-									<Text>Production Report</Text>
-								</View>
-								<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-									<Text style={{color: 'black'}}>:</Text>
-								</View>
-								<View style={{padding: 4, width: "50%"}}>
-									<View style={{borderWidth: 0.5, borderRadius: 25, height: 30, justifyContent: 'center', paddingLeft: 5}}>
-										<SelectPicker onValueChange={(value) => console.log(value)} 
-											items={[
-												{label: "OK", value: "OK"},
-												{label: "NG", value: "NG"}
-											]}
-										/>
+								
+								<View style={{paddingTop: 20, flexDirection: 'row'}}>
+									<View style={{padding: 10, width: "44%"}}>
+										<Text>Production Report</Text>
+									</View>
+									<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+										<Text style={{color: 'black'}}>:</Text>
+									</View>
+									<View style={{padding: 4, width: "50%"}}>
+										<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+											<Picker 
+											mode="dropdown"
+											selectedValue={prodReport}
+											onValueChange={(value) => setProdReport(value)}
+											>
+												<Picker.Item label="Pilih" value="" />
+												<Picker.Item label="OK" value="OK" />
+												<Picker.Item label="NG" value="NG" />
+											</Picker>
+										</View>
 									</View>
 								</View>
-							</View>
-							
-							<View style={{paddingTop: 20, flexDirection: 'row'}}>
-								<View style={{padding: 10, width: "44%"}}>
-									<Text>Lable</Text>
-								</View>
-								<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-									<Text style={{color: 'black'}}>:</Text>
-								</View>
-								<View style={{padding: 4, width: "50%"}}>
-									<View style={{borderWidth: 0.5, borderRadius: 25, height: 30, justifyContent: 'center', paddingLeft: 5}}>
-										<SelectPicker onValueChange={(value) => console.log(value)} 
-											items={[
-												{label: "OK", value: "OK"},
-												{label: "NG", value: "NG"}
-											]}
-										/>
+								
+								<View style={{paddingTop: 20, flexDirection: 'row'}}>
+									<View style={{padding: 10, width: "44%"}}>
+										<Text>Lable</Text>
+									</View>
+									<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+										<Text style={{color: 'black'}}>:</Text>
+									</View>
+									<View style={{padding: 4, width: "50%"}}>
+										<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+											<Picker 
+											mode="dropdown"
+											selectedValue={lable}
+											onValueChange={(value) => setLable(value)}
+											>
+												<Picker.Item label="Pilih" value="" />
+												<Picker.Item label="OK" value="OK" />
+												<Picker.Item label="NG" value="NG" />
+											</Picker>
+										</View>
 									</View>
 								</View>
-							</View>
-							
-							<View style={{paddingTop: 20, flexDirection: 'row'}}>
-								<View style={{padding: 10, width: "44%"}}>
-									<Text>NG Form</Text>
-								</View>
-								<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-									<Text style={{color: 'black'}}>:</Text>
-								</View>
-								<View style={{padding: 4, width: "50%"}}>
-									<View style={{borderWidth: 0.5, borderRadius: 25, height: 30, justifyContent: 'center', paddingLeft: 5}}>
-										<SelectPicker onValueChange={(value) => console.log(value)} 
-											items={[
-												{label: "OK", value: "OK"},
-												{label: "NG", value: "NG"}
-											]}
-										/>
+								
+								<View style={{paddingTop: 20, flexDirection: 'row'}}>
+									<View style={{padding: 10, width: "44%"}}>
+										<Text>NG Form</Text>
+									</View>
+									<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+										<Text style={{color: 'black'}}>:</Text>
+									</View>
+									<View style={{padding: 4, width: "50%"}}>
+										<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+											<Picker 
+											mode="dropdown"
+											selectedValue={ngForm}
+											onValueChange={(value) => setNgForm(value)}
+											>
+												<Picker.Item label="Pilih" value="" />
+												<Picker.Item label="OK" value="OK" />
+												<Picker.Item label="NG" value="NG" />
+											</Picker>
+										</View>
 									</View>
 								</View>
-							</View>
 
-							<View style={{paddingTop: 20, flexDirection: 'row'}}>
-								<View style={{padding: 10, width: "44%"}}>
-									<Text>JIG (Alat Ukur)</Text>
-								</View>
-								<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-									<Text style={{color: 'black'}}>:</Text>
-								</View>
-								<View style={{padding: 4, width: "50%"}}>
-									<View style={{borderWidth: 0.5, borderRadius: 25, height: 30, justifyContent: 'center', paddingLeft: 5}}>
-										<SelectPicker onValueChange={(value) => console.log(value)} 
-											items={[
-												{label: "OK", value: "OK"},
-												{label: "NG", value: "NG"}
-											]}
-										/>
+								<View style={{paddingTop: 20, flexDirection: 'row'}}>
+									<View style={{padding: 10, width: "44%"}}>
+										<Text>JIG (Alat Ukur)</Text>
+									</View>
+									<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+										<Text style={{color: 'black'}}>:</Text>
+									</View>
+									<View style={{padding: 4, width: "50%"}}>
+										<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+											<Picker 
+											mode="dropdown"
+											selectedValue={jig}
+											onValueChange={(value) => setJig(value)}
+											>
+												<Picker.Item label="Pilih" value="" />
+												<Picker.Item label="OK" value="OK" />
+												<Picker.Item label="NG" value="NG" />
+											</Picker>
+										</View>
 									</View>
 								</View>
-							</View>
 
-							<View style={{paddingTop: 20, flexDirection: 'row'}}>
-								<View style={{padding: 10, width: "44%"}}>
-									<Text>Remark</Text>
+								<View style={{paddingTop: 20, flexDirection: 'row'}}>
+									<View style={{padding: 10, width: "44%"}}>
+										<Text>Remark</Text>
+									</View>
+									<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+										<Text style={{color: 'black'}}>:</Text>
+									</View>
+									<View style={{padding: 4, width: "50%"}}>
+										<TextInput onChangeText={(value) => setRemark(value)} style={{borderWidth: 0.5, borderRadius: 25, paddingLeft: 5, height: 40}} placeholder="Type Here..." />
+									</View>
 								</View>
-								<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-									<Text style={{color: 'black'}}>:</Text>
+							
+								<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
+									<View>
+										<Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>
+									</View>
 								</View>
-								<View style={{padding: 4, width: "50%"}}>
-									<TextInput style={{borderWidth: 0.5, borderRadius: 25, paddingLeft: 5, height: 30}} placeholder="Type Here..." />
-								</View>
-							</View>
-						
-							<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
-								<View>
-									<Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}}><Text>SAVE</Text></Button>
-								</View>
-							</View>
+							</TouchableOpacity>
 						</ScrollView>
 					</View>
 				</Container>

@@ -6,6 +6,7 @@ import GeneralStatusBarColor from '../../components/GeneralStatusBarColor';
 import Axios from 'axios';
 import DeviceStorage from './DeviceStorage';
 import Session from './Session';
+import styles from "../../components/styles/Styling";
 
 const Login = ({navigation}) => {
 	//Move
@@ -14,7 +15,6 @@ const Login = ({navigation}) => {
 	}
 
 	//Form
-	const [value, setValue] = useState('value');
 	const [user, setUser] = useState("");
 	const [password, setPassword] = useState("");
 
@@ -27,7 +27,6 @@ const Login = ({navigation}) => {
 		Axios.defaults.baseURL='http://139.255.26.194:3003'
 		Axios.post('/auth', data)
 		.then(res => {
-			// console.warn('log: ', res.data.data)
 			DeviceStorage(res.data.data.token)
 			Session(res.data.data)
 			alert("Login Success!")
@@ -47,19 +46,19 @@ const Login = ({navigation}) => {
 						<GeneralStatusBarColor backgroundColor="#54c3f0" barStyle="light-content"/>
 					</View>
 					<View style={{justifyContent: 'center', alignItems: 'center'}}>
-						<Image source={LogoSIP} style={{width: 188, height: 150}}/>
+						<Image source={LogoSIP} style={styles.logoSipBesar}/>
 					</View>
 					<Form style={{justifyContent: 'center', alignItems: 'center'}}>
-						<Item floatingLabel success style={{height: 60, width: 300}}>
+						<Item floatingLabel success style={styles.labelFloat}>
 							<Label>NIK</Label>
-							<Input value={user} onChangeText={(value) => setUser(value)} />
+							<Input value={user} onChangeText={(value) => setUser(value)} keyboardType="numeric" />
 						</Item>
-						<Item floatingLabel success style={{height: 60, width: 300,}}>
+						<Item floatingLabel success style={styles.labelFloat}>
 							<Label>Password</Label>
 							<Input value={password} onChangeText={(value) => setPassword(value)}  secureTextEntry={true}/>
 						</Item>
 						<View style={{justifyContent: 'flex-end', marginLeft: 240}}>
-							<Button rounded info style={{marginTop: 10}} onPress={() => submit()}>
+							<Button rounded info style={styles.buttonLogin} onPress={() => submit()}>
 								<Text>
 									Login
 								</Text>

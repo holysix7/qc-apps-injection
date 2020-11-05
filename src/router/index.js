@@ -1,5 +1,5 @@
 import React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createStackNavigator, TransitionPresets } from '@react-navigation/stack';
 import {
 	SplashScreen,
 	Login,
@@ -21,10 +21,9 @@ import {
 	RevisiFirstPieceLeaderQc,
 	RevisiFirstPieceForeman,
 	LastShootLeaderQc,
-	LastShootForeman
-
+	LastShootForeman,
+	Profile
 } from '../pages';
-import { TransitionPresets } from '@react-navigation/stack';
 
 const Stack = createStackNavigator();
 
@@ -37,46 +36,30 @@ const Router = () => {
 			navigation.dangerouslyGetState().routes.indexOf(route) > 0
 			? 0
 			: undefined,
-			...TransitionPresets.ModalPresentationIOS,
-		})}
-		mode="modal">
-			<Stack.Screen name="SplashScreen" component={SplashScreen} options={{headerShown: false}} />
-			<Stack.Screen name="BoardingScreen" component={BoardingScreen} options={{headerShown: false}} />
+			
+		})}>
+			<Stack.Screen name="SplashScreen" component={SplashScreen} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
+			<Stack.Screen name="BoardingScreen" component={BoardingScreen} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
 			<Stack.Screen name="Login" component={Login} options={{headerShown: false}} />
-			<Stack.Screen name = "Qc"
-				component = {
-					Qc
-				}
-				options = {
-					{
-						headerShown: false,
-						headerTitle: 'my Qc',
-						headerStyle: {
-							backgroundColor: '#54c3f0'
-						},
-						headerTitleStyle: {
-							color: 'white'
-						}
-					}
-				}
-				/>
-			<Stack.Screen name="ShowProducts" component={ShowProducts} options={{headerShown: false}} />
-			<Stack.Screen name="ListForm" component={ListForm} options={{headerShown: false}} />
-			<Stack.Screen name="MassproBeginMaintMold" component={MassproBeginMaintMold} options={{headerShown: false}} />
-			<Stack.Screen name="MassproBeginMaterialPreparation" component={MassproBeginMaterialPreparation} options={{headerShown: false}} />
-			<Stack.Screen name="MassproBeginMoldSetter" component={MassproBeginMoldSetter} options={{headerShown: false}} />
-			<Stack.Screen name="MassproBeginTechInjection" component={MassproBeginTechInjection} options={{headerShown: false}} />
-			<Stack.Screen name="MassproBeginProdLeader" component={MassproBeginProdLeader} options={{headerShown: false}} />
-			<Stack.Screen name="MassproBeginQCLeader" component={MassproBeginQCLeader} options={{headerShown: false}} />
-			<Stack.Screen name="MassproBeginForeman" component={MassproBeginForeman} options={{headerShown: false}} />
-			<Stack.Screen name="FirstPieceForeman" component={FirstPieceForeman} options={{headerShown: false}} />
-			<Stack.Screen name="PerJam" component={PerJam} options={{headerShown: false}} />
-			<Stack.Screen name="Per4Jam" component={Per4Jam} options={{headerShown: false}} />
-			<Stack.Screen name="PerShift" component={PerShift} options={{headerShown: false}} />
-			<Stack.Screen name="RevisiFirstPieceLeaderQc" component={RevisiFirstPieceLeaderQc} options={{headerShown: false}} />
-			<Stack.Screen name="RevisiFirstPieceForeman" component={RevisiFirstPieceForeman} options={{headerShown: false}} />
-			<Stack.Screen name="LastShootLeaderQc" component={LastShootLeaderQc} options={{headerShown: false}} />
-			<Stack.Screen name="LastShootForeman" component={LastShootForeman} options={{headerShown: false}} />
+			<Stack.Screen name="Qc" component={Qc} options={{headerShown: false}}/>
+			<Stack.Screen name="Profile" component={Profile} options={{cardOverlayEnabled: false, headerShown: false}} />
+			<Stack.Screen name="ShowProducts" component={ShowProducts} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
+			<Stack.Screen name="ListForm" component={ListForm} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
+			<Stack.Screen name="MassproBeginMaintMold" component={MassproBeginMaintMold} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
+			<Stack.Screen name="MassproBeginMaterialPreparation" component={MassproBeginMaterialPreparation} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
+			<Stack.Screen name="MassproBeginMoldSetter" component={MassproBeginMoldSetter} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
+			<Stack.Screen name="MassproBeginTechInjection" component={MassproBeginTechInjection} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
+			<Stack.Screen name="MassproBeginProdLeader" component={MassproBeginProdLeader} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
+			<Stack.Screen name="MassproBeginQCLeader" component={MassproBeginQCLeader} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
+			<Stack.Screen name="MassproBeginForeman" component={MassproBeginForeman} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
+			<Stack.Screen name="FirstPieceForeman" component={FirstPieceForeman} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
+			<Stack.Screen name="PerJam" component={PerJam} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
+			<Stack.Screen name="Per4Jam" component={Per4Jam} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
+			<Stack.Screen name="PerShift" component={PerShift} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
+			<Stack.Screen name="RevisiFirstPieceLeaderQc" component={RevisiFirstPieceLeaderQc} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
+			<Stack.Screen name="RevisiFirstPieceForeman" component={RevisiFirstPieceForeman} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
+			<Stack.Screen name="LastShootLeaderQc" component={LastShootLeaderQc} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
+			<Stack.Screen name="LastShootForeman" component={LastShootForeman} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
 		</Stack.Navigator>
 	)
 }

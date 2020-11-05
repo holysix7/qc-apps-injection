@@ -1,24 +1,26 @@
 import {View, ScrollView} from 'react-native';
 import React, {useState, useEffect } from 'react';
-import { Container, Text, Button} from 'native-base';
+import { Container, Text, Button, Picker} from 'native-base';
 import GeneralStatusBarColor from '../../components/GeneralStatusBarColor';
-import SelectPicker from 'react-native-picker-select';
+import styles from '../../components/styles/Styling'
 import AsyncStorage from "@react-native-community/async-storage";
 import axios from 'axios';
 
 const Qc = ({navigation}) => {
   
-  const [value, setValue] = useState("");
   const [cekId, setCekId] = useState("");
-  const [data, setData] = useState([])
+  const [name, setCekName] = useState("");
+  const [deptName, setCekDeptName] = useState("");
+  const [dutyId, setDutyId] = useState([]);
+  const [data, setData] = useState([]);
   useEffect(() => {
-    mesin()
     session()
+    mesin(cekId)
   }, [])
   
-  const mesin = async (value) => {
-    // const plant = value
+  const mesin = async(value) => {
     setCekId(value)
+    
     const token = await AsyncStorage.getItem("key")
     const headers = {
       'Authorization': token
@@ -31,6 +33,7 @@ const Qc = ({navigation}) => {
     axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
     .then(response => {
       setData(response.data.data)
+      console.log("Machines List Data: ", response.data.status, "OK")
     })
     .catch(error => console.log('err: ', error))
   }
@@ -38,11 +41,30 @@ const Qc = ({navigation}) => {
   const session = async () => {
     try {
       const UserSession = await AsyncStorage.multiGet(['user', 'name', 'department_name', 'sys_plant_id', 'duty_plant_option_select'])
-      const user = await AsyncStorage.getItem('sys_plant_id')
-      setCekId(user)
+      const name = await AsyncStorage.getItem('name')
+      const plantId = await AsyncStorage.getItem('sys_plant_id')
+      const duty = await AsyncStorage.getItem('duty_plant_option_select')
+      const deptName    = await AsyncStorage.getItem('department_name')
+      setDutyId(JSON.parse(duty))
+      setCekId(plantId)
+      setCekDeptName(deptName)
+      setCekName(name)
     } catch (error) {
       console.log('Multi Get Error: ', error.message)
     }
+  }
+
+  var plantDuty = []
+
+  if(dutyId != null)
+  {
+    dutyId.map((element, key) => {
+      plantDuty.push(
+        <Picker.Item label={element.plant_name} value={element.plant_id} key={key} />
+      )
+    })
+  }else{
+    console.log("Duty Id = Kosong")
   }
 
   const machines = []
@@ -60,46 +82,53 @@ const Qc = ({navigation}) => {
         }}
         >
           <Text style={{fontSize: 17, fontWeight: 'bold'}}>{element.number}</Text>
-          <Text style={{fontSize: 9}}>{element.name}</Text>
+          <Text style={{fontSize: 8}}>{element.name}</Text>
         </Button>
       )
     });
   }
-
   return (
     <Container>
       <View>
         <GeneralStatusBarColor backgroundColor="#54c3f0" barStyle="light-content"/>
       </View>
-      <View style={{height: 100, backgroundColor: '#F5F5DC'}}>
-        <View style={{paddingTop: 10, justifyContent: 'center', alignItems: 'center'}}>
+      <View style={styles.header}>
+        <View style={styles.contentHeader}>
           <Text>PLANT</Text>
         </View>
-        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-          <View style={{borderWidth: 0.5, borderRadius: 10, width: 150, height: 25, justifyContent: 'center', paddingLeft: 30}}>
-            <SelectPicker onValueChange={(value) => mesin(value)} itemStyle={{backgroundColor: 'red'}}
-              items={[
-                {label: "PT TSSI PINANG", value: "3"},
-                {label: "PT TECHNO KB", value: "2"},
-                {label: "PT TECHNO DPIL", value: "4"}
-              ]}
-            />
+        <View style={styles.contentHeaderChild}>
+          <View style={styles.itemHeader2}>
+            <Picker 
+              mode="dropdown"
+              selectedValue={cekId}
+              onValueChange={(value) => mesin(value)}
+              itemStyle={{marginLeft: 0}}
+              itemTextStyle={{fontSize: 9}}
+            >
+              {plantDuty}
+            </Picker>
           </View>
         </View>
       </View>
       <View style={{flex: 1, backgroundColor: '#F5F5DC'}}>
-        <ScrollView style={{flex: 1, backgroundColor: '#F5F5DC'}}>
-          <View style={{flexWrap: 'wrap', flexDirection: 'row'}}>
+        <ScrollView style={styles.contentFull}>
+          <View style={styles.responsiveButtonLoop}>
             {machines}
           </View>
         </ScrollView>
       </View>
-      <View style={{height: 60, backgroundColor: '#F5F5DC', flexDirection: 'row', borderWidth: 0.3}}>
-        <Button style={{height: 63, backgroundColor: '#F5F5DC', justifyContent: 'center', alignItems: 'center', flex: 1}}>
-          <Text style={{color: 'black'}}>Machines</Text>
+      <View style={styles.bottomNavbar}>
+        <Button style={styles.buttonNavbar}>
+          <Text style={styles.textStyle}>Machines</Text>
         </Button>
-        <Button style = {{height: 63, backgroundColor: '#F5F5DC', justifyContent: 'center', alignItems: 'center', flex: 1}}>
-          <Text style={{color: 'black'}}>Profile</Text>
+        <Button style={styles.buttonNavbar} onPress={() => {
+          navigation.navigate('Profile', {
+            name: name,
+            deptName: deptName,
+            dutyId: dutyId,
+          })
+        }}>
+          <Text style={styles.textStyle}>Profile</Text>
         </Button>
       </View>
     </Container>
