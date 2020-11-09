@@ -23,6 +23,7 @@ const ShowProducts = ({route, navigation}) => {
 				sys_plant_id: sys_plant_id,
 				machine_id: machine_id
 			}
+			// console.log(params)
 			axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
 			.then(response => {
 			if(isMounted) setData(response.data.data)

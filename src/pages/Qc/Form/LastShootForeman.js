@@ -1,8 +1,7 @@
 import {Image, View, ScrollView, TextInput, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, TouchableOpacity} from 'react-native';
-import React, {Component, useState} from 'react';
-import { Container, Text, Button } from 'native-base';
+import React, {useState} from 'react';
+import { Container, Text, Button, Picker } from 'native-base';
 import LogoSIP from '../../../assets/logo-sip370x50.png';
-import SelectPicker from 'react-native-picker-select';
 import moment from 'moment';
 
 const LastShootForeman = () => {
@@ -37,36 +36,41 @@ const LastShootForeman = () => {
                             </View>
                             <View style={{borderWidth: 0.3, height: 65, alignItems: 'center', width: "50%", backgroundColor: '#F5F5DC'}}>
                                 <Text style={{fontWeight: 'bold', fontSize: 17}}>31-TOSHIBA 450T</Text>
-                                <View style={{borderWidth: 0.5, width: 150, height: 25, justifyContent: 'center', paddingLeft: 30}}>
-                                    <SelectPicker onValueChange={(value) => console.log(value)} 
-                                    items={[
-                                        {label: "Shift 1 - 1", value: "Shift 1 - 1"},
-                                        {label: "Shift 1 - 2", value: "Shift 1 - 2"},
-                                        {label: "Shift 1 - 3", value: "Shift 1 - 3"},
-                                        {label: "Shift 1 - 4", value: "Shift 1 - 4"},
-                                        {label: "Shift 1 - 5", value: "Shift 1 - 5"},
-                                        {label: "Shift 1 - 6", value: "Shift 1 - 6"},
-                                        {label: "Shift 1 - 7", value: "Shift 1 - 7"},
-                                        {label: "Shift 1 - 8", value: "Shift 1 - 8"},
-                                        {label: "Shift 2 - 1", value: "Shift 2 - 1"},
-                                        {label: "Shift 2 - 2", value: "Shift 2 - 2"},
-                                        {label: "Shift 2 - 3", value: "Shift 2 - 3"},
-                                        {label: "Shift 2 - 4", value: "Shift 2 - 4"},
-                                        {label: "Shift 2 - 5", value: "Shift 2 - 5"},
-                                        {label: "Shift 2 - 6", value: "Shift 2 - 6"},
-                                        {label: "Shift 2 - 7", value: "Shift 2 - 7"},
-                                        {label: "Shift 2 - 8", value: "Shift 2 - 8"},
-                                        {label: "Shift 3 - 1", value: "Shift 3 - 1"},
-                                        {label: "Shift 3 - 2", value: "Shift 3 - 2"},
-                                        {label: "Shift 3 - 3", value: "Shift 3 - 3"},
-                                        {label: "Shift 3 - 4", value: "Shift 3 - 4"},
-                                        {label: "Shift 3 - 5", value: "Shift 3 - 5"},
-                                        {label: "Shift 3 - 6", value: "Shift 3 - 6"},
-                                        {label: "Shift 3 - 7", value: "Shift 3 - 7"},
-                                        {label: "Shift 3 - 8", value: "Shift 3 - 8"}
-                                    ]}
-                                    />
-                                </View>
+                                <View style={{borderWidth: 0.5, width: 150, height: 25, justifyContent: 'center'}}>
+										<Picker 
+										mode="dropdown"
+										selectedValue={item}
+										onValueChange={(value) => setItem(value)}
+										itemStyle={{marginLeft: 0}}
+										itemTextStyle={{fontSize: 9}}
+										>
+											<Picker.Item label="--Pilih Shift--" value="--Pilih Shift--" />
+											<Picker.Item label="Shift 1 - 1" value="Shift 1 - 1" />
+											<Picker.Item label="Shift 1 - 2" value="Shift 1 - 2" />
+											<Picker.Item label="Shift 1 - 3" value="Shift 1 - 3" />
+											<Picker.Item label="Shift 1 - 4" value="Shift 1 - 4" />
+											<Picker.Item label="Shift 1 - 5" value="Shift 1 - 5" />
+											<Picker.Item label="Shift 1 - 6" value="Shift 1 - 6" />
+											<Picker.Item label="Shift 1 - 7" value="Shift 1 - 7" />
+											<Picker.Item label="Shift 1 - 8" value="Shift 1 - 8" />
+											<Picker.Item label="Shift 2 - 1" value="Shift 2 - 1" />
+											<Picker.Item label="Shift 2 - 2" value="Shift 2 - 2" />
+											<Picker.Item label="Shift 2 - 3" value="Shift 2 - 3" />
+											<Picker.Item label="Shift 2 - 4" value="Shift 2 - 4" />
+											<Picker.Item label="Shift 2 - 5" value="Shift 2 - 5" />
+											<Picker.Item label="Shift 2 - 6" value="Shift 2 - 6" />
+											<Picker.Item label="Shift 2 - 7" value="Shift 2 - 7" />
+											<Picker.Item label="Shift 2 - 8" value="Shift 2 - 8" />
+											<Picker.Item label="Shift 3 - 1" value="Shift 3 - 1" />
+											<Picker.Item label="Shift 3 - 2" value="Shift 3 - 2" />
+											<Picker.Item label="Shift 3 - 3" value="Shift 3 - 3" />
+											<Picker.Item label="Shift 3 - 4" value="Shift 3 - 4" />
+											<Picker.Item label="Shift 3 - 5" value="Shift 3 - 5" />
+											<Picker.Item label="Shift 3 - 6" value="Shift 3 - 6" />
+											<Picker.Item label="Shift 3 - 7" value="Shift 3 - 7" />
+											<Picker.Item label="Shift 3 - 8" value="Shift 3 - 8" />
+										</Picker>
+									</View>
                                 <Text style={{marginTop: 10, fontWeight: 'bold', fontSize: 11}}>BODY TL (K59J)</Text>
                             </View>
                         </View>
@@ -121,18 +125,21 @@ const LastShootForeman = () => {
                                     <Text style={{color: 'black'}}>:</Text>
                                 </View>
                                 <View style={{padding: 4, width: "50%"}}>
-                                    <View style={{borderWidth: 0.5, borderRadius: 25, paddingLeft: 5, height: 30, justifyContent: 'center'}}>
-                                        <SelectPicker onValueChange={(value) => console.log(value)} 
-                                            items={[
-                                                {label: "Sched PPIC", value: "Sched PPIC"},
-                                                {label: "There's No Packing", value: "There's No Packing"},
-                                                {label: "There's No Material", value: "There's No Material"},
-                                                {label: "There's No Operator", value: "There's No Operator"},
-                                                {label: "Mold's Problem", value: "Mold's Problem"},
-                                                {label: "Machine's Problem", value: "Machine's Problem"},
-                                                {label: "Quality Problem", value: "Quality Problem"}
-                                            ]}
-                                        />
+                                    <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center'}}>
+                                    <Picker 
+                                    mode="dropdown"
+                                    selectedValue={conditionMaterial}
+                                    onValueChange={(value) => setConditionMaterial(value)}
+                                    >
+                                        <Picker.Item label="Pilih" value="" />
+                                        <Picker.Item label="Sched PPIC" value="Sched PPIC" />
+                                        <Picker.Item label="There's No Packing" value="There's No Packing" />
+                                        <Picker.Item label="There's No Material" value="There's No Material" />
+                                        <Picker.Item label="There's No Operator" value="There's No Operator" />
+                                        <Picker.Item label="Mold's Problem" value="Mold's Problem" />
+                                        <Picker.Item label="Machine's Problem" value="Machine's Problem" />
+                                        <Picker.Item label="Quality's Problem" value="Quality's Problem" />
+                                    </Picker>
                                     </View>
                                 </View>
                             </View>

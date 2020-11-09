@@ -35,14 +35,16 @@ const PerShift = ({route, navigation}) => {
     }, [])
 
     const [item, setItem] = useState(0)
-    const [cavityCheck, setCavityCheck] = useState("")
+    const [cavityCheck, setCavityCheck] = useState(0)
 	const [tooling, setTooling] = useState("")
     const [statusCavity, setStatusCavity] = useState("")
-    const [ProductsWeight, setProductsWeight] = useState("")
-    const [WeightStandard, setWeightStandard] = useState("")
-    const [inspectionTime, setInspectionTime] = useState("")
+    const [ProductsWeight, setProductsWeight] = useState([])
+    const [WeightStandard, setWeightStandard] = useState([])
+    const [keterangan, setKeterangan] = useState([])
+    const [inspectionTime, setInspectionTime] = useState([])
     const [data, setData] = useState([]);
     const date = []
+
     if(today != null)
 	{
 		date.push(
@@ -82,6 +84,13 @@ const PerShift = ({route, navigation}) => {
         })
     }
     
+    // console.log(cavityCheck)
+    const fungBaru = (value) => {
+        console.log(value)
+        setStatusCavity(value)
+    }
+
+
     const submit = async() => {
         const el = {
             qc_daily_inspection_id,
@@ -92,8 +101,10 @@ const PerShift = ({route, navigation}) => {
             statusCavity,
             ProductsWeight,
             WeightStandard,
+            keterangan,
             inspectionTime
         }
+        console.log(el)
         const token = await AsyncStorage.getItem("key")
         const params = {
             tbl: 'daily_inspection',
@@ -124,57 +135,61 @@ const PerShift = ({route, navigation}) => {
 
     const tableLoop = () => {
         var tableByAmount = []
-        if(cavityCheck != null)
+        if(cavityCheck != 0)
         {
-            tableByAmount.push(
-                <View key={"2exQsmv"} style={{flexDirection: 'row', height: 50}}>
-                    <View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-                        <View style={{justifyContent: 'center', width: 100}}>
-                            <Picker 
-                            mode="dropdown"
-                            selectedValue={statusCavity}
-                            onValueChange={(value) => setStatusCavity(value)}
-                            >
-                                <Picker.Item label="Pilih" value="" />
-                                <Picker.Item label="OK" value="OK" />
-                                <Picker.Item label="NG" value="NG" />
-                            </Picker>
+            for(let i = 0; i < cavityCheck; i++){
+
+                tableByAmount.push(
+                    <View key={i} style={{flexDirection: 'row', height: 50, width: 284.3}}>
+                        <View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+                            <View style={{justifyContent: 'center', width: 100}}>
+                                <Picker 
+                                mode="dropdown"
+                                selectedValue={statusCavity}
+                                onValueChange={(value) => fungBaru(value)}
+                                >
+                                    <Picker.Item label="Pilih" value="" />
+                                    <Picker.Item label="OK" value="OK" />
+                                    <Picker.Item label="NG" value="NG" />
+                                </Picker>
+                            </View>
+                        </View>
+                        <View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 142.1}}>
+                            <View style={{justifyContent: 'center', width: 100}}>
+                                <Picker 
+                                mode="dropdown"
+                                selectedValue={ProductsWeight}
+                                onValueChange={(value) => setProductsWeight(value)}
+                                >
+                                    <Picker.Item label="Pilih" value="" />
+                                    <Picker.Item label="OK" value="OK" />
+                                    <Picker.Item label="NG" value="NG" />
+                                </Picker>
+                            </View>
+                        </View>
+                        <View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 142.1}}>
+                            <View style={{justifyContent: 'center', width: 100}}>
+                                <Picker 
+                                mode="dropdown"
+                                selectedValue={WeightStandard}
+                                onValueChange={(i) => setWeightStandard(i)}
+                                >
+                                    <Picker.Item label="Pilih" value="" />
+                                    <Picker.Item label="OK" value="OK" />
+                                    <Picker.Item label="NG" value="NG" />
+                                </Picker>
+                            </View>
+                        </View>
+                        <View style={{alignItems: 'center', width: "25%", borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 142.1}}>
+                            <View style={{justifyContent: 'center', paddingTop: 5, width: 100}}>
+                                <TextInput onChangeText={(i) => setKeterangan(i)} style={{paddingLeft: 5, paddingRight: 5, height: 40}} placeholder="Type Here..." />
+                            </View>
                         </View>
                     </View>
-                    <View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-                        <View style={{justifyContent: 'center', width: 100}}>
-                            <Picker 
-                            mode="dropdown"
-                            selectedValue={ProductsWeight}
-                            onValueChange={(value) => setProductsWeight(value)}
-                            >
-                                <Picker.Item label="Pilih" value="" />
-                                <Picker.Item label="OK" value="OK" />
-                                <Picker.Item label="NG" value="NG" />
-                            </Picker>
-                        </View>
-                    </View>
-                    <View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-                        <View style={{justifyContent: 'center', width: 100}}>
-                            <Picker 
-                            mode="dropdown"
-                            selectedValue={WeightStandard}
-                            onValueChange={(value) => setWeightStandard(value)}
-                            >
-                                <Picker.Item label="Pilih" value="" />
-                                <Picker.Item label="OK" value="OK" />
-                                <Picker.Item label="NG" value="NG" />
-                            </Picker>
-                        </View>
-                    </View>
-                    <View style={{alignItems: 'center', width: "25%", borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-                        <View style={{justifyContent: 'center', paddingTop: 5, width: 100}}>
-                            <TextInput style={{paddingLeft: 5, paddingRight: 5, height: 40}} placeholder="Type Here..." />
-                        </View>
-                    </View>
-                </View>
-            )
+                )
+            }
         }
+        return tableByAmount
     }
 
 	return(

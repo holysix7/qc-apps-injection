@@ -3,30 +3,94 @@ import React, {useEffect, useState} from 'react';
 import { Container, Text, Button, Picker } from 'native-base';
 import LogoSIP from '../../../assets/logo-sip370x50.png';
 import AsyncStorage from "@react-native-community/async-storage";
+import Axios from 'axios';
 import moment from 'moment';
 
 const MassproBeginMaintMold = ({route}) => {
-	const {product_name, customer_name, internal_part_id, customer_part_number, model, machine_name, today, yesterday} = route.params
-	const [item, setItem] 					= useState("")
-	const [tooling, setTooling] 		= useState("")
-	const [cavity, setCavity] 			= useState("")
-	const [condition, setCondition] = useState("")
-	const [cooling, setCooling] 		= useState("")
-	const [standard, setStandard] 	= useState("")
-	const [remark, setRemark] 			= useState("")
-	const date = []
 
+	useEffect(() => {
+		formOke()
+	}, [])
+
+	const {product_name, sys_plant_id, machine_id, qc_daily_inspection_id, customer_name, internal_part_id, customer_part_number, model, machine_name, today, yesterday} = route.params
+	const [item, setItem] 								= useState("")
+	const [tooling, setTooling] 					= useState("")
+	const [mold_condition, setCondition] 	= useState("")
+	const [neeple_cooling, setCooling] 		= useState("")
+	const [standard_part, setStandard] 		= useState("")
+	const [remark, setRemark] 						= useState("")
+	const [dataProduct1, setDataProduct1] = useState("")
+	const [created_by, setCreatedBy]		  = useState("")
+	const [updated_by, setUpdatedBy]		  = useState("")
+	const [hours, setHours]		  					= useState(0)
+	const [shift, setShift]		  					= useState(0)
+	const date 						= []
+	const eng_product_id 	= dataProduct1.id
+	const cavityAmount 		= dataProduct1.cavity
+	const prod_machine_id = machine_id
+	const status 					= "new"
+	let created_at 				= moment().format("YYYY-MM-DD HH:mm:ss")
+	let updated_at 				= moment().format("YYYY-MM-DD HH:mm:ss")
 	const submit = () => {
 		const data = {
 			item,
-			tooling,
-			cavity,
-			condition,
-			cooling,
-			standard,
-			remark
+			eng_product_id,
+			prod_machine_id,
+			sys_plant_id,
+			mold_condition,
+			neeple_cooling,
+			standard_part,
+			status,
+			remark,
+			created_by,
+			created_at,
+			updated_by,
+			updated_at
 		}
 		console.log(data)
+	}
+	const formOke = async(value) => {
+		setItem(value)
+		const token = await AsyncStorage.getItem("key")
+		const headers = {
+				'Authorization': token
+		}
+		const name = await AsyncStorage.getItem('name')
+		setCreatedBy(name)
+		setUpdatedBy(name)
+		let jam = moment().format("HH:mm:ss")
+		if(parseInt(jam) >= 8 && parseInt(jam) <= 15)
+		{
+			const nilaiJam = parseInt(jam)
+			const hasil = nilaiJam - 15
+			setShift(2)
+			setHours(hasil)
+		}else if(parseInt(jam) >= 16 && parseInt(jam) <= 23){
+			const nilaiJam = parseInt(jam)
+			const hasil = nilaiJam - 15
+			setShift(3)
+			setHours(hasil)
+		}else{
+			const nilaiJam = parseInt(jam)
+			const hasil = nilaiJam + 1
+			setShift(4)
+			setHours(hasil)
+		}
+		const params = {
+				tbl: 'daily_inspection',
+				kind: 'masspro_mm',
+				sys_plant_id: sys_plant_id,
+				machine_id: machine_id
+		}
+		// console.log(params)
+		Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
+		.then(response => {
+				setDataProduct1(response.data.data.product_1_detail)
+				console.log("Machines List Data: ", response.data.status, "OK")
+		})
+		.catch(error => {
+				console.log('err: ', error)
+		})
 	}
 
 	if(today != null)
@@ -133,7 +197,9 @@ const MassproBeginMaintMold = ({route}) => {
 									<Text style={{color: 'black'}}>:</Text>
 								</View>
 								<View style={{padding: 4, width: "50%"}}>
-									<TextInput keyboardType='numeric' value={cavity} onChangeText={(value) => setCavity(value)} style={{borderWidth: 0.5, borderRadius: 25, paddingLeft: 5, height: 40, width: 177}} placeholder="Type Here..." />
+									<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8', width: 177}}>
+										<Text>{cavityAmount != null ? cavityAmount : "-"}</Text>
+									</View>
 								</View>
 							</View>
 							<View style={{flexDirection: 'row'}}>
@@ -147,7 +213,7 @@ const MassproBeginMaintMold = ({route}) => {
 									<View style={{borderWidth: 0.5, borderRadius: 25, width: 177, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 										<Picker 
 										mode="dropdown"
-										selectedValue={condition}
+										selectedValue={mold_condition}
 										onValueChange={(value) => setCondition(value)}
 										itemStyle={{marginLeft: 0}}
 										itemTextStyle={{fontSize: 9}}
@@ -170,7 +236,7 @@ const MassproBeginMaintMold = ({route}) => {
 									<View style={{borderWidth: 0.5, borderRadius: 25, width: 177, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 										<Picker 
 										mode="dropdown"
-										selectedValue={cooling}
+										selectedValue={neeple_cooling}
 										onValueChange={(value) => setCooling(value)}
 										itemStyle={{marginLeft: 0}}
 										itemTextStyle={{fontSize: 9}}
@@ -193,7 +259,7 @@ const MassproBeginMaintMold = ({route}) => {
 									<View style={{borderWidth: 0.5, borderRadius: 25, width: 177, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 										<Picker 
 										mode="dropdown"
-										selectedValue={standard}
+										selectedValue={standard_part}
 										onValueChange={(value) => setStandard(value)}
 										itemStyle={{marginLeft: 0}}
 										itemTextStyle={{fontSize: 9}}

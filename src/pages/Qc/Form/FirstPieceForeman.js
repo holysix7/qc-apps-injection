@@ -1,8 +1,7 @@
 import {Image, View, ScrollView, TextInput, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView} from 'react-native';
-import React, {Component, useState} from 'react';
-import { Container, Text, Button, Input, Picker } from 'native-base';
+import React, {useState} from 'react';
+import { Container, Text, Button, Picker } from 'native-base';
 import LogoSIP from '../../../assets/logo-sip370x50.png';
-import SelectPicker from 'react-native-picker-select';
 
 const FirstPieceForeman = ({route}) => {
 	const {product_name, customer_name, internal_part_id, customer_part_number, model, machine_name, machine_status, today, yesterday} = route.params
@@ -177,7 +176,17 @@ const FirstPieceForeman = ({route}) => {
 							</View>
 							<View style={{padding: 4, width: "50%"}}>
 								<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-									<TextInput onChangeText={(value) => setKeputusan(value)} style={{borderWidth: 0.5, borderRadius: 25, paddingLeft: 5, height: 40}} placeholder="Type Here..." />
+									<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+										<Picker 
+										mode="dropdown"
+										selectedValue={keputusan}
+										onValueChange={(value) => setKeputusan(value)}
+										>
+											<Picker.Item label="Pilih" value="" />
+											<Picker.Item label="Running" value="Running" />
+											<Picker.Item label="Stop" value="Stop" />
+										</Picker>
+									</View>
 								</View>
 							</View>
 						</View>
