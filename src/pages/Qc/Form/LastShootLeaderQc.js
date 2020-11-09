@@ -10,6 +10,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
     const {qc_daily_inspection_id, qc_daily_inspection_item_id, qc_daily_inspection_method_id, sys_plant_id, product_name, customer_name, internal_part_id, customer_part_number, model, machine_id, machine_name, today, yesterday} = route.params
 
     const [item, setItem] = useState(0)
+    const [cavityCheck, setCavityCheck] = useState(0)
     const [judgementFirstPiece, setJudgementFirstPiece] = useState("")
     const [ngCategory, setNGCategory] = useState("")
     const [fittingTest, setFittingTest] = useState("")
@@ -45,6 +46,15 @@ const LastShootLeaderQc = ({route, navigation}) => {
             hours: value,
             qc_daily_inspection_id: qc_daily_inspection_id
         }
+        Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
+        .then(response => {
+            setData(response.data.data)
+            setCavityCheck(response.data.data.daily_inspection.cavity)
+            console.log("List Data: ", response.data.status, "OK")
+        })
+        .catch(error => {
+            console.log('err: ', error)
+        })
     }
     
     const submit = async() => {

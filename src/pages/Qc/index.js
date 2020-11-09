@@ -30,6 +30,7 @@ const Qc = ({navigation}) => {
       kind: 'machine',
       sys_plant_id: value
     }
+    // console.log(params)
     axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
     .then(response => {
       setData(response.data.data)
@@ -56,14 +57,16 @@ const Qc = ({navigation}) => {
 
   var plantDuty = []
 
+  
   if(dutyId != null)
   {
     dutyId.map((element, key) => {
-      plantDuty.push(
-        <Picker.Item label={element.plant_name} value={element.plant_id} key={key} />
+    plantDuty.push(
+      <Picker.Item label={element.plant_name} value={element.plant_id} key={key} />
       )
     })
   }else{
+    // masuk production console log matiin
     console.log("Duty Id = Kosong")
   }
 

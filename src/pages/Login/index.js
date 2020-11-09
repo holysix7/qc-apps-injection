@@ -9,11 +9,6 @@ import Session from './Session';
 import styles from "../../components/styles/Styling";
 
 const Login = ({navigation}) => {
-	//Move
-	const handleGoTo = screen => {
-		navigation.replace(screen)
-	}
-
 	//Form
 	const [user, setUser] = useState("");
 	const [password, setPassword] = useState("");
@@ -24,18 +19,25 @@ const Login = ({navigation}) => {
 			password
 		}
 
-		Axios.defaults.baseURL='http://139.255.26.194:3003'
-		Axios.post('/auth', data)
+		Axios.post('http://139.255.26.194:3003/auth', data)
 		.then(res => {
 			DeviceStorage(res.data.data.token)
 			Session(res.data.data)
 			alert("Login Success!")
-			handleGoTo('Qc')
+			navigation.replace('Qc')
 		})
 		.catch(function (error){
 			console.log(error)
 			alert("Login Failed!")
 		})
+		// fetch('https://reactnative.dev/movies.json')
+		// .then((response) => response.json())
+		// .then((json) => {
+		// console.log(json.movies);
+		// })
+		// .catch((error) => {
+		// console.error(error);
+		// });
 	}
 
 	return (
