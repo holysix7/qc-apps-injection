@@ -12,158 +12,180 @@ const PerJam = ({route, navigation}) => {
     const {machine_id, qc_daily_inspection_id, qc_daily_inspection_item_id, qc_daily_inspection_method_id, sys_plant_id, product_name, customer_name, internal_part_id, customer_part_number, model, machine_name, machine_status, operator_nik, operator_nik_2, leader_nik, foreman_nik, qc_process_nik, today, yesterday} = route.params
     
     useEffect(() => {
-        let isMounted = true
-        FixInspectionTime()
-        return () => {
-            isMounted = false
-        }
+			formOke()
+			let isMounted = true
+			FixInspectionTime()
+			return () => {
+					isMounted = false
+			}
 
-        function FixInspectionTime() {
-            let initialDate    = moment();
-            var inspection     = setInterval(() => {
-                var currentDate    = moment();    
-                var second         = parseInt((currentDate - initialDate)/1000);
-                var minutes        = parseInt(second/60);
-                var hour           = parseInt(minutes/60);
-                var second_kedua   = second - (minutes*60); 
-                var menit_kedua    = minutes - (hour*60);
-                var second_asli    = (second >= 60 ? second_kedua : second);
-                var menit_asli     = (minutes >= 60 ? menit_kedua : minutes);
-                var CombiningTime  = (hour + ":" + menit_asli + ":" + second_asli);
-                if(isMounted) setInspectionTime(CombiningTime)
-            }, 1000);
-        }
+			function FixInspectionTime() {
+				let initialDate    = moment();
+				var inspection     = setInterval(() => {
+					var currentDate    = moment();    
+					var second         = parseInt((currentDate - initialDate)/1000);
+					var minutes        = parseInt(second/60);
+					var hour           = parseInt(minutes/60);
+					var second_kedua   = second - (minutes*60); 
+					var menit_kedua    = minutes - (hour*60);
+					var second_asli    = (second >= 60 ? second_kedua : second);
+					var menit_asli     = (minutes >= 60 ? menit_kedua : minutes);
+					var CombiningTime  = (hour + ":" + menit_asli + ":" + second_asli);
+					if(isMounted) setInspectionTime(CombiningTime)
+				}, 1000);
+			}
     }, [])
     
     //images
     const [uploadedImage, setImage] = useState(null)
     const chooseImage = () => {
-        const options = {
-            title: 'Select Image',
-            storageOptions: {
-                skipBackup: true,
-                path: 'images',
-            },
-        };
-        ImagePicker.showImagePicker(options, (response) => {
-            if (response.didCancel) {
-                console.log('User cancelled image picker');
-            } else if (response.error) {
-                console.log('ImagePicker Error: ', response.error);
-            } else if (response.customButton) {
-                console.log('User tapped custom button: ', response.customButton);
-            } else {
-                const source = { uri: 'data:image/jpeg;base64,' + response.data }
-                setImage({source})
-            }
-        })
+			const options = {
+				title: 'Select Image',
+				storageOptions: {
+						skipBackup: true,
+						path: 'images',
+				},
+			};
+			ImagePicker.showImagePicker(options, (response) => {
+				if (response.didCancel) {
+						console.log('User cancelled image picker');
+				} else if (response.error) {
+						console.log('ImagePicker Error: ', response.error);
+				} else if (response.customButton) {
+						console.log('User tapped custom button: ', response.customButton);
+				} else {
+						const source = { uri: 'data:image/jpeg;base64,' + response.data }
+						setImage({source})
+				}
+			})
     }
-    //end image
-    const resultImage = () => {
-        if(uploadedImage != null)
-        {
-            return <Image source={{uri: uploadedImage.source.uri}} style={{width: Dimensions.get('window').width,height:Dimensions.get('window').width, resizeMode: 'contain'}}/>
-        }else{
-            return <Text style={{flex: 1, width: "100%", textAlign: 'center'}} onPress={() => chooseImage() }><Image style={{height: 50, width: 50}} source={cameraIcons} /></Text>
-        }
-    }
+	//end image
+	const resultImage = () => {
+		if(uploadedImage != null)
+		{
+				return <Image source={{uri: uploadedImage.source.uri}} style={{width: Dimensions.get('window').width,height:Dimensions.get('window').width, resizeMode: 'contain'}}/>
+		}else{
+				return <Text style={{flex: 1, width: "100%", textAlign: 'center'}} onPress={() => chooseImage() }><Image style={{height: 50, width: 50}} source={cameraIcons} /></Text>
+		}
+	}
 
     // form
-    const [data, setData] = useState([])
-    const [NGdata, setNGData] = useState([])
-    const [item, setItem] = useState("")
-	const [tooling, setTooling] = useState("")
-	const [productionOutput, setProductionOutput] = useState("")
-	const [checkPackaging, setCheckPacking] = useState("")
-	const [status, setStatus] = useState("")
-	const [categoryNG, setCategoryNG] = useState("")
+	const [data, setData] 													= useState([])
+	const [NGdata, setNGData] 											= useState([])
+	const [tooling, setTooling] 										= useState("")
+	const [productionOutput, setProductionOutput] 	= useState("")
+	const [checkPackaging, setCheckPacking] 				= useState("")
+	const [status, setStatus] 											= useState("")
+	const [categoryNG, setCategoryNG] 							= useState("")
 	const [PNCheckAppearance, setPNCheckAppearance] = useState("")
-	const [NCheckAppearance, setNCheckAppearance] = useState("")
-	const [labelNumberStart, setLabelNumberStart] = useState("")
-	const [labelNumberEnd, setLabelNumberEnd] = useState("")
-	const [specialItem, setSpecialItem] = useState("")
-    const [noteUnnormal, setNoteUnnormal] = useState("")
-    const [inspectionTime, setInspectionTime] = useState("")
-    const date = []
+	const [NCheckAppearance, setNCheckAppearance] 	= useState("")
+	const [labelNumberStart, setLabelNumberStart] 	= useState("")
+	const [labelNumberEnd, setLabelNumberEnd] 			= useState("")
+	const [specialItem, setSpecialItem] 						= useState("")
+	const [noteUnnormal, setNoteUnnormal] 					= useState("")
+	const [inspectionTime, setInspectionTime] 			= useState("")
+	const [hours, setHours]		  										= useState(0)
+	const [shift, setShift]		  										= useState(0)
+	const date = []
     // console.log("Mantep: ", NGdata);
     const submit = async() => {
 		const data = {
-            qc_daily_inspection_id,
-            qc_daily_inspection_item_id,
-            qc_daily_inspection_method_id,
-			item,
+			qc_daily_inspection_id,
+			qc_daily_inspection_item_id,
+			qc_daily_inspection_method_id,
+			hours,
 			machine_status,
-            tooling,
-            productionOutput,
-            checkPackaging,
-            status,
-            categoryNG,
-            PNCheckAppearance,
-            NCheckAppearance,
-            labelNumberStart,
-            labelNumberEnd,
-            specialItem,
-            noteUnnormal,
-            inspectionTime,
-            uploadedImage
-        }
+			tooling,
+			productionOutput,
+			checkPackaging,
+			status,
+			categoryNG,
+			PNCheckAppearance,
+			NCheckAppearance,
+			labelNumberStart,
+			labelNumberEnd,
+			specialItem,
+			noteUnnormal,
+			inspectionTime,
+			uploadedImage
+			}
         
-        const token = await AsyncStorage.getItem("key")
-        const params = {
-            tbl: 'daily_inspection',
-            kind: 'update_hour',
-            update_hour: sys_plant_id
-        }
-        var config = {
-            method: 'put',
-            url: 'http://139.255.26.194:3003/api/v1/qcs/update?',
-            params: params,
-            headers: { 
-                'Authorization': token, 
-                'Content-Type': 'application/json', 
-                'Cookie': '_denapi_session=ubcfq3AHCuVeTlxtg%2F1nyEa3Ktylg8nY1lIEPD7pgS3YAWwlKOxwA0S9pw7JhvZ2mNkrYl0j62wAWJWJZd7AbfolGuHCwXgEMeJH6EoLiQ%3D%3D--M%2BjBb0uJeHmOf%2B3o--%2F2Fjw57x0Fyr90Ec9FVibQ%3D%3D'
-            },
-        data : data
-        };
-        Axios(config)
+		const token = await AsyncStorage.getItem("key")
+		const params = {
+			tbl: 'daily_inspection',
+			kind: 'update_hour',
+			update_hour: sys_plant_id
+		}
+		var config = {
+			method: 'put',
+			url: 'http://139.255.26.194:3003/api/v1/qcs/update?',
+			params: params,
+			headers: { 
+					'Authorization': token, 
+					'Content-Type': 'application/json', 
+					'Cookie': '_denapi_session=ubcfq3AHCuVeTlxtg%2F1nyEa3Ktylg8nY1lIEPD7pgS3YAWwlKOxwA0S9pw7JhvZ2mNkrYl0j62wAWJWJZd7AbfolGuHCwXgEMeJH6EoLiQ%3D%3D--M%2BjBb0uJeHmOf%2B3o--%2F2Fjw57x0Fyr90Ec9FVibQ%3D%3D'
+			},
+		data : data
+		};
+		Axios(config)
 		.then(function (response){
-            navigation.navigate('ListForm')
-            alert("Success Send Data!")
-            console.log("Res: ", response.status, " Ok")
-        })
+			navigation.navigate('ListForm')
+			alert("Success Send Data!")
+			console.log("Res: ", response.status, " Ok")
+		})
 		.catch(function (error){
 			console.log(error)
 		})
-    }
+	}
     //end Form
 
-    //getdata berdasarkan jam
-    const formOke = async(value) => {
-        setItem(value)
-        const token = await AsyncStorage.getItem("key")
-        const headers = {
-            'Authorization': token
-        }
-        const params = {
-            tbl: 'daily_inspection',
-            kind: 'get_hour',
-            sys_plant_id: sys_plant_id,
-            machine_id: machine_id,
-            hrd_work_shift_id: 2,
-            hours: value,
-            qc_daily_inspection_id: qc_daily_inspection_id
-        }
-        // console.log(params)
-        Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
-        .then(response => {
-            setNGData(response.data.data.ng_category)
-            setData(response.data.data)
-            console.log("Machines List Data: ", response.data.status, "OK")
-        })
-        .catch(error => {
-            console.log('err: ', error)
-        })
-    }
+    
+	const formOke = async() => {
+		let jam = moment().format("HH:mm:ss")
+		if(parseInt(jam) >= 8 && parseInt(jam) <= 15)
+		{
+			const nilaiJam = parseInt(jam)
+			setShift(2)
+			setHours(nilaiJam)
+		}else if(parseInt(jam) >= 16 && parseInt(jam) <= 23){
+			const nilaiJam = parseInt(jam)
+			setShift(3)
+			setHours(nilaiJam)
+		}else{
+			const nilaiJam = parseInt(jam)
+			setShift(4)
+			setHours(nilaiJam)
+		}
+	}
+
+	//getdata berdasarkan jam
+	const shiftFix = async(value) => {
+		setHours(value)
+		const token = await AsyncStorage.getItem("key")
+		const headers = {
+				'Authorization': token
+		}
+		const params = {
+				tbl: 'daily_inspection',
+				kind: 'get_hour',
+				sys_plant_id: sys_plant_id,
+				machine_id: machine_id,
+				hrd_work_shift_id: 2,
+				hours: value,
+				qc_daily_inspection_id: qc_daily_inspection_id
+		}
+		Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
+		.then(response => {
+				setNGData(response.data.data.ng_category)
+				setData(response.data.data)
+				console.log("Machines List Data: ", response.data.status, "OK")
+		})
+		.catch(error => {
+				console.log('err: ', error)
+		})
+	}
+
+	const hString = hours.toString()
 
 	if(today != null)
 	{
@@ -176,18 +198,18 @@ const PerJam = ({route, navigation}) => {
 		date.push(
 			<Text key={"key"} style={{marginTop: 1, fontWeight: 'bold', fontSize: 17}}>{yesterday}</Text>
 		)
-    }
+	}
     
-    if(NGdata.length > 0)
-    {
-        var dataNGs = []
-        NGdata.map((element, key) => {
-            // console.log(element)
-            dataNGs.push(
-                <Picker.Item label={element.name} value={element.id} key={key} />
-            )
-        })
-    }
+	if(NGdata.length > 0)
+	{
+			var dataNGs = []
+			NGdata.map((element, key) => {
+					// console.log(element)
+					dataNGs.push(
+							<Picker.Item label={element.name} value={element.id} key={key} />
+					)
+			})
+	}
 
     return(
         <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={{flex: 1}} >
@@ -211,12 +233,11 @@ const PerJam = ({route, navigation}) => {
 									<View style={{borderWidth: 0.5, width: 150, height: 25, justifyContent: 'center'}}>
 										<Picker 
 										mode="dropdown"
-										selectedValue={item}
-										onValueChange={(value) => formOke(value)}
+										selectedValue={hString}
+										onValueChange={(value) => shiftFix(value)}
 										itemStyle={{marginLeft: 0}}
 										itemTextStyle={{fontSize: 9}}
 										>
-											<Picker.Item label="--Pilih Shift--" value="" />
 											<Picker.Item label="Shift 1 - 1" value="8" />
 											<Picker.Item label="Shift 1 - 2" value="9" />
 											<Picker.Item label="Shift 1 - 3" value="10" />

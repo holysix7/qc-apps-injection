@@ -1,20 +1,28 @@
 import {Image, View, ScrollView, TextInput, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView} from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { Container, Text, Button, Picker } from 'native-base';
 import LogoSIP from '../../../assets/logo-sip370x50.png';
+import AsyncStorage from "@react-native-community/async-storage";
+import Axios from 'axios';
+import moment from 'moment';
 
 const FirstPieceForeman = ({route}) => {
+	useEffect(() => {
+		formOke()
+	}, [])
+
 	const {product_name, customer_name, internal_part_id, customer_part_number, model, machine_name, machine_status, today, yesterday} = route.params
-	const [item, setItem] = useState("")
-	const [tooling, setTooling] = useState("")
-	const [cavity, setCavity] = useState("")
+	const [tooling, setTooling]		  				= useState("")
+	const [cavity, setCavity] 							= useState("")
 	const [actionForeman, setActionForeman] = useState("")
-	const [keputusan, setKeputusan] = useState("")
-	const [remark, setRemark] = useState("")
+	const [keputusan, setKeputusan] 				= useState("")
+	const [remark, setRemark] 							= useState("")
+	const [hours, setHours]		  					= useState(0)
+	const [shift, setShift]		  					= useState(0)
 	const date = []
 	const submit = () => {
 		const data = {
-			item,
+			hours,
 			machine_status,
 			tooling,
 			cavity,
@@ -24,6 +32,36 @@ const FirstPieceForeman = ({route}) => {
 		}
 		console.log(data)
 	}
+
+	const formOke = async() => {
+		const token = await AsyncStorage.getItem("key")
+		const headers = {
+				'Authorization': token
+		}
+
+		let jam = moment().format("HH:mm:ss")
+		if(parseInt(jam) >= 8 && parseInt(jam) <= 15)
+		{
+			const nilaiJam = parseInt(jam)
+			setShift(2)
+			setHours(nilaiJam)
+		}else if(parseInt(jam) >= 16 && parseInt(jam) <= 23){
+			const nilaiJam = parseInt(jam)
+			setShift(3)
+			setHours(nilaiJam)
+		}else{
+			const nilaiJam = parseInt(jam)
+			setShift(4)
+			setHours(nilaiJam)
+		}
+	}
+
+	const shiftFix = (value) => {
+		setHours(value)
+	}
+
+	const hString = hours.toString()
+
 	if(today != null)
 	{
 		date.push(
@@ -36,6 +74,7 @@ const FirstPieceForeman = ({route}) => {
 			<Text key={"key"} style={{marginTop: 1, fontWeight: 'bold', fontSize: 17}}>{yesterday}</Text>
 		)
 	}
+
 	return(
 	<KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={{flex:1}}>
 		<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -59,36 +98,35 @@ const FirstPieceForeman = ({route}) => {
 									<View style={{borderWidth: 0.5, width: 150, height: 25, justifyContent: 'center'}}>
 										<Picker 
 										mode="dropdown"
-										selectedValue={item}
-										onValueChange={(value) => setItem(value)}
+										selectedValue={hString}
+										onValueChange={(value) => shiftFix(value)}
 										itemStyle={{marginLeft: 0}}
 										itemTextStyle={{fontSize: 9}}
 										>
-											<Picker.Item label="--Pilih Shift--" value="--Pilih Shift--" />
-											<Picker.Item label="Shift 1 - 1" value="Shift 1 - 1" />
-											<Picker.Item label="Shift 1 - 2" value="Shift 1 - 2" />
-											<Picker.Item label="Shift 1 - 3" value="Shift 1 - 3" />
-											<Picker.Item label="Shift 1 - 4" value="Shift 1 - 4" />
-											<Picker.Item label="Shift 1 - 5" value="Shift 1 - 5" />
-											<Picker.Item label="Shift 1 - 6" value="Shift 1 - 6" />
-											<Picker.Item label="Shift 1 - 7" value="Shift 1 - 7" />
-											<Picker.Item label="Shift 1 - 8" value="Shift 1 - 8" />
-											<Picker.Item label="Shift 2 - 1" value="Shift 2 - 1" />
-											<Picker.Item label="Shift 2 - 2" value="Shift 2 - 2" />
-											<Picker.Item label="Shift 2 - 3" value="Shift 2 - 3" />
-											<Picker.Item label="Shift 2 - 4" value="Shift 2 - 4" />
-											<Picker.Item label="Shift 2 - 5" value="Shift 2 - 5" />
-											<Picker.Item label="Shift 2 - 6" value="Shift 2 - 6" />
-											<Picker.Item label="Shift 2 - 7" value="Shift 2 - 7" />
-											<Picker.Item label="Shift 2 - 8" value="Shift 2 - 8" />
-											<Picker.Item label="Shift 3 - 1" value="Shift 3 - 1" />
-											<Picker.Item label="Shift 3 - 2" value="Shift 3 - 2" />
-											<Picker.Item label="Shift 3 - 3" value="Shift 3 - 3" />
-											<Picker.Item label="Shift 3 - 4" value="Shift 3 - 4" />
-											<Picker.Item label="Shift 3 - 5" value="Shift 3 - 5" />
-											<Picker.Item label="Shift 3 - 6" value="Shift 3 - 6" />
-											<Picker.Item label="Shift 3 - 7" value="Shift 3 - 7" />
-											<Picker.Item label="Shift 3 - 8" value="Shift 3 - 8" />
+											<Picker.Item label="Shift 1 - 1" value="8" />
+											<Picker.Item label="Shift 1 - 2" value="9" />
+											<Picker.Item label="Shift 1 - 3" value="10" />
+											<Picker.Item label="Shift 1 - 4" value="11" />
+											<Picker.Item label="Shift 1 - 5" value="12" />
+											<Picker.Item label="Shift 1 - 6" value="13" />
+											<Picker.Item label="Shift 1 - 7" value="14" />
+											<Picker.Item label="Shift 1 - 8" value="15" />
+											<Picker.Item label="Shift 2 - 1" value="16" />
+											<Picker.Item label="Shift 2 - 2" value="17" />
+											<Picker.Item label="Shift 2 - 3" value="18" />
+											<Picker.Item label="Shift 2 - 4" value="19" />
+											<Picker.Item label="Shift 2 - 5" value="20" />
+											<Picker.Item label="Shift 2 - 6" value="21" />
+											<Picker.Item label="Shift 2 - 7" value="22" />
+											<Picker.Item label="Shift 2 - 8" value="23" />
+											<Picker.Item label="Shift 3 - 1" value="0" />
+											<Picker.Item label="Shift 3 - 2" value="1" />
+											<Picker.Item label="Shift 3 - 3" value="2" />
+											<Picker.Item label="Shift 3 - 4" value="3" />
+											<Picker.Item label="Shift 3 - 5" value="4" />
+											<Picker.Item label="Shift 3 - 6" value="5" />
+											<Picker.Item label="Shift 3 - 7" value="6" />
+											<Picker.Item label="Shift 3 - 8" value="7" />
 										</Picker>
 									</View>
 									<Text style={{fontWeight: 'bold', fontSize: 11}}>{product_name}</Text>

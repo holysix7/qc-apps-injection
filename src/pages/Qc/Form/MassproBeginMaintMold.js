@@ -6,14 +6,12 @@ import AsyncStorage from "@react-native-community/async-storage";
 import Axios from 'axios';
 import moment from 'moment';
 
-const MassproBeginMaintMold = ({route}) => {
-
+const MassproBeginMaintMold = ({route, navigation}) => {
 	useEffect(() => {
 		formOke()
 	}, [])
 
-	const {product_name, sys_plant_id, machine_id, qc_daily_inspection_id, customer_name, internal_part_id, customer_part_number, model, machine_name, today, yesterday} = route.params
-	const [item, setItem] 								= useState("")
+	const {product_name, sys_plant_id, machine_id, customer_name, internal_part_id, customer_part_number, model, machine_name, today, yesterday} = route.params
 	const [tooling, setTooling] 					= useState("")
 	const [mold_condition, setCondition] 	= useState("")
 	const [neeple_cooling, setCooling] 		= useState("")
@@ -24,14 +22,15 @@ const MassproBeginMaintMold = ({route}) => {
 	const [updated_by, setUpdatedBy]		  = useState("")
 	const [hours, setHours]		  					= useState(0)
 	const [shift, setShift]		  					= useState(0)
-	const date 						= []
-	const eng_product_id 	= dataProduct1.id
-	const cavityAmount 		= dataProduct1.cavity
-	const prod_machine_id = machine_id
-	const status 					= "new"
-	let created_at 				= moment().format("YYYY-MM-DD HH:mm:ss")
-	let updated_at 				= moment().format("YYYY-MM-DD HH:mm:ss")
-	const submit = () => {
+	const date 														= []
+	const eng_product_id 									= dataProduct1.id
+	const cavityAmount 										= dataProduct1.cavity
+	const prod_machine_id 								= machine_id
+	const status 													= "new"
+	let created_at 												= moment().format("YYYY-MM-DD HH:mm:ss")
+	let updated_at 												= moment().format("YYYY-MM-DD HH:mm:ss")
+
+	const submit = async() => {
 		const data = {
 			item,
 			eng_product_id,
@@ -40,58 +39,85 @@ const MassproBeginMaintMold = ({route}) => {
 			mold_condition,
 			neeple_cooling,
 			standard_part,
-			status,
 			remark,
+			status,
 			created_by,
 			created_at,
 			updated_by,
 			updated_at
 		}
-		console.log(data)
+		const token = await AsyncStorage.getItem("key")
+		const params = {
+			tbl: 'daily_inspection',
+			kind: 'masspro_mm',
+			update_hour: sys_plant_id
+		}
+		var config = {
+			method: 'put',
+			url: 'http://139.255.26.194:3003/api/v1/qcs/update?',
+			params: params,
+			headers: { 
+				'Authorization': token, 
+				'Content-Type': 'application/json', 
+				'Cookie': '_denapi_session=ubcfq3AHCuVeTlxtg%2F1nyEa3Ktylg8nY1lIEPD7pgS3YAWwlKOxwA0S9pw7JhvZ2mNkrYl0j62wAWJWJZd7AbfolGuHCwXgEMeJH6EoLiQ%3D%3D--M%2BjBb0uJeHmOf%2B3o--%2F2Fjw57x0Fyr90Ec9FVibQ%3D%3D'
+			},
+		data : data
+		};
+		Axios(config)
+		.then(function (response){
+			navigation.navigate('ListForm')
+			alert("Success Send Data!")
+			console.log("Res: ", response.status, " Ok")
+		})
+		.catch(function (error){
+			console.log(error)
+		})
 	}
-	const formOke = async(value) => {
-		setItem(value)
+	const formOke = async() => {
 		const token = await AsyncStorage.getItem("key")
 		const headers = {
-				'Authorization': token
+			'Authorization': token
 		}
 		const name = await AsyncStorage.getItem('name')
 		setCreatedBy(name)
 		setUpdatedBy(name)
+
 		let jam = moment().format("HH:mm:ss")
 		if(parseInt(jam) >= 8 && parseInt(jam) <= 15)
 		{
 			const nilaiJam = parseInt(jam)
-			const hasil = nilaiJam - 15
 			setShift(2)
-			setHours(hasil)
+			setHours(nilaiJam)
 		}else if(parseInt(jam) >= 16 && parseInt(jam) <= 23){
 			const nilaiJam = parseInt(jam)
-			const hasil = nilaiJam - 15
 			setShift(3)
-			setHours(hasil)
+			setHours(nilaiJam)
 		}else{
 			const nilaiJam = parseInt(jam)
-			const hasil = nilaiJam + 1
 			setShift(4)
-			setHours(hasil)
+			setHours(nilaiJam)
 		}
 		const params = {
-				tbl: 'daily_inspection',
-				kind: 'masspro_mm',
-				sys_plant_id: sys_plant_id,
-				machine_id: machine_id
+			tbl: 'daily_inspection',
+			kind: 'masspro_mm',
+			sys_plant_id: sys_plant_id,
+			machine_id: machine_id
 		}
-		// console.log(params)
 		Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
 		.then(response => {
-				setDataProduct1(response.data.data.product_1_detail)
-				console.log("Machines List Data: ", response.data.status, "OK")
+			setDataProduct1(response.data.data.product_1_detail)
+			console.log("Machines List Data: ", response.data.status, "OK")
 		})
 		.catch(error => {
 				console.log('err: ', error)
 		})
 	}
+
+	const shiftFix = (value) => {
+		setHours(value)
+	}
+
+	const hString = hours.toString()
 
 	if(today != null)
 	{
@@ -105,6 +131,7 @@ const MassproBeginMaintMold = ({route}) => {
 			<Text key={"key"} style={{marginTop: 1, fontWeight: 'bold', fontSize: 17}}>{yesterday}</Text>
 		)
 	}
+	
 	return(
 		<KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={{flex:1}}>
 			<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -128,12 +155,11 @@ const MassproBeginMaintMold = ({route}) => {
 									<View style={{borderWidth: 0.5, width: 150, height: 25, justifyContent: 'center'}}>
 										<Picker 
 										mode="dropdown"
-										selectedValue={item}
-										onValueChange={(value) => formOke(value)}
+										selectedValue={hString}
+										onValueChange={(value) => shiftFix(value)}
 										itemStyle={{marginLeft: 0}}
 										itemTextStyle={{fontSize: 9}}
 										>
-											<Picker.Item label="--Pilih Shift--" value="" />
 											<Picker.Item label="Shift 1 - 1" value="8" />
 											<Picker.Item label="Shift 1 - 2" value="9" />
 											<Picker.Item label="Shift 1 - 3" value="10" />

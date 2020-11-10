@@ -1,23 +1,32 @@
 import {Image, View, ScrollView, TextInput, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, TouchableOpacity} from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { Container, Text, Button, Picker } from 'native-base';
 import LogoSIP from '../../../assets/logo-sip370x50.png';
+import AsyncStorage from "@react-native-community/async-storage";
+import Axios from 'axios';
+import moment from 'moment';
 
 const MassproBeginProdLeader = ({route}) => {
+	useEffect(() => {
+		formOke()
+	}, [])
+
 	const {product_name, customer_name, internal_part_id, customer_part_number, model, machine_name, today, yesterday} = route.params
-	const [item, setItem] = useState("")
-	const [wiProduct, setWiProduct] = useState("")
+	const [wiProduct, setWiProduct] 						= useState("")
 	const [packingStandard, setPackingStandard] = useState("")
-	const [workTools, setWorkTools] = useState("")
-	const [prodReport, setProdReport] = useState("")
-	const [lable, setLable] = useState("")
-	const [ngForm, setNgForm] = useState("")
-	const [jig, setJig] = useState("")
-	const [remark, setRemark] = useState("")
+	const [workTools, setWorkTools] 						= useState("")
+	const [prodReport, setProdReport] 					= useState("")
+	const [lable, setLable] 										= useState("")
+	const [ngForm, setNgForm] 									= useState("")
+	const [jig, setJig] 												= useState("")
+	const [remark, setRemark] 									= useState("")
+	const [hours, setHours]		  								= useState(0)
+	const [shift, setShift]		  								= useState(0)
 	const date = []
+
 	const submit = () => {
 		const data = {
-			item,
+			hours,
 			wiProduct,
 			packingStandard,
 			workTools,
@@ -29,6 +38,36 @@ const MassproBeginProdLeader = ({route}) => {
 		}
 		console.log(data)
 	}
+
+	const formOke = async() => {
+		const token = await AsyncStorage.getItem("key")
+		const headers = {
+				'Authorization': token
+		}
+		let jam = moment().format("HH:mm:ss")
+		if(parseInt(jam) >= 8 && parseInt(jam) <= 15)
+		{
+			const nilaiJam = parseInt(jam)
+			setShift(2)
+			setHours(nilaiJam)
+		}else if(parseInt(jam) >= 16 && parseInt(jam) <= 23){
+			const nilaiJam = parseInt(jam)
+			setShift(3)
+			setHours(nilaiJam)
+		}else{
+			const nilaiJam = parseInt(jam)
+			setShift(4)
+			setHours(nilaiJam)
+		}
+		
+	}
+
+	const shiftFix = (value) => {
+		setHours(value)
+	}
+
+	const hString = hours.toString()
+
 	if(today != null)
 	{
 		date.push(
@@ -64,12 +103,11 @@ const MassproBeginProdLeader = ({route}) => {
 									<View style={{borderWidth: 0.5, width: 150, height: 25, justifyContent: 'center'}}>
 										<Picker 
 										mode="dropdown"
-										selectedValue={item}
-										onValueChange={(value) => formOke(value)}
+										selectedValue={hString}
+										onValueChange={(value) => shiftFix(value)}
 										itemStyle={{marginLeft: 0}}
 										itemTextStyle={{fontSize: 9}}
 										>
-											<Picker.Item label="--Pilih Shift--" value="" />
 											<Picker.Item label="Shift 1 - 1" value="8" />
 											<Picker.Item label="Shift 1 - 2" value="9" />
 											<Picker.Item label="Shift 1 - 3" value="10" />
