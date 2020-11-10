@@ -1,31 +1,127 @@
 import {Image, View, TextInput, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, Keyboard, ScrollView} from 'react-native';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { Container, Text, Button, Picker} from 'native-base';
+import AsyncStorage from "@react-native-community/async-storage";
 import LogoSIP from '../../../assets/logo-sip370x50.png';
+import Axios from 'axios';
 import moment from 'moment';
 
-const MassproBeginMaterialPreparation = ({route}) => {
-	const {product_name, customer_name, internal_part_id, customer_part_number, model, machine_name, today, yesterday} = route.params
-	const [item, setItem] = useState("")
-	const [material, setMaterial] = useState("")
+const MassproBeginMaterialPreparation = ({route, navigation}) => {
+	useEffect(() => {
+		formOke()
+	}, [])
+
+	const {product_name, sys_plant_id, machine_id, customer_name, internal_part_id, customer_part_number, model, machine_name, today, yesterday} = route.params
+	const [material_standard, setMaterial] 					= useState("")
 	const [conditionMaterial, setConditionMaterial] = useState("")
-	const [hopper, setHopper] = useState("")
-	const [conditionHopper, setConditionHopper] = useState("")
-	const drying = moment().format("YYYY-MM-DD h:m:s")
-	const [remark, setRemark] = useState("")
+	const [cleaning_hopper, setHopper] 							= useState("")
+	const [hopper_temp, setConditionHopper] 				= useState("")
+	const [dataProduct1, setDataProduct1] 					= useState("")
+	const [created_by, setCreatedBy]								= useState("")
+	const [updated_by, setUpdatedBy]								= useState("")
+	const eng_product_id 														= dataProduct1.id
+	const cavityAmount 															= dataProduct1.cavity
+	const prod_machine_id 													= machine_id
+	let dying_material 														  = moment().format("YYYY-MM-DD h:m:s")
+	let created_at 																	= moment().format("YYYY-MM-DD HH:mm:ss")
+	let updated_at 																	= moment().format("YYYY-MM-DD HH:mm:ss")
+	const [remark, setRemark] 											= useState("")
+	const [qc_masspro_main_mold_id, setMaintMoldId]	= useState(0)
+	const [hours, setHours]		  										= useState(0)
+	const [shift, setShift]		  										= useState(0)
 	const date = []
-	const submit = () => {
+	const status = "new"
+	
+	const submit = async() => {
 		const data = {
-			item,
-			material,
-			conditionMaterial,
-			hopper,
-			conditionHopper,
-			drying,
-			remark
+			eng_product_id,
+			prod_machine_id,
+			sys_plant_id,
+			cleaning_hopper,
+			material_standard,
+			qc_masspro_main_mold_id,
+			hopper_temp,
+			remark,
+			status,
+			created_by,
+			created_at,
+			updated_by,
+			updated_at,
 		}
-		console.log(data)
+		const token = await AsyncStorage.getItem("key")
+		const params = {
+			tbl: 'daily_inspection',
+			kind: 'masspro_mp'
+		}
+		var config = {
+			method: 'put',
+			url: 'http://139.255.26.194:3003/api/v1/qcs/update?',
+			params: params,
+			headers: { 
+				'Authorization': token, 
+				'Content-Type': 'application/json', 
+				'Cookie': '_denapi_session=ubcfq3AHCuVeTlxtg%2F1nyEa3Ktylg8nY1lIEPD7pgS3YAWwlKOxwA0S9pw7JhvZ2mNkrYl0j62wAWJWJZd7AbfolGuHCwXgEMeJH6EoLiQ%3D%3D--M%2BjBb0uJeHmOf%2B3o--%2F2Fjw57x0Fyr90Ec9FVibQ%3D%3D'
+			},
+		data : data
+		};
+		Axios(config)
+		.then(function (response){
+			navigation.navigate('ListForm')
+			alert("Success Send Data!")
+			console.log("Res: ", response.status, " Ok")
+		})
+		.catch(function (error){
+			console.log(error)
+		})
 	}
+
+	const formOke = async() => {
+		const token = await AsyncStorage.getItem("key")
+		const headers = {
+			'Authorization': token
+		}
+		const name = await AsyncStorage.getItem('name')
+		setCreatedBy(name)
+		setUpdatedBy(name)
+
+		let jam = moment().format("HH:mm:ss")
+		if(parseInt(jam) >= 8 && parseInt(jam) <= 15)
+		{
+			const nilaiJam = parseInt(jam)
+			setShift(2)
+			setHours(nilaiJam)
+		}else if(parseInt(jam) >= 16 && parseInt(jam) <= 23){
+			const nilaiJam = parseInt(jam)
+			setShift(3)
+			setHours(nilaiJam)
+		}else{
+			const nilaiJam = parseInt(jam)
+			setShift(4)
+			setHours(nilaiJam)
+		}
+		const params = {
+			tbl: 'daily_inspection',
+			kind: 'masspro_mp',
+			sys_plant_id: sys_plant_id,
+			machine_id: machine_id
+		}
+		Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
+		.then(response => {
+			setDataProduct1(response.data.data.product_1_detail)
+			setMaintMoldId(response.data.data.qc_masspro_main_mold_id)
+			console.log("Machines List Data: ", response.data.status, "OK")
+		})
+		.catch(error => {
+			console.log('err: ', error)
+		})
+	}
+
+	const shiftFix = (value) => {
+		setHours(value)
+	}
+
+	const hString = hours.toString()
+
 	if(today != null)
 	{
 		date.push(
@@ -62,12 +158,11 @@ const MassproBeginMaterialPreparation = ({route}) => {
 									<View style={{borderWidth: 0.5, width: 150, height: 25, justifyContent: 'center'}}>
 										<Picker 
 										mode="dropdown"
-										selectedValue={item}
-										onValueChange={(value) => formOke(value)}
+										selectedValue={hString}
+										onValueChange={(value) => shiftFix(value)}
 										itemStyle={{marginLeft: 0}}
 										itemTextStyle={{fontSize: 9}}
 										>
-											<Picker.Item label="--Pilih Shift--" value="" />
 											<Picker.Item label="Shift 1 - 1" value="8" />
 											<Picker.Item label="Shift 1 - 2" value="9" />
 											<Picker.Item label="Shift 1 - 3" value="10" />
@@ -113,13 +208,34 @@ const MassproBeginMaterialPreparation = ({route}) => {
 						<ScrollView style={{flex: 1}}>
 							<View style={{paddingTop: 20, flexDirection: 'row'}}>
 								<View style={{padding: 10, width: "40%"}}>
+									<Text style={{fontSize: 14}}>Cleaning Hopper</Text>
+								</View>
+								<View style={{padding: 10, width: "6%"}}>
+									<Text>:</Text>
+								</View>
+								<View style={{padding: 4, width: "54%"}}>
+									<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center'}}>
+										<Picker 
+										mode="dropdown"
+										selectedValue={cleaning_hopper}
+										onValueChange={(value) => setHopper(value)}
+										>
+											<Picker.Item label="Pilih" value="" />
+											<Picker.Item label="OK" value="OK" />
+											<Picker.Item label="NG" value="NG" />
+										</Picker>
+									</View>
+								</View>
+							</View>
+							<View style={{paddingTop: 20, flexDirection: 'row'}}>
+								<View style={{padding: 10, width: "40%"}}>
 									<Text style={{fontSize: 14}}>Material By Standard</Text>
 								</View>
 								<View style={{padding: 10, width: "6%"}}>
 									<Text>:</Text>
 								</View>
 								<View style={{padding: 4, width: "29%"}}>
-									<TextInput value={material} onChangeText={(value) => setMaterial(value)} style={{borderWidth: 0.5, borderRadius: 25, paddingLeft: 5, height: 40}} placeholder="Type Here..." />
+									<TextInput value={material_standard} onChangeText={(value) => setMaterial(value)} style={{borderWidth: 0.5, borderRadius: 25, paddingLeft: 5, height: 40}} placeholder="Type Here..." />
 								</View>
 								<View style={{padding: 4, width: "25%"}}>
 									<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center'}}>
@@ -143,16 +259,14 @@ const MassproBeginMaterialPreparation = ({route}) => {
 									<Text>:</Text>
 								</View>
 								<View style={{padding: 4, width: "29%"}}>
-									<TextInput keyboardType='numeric' value={hopper} onChangeText={(value) => setHopper(value)} style={{borderWidth: 0.5, borderRadius: 25, paddingLeft: 5, height: 40}} placeholder="Type Here..." />
+									<TextInput keyboardType='numeric' style={{borderWidth: 0.5, borderRadius: 25, paddingLeft: 5, height: 40}} placeholder="Type Here..." />
 								</View>
 								<View style={{padding: 4, width: "25%"}}>
-									<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+									<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center'}}>
 										<Picker 
 										mode="dropdown"
-										selectedValue={conditionHopper}
+										selectedValue={hopper_temp}
 										onValueChange={(value) => setConditionHopper(value)}
-										itemStyle={{marginLeft: 0}}
-										itemTextStyle={{fontSize: 9}}
 										>
 											<Picker.Item label="Pilih" value="" />
 											<Picker.Item label="OK" value="OK" />
@@ -172,7 +286,7 @@ const MassproBeginMaterialPreparation = ({route}) => {
 									<Text style={{fontSize: 12, fontWeight: 'bold'}}>Start From:</Text>
 								</View>
 								<View style={{paddingTop: 14, paddingLeft: 4}}>
-									<Text style={{fontSize: 12}}>{drying}</Text>
+									<Text style={{fontSize: 12}}>{dying_material}</Text>
 								</View>
 							</View>
 							<View style={{paddingTop: 20, flexDirection: 'row'}}>

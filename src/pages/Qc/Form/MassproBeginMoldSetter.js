@@ -1,32 +1,126 @@
 import {Image, View, ScrollView, TextInput, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView} from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { Container, Text, Button, Picker} from 'native-base';
+import AsyncStorage from "@react-native-community/async-storage";
 import LogoSIP from '../../../assets/logo-sip370x50.png';
+import Axios from 'axios';
+import moment from 'moment';
 
-const MassproBeginMoldSetter = ({route}) => {
-	const {product_name, customer_name, internal_part_id, customer_part_number, model, machine_name, today, yesterday} = route.params
-	const [item, setItem] = useState("")
-	const [clamping, setClamping] = useState("")
-	const [cooling, setCooling] = useState("")
-	const [slider, setSlider] = useState("")
-	const [stroke, setStroke] = useState("")
-	const [touching, setTouching] = useState("")
-	const [hydraulic, setHydraulic] = useState("")
-	const [remark, setRemark] = useState("")
+const MassproBeginMoldSetter = ({route, navigation}) => {
+	useEffect(() => {
+		formOke()
+	}, [])
+	const {product_name, customer_name, sys_plant_id, machine_id, internal_part_id, customer_part_number, model, machine_name, today, yesterday} = route.params
+	const [clampping_bolt, setClamping] 																				= useState("")
+	const [cooling_system, setCooling] 																					= useState("")
+	const [limit_switch, setSlider] 																						= useState("")
+	const [eject_stroke, setStroke] 																						= useState("")
+	const [touching_nozzle, setTouching] 																				= useState("")
+	const [hydraulic_core, setHydraulic] 																			= useState("")
+	const [remark, setRemark] 																						= useState("")
+	const [created_by, setCreatedBy]																			= useState("")
+	const [updated_by, setUpdatedBy]																			= useState("")
+	const [qc_masspro_main_mold_id, setMaintMoldId]												= useState(0)
+	const [qc_masspro_material_preparation_id, setMaterialPreparationId]	= useState(0)
+	const [hours, setHours]		  																					= useState(0)
+	const [shift, setShift]		  																					= useState(0)
+	let created_at 																												= moment().format("YYYY-MM-DD HH:mm:ss")
+	let updated_at 																												= moment().format("YYYY-MM-DD HH:mm:ss")
 	const date = []
-	const submit = () => {
+	const status = "new"
+
+	const submit = async() => {
 		const data = {
-			item,
-			clamping,
-			cooling,
-			slider,
-			stroke,
-			touching,
-			hydraulic,
-			remark
+			qc_masspro_main_mold_id,
+			qc_masspro_material_preparation_id,
+			clampping_bolt,
+			cooling_system,
+			limit_switch,
+			eject_stroke,
+			touching_nozzle,
+			hydraulic_core,
+			remark,
+			status,
+			created_by,
+			created_at,
+			updated_by,
+			updated_at
 		}
-		console.log(data)
+		const token = await AsyncStorage.getItem("key")
+		const params = {
+			tbl: 'daily_inspection',
+			kind: 'masspro_ms'
+		}
+		var config = {
+			method: 'put',
+			url: 'http://139.255.26.194:3003/api/v1/qcs/update?',
+			params: params,
+			headers: { 
+				'Authorization': token, 
+				'Content-Type': 'application/json', 
+				'Cookie': '_denapi_session=ubcfq3AHCuVeTlxtg%2F1nyEa3Ktylg8nY1lIEPD7pgS3YAWwlKOxwA0S9pw7JhvZ2mNkrYl0j62wAWJWJZd7AbfolGuHCwXgEMeJH6EoLiQ%3D%3D--M%2BjBb0uJeHmOf%2B3o--%2F2Fjw57x0Fyr90Ec9FVibQ%3D%3D'
+			},
+		data : data
+		};
+		Axios(config)
+		.then(function (response){
+			navigation.navigate('ListForm')
+			alert("Success Send Data!")
+			console.log("Res: ", response.status, " Ok")
+		})
+		.catch(function (error){
+			console.log(error)
+		})
 	}
+
+	const formOke = async() => {
+		const token = await AsyncStorage.getItem("key")
+		const headers = {
+			'Authorization': token
+		}
+		const name = await AsyncStorage.getItem('name')
+		setCreatedBy(name)
+		setUpdatedBy(name)
+
+		let jam = moment().format("HH:mm:ss")
+		if(parseInt(jam) >= 8 && parseInt(jam) <= 15)
+		{
+			const nilaiJam = parseInt(jam)
+			setShift(2)
+			setHours(nilaiJam)
+		}else if(parseInt(jam) >= 16 && parseInt(jam) <= 23){
+			const nilaiJam = parseInt(jam)
+			setShift(3)
+			setHours(nilaiJam)
+		}else{
+			const nilaiJam = parseInt(jam)
+			setShift(4)
+			setHours(nilaiJam)
+		}
+		const params = {
+			tbl: 'daily_inspection',
+			kind: 'masspro_ms',
+			sys_plant_id: sys_plant_id,
+			machine_id: machine_id
+		}
+		Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
+		.then(response => {
+			setMaintMoldId(response.data.data.qc_masspro_main_mold_id)
+			setMaterialPreparationId(response.data.data.qc_masspro_material_preparation_id)
+			console.log("Machines List Data: ", response.data.status, "OK")
+		})
+		.catch(error => {
+			console.log('err: ', error)
+		})
+		
+	}
+
+	const shiftFix = (value) => {
+		setHours(value)
+	}
+
+	const hString = hours.toString()
+
 	if(today != null)
 	{
 		date.push(
@@ -63,12 +157,11 @@ const MassproBeginMoldSetter = ({route}) => {
 									<View style={{borderWidth: 0.5, width: 150, height: 25, justifyContent: 'center'}}>
 										<Picker 
 										mode="dropdown"
-										selectedValue={item}
-										onValueChange={(value) => formOke(value)}
+										selectedValue={hString}
+										onValueChange={(value) => shiftFix(value)}
 										itemStyle={{marginLeft: 0}}
 										itemTextStyle={{fontSize: 9}}
 										>
-											<Picker.Item label="--Pilih Shift--" value="" />
 											<Picker.Item label="Shift 1 - 1" value="8" />
 											<Picker.Item label="Shift 1 - 2" value="9" />
 											<Picker.Item label="Shift 1 - 3" value="10" />
@@ -124,7 +217,7 @@ const MassproBeginMoldSetter = ({route}) => {
 									<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 										<Picker 
 										mode="dropdown"
-										selectedValue={clamping}
+										selectedValue={clampping_bolt}
 										onValueChange={(value) => setClamping(value)}
 										>
 											<Picker.Item label="Pilih" value="" />
@@ -146,7 +239,7 @@ const MassproBeginMoldSetter = ({route}) => {
 									<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 										<Picker 
 										mode="dropdown"
-										selectedValue={cooling}
+										selectedValue={cooling_system}
 										onValueChange={(value) => setCooling(value)}
 										>
 											<Picker.Item label="Pilih" value="" />
@@ -168,7 +261,7 @@ const MassproBeginMoldSetter = ({route}) => {
 									<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 										<Picker 
 										mode="dropdown"
-										selectedValue={slider}
+										selectedValue={limit_switch}
 										onValueChange={(value) => setSlider(value)}
 										>
 											<Picker.Item label="Pilih" value="" />
@@ -190,7 +283,7 @@ const MassproBeginMoldSetter = ({route}) => {
 									<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 										<Picker 
 										mode="dropdown"
-										selectedValue={stroke}
+										selectedValue={eject_stroke}
 										onValueChange={(value) => setStroke(value)}
 										>
 											<Picker.Item label="Pilih" value="" />
@@ -212,7 +305,7 @@ const MassproBeginMoldSetter = ({route}) => {
 									<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 										<Picker 
 										mode="dropdown"
-										selectedValue={touching}
+										selectedValue={touching_nozzle}
 										onValueChange={(value) => setTouching(value)}
 										>
 											<Picker.Item label="Pilih" value="" />
@@ -234,12 +327,13 @@ const MassproBeginMoldSetter = ({route}) => {
 									<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 										<Picker 
 										mode="dropdown"
-										selectedValue={hydraulic}
+										selectedValue={hydraulic_core}
 										onValueChange={(value) => setHydraulic(value)}
 										>
 											<Picker.Item label="Pilih" value="" />
 											<Picker.Item label="OK" value="OK" />
 											<Picker.Item label="NG" value="NG" />
+											<Picker.Item label="No Check" value="No Check" />
 										</Picker>
 									</View>
 								</View>

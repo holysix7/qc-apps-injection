@@ -22,6 +22,7 @@ const ListForm = ({route, navigation}) => {
 					<Button style={styles.productsButton} onPress={() => navigation.navigate('MassproBeginMaintMold', {
 						product_name: product_name,
 						machine_id: machine_id,
+						sys_plant_id: sys_plant_id,
 						cavity: cavity,
 						customer_name: customer_name,
 						internal_part_id: internal_part_id,
@@ -37,6 +38,7 @@ const ListForm = ({route, navigation}) => {
 					<Button style={styles.productsButton} onPress={() => navigation.navigate('MassproBeginMaterialPreparation', {
 						product_name: product_name,
 						machine_id: machine_id,
+						sys_plant_id: sys_plant_id,
 						cavity: cavity,
 						customer_name: customer_name,
 						internal_part_id: internal_part_id,
@@ -52,6 +54,7 @@ const ListForm = ({route, navigation}) => {
 					<Button style={styles.productsButton} onPress={() => navigation.navigate('MassproBeginMoldSetter', {
 						product_name: product_name,
 						machine_id: machine_id,
+						sys_plant_id: sys_plant_id,
 						cavity: cavity,
 						customer_name: customer_name,
 						internal_part_id: internal_part_id,
@@ -82,6 +85,7 @@ const ListForm = ({route, navigation}) => {
 					<Button style={styles.productsButton} onPress={() => navigation.navigate('MassproBeginProdLeader', {
 						product_name: product_name,
 						machine_id: machine_id,
+						sys_plant_id: sys_plant_id,
 						cavity: cavity,
 						customer_name: customer_name,
 						internal_part_id: internal_part_id,
@@ -97,6 +101,7 @@ const ListForm = ({route, navigation}) => {
 					<Button style={styles.productsButton} onPress={() => navigation.navigate('MassproBeginQCLeader', {
 						product_name: product_name,
 						machine_id: machine_id,
+						sys_plant_id: sys_plant_id,
 						cavity: cavity,
 						customer_name: customer_name,
 						internal_part_id: internal_part_id,
@@ -112,6 +117,7 @@ const ListForm = ({route, navigation}) => {
 					<Button style={styles.productsButton} onPress={() => navigation.navigate('MassproBeginForeman', {
 						product_name: product_name,
 						machine_id: machine_id,
+						sys_plant_id: sys_plant_id,
 						cavity: cavity,
 						customer_name: customer_name,
 						internal_part_id: internal_part_id,
@@ -127,6 +133,7 @@ const ListForm = ({route, navigation}) => {
 					<Button style={styles.productsButton} onPress={() => navigation.navigate('FirstPieceForeman', {
 						product_name: product_name,
 						machine_id: machine_id,
+						sys_plant_id: sys_plant_id,
 						cavity: cavity,
 						customer_name: customer_name,
 						internal_part_id: internal_part_id,

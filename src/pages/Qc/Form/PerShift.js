@@ -7,45 +7,44 @@ import moment from 'moment';
 import Axios from 'axios';
 
 const PerShift = ({route, navigation}) => {
-    const {qc_daily_inspection_id, qc_daily_inspection_item_id, qc_daily_inspection_method_id, sys_plant_id, product_name, customer_name, internal_part_id, customer_part_number, model, machine_id, machine_name, machine_status, operator_nik, operator_nik_2, leader_nik, foreman_nik, qc_process_nik, today, yesterday} = route.params
-    useEffect(() => {
-        let isMounted = true
-        FixInspectionTime()
-        return () => {
-            isMounted = false
-        }
+	const {qc_daily_inspection_id, qc_daily_inspection_item_id, qc_daily_inspection_method_id, sys_plant_id, product_name, customer_name, internal_part_id, customer_part_number, model, machine_id, machine_name, machine_status, operator_nik, operator_nik_2, leader_nik, foreman_nik, qc_process_nik, today, yesterday} = route.params
+	useEffect(() => {
+		formOke()
+		let isMounted = true
+		FixInspectionTime()
+		return () => {
+				isMounted = false
+		}
+		function FixInspectionTime() {
+			let initialDate    = moment();
+			var inspection     = setInterval(() => {
+				var currentDate    = moment();    
+				var second         = parseInt((currentDate - initialDate)/1000);
+				var minutes        = parseInt(second/60);
+				var hour           = parseInt(minutes/60);
+				var second_kedua   = second - (minutes*60); 
+				var menit_kedua    = minutes - (hour*60);
+				var second_asli    = (second >= 60 ? second_kedua : second);
+				var menit_asli     = (minutes >= 60 ? menit_kedua : minutes);
+				var CombiningTime  = (hour + ":" + menit_asli + ":" + second_asli);
+				if(isMounted) setInspectionTime(CombiningTime)
+			}, 1000);
+		} 
+	}, [])
 
-        function FixInspectionTime() {
-            let initialDate    = moment();
-            var inspection     = setInterval(() => {
-                var currentDate    = moment();    
-                var second         = parseInt((currentDate - initialDate)/1000);
-                var minutes        = parseInt(second/60);
-                var hour           = parseInt(minutes/60);
-                var second_kedua   = second - (minutes*60); 
-                var menit_kedua    = minutes - (hour*60);
-                var second_asli    = (second >= 60 ? second_kedua : second);
-                var menit_asli     = (minutes >= 60 ? menit_kedua : minutes);
-                var CombiningTime  = (hour + ":" + menit_asli + ":" + second_asli);
-                if(isMounted) setInspectionTime(CombiningTime)
-            }, 1000);
-        }
-        
-        
-    }, [])
+	const [cavityCheck, setCavityCheck] 			= useState(0)
+	const [tooling, setTooling] 							= useState("")
+	const [statusCavity, setStatusCavity] 		= useState("")
+	const [ProductsWeight, setProductsWeight] = useState([])
+	const [WeightStandard, setWeightStandard] = useState([])
+	const [keterangan, setKeterangan] 				= useState([])
+	const [inspectionTime, setInspectionTime] = useState([])
+	const [data, setData] 										= useState([]);
+	const [hours, setHours]		  							= useState(0)
+	const [shift, setShift]		  							= useState(0)
+	const date = []
 
-    const [item, setItem] = useState(0)
-    const [cavityCheck, setCavityCheck] = useState(0)
-	const [tooling, setTooling] = useState("")
-    const [statusCavity, setStatusCavity] = useState("")
-    const [ProductsWeight, setProductsWeight] = useState([])
-    const [WeightStandard, setWeightStandard] = useState([])
-    const [keterangan, setKeterangan] = useState([])
-    const [inspectionTime, setInspectionTime] = useState([])
-    const [data, setData] = useState([]);
-    const date = []
-
-    if(today != null)
+	if(today != null)
 	{
 		date.push(
 			<Text key={"key"} style={{marginTop: 1, fontWeight: 'bold', fontSize: 17}}>{today}</Text>
@@ -58,37 +57,55 @@ const PerShift = ({route, navigation}) => {
 		)
     }
 
-    const formOke = async(value) => {
-        setItem(value)
-        const token = await AsyncStorage.getItem("key")
-        const headers = {
-            'Authorization': token
-        }
-        const params = {
-            tbl: 'daily_inspection',
-            kind: 'get_shift',
-            sys_plant_id: sys_plant_id,
-            machine_id: machine_id,
-            hrd_work_shift_id: 2,
-            hours: value,
-            qc_daily_inspection_id: qc_daily_inspection_id
-        }
-        Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
-        .then(response => {
-            setData(response.data.data)
-            setCavityCheck(response.data.data.daily_inspection.cavity)
-            console.log("List Data: ", response.data.status, "OK")
-        })
-        .catch(error => {
-            console.log('err: ', error)
-        })
-    }
-    
-    // console.log(cavityCheck)
-    const fungBaru = (value) => {
-        console.log(value)
-        setStatusCavity(value)
-    }
+	const formOke = async() => {
+		let jam = moment().format("HH:mm:ss")
+		if(parseInt(jam) >= 8 && parseInt(jam) <= 15)
+		{
+			const nilaiJam = parseInt(jam)
+			setShift(2)
+			setHours(nilaiJam)
+		}else if(parseInt(jam) >= 16 && parseInt(jam) <= 23){
+			const nilaiJam = parseInt(jam)
+			setShift(3)
+			setHours(nilaiJam)
+		}else{
+			const nilaiJam = parseInt(jam)
+			setShift(4)
+			setHours(nilaiJam)
+		}
+	}
+
+	const shiftFix = async(value) => {
+		setHours(value)
+		const token = await AsyncStorage.getItem("key")
+		const headers = {
+				'Authorization': token
+		}
+		const params = {
+				tbl: 'daily_inspection',
+				kind: 'get_shift',
+				sys_plant_id: sys_plant_id,
+				machine_id: machine_id,
+				hrd_work_shift_id: 2,
+				hours: value,
+				qc_daily_inspection_id: qc_daily_inspection_id
+		}
+		Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
+		.then(response => {
+				setData(response.data.data)
+				setCavityCheck(response.data.data.daily_inspection.cavity)
+				console.log("List Data: ", response.data.status, "OK")
+		})
+		.catch(error => {
+				console.log('err: ', error)
+		})
+	}
+	
+	const hString = hours.toString()
+
+	const fungBaru = (value) => {
+		setStatusCavity(value)
+	}
 
 
     const submit = async() => {
@@ -96,7 +113,7 @@ const PerShift = ({route, navigation}) => {
             qc_daily_inspection_id,
             qc_daily_inspection_item_id,
             qc_daily_inspection_method_id,
-            item,
+            hours,
             tooling,
             statusCavity,
             ProductsWeight,
@@ -104,7 +121,6 @@ const PerShift = ({route, navigation}) => {
             keterangan,
             inspectionTime
         }
-        console.log(el)
         const token = await AsyncStorage.getItem("key")
         const params = {
             tbl: 'daily_inspection',
@@ -214,12 +230,11 @@ const PerShift = ({route, navigation}) => {
 									<View style={{borderWidth: 0.5, width: 150, height: 25, justifyContent: 'center'}}>
 										<Picker 
 										mode="dropdown"
-										selectedValue={item}
-										onValueChange={(value) => formOke(value)}
+										selectedValue={hString}
+										onValueChange={(value) => shiftFix(value)}
 										itemStyle={{marginLeft: 0}}
 										itemTextStyle={{fontSize: 9}}
 										>
-											<Picker.Item label="--Pilih Shift--" value="" />
 											<Picker.Item label="Shift 1 - 1" value="8" />
 											<Picker.Item label="Shift 1 - 2" value="9" />
 											<Picker.Item label="Shift 1 - 3" value="10" />
