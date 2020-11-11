@@ -32,7 +32,6 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 
 	const submit = async() => {
 		const data = {
-			item,
 			eng_product_id,
 			prod_machine_id,
 			sys_plant_id,
@@ -193,13 +192,13 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 
 						<View style={{borderWidth: 0.5, flexDirection: 'row'}}>
 							<View style={{justifyContent: 'center', paddingLeft: 5, height: 25, width: "36%", backgroundColor: '#F5F5DC'}}>
-								<Text style={{fontSize: 13}}>{internal_part_id}</Text>
+								<Text style={{fontSize: 13}}>{dataProduct1.internal_part_id}</Text>
 							</View>
 							<View style={{justifyContent: 'center', alignItems: 'center', height: 25, width: "30%", backgroundColor: '#F5F5DC'}}>
-								<Text style={{fontSize: 12}}>{customer_part_number}</Text>
+								<Text style={{fontSize: 12}}>{dataProduct1.customer_part_number}</Text>
 							</View>
 							<View style={{flex: 1, justifyContent: 'center', alignItems: 'center', height: 25, backgroundColor: '#F5F5DC'}}>
-								<Text style={{fontSize: 12}}>{model}</Text>
+								<Text style={{fontSize: 12}}>{dataProduct1.model}</Text>
 							</View>
 						</View>
 
