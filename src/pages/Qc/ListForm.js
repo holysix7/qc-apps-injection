@@ -70,6 +70,7 @@ const ListForm = ({route, navigation}) => {
 					<Button style={styles.productsButton} onPress={() => navigation.navigate('MassproBeginTechInjection', {
 						product_name: product_name,
 						machine_id: machine_id,
+						sys_plant_id,
 						cavity: cavity,
 						customer_name: customer_name,
 						internal_part_id: internal_part_id,
