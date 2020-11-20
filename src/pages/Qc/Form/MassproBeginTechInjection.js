@@ -11,14 +11,14 @@ const MassproBeginTechInjection = ({route, navigation}) => {
 		formOke()
 	}, [])
 
-	const {product_name, customer_name, sys_plant_id, machine_id, internal_part_id, customer_part_number, model, machine_name, today, yesterday} = route.params
+	const {product_name, customer_name, sys_plant_id, machine_id, machine_name, today, yesterday} = route.params
 	const [data1, setData1] 																							= useState("")
 	const [cleaning_mold, setCleaning] 																		= useState("")
-	const [standard_parameter, setParam] 																							= useState("")
-	const [robot_setting, setRobot] 																							= useState("")
-	const [check_tooling, setChannel] 																					= useState("")
-	const [four_m_check, setSheet] 																							= useState("")
-	const [mold_temp_act, setActMold] 																					= useState("")
+	const [standard_parameter, setParam] 																	= useState("")
+	const [robot_setting, setRobot] 																			= useState("")
+	const [check_tooling, setChannel] 																		= useState("")
+	const [four_m_check, setSheet] 																				= useState("")
+	const [mold_temp_act, setActMold] 																		= useState("")
 	const [remark, setRemark] 																						= useState("")
 	const [created_by, setCreatedBy]																			= useState("")
 	let created_at 																												= moment().format("YYYY-MM-DD HH:mm:ss")
@@ -116,6 +116,7 @@ const MassproBeginTechInjection = ({route, navigation}) => {
 			setMaintMoldId(response.data.data.qc_masspro_main_mold_id)
 			setMaterialPreparationId(response.data.data.qc_masspro_material_preparation_id)
 			setMoldSetterId(response.data.data.qc_masspro_mold_setter_id)
+			setEngProd(response.data.data.eng_product_id)
 			setData1(response.data.data.product_detail)
 			console.log("Machines List Data: ", response.data.status, "OK")
 		})
@@ -203,13 +204,13 @@ const MassproBeginTechInjection = ({route, navigation}) => {
 
 						<View style={{borderWidth: 0.5, flexDirection: 'row'}}>
 							<View style={{justifyContent: 'center', paddingLeft: 5, height: 25, width: "36%", backgroundColor: '#F5F5DC'}}>
-								<Text style={{fontSize: 12}}>{data1.internal_part_id}</Text>
+								<Text style={{fontSize: 12}}>{data1.internal_part_id != null ? data1.internal_part_id : "-"}</Text>
 							</View>
 							<View style={{justifyContent: 'center', alignItems: 'center', height: 25, width: "30%", backgroundColor: '#F5F5DC'}}>
-								<Text style={{fontSize: 12}}>{data1.customer_part_number}</Text>
+								<Text style={{fontSize: 12}}>{data1.customer_part_number != null ? data1.customer_part_number : "-"}</Text>
 							</View>
 							<View style={{flex: 1, justifyContent: 'center', alignItems: 'center', height: 25, backgroundColor: '#F5F5DC'}}>
-								<Text style={{fontSize: 12}}>{data1.model}</Text>
+								<Text style={{fontSize: 12}}>{data1.model != null ? data1.model : "-"}</Text>
 							</View>
 						</View>
 

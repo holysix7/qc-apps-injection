@@ -30,14 +30,6 @@ const Login = ({navigation}) => {
 			console.log(error)
 			alert("Login Failed!")
 		})
-		// fetch('https://reactnative.dev/movies.json')
-		// .then((response) => response.json())
-		// .then((json) => {
-		// console.log(json.movies);
-		// })
-		// .catch((error) => {
-		// console.error(error);
-		// });
 	}
 
 	return (

@@ -7,19 +7,25 @@ import moment from 'moment';
 import Axios from 'axios';
 
 const RevisiFirstPieceForeman = ({route, navigation}) => {
-	const {qc_daily_inspection_id, qc_daily_inspection_item_id, qc_daily_inspection_method_id, sys_plant_id, product_name, customer_name, internal_part_id, customer_part_number, model, machine_id, machine_name, machine_status, operator_nik, operator_nik_2, leader_nik, foreman_nik, qc_process_nik, today, yesterday} = route.params
+	const {qc_daily_inspection_id, sys_plant_id, product_name, customer_name, internal_part_id, customer_part_number, model, machine_id, machine_name, machine_status, operator_nik, operator_nik_2, leader_nik, foreman_nik, qc_process_nik, today, yesterday} = route.params
 
 	useEffect(() => {
 		formOke()
 	}, [])
 
-	const [decision, setDecision] 					= useState("")
+	const [judgement, setDecision] 					= useState("")
 	const [tooling, setTooling] 						= useState("")
-	const [actionForeman, setActionForeman] = useState("")
+	const [action_foreman, setActionForeman] = useState("")
 	const [hours, setHours]		  						= useState(0)
 	const [shift, setShift]		  						= useState(0)
-	const [data, setData] 									= useState([]);
+	const [data, setData] 									= useState([])
+	let created_at 													= moment().format("YYYY-MM-DD HH:mm:ss")
+	let updated_at 													= moment().format("YYYY-MM-DD HH:mm:ss")
+	const [created_by, setCreatedBy]		  	= useState("")
+	const [updated_by, setUpdatedBy]		  	= useState("")
+	const [eng_product_id, setEngProd] 			= useState(0)
 	const date = []
+	const prod_machine_id = machine_id
 	if(today != null)
 	{
 		date.push(
@@ -34,20 +40,82 @@ const RevisiFirstPieceForeman = ({route, navigation}) => {
 	}
 
 	const formOke = async() => {
+		const token = await AsyncStorage.getItem("key")
+		const headers = {
+			'Authorization': token
+		}
+		const name = await AsyncStorage.getItem('name')
+		setCreatedBy(name)
+		setUpdatedBy(name)
+
 		let jam = moment().format("HH:mm:ss")
 		if(parseInt(jam) >= 8 && parseInt(jam) <= 15)
 		{
 			const nilaiJam = parseInt(jam)
 			setShift(2)
 			setHours(nilaiJam)
+			const params = {
+				tbl: 'daily_inspection',
+				kind: 'rev_first_piece_fr',
+				sys_plant_id: sys_plant_id,
+				machine_id: machine_id,
+				hrd_work_shift_id: 2,
+				hours: nilaiJam,
+				qc_daily_inspection_id: qc_daily_inspection_id
+			}
+			Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
+			.then(response => {
+				setEngProd(response.data.data.eng_product_id)
+				setData(response.data.data.daily_inspection)
+				console.log("Machines List Data: ", response.data.status, "OK")
+			})
+			.catch(error => {
+				console.log('err: ', error)
+			})
 		}else if(parseInt(jam) >= 16 && parseInt(jam) <= 23){
 			const nilaiJam = parseInt(jam)
 			setShift(3)
 			setHours(nilaiJam)
+			const params = {
+				tbl: 'daily_inspection',
+				kind: 'rev_first_piece_fr',
+				sys_plant_id: sys_plant_id,
+				machine_id: machine_id,
+				hrd_work_shift_id: 3,
+				hours: nilaiJam,
+				qc_daily_inspection_id: qc_daily_inspection_id
+			}
+			Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
+			.then(response => {
+				setEngProd(response.data.data.eng_product_id)
+				setData(response.data.data.daily_inspection)
+				console.log("Machines List Data: ", response.data.status, "OK")
+			})
+			.catch(error => {
+				console.log('err: ', error)
+			})
 		}else{
 			const nilaiJam = parseInt(jam)
 			setShift(4)
 			setHours(nilaiJam)
+			const params = {
+				tbl: 'daily_inspection',
+				kind: 'rev_first_piece_fr',
+				sys_plant_id: sys_plant_id,
+				machine_id: machine_id,
+				hrd_work_shift_id: 4,
+				hours: nilaiJam,
+				qc_daily_inspection_id: qc_daily_inspection_id
+			}
+			Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
+			.then(response => {
+				setEngProd(response.data.data.eng_product_id)
+				setData(response.data.data.daily_inspection)
+				console.log("Machines List Data: ", response.data.status, "OK")
+			})
+			.catch(error => {
+				console.log('err: ', error)
+			})
 		}
 	}
 
@@ -69,18 +137,43 @@ const RevisiFirstPieceForeman = ({route, navigation}) => {
 	}
     
 	const submit = async() => {
-		const el = {
+		const data = {
+			eng_product_id,
+			prod_machine_id,
+			sys_plant_id,
 			qc_daily_inspection_id,
-			qc_daily_inspection_item_id,
-			qc_daily_inspection_method_id,
-			item,
-			tooling,
-			statusCavity,
-			ProductsWeight,
-			WeightStandard,
-			actionForeman
+			action_foreman,
+			judgement,
+			created_by,
+			created_at,
+			updated_by,
+			updated_at
 		}
-		console.log(el)
+		const token = await AsyncStorage.getItem("key")
+		const params = {
+			tbl: 'daily_inspection',
+			kind: 'rev_first_piece_fr'
+		}
+		var config = {
+			method: 'put',
+			url: 'http://139.255.26.194:3003/api/v1/qcs/update?',
+			params: params,
+			headers: { 
+				'Authorization': token, 
+				'Content-Type': 'application/json', 
+				'Cookie': '_denapi_session=ubcfq3AHCuVeTlxtg%2F1nyEa3Ktylg8nY1lIEPD7pgS3YAWwlKOxwA0S9pw7JhvZ2mNkrYl0j62wAWJWJZd7AbfolGuHCwXgEMeJH6EoLiQ%3D%3D--M%2BjBb0uJeHmOf%2B3o--%2F2Fjw57x0Fyr90Ec9FVibQ%3D%3D'
+			},
+			data : data
+		};
+		Axios(config)
+		.then(function (response){
+			navigation.navigate('ShowProducts')
+			alert("Success Send Data!")
+			console.log("Res: ", response.status, " Ok")
+		})
+		.catch(function (error){
+			console.log(error)
+		})
 	}
 
 	const hString = hours.toString()
@@ -228,7 +321,7 @@ const RevisiFirstPieceForeman = ({route, navigation}) => {
                                         <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
                                             <Picker 
                                             mode="dropdown"
-                                            selectedValue={decision}
+                                            selectedValue={judgement}
                                             onValueChange={(value) => setDecision(value)}
                                             >
                                                 <Picker.Item label="Pilih" value="" />

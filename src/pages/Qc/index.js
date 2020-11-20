@@ -74,20 +74,84 @@ const Qc = ({navigation}) => {
   if(cekId != null)
   {
     data.forEach(element => {
-      machines.push(
-        <Button key={element.id} style={{marginTop: 5, marginHorizontal: 4, alignItems: 'center', justifyContent: 'center', width: "31%", borderRadius: 15, flexDirection: 'column'}}
-        onPress={() => {
-          navigation.navigate('ShowProducts', {
-            machine_id: element.id,
-            machine_name: element.name,
-            sys_plant_id: element.sys_plant_id,
-          })
-        }}
-        >
-          <Text style={{fontSize: 17, fontWeight: 'bold'}}>{element.number}</Text>
-          <Text style={{fontSize: 8}}>{element.name}</Text>
-        </Button>
-      )
+      if(element.status  == 'loaded')
+      {
+        machines.push(
+          <Button key={element.id} style={{marginTop: 5, marginHorizontal: 4, alignItems: 'center', justifyContent: 'center', width: "31%", borderRadius: 15, flexDirection: 'column'}}
+          onPress={() => {
+            navigation.navigate('ShowProducts', {
+              machine_id: element.id,
+              machine_name: element.name,
+              sys_plant_id: element.sys_plant_id,
+            })
+          }}
+          >
+            <Text style={{fontSize: 17, fontWeight: 'bold'}}>{element.number}</Text>
+            <Text style={{fontSize: 8}}>{element.name}</Text>
+          </Button>
+        )
+      }else if(element.status == 'no_load'){
+        machines.push(
+          <Button key={element.id} style={{backgroundColor: 'yellow', marginTop: 5, marginHorizontal: 4, alignItems: 'center', justifyContent: 'center', width: "31%", borderRadius: 15, flexDirection: 'column'}}
+          onPress={() => {
+            navigation.navigate('ShowProducts', {
+              machine_id: element.id,
+              machine_name: element.name,
+              sys_plant_id: element.sys_plant_id,
+            })
+          }}
+          >
+            <Text style={{color: 'black', fontSize: 17, fontWeight: 'bold'}}>{element.number}</Text>
+            <Text style={{color: 'black', fontSize: 8}}>{element.name}</Text>
+          </Button>
+        )
+      }else if(element.status == 'broken'){
+        machines.push(
+          <Button key={element.id} style={{backgroundColor: 'red', marginTop: 5, marginHorizontal: 4, alignItems: 'center', justifyContent: 'center', width: "31%", borderRadius: 15, flexDirection: 'column'}}
+          onPress={() => {
+            navigation.navigate('ShowProducts', {
+              machine_id: element.id,
+              machine_name: element.name,
+              sys_plant_id: element.sys_plant_id,
+            })
+          }}
+          >
+            <Text style={{color: 'black', fontSize: 17, fontWeight: 'bold'}}>{element.number}</Text>
+            <Text style={{color: 'black', fontSize: 8}}>{element.name}</Text>
+          </Button>
+        )
+      }else if(element.status == 'maintenance'){
+        machines.push(
+          <Button key={element.id} style={{backgroundColor: '#ebae34', marginTop: 5, marginHorizontal: 4, alignItems: 'center', justifyContent: 'center', width: "31%", borderRadius: 15, flexDirection: 'column'}}
+          onPress={() => {
+            navigation.navigate('ShowProducts', {
+              machine_id: element.id,
+              machine_name: element.name,
+              sys_plant_id: element.sys_plant_id,
+            })
+          }}
+          >
+            <Text style={{color: 'black', fontSize: 17, fontWeight: 'bold'}}>{element.number}</Text>
+            <Text style={{color: 'black', fontSize: 8}}>{element.name}</Text>
+          </Button>
+        )
+
+      }else{
+        machines.push(
+          <Button key={element.id} style={{backgroundColor: 'green', marginTop: 5, marginHorizontal: 4, alignItems: 'center', justifyContent: 'center', width: "31%", borderRadius: 15, flexDirection: 'column'}}
+          onPress={() => {
+            navigation.navigate('ShowProducts', {
+              machine_id: element.id,
+              machine_name: element.name,
+              sys_plant_id: element.sys_plant_id,
+            })
+          }}
+          >
+            <Text style={{fontSize: 17, fontWeight: 'bold'}}>{element.number}</Text>
+            <Text style={{fontSize: 8}}>{element.name}</Text>
+          </Button>
+        )
+      }
     });
   }
   return (

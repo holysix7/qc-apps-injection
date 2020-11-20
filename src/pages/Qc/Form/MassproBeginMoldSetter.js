@@ -200,13 +200,13 @@ const MassproBeginMoldSetter = ({route, navigation}) => {
 
 						<View style={{borderWidth: 0.5, flexDirection: 'row'}}>
 							<View style={{justifyContent: 'center', paddingLeft: 5, height: 25, width: "36%", backgroundColor: '#F5F5DC'}}>
-								<Text style={{fontSize: 12}}>{data1.internal_part_id}</Text>
+								<Text style={{fontSize: 12}}>{data1.internal_part_id != null ? data1.internal_part_id : "-"}</Text>
 							</View>
 							<View style={{justifyContent: 'center', alignItems: 'center', height: 25, width: "40%", backgroundColor: '#F5F5DC'}}>
-								<Text style={{fontSize: 12}}>{data1.customer_part_number}</Text>
+								<Text style={{fontSize: 12}}>{data1.customer_part_number != null ? data1.customer_part_number : "-"}</Text>
 							</View>
 							<View style={{flex: 1, justifyContent: 'center', alignItems: 'center', height: 25, backgroundColor: '#F5F5DC'}}>
-								<Text style={{fontSize: 12}}>{data1.model}</Text>
+								<Text style={{fontSize: 12}}>{data1.model != null ? data1.model : "-"}</Text>
 							</View>
 						</View>
 
