@@ -8726,6 +8726,8 @@ const PerShift = ({route, navigation}) => {
 		}
 	}
 
+	// console.log(table1)
+
 	return(
 		<KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={{flex: 1}} >
 			<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
