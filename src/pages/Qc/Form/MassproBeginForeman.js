@@ -12,7 +12,7 @@ const MassproBeginForeman = ({route, navigation}) => {
 	}, [])
 
 	const {sys_plant_id, machine_id, product_name, customer_name, machine_name, machine_status, today, yesterday} = route.params
-	const [tooling, setTooling] 					= useState("")
+	const [tooling_num, setTooling] 					= useState("")
 	const [keputusan, setKeputusan] 			= useState("")
 	const [remark, setRemark] 						= useState("")
 	const [hours, setHours]		  					= useState(0)
@@ -47,7 +47,7 @@ const MassproBeginForeman = ({route, navigation}) => {
 			sys_plant_id,
 			prod_machine_id,
 			eng_product_id,
-			tooling,
+			tooling_num,
 			qc_masspro_main_mold_id,
 			qc_masspro_material_preparation_id,
 			qc_masspro_mold_setter_id,
@@ -77,9 +77,9 @@ const MassproBeginForeman = ({route, navigation}) => {
 			url: 'http://139.255.26.194:3003/api/v1/qcs/update?',
 			params: params,
 			headers: { 
-					'Authorization': token, 
-					'Content-Type': 'application/json', 
-					'Cookie': '_denapi_session=ubcfq3AHCuVeTlxtg%2F1nyEa3Ktylg8nY1lIEPD7pgS3YAWwlKOxwA0S9pw7JhvZ2mNkrYl0j62wAWJWJZd7AbfolGuHCwXgEMeJH6EoLiQ%3D%3D--M%2BjBb0uJeHmOf%2B3o--%2F2Fjw57x0Fyr90Ec9FVibQ%3D%3D'
+				'Authorization': token, 
+				'Content-Type': 'application/json', 
+				'Cookie': '_denapi_session=ubcfq3AHCuVeTlxtg%2F1nyEa3Ktylg8nY1lIEPD7pgS3YAWwlKOxwA0S9pw7JhvZ2mNkrYl0j62wAWJWJZd7AbfolGuHCwXgEMeJH6EoLiQ%3D%3D--M%2BjBb0uJeHmOf%2B3o--%2F2Fjw57x0Fyr90Ec9FVibQ%3D%3D'
 			},
 			data : data
 		};
@@ -134,10 +134,11 @@ const MassproBeginForeman = ({route, navigation}) => {
 			setQcLeaderId(response.data.data.qc_masspro_qc_leader_id)
 			setEngProd(response.data.data.eng_product_id)
 			setData1(response.data.data.product_detail)
-			console.log("Machines List Data: ", response.data.status, "OK")
+			setTooling(response.data.data.tooling_num)
+			console.log("List Data Foreman: ", response.data.status, "OK")
 		})
 		.catch(error => {
-			console.log('err: ', error)
+			console.log('List Data Foreman: ', error)
 		})
 	}
 
@@ -215,7 +216,7 @@ const MassproBeginForeman = ({route, navigation}) => {
 											<Picker.Item label="Shift 3 - 8" value="7" />
 										</Picker>
 									</View>
-									<Text style={{fontWeight: 'bold', fontSize: 11}}>{product_name}</Text>
+									<Text style={{fontWeight: 'bold', fontSize: 11}}>{data1.name != null ? data1.name : "-"}</Text>
 								</View>
 							</View>
 						</View>
@@ -258,7 +259,9 @@ const MassproBeginForeman = ({route, navigation}) => {
 										</View>
 										<View style={{padding: 4, width: "50%"}}>
 											<View style={{height: 30, justifyContent: 'center'}}>
-												<TextInput onChangeText={(value) => setTooling(value)} style={{borderWidth: 0.5, borderRadius: 25, paddingLeft: 5, height: 40}} placeholder="Type Here..." />
+												<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+													<Text>{tooling_num}</Text>
+												</View>
 											</View>
 										</View>
 									</View>

@@ -16,6 +16,7 @@ const LastShootForeman = ({route, navigation}) => {
 	const [stop_category, setStopCategory]					= useState("")
 	const [created_by, setCreatedBy]		  					= useState("")
 	const [updated_by, setUpdatedBy]		  					= useState("")
+	const [tooling_num, setTooling] 								= useState("")
 	let created_at 																	= moment().format("YYYY-MM-DD HH:mm:ss")
 	let updated_at 																	= moment().format("YYYY-MM-DD HH:mm:ss")
 	const [eng_product_id, setEngProdId]		  			= useState(0)
@@ -27,6 +28,7 @@ const LastShootForeman = ({route, navigation}) => {
 		const data = {
 			eng_product_id,
 			prod_machine_id,
+			tooling_num,
 			sys_plant_id,
 			qc_daily_inspection_id,
 			stop_category,
@@ -90,10 +92,11 @@ const LastShootForeman = ({route, navigation}) => {
 			.then(response => {
 				setData(response.data.data.daily_inspection)
 				setEngProdId(response.data.data.eng_product_id)
-				console.log("Machines List Data: ", response.data.status, "OK")
+				setTooling(response.data.data.daily_inspection.tooling_num)
+				console.log("List Data Last Shoot Foreman: ", response.data.status, "OK")
 			})
 			.catch(error => {
-				console.log('err: ', error)
+				console.log('List Data Last Shoot Foreman: ', error)
 			})
 		}else if(parseInt(jam) >= 16 && parseInt(jam) <= 23){
 			const nilaiJam = parseInt(jam)
@@ -112,10 +115,11 @@ const LastShootForeman = ({route, navigation}) => {
 			.then(response => {
 				setData(response.data.data.daily_inspection)
 				setEngProdId(response.data.data.eng_product_id)
-				console.log("Machines List Data: ", response.data.status, "OK")
+				setTooling(response.data.data.daily_inspection.tooling_num)
+				console.log("List Data Last Shoot Foreman: ", response.data.status, "OK")
 			})
 			.catch(error => {
-				console.log('err: ', error)
+				console.log('List Data Last Shoot Foreman: ', error)
 			})
 		}else{
 			const nilaiJam = parseInt(jam)
@@ -134,10 +138,11 @@ const LastShootForeman = ({route, navigation}) => {
 			.then(response => {
 				setData(response.data.data.daily_inspection)
 				setEngProdId(response.data.data.eng_product_id)
-				console.log("Machines List Data: ", response.data.status, "OK")
+				setTooling(response.data.data.daily_inspection.tooling_num)
+				console.log("List Data Last Shoot Foreman: ", response.data.status, "OK")
 			})
 			.catch(error => {
-				console.log('err: ', error)
+				console.log('List Data Last Shoot Foreman: ', error)
 			})
 		}
 	}
@@ -242,7 +247,9 @@ const LastShootForeman = ({route, navigation}) => {
 								</View>
 								<View style={{padding: 4, width: "50%"}}>
 									<View style={{height: 40, justifyContent: 'center'}}>
-										<TextInput style={{borderWidth: 0.5, borderRadius: 25, paddingLeft: 5, height: 40}} placeholder="Type Here..." />
+										<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+											<Text>{tooling_num}</Text>
+										</View>
 									</View>
 								</View>
 							</View>

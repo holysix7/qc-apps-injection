@@ -127,7 +127,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 	const [note17, setKeterangan17] 																	 	 = useState("")
 	const [note18, setKeterangan18] 																	 	 = useState("")
 
-	const [tooling, setTooling] 												= useState("")
+	const [tooling_num, setTooling] 												= useState("")
 	const [hours, setHours]		  												= useState(0)
 	const [shift, setShift]		  												= useState(0)
 	const [data, setData] 															= useState([]);
@@ -136,6 +136,8 @@ const LastShootLeaderQc = ({route, navigation}) => {
 	const [copy_sample, setCopySample]	  							= useState("")
 	const [mtr_need, setMtrNeed]				  							= useState("")
 	const [created_by, setCreatedBy]										= useState("")
+	const [cavityShow, setCavityShow]										= useState("")
+	const [ngCategories, setNGCategories]  							= useState([])
 	let created_at 																			= moment().format("YYYY-MM-DD HH:mm:ss")
 	const [updated_by, setUpdatedBy]										= useState("")
 	let updated_at 																			= moment().format("YYYY-MM-DD HH:mm:ss")
@@ -183,10 +185,13 @@ const LastShootLeaderQc = ({route, navigation}) => {
 				setData(response.data.data.daily_inspection)
 				setEngProd(response.data.data.eng_product_id)
 				setInspectionId(response.data.data.qc_daily_inspections_id)
-				console.log("Machines List Data: ", response.data.status, "OK")
+				setCavityShow(response.data.data.daily_inspection.cavity)
+				setNGCategories(response.data.data.ng_category)
+				setTooling(response.data.data.daily_inspection.tooling_num)
+				console.log("List Data Last Shoot Leader QC: ", response.data.status, "OK")
 			})
 			.catch(error => {
-					console.log('err: ', error)
+				console.log('List Data Last Shoot Leader QC: ', error)
 			})
 		}else if(parseInt(jam) >= 16 && parseInt(jam) <= 23){
 			const nilaiJam = parseInt(jam)
@@ -206,10 +211,13 @@ const LastShootLeaderQc = ({route, navigation}) => {
 				setData(response.data.data.daily_inspection)
 				setEngProd(response.data.data.eng_product_id)
 				setInspectionId(response.data.data.qc_daily_inspections_id)
-				console.log("Machines List Data: ", response.data.status, "OK")
+				setCavityShow(response.data.data.daily_inspection.cavity)
+				setNGCategories(response.data.data.ng_category)
+				setTooling(response.data.data.daily_inspection.tooling_num)
+				console.log("List Data Last Shoot Leader QC: ", response.data.status, "OK")
 			})
 			.catch(error => {
-					console.log('err: ', error)
+					console.log('List Data Last Shoot Leader QC: ', error)
 			})
 		}else{
 			const nilaiJam = parseInt(jam)
@@ -229,10 +237,13 @@ const LastShootLeaderQc = ({route, navigation}) => {
 				setData(response.data.data.daily_inspection)
 				setEngProd(response.data.data.eng_product_id)
 				setInspectionId(response.data.data.qc_daily_inspections_id)
-				console.log("Machines List Data: ", response.data.status, "OK")
+				setCavityShow(response.data.data.daily_inspection.cavity)
+				setNGCategories(response.data.data.ng_category)
+				setTooling(response.data.data.daily_inspection.tooling_num)
+				console.log("List Data Last Shoot Leader QC: ", response.data.status, "OK")
 			})
 			.catch(error => {
-					console.log('err: ', error)
+					console.log('List Data Last Shoot Leader QC: ', error)
 			})
 		}
 	}
@@ -392,6 +403,19 @@ const LastShootLeaderQc = ({route, navigation}) => {
 	}
 })
 
+	var dataNGs = []
+	ngCategories.map((element, key) => {
+		if(copy_sample == "NG")
+		{
+			dataNGs.push(
+				<Picker.Item label={element.name} value={element.id} key={key} />
+			)
+		}else{
+			dataNGs.push(
+				<Picker.Item label="Tidak NG" value="" key="swQwdAcxz12" />
+			)
+		}
+	})
 
 	const submit = async() => {
 		const data = {
@@ -400,6 +424,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 			qc_daily_inspections_id,
 			qc_daily_inspection_item_id,
 			qc_daily_inspection_method_id,
+			tooling_num,
 			copy_sample,
 			mtr_need,
 			item,
@@ -492,9 +517,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 									selectedValue= {qc_ng_category_id1}
 									onValueChange = {(value)=>setCategoryNg1(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
@@ -553,20 +576,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id1}
 									onValueChange = {(value)=>setCategoryNg1(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test1}
@@ -619,20 +640,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id2}
 									onValueChange = {(value)=>setCategoryNg2(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test2}
@@ -686,20 +705,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id1}
 									onValueChange = {(value)=>setCategoryNg1(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test1}
@@ -752,20 +769,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id2}
 									onValueChange = {(value)=>setCategoryNg2(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test2}
@@ -818,20 +833,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id3}
 									onValueChange = {(value)=>setCategoryNg3(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test3}
@@ -885,20 +898,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id1}
 									onValueChange = {(value)=>setCategoryNg1(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test1}
@@ -951,20 +962,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id2}
 									onValueChange = {(value)=>setCategoryNg2(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test2}
@@ -1017,20 +1026,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id3}
 									onValueChange = {(value)=>setCategoryNg3(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test3}
@@ -1083,20 +1090,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id4}
 									onValueChange = {(value)=>setCategoryNg4(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test4}
@@ -1150,20 +1155,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id1}
 									onValueChange = {(value)=>setCategoryNg1(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test1}
@@ -1216,20 +1219,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id2}
 									onValueChange = {(value)=>setCategoryNg2(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test2}
@@ -1282,20 +1283,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id3}
 									onValueChange = {(value)=>setCategoryNg3(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test3}
@@ -1348,20 +1347,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id4}
 									onValueChange = {(value)=>setCategoryNg4(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test4}
@@ -1414,20 +1411,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id5}
 									onValueChange = {(value)=>setCategoryNg5(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test5}
@@ -1481,20 +1476,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id1}
 									onValueChange = {(value)=>setCategoryNg1(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test1}
@@ -1547,20 +1540,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id2}
 									onValueChange = {(value)=>setCategoryNg2(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test2}
@@ -1613,20 +1604,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id3}
 									onValueChange = {(value)=>setCategoryNg3(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test3}
@@ -1679,20 +1668,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id4}
 									onValueChange = {(value)=>setCategoryNg4(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test4}
@@ -1745,20 +1732,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id5}
 									onValueChange = {(value)=>setCategoryNg5(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test5}
@@ -1811,20 +1796,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id6}
 									onValueChange = {(value)=>setCategoryNg6(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test6}
@@ -1878,20 +1861,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id1}
 									onValueChange = {(value)=>setCategoryNg1(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test1}
@@ -1944,20 +1925,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id2}
 									onValueChange = {(value)=>setCategoryNg2(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test2}
@@ -2010,20 +1989,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id3}
 									onValueChange = {(value)=>setCategoryNg3(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test3}
@@ -2076,20 +2053,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id4}
 									onValueChange = {(value)=>setCategoryNg4(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test4}
@@ -2142,20 +2117,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id5}
 									onValueChange = {(value)=>setCategoryNg5(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test5}
@@ -2208,20 +2181,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id6}
 									onValueChange = {(value)=>setCategoryNg6(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test6}
@@ -2274,20 +2245,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id7}
 									onValueChange = {(value)=>setCategoryNg7(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test7}
@@ -2341,20 +2310,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id1}
 									onValueChange = {(value)=>setCategoryNg1(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test1}
@@ -2407,20 +2374,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id2}
 									onValueChange = {(value)=>setCategoryNg2(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test2}
@@ -2473,20 +2438,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id3}
 									onValueChange = {(value)=>setCategoryNg3(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test3}
@@ -2539,20 +2502,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id4}
 									onValueChange = {(value)=>setCategoryNg4(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test4}
@@ -2605,20 +2566,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id5}
 									onValueChange = {(value)=>setCategoryNg5(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test5}
@@ -2671,20 +2630,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id6}
 									onValueChange = {(value)=>setCategoryNg6(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test6}
@@ -2737,20 +2694,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id7}
 									onValueChange = {(value)=>setCategoryNg7(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test7}
@@ -2803,20 +2758,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id8}
 									onValueChange = {(value)=>setCategoryNg8(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test8}
@@ -2870,20 +2823,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id1}
 									onValueChange = {(value)=>setCategoryNg1(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test1}
@@ -2936,20 +2887,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id2}
 									onValueChange = {(value)=>setCategoryNg2(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test2}
@@ -3002,20 +2951,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id3}
 									onValueChange = {(value)=>setCategoryNg3(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test3}
@@ -3068,20 +3015,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id4}
 									onValueChange = {(value)=>setCategoryNg4(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test4}
@@ -3134,20 +3079,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id5}
 									onValueChange = {(value)=>setCategoryNg5(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test5}
@@ -3200,20 +3143,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id6}
 									onValueChange = {(value)=>setCategoryNg6(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test6}
@@ -3266,20 +3207,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id7}
 									onValueChange = {(value)=>setCategoryNg7(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test7}
@@ -3332,20 +3271,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id8}
 									onValueChange = {(value)=>setCategoryNg8(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test8}
@@ -3398,20 +3335,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id9}
 									onValueChange = {(value)=>setCategoryNg9(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test9}
@@ -3465,20 +3400,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id1}
 									onValueChange = {(value)=>setCategoryNg1(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test1}
@@ -3531,20 +3464,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id2}
 									onValueChange = {(value)=>setCategoryNg2(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test2}
@@ -3597,20 +3528,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id3}
 									onValueChange = {(value)=>setCategoryNg3(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test3}
@@ -3663,20 +3592,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id4}
 									onValueChange = {(value)=>setCategoryNg4(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test4}
@@ -3729,20 +3656,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id5}
 									onValueChange = {(value)=>setCategoryNg5(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test5}
@@ -3795,20 +3720,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id6}
 									onValueChange = {(value)=>setCategoryNg6(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test6}
@@ -3861,20 +3784,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id7}
 									onValueChange = {(value)=>setCategoryNg7(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test7}
@@ -3927,20 +3848,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id8}
 									onValueChange = {(value)=>setCategoryNg8(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test8}
@@ -3993,20 +3912,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id9}
 									onValueChange = {(value)=>setCategoryNg9(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test9}
@@ -4059,20 +3976,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id10}
 									onValueChange = {(value)=>setCategoryNg10(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test10}
@@ -4126,20 +4041,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id1}
 									onValueChange = {(value)=>setCategoryNg1(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test1}
@@ -4192,20 +4105,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id2}
 									onValueChange = {(value)=>setCategoryNg2(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test2}
@@ -4258,20 +4169,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id3}
 									onValueChange = {(value)=>setCategoryNg3(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test3}
@@ -4324,20 +4233,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id4}
 									onValueChange = {(value)=>setCategoryNg4(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test4}
@@ -4390,20 +4297,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id5}
 									onValueChange = {(value)=>setCategoryNg5(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test5}
@@ -4456,20 +4361,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id6}
 									onValueChange = {(value)=>setCategoryNg6(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test6}
@@ -4522,20 +4425,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id7}
 									onValueChange = {(value)=>setCategoryNg7(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test7}
@@ -4588,20 +4489,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id8}
 									onValueChange = {(value)=>setCategoryNg8(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test8}
@@ -4654,20 +4553,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id9}
 									onValueChange = {(value)=>setCategoryNg9(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test9}
@@ -4720,20 +4617,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id10}
 									onValueChange = {(value)=>setCategoryNg10(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test10}
@@ -4786,20 +4681,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id11}
 									onValueChange = {(value)=>setCategoryNg11(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test11}
@@ -4853,20 +4746,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id1}
 									onValueChange = {(value)=>setCategoryNg1(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test1}
@@ -4919,20 +4810,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id2}
 									onValueChange = {(value)=>setCategoryNg2(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test2}
@@ -4985,20 +4874,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id3}
 									onValueChange = {(value)=>setCategoryNg3(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test3}
@@ -5051,20 +4938,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id4}
 									onValueChange = {(value)=>setCategoryNg4(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test4}
@@ -5117,20 +5002,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id5}
 									onValueChange = {(value)=>setCategoryNg5(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test5}
@@ -5183,20 +5066,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id6}
 									onValueChange = {(value)=>setCategoryNg6(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test6}
@@ -5249,20 +5130,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id7}
 									onValueChange = {(value)=>setCategoryNg7(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test7}
@@ -5315,20 +5194,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id8}
 									onValueChange = {(value)=>setCategoryNg8(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test8}
@@ -5381,20 +5258,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id9}
 									onValueChange = {(value)=>setCategoryNg9(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test9}
@@ -5447,20 +5322,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id10}
 									onValueChange = {(value)=>setCategoryNg10(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test10}
@@ -5513,20 +5386,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id11}
 									onValueChange = {(value)=>setCategoryNg11(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test11}
@@ -5579,20 +5450,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id12}
 									onValueChange = {(value)=>setCategoryNg12(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test12}
@@ -5646,20 +5515,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id1}
 									onValueChange = {(value)=>setCategoryNg1(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test1}
@@ -5712,20 +5579,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id2}
 									onValueChange = {(value)=>setCategoryNg2(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test2}
@@ -5778,20 +5643,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id3}
 									onValueChange = {(value)=>setCategoryNg3(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test3}
@@ -5844,20 +5707,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id4}
 									onValueChange = {(value)=>setCategoryNg4(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test4}
@@ -5910,20 +5771,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id5}
 									onValueChange = {(value)=>setCategoryNg5(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test5}
@@ -5976,20 +5835,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id6}
 									onValueChange = {(value)=>setCategoryNg6(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test6}
@@ -6042,20 +5899,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id7}
 									onValueChange = {(value)=>setCategoryNg7(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test7}
@@ -6108,20 +5963,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id8}
 									onValueChange = {(value)=>setCategoryNg8(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test8}
@@ -6174,20 +6027,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id9}
 									onValueChange = {(value)=>setCategoryNg9(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test9}
@@ -6240,20 +6091,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id10}
 									onValueChange = {(value)=>setCategoryNg10(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test10}
@@ -6306,20 +6155,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id11}
 									onValueChange = {(value)=>setCategoryNg11(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test11}
@@ -6372,20 +6219,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id12}
 									onValueChange = {(value)=>setCategoryNg12(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test12}
@@ -6438,20 +6283,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id13}
 									onValueChange = {(value)=>setCategoryNg13(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test13}
@@ -6505,20 +6348,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id1}
 									onValueChange = {(value)=>setCategoryNg1(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test1}
@@ -6571,20 +6412,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id2}
 									onValueChange = {(value)=>setCategoryNg2(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test2}
@@ -6637,20 +6476,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id3}
 									onValueChange = {(value)=>setCategoryNg3(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test3}
@@ -6703,20 +6540,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id4}
 									onValueChange = {(value)=>setCategoryNg4(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test4}
@@ -6769,20 +6604,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id5}
 									onValueChange = {(value)=>setCategoryNg5(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test5}
@@ -6835,20 +6668,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id6}
 									onValueChange = {(value)=>setCategoryNg6(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test6}
@@ -6901,20 +6732,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id7}
 									onValueChange = {(value)=>setCategoryNg7(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test7}
@@ -6967,20 +6796,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id8}
 									onValueChange = {(value)=>setCategoryNg8(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test8}
@@ -7033,20 +6860,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id9}
 									onValueChange = {(value)=>setCategoryNg9(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test9}
@@ -7099,20 +6924,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id10}
 									onValueChange = {(value)=>setCategoryNg10(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test10}
@@ -7165,20 +6988,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id11}
 									onValueChange = {(value)=>setCategoryNg11(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test11}
@@ -7231,20 +7052,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id12}
 									onValueChange = {(value)=>setCategoryNg12(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test12}
@@ -7297,20 +7116,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id13}
 									onValueChange = {(value)=>setCategoryNg13(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test13}
@@ -7363,20 +7180,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id14}
 									onValueChange = {(value)=>setCategoryNg14(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test14}
@@ -7430,20 +7245,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id1}
 									onValueChange = {(value)=>setCategoryNg1(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test1}
@@ -7496,20 +7309,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id2}
 									onValueChange = {(value)=>setCategoryNg2(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test2}
@@ -7562,20 +7373,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id3}
 									onValueChange = {(value)=>setCategoryNg3(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test3}
@@ -7628,20 +7437,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id4}
 									onValueChange = {(value)=>setCategoryNg4(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test4}
@@ -7694,20 +7501,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id5}
 									onValueChange = {(value)=>setCategoryNg5(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test5}
@@ -7760,20 +7565,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id6}
 									onValueChange = {(value)=>setCategoryNg6(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test6}
@@ -7826,20 +7629,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id7}
 									onValueChange = {(value)=>setCategoryNg7(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test7}
@@ -7892,20 +7693,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id8}
 									onValueChange = {(value)=>setCategoryNg8(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test8}
@@ -7958,20 +7757,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id9}
 									onValueChange = {(value)=>setCategoryNg9(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test9}
@@ -8024,20 +7821,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id10}
 									onValueChange = {(value)=>setCategoryNg10(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test10}
@@ -8090,20 +7885,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id11}
 									onValueChange = {(value)=>setCategoryNg11(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test11}
@@ -8156,20 +7949,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id12}
 									onValueChange = {(value)=>setCategoryNg12(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test12}
@@ -8222,20 +8013,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id13}
 									onValueChange = {(value)=>setCategoryNg13(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test13}
@@ -8288,20 +8077,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id14}
 									onValueChange = {(value)=>setCategoryNg14(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test14}
@@ -8354,20 +8141,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id15}
 									onValueChange = {(value)=>setCategoryNg15(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test15}
@@ -8421,20 +8206,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id1}
 									onValueChange = {(value)=>setCategoryNg1(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test1}
@@ -8487,20 +8270,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id2}
 									onValueChange = {(value)=>setCategoryNg2(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test2}
@@ -8553,20 +8334,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id3}
 									onValueChange = {(value)=>setCategoryNg3(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test3}
@@ -8619,20 +8398,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id4}
 									onValueChange = {(value)=>setCategoryNg4(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test4}
@@ -8685,20 +8462,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id5}
 									onValueChange = {(value)=>setCategoryNg5(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test5}
@@ -8751,20 +8526,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id6}
 									onValueChange = {(value)=>setCategoryNg6(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test6}
@@ -8817,20 +8590,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id7}
 									onValueChange = {(value)=>setCategoryNg7(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test7}
@@ -8883,20 +8654,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id8}
 									onValueChange = {(value)=>setCategoryNg8(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test8}
@@ -8949,20 +8718,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id9}
 									onValueChange = {(value)=>setCategoryNg9(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test9}
@@ -9015,20 +8782,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id10}
 									onValueChange = {(value)=>setCategoryNg10(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test10}
@@ -9081,20 +8846,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id11}
 									onValueChange = {(value)=>setCategoryNg11(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test11}
@@ -9147,20 +8910,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id12}
 									onValueChange = {(value)=>setCategoryNg12(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test12}
@@ -9213,20 +8974,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id13}
 									onValueChange = {(value)=>setCategoryNg13(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test13}
@@ -9279,20 +9038,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id14}
 									onValueChange = {(value)=>setCategoryNg14(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test14}
@@ -9345,20 +9102,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id15}
 									onValueChange = {(value)=>setCategoryNg15(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test15}
@@ -9427,20 +9182,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id16}
 									onValueChange = {(value)=>setCategoryNg16(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test16}
@@ -9494,20 +9247,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id1}
 									onValueChange = {(value)=>setCategoryNg1(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test1}
@@ -9560,20 +9311,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id2}
 									onValueChange = {(value)=>setCategoryNg2(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test2}
@@ -9626,20 +9375,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id3}
 									onValueChange = {(value)=>setCategoryNg3(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test3}
@@ -9692,20 +9439,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id4}
 									onValueChange = {(value)=>setCategoryNg4(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test4}
@@ -9758,20 +9503,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id5}
 									onValueChange = {(value)=>setCategoryNg5(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test5}
@@ -9824,20 +9567,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id6}
 									onValueChange = {(value)=>setCategoryNg6(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test6}
@@ -9890,20 +9631,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id7}
 									onValueChange = {(value)=>setCategoryNg7(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test7}
@@ -9956,20 +9695,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id8}
 									onValueChange = {(value)=>setCategoryNg8(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test8}
@@ -10022,20 +9759,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id9}
 									onValueChange = {(value)=>setCategoryNg9(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test9}
@@ -10088,20 +9823,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id10}
 									onValueChange = {(value)=>setCategoryNg10(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test10}
@@ -10154,20 +9887,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id11}
 									onValueChange = {(value)=>setCategoryNg11(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test11}
@@ -10220,20 +9951,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id12}
 									onValueChange = {(value)=>setCategoryNg12(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test12}
@@ -10286,20 +10015,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id13}
 									onValueChange = {(value)=>setCategoryNg13(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test13}
@@ -10352,20 +10079,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id14}
 									onValueChange = {(value)=>setCategoryNg14(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test14}
@@ -10418,20 +10143,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id15}
 									onValueChange = {(value)=>setCategoryNg15(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test15}
@@ -10500,20 +10223,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id16}
 									onValueChange = {(value)=>setCategoryNg16(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test16}
@@ -10566,20 +10287,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id17}
 									onValueChange = {(value)=>setCategoryNg17(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test17}
@@ -10634,20 +10353,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id1}
 									onValueChange = {(value)=>setCategoryNg1(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test1}
@@ -10700,20 +10417,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id2}
 									onValueChange = {(value)=>setCategoryNg2(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test2}
@@ -10766,20 +10481,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id3}
 									onValueChange = {(value)=>setCategoryNg3(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test3}
@@ -10832,20 +10545,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id4}
 									onValueChange = {(value)=>setCategoryNg4(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test4}
@@ -10898,20 +10609,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id5}
 									onValueChange = {(value)=>setCategoryNg5(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test5}
@@ -10964,20 +10673,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id6}
 									onValueChange = {(value)=>setCategoryNg6(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test6}
@@ -11030,20 +10737,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id7}
 									onValueChange = {(value)=>setCategoryNg7(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test7}
@@ -11096,20 +10801,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id8}
 									onValueChange = {(value)=>setCategoryNg8(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test8}
@@ -11162,20 +10865,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id9}
 									onValueChange = {(value)=>setCategoryNg9(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test9}
@@ -11228,20 +10929,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id10}
 									onValueChange = {(value)=>setCategoryNg10(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test10}
@@ -11294,20 +10993,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id11}
 									onValueChange = {(value)=>setCategoryNg11(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test11}
@@ -11360,20 +11057,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id12}
 									onValueChange = {(value)=>setCategoryNg12(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test12}
@@ -11426,20 +11121,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id13}
 									onValueChange = {(value)=>setCategoryNg13(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test13}
@@ -11492,20 +11185,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id14}
 									onValueChange = {(value)=>setCategoryNg14(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test14}
@@ -11558,20 +11249,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id15}
 									onValueChange = {(value)=>setCategoryNg15(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test15}
@@ -11640,20 +11329,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id16}
 									onValueChange = {(value)=>setCategoryNg16(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test16}
@@ -11706,20 +11393,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id17}
 									onValueChange = {(value)=>setCategoryNg17(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test17}
@@ -11772,20 +11457,18 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {qc_ng_category_id18}
 									onValueChange = {(value)=>setCategoryNg18(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{dataNGs}
 									</Picker>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {fitting_test18}
@@ -11908,7 +11591,9 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								</View>
 								<View style={{padding: 4, width: "50%"}}>
 									<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-										<TextInput onChangeText={(value) => setTooling(value)} style={{borderWidth: 0.5, borderRadius: 25, paddingLeft: 5, height: 40}} placeholder="Type Here..." />
+										<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+											<Text>{tooling_num}</Text>
+										</View>
 									</View>
 								</View>
 							</View>
@@ -11923,7 +11608,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								<View style={{padding: 4, width: "50%"}}>
 									<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
 										<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-											<Text>{data.cavity != null ? data.cavity : "-"}</Text>
+											<Text>{cavityShow != null ? cavityShow : "-"}</Text>
 										</View>
 									</View>
 								</View>
@@ -11969,8 +11654,8 @@ const LastShootLeaderQc = ({route, navigation}) => {
 											onValueChange={(value) => setMtrNeed(value)}
 											>
 												<Picker.Item label="Pilih" value="" />
-												<Picker.Item label="OK" value="OK" />
-												<Picker.Item label="NG" value="NG" />
+												<Picker.Item label="Perlu" value="Perlu" />
+												<Picker.Item label="Tidak" value="Tidak" />
 											</Picker>
 										</View>
 									</View>
@@ -11979,7 +11664,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 
 							<ScrollView horizontal>
 								<TouchableOpacity>
-									<View style={{flexDirection: 'row', justifyContent: 'center', height: 50, paddingTop: 10}}>
+									<View style={{flexDirection: 'row', height: 50, paddingTop: 10}}>
 										<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9}}>
 											<Text style={{fontWeight: 'bold'}}>Cavity</Text>
 											<View style={{justifyContent: 'center', width: 100}}>
@@ -11991,26 +11676,26 @@ const LastShootLeaderQc = ({route, navigation}) => {
 											</View>
 										</View>
 										<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9}}>
-											<Text style={{fontWeight: 'bold'}}>NG Category</Text>
-											<View style={{justifyContent: 'center', width: 100}}>
-											</View>
-										</View>
-										<View style={{paddingHorizontal: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9}}>
-											<Text style={{fontWeight: 'bold'}}>Fitting Test</Text>
-											<View style={{justifyContent: 'center', width: 100}}>
-											</View>
-										</View>
-										<View style={{paddingHorizontal: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9}}>
-											<Text style={{fontWeight: 'bold'}}>Products Weight</Text>
-											<View style={{justifyContent: 'center', width: 100}}>
+											<Text style={{fontWeight: 'bold'}}>Kategori NG</Text>
+											<View style={{justifyContent: 'center', width: 165.5}}>
 											</View>
 										</View>
 										<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9}}>
+											<Text style={{fontWeight: 'bold'}}>Fitting Test</Text>
+											<View style={{justifyContent: 'center', width: 165.5}}>
+											</View>
+										</View>
+										<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9}}>
+											<Text style={{fontWeight: 'bold'}}>Product's Weight</Text>
+											<View style={{justifyContent: 'center', width: 100}}>
+											</View>
+										</View>
+										<View style={{paddingLeft: 5, alignItems: 'center', borderRightWidth: 0.5, borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 150}}>
 											<Text style={{fontWeight: 'bold'}}>Keterangan</Text>
 											<View style={{justifyContent: 'center', width: 100}}>
 											</View>
 										</View>
-										</View>
+									</View>
 									{table1}
 									{table2}
 									{table3}

@@ -11,7 +11,6 @@ import MassproBeginTechInjection from './Qc/Form/MassproBeginTechInjection';
 import MassproBeginProdLeader from './Qc/Form/MassproBeginProdLeader';
 import MassproBeginQCLeader from './Qc/Form/MassproBeginQCLeader';
 import MassproBeginForeman from './Qc/Form/MassproBeginForeman';
-import FirstPieceForeman from './Qc/Form/FirstPieceForeman';
 import PerJam from './Qc/Form/PerJam';
 import Per4Jam from './Qc/Form/Per4Jam';
 import PerShift from './Qc/Form/PerShift';
@@ -35,7 +34,6 @@ export {
     MassproBeginProdLeader,
     MassproBeginQCLeader,
     MassproBeginForeman,
-    FirstPieceForeman,
     PerJam,
     Per4Jam,
     PerShift,

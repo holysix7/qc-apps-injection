@@ -11,11 +11,11 @@ const MassproBeginMaterialPreparation = ({route, navigation}) => {
 		formOke()
 	}, [])
 
-	const {product_name, sys_plant_id, machine_id, customer_name, internal_part_id, customer_part_number, model, machine_name, today, yesterday} = route.params
-	const [material_standard, setMaterial] 					= useState("")
-	const [conditionMaterial, setConditionMaterial] = useState("")
+	const {product_name, sys_plant_id, machine_id, customer_name, machine_name, today, yesterday} = route.params
+	const [material_standard, setConditionMaterial] = useState("")
 	const [cleaning_hopper, setHopper] 							= useState("")
 	const [hopper_temp, setConditionHopper] 				= useState("")
+	const [temp_hopper_val, setTempHopper] 					= useState("")
 	const [dataProduct1, setDataProduct1] 					= useState("")
 	const [created_by, setCreatedBy]								= useState("")
 	const [updated_by, setUpdatedBy]								= useState("")
@@ -31,12 +31,18 @@ const MassproBeginMaterialPreparation = ({route, navigation}) => {
 	const [shift, setShift]		  										= useState(0)
 	const date = []
 	const status = "new"
-	
+	const [tooling_num, setTooling]	= useState("")
+	const [dataMaterial, setMaterialData] = useState("")
+	const [temp_hopper, setTemperaturHopper] = useState("")
+	// const intHopper = parseInt(temp_hopper)
+	// console.log(intHopper)
 	const submit = async() => {
 		const data = {
 			eng_product_id,
 			prod_machine_id,
 			sys_plant_id,
+			tooling_num,
+			temp_hopper_val,
 			cleaning_hopper,
 			material_standard,
 			qc_masspro_main_mold_id,
@@ -107,12 +113,15 @@ const MassproBeginMaterialPreparation = ({route, navigation}) => {
 		}
 		Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
 		.then(response => {
-			setDataProduct1(response.data.data.product_1_detail)
+			setDataProduct1(response.data.data.product_detail)
 			setMaintMoldId(response.data.data.qc_masspro_main_mold_id)
-			console.log("Machines List Data: ", response.data.status, "OK")
+			setTooling(response.data.data.tooling_num)
+			setMaterialData(response.data.data.material_detail)
+			setTemperaturHopper(response.data.data.temp_hopper_val)
+			console.log("List Data Material Preparation: ", response.data.status, "OK")
 		})
 		.catch(error => {
-			console.log('err: ', error)
+			console.log('List Data Material Preparation: ', error)
 		})
 	}
 
@@ -189,7 +198,7 @@ const MassproBeginMaterialPreparation = ({route, navigation}) => {
 											<Picker.Item label="Shift 3 - 8" value="7" />
 										</Picker>
 									</View>
-									<Text style={{fontWeight: 'bold', fontSize: 11}}>{product_name}</Text>
+									<Text style={{fontWeight: 'bold', fontSize: 11}}>{dataProduct1.name != null ? dataProduct1.name : "-"}</Text>
 								</View>
 							</View>
 						</View>
@@ -235,13 +244,15 @@ const MassproBeginMaterialPreparation = ({route, navigation}) => {
 									<Text>:</Text>
 								</View>
 								<View style={{padding: 4, width: "29%"}}>
-									<TextInput value={material_standard} onChangeText={(value) => setMaterial(value)} style={{borderWidth: 0.5, borderRadius: 25, paddingLeft: 5, height: 40}} placeholder="Type Here..." />
+									<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+										<Text style={{fontSize: 9.5}}>{dataMaterial.name}</Text>
+									</View>
 								</View>
 								<View style={{padding: 4, width: "25%"}}>
 									<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center'}}>
 										<Picker 
 										mode="dropdown"
-										selectedValue={conditionMaterial}
+										selectedValue={material_standard}
 										onValueChange={(value) => setConditionMaterial(value)}
 										>
 											<Picker.Item label="Pilih" value="" />
@@ -259,7 +270,7 @@ const MassproBeginMaterialPreparation = ({route, navigation}) => {
 									<Text>:</Text>
 								</View>
 								<View style={{padding: 4, width: "29%"}}>
-									<TextInput keyboardType='numeric' style={{borderWidth: 0.5, borderRadius: 25, paddingLeft: 5, height: 40}} placeholder="Type Here..." />
+									<TextInput onChangeText={(value) => setTempHopper(value)} keyboardType='numeric' style={{borderWidth: 0.5, borderRadius: 25, paddingLeft: 5, height: 40}} placeholder="Type Here..." />
 								</View>
 								<View style={{padding: 4, width: "25%"}}>
 									<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center'}}>

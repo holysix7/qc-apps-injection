@@ -14,7 +14,7 @@ const RevisiFirstPieceForeman = ({route, navigation}) => {
 	}, [])
 
 	const [judgement, setDecision] 					= useState("")
-	const [tooling, setTooling] 						= useState("")
+	const [tooling_num, setTooling] 						= useState("")
 	const [action_foreman, setActionForeman] = useState("")
 	const [hours, setHours]		  						= useState(0)
 	const [shift, setShift]		  						= useState(0)
@@ -67,10 +67,11 @@ const RevisiFirstPieceForeman = ({route, navigation}) => {
 			.then(response => {
 				setEngProd(response.data.data.eng_product_id)
 				setData(response.data.data.daily_inspection)
-				console.log("Machines List Data: ", response.data.status, "OK")
+				setTooling(response.data.data.daily_inspection.tooling_num)
+				console.log("List Data Revisi First Piece Foreman: ", response.data.status, "OK")
 			})
 			.catch(error => {
-				console.log('err: ', error)
+				console.log('List Data Revisi First Piece Foreman: ', error)
 			})
 		}else if(parseInt(jam) >= 16 && parseInt(jam) <= 23){
 			const nilaiJam = parseInt(jam)
@@ -89,10 +90,11 @@ const RevisiFirstPieceForeman = ({route, navigation}) => {
 			.then(response => {
 				setEngProd(response.data.data.eng_product_id)
 				setData(response.data.data.daily_inspection)
-				console.log("Machines List Data: ", response.data.status, "OK")
+				setTooling(response.data.data.daily_inspection.tooling_num)
+				console.log("List Data Revisi First Piece Foreman: ", response.data.status, "OK")
 			})
 			.catch(error => {
-				console.log('err: ', error)
+				console.log('List Data Revisi First Piece Foreman: ', error)
 			})
 		}else{
 			const nilaiJam = parseInt(jam)
@@ -111,29 +113,17 @@ const RevisiFirstPieceForeman = ({route, navigation}) => {
 			.then(response => {
 				setEngProd(response.data.data.eng_product_id)
 				setData(response.data.data.daily_inspection)
-				console.log("Machines List Data: ", response.data.status, "OK")
+				setTooling(response.data.data.daily_inspection.tooling_num)
+				console.log("List Data Revisi First Piece Foreman: ", response.data.status, "OK")
 			})
 			.catch(error => {
-				console.log('err: ', error)
+				console.log('List Data Revisi First Piece Foreman: ', error)
 			})
 		}
 	}
 
 	const shiftFix = async(value) => {
 		setHours(value)
-		const token = await AsyncStorage.getItem("key")
-		const headers = {
-			'Authorization': token
-		}
-		const params = {
-			tbl: 'daily_inspection',
-			kind: 'get_shift',
-			sys_plant_id: sys_plant_id,
-			machine_id: machine_id,
-			hrd_work_shift_id: 2,
-			hours: value,
-			qc_daily_inspection_id: qc_daily_inspection_id
-		}
 	}
     
 	const submit = async() => {
@@ -143,6 +133,7 @@ const RevisiFirstPieceForeman = ({route, navigation}) => {
 			sys_plant_id,
 			qc_daily_inspection_id,
 			action_foreman,
+			tooling_num,
 			judgement,
 			created_by,
 			created_at,
@@ -177,11 +168,10 @@ const RevisiFirstPieceForeman = ({route, navigation}) => {
 	}
 
 	const hString = hours.toString()
-
 	return(
-        <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={{flex: 1}} >
-            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                <Container>
+		<KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={{flex: 1}} >
+			<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+				<Container>
 					<View style={{flex: 1, height: 100, backgroundColor: '#F5F5DC', borderWidth: 0.3, flexDirection: 'column'}}>
 						<View style={{justifyContent: 'center', alignItems: 'center', backgroundColor: '#F5F5DC'}}>
 							<Image source={LogoSIP}/>
@@ -238,111 +228,108 @@ const RevisiFirstPieceForeman = ({route, navigation}) => {
 
 						<View style={{borderWidth: 0.5, flexDirection: 'row'}}>
 							<View style={{justifyContent: 'center', paddingLeft: 5, height: 25, width: "36%", backgroundColor: '#F5F5DC'}}>
-								<Text style={{fontSize: 12}}>{internal_part_id}</Text>
+								<Text style={{fontSize: 12}}>{data.internal_part_id != null ? data.internal_part_id : "-"}</Text>
 							</View>
 							<View style={{justifyContent: 'center', alignItems: 'center', height: 25, width: "30%", backgroundColor: '#F5F5DC'}}>
-								<Text style={{fontSize: 12}}>{customer_part_number}</Text>
+								<Text style={{fontSize: 12}}>{data.customer_part_number != null ? data.customer_part_number : "-"}</Text>
 							</View>
 							<View style={{flex: 1, justifyContent: 'center', alignItems: 'center', height: 25, backgroundColor: '#F5F5DC'}}>
-								<Text style={{fontSize: 12}}>{model}</Text>
+								<Text style={{fontSize: 12}}>{data.model != null ? data.model : "-"}</Text>
 							</View>
 						</View>
 
-                        <ScrollView style={{flex: 1}}>
-                            <View style={{paddingTop: 20, flexDirection: 'row'}}>
-                                    <View style={{padding: 10, width: "44%"}}>
-                                        <Text>Machines Status</Text>
-                                    </View>
-                                    <View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-                                        <Text style={{color: 'black'}}>:</Text>
-                                    </View>
-                                    <View style={{padding: 4, width: "50%"}}>
-                                        <View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-                                            <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-                                                <Text>{data.daily_inspection != null ? data.daily_inspection.machine_status : "-"}</Text>
-                                            </View>
-                                        </View>
-                                    </View>
-                                </View>
-
-                            <View style={{paddingTop: 20, flexDirection: 'row'}}>
-                                <View style={{padding: 10, width: "44%"}}>
-                                    <Text>Tooling</Text>
-                                </View>
-                                <View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-                                    <Text style={{color: 'black'}}>:</Text>
-                                </View>
-                                <View style={{padding: 4, width: "50%"}}>
-                                    <View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-                                        <TextInput onChangeText={(value) => setTooling(value)} style={{borderWidth: 0.5, borderRadius: 25, paddingLeft: 5, height: 40}} placeholder="Type Here..." />
-                                    </View>
-                                </View>
-                            </View>
-                            
-                            <View style={{paddingTop: 20, flexDirection: 'row'}}>
-                                <View style={{padding: 10, width: "44%"}}>
-                                    <Text>Cavity Amount</Text>
-                                </View>
-                                <View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-                                    <Text style={{color: 'black'}}>:</Text>
-                                </View>
-                                <View style={{padding: 4, width: "50%"}}>
-                                    <View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-                                        <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-                                            <Text>{data.daily_inspection != null ? data.daily_inspection.cavity : "-"}</Text>
-                                        </View>
-                                    </View>
-                                </View>
-                            </View>
-
-                            <View style={{paddingTop: 20, flexDirection: 'row'}}>
-                                <View style={{padding: 10, width: "44%"}}>
-                                    <Text>Action Foreman</Text>
-                                </View>
-                                <View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-                                    <Text style={{color: 'black'}}>:</Text>
-                                </View>
-                                <View style={{padding: 4, width: "50%"}}>
-                                    <View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-                                        <TextInput onChangeText={(value) => setActionForeman(value)} style={{borderWidth: 0.5, borderRadius: 25, paddingLeft: 5, height: 40}} placeholder="Type Here..." />
-                                    </View>
-                                </View>
-                            </View>
-
-                            <View style={{paddingTop: 20, flexDirection: 'row'}}>
-                                <View style={{padding: 10, width: "44%"}}>
-                                    <Text>Decision</Text>
-                                </View>
-                                <View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-                                    <Text style={{color: 'black'}}>:</Text>
-                                </View>
-                                <View style={{padding: 4, width: "50%"}}>
-                                    <View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-                                        <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-                                            <Picker 
-                                            mode="dropdown"
-                                            selectedValue={judgement}
-                                            onValueChange={(value) => setDecision(value)}
-                                            >
-                                                <Picker.Item label="Pilih" value="" />
-                                                <Picker.Item label="OK" value="OK" />
-                                                <Picker.Item label="NG" value="NG" />
-                                            </Picker>
-                                        </View>
-                                    </View>
-                                </View>
-                            </View>
-
-                            <View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
-                                <View>
-                                    <Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>
-                                </View>
-                            </View>
-                        </ScrollView>
-                    </View>
-                </Container>
-            </TouchableWithoutFeedback>
-        </KeyboardAvoidingView>
+						<ScrollView style={{flex: 1}}>
+							<View style={{paddingTop: 20, flexDirection: 'row'}}>
+								<View style={{padding: 10, width: "44%"}}>
+									<Text>Machines Status</Text>
+								</View>
+								<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+									<Text style={{color: 'black'}}>:</Text>
+								</View>
+								<View style={{padding: 4, width: "50%"}}>
+									<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+										<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+											<Text>{data != null ? data.machine_status : "-"}</Text>
+										</View>
+									</View>
+								</View>
+							</View>
+							<View style={{paddingTop: 20, flexDirection: 'row'}}>
+								<View style={{padding: 10, width: "44%"}}>
+									<Text>Tooling</Text>
+								</View>
+								<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+									<Text style={{color: 'black'}}>:</Text>
+								</View>
+								<View style={{padding: 4, width: "50%"}}>
+									<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+										<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+											<Text>{tooling_num}</Text>
+										</View>
+									</View>
+								</View>
+							</View>
+							<View style={{paddingTop: 20, flexDirection: 'row'}}>
+								<View style={{padding: 10, width: "44%"}}>
+									<Text>Cavity Amount</Text>
+								</View>
+								<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+									<Text style={{color: 'black'}}>:</Text>
+								</View>
+								<View style={{padding: 4, width: "50%"}}>
+									<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+										<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+											<Text>{data != null ? data.cavity : "-"}</Text>
+										</View>
+									</View>
+								</View>
+							</View>
+							<View style={{paddingTop: 20, flexDirection: 'row'}}>
+								<View style={{padding: 10, width: "44%"}}>
+									<Text>Action Foreman</Text>
+								</View>
+								<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+									<Text style={{color: 'black'}}>:</Text>
+								</View>
+								<View style={{padding: 4, width: "50%"}}>
+									<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+										<TextInput onChangeText={(value) => setActionForeman(value)} style={{borderWidth: 0.5, borderRadius: 25, paddingLeft: 5, height: 40}} placeholder="Type Here..." />
+									</View>
+								</View>
+							</View>
+							<View style={{paddingTop: 20, flexDirection: 'row'}}>
+								<View style={{padding: 10, width: "44%"}}>
+									<Text>Decision</Text>
+								</View>
+								<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+									<Text style={{color: 'black'}}>:</Text>
+								</View>
+								<View style={{padding: 4, width: "50%"}}>
+									<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+										<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+											<Picker 
+											mode="dropdown"
+											selectedValue={judgement}
+											onValueChange={(value) => setDecision(value)}
+											>
+												<Picker.Item label="Pilih" value="" />
+												<Picker.Item label="OK" value="OK" />
+												<Picker.Item label="NG" value="NG" />
+											</Picker>
+										</View>
+									</View>
+								</View>
+							</View>
+							<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
+								<View>
+									<Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>
+								</View>
+							</View>
+						</ScrollView>
+					</View>
+				</Container>
+			</TouchableWithoutFeedback>
+		</KeyboardAvoidingView>
 	)
 }
 

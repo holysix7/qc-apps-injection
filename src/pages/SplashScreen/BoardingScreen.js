@@ -18,10 +18,10 @@ const BoardingScreen = ({navigation}) => {
 			</View>
 			<View style={{justifyContent: 'center', alignItems: 'center'}}>
 				<Text style={styles.title}>
-					Lorem Ipsum
+					Quality Control
 				</Text>
 				<Text style={styles.paragraph}>
-					dolor sit amet, consectetur adipiscing elit.Aliquam a viverra sem.Vestibulum suscipit ornare tellus, eget posuere justo pulvinar non.Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+					Aplikasi QC ini bertujuan untuk memaksimalkan kualitas dan meminimalisirkan kesalahan. Dengan dilakukannya integrasi antara mesin dengan <Text style={styles.bodyParagraph}>planning</Text> maka kesalahan dapat diminimalisirkan. Oleh karena itu, jangan sampai lupa melakukan <Text style={styles.bodyParagraph}>Check Product</Text> dengan <Text style={styles.bodyParagraph}>Compare Sample</Text>, Ya!
 				</Text>
 			</View>
 			<View>
@@ -41,6 +41,10 @@ const styles = StyleSheet.create({
 		textDecorationColor: "yellow",
 		textAlign: 'justify',
 		margin: 30
+	},
+	bodyParagraph: {
+		fontStyle: 'italic',
+		fontWeight: 'bold'
 	},
 	title: {
 		color: "black",

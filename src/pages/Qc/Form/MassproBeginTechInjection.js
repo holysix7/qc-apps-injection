@@ -33,12 +33,13 @@ const MassproBeginTechInjection = ({route, navigation}) => {
 	const date = []
 	const prod_machine_id = machine_id
 	const status = "new"
-
+	const [tooling_num, setTooling]	= useState("")
 	const submit = async() => {
 		const data = {
 			eng_product_id,
 			prod_machine_id,
 			sys_plant_id,
+			tooling_num,
 			qc_masspro_main_mold_id,
 			qc_masspro_material_preparation_id,
 			qc_masspro_mold_setter_id,
@@ -118,10 +119,11 @@ const MassproBeginTechInjection = ({route, navigation}) => {
 			setMoldSetterId(response.data.data.qc_masspro_mold_setter_id)
 			setEngProd(response.data.data.eng_product_id)
 			setData1(response.data.data.product_detail)
-			console.log("Machines List Data: ", response.data.status, "OK")
+			setTooling(response.data.data.tooling_num)
+			console.log("List Data Tech. Injection: ", response.data.status, "OK")
 		})
 		.catch(error => {
-			console.log('err: ', error)
+			console.log('List Data Tech. Injection: ', error)
 		})
 	}
 
@@ -197,7 +199,7 @@ const MassproBeginTechInjection = ({route, navigation}) => {
 											<Picker.Item label="Shift 3 - 8" value="7" />
 										</Picker>
 									</View>
-									<Text style={{fontWeight: 'bold', fontSize: 11}}>{product_name}</Text>
+									<Text style={{fontWeight: 'bold', fontSize: 11}}>{data1.name != null ? data1.name : "-"}</Text>
 								</View>
 							</View>
 						</View>

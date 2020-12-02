@@ -31,15 +31,18 @@ const MassproBeginProdLeader = ({route, navigation}) => {
 	const date = []
 	const prod_machine_id = machine_id
 	const status 					= "new"
+	const [tooling_num, setTooling]	= useState("")
 	const [created_by, setCreatedBy]																		 = useState("")
 	let created_at 																											 = moment().format("YYYY-MM-DD HH:mm:ss")
 	const [updated_by, setUpdatedBy]																		 = useState("")
 	let updated_at 																											 = moment().format("YYYY-MM-DD HH:mm:ss")
+	
 	const submit = async() => {
 		const data = {
 			eng_product_id,
 			prod_machine_id,
 			sys_plant_id,
+			tooling_num,
 			qc_masspro_main_mold_id,
 			qc_masspro_material_preparation_id,
 			qc_masspro_mold_setter_id,
@@ -84,7 +87,7 @@ const MassproBeginProdLeader = ({route, navigation}) => {
 	const formOke = async() => {
 		const token = await AsyncStorage.getItem("key")
 		const headers = {
-				'Authorization': token
+			'Authorization': token
 		}
 		const name = await AsyncStorage.getItem('name')
 		setCreatedBy(name)
@@ -119,10 +122,11 @@ const MassproBeginProdLeader = ({route, navigation}) => {
 			setTechInjectionId(response.data.data.qc_masspro_tech_injection_id)
 			setEngProd(response.data.data.eng_product_id)
 			setData1(response.data.data.product_detail)
-			console.log("Machines List Data: ", response.data.status, "OK")
+			setTooling(response.data.data.tooling_num)
+			console.log("List Data Prod. Leader: ", response.data.status, "OK")
 		})
 		.catch(error => {
-			console.log('err: ', error)
+			console.log('List Data Prod. Leader: ', error)
 		})
 		
 	}
@@ -199,7 +203,7 @@ const MassproBeginProdLeader = ({route, navigation}) => {
 											<Picker.Item label="Shift 3 - 8" value="7" />
 										</Picker>
 									</View>
-									<Text style={{fontWeight: 'bold', fontSize: 11}}>{product_name}</Text>
+									<Text style={{fontWeight: 'bold', fontSize: 11}}>{data1.name != null ? data1.name : "-"}</Text>
 								</View>
 							</View>
 						</View>

@@ -37,7 +37,7 @@ const Per4Jam = ({route, navigation}) => {
     }, [])
 
 	const [cavityCheck, setCavityCheck] 			= useState("")
-	const [tooling, setTooling] 							= useState("")
+	const [tooling_num, setTooling] 								= useState("")
 	const [statusCavity, setStatusCavity] 		= useState("")
 	const [fittingTes, setFittingTes] 				= useState("")
 	const [inspectionTime, setInspectionTime] = useState("")
@@ -162,14 +162,15 @@ const Per4Jam = ({route, navigation}) => {
 			}
 			Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
 			.then(response => {
-					setData(response.data.data)
-					setInternalPartId(response.data.data.daily_inspection.internal_part_id)
-					setCustomerPartNumber(response.data.data.daily_inspection.customer_part_number)
-					setModel(response.data.data.daily_inspection.model)
-					console.log("List Data: ", response.data.status, "OK")
+				setData(response.data.data)
+				setInternalPartId(response.data.data.daily_inspection.internal_part_id)
+				setCustomerPartNumber(response.data.data.daily_inspection.customer_part_number)
+				setModel(response.data.data.daily_inspection.model)
+				setTooling(response.data.data.daily_inspection.tooling_num)
+				console.log("List Data Per 4 Jam: ", response.data.status, "OK")
 			})
 			.catch(error => {
-					console.log('err: ', error)
+					console.log('List Data Per 4 Jam: ', error)
 			})
 		}else if(parseInt(jam) >= 16 && parseInt(jam) <= 23){
 			const nilaiJam = parseInt(jam)
@@ -187,14 +188,15 @@ const Per4Jam = ({route, navigation}) => {
 			}
 			Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
 			.then(response => {
-					setData(response.data.data)
-					setInternalPartId(response.data.data.daily_inspection.internal_part_id)
-					setCustomerPartNumber(response.data.data.daily_inspection.customer_part_number)
-					setModel(response.data.data.daily_inspection.model)
-					console.log("List Data: ", response.data.status, "OK")
+				setData(response.data.data)
+				setInternalPartId(response.data.data.daily_inspection.internal_part_id)
+				setCustomerPartNumber(response.data.data.daily_inspection.customer_part_number)
+				setModel(response.data.data.daily_inspection.model)
+				setTooling(response.data.data.daily_inspection.tooling_num)
+				console.log("List Data Per 4 Jam: ", response.data.status, "OK")
 			})
 			.catch(error => {
-					console.log('err: ', error)
+					console.log('List Data Per 4 Jam: ', error)
 			})
 		}else{
 			const nilaiJam = parseInt(jam)
@@ -212,19 +214,20 @@ const Per4Jam = ({route, navigation}) => {
 			}
 			Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
 			.then(response => {
-					setData(response.data.data)
-					setInternalPartId(response.data.data.daily_inspection.internal_part_id)
-					setCustomerPartNumber(response.data.data.daily_inspection.customer_part_number)
-					setModel(response.data.data.daily_inspection.model)
-					console.log("List Data: ", response.data.status, "OK")
+				setData(response.data.data)
+				setInternalPartId(response.data.data.daily_inspection.internal_part_id)
+				setCustomerPartNumber(response.data.data.daily_inspection.customer_part_number)
+				setModel(response.data.data.daily_inspection.model)
+				setTooling(response.data.data.daily_inspection.tooling_num)
+				console.log("List Data Per 4 Jam: ", response.data.status, "OK")
 			})
 			.catch(error => {
-					console.log('err: ', error)
+				console.log('List Data Per 4 Jam: ', error)
 			})
 		}
 	}
 
-const item = JSON.stringify({
+	const item = JSON.stringify({
 		"item":{
 			"cav_1": {
 				"cavity": statusCavity1,
@@ -344,7 +347,7 @@ const item = JSON.stringify({
 			qc_daily_inspection_item_id,
 			qc_daily_inspection_method_id,
 			hours,
-			tooling,
+			tooling_num,
 			statusCavity,
 			compare,
 			fittingTes,
@@ -386,9 +389,10 @@ const item = JSON.stringify({
 	const checkData = data.daily_inspection
 	const hString = hours.toString()
 	
-	if(checkData != null)
-	{
-		const checkingCavity = checkData.cavity
+	// if(checkData != null)
+	// {
+		// const checkingCavity = checkData.cavity
+		const checkingCavity = 2
 		var table1 = []
 		var table2 = []
 		var table3 = []
@@ -8700,7 +8704,7 @@ const item = JSON.stringify({
 		}else if(checkingCavity == null){
 			// console.log("Tidak ada Cavity")
 		}
-	}
+	// }
 
 	return(
 		<KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={{flex: 1}} >
@@ -8762,13 +8766,13 @@ const item = JSON.stringify({
 
 						<View style={{borderWidth: 0.5, flexDirection: 'row'}}>
 							<View style={{justifyContent: 'center', paddingLeft: 5, height: 25, width: "36%", backgroundColor: '#F5F5DC'}}>
-								<Text style={{fontSize: 12}}>{internal_part_id}</Text>
+								<Text style={{fontSize: 12}}>{data.daily_inspection != null ? data.daily_inspection.internal_part_id : "-"}</Text>
 							</View>
 							<View style={{justifyContent: 'center', alignItems: 'center', height: 25, width: "30%", backgroundColor: '#F5F5DC'}}>
-								<Text style={{fontSize: 12}}>{customer_part_number}</Text>
+								<Text style={{fontSize: 12}}>{data.daily_inspection != null ? data.daily_inspection.customer_part_number : "-"}</Text>
 							</View>
 							<View style={{flex: 1, justifyContent: 'center', alignItems: 'center', height: 25, backgroundColor: '#F5F5DC'}}>
-								<Text style={{fontSize: 12}}>{model}</Text>
+								<Text style={{fontSize: 12}}>{data.daily_inspection != null ? data.daily_inspection.model : "-"}</Text>
 							</View>
 						</View>
 
@@ -8798,7 +8802,9 @@ const item = JSON.stringify({
 								</View>
 								<View style={{padding: 4, width: "50%"}}>
 									<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-										<TextInput onChangeText={(value) => setTooling(value)} style={{borderWidth: 0.5, borderRadius: 25, paddingLeft: 5, height: 40}} placeholder="Type Here..." />
+										<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+											<Text>{tooling_num}</Text>
+										</View>
 									</View>
 								</View>
 							</View>
@@ -8813,7 +8819,8 @@ const item = JSON.stringify({
 								<View style={{padding: 4, width: "50%"}}>
 									<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
 										<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-											<Text>{data.daily_inspection != null ? data.daily_inspection.cavity : "-"}</Text>
+											<Text>2</Text>
+											{/* <Text>{data.daily_inspection != null ? data.daily_inspection.cavity : "-"}</Text> */}
 										</View>
 									</View>
 								</View>

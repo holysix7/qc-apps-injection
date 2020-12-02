@@ -14,7 +14,6 @@ import {
 	MassproBeginProdLeader,
 	MassproBeginQCLeader,
 	MassproBeginForeman,
-	FirstPieceForeman,
 	PerJam,
 	Per4Jam,
 	PerShift,
@@ -52,7 +51,6 @@ const Router = () => {
 			<Stack.Screen name="MassproBeginProdLeader" component={MassproBeginProdLeader} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
 			<Stack.Screen name="MassproBeginQCLeader" component={MassproBeginQCLeader} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
 			<Stack.Screen name="MassproBeginForeman" component={MassproBeginForeman} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
-			<Stack.Screen name="FirstPieceForeman" component={FirstPieceForeman} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
 			<Stack.Screen name="PerJam" component={PerJam} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
 			<Stack.Screen name="Per4Jam" component={Per4Jam} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
 			<Stack.Screen name="PerShift" component={PerShift} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />

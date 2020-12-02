@@ -24,6 +24,7 @@ const Login = ({navigation}) => {
 			DeviceStorage(res.data.data.token)
 			Session(res.data.data)
 			alert("Login Success!")
+			console.log("Login Success!")
 			navigation.replace('Qc')
 		})
 		.catch(function (error){

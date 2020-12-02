@@ -111,9 +111,10 @@ const PerShift = ({route, navigation}) => {
 	const [internal_part_id, setInternalPartId] = useState("")
 	const [customer_part_number, setCustomerPartNumber] = useState("")
 	const [model, setModel] = useState("")
+	const [data1, setData1] = useState("")
 
 	const [cavityCheck, setCavityCheck] 			= useState(0)
-	const [tooling, setTooling] 							= useState("")
+	const [tooling_num, setTooling] 								= useState("")
 	const [statusCavity, setStatusCavity] 		= useState("")
 	const [ProductsWeight, setProductsWeight] = useState([])
 	const [WeightStandard, setWeightStandard] = useState([])
@@ -141,7 +142,7 @@ const PerShift = ({route, navigation}) => {
 	const formOke = async() => {
 		const token = await AsyncStorage.getItem("key")
 		const headers = {
-				'Authorization': token
+			'Authorization': token
 		}
 		
 		let jam = moment().format("HH:mm:ss")
@@ -166,10 +167,12 @@ const PerShift = ({route, navigation}) => {
 				setInternalPartId(response.data.data.daily_inspection.internal_part_id)
 				setCustomerPartNumber(response.data.data.daily_inspection.customer_part_number)
 				setModel(response.data.data.daily_inspection.model)
-				console.log("List Data: ", response.data.status, "OK")
+				setData1(response.data.data.daily_inspection)
+				setTooling(response.data.data.daily_inspection.tooling_num)
+				console.log("List Data Per Shift: ", response.data.status, "OK")
 			})
 			.catch(error => {
-				console.log('err: ', error)
+				console.log('List Data Per Shift: ', error)
 			})
 		}else if(parseInt(jam) >= 16 && parseInt(jam) <= 23){
 			const nilaiJam = parseInt(jam)
@@ -187,14 +190,16 @@ const PerShift = ({route, navigation}) => {
 			}
 			Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
 			.then(response => {
-					setData(response.data.data)
-					setInternalPartId(response.data.data.daily_inspection.internal_part_id)
-					setCustomerPartNumber(response.data.data.daily_inspection.customer_part_number)
-					setModel(response.data.data.daily_inspection.model)
-					console.log("List Data: ", response.data.status, "OK")
+				setData(response.data.data)
+				setInternalPartId(response.data.data.daily_inspection.internal_part_id)
+				setCustomerPartNumber(response.data.data.daily_inspection.customer_part_number)
+				setModel(response.data.data.daily_inspection.model)
+				setData1(response.data.data.daily_inspection)
+				setTooling(response.data.data.daily_inspection.tooling_num)
+				console.log("List Data Per Shift: ", response.data.status, "OK")
 			})
 			.catch(error => {
-					console.log('err: ', error)
+					console.log('List Data Per Shift: ', error)
 			})
 		}else{
 			const nilaiJam = parseInt(jam)
@@ -212,15 +217,17 @@ const PerShift = ({route, navigation}) => {
 			}
 			Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
 			.then(response => {
-					setData(response.data.data)
-					setInternalPartId(response.data.data.daily_inspection.internal_part_id)
-					setCustomerPartNumber(response.data.data.daily_inspection.customer_part_number)
-					setModel(response.data.data.daily_inspection.model)
-					setCheckCavity(response.data.data.daily_inspection.cavity)
-					console.log("List Data: ", response.data.status, "OK")
+				setData(response.data.data)
+				setInternalPartId(response.data.data.daily_inspection.internal_part_id)
+				setCustomerPartNumber(response.data.data.daily_inspection.customer_part_number)
+				setModel(response.data.data.daily_inspection.model)
+				setData1(response.data.data.daily_inspection)
+				setCheckCavity(response.data.data.daily_inspection.cavity)
+				setTooling(response.data.data.daily_inspection.tooling_num)
+				console.log("List Data Per Shift: ", response.data.status, "OK")
 			})
 			.catch(error => {
-					console.log('err: ', error)
+				console.log('List Data Per Shift: ', error)
 			})
 		}
 	}
@@ -244,175 +251,175 @@ const PerShift = ({route, navigation}) => {
 		.then(response => {
 			setData(response.data.data)
 			setCavityCheck(response.data.data.daily_inspection.cavity)
-			console.log("List Data: ", response.data.status, "OK")
+			setTooling(response.data.data.daily_inspection.tooling_num)
+			console.log("List Data Per Shift Berdasarkan Shift: ", response.data.status, "OK")
 		})
 		.catch(error => {
-			console.log('err: ', error)
+			console.log('List Data Per Shift: ', error)
 		})
 	}
 	
 	const hString = hours.toString()
 
-		const item = JSON.stringify({
-		"item":{
-			"cav_1": {
-				"cavity": statusCavity1,
-				"weight_standard": weight_standard1,
-				"product_weight": product_weight1,
-				"note": note1
-			},
-			"cav_2": {
-				"cavity": statusCavity2,
-				"weight_standard": weight_standard2,
-				"product_weight": product_weight2,
-				"note": note2
-			},
-			"cav_3": {
-				"cavity": statusCavity3,
-				"weight_standard": weight_standard3,
-				"product_weight": product_weight3,
-				"note": note3
-			},
-			"cav_4": {
-				"cavity": statusCavity4,
-				"weight_standard": weight_standard4,
-				"product_weight": product_weight4,
-				"note": note4
-			},
-			"cav_5": {
-				"cavity": statusCavity5,
-				"weight_standard": weight_standard5,
-				"product_weight": product_weight5,
-				"note": note5
-			},
-			"cav_6": {
-				"cavity": statusCavity6,
-				"weight_standard": weight_standard6,
-				"product_weight": product_weight6,
-				"note": note6
-			},
-			"cav_7": {
-				"cavity": statusCavity7,
-				"weight_standard": weight_standard7,
-				"product_weight": product_weight7,
-				"note": note7
-			},
-			"cav_8": {
-				"cavity": statusCavity8,
-				"weight_standard": weight_standard8,
-				"product_weight": product_weight8,
-				"note": note8
-			},
-			"cav_9": {
-				"cavity": statusCavity9,
-				"weight_standard": weight_standard9,
-				"product_weight": product_weight9,
-				"note": note9
-			},
-			"cav_10": {
-				"cavity": statusCavity10,
-				"weight_standard": weight_standard10,
-				"product_weight": product_weight10,
-				"note": note10
-			},
-			"cav_11": {
-				"cavity": statusCavity11,
-				"weight_standard": weight_standard11,
-				"product_weight": product_weight11,
-				"note": note11
-			},
-			"cav_12": {
-				"cavity": statusCavity12,
-				"weight_standard": weight_standard12,
-				"product_weight": product_weight12,
-				"note": note12
-			},
-			"cav_13": {
-				"cavity": statusCavity13,
-				"weight_standard": weight_standard13,
-				"product_weight": product_weight13,
-				"note": note13
-			},
-			"cav_14": {
-				"cavity": statusCavity14,
-				"weight_standard": weight_standard14,
-				"product_weight": product_weight14,
-				"note": note14
-			},
-			"cav_15": {
-				"cavity": statusCavity15,
-				"weight_standard": weight_standard15,
-				"product_weight": product_weight15,
-				"note": note15
-			},
-			"cav_16": {
-				"cavity": statusCavity16,
-				"weight_standard": weight_standard16,
-				"product_weight": product_weight16,
-				"note": note16
-			},
-			"cav_17": {
-				"cavity": statusCavity17,
-				"weight_standard": weight_standard17,
-				"product_weight": product_weight17,
-				"note": note17
-			},
-			"cav_18": {
-				"cavity": statusCavity18,
-				"weight_standard": weight_standard18,
-				"product_weight": product_weight18,
-				"note": note18
-			},
+	const item = JSON.stringify({
+	"item":{
+		"cav_1": {
+			"cavity": statusCavity1,
+			"weight_standard": weight_standard1,
+			"product_weight": product_weight1,
+			"note": note1
+		},
+		"cav_2": {
+			"cavity": statusCavity2,
+			"weight_standard": weight_standard2,
+			"product_weight": product_weight2,
+			"note": note2
+		},
+		"cav_3": {
+			"cavity": statusCavity3,
+			"weight_standard": weight_standard3,
+			"product_weight": product_weight3,
+			"note": note3
+		},
+		"cav_4": {
+			"cavity": statusCavity4,
+			"weight_standard": weight_standard4,
+			"product_weight": product_weight4,
+			"note": note4
+		},
+		"cav_5": {
+			"cavity": statusCavity5,
+			"weight_standard": weight_standard5,
+			"product_weight": product_weight5,
+			"note": note5
+		},
+		"cav_6": {
+			"cavity": statusCavity6,
+			"weight_standard": weight_standard6,
+			"product_weight": product_weight6,
+			"note": note6
+		},
+		"cav_7": {
+			"cavity": statusCavity7,
+			"weight_standard": weight_standard7,
+			"product_weight": product_weight7,
+			"note": note7
+		},
+		"cav_8": {
+			"cavity": statusCavity8,
+			"weight_standard": weight_standard8,
+			"product_weight": product_weight8,
+			"note": note8
+		},
+		"cav_9": {
+			"cavity": statusCavity9,
+			"weight_standard": weight_standard9,
+			"product_weight": product_weight9,
+			"note": note9
+		},
+		"cav_10": {
+			"cavity": statusCavity10,
+			"weight_standard": weight_standard10,
+			"product_weight": product_weight10,
+			"note": note10
+		},
+		"cav_11": {
+			"cavity": statusCavity11,
+			"weight_standard": weight_standard11,
+			"product_weight": product_weight11,
+			"note": note11
+		},
+		"cav_12": {
+			"cavity": statusCavity12,
+			"weight_standard": weight_standard12,
+			"product_weight": product_weight12,
+			"note": note12
+		},
+		"cav_13": {
+			"cavity": statusCavity13,
+			"weight_standard": weight_standard13,
+			"product_weight": product_weight13,
+			"note": note13
+		},
+		"cav_14": {
+			"cavity": statusCavity14,
+			"weight_standard": weight_standard14,
+			"product_weight": product_weight14,
+			"note": note14
+		},
+		"cav_15": {
+			"cavity": statusCavity15,
+			"weight_standard": weight_standard15,
+			"product_weight": product_weight15,
+			"note": note15
+		},
+		"cav_16": {
+			"cavity": statusCavity16,
+			"weight_standard": weight_standard16,
+			"product_weight": product_weight16,
+			"note": note16
+		},
+		"cav_17": {
+			"cavity": statusCavity17,
+			"weight_standard": weight_standard17,
+			"product_weight": product_weight17,
+			"note": note17
+		},
+		"cav_18": {
+			"cavity": statusCavity18,
+			"weight_standard": weight_standard18,
+			"product_weight": product_weight18,
+			"note": note18
+		},
+	}
+})
+
+	const submit = async() => {
+		const el = {
+			qc_daily_inspection_id,
+			qc_daily_inspection_item_id,
+			qc_daily_inspection_method_id,
+			hours,
+			tooling_num,
+			statusCavity,
+			ProductsWeight,
+			WeightStandard,
+			keterangan,
+			inspectionTime,
+			item
 		}
-	})
+		const token = await AsyncStorage.getItem("key")
+		const params = {
+			tbl: 'daily_inspection',
+			kind: 'update_shift',
+			update_hour: sys_plant_id
+		}
+		var config = {
+				method: 'put',
+			url: 'http://139.255.26.194:3003/api/v1/qcs/update?',
+			params: params,
+			headers: { 
+				'Authorization': token, 
+				'Content-Type': 'application/json', 
+				'Cookie': '_denapi_session=ubcfq3AHCuVeTlxtg%2F1nyEa3Ktylg8nY1lIEPD7pgS3YAWwlKOxwA0S9pw7JhvZ2mNkrYl0j62wAWJWJZd7AbfolGuHCwXgEMeJH6EoLiQ%3D%3D--M%2BjBb0uJeHmOf%2B3o--%2F2Fjw57x0Fyr90Ec9FVibQ%3D%3D'
+			},
+		data : el
+		};
+		Axios(config)
+		.then(function (response){
+			navigation.navigate('ListForm')
+			alert("Success Send Data!")
+			console.log("Res: ", response.status, " Ok")
+		})
+		.catch(function (error){
+			console.log(error)
+		})
+	}
 
-    const submit = async() => {
-			const el = {
-				qc_daily_inspection_id,
-				qc_daily_inspection_item_id,
-				qc_daily_inspection_method_id,
-				hours,
-				tooling,
-				statusCavity,
-				ProductsWeight,
-				WeightStandard,
-				keterangan,
-				inspectionTime,
-				item
-			}
-			const token = await AsyncStorage.getItem("key")
-			const params = {
-				tbl: 'daily_inspection',
-				kind: 'update_shift',
-				update_hour: sys_plant_id
-			}
-			var config = {
-					method: 'put',
-				url: 'http://139.255.26.194:3003/api/v1/qcs/update?',
-				params: params,
-				headers: { 
-						'Authorization': token, 
-						'Content-Type': 'application/json', 
-						'Cookie': '_denapi_session=ubcfq3AHCuVeTlxtg%2F1nyEa3Ktylg8nY1lIEPD7pgS3YAWwlKOxwA0S9pw7JhvZ2mNkrYl0j62wAWJWJZd7AbfolGuHCwXgEMeJH6EoLiQ%3D%3D--M%2BjBb0uJeHmOf%2B3o--%2F2Fjw57x0Fyr90Ec9FVibQ%3D%3D'
-				},
-			data : el
-			};
-			Axios(config)
-			.then(function (response){
-				navigation.navigate('ListForm')
-				alert("Success Send Data!")
-				console.log("Res: ", response.status, " Ok")
-			})
-			.catch(function (error){
-				console.log(error)
-			})
-    }
-
-	const checkData = data.daily_inspection
-	// console.log(checkCavityIF)
-  if(checkCavityIF != null)
-	{
-		const checkingCavity = checkData.cavity
+	const checkData = data1.cavity
+	// if(checkData != null){
+		// const checkingCavity = checkData
+		const checkingCavity = 2
 		var table1 = []
 		var table2 = []
 		var table3 = []
@@ -510,7 +517,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard1}
@@ -558,7 +565,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard2}
@@ -607,7 +614,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard1}
@@ -655,7 +662,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard2}
@@ -703,7 +710,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard3}
@@ -752,7 +759,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard1}
@@ -800,7 +807,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard2}
@@ -848,7 +855,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard3}
@@ -896,7 +903,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard4}
@@ -945,7 +952,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard1}
@@ -993,7 +1000,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard2}
@@ -1041,7 +1048,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard3}
@@ -1089,7 +1096,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard4}
@@ -1137,7 +1144,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard5}
@@ -1186,7 +1193,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard1}
@@ -1234,7 +1241,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard2}
@@ -1282,7 +1289,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard3}
@@ -1330,7 +1337,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard4}
@@ -1378,7 +1385,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard5}
@@ -1426,7 +1433,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard6}
@@ -1475,7 +1482,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard1}
@@ -1523,7 +1530,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard2}
@@ -1571,7 +1578,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard3}
@@ -1619,7 +1626,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard4}
@@ -1667,7 +1674,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard5}
@@ -1715,7 +1722,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard6}
@@ -1763,7 +1770,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard7}
@@ -1812,7 +1819,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard1}
@@ -1860,7 +1867,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard2}
@@ -1908,7 +1915,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard3}
@@ -1956,7 +1963,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard4}
@@ -2004,7 +2011,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard5}
@@ -2052,7 +2059,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard6}
@@ -2100,7 +2107,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard7}
@@ -2148,7 +2155,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard8}
@@ -2197,7 +2204,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard1}
@@ -2245,7 +2252,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard2}
@@ -2293,7 +2300,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard3}
@@ -2341,7 +2348,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard4}
@@ -2389,7 +2396,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard5}
@@ -2437,7 +2444,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard6}
@@ -2485,7 +2492,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard7}
@@ -2533,7 +2540,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard8}
@@ -2581,7 +2588,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard9}
@@ -2630,7 +2637,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard1}
@@ -2678,7 +2685,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard2}
@@ -2726,7 +2733,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard3}
@@ -2774,7 +2781,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard4}
@@ -2822,7 +2829,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard5}
@@ -2870,7 +2877,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard6}
@@ -2918,7 +2925,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard7}
@@ -2966,7 +2973,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard8}
@@ -3014,7 +3021,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard9}
@@ -3062,7 +3069,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard10}
@@ -3111,7 +3118,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard1}
@@ -3159,7 +3166,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard2}
@@ -3207,7 +3214,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard3}
@@ -3255,7 +3262,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard4}
@@ -3303,7 +3310,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard5}
@@ -3351,7 +3358,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard6}
@@ -3399,7 +3406,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard7}
@@ -3447,7 +3454,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard8}
@@ -3495,7 +3502,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard9}
@@ -3543,7 +3550,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard10}
@@ -3591,7 +3598,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard11}
@@ -3640,7 +3647,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard1}
@@ -3688,7 +3695,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard2}
@@ -3736,7 +3743,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard3}
@@ -3784,7 +3791,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard4}
@@ -3832,7 +3839,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard5}
@@ -3880,7 +3887,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard6}
@@ -3928,7 +3935,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard7}
@@ -3976,7 +3983,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard8}
@@ -4024,7 +4031,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard9}
@@ -4072,7 +4079,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard10}
@@ -4120,7 +4127,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard11}
@@ -4168,7 +4175,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard12}
@@ -4217,7 +4224,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard1}
@@ -4265,7 +4272,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard2}
@@ -4313,7 +4320,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard3}
@@ -4361,7 +4368,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard4}
@@ -4409,7 +4416,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard5}
@@ -4457,7 +4464,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard6}
@@ -4505,7 +4512,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard7}
@@ -4553,7 +4560,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard8}
@@ -4601,7 +4608,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard9}
@@ -4649,7 +4656,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard10}
@@ -4697,7 +4704,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard11}
@@ -4745,7 +4752,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard12}
@@ -4793,7 +4800,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard13}
@@ -4842,7 +4849,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard1}
@@ -4890,7 +4897,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard2}
@@ -4938,7 +4945,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard3}
@@ -4986,7 +4993,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard4}
@@ -5034,7 +5041,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard5}
@@ -5082,7 +5089,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard6}
@@ -5130,7 +5137,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard7}
@@ -5178,7 +5185,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard8}
@@ -5226,7 +5233,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard9}
@@ -5274,7 +5281,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard10}
@@ -5322,7 +5329,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard11}
@@ -5370,7 +5377,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard12}
@@ -5418,7 +5425,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard13}
@@ -5466,7 +5473,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard14}
@@ -5515,7 +5522,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard1}
@@ -5563,7 +5570,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard2}
@@ -5611,7 +5618,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard3}
@@ -5659,7 +5666,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard4}
@@ -5707,7 +5714,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard5}
@@ -5755,7 +5762,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard6}
@@ -5803,7 +5810,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard7}
@@ -5851,7 +5858,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard8}
@@ -5899,7 +5906,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard9}
@@ -5947,7 +5954,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard10}
@@ -5995,7 +6002,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard11}
@@ -6043,7 +6050,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard12}
@@ -6091,7 +6098,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard13}
@@ -6139,7 +6146,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard14}
@@ -6187,7 +6194,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard15}
@@ -6236,7 +6243,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard1}
@@ -6284,7 +6291,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard2}
@@ -6332,7 +6339,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard3}
@@ -6380,7 +6387,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard4}
@@ -6428,7 +6435,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard5}
@@ -6476,7 +6483,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard6}
@@ -6524,7 +6531,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard7}
@@ -6572,7 +6579,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard8}
@@ -6620,7 +6627,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard9}
@@ -6668,7 +6675,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard10}
@@ -6716,7 +6723,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard11}
@@ -6764,7 +6771,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard12}
@@ -6812,7 +6819,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard13}
@@ -6860,7 +6867,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard14}
@@ -6908,7 +6915,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard15}
@@ -6977,7 +6984,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard16}
@@ -7026,7 +7033,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard1}
@@ -7074,7 +7081,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard2}
@@ -7122,7 +7129,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard3}
@@ -7170,7 +7177,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard4}
@@ -7218,7 +7225,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard5}
@@ -7266,7 +7273,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard6}
@@ -7314,7 +7321,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard7}
@@ -7362,7 +7369,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard8}
@@ -7410,7 +7417,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard9}
@@ -7458,7 +7465,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard10}
@@ -7506,7 +7513,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard11}
@@ -7554,7 +7561,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard12}
@@ -7602,7 +7609,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard13}
@@ -7650,7 +7657,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard14}
@@ -7698,7 +7705,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard15}
@@ -7767,7 +7774,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard16}
@@ -7815,7 +7822,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard17}
@@ -7865,7 +7872,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard1}
@@ -7913,7 +7920,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard2}
@@ -7961,7 +7968,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard3}
@@ -8009,7 +8016,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard4}
@@ -8057,7 +8064,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard5}
@@ -8105,7 +8112,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard6}
@@ -8153,7 +8160,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard7}
@@ -8201,7 +8208,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard8}
@@ -8249,7 +8256,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard9}
@@ -8297,7 +8304,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard10}
@@ -8345,7 +8352,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard11}
@@ -8393,7 +8400,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard12}
@@ -8441,7 +8448,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard13}
@@ -8489,7 +8496,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard14}
@@ -8537,7 +8544,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard15}
@@ -8606,7 +8613,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard16}
@@ -8654,7 +8661,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard17}
@@ -8702,7 +8709,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {weight_standard18}
@@ -8724,8 +8731,7 @@ const PerShift = ({route, navigation}) => {
 		}else if(checkingCavity == null){
 			// console.log("Tidak ada Cavity")
 		}
-	}
-
+	// }
 	// console.log(table1)
 
 	return(
@@ -8824,7 +8830,9 @@ const PerShift = ({route, navigation}) => {
 								</View>
 								<View style={{padding: 4, width: "50%"}}>
 									<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-										<TextInput onChangeText={(value) => setTooling(value)} style={{borderWidth: 0.5, borderRadius: 25, paddingLeft: 5, height: 40}} placeholder="Type Here..." />
+										<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+											<Text>{tooling_num}</Text>
+										</View>
 									</View>
 								</View>
 							</View>
@@ -8839,7 +8847,8 @@ const PerShift = ({route, navigation}) => {
 								<View style={{padding: 4, width: "50%"}}>
 									<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
 										<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-											<Text>{data.daily_inspection != null ? data.daily_inspection.cavity : "-"}</Text>
+											<Text>2</Text>
+											{/* <Text>{data.daily_inspection != null ? data.daily_inspection.cavity : "-"}</Text> */}
 										</View>
 									</View>
 								</View>

@@ -12,7 +12,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 	useEffect(() => {
 		formOke()
 	}, [])
-	const {product_name, customer_name, sys_plant_id, machine_id, machine_name, machine_status, today, yesterday} = route.params
+	const {product_name, customer_name, sys_plant_id, machine_id, machine_name, today, yesterday} = route.params
 	const [machine_engine_status, setItem] 															 = useState("")
 	const [compare_sample, setCopySample] 															 = useState("")
 	const [check_sheet, setSheetQc] 																		 = useState("")
@@ -131,9 +131,9 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 	const [note17, setKeterangan17] 																	 	 = useState("")
 	const [note18, setKeterangan18] 																	 	 = useState("")
 	
-	const [tooling, setTooling] 																				 = useState("")
 	const [remark, setRemark] 																					 = useState("")
 	const [data1, setData1]  																					   = useState("")
+	const [ngCategories, setNGCategories]  															 = useState([])
 	const [eng_product_id, setEngProd] 						 											 = useState(0)
 	const [qc_masspro_main_mold_id, setMaintMoldId] 										 = useState(0)
 	const [qc_masspro_material_preparation_id, setMaterialPreparationId] = useState(0)
@@ -149,7 +149,26 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 	const date = []
 	const prod_machine_id = machine_id
 	const status 					= "new"
+	const [tooling_num, setTooling]	= useState("")
 	const cavity	= data1.cavity
+
+	if(ngCategories.length > 0)
+	{
+		if(compare_sample == "NG" || check_sheet == "NG")
+		{
+			var dataNGs = []
+			ngCategories.map((element, key) => {
+				dataNGs.push(
+					<Picker.Item label={element.name} value={element.id} key={key} />
+				)
+			})
+		}else{
+			var dataNGs = []
+			dataNGs.push(
+				<Picker.Item label="Tidak NG" value="" key="swQwdAcxz12" />
+			)
+		}
+	}
 
 	const item = JSON.stringify({
 		"item":{
@@ -299,12 +318,14 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 			},
 		}
 	})
+	const machine_status = "start-mp"
 
 	const submit = async() => {
 		const data = {
 			eng_product_id,
 			prod_machine_id,
 			sys_plant_id,
+			tooling_num,
 			qc_masspro_main_mold_id,
 			qc_masspro_material_preparation_id,
 			qc_masspro_mold_setter_id,
@@ -313,7 +334,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 			qc_masspro_tech_injection_id,
 			machine_status,
 			machine_engine_status,
-			tooling,
+			tooling_num,
 			cavity,
 			compare_sample,
 			check_sheet,
@@ -354,7 +375,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 	const formOke = async() => {
 		const token = await AsyncStorage.getItem("key")
 		const headers = {
-				'Authorization': token
+			'Authorization': token
 		}
 		const name = await AsyncStorage.getItem('name')
 		setCreatedBy(name)
@@ -390,10 +411,12 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 			setProdLeaderId(response.data.data.qc_masspro_prod_leader_id)
 			setEngProd(response.data.data.eng_product_id)
 			setData1(response.data.data.product_detail)
-			console.log("Machines List Data: ", response.data.status, "OK")
+			setNGCategories(response.data.data.ng_category)
+			setTooling(response.data.data.tooling_num)
+			console.log("List Data QC Leader: ", response.data.status, "OK")
 		})
 		.catch(error => {
-			console.log('err: ', error)
+			console.log('List Data QC Leader: ', error)
 		})
 	}
 
@@ -473,9 +496,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 								selectedValue= {qc_ng_category_id1}
 								onValueChange = {(value)=>setCategoryNg1(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
@@ -534,20 +555,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id1}
 								onValueChange = {(value)=>setCategoryNg1(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test1}
@@ -600,20 +619,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id2}
 								onValueChange = {(value)=>setCategoryNg2(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test2}
@@ -667,20 +684,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id1}
 								onValueChange = {(value)=>setCategoryNg1(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test1}
@@ -733,20 +748,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id2}
 								onValueChange = {(value)=>setCategoryNg2(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test2}
@@ -799,20 +812,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id3}
 								onValueChange = {(value)=>setCategoryNg3(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test3}
@@ -866,20 +877,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id1}
 								onValueChange = {(value)=>setCategoryNg1(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test1}
@@ -932,20 +941,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id2}
 								onValueChange = {(value)=>setCategoryNg2(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test2}
@@ -998,20 +1005,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id3}
 								onValueChange = {(value)=>setCategoryNg3(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test3}
@@ -1064,20 +1069,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id4}
 								onValueChange = {(value)=>setCategoryNg4(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test4}
@@ -1131,20 +1134,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id1}
 								onValueChange = {(value)=>setCategoryNg1(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test1}
@@ -1197,20 +1198,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id2}
 								onValueChange = {(value)=>setCategoryNg2(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test2}
@@ -1263,20 +1262,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id3}
 								onValueChange = {(value)=>setCategoryNg3(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test3}
@@ -1329,20 +1326,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id4}
 								onValueChange = {(value)=>setCategoryNg4(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test4}
@@ -1395,20 +1390,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id5}
 								onValueChange = {(value)=>setCategoryNg5(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test5}
@@ -1462,20 +1455,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id1}
 								onValueChange = {(value)=>setCategoryNg1(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test1}
@@ -1528,20 +1519,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id2}
 								onValueChange = {(value)=>setCategoryNg2(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test2}
@@ -1594,20 +1583,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id3}
 								onValueChange = {(value)=>setCategoryNg3(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test3}
@@ -1660,20 +1647,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id4}
 								onValueChange = {(value)=>setCategoryNg4(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test4}
@@ -1726,20 +1711,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id5}
 								onValueChange = {(value)=>setCategoryNg5(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test5}
@@ -1792,20 +1775,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id6}
 								onValueChange = {(value)=>setCategoryNg6(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test6}
@@ -1859,20 +1840,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id1}
 								onValueChange = {(value)=>setCategoryNg1(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test1}
@@ -1925,20 +1904,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id2}
 								onValueChange = {(value)=>setCategoryNg2(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test2}
@@ -1991,20 +1968,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id3}
 								onValueChange = {(value)=>setCategoryNg3(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test3}
@@ -2057,20 +2032,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id4}
 								onValueChange = {(value)=>setCategoryNg4(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test4}
@@ -2123,20 +2096,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id5}
 								onValueChange = {(value)=>setCategoryNg5(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test5}
@@ -2189,20 +2160,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id6}
 								onValueChange = {(value)=>setCategoryNg6(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test6}
@@ -2255,20 +2224,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id7}
 								onValueChange = {(value)=>setCategoryNg7(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test7}
@@ -2322,20 +2289,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id1}
 								onValueChange = {(value)=>setCategoryNg1(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test1}
@@ -2388,20 +2353,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id2}
 								onValueChange = {(value)=>setCategoryNg2(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test2}
@@ -2454,20 +2417,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id3}
 								onValueChange = {(value)=>setCategoryNg3(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test3}
@@ -2520,20 +2481,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id4}
 								onValueChange = {(value)=>setCategoryNg4(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test4}
@@ -2586,20 +2545,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id5}
 								onValueChange = {(value)=>setCategoryNg5(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test5}
@@ -2652,20 +2609,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id6}
 								onValueChange = {(value)=>setCategoryNg6(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test6}
@@ -2718,20 +2673,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id7}
 								onValueChange = {(value)=>setCategoryNg7(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test7}
@@ -2784,20 +2737,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id8}
 								onValueChange = {(value)=>setCategoryNg8(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test8}
@@ -2851,20 +2802,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id1}
 								onValueChange = {(value)=>setCategoryNg1(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test1}
@@ -2917,20 +2866,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id2}
 								onValueChange = {(value)=>setCategoryNg2(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test2}
@@ -2983,20 +2930,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id3}
 								onValueChange = {(value)=>setCategoryNg3(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test3}
@@ -3049,20 +2994,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id4}
 								onValueChange = {(value)=>setCategoryNg4(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test4}
@@ -3115,20 +3058,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id5}
 								onValueChange = {(value)=>setCategoryNg5(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test5}
@@ -3181,20 +3122,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id6}
 								onValueChange = {(value)=>setCategoryNg6(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test6}
@@ -3247,20 +3186,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id7}
 								onValueChange = {(value)=>setCategoryNg7(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test7}
@@ -3313,20 +3250,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id8}
 								onValueChange = {(value)=>setCategoryNg8(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test8}
@@ -3379,20 +3314,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id9}
 								onValueChange = {(value)=>setCategoryNg9(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test9}
@@ -3446,20 +3379,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id1}
 								onValueChange = {(value)=>setCategoryNg1(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test1}
@@ -3512,20 +3443,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id2}
 								onValueChange = {(value)=>setCategoryNg2(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test2}
@@ -3578,20 +3507,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id3}
 								onValueChange = {(value)=>setCategoryNg3(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test3}
@@ -3644,20 +3571,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id4}
 								onValueChange = {(value)=>setCategoryNg4(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test4}
@@ -3710,20 +3635,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id5}
 								onValueChange = {(value)=>setCategoryNg5(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test5}
@@ -3776,20 +3699,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id6}
 								onValueChange = {(value)=>setCategoryNg6(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test6}
@@ -3842,20 +3763,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id7}
 								onValueChange = {(value)=>setCategoryNg7(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test7}
@@ -3908,20 +3827,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id8}
 								onValueChange = {(value)=>setCategoryNg8(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test8}
@@ -3974,20 +3891,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id9}
 								onValueChange = {(value)=>setCategoryNg9(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test9}
@@ -4040,20 +3955,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id10}
 								onValueChange = {(value)=>setCategoryNg10(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test10}
@@ -4107,20 +4020,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id1}
 								onValueChange = {(value)=>setCategoryNg1(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test1}
@@ -4173,20 +4084,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id2}
 								onValueChange = {(value)=>setCategoryNg2(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test2}
@@ -4239,20 +4148,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id3}
 								onValueChange = {(value)=>setCategoryNg3(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test3}
@@ -4305,20 +4212,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id4}
 								onValueChange = {(value)=>setCategoryNg4(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test4}
@@ -4371,20 +4276,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id5}
 								onValueChange = {(value)=>setCategoryNg5(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test5}
@@ -4437,20 +4340,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id6}
 								onValueChange = {(value)=>setCategoryNg6(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test6}
@@ -4503,20 +4404,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id7}
 								onValueChange = {(value)=>setCategoryNg7(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test7}
@@ -4569,20 +4468,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id8}
 								onValueChange = {(value)=>setCategoryNg8(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test8}
@@ -4635,20 +4532,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id9}
 								onValueChange = {(value)=>setCategoryNg9(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test9}
@@ -4701,20 +4596,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id10}
 								onValueChange = {(value)=>setCategoryNg10(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test10}
@@ -4767,20 +4660,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id11}
 								onValueChange = {(value)=>setCategoryNg11(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test11}
@@ -4834,20 +4725,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id1}
 								onValueChange = {(value)=>setCategoryNg1(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test1}
@@ -4900,20 +4789,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id2}
 								onValueChange = {(value)=>setCategoryNg2(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test2}
@@ -4966,20 +4853,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id3}
 								onValueChange = {(value)=>setCategoryNg3(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test3}
@@ -5032,20 +4917,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id4}
 								onValueChange = {(value)=>setCategoryNg4(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test4}
@@ -5098,20 +4981,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id5}
 								onValueChange = {(value)=>setCategoryNg5(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test5}
@@ -5164,20 +5045,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id6}
 								onValueChange = {(value)=>setCategoryNg6(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test6}
@@ -5230,20 +5109,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id7}
 								onValueChange = {(value)=>setCategoryNg7(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test7}
@@ -5296,20 +5173,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id8}
 								onValueChange = {(value)=>setCategoryNg8(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test8}
@@ -5362,20 +5237,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id9}
 								onValueChange = {(value)=>setCategoryNg9(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test9}
@@ -5428,20 +5301,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id10}
 								onValueChange = {(value)=>setCategoryNg10(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test10}
@@ -5494,20 +5365,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id11}
 								onValueChange = {(value)=>setCategoryNg11(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test11}
@@ -5560,20 +5429,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id12}
 								onValueChange = {(value)=>setCategoryNg12(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test12}
@@ -5627,20 +5494,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id1}
 								onValueChange = {(value)=>setCategoryNg1(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test1}
@@ -5693,20 +5558,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id2}
 								onValueChange = {(value)=>setCategoryNg2(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test2}
@@ -5759,20 +5622,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id3}
 								onValueChange = {(value)=>setCategoryNg3(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test3}
@@ -5825,20 +5686,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id4}
 								onValueChange = {(value)=>setCategoryNg4(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test4}
@@ -5891,20 +5750,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id5}
 								onValueChange = {(value)=>setCategoryNg5(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test5}
@@ -5957,20 +5814,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id6}
 								onValueChange = {(value)=>setCategoryNg6(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test6}
@@ -6023,20 +5878,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id7}
 								onValueChange = {(value)=>setCategoryNg7(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test7}
@@ -6089,20 +5942,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id8}
 								onValueChange = {(value)=>setCategoryNg8(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test8}
@@ -6155,20 +6006,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id9}
 								onValueChange = {(value)=>setCategoryNg9(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test9}
@@ -6221,20 +6070,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id10}
 								onValueChange = {(value)=>setCategoryNg10(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test10}
@@ -6287,20 +6134,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id11}
 								onValueChange = {(value)=>setCategoryNg11(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test11}
@@ -6353,20 +6198,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id12}
 								onValueChange = {(value)=>setCategoryNg12(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test12}
@@ -6419,20 +6262,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id13}
 								onValueChange = {(value)=>setCategoryNg13(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test13}
@@ -6486,20 +6327,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id1}
 								onValueChange = {(value)=>setCategoryNg1(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test1}
@@ -6552,20 +6391,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id2}
 								onValueChange = {(value)=>setCategoryNg2(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test2}
@@ -6618,20 +6455,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id3}
 								onValueChange = {(value)=>setCategoryNg3(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test3}
@@ -6684,20 +6519,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id4}
 								onValueChange = {(value)=>setCategoryNg4(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test4}
@@ -6750,20 +6583,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id5}
 								onValueChange = {(value)=>setCategoryNg5(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test5}
@@ -6816,20 +6647,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id6}
 								onValueChange = {(value)=>setCategoryNg6(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test6}
@@ -6882,20 +6711,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id7}
 								onValueChange = {(value)=>setCategoryNg7(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test7}
@@ -6948,20 +6775,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id8}
 								onValueChange = {(value)=>setCategoryNg8(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test8}
@@ -7014,20 +6839,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id9}
 								onValueChange = {(value)=>setCategoryNg9(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test9}
@@ -7080,20 +6903,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id10}
 								onValueChange = {(value)=>setCategoryNg10(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test10}
@@ -7146,20 +6967,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id11}
 								onValueChange = {(value)=>setCategoryNg11(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test11}
@@ -7212,20 +7031,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id12}
 								onValueChange = {(value)=>setCategoryNg12(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test12}
@@ -7278,20 +7095,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id13}
 								onValueChange = {(value)=>setCategoryNg13(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test13}
@@ -7344,20 +7159,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id14}
 								onValueChange = {(value)=>setCategoryNg14(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test14}
@@ -7411,20 +7224,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id1}
 								onValueChange = {(value)=>setCategoryNg1(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test1}
@@ -7477,20 +7288,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id2}
 								onValueChange = {(value)=>setCategoryNg2(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test2}
@@ -7543,20 +7352,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id3}
 								onValueChange = {(value)=>setCategoryNg3(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test3}
@@ -7609,20 +7416,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id4}
 								onValueChange = {(value)=>setCategoryNg4(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test4}
@@ -7675,20 +7480,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id5}
 								onValueChange = {(value)=>setCategoryNg5(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test5}
@@ -7741,20 +7544,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id6}
 								onValueChange = {(value)=>setCategoryNg6(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test6}
@@ -7807,20 +7608,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id7}
 								onValueChange = {(value)=>setCategoryNg7(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test7}
@@ -7873,20 +7672,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id8}
 								onValueChange = {(value)=>setCategoryNg8(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test8}
@@ -7939,20 +7736,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id9}
 								onValueChange = {(value)=>setCategoryNg9(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test9}
@@ -8005,20 +7800,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id10}
 								onValueChange = {(value)=>setCategoryNg10(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test10}
@@ -8071,20 +7864,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id11}
 								onValueChange = {(value)=>setCategoryNg11(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test11}
@@ -8137,20 +7928,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id12}
 								onValueChange = {(value)=>setCategoryNg12(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test12}
@@ -8203,20 +7992,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id13}
 								onValueChange = {(value)=>setCategoryNg13(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test13}
@@ -8269,20 +8056,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id14}
 								onValueChange = {(value)=>setCategoryNg14(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test14}
@@ -8335,20 +8120,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id15}
 								onValueChange = {(value)=>setCategoryNg15(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test15}
@@ -8402,20 +8185,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id1}
 								onValueChange = {(value)=>setCategoryNg1(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test1}
@@ -8468,20 +8249,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id2}
 								onValueChange = {(value)=>setCategoryNg2(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test2}
@@ -8534,20 +8313,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id3}
 								onValueChange = {(value)=>setCategoryNg3(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test3}
@@ -8600,20 +8377,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id4}
 								onValueChange = {(value)=>setCategoryNg4(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test4}
@@ -8666,20 +8441,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id5}
 								onValueChange = {(value)=>setCategoryNg5(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test5}
@@ -8732,20 +8505,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id6}
 								onValueChange = {(value)=>setCategoryNg6(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test6}
@@ -8798,20 +8569,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id7}
 								onValueChange = {(value)=>setCategoryNg7(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test7}
@@ -8864,20 +8633,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id8}
 								onValueChange = {(value)=>setCategoryNg8(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test8}
@@ -8930,20 +8697,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id9}
 								onValueChange = {(value)=>setCategoryNg9(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test9}
@@ -8996,20 +8761,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id10}
 								onValueChange = {(value)=>setCategoryNg10(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test10}
@@ -9062,20 +8825,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id11}
 								onValueChange = {(value)=>setCategoryNg11(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test11}
@@ -9128,20 +8889,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id12}
 								onValueChange = {(value)=>setCategoryNg12(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test12}
@@ -9194,20 +8953,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id13}
 								onValueChange = {(value)=>setCategoryNg13(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test13}
@@ -9260,20 +9017,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id14}
 								onValueChange = {(value)=>setCategoryNg14(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test14}
@@ -9326,20 +9081,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id15}
 								onValueChange = {(value)=>setCategoryNg15(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test15}
@@ -9408,20 +9161,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id16}
 								onValueChange = {(value)=>setCategoryNg16(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test16}
@@ -9475,20 +9226,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id1}
 								onValueChange = {(value)=>setCategoryNg1(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test1}
@@ -9541,20 +9290,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id2}
 								onValueChange = {(value)=>setCategoryNg2(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test2}
@@ -9607,20 +9354,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id3}
 								onValueChange = {(value)=>setCategoryNg3(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test3}
@@ -9673,20 +9418,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id4}
 								onValueChange = {(value)=>setCategoryNg4(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test4}
@@ -9739,20 +9482,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id5}
 								onValueChange = {(value)=>setCategoryNg5(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test5}
@@ -9805,20 +9546,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id6}
 								onValueChange = {(value)=>setCategoryNg6(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test6}
@@ -9871,20 +9610,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id7}
 								onValueChange = {(value)=>setCategoryNg7(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test7}
@@ -9937,20 +9674,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id8}
 								onValueChange = {(value)=>setCategoryNg8(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test8}
@@ -10003,20 +9738,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id9}
 								onValueChange = {(value)=>setCategoryNg9(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test9}
@@ -10069,20 +9802,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id10}
 								onValueChange = {(value)=>setCategoryNg10(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test10}
@@ -10135,20 +9866,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id11}
 								onValueChange = {(value)=>setCategoryNg11(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test11}
@@ -10201,20 +9930,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id12}
 								onValueChange = {(value)=>setCategoryNg12(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test12}
@@ -10267,20 +9994,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id13}
 								onValueChange = {(value)=>setCategoryNg13(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test13}
@@ -10333,20 +10058,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id14}
 								onValueChange = {(value)=>setCategoryNg14(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test14}
@@ -10399,20 +10122,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id15}
 								onValueChange = {(value)=>setCategoryNg15(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test15}
@@ -10481,20 +10202,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id16}
 								onValueChange = {(value)=>setCategoryNg16(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test16}
@@ -10547,20 +10266,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id17}
 								onValueChange = {(value)=>setCategoryNg17(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test17}
@@ -10615,20 +10332,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id1}
 								onValueChange = {(value)=>setCategoryNg1(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test1}
@@ -10681,20 +10396,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id2}
 								onValueChange = {(value)=>setCategoryNg2(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test2}
@@ -10747,20 +10460,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id3}
 								onValueChange = {(value)=>setCategoryNg3(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test3}
@@ -10813,20 +10524,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id4}
 								onValueChange = {(value)=>setCategoryNg4(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test4}
@@ -10879,20 +10588,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id5}
 								onValueChange = {(value)=>setCategoryNg5(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test5}
@@ -10945,20 +10652,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id6}
 								onValueChange = {(value)=>setCategoryNg6(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test6}
@@ -11011,20 +10716,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id7}
 								onValueChange = {(value)=>setCategoryNg7(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test7}
@@ -11077,20 +10780,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id8}
 								onValueChange = {(value)=>setCategoryNg8(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test8}
@@ -11143,20 +10844,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id9}
 								onValueChange = {(value)=>setCategoryNg9(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test9}
@@ -11209,20 +10908,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id10}
 								onValueChange = {(value)=>setCategoryNg10(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test10}
@@ -11275,20 +10972,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id11}
 								onValueChange = {(value)=>setCategoryNg11(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test11}
@@ -11341,20 +11036,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id12}
 								onValueChange = {(value)=>setCategoryNg12(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test12}
@@ -11407,20 +11100,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id13}
 								onValueChange = {(value)=>setCategoryNg13(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test13}
@@ -11473,20 +11164,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id14}
 								onValueChange = {(value)=>setCategoryNg14(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test14}
@@ -11539,20 +11228,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id15}
 								onValueChange = {(value)=>setCategoryNg15(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test15}
@@ -11621,20 +11308,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id16}
 								onValueChange = {(value)=>setCategoryNg16(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test16}
@@ -11687,20 +11372,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id17}
 								onValueChange = {(value)=>setCategoryNg17(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test17}
@@ -11753,20 +11436,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {qc_ng_category_id18}
 								onValueChange = {(value)=>setCategoryNg18(value)}
 								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
+									{dataNGs}
 								</Picker>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
 								<Picker 
 								mode="dropdown"
 								selectedValue= {fitting_test18}
@@ -11847,7 +11528,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 											<Picker.Item label="Shift 3 - 8" value="7" />
 										</Picker>
 									</View>
-									<Text style={{fontWeight: 'bold', fontSize: 11}}>{product_name}</Text>
+									<Text style={{fontWeight: 'bold', fontSize: 11}}>{data1.name != null ? data1.name : "-"}</Text>
 								</View>
 							</View>
 						</View>
@@ -11875,7 +11556,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 								<View style={{flexDirection: 'row', width: "50%"}}>
 									<View style={{padding: 4, width: "100%"}}>
 										<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-											<Text>{machine_status}</Text>
+											<Text>Start MP</Text>
 										</View>
 										<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, marginTop: 5}}>
 											<Picker 
@@ -11901,7 +11582,9 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 								</View>
 								<View style={{padding: 4, width: "50%"}}>
 									<View style={{height: 40, justifyContent: 'center'}}>
-										<TextInput onChangeText={(value) => setTooling(value)} style={{borderWidth: 0.5, borderRadius: 25, paddingLeft: 5, height: 40}} placeholder="Type Here..." />
+										<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+											<Text>{tooling_num}</Text>
+										</View>
 									</View>
 								</View>
 							</View>
@@ -11979,12 +11662,12 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 										</View>
 										<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9}}>
 											<Text style={{fontWeight: 'bold'}}>Kategori NG</Text>
-											<View style={{justifyContent: 'center', width: 100}}>
+											<View style={{justifyContent: 'center', width: 165.5}}>
 											</View>
 										</View>
 										<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9}}>
 											<Text style={{fontWeight: 'bold'}}>Fitting Test</Text>
-											<View style={{justifyContent: 'center', width: 100}}>
+											<View style={{justifyContent: 'center', width: 165.5}}>
 											</View>
 										</View>
 										<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9}}>
