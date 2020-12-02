@@ -11,14 +11,14 @@ const MassproBeginTechInjection = ({route, navigation}) => {
 		formOke()
 	}, [])
 
-	const {product_name, customer_name, sys_plant_id, machine_id, internal_part_id, customer_part_number, model, machine_name, today, yesterday} = route.params
+	const {product_name, customer_name, sys_plant_id, machine_id, machine_name, today, yesterday} = route.params
 	const [data1, setData1] 																							= useState("")
 	const [cleaning_mold, setCleaning] 																		= useState("")
-	const [standard_parameter, setParam] 																							= useState("")
-	const [robot_setting, setRobot] 																							= useState("")
-	const [check_tooling, setChannel] 																					= useState("")
-	const [four_m_check, setSheet] 																							= useState("")
-	const [mold_temp_act, setActMold] 																					= useState("")
+	const [standard_parameter, setParam] 																	= useState("")
+	const [robot_setting, setRobot] 																			= useState("")
+	const [check_tooling, setChannel] 																		= useState("")
+	const [four_m_check, setSheet] 																				= useState("")
+	const [mold_temp_act, setActMold] 																		= useState("")
 	const [remark, setRemark] 																						= useState("")
 	const [created_by, setCreatedBy]																			= useState("")
 	let created_at 																												= moment().format("YYYY-MM-DD HH:mm:ss")
@@ -33,12 +33,13 @@ const MassproBeginTechInjection = ({route, navigation}) => {
 	const date = []
 	const prod_machine_id = machine_id
 	const status = "new"
-
+	const [tooling_num, setTooling]	= useState("")
 	const submit = async() => {
 		const data = {
 			eng_product_id,
 			prod_machine_id,
 			sys_plant_id,
+			tooling_num,
 			qc_masspro_main_mold_id,
 			qc_masspro_material_preparation_id,
 			qc_masspro_mold_setter_id,
@@ -116,11 +117,13 @@ const MassproBeginTechInjection = ({route, navigation}) => {
 			setMaintMoldId(response.data.data.qc_masspro_main_mold_id)
 			setMaterialPreparationId(response.data.data.qc_masspro_material_preparation_id)
 			setMoldSetterId(response.data.data.qc_masspro_mold_setter_id)
+			setEngProd(response.data.data.eng_product_id)
 			setData1(response.data.data.product_detail)
-			console.log("Machines List Data: ", response.data.status, "OK")
+			setTooling(response.data.data.tooling_num)
+			console.log("List Data Tech. Injection: ", response.data.status, "OK")
 		})
 		.catch(error => {
-			console.log('err: ', error)
+			console.log('List Data Tech. Injection: ', error)
 		})
 	}
 
@@ -196,20 +199,20 @@ const MassproBeginTechInjection = ({route, navigation}) => {
 											<Picker.Item label="Shift 3 - 8" value="7" />
 										</Picker>
 									</View>
-									<Text style={{fontWeight: 'bold', fontSize: 11}}>{product_name}</Text>
+									<Text style={{fontWeight: 'bold', fontSize: 11}}>{data1.name != null ? data1.name : "-"}</Text>
 								</View>
 							</View>
 						</View>
 
 						<View style={{borderWidth: 0.5, flexDirection: 'row'}}>
 							<View style={{justifyContent: 'center', paddingLeft: 5, height: 25, width: "36%", backgroundColor: '#F5F5DC'}}>
-								<Text style={{fontSize: 12}}>{data1.internal_part_id}</Text>
+								<Text style={{fontSize: 12}}>{data1.internal_part_id != null ? data1.internal_part_id : "-"}</Text>
 							</View>
 							<View style={{justifyContent: 'center', alignItems: 'center', height: 25, width: "30%", backgroundColor: '#F5F5DC'}}>
-								<Text style={{fontSize: 12}}>{data1.customer_part_number}</Text>
+								<Text style={{fontSize: 12}}>{data1.customer_part_number != null ? data1.customer_part_number : "-"}</Text>
 							</View>
 							<View style={{flex: 1, justifyContent: 'center', alignItems: 'center', height: 25, backgroundColor: '#F5F5DC'}}>
-								<Text style={{fontSize: 12}}>{data1.model}</Text>
+								<Text style={{fontSize: 12}}>{data1.model != null ? data1.model : "-"}</Text>
 							</View>
 						</View>
 

@@ -10,7 +10,7 @@ const MassproBeginMoldSetter = ({route, navigation}) => {
 	useEffect(() => {
 		formOke()
 	}, [])
-	const {product_name, customer_name, sys_plant_id, machine_id, internal_part_id, customer_part_number, model, machine_name, today, yesterday} = route.params
+	const {product_name, customer_name, sys_plant_id, machine_id, machine_name, today, yesterday} = route.params
 	const [clampping_bolt, setClamping] 																	= useState("")
 	const [cooling_system, setCooling] 																		= useState("")
 	const [limit_switch, setSlider] 																			= useState("")
@@ -30,12 +30,14 @@ const MassproBeginMoldSetter = ({route, navigation}) => {
 	let updated_at 																												= moment().format("YYYY-MM-DD HH:mm:ss")
 	const date = []
 	const status = "new"
+	const [tooling_num, setTooling]	= useState("")
 
 	const submit = async() => {
 		const data = {
 			eng_product_id,
 			qc_masspro_main_mold_id,
 			qc_masspro_material_preparation_id,
+			tooling_num,
 			clampping_bolt,
 			cooling_system,
 			limit_switch,
@@ -112,10 +114,11 @@ const MassproBeginMoldSetter = ({route, navigation}) => {
 			setMaterialPreparationId(response.data.data.qc_masspro_material_preparation_id)
 			setEngProd(response.data.data.eng_product_id)
 			setData1(response.data.data.product_detail)
-			console.log("Machines List Data: ", response.data.status, "OK")
+			setTooling(response.data.data.tooling_num)
+			console.log("List Data Mold Setter: ", response.data.status, "OK")
 		})
 		.catch(error => {
-			console.log('err: ', error)
+			console.log('List Data Mold Setter: ', error)
 		})
 		
 	}
@@ -193,20 +196,20 @@ const MassproBeginMoldSetter = ({route, navigation}) => {
 											<Picker.Item label="Shift 3 - 8" value="7" />
 										</Picker>
 									</View>
-									<Text style={{fontWeight: 'bold', fontSize: 11}}>{product_name}</Text>
+									<Text style={{fontWeight: 'bold', fontSize: 11}}>{data1.name != null ? data1.name : "-"}</Text>
 								</View>
 							</View>
 						</View>
 
 						<View style={{borderWidth: 0.5, flexDirection: 'row'}}>
 							<View style={{justifyContent: 'center', paddingLeft: 5, height: 25, width: "36%", backgroundColor: '#F5F5DC'}}>
-								<Text style={{fontSize: 12}}>{data1.internal_part_id}</Text>
+								<Text style={{fontSize: 12}}>{data1.internal_part_id != null ? data1.internal_part_id : "-"}</Text>
 							</View>
 							<View style={{justifyContent: 'center', alignItems: 'center', height: 25, width: "40%", backgroundColor: '#F5F5DC'}}>
-								<Text style={{fontSize: 12}}>{data1.customer_part_number}</Text>
+								<Text style={{fontSize: 12}}>{data1.customer_part_number != null ? data1.customer_part_number : "-"}</Text>
 							</View>
 							<View style={{flex: 1, justifyContent: 'center', alignItems: 'center', height: 25, backgroundColor: '#F5F5DC'}}>
-								<Text style={{fontSize: 12}}>{data1.model}</Text>
+								<Text style={{fontSize: 12}}>{data1.model != null ? data1.model : "-"}</Text>
 							</View>
 						</View>
 

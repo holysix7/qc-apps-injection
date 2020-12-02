@@ -24,20 +24,13 @@ const Login = ({navigation}) => {
 			DeviceStorage(res.data.data.token)
 			Session(res.data.data)
 			alert("Login Success!")
+			console.log("Login Success!")
 			navigation.replace('Qc')
 		})
 		.catch(function (error){
 			console.log(error)
 			alert("Login Failed!")
 		})
-		// fetch('https://reactnative.dev/movies.json')
-		// .then((response) => response.json())
-		// .then((json) => {
-		// console.log(json.movies);
-		// })
-		// .catch((error) => {
-		// console.error(error);
-		// });
 	}
 
 	return (

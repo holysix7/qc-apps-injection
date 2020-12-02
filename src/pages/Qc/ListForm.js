@@ -131,7 +131,7 @@ const ListForm = ({route, navigation}) => {
 					})} >
 						<Text> Masspro Begin Foreman </Text>   
 					</Button>
-					<Button style={styles.productsButton} onPress={() => navigation.navigate('FirstPieceForeman', {
+					{/* <Button style={styles.productsButton} onPress={() => navigation.navigate('FirstPieceForeman', {
 						product_name: product_name,
 						machine_id: machine_id,
 						sys_plant_id: sys_plant_id,
@@ -146,7 +146,7 @@ const ListForm = ({route, navigation}) => {
 						yesterday: yesterday
 					})} >
 						<Text> First Piece Foreman </Text>   
-					</Button>
+					</Button> */}
 					<Button style={styles.productsButton} onPress={() => navigation.navigate('PerJam', {
 						qc_daily_inspection_id: qc_daily_inspection_id,
 						qc_daily_inspection_item_id: qc_daily_inspection_item_id,

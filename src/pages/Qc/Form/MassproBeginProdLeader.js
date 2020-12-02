@@ -1,49 +1,98 @@
 import {Image, View, ScrollView, TextInput, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, TouchableOpacity} from 'react-native';
 import React, {useEffect, useState} from 'react';
-import { Container, Text, Button, Picker } from 'native-base';
+import { Container, Text, Button, Picker} from 'native-base';
 import LogoSIP from '../../../assets/logo-sip370x50.png';
 import AsyncStorage from "@react-native-community/async-storage";
 import Axios from 'axios';
 import moment from 'moment';
 
-const MassproBeginProdLeader = ({route}) => {
+const MassproBeginProdLeader = ({route, navigation}) => {
 	useEffect(() => {
 		formOke()
 	}, [])
 
-	const {product_name, customer_name, internal_part_id, customer_part_number, model, machine_name, today, yesterday} = route.params
-	const [wiProduct, setWiProduct] 						= useState("")
-	const [packingStandard, setPackingStandard] = useState("")
-	const [workTools, setWorkTools] 						= useState("")
-	const [prodReport, setProdReport] 					= useState("")
-	const [lable, setLable] 										= useState("")
-	const [ngForm, setNgForm] 									= useState("")
-	const [jig, setJig] 												= useState("")
-	const [remark, setRemark] 									= useState("")
-	const [hours, setHours]		  								= useState(0)
-	const [shift, setShift]		  								= useState(0)
+	const {product_name, customer_name, sys_plant_id, machine_id, machine_name, today, yesterday} = route.params
+	const [wi_product, setWiProduct] 																		 = useState("")
+	const [packing_standard, setPackingStandard] 												 = useState("")
+	const [production_working_tool, setWorkTools] 											 = useState("")
+	const [production_report, setProdReport] 														 = useState("")
+	const [lable, setLable] 																						 = useState("")
+	const [ng_form, setNgForm] 																					 = useState("")
+	const [jig, setJig] 																								 = useState("")
+	const [remark, setRemark] 																					 = useState("")
+	const [data1, setData1]  																					   = useState("")
+	const [eng_product_id, setEngProd] 						 												= useState(0)
+	const [qc_masspro_main_mold_id, setMaintMoldId] 										 = useState(0)
+	const [qc_masspro_material_preparation_id, setMaterialPreparationId] = useState(0)
+	const [qc_masspro_mold_setter_id, setMoldSetterId] 									 = useState(0)
+	const [qc_masspro_tech_injection_id, setTechInjectionId] 						 = useState(0)
+	const [hours, setHours]		  																				 = useState(0)
+	const [shift, setShift]		  																				 = useState(0)
 	const date = []
-
-	const submit = () => {
+	const prod_machine_id = machine_id
+	const status 					= "new"
+	const [tooling_num, setTooling]	= useState("")
+	const [created_by, setCreatedBy]																		 = useState("")
+	let created_at 																											 = moment().format("YYYY-MM-DD HH:mm:ss")
+	const [updated_by, setUpdatedBy]																		 = useState("")
+	let updated_at 																											 = moment().format("YYYY-MM-DD HH:mm:ss")
+	
+	const submit = async() => {
 		const data = {
-			hours,
-			wiProduct,
-			packingStandard,
-			workTools,
-			prodReport,
+			eng_product_id,
+			prod_machine_id,
+			sys_plant_id,
+			tooling_num,
+			qc_masspro_main_mold_id,
+			qc_masspro_material_preparation_id,
+			qc_masspro_mold_setter_id,
+			qc_masspro_tech_injection_id,
+			wi_product,
+			packing_standard,
+			production_working_tool,
+			production_report,
 			lable,
-			ngForm,
+			ng_form,
 			jig,
-			remark
+			remark,
+			status
 		}
-		console.log(data)
+		const token = await AsyncStorage.getItem("key")
+		const params = {
+			tbl: 'daily_inspection',
+			kind: 'masspro_pl'
+		}
+		var config = {
+			method: 'put',
+			url: 'http://139.255.26.194:3003/api/v1/qcs/update?',
+			params: params,
+			headers: { 
+				'Authorization': token, 
+				'Content-Type': 'application/json', 
+				'Cookie': '_denapi_session=ubcfq3AHCuVeTlxtg%2F1nyEa3Ktylg8nY1lIEPD7pgS3YAWwlKOxwA0S9pw7JhvZ2mNkrYl0j62wAWJWJZd7AbfolGuHCwXgEMeJH6EoLiQ%3D%3D--M%2BjBb0uJeHmOf%2B3o--%2F2Fjw57x0Fyr90Ec9FVibQ%3D%3D'
+			},
+		data : data
+		};
+		Axios(config)
+		.then(function (response){
+			navigation.navigate('ListForm')
+			alert("Success Send Data!")
+			console.log("Res: ", response.status, " Ok")
+		})
+		.catch(function (error){
+			console.log(error)
+		})
 	}
 
 	const formOke = async() => {
 		const token = await AsyncStorage.getItem("key")
 		const headers = {
-				'Authorization': token
+			'Authorization': token
 		}
+		const name = await AsyncStorage.getItem('name')
+		setCreatedBy(name)
+		setUpdatedBy(name)
+
 		let jam = moment().format("HH:mm:ss")
 		if(parseInt(jam) >= 8 && parseInt(jam) <= 15)
 		{
@@ -59,6 +108,26 @@ const MassproBeginProdLeader = ({route}) => {
 			setShift(4)
 			setHours(nilaiJam)
 		}
+		const params = {
+			tbl: 'daily_inspection',
+			kind: 'masspro_pl',
+			sys_plant_id: sys_plant_id,
+			machine_id: machine_id
+		}
+		Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
+		.then(response => {
+			setMaintMoldId(response.data.data.qc_masspro_main_mold_id)
+			setMaterialPreparationId(response.data.data.qc_masspro_material_preparation_id)
+			setMoldSetterId(response.data.data.qc_masspro_mold_setter_id)
+			setTechInjectionId(response.data.data.qc_masspro_tech_injection_id)
+			setEngProd(response.data.data.eng_product_id)
+			setData1(response.data.data.product_detail)
+			setTooling(response.data.data.tooling_num)
+			console.log("List Data Prod. Leader: ", response.data.status, "OK")
+		})
+		.catch(error => {
+			console.log('List Data Prod. Leader: ', error)
+		})
 		
 	}
 
@@ -134,20 +203,20 @@ const MassproBeginProdLeader = ({route}) => {
 											<Picker.Item label="Shift 3 - 8" value="7" />
 										</Picker>
 									</View>
-									<Text style={{fontWeight: 'bold', fontSize: 11}}>{product_name}</Text>
+									<Text style={{fontWeight: 'bold', fontSize: 11}}>{data1.name != null ? data1.name : "-"}</Text>
 								</View>
 							</View>
 						</View>
 
 						<View style={{borderWidth: 0.5, flexDirection: 'row'}}>
 							<View style={{justifyContent: 'center', paddingLeft: 5, height: 25, width: "36%", backgroundColor: '#F5F5DC'}}>
-								<Text style={{fontSize: 12}}>{internal_part_id}</Text>
+								<Text style={{fontSize: 12}}>{data1.internal_part_id != null ? data1.internal_part_id : "-"}</Text>
 							</View>
 							<View style={{justifyContent: 'center', alignItems: 'center', height: 25, width: "30%", backgroundColor: '#F5F5DC'}}>
-								<Text style={{fontSize: 12}}>{customer_part_number}</Text>
+								<Text style={{fontSize: 12}}>{data1.customer_part_number != null ? data1.customer_part_number : "-"}</Text>
 							</View>
 							<View style={{flex: 1, justifyContent: 'center', alignItems: 'center', height: 25, backgroundColor: '#F5F5DC'}}>
-								<Text style={{fontSize: 12}}>{model}</Text>
+								<Text style={{fontSize: 12}}>{data1.model != null ? data1.model : "-"}</Text>
 							</View>
 						</View>
 
@@ -164,7 +233,7 @@ const MassproBeginProdLeader = ({route}) => {
 										<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 											<Picker 
 											mode="dropdown"
-											selectedValue={wiProduct}
+											selectedValue={wi_product}
 											onValueChange={(value) => setWiProduct(value)}
 											>
 												<Picker.Item label="Pilih" value="" />
@@ -186,7 +255,7 @@ const MassproBeginProdLeader = ({route}) => {
 										<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 											<Picker 
 											mode="dropdown"
-											selectedValue={packingStandard}
+											selectedValue={packing_standard}
 											onValueChange={(value) => setPackingStandard(value)}
 											>
 												<Picker.Item label="Pilih" value="" />
@@ -208,7 +277,7 @@ const MassproBeginProdLeader = ({route}) => {
 										<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 											<Picker 
 											mode="dropdown"
-											selectedValue={workTools}
+											selectedValue={production_working_tool}
 											onValueChange={(value) => setWorkTools(value)}
 											>
 												<Picker.Item label="Pilih" value="" />
@@ -230,7 +299,7 @@ const MassproBeginProdLeader = ({route}) => {
 										<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 											<Picker 
 											mode="dropdown"
-											selectedValue={prodReport}
+											selectedValue={production_report}
 											onValueChange={(value) => setProdReport(value)}
 											>
 												<Picker.Item label="Pilih" value="" />
@@ -274,7 +343,7 @@ const MassproBeginProdLeader = ({route}) => {
 										<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 											<Picker 
 											mode="dropdown"
-											selectedValue={ngForm}
+											selectedValue={ng_form}
 											onValueChange={(value) => setNgForm(value)}
 											>
 												<Picker.Item label="Pilih" value="" />

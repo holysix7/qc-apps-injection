@@ -15,7 +15,7 @@ const Profile = ({route, navigation}) => {
 			AsyncStorage.getAllKeys()
 			.then(keys => AsyncStorage.multiRemove(keys))
 			.then(() => {
-				console.log("Berhasil Hapus")
+				console.log("Berhasil Logout")
 				handleGoTo('Login')
 			})
     } catch (error) {

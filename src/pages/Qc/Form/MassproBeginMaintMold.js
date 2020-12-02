@@ -11,8 +11,7 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 		formOke()
 	}, [])
 
-	const {product_name, sys_plant_id, machine_id, customer_name, internal_part_id, customer_part_number, model, machine_name, today, yesterday} = route.params
-	const [tooling, setTooling] 					= useState("")
+	const {product_name, sys_plant_id, machine_id, customer_name, machine_name, today, yesterday} = route.params
 	const [mold_condition, setCondition] 	= useState("")
 	const [neeple_cooling, setCooling] 		= useState("")
 	const [standard_part, setStandard] 		= useState("")
@@ -20,6 +19,7 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 	const [dataProduct1, setDataProduct1] = useState("")
 	const [created_by, setCreatedBy]		  = useState("")
 	const [updated_by, setUpdatedBy]		  = useState("")
+	const [tooling, setTooling]		  			= useState("")
 	const [hours, setHours]		  					= useState(0)
 	const [shift, setShift]		  					= useState(0)
 	const date 														= []
@@ -38,6 +38,7 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 			mold_condition,
 			neeple_cooling,
 			standard_part,
+			tooling,
 			remark,
 			status,
 			created_by,
@@ -105,10 +106,11 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 		Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
 		.then(response => {
 			setDataProduct1(response.data.data.product_1_detail)
-			console.log("Machines List Data: ", response.data.status, "OK")
+			setTooling(response.data.data.planning.tooling_1)
+			console.log("List Data Maint. Mold: ", response.data.status, "OK")
 		})
 		.catch(error => {
-				console.log('err: ', error)
+			console.log('List Data Maint. Mold: ', error)
 		})
 	}
 
@@ -185,20 +187,20 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 											<Picker.Item label="Shift 3 - 8" value="7" />
 										</Picker>
 									</View>
-									<Text style={{fontWeight: 'bold', fontSize: 11}}>{product_name}</Text>
+									<Text style={{fontWeight: 'bold', fontSize: 11}}>{dataProduct1.name != null ? dataProduct1.name : "-"}</Text>
 								</View>
 							</View>
 						</View>
 
 						<View style={{borderWidth: 0.5, flexDirection: 'row'}}>
 							<View style={{justifyContent: 'center', paddingLeft: 5, height: 25, width: "36%", backgroundColor: '#F5F5DC'}}>
-								<Text style={{fontSize: 13}}>{dataProduct1.internal_part_id}</Text>
+								<Text style={{fontSize: 13}}>{dataProduct1.internal_part_id != null ? dataProduct1.internal_part_id : "-"}</Text>
 							</View>
 							<View style={{justifyContent: 'center', alignItems: 'center', height: 25, width: "30%", backgroundColor: '#F5F5DC'}}>
-								<Text style={{fontSize: 12}}>{dataProduct1.customer_part_number}</Text>
+								<Text style={{fontSize: 12}}>{dataProduct1.customer_part_number != null ? dataProduct1.customer_part_number : "-"}</Text>
 							</View>
 							<View style={{flex: 1, justifyContent: 'center', alignItems: 'center', height: 25, backgroundColor: '#F5F5DC'}}>
-								<Text style={{fontSize: 12}}>{dataProduct1.model}</Text>
+								<Text style={{fontSize: 12}}>{dataProduct1.model != null ? dataProduct1.model : "-"}</Text>
 							</View>
 						</View>
 
@@ -211,7 +213,9 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 									<Text style={{color: 'black'}}>:</Text>
 								</View>
 								<View style={{padding: 4, width: "50%"}}>
-									<TextInput value={tooling} onChangeText={(value) => setTooling(value)} style={{borderWidth: 0.5, borderRadius: 25, paddingLeft: 5, height: 40, width: 177}} placeholder="Type Here..." />
+									<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8', width: 177}}>
+										<Text>{tooling != null ? tooling : "-"}</Text>
+									</View>
 								</View>
 							</View>
 							<View style={{flexDirection: 'row'}}>
