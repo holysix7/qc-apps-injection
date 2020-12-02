@@ -417,9 +417,9 @@ const PerShift = ({route, navigation}) => {
 	}
 
 	const checkData = data1.cavity
-	// if(checkData != null){
-		// const checkingCavity = checkData
-		const checkingCavity = 2
+	if(checkData != null){
+		const checkingCavity = checkData
+		// const checkingCavity = 2
 		var table1 = []
 		var table2 = []
 		var table3 = []
@@ -8731,7 +8731,7 @@ const PerShift = ({route, navigation}) => {
 		}else if(checkingCavity == null){
 			// console.log("Tidak ada Cavity")
 		}
-	// }
+	}
 	// console.log(table1)
 
 	return(
@@ -8847,8 +8847,8 @@ const PerShift = ({route, navigation}) => {
 								<View style={{padding: 4, width: "50%"}}>
 									<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
 										<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-											<Text>2</Text>
-											{/* <Text>{data.daily_inspection != null ? data.daily_inspection.cavity : "-"}</Text> */}
+											{/* <Text>2</Text> */}
+											<Text>{data.daily_inspection != null ? data.daily_inspection.cavity : "-"}</Text>
 										</View>
 									</View>
 								</View>
