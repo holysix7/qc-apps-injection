@@ -299,6 +299,18 @@ const PerJam = ({route, navigation}) => {
 		}
 	}
 
+	const updateStatus = (value) => {
+		setPN(value)
+		const tVal = parseInt(value)
+		console.log(tVal)
+		if(tVal > 0){
+			const stVal = "NG"
+			setStatus(stVal)
+		}else{
+			const stVal = "OK"
+			setStatus(stVal)
+		}
+	}
 
 	return(
 		<KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={{flex: 1}} >
@@ -437,7 +449,7 @@ const PerJam = ({route, navigation}) => {
 										<View style={{paddingTop: 8, paddingHorizontal: 4, paddingBottom: 4, width: "44%"}}>
 											<View style={{paddingTop: 5, height: 50, justifyContent: 'center'}}>
 												<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-													<TextInput onChangeText={(value) => setPN(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+													<TextInput onChangeText={(value) => updateStatus(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." keyboardType="numeric"/>
 												</View>
 												<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, marginTop: 5, backgroundColor: '#b8b8b8'}}>
 													<Text>{appearance_n != 0 ? appearance_n : "-"}</Text>
@@ -471,66 +483,58 @@ const PerJam = ({route, navigation}) => {
 									</View>
 									
 									<View style={{paddingTop: 20, flexDirection: 'row'}}>
-											<View style={{paddingHorizontal: 10, paddingBottom: 10, paddingTop: 20, width: "44%"}}>
-													<Text>Check Label And Write Label Number</Text>
+										<View style={{paddingHorizontal: 10, paddingBottom: 10, paddingTop: 20, width: "44%"}}>
+											<Text>Check Label And Write Label Number</Text>
+										</View>
+										<View style={{paddingHorizontal: 10, paddingBottom: 10, paddingTop: 20, width: "6%", alignItems: 'flex-end'}}>
+											<Text style={{color: 'black'}}>:</Text>
+										</View>
+										<View style={{padding: 4, width: "50%", flexDirection: 'row'}}>
+											<View style={{width: "50%", alignItems: 'center'}}>
+												<Text>Start</Text>
+												<View style={{width: "100%", marginTop: 5, borderWidth: 0.5, borderRadius: 25, paddingLeft: 5, height: 40}}>
+													<TextInput onChangeText={(value) => setStartLabel(value)} style={{paddingLeft: 5, height: 40}} placeholder="Type Here..." keyboardType="numeric"/>
+													{/* <Text style={{marginTop: 5}}>{data.daily_inspection != null ? data.daily_inspection.label_begin : "-"}</Text> */}
+												</View>
 											</View>
-											<View style={{paddingHorizontal: 10, paddingBottom: 10, paddingTop: 20, width: "6%", alignItems: 'flex-end'}}>
-													<Text style={{color: 'black'}}>:</Text>
+											<View style={{flex: 1, alignItems: 'center'}}>
+												<Text>End</Text>
+												<View style={{width: "100%", marginTop: 5, marginLeft: 2, borderWidth: 0.5, borderRadius: 25, paddingLeft: 5, height: 40}}>
+													{/* <Text style={{marginTop: 5}}>{data.daily_inspection != null ? data.daily_inspection.label_end : "-"}</Text> */}
+													<TextInput onChangeText={(value) => setEndLabel(value)} style={{paddingLeft: 5, height: 40}} placeholder="Type Here..." keyboardType="numeric"/>
+												</View>
 											</View>
-											<View style={{padding: 4, width: "50%", flexDirection: 'row'}}>
-													<View style={{width: "50%", alignItems: 'center'}}>
-															<Text>Start</Text>
-															<View style={{width: "100%", marginTop: 5, borderWidth: 0.5, borderRadius: 25, paddingLeft: 5, height: 40}}>
-																<TextInput onChangeText={(value) => setStartLabel(value)} style={{paddingLeft: 5, height: 40}} placeholder="Type Here..." keyboardType="numeric"/>
-																{/* <Text style={{marginTop: 5}}>{data.daily_inspection != null ? data.daily_inspection.label_begin : "-"}</Text> */}
-															</View>
-													</View>
-													<View style={{flex: 1, alignItems: 'center'}}>
-															<Text>End</Text>
-															<View style={{width: "100%", marginTop: 5, marginLeft: 2, borderWidth: 0.5, borderRadius: 25, paddingLeft: 5, height: 40}}>
-																{/* <Text style={{marginTop: 5}}>{data.daily_inspection != null ? data.daily_inspection.label_end : "-"}</Text> */}
-																<TextInput onChangeText={(value) => setEndLabel(value)} style={{paddingLeft: 5, height: 40}} placeholder="Type Here..." keyboardType="numeric"/>
-															</View>
-													</View>
-											</View>
+										</View>
 									</View>
 
 									<View style={{paddingTop: 20, flexDirection: 'row'}}>
-											<View style={{padding: 10, width: "44%"}}>
-													<Text>Special Item</Text>
+										<View style={{padding: 10, width: "44%"}}>
+											<Text>Special Item</Text>
+										</View>
+										<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+											<Text style={{color: 'black'}}>:</Text>
+										</View>
+										<View style={{padding: 4, width: "50%"}}>
+											<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+												<TextInput onChangeText={(value) => setSpecialItem(value)} style={{borderWidth: 0.5, borderRadius: 25, paddingLeft: 5, height: 40}} placeholder="Type Here..." />
 											</View>
-											<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-													<Text style={{color: 'black'}}>:</Text>
-											</View>
-											<View style={{padding: 4, width: "50%"}}>
-													<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-															<TextInput onChangeText={(value) => setSpecialItem(value)} style={{borderWidth: 0.5, borderRadius: 25, paddingLeft: 5, height: 40}} placeholder="Type Here..." />
-													</View>
-											</View>
+										</View>
 									</View>
 
 									<View style={{paddingTop: 20, flexDirection: 'row'}}>
-											<View style={{padding: 10, width: "44%"}}>
-													<Text>Status</Text>
+										<View style={{padding: 10, width: "44%"}}>
+											<Text>Status</Text>
+										</View>
+										<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+											<Text style={{color: 'black'}}>:</Text>
+										</View>
+										<View style={{padding: 4, width: "50%"}}>
+											<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+												<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, marginTop: 5, backgroundColor: '#b8b8b8'}}>
+													<Text>{status != null ? status : "-"}</Text>
+												</View>
 											</View>
-											<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-													<Text style={{color: 'black'}}>:</Text>
-											</View>
-											<View style={{padding: 4, width: "50%"}}>
-													<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-															<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-																	<Picker 
-																	mode="dropdown"
-																	selectedValue={status}
-																	onValueChange={(value) => setStatus(value)}
-																	>
-																			<Picker.Item label="Pilih" value="" />
-																			<Picker.Item label="OK" value="OK" />
-																			<Picker.Item label="NG" value="NG" />
-																	</Picker>
-															</View>
-													</View>
-											</View>
+										</View>
 									</View>
 
 									<View style={{paddingTop: 20, flexDirection: 'row'}}>
@@ -571,20 +575,20 @@ const PerJam = ({route, navigation}) => {
 
 									<View style={{flexDirection: 'row', height: 75, paddingTop: 10}}>
 											<View style={{alignItems: 'center', width: "25%"}}>
-													<Text style={{fontWeight: 'bold'}}>NIK Operator</Text>
+													<Text style={{fontWeight: 'bold', fontSize: 12}}>NIK Operator</Text>
 													<Text>{operator_nik}</Text>
 													<Text>{operator_nik_2}</Text>
 											</View>
 											<View style={{alignItems: 'center', width: "25%"}}>
-													<Text style={{fontWeight: 'bold'}}>NIK QC</Text>
+													<Text style={{fontWeight: 'bold', fontSize: 12}}>NIK QC</Text>
 													<Text>{qc_process_nik}</Text>
 											</View>
 											<View style={{alignItems: 'center', width: "25%"}}>
-													<Text style={{fontWeight: 'bold'}}>NIK Leader</Text>
+													<Text style={{fontWeight: 'bold', fontSize: 12}}>NIK Leader</Text>
 													<Text>{leader_nik}</Text>
 											</View>
 											<View style={{alignItems: 'center', width: "25%"}}>
-													<Text style={{fontWeight: 'bold'}}>NIK Foreman</Text>
+													<Text style={{fontWeight: 'bold', fontSize: 12}}>NIK Foreman</Text>
 													<Text>{foreman_nik}</Text>
 											</View>
 									</View>

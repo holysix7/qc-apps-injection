@@ -389,10 +389,10 @@ const Per4Jam = ({route, navigation}) => {
 	const checkData = data.daily_inspection
 	const hString = hours.toString()
 	
-	// if(checkData != null)
-	// {
-		// const checkingCavity = checkData.cavity
-		const checkingCavity = 2
+	if(checkData != null)
+	{
+		const checkingCavity = checkData.cavity
+		// const checkingCavity = 2
 		var table1 = []
 		var table2 = []
 		var table3 = []
@@ -428,7 +428,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 166}}>
+						<View style={{justifyContent: 'center', width: 168.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {compare1}
@@ -490,7 +490,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test1}
@@ -538,7 +538,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test2}
@@ -587,7 +587,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test1}
@@ -635,7 +635,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test2}
@@ -683,7 +683,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test3}
@@ -732,7 +732,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test1}
@@ -780,7 +780,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test2}
@@ -828,7 +828,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test3}
@@ -876,7 +876,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test4}
@@ -925,7 +925,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test1}
@@ -973,7 +973,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test2}
@@ -1021,7 +1021,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test3}
@@ -1069,7 +1069,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test4}
@@ -1117,7 +1117,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test5}
@@ -1166,7 +1166,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test1}
@@ -1214,7 +1214,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test2}
@@ -1262,7 +1262,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test3}
@@ -1310,7 +1310,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test4}
@@ -1358,7 +1358,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test5}
@@ -1406,7 +1406,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test6}
@@ -1455,7 +1455,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test1}
@@ -1503,7 +1503,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test2}
@@ -1551,7 +1551,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test3}
@@ -1599,7 +1599,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test4}
@@ -1647,7 +1647,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test5}
@@ -1695,7 +1695,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test6}
@@ -1743,7 +1743,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test7}
@@ -1792,7 +1792,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test1}
@@ -1840,7 +1840,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test2}
@@ -1888,7 +1888,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test3}
@@ -1936,7 +1936,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test4}
@@ -1984,7 +1984,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test5}
@@ -2032,7 +2032,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test6}
@@ -2080,7 +2080,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test7}
@@ -2128,7 +2128,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test8}
@@ -2177,7 +2177,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test1}
@@ -2225,7 +2225,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test2}
@@ -2273,7 +2273,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test3}
@@ -2321,7 +2321,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test4}
@@ -2369,7 +2369,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test5}
@@ -2417,7 +2417,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test6}
@@ -2465,7 +2465,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test7}
@@ -2513,7 +2513,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test8}
@@ -2561,7 +2561,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test9}
@@ -2610,7 +2610,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test1}
@@ -2658,7 +2658,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test2}
@@ -2706,7 +2706,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test3}
@@ -2754,7 +2754,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test4}
@@ -2802,7 +2802,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test5}
@@ -2850,7 +2850,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test6}
@@ -2898,7 +2898,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test7}
@@ -2946,7 +2946,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test8}
@@ -2994,7 +2994,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test9}
@@ -3042,7 +3042,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test10}
@@ -3091,7 +3091,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test1}
@@ -3139,7 +3139,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test2}
@@ -3187,7 +3187,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test3}
@@ -3235,7 +3235,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test4}
@@ -3283,7 +3283,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test5}
@@ -3331,7 +3331,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test6}
@@ -3379,7 +3379,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test7}
@@ -3427,7 +3427,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test8}
@@ -3475,7 +3475,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test9}
@@ -3523,7 +3523,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test10}
@@ -3571,7 +3571,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test11}
@@ -3620,7 +3620,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test1}
@@ -3668,7 +3668,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test2}
@@ -3716,7 +3716,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test3}
@@ -3764,7 +3764,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test4}
@@ -3812,7 +3812,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test5}
@@ -3860,7 +3860,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test6}
@@ -3908,7 +3908,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test7}
@@ -3956,7 +3956,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test8}
@@ -4004,7 +4004,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test9}
@@ -4052,7 +4052,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test10}
@@ -4100,7 +4100,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test11}
@@ -4148,7 +4148,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test12}
@@ -4197,7 +4197,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test1}
@@ -4245,7 +4245,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test2}
@@ -4293,7 +4293,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test3}
@@ -4341,7 +4341,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test4}
@@ -4389,7 +4389,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test5}
@@ -4437,7 +4437,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test6}
@@ -4485,7 +4485,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test7}
@@ -4533,7 +4533,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test8}
@@ -4581,7 +4581,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test9}
@@ -4629,7 +4629,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test10}
@@ -4677,7 +4677,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test11}
@@ -4725,7 +4725,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test12}
@@ -4773,7 +4773,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test13}
@@ -4822,7 +4822,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test1}
@@ -4870,7 +4870,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test2}
@@ -4918,7 +4918,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test3}
@@ -4966,7 +4966,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test4}
@@ -5014,7 +5014,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test5}
@@ -5062,7 +5062,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test6}
@@ -5110,7 +5110,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test7}
@@ -5158,7 +5158,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test8}
@@ -5206,7 +5206,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test9}
@@ -5254,7 +5254,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test10}
@@ -5302,7 +5302,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test11}
@@ -5350,7 +5350,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test12}
@@ -5398,7 +5398,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test13}
@@ -5446,7 +5446,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test14}
@@ -5495,7 +5495,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test1}
@@ -5543,7 +5543,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test2}
@@ -5591,7 +5591,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test3}
@@ -5639,7 +5639,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test4}
@@ -5687,7 +5687,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test5}
@@ -5735,7 +5735,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test6}
@@ -5783,7 +5783,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test7}
@@ -5831,7 +5831,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test8}
@@ -5879,7 +5879,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test9}
@@ -5927,7 +5927,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test10}
@@ -5975,7 +5975,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test11}
@@ -6023,7 +6023,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test12}
@@ -6071,7 +6071,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test13}
@@ -6119,7 +6119,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test14}
@@ -6167,7 +6167,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test15}
@@ -6216,7 +6216,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test1}
@@ -6264,7 +6264,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test2}
@@ -6312,7 +6312,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test3}
@@ -6360,7 +6360,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test4}
@@ -6408,7 +6408,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test5}
@@ -6456,7 +6456,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test6}
@@ -6504,7 +6504,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test7}
@@ -6552,7 +6552,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test8}
@@ -6600,7 +6600,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test9}
@@ -6648,7 +6648,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test10}
@@ -6696,7 +6696,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test11}
@@ -6744,7 +6744,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test12}
@@ -6792,7 +6792,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test13}
@@ -6840,7 +6840,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test14}
@@ -6888,7 +6888,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test15}
@@ -6957,7 +6957,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test16}
@@ -7006,7 +7006,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test1}
@@ -7054,7 +7054,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test2}
@@ -7102,7 +7102,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test3}
@@ -7150,7 +7150,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test4}
@@ -7198,7 +7198,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test5}
@@ -7246,7 +7246,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test6}
@@ -7294,7 +7294,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test7}
@@ -7342,7 +7342,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test8}
@@ -7390,7 +7390,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test9}
@@ -7438,7 +7438,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test10}
@@ -7486,7 +7486,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test11}
@@ -7534,7 +7534,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test12}
@@ -7582,7 +7582,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test13}
@@ -7630,7 +7630,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test14}
@@ -7678,7 +7678,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test15}
@@ -7747,7 +7747,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test16}
@@ -7795,7 +7795,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test17}
@@ -7845,7 +7845,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test1}
@@ -7893,7 +7893,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test2}
@@ -7941,7 +7941,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test3}
@@ -7989,7 +7989,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test4}
@@ -8037,7 +8037,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test5}
@@ -8085,7 +8085,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test6}
@@ -8133,7 +8133,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test7}
@@ -8181,7 +8181,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test8}
@@ -8229,7 +8229,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test9}
@@ -8277,7 +8277,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test10}
@@ -8325,7 +8325,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test11}
@@ -8373,7 +8373,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test12}
@@ -8421,7 +8421,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test13}
@@ -8469,7 +8469,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test14}
@@ -8517,7 +8517,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test15}
@@ -8586,7 +8586,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test16}
@@ -8634,7 +8634,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test17}
@@ -8682,7 +8682,7 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 					</View>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-						<View style={{justifyContent: 'center', width: 100}}>
+						<View style={{justifyContent: 'center', width: 165.5}}>
 							<Picker 
 							mode="dropdown"
 							selectedValue= {fitting_test18}
@@ -8704,7 +8704,7 @@ const Per4Jam = ({route, navigation}) => {
 		}else if(checkingCavity == null){
 			// console.log("Tidak ada Cavity")
 		}
-	// }
+	}
 
 	return(
 		<KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={{flex: 1}} >
@@ -8819,8 +8819,8 @@ const Per4Jam = ({route, navigation}) => {
 								<View style={{padding: 4, width: "50%"}}>
 									<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
 										<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-											<Text>2</Text>
-											{/* <Text>{data.daily_inspection != null ? data.daily_inspection.cavity : "-"}</Text> */}
+											{/* <Text>2</Text> */}
+											<Text>{data.daily_inspection != null ? data.daily_inspection.cavity : "-"}</Text>
 										</View>
 									</View>
 								</View>
@@ -8836,7 +8836,7 @@ const Per4Jam = ({route, navigation}) => {
 										</View>
 										<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9}}>
 											<Text style={{fontWeight: 'bold'}}>Compare</Text>
-											<View style={{justifyContent: 'center', width: 166}}>
+											<View style={{justifyContent: 'center', width: 168.5}}>
 											</View>
 										</View>
 										<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9}}>
