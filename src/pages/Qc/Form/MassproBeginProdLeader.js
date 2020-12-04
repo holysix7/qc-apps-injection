@@ -11,7 +11,7 @@ const MassproBeginProdLeader = ({route, navigation}) => {
 		formOke()
 	}, [])
 
-	const {product_name, customer_name, sys_plant_id, machine_id, machine_name, today, yesterday} = route.params
+	const {customer_name, sys_plant_id, machine_id, machine_name, today, yesterday} = route.params
 	const [wi_product, setWiProduct] 																		 = useState("")
 	const [packing_standard, setPackingStandard] 												 = useState("")
 	const [production_working_tool, setWorkTools] 											 = useState("")
@@ -21,7 +21,6 @@ const MassproBeginProdLeader = ({route, navigation}) => {
 	const [jig, setJig] 																								 = useState("")
 	const [remark, setRemark] 																					 = useState("")
 	const [data1, setData1]  																					   = useState("")
-	const [eng_product_id, setEngProd] 						 												= useState(0)
 	const [qc_masspro_main_mold_id, setMaintMoldId] 										 = useState(0)
 	const [qc_masspro_material_preparation_id, setMaterialPreparationId] = useState(0)
 	const [qc_masspro_mold_setter_id, setMoldSetterId] 									 = useState(0)
@@ -36,10 +35,26 @@ const MassproBeginProdLeader = ({route, navigation}) => {
 	let created_at 																											 = moment().format("YYYY-MM-DD HH:mm:ss")
 	const [updated_by, setUpdatedBy]																		 = useState("")
 	let updated_at 																											 = moment().format("YYYY-MM-DD HH:mm:ss")
-	
+
+	const [planningId, setPlanningId]		= useState("")
+	const [internal_part_id, setIPI]		= useState("")
+	const [eng_product_id, setEngProd]	= useState(0)
+	const [massproPL, setMassproPL]			= useState("")
+	const [massproPLWiProduct, setUpdateWiProduct]	  	= useState("")
+	const [massproPLPackingStandard, setUpdatePacking] 	= useState("")
+	const [massproPLWorkTools, setUpdateWorkTools]	 		= useState("")
+	const [massproPLProdReport, setUpdateProdReport]		= useState("")
+	const [massproPLLable, setUpdateLable]   						= useState("")
+	const [massproPLNGForm, setUpdateNgForm]		   			= useState("")
+	const [massproPLJig, setUpdateJig]   								= useState("")
+	const [massproPLRemark, setUpdateRemark]   						= useState("")
+	const planning_id = parseInt(planningId)
+
 	const submit = async() => {
 		const data = {
 			eng_product_id,
+			internal_part_id,
+			planning_id,
 			prod_machine_id,
 			sys_plant_id,
 			tooling_num,
@@ -124,6 +139,17 @@ const MassproBeginProdLeader = ({route, navigation}) => {
 			setEngProd(response.data.data.eng_product_id)
 			setData1(response.data.data.product_detail)
 			setTooling(response.data.data.tooling_num)
+			setPlanningId(response.data.data.planning_id)
+			setIPI(response.data.data.product_detail.internal_part_id)
+			setMassproPL(response.data.data.masspro_pl)
+			setUpdateWiProduct(response.data.data.masspro_pl.wi_product)
+			setUpdatePacking(response.data.data.masspro_pl.packing_standard)
+			setUpdateWorkTools(response.data.data.masspro_pl.work_tool)
+			setUpdateProdReport(response.data.data.masspro_pl.work_report)
+			setUpdateLable(response.data.data.masspro_pl.lable)
+			setUpdateNgForm(response.data.data.masspro_pl.ng_form)
+			setUpdateJig(response.data.data.masspro_pl.jig)
+			setUpdateRemark(response.data.data.masspro_pl.remark)
 			console.log("List Data Prod. Leader: ", response.data.status, "OK")
 		})
 		.catch(error => {
@@ -150,6 +176,362 @@ const MassproBeginProdLeader = ({route, navigation}) => {
 			<Text key={"key"} style={{marginTop: 1, fontWeight: 'bold', fontSize: 17}}>{yesterday}</Text>
 		)
 	}
+
+	const updateWiProduct = () => {
+		const updatePL = massproPLWiProduct
+		const data = []
+		const plData = massproPL
+		if(plData != null){
+			if(updatePL != "OK" && updatePL != "NG"){
+				data.push(
+					<View key="asokWoqk" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+						<Picker 
+						mode="dropdown"
+						selectedValue={wi_product}
+						onValueChange={(value) => setWiProduct(value)}
+						>
+							<Picker.Item label="Pilih" value="" />
+							<Picker.Item label="OK" value="OK" />
+							<Picker.Item label="NG" value="NG" />
+						</Picker>
+					</View>
+				)
+			}else{
+				data.push(
+					<View key="asokWoqk" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+						<Text>{updatePL}</Text>
+					</View>
+				)
+			}
+		}else{
+			data.push(
+				<View key="asokWoqk" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<Picker 
+					mode="dropdown"
+					selectedValue={wi_product}
+					onValueChange={(value) => setWiProduct(value)}
+					>
+						<Picker.Item label="Pilih" value="" />
+						<Picker.Item label="OK" value="OK" />
+						<Picker.Item label="NG" value="NG" />
+					</Picker>
+				</View>
+			)
+		}
+		return data
+	}
+
+	const updatePackingStandard = () => {
+		const updatePL = massproPLPackingStandard
+		const data = []
+		const plData = massproPL
+		if(plData != null){
+			if(updatePL != "NG" && updatePL != "OK"){
+				data.push(
+					<View key="asdjwi2" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+						<Picker 
+						mode="dropdown"
+						selectedValue={packing_standard}
+						onValueChange={(value) => setPackingStandard(value)}
+						>
+							<Picker.Item label="Pilih" value="" />
+							<Picker.Item label="OK" value="OK" />
+							<Picker.Item label="NG" value="NG" />
+						</Picker>
+					</View>
+				)
+			}else{
+				data.push(
+					<View key="asdjwi2" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+						<Text>{updatePL}</Text>
+					</View>
+				)
+			}
+		}else{
+			data.push(
+				<View key="asdjwi2" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<Picker 
+					mode="dropdown"
+					selectedValue={packing_standard}
+					onValueChange={(value) => setPackingStandard(value)}
+					>
+						<Picker.Item label="Pilih" value="" />
+						<Picker.Item label="OK" value="OK" />
+						<Picker.Item label="NG" value="NG" />
+					</Picker>
+				</View>
+			)
+		}
+		return data
+	}
+
+	const updateProductionWorkTools = () => {
+		const updatePL = massproPLWorkTools
+		const data = []
+		const plData = massproPL
+		if(plData != null){
+			if(updatePL != "OK" && updatePL != "NG"){
+				data.push(
+					<View key="asoiu2" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+						<Picker 
+						mode="dropdown"
+						selectedValue={production_working_tool}
+						onValueChange={(value) => setWorkTools(value)}
+						>
+							<Picker.Item label="Pilih" value="" />
+							<Picker.Item label="OK" value="OK" />
+							<Picker.Item label="NG" value="NG" />
+						</Picker>
+					</View>
+				)
+			}else{
+				data.push(
+					<View key="asoiu2" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+						<Text>{updatePL}</Text>
+					</View>
+				)
+			}
+		}else{
+			data.push(
+				<View key="asoiu2" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<Picker 
+					mode="dropdown"
+					selectedValue={production_working_tool}
+					onValueChange={(value) => setWorkTools(value)}
+					>
+						<Picker.Item label="Pilih" value="" />
+						<Picker.Item label="OK" value="OK" />
+						<Picker.Item label="NG" value="NG" />
+					</Picker>
+				</View>
+			)
+		}
+		return data
+	}
+
+	const updateProductionReport = () => {
+		const updatePL = massproPLProdReport
+		const data = []
+		const plData = massproPL
+		if(plData != null){
+			if(updatePL != "OK" && updatePL != "NG"){
+				data.push(
+					<View key="aosdkwi2" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+						<Picker 
+						mode="dropdown"
+						selectedValue={production_report}
+						onValueChange={(value) => setProdReport(value)}
+						>
+							<Picker.Item label="Pilih" value="" />
+							<Picker.Item label="OK" value="OK" />
+							<Picker.Item label="NG" value="NG" />
+						</Picker>
+					</View>
+				)
+			}else{
+				data.push(
+					<View key="aosdkwi2" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+						<Text>{updatePL}</Text>
+					</View>
+				)
+			}
+		}else{
+			data.push(
+				<View key="aosdkwi2" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<Picker 
+					mode="dropdown"
+					selectedValue={production_report}
+					onValueChange={(value) => setProdReport(value)}
+					>
+						<Picker.Item label="Pilih" value="" />
+						<Picker.Item label="OK" value="OK" />
+						<Picker.Item label="NG" value="NG" />
+					</Picker>
+				</View>
+			)
+		}
+		return data
+	}
+
+	const updateLable = () => {
+		const updatePL = massproPLLable
+		const data = []
+		const plData = massproPL
+		if(plData != null){
+			if(updatePL != "OK" && updatePL != "NG"){
+				data.push(
+					<View key="asoij2k" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+						<Picker 
+						mode="dropdown"
+						selectedValue={lable}
+						onValueChange={(value) => setLable(value)}
+						>
+							<Picker.Item label="Pilih" value="" />
+							<Picker.Item label="OK" value="OK" />
+							<Picker.Item label="NG" value="NG" />
+						</Picker>
+					</View>
+				)
+			}else{
+				data.push(
+					<View key="asoij2k" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+						<Text>{updatePL}</Text>
+					</View>
+				)
+			}
+		}else{
+			data.push(
+				<View key="asoij2k" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<Picker 
+					mode="dropdown"
+					selectedValue={lable}
+					onValueChange={(value) => setLable(value)}
+					>
+						<Picker.Item label="Pilih" value="" />
+						<Picker.Item label="OK" value="OK" />
+						<Picker.Item label="NG" value="NG" />
+					</Picker>
+				</View>
+			)
+		}
+		return data
+	}
+
+	const updateNGForm = () => {
+		const updatePL = massproPLNGForm
+		const data = []
+		const plData = massproPL
+		if(plData != null){
+			if(updatePL != "OK" && updatePL != "NG"){
+				data.push(
+					<View key="askuh2jk" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+						<Picker 
+						mode="dropdown"
+						selectedValue={ng_form}
+						onValueChange={(value) => setNgForm(value)}
+						>
+							<Picker.Item label="Pilih" value="" />
+							<Picker.Item label="OK" value="OK" />
+							<Picker.Item label="NG" value="NG" />
+						</Picker>
+					</View>
+				)
+			}else{
+				data.push(
+					<View key="askuh2jk" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+						<Text>{updatePL}</Text>
+					</View>
+				)
+			}
+		}else{
+			data.push(
+				<View key="askuh2jk" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<Picker 
+					mode="dropdown"
+					selectedValue={ng_form}
+					onValueChange={(value) => setNgForm(value)}
+					>
+						<Picker.Item label="Pilih" value="" />
+						<Picker.Item label="OK" value="OK" />
+						<Picker.Item label="NG" value="NG" />
+					</Picker>
+				</View>
+			)
+		}
+		return data
+	}
+
+	const updateJIG = () => {
+		const updatePL = massproPLJig
+		const data = []
+		const plData = massproPL
+		if(plData != null){
+			if(updatePL != "OK" && updatePL != "NG"){
+				data.push(
+					<View key="aoij2o" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+						<Picker 
+						mode="dropdown"
+						selectedValue={jig}
+						onValueChange={(value) => setJig(value)}
+						>
+							<Picker.Item label="Pilih" value="" />
+							<Picker.Item label="OK" value="OK" />
+							<Picker.Item label="NG" value="NG" />
+						</Picker>
+					</View>
+				)
+			}else{
+				data.push(
+					<View key="aoij2o" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+						<Text>{updatePL}</Text>
+					</View>
+				)
+			}
+		}else{
+			data.push(
+				<View key="aoij2o" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<Picker 
+					mode="dropdown"
+					selectedValue={jig}
+					onValueChange={(value) => setJig(value)}
+					>
+						<Picker.Item label="Pilih" value="" />
+						<Picker.Item label="OK" value="OK" />
+						<Picker.Item label="NG" value="NG" />
+					</Picker>
+				</View>
+			)
+		}
+		return data
+	}
+
+	const updateRemark = () => {
+		const updatePL = massproPLRemark
+		const data = []
+		const plData = massproPL
+		if(plData != null){
+			if(updatePL != null){
+				data.push(
+					<View key="aoij2o" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+						<Text>{updatePL}</Text>
+					</View>
+				)
+			}else{
+				data.push(
+					<View key="aoij2o" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+						<TextInput onChangeText={(value) => setRemark(value)} style={{paddingLeft: 5, height: 40}} placeholder="Type Here..." />
+					</View>
+				)
+			}
+		}else{
+			data.push(
+				<View key="aoij2o" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<TextInput onChangeText={(value) => setRemark(value)} style={{paddingLeft: 5, height: 40}} placeholder="Type Here..." />
+				</View>
+			)
+		}
+		return data
+	}
+
+	const updateButton = () => {
+		const updatePL = massproPL
+		const data = []
+		if(updatePL != null){
+			data.push(
+				<View key="asd12q" style={{paddingTop: 10}}>
+					<Button style={{width: 172, borderRadius: 25, justifyContent: 'center', backgroundColor: '#05c46b'}} onPress={() => alert("Data Material Preparation Already Saved!")}><Text>SAVED</Text></Button>
+				</View>
+			)
+		}else{
+			data.push(
+				<View key="asd12q" style={{paddingTop: 10}}>
+					<Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>
+				</View>
+			)
+		}
+		return data
+	}
+
     return(
 		<KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={{flex:1}}>
 			<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -204,20 +586,20 @@ const MassproBeginProdLeader = ({route, navigation}) => {
 											<Picker.Item label="Shift 3 - 8" value="7" />
 										</Picker>
 									</View>
-									<Text style={{fontWeight: 'bold', fontSize: 11}}>{data1.name != null ? data1.name : "-"}</Text>
+									<Text style={{fontWeight: 'bold', fontSize: 11}}>{data1 != null ? data1.name : "-"}</Text>
 								</View>
 							</View>
 						</View>
 
 						<View style={{borderWidth: 0.5, flexDirection: 'row'}}>
 							<View style={{justifyContent: 'center', paddingLeft: 5, height: 25, width: "36%", backgroundColor: '#F5F5DC'}}>
-								<Text style={{fontSize: 12}}>{data1.internal_part_id != null ? data1.internal_part_id : "-"}</Text>
+								<Text style={{fontSize: 12}}>{data1 != null ? data1.internal_part_id : "-"}</Text>
 							</View>
 							<View style={{justifyContent: 'center', alignItems: 'center', height: 25, width: "30%", backgroundColor: '#F5F5DC'}}>
-								<Text style={{fontSize: 12}}>{data1.customer_part_number != null ? data1.customer_part_number : "-"}</Text>
+								<Text style={{fontSize: 12}}>{data1 != null ? data1.customer_part_number : "-"}</Text>
 							</View>
 							<View style={{flex: 1, justifyContent: 'center', alignItems: 'center', height: 25, backgroundColor: '#F5F5DC'}}>
-								<Text style={{fontSize: 12}}>{data1.model != null ? data1.model : "-"}</Text>
+								<Text style={{fontSize: 12}}>{data1 != null ? data1.model : "-"}</Text>
 							</View>
 						</View>
 
@@ -231,17 +613,7 @@ const MassproBeginProdLeader = ({route, navigation}) => {
 										<Text style={{color: 'black'}}>:</Text>
 									</View>
 									<View style={{padding: 4, width: "50%"}}>
-										<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-											<Picker 
-											mode="dropdown"
-											selectedValue={wi_product}
-											onValueChange={(value) => setWiProduct(value)}
-											>
-												<Picker.Item label="Pilih" value="" />
-												<Picker.Item label="OK" value="OK" />
-												<Picker.Item label="NG" value="NG" />
-											</Picker>
-										</View>
+										{updateWiProduct()}
 									</View>
 								</View>
 
@@ -253,17 +625,7 @@ const MassproBeginProdLeader = ({route, navigation}) => {
 										<Text style={{color: 'black'}}>:</Text>
 									</View>
 									<View style={{padding: 4, width: "50%"}}>
-										<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-											<Picker 
-											mode="dropdown"
-											selectedValue={packing_standard}
-											onValueChange={(value) => setPackingStandard(value)}
-											>
-												<Picker.Item label="Pilih" value="" />
-												<Picker.Item label="OK" value="OK" />
-												<Picker.Item label="NG" value="NG" />
-											</Picker>
-										</View>
+										{updatePackingStandard()}
 									</View>
 								</View>
 								
@@ -275,17 +637,7 @@ const MassproBeginProdLeader = ({route, navigation}) => {
 										<Text style={{color: 'black'}}>:</Text>
 									</View>
 									<View style={{padding: 4, width: "50%"}}>
-										<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-											<Picker 
-											mode="dropdown"
-											selectedValue={production_working_tool}
-											onValueChange={(value) => setWorkTools(value)}
-											>
-												<Picker.Item label="Pilih" value="" />
-												<Picker.Item label="OK" value="OK" />
-												<Picker.Item label="NG" value="NG" />
-											</Picker>
-										</View>
+										{updateProductionWorkTools()}
 									</View>
 								</View>
 								
@@ -297,17 +649,7 @@ const MassproBeginProdLeader = ({route, navigation}) => {
 										<Text style={{color: 'black'}}>:</Text>
 									</View>
 									<View style={{padding: 4, width: "50%"}}>
-										<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-											<Picker 
-											mode="dropdown"
-											selectedValue={production_report}
-											onValueChange={(value) => setProdReport(value)}
-											>
-												<Picker.Item label="Pilih" value="" />
-												<Picker.Item label="OK" value="OK" />
-												<Picker.Item label="NG" value="NG" />
-											</Picker>
-										</View>
+										{updateProductionReport()}
 									</View>
 								</View>
 								
@@ -319,17 +661,7 @@ const MassproBeginProdLeader = ({route, navigation}) => {
 										<Text style={{color: 'black'}}>:</Text>
 									</View>
 									<View style={{padding: 4, width: "50%"}}>
-										<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-											<Picker 
-											mode="dropdown"
-											selectedValue={lable}
-											onValueChange={(value) => setLable(value)}
-											>
-												<Picker.Item label="Pilih" value="" />
-												<Picker.Item label="OK" value="OK" />
-												<Picker.Item label="NG" value="NG" />
-											</Picker>
-										</View>
+										{updateLable()}
 									</View>
 								</View>
 								
@@ -341,17 +673,7 @@ const MassproBeginProdLeader = ({route, navigation}) => {
 										<Text style={{color: 'black'}}>:</Text>
 									</View>
 									<View style={{padding: 4, width: "50%"}}>
-										<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-											<Picker 
-											mode="dropdown"
-											selectedValue={ng_form}
-											onValueChange={(value) => setNgForm(value)}
-											>
-												<Picker.Item label="Pilih" value="" />
-												<Picker.Item label="OK" value="OK" />
-												<Picker.Item label="NG" value="NG" />
-											</Picker>
-										</View>
+										{updateNGForm()}
 									</View>
 								</View>
 
@@ -363,17 +685,7 @@ const MassproBeginProdLeader = ({route, navigation}) => {
 										<Text style={{color: 'black'}}>:</Text>
 									</View>
 									<View style={{padding: 4, width: "50%"}}>
-										<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-											<Picker 
-											mode="dropdown"
-											selectedValue={jig}
-											onValueChange={(value) => setJig(value)}
-											>
-												<Picker.Item label="Pilih" value="" />
-												<Picker.Item label="OK" value="OK" />
-												<Picker.Item label="NG" value="NG" />
-											</Picker>
-										</View>
+										{updateJIG()}
 									</View>
 								</View>
 
@@ -385,13 +697,13 @@ const MassproBeginProdLeader = ({route, navigation}) => {
 										<Text style={{color: 'black'}}>:</Text>
 									</View>
 									<View style={{padding: 4, width: "50%"}}>
-										<TextInput onChangeText={(value) => setRemark(value)} style={{borderWidth: 0.5, borderRadius: 25, paddingLeft: 5, height: 40}} placeholder="Type Here..." />
+										{updateRemark()}
 									</View>
 								</View>
 							
 								<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
 									<View>
-										<Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>
+										{updateButton()}
 									</View>
 								</View>
 							</TouchableOpacity>

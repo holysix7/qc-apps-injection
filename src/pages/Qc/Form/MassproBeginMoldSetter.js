@@ -10,8 +10,8 @@ const MassproBeginMoldSetter = ({route, navigation}) => {
 	useEffect(() => {
 		formOke()
 	}, [])
-	const {product_name, customer_name, sys_plant_id, machine_id, machine_name, today, yesterday} = route.params
-	const [clampping_bolt, setClamping] 																	= useState("")
+	const {customer_name, sys_plant_id, machine_id, machine_name, today, yesterday} = route.params
+	const [clamping_bolt, setClamping] 																	= useState("")
 	const [cooling_system, setCooling] 																		= useState("")
 	const [limit_switch, setSlider] 																			= useState("")
 	const [eject_stroke, setStroke] 																			= useState("")
@@ -28,13 +28,21 @@ const MassproBeginMoldSetter = ({route, navigation}) => {
 	const [shift, setShift]		  																					= useState(0)
 	let created_at 																												= moment().format("YYYY-MM-DD HH:mm:ss")
 	let updated_at 																												= moment().format("YYYY-MM-DD HH:mm:ss")
-	const [massproMSClampingBolt, setMassproMSClampingBolt]								= useState("")
 	const [massproMS, setMassproMS]																				= useState("")
+	const [massproMSClampingBolt, setMassproMSClampingBolt]								= useState("")
+	const [massproMsCoolingSystem, setMassproMSCoolingSystem]							= useState("")
+	const [massproMsLimitSwitch, setLimitSwitch] 													= useState("")
+	const [massproMsEjectStroke, setEjectStroke] 													= useState("")
+	const [massproMsTouchingNozzle, setTouchingNozzle] 										= useState("")
+	const [massproMSHydraulicCore, setHydraulicCore]	 										= useState("")
+	const [massproMSRemark, setMsRemark]							 										= useState("")
+	const prod_machine_id 								= machine_id
 	const [planningId, setPlanningId]		 		 				= useState("")
-	const [internal_part_id, setIPI] 							  					= useState("")
+	const [internal_part_id, setIPI] 							  = useState("")
 	const date = []
 	const status = "new"
 	const [tooling_num, setTooling]	= useState("")
+	const planning_id = parseInt(planningId)
 
 	const submit = async() => {
 		const data = {
@@ -42,7 +50,10 @@ const MassproBeginMoldSetter = ({route, navigation}) => {
 			qc_masspro_main_mold_id,
 			qc_masspro_material_preparation_id,
 			tooling_num,
-			clampping_bolt,
+			sys_plant_id,
+			prod_machine_id,
+			planning_id,
+			clamping_bolt,
 			cooling_system,
 			internal_part_id,
 			planningId,
@@ -125,7 +136,13 @@ const MassproBeginMoldSetter = ({route, navigation}) => {
 			setTooling(response.data.data.tooling_num)
 			setPlanningId(response.data.data.planning_id)
 			setMassproMS(response.data.data.masspro_ms)
-			setMassproMSClampingBolt(response.data.data.masspro_ms.clampping_bolt)
+			setMassproMSClampingBolt(response.data.data.masspro_ms.clamping_bolt)
+			setMassproMSCoolingSystem(response.data.data.masspro_ms.cooling_system)
+			setLimitSwitch(response.data.data.masspro_ms.cooling_system)
+			setEjectStroke(response.data.data.masspro_ms.eject_stroke)
+			setTouchingNozzle(response.data.data.masspro_ms.touching_nozzle)
+			setHydraulicCore(response.data.data.masspro_ms.hydraulic_core)
+			setMsRemark(response.data.data.masspro_ms.remark)
 			console.log("List Data Mold Setter: ", response.data.status, "OK")
 		})
 		.catch(error => {
@@ -155,14 +172,36 @@ const MassproBeginMoldSetter = ({route, navigation}) => {
 
 	const updateClampingBolt = () => {
 		const clampping_bolt = massproMSClampingBolt
-		console.log(clampping_bolt)
 		const data = []
-		if(clampping_bolt != "OK" && clampping_bolt != "NG"){
+		const msData = massproMS
+		if(msData != null){
+			if(clampping_bolt != "OK" && clampping_bolt != "NG"){
+				data.push(
+					<View key="1231" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+						<Picker 
+						mode="dropdown"
+						selectedValue={clamping_bolt}
+						onValueChange={(value) => setClamping(value)}
+						>
+							<Picker.Item label="Pilih" value="" />
+							<Picker.Item label="OK" value="OK" />
+							<Picker.Item label="NG" value="NG" />
+						</Picker>
+					</View>
+				)
+			}else{
+				data.push(
+					<View key="1231" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor:'#b8b8b8'}}>
+						<Text>{clampping_bolt}</Text>
+					</View>
+				)
+			}
+		}else{
 			data.push(
 				<View key="1231" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 					<Picker 
 					mode="dropdown"
-					selectedValue={clampping_bolt}
+					selectedValue={clamping_bolt}
 					onValueChange={(value) => setClamping(value)}
 					>
 						<Picker.Item label="Pilih" value="" />
@@ -171,10 +210,253 @@ const MassproBeginMoldSetter = ({route, navigation}) => {
 					</Picker>
 				</View>
 			)
+		}
+		return data
+	}
+
+	const updateCoolingSystem = () => {
+		const updateMS = massproMsCoolingSystem
+		const data = []
+		const msData = massproMS
+		if(msData != null){
+			if(updateMS != "OK" && updateMS != "NG"){
+				data.push(
+					<View key="asd231s" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+						<Picker 
+						mode="dropdown"
+						selectedValue={cooling_system}
+						onValueChange={(value) => setCooling(value)}
+						>
+							<Picker.Item label="Pilih" value="" />
+							<Picker.Item label="OK" value="OK" />
+							<Picker.Item label="NG" value="NG" />
+						</Picker>
+					</View>
+				)
+			}else{
+				data.push(
+					<View key="asd231s" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor:'#b8b8b8'}}>
+						<Text>{updateMS}</Text>
+					</View>
+				)
+			}
 		}else{
 			data.push(
-				<View key="1231" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-					<Text>{clampping_bolt}</Text>
+				<View key="asd231s" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<Picker 
+					mode="dropdown"
+					selectedValue={cooling_system}
+					onValueChange={(value) => setCooling(value)}
+					>
+						<Picker.Item label="Pilih" value="" />
+						<Picker.Item label="OK" value="OK" />
+						<Picker.Item label="NG" value="NG" />
+					</Picker>
+				</View>
+			)
+		}
+		return data
+	}
+
+	const updateLimitSwitch = () => {
+		const updateMS = massproMsLimitSwitch
+		const data = []
+		const msData = massproMS
+		// console.log(msData)
+		if(msData != null){
+			if(updateMS != "OK" && updateMS != "NG"){
+				data.push(
+					<View key="asd231s" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+						<Picker 
+						mode="dropdown"
+						selectedValue={limit_switch}
+						onValueChange={(value) => setSlider(value)}
+						>
+							<Picker.Item label="Pilih" value="" />
+							<Picker.Item label="OK" value="OK" />
+							<Picker.Item label="NG" value="NG" />
+						</Picker>
+					</View>
+				)
+			}else{
+				data.push(
+					<View key="asd231s" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+						<Text>{updateMS}</Text>
+					</View>
+				)
+			}
+		}else{
+			data.push(
+				<View key="asd231s" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<Picker 
+					mode="dropdown"
+					selectedValue={limit_switch}
+					onValueChange={(value) => setSlider(value)}
+					>
+						<Picker.Item label="Pilih" value="" />
+						<Picker.Item label="OK" value="OK" />
+						<Picker.Item label="NG" value="NG" />
+					</Picker>
+				</View>
+			)
+		}
+		return data
+	}
+
+	const updateEjectStroke = () => {
+		const updateMS = massproMsEjectStroke
+		const data = []
+		const msData = massproMS
+		if(msData != null){
+			if(updateMS != "OK" && "NG"){
+				data.push(
+					<View key="asdw231" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+						<Picker 
+						mode="dropdown"
+						selectedValue={eject_stroke}
+						onValueChange={(value) => setStroke(value)}
+						>
+							<Picker.Item label="Pilih" value="" />
+							<Picker.Item label="OK" value="OK" />
+							<Picker.Item label="NG" value="NG" />
+						</Picker>
+					</View>
+				)
+			}else{
+				data.push(
+					<View key="asdw231" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+						<Text>{updateMS}</Text>
+					</View>
+				)
+			}
+		}else{
+			data.push(
+				<View key="asdw231" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<Picker 
+					mode="dropdown"
+					selectedValue={eject_stroke}
+					onValueChange={(value) => setStroke(value)}
+					>
+						<Picker.Item label="Pilih" value="" />
+						<Picker.Item label="OK" value="OK" />
+						<Picker.Item label="NG" value="NG" />
+					</Picker>
+				</View>
+			)
+		}
+		return data
+	}
+
+	const updateTouchingNozzle = () => {
+		const updateMS = massproMsTouchingNozzle
+		const data = []
+		const msData = massproMS
+		if(msData != null){
+			if(updateMS != "OK" && updateMS != "NG"){
+				data.push(
+					<View key="23ase1" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+						<Picker 
+						mode="dropdown"
+						selectedValue={touching_nozzle}
+						onValueChange={(value) => setTouching(value)}
+						>
+							<Picker.Item label="Pilih" value="" />
+							<Picker.Item label="OK" value="OK" />
+							<Picker.Item label="NG" value="NG" />
+						</Picker>
+					</View>
+				)
+			}else{
+				data.push(
+					<View key="23ase1" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+						<Text>{updateMS}</Text>
+					</View>
+				)
+			}
+		}else{
+			data.push(
+				<View key="soiko2" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<Picker 
+					mode="dropdown"
+					selectedValue={touching_nozzle}
+					onValueChange={(value) => setTouching(value)}
+					>
+						<Picker.Item label="Pilih" value="" />
+						<Picker.Item label="OK" value="OK" />
+						<Picker.Item label="NG" value="NG" />
+					</Picker>
+				</View>
+			)
+		}
+		return data
+	}
+
+	const updateHydraulicCore = () => {
+		const updateMS = massproMSHydraulicCore
+		const data = []
+		const msData = massproMS
+		if(msData != null){
+			if(updateMS != "OK" && updateMS != "NG" && updateMS != "no_check"){
+				data.push(
+					<View key="skp21" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+						<Picker 
+						mode="dropdown"
+						selectedValue={hydraulic_core}
+						onValueChange={(value) => setHydraulic(value)}
+						>
+							<Picker.Item label="Pilih" value="" />
+							<Picker.Item label="OK" value="OK" />
+							<Picker.Item label="NG" value="NG" />
+							<Picker.Item label="No Check" value="no_check" />
+						</Picker>
+					</View>
+				)
+			}else{
+				<View key="skp21" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<Text>{updateMS}</Text>
+				</View>
+			}
+		}else{
+			data.push(
+				<View key="skp21" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<Picker 
+					mode="dropdown"
+					selectedValue={hydraulic_core}
+					onValueChange={(value) => setHydraulic(value)}
+					>
+						<Picker.Item label="Pilih" value="" />
+						<Picker.Item label="OK" value="OK" />
+						<Picker.Item label="NG" value="NG" />
+						<Picker.Item label="No Check" value="no_check" />
+					</Picker>
+				</View>
+			)
+		}
+		return data
+	}
+
+	const updateRemark = () => {
+		const updateMS = massproMSRemark
+		const data = []
+		const msData = massproMS
+		if(msData != null){
+			if(updateMS != null){
+				data.push(
+					<View key="skp21" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor:'#b8b8b8'}}>
+						<Text>{updateMS}</Text>
+					</View>				
+				)
+			}else{
+				data.push(
+					<View key="skp21" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+						<TextInput value={remark} onChangeText={(value) => setRemark(value)} style={{paddingLeft: 5, height: 40}} placeholder="Type Here..." />
+					</View>
+				)
+			}
+		}else{
+			data.push(
+				<View key="skp21" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<TextInput value={remark} onChangeText={(value) => setRemark(value)} style={{paddingLeft: 5, height: 40}} placeholder="Type Here..." />
 				</View>
 			)
 		}
@@ -187,13 +469,13 @@ const MassproBeginMoldSetter = ({route, navigation}) => {
 		if(updateMS != null){
 			data.push(
 				<View key="asd12q" style={{paddingTop: 10}}>
-					<Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>
+					<Button style={{width: 172, borderRadius: 25, justifyContent: 'center', backgroundColor: '#05c46b'}} onPress={() => alert("Data Material Preparation Already Saved!")}><Text>SAVED</Text></Button>
 				</View>
 			)
 		}else{
 			data.push(
 				<View key="asd12q" style={{paddingTop: 10}}>
-					<Button style={{width: 172, borderRadius: 25, justifyContent: 'center', backgroundColor: '#05c46b'}} onPress={() => alert("Data Material Preparation Already Saved!")}><Text>SAVED</Text></Button>
+					<Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>
 				</View>
 			)
 		}
@@ -292,39 +574,19 @@ const MassproBeginMoldSetter = ({route, navigation}) => {
 									<Text style={{color: 'black'}}>:</Text>
 								</View>
 								<View style={{padding: 4, width: "50%"}}>
-									<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-										<Picker 
-										mode="dropdown"
-										selectedValue={cooling_system}
-										onValueChange={(value) => setCooling(value)}
-										>
-											<Picker.Item label="Pilih" value="" />
-											<Picker.Item label="OK" value="OK" />
-											<Picker.Item label="NG" value="NG" />
-										</Picker>
-									</View>
+									{updateCoolingSystem()}
 								</View>
 							</View>
 							
 							<View style={{paddingTop: 20, flexDirection: 'row'}}>
 								<View style={{padding: 10, width: "44%"}}>
-									<Text>Limit Swith Ejector / Slider</Text>
+									<Text>Limit Switch Ejector / Slider</Text>
 								</View>
 								<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
 									<Text style={{color: 'black'}}>:</Text>
 								</View>
 								<View style={{padding: 4, width: "50%"}}>
-									<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-										<Picker 
-										mode="dropdown"
-										selectedValue={limit_switch}
-										onValueChange={(value) => setSlider(value)}
-										>
-											<Picker.Item label="Pilih" value="" />
-											<Picker.Item label="OK" value="OK" />
-											<Picker.Item label="NG" value="NG" />
-										</Picker>
-									</View>
+									{updateLimitSwitch()}
 								</View>
 							</View>
 							
@@ -336,17 +598,7 @@ const MassproBeginMoldSetter = ({route, navigation}) => {
 									<Text style={{color: 'black'}}>:</Text>
 								</View>
 								<View style={{padding: 4, width: "50%"}}>
-									<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-										<Picker 
-										mode="dropdown"
-										selectedValue={eject_stroke}
-										onValueChange={(value) => setStroke(value)}
-										>
-											<Picker.Item label="Pilih" value="" />
-											<Picker.Item label="OK" value="OK" />
-											<Picker.Item label="NG" value="NG" />
-										</Picker>
-									</View>
+									{updateEjectStroke()}
 								</View>
 							</View>
 							
@@ -358,17 +610,7 @@ const MassproBeginMoldSetter = ({route, navigation}) => {
 									<Text style={{color: 'black'}}>:</Text>
 								</View>
 								<View style={{padding: 4, width: "50%"}}>
-									<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-										<Picker 
-										mode="dropdown"
-										selectedValue={touching_nozzle}
-										onValueChange={(value) => setTouching(value)}
-										>
-											<Picker.Item label="Pilih" value="" />
-											<Picker.Item label="OK" value="OK" />
-											<Picker.Item label="NG" value="NG" />
-										</Picker>
-									</View>
+									{updateTouchingNozzle()}
 								</View>
 							</View>
 							
@@ -380,18 +622,7 @@ const MassproBeginMoldSetter = ({route, navigation}) => {
 									<Text style={{color: 'black'}}>:</Text>
 								</View>
 								<View style={{padding: 4, width: "50%"}}>
-									<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-										<Picker 
-										mode="dropdown"
-										selectedValue={hydraulic_core}
-										onValueChange={(value) => setHydraulic(value)}
-										>
-											<Picker.Item label="Pilih" value="" />
-											<Picker.Item label="OK" value="OK" />
-											<Picker.Item label="NG" value="NG" />
-											<Picker.Item label="No Check" value="no_check" />
-										</Picker>
-									</View>
+									{updateHydraulicCore()}
 								</View>
 							</View>
 
@@ -403,7 +634,7 @@ const MassproBeginMoldSetter = ({route, navigation}) => {
 									<Text style={{color: 'black'}}>:</Text>
 								</View>
 								<View style={{padding: 4, width: "50%"}}>
-									<TextInput value={remark} onChangeText={(value) => setRemark(value)} style={{borderWidth: 0.5, borderRadius: 25, paddingLeft: 5, height: 40}} placeholder="Type Here..." />
+									{updateRemark()}
 								</View>
 							</View>
 						
