@@ -42,7 +42,7 @@ const Qc = ({navigation}) => {
   const session = async () => {
     try {
       const UserSession = await AsyncStorage.multiGet(['user', 'name', 'department_name', 'sys_plant_id', 'duty_plant_option_select'])
-      const name = await AsyncStorage.getItem('name')
+      const id = await AsyncStorage.getItem('id')
       const plantId = await AsyncStorage.getItem('sys_plant_id')
       const duty = await AsyncStorage.getItem('duty_plant_option_select')
       const deptName    = await AsyncStorage.getItem('department_name')
@@ -66,7 +66,6 @@ const Qc = ({navigation}) => {
       )
     })
   }else{
-    // masuk production console log matiin
     console.log("Duty Id = Kosong")
   }
 

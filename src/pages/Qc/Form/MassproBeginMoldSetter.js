@@ -28,6 +28,10 @@ const MassproBeginMoldSetter = ({route, navigation}) => {
 	const [shift, setShift]		  																					= useState(0)
 	let created_at 																												= moment().format("YYYY-MM-DD HH:mm:ss")
 	let updated_at 																												= moment().format("YYYY-MM-DD HH:mm:ss")
+	const [massproMSClampingBolt, setMassproMSClampingBolt]								= useState("")
+	const [massproMS, setMassproMS]																				= useState("")
+	const [planningId, setPlanningId]		 		 				= useState("")
+	const [internal_part_id, setIPI] 							  					= useState("")
 	const date = []
 	const status = "new"
 	const [tooling_num, setTooling]	= useState("")
@@ -40,6 +44,8 @@ const MassproBeginMoldSetter = ({route, navigation}) => {
 			tooling_num,
 			clampping_bolt,
 			cooling_system,
+			internal_part_id,
+			planningId,
 			limit_switch,
 			eject_stroke,
 			touching_nozzle,
@@ -83,9 +89,10 @@ const MassproBeginMoldSetter = ({route, navigation}) => {
 		const headers = {
 			'Authorization': token
 		}
+		const id = await AsyncStorage.getItem('id')
 		const name = await AsyncStorage.getItem('name')
-		setCreatedBy(name)
-		setUpdatedBy(name)
+		setCreatedBy(id)
+		setUpdatedBy(id)
 
 		let jam = moment().format("HH:mm:ss")
 		if(parseInt(jam) >= 8 && parseInt(jam) <= 15)
@@ -114,7 +121,11 @@ const MassproBeginMoldSetter = ({route, navigation}) => {
 			setMaterialPreparationId(response.data.data.qc_masspro_material_preparation_id)
 			setEngProd(response.data.data.eng_product_id)
 			setData1(response.data.data.product_detail)
+			setIPI(response.data.data.product_detail.internal_part_id)
 			setTooling(response.data.data.tooling_num)
+			setPlanningId(response.data.data.planning_id)
+			setMassproMS(response.data.data.masspro_ms)
+			setMassproMSClampingBolt(response.data.data.masspro_ms.clampping_bolt)
 			console.log("List Data Mold Setter: ", response.data.status, "OK")
 		})
 		.catch(error => {
@@ -140,6 +151,53 @@ const MassproBeginMoldSetter = ({route, navigation}) => {
 		date.push(
 			<Text key={"key"} style={{marginTop: 1, fontWeight: 'bold', fontSize: 17}}>{yesterday}</Text>
 		)
+	}
+
+	const updateClampingBolt = () => {
+		const clampping_bolt = massproMSClampingBolt
+		console.log(clampping_bolt)
+		const data = []
+		if(clampping_bolt != "OK" && clampping_bolt != "NG"){
+			data.push(
+				<View key="1231" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<Picker 
+					mode="dropdown"
+					selectedValue={clampping_bolt}
+					onValueChange={(value) => setClamping(value)}
+					>
+						<Picker.Item label="Pilih" value="" />
+						<Picker.Item label="OK" value="OK" />
+						<Picker.Item label="NG" value="NG" />
+					</Picker>
+				</View>
+			)
+		}else{
+			data.push(
+				<View key="1231" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<Text>{clampping_bolt}</Text>
+				</View>
+			)
+		}
+		return data
+	}
+
+	const updateButton = () => {
+		const updateMS = massproMS
+		const data = []
+		if(updateMS != null){
+			data.push(
+				<View key="asd12q" style={{paddingTop: 10}}>
+					<Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>
+				</View>
+			)
+		}else{
+			data.push(
+				<View key="asd12q" style={{paddingTop: 10}}>
+					<Button style={{width: 172, borderRadius: 25, justifyContent: 'center', backgroundColor: '#05c46b'}} onPress={() => alert("Data Material Preparation Already Saved!")}><Text>SAVED</Text></Button>
+				</View>
+			)
+		}
+		return data
 	}
 
 	return(
@@ -196,20 +254,20 @@ const MassproBeginMoldSetter = ({route, navigation}) => {
 											<Picker.Item label="Shift 3 - 8" value="7" />
 										</Picker>
 									</View>
-									<Text style={{fontWeight: 'bold', fontSize: 11}}>{data1.name != null ? data1.name : "-"}</Text>
+									<Text style={{fontWeight: 'bold', fontSize: 11}}>{data1 != null ? data1.name : "-"}</Text>
 								</View>
 							</View>
 						</View>
 
 						<View style={{borderWidth: 0.5, flexDirection: 'row'}}>
 							<View style={{justifyContent: 'center', paddingLeft: 5, height: 25, width: "36%", backgroundColor: '#F5F5DC'}}>
-								<Text style={{fontSize: 12}}>{data1.internal_part_id != null ? data1.internal_part_id : "-"}</Text>
+								<Text style={{fontSize: 12}}>{data1 != null ? data1.internal_part_id : "-"}</Text>
 							</View>
 							<View style={{justifyContent: 'center', alignItems: 'center', height: 25, width: "40%", backgroundColor: '#F5F5DC'}}>
-								<Text style={{fontSize: 12}}>{data1.customer_part_number != null ? data1.customer_part_number : "-"}</Text>
+								<Text style={{fontSize: 12}}>{data1 != null ? data1.customer_part_number : "-"}</Text>
 							</View>
 							<View style={{flex: 1, justifyContent: 'center', alignItems: 'center', height: 25, backgroundColor: '#F5F5DC'}}>
-								<Text style={{fontSize: 12}}>{data1.model != null ? data1.model : "-"}</Text>
+								<Text style={{fontSize: 12}}>{data1 != null ? data1.model : "-"}</Text>
 							</View>
 						</View>
 
@@ -222,17 +280,7 @@ const MassproBeginMoldSetter = ({route, navigation}) => {
 									<Text style={{color: 'black'}}>:</Text>
 								</View>
 								<View style={{padding: 4, width: "50%"}}>
-									<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-										<Picker 
-										mode="dropdown"
-										selectedValue={clampping_bolt}
-										onValueChange={(value) => setClamping(value)}
-										>
-											<Picker.Item label="Pilih" value="" />
-											<Picker.Item label="OK" value="OK" />
-											<Picker.Item label="NG" value="NG" />
-										</Picker>
-									</View>
+									{updateClampingBolt()}
 								</View>
 							</View>
 
@@ -341,7 +389,7 @@ const MassproBeginMoldSetter = ({route, navigation}) => {
 											<Picker.Item label="Pilih" value="" />
 											<Picker.Item label="OK" value="OK" />
 											<Picker.Item label="NG" value="NG" />
-											<Picker.Item label="No Check" value="No Check" />
+											<Picker.Item label="No Check" value="no_check" />
 										</Picker>
 									</View>
 								</View>
@@ -360,10 +408,8 @@ const MassproBeginMoldSetter = ({route, navigation}) => {
 							</View>
 						
 							<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
-								<View>
-										<Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>
-								</View>
-						</View>
+							{updateButton()}
+							</View>
 							
 						</ScrollView>
 

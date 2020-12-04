@@ -114,7 +114,7 @@ const PerShift = ({route, navigation}) => {
 	const [data1, setData1] = useState("")
 
 	const [cavityCheck, setCavityCheck] 			= useState(0)
-	const [tooling_num, setTooling] 								= useState("")
+	const [tooling_num, setTooling] 					= useState("")
 	const [statusCavity, setStatusCavity] 		= useState("")
 	const [ProductsWeight, setProductsWeight] = useState([])
 	const [WeightStandard, setWeightStandard] = useState([])
@@ -124,6 +124,10 @@ const PerShift = ({route, navigation}) => {
 	const [hours, setHours]		  							= useState(0)
 	const [shift, setShift]		  							= useState(1)
 	const [checkCavityIF, setCheckCavity]		  = useState(null)
+	let created_at 														= moment().format("YYYY-MM-DD HH:mm:ss")
+	let updated_at 														= moment().format("YYYY-MM-DD HH:mm:ss")
+	const [created_by, setCreatedBy]		  		= useState("")
+	const [updated_by, setUpdatedBy]		  		= useState("")
 	const date = []
 
 	if(today != null)
@@ -144,6 +148,10 @@ const PerShift = ({route, navigation}) => {
 		const headers = {
 			'Authorization': token
 		}
+		const name = await AsyncStorage.getItem('name')
+		const id = await AsyncStorage.getItem('id')
+		setCreatedBy(id)
+		setUpdatedBy(id)
 		
 		let jam = moment().format("HH:mm:ss")
 		if(parseInt(jam) >= 8 && parseInt(jam) <= 15)
@@ -386,7 +394,11 @@ const PerShift = ({route, navigation}) => {
 			WeightStandard,
 			keterangan,
 			inspectionTime,
-			item
+			item,
+			created_by,
+			created_at,
+			updated_by,
+			updated_at
 		}
 		const token = await AsyncStorage.getItem("key")
 		const params = {

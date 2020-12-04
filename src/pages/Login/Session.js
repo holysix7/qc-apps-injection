@@ -3,6 +3,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 const Session = async(data) => {
     try {
         await AsyncStorage.multiSet([
+            ['id', JSON.stringify(data.id)],
             ['user', data.user],
             ['name', data.name],
             ['department_name', data.department_name],

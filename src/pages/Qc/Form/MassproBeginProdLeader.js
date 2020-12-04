@@ -89,9 +89,10 @@ const MassproBeginProdLeader = ({route, navigation}) => {
 		const headers = {
 			'Authorization': token
 		}
+		const id = await AsyncStorage.getItem('id')
 		const name = await AsyncStorage.getItem('name')
-		setCreatedBy(name)
-		setUpdatedBy(name)
+		setCreatedBy(id)
+		setUpdatedBy(id)
 
 		let jam = moment().format("HH:mm:ss")
 		if(parseInt(jam) >= 8 && parseInt(jam) <= 15)

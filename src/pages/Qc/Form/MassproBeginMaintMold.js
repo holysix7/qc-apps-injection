@@ -11,7 +11,7 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 		formOke()
 	}, [])
 
-	const {product_name, sys_plant_id, machine_id, customer_name, machine_name, today, yesterday} = route.params
+	const {sys_plant_id, machine_id, customer_name, machine_name, today, yesterday} = route.params
 	const [mold_condition, setCondition] 	= useState("")
 	const [neeple_cooling, setCooling] 		= useState("")
 	const [standard_part, setStandard] 		= useState("")
@@ -23,22 +23,34 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 	const [hours, setHours]		  					= useState(0)
 	const [shift, setShift]		  					= useState(0)
 	const date 														= []
-	const eng_product_id 									= dataProduct1.id
-	const cavityAmount 										= dataProduct1.cavity
+	const [planningId, setPlanningId]		  = useState("")
+	const [eng_product_id, setEngId] 			= useState("")
+	const [internal_part_id, setDataIPI] 	= useState("")
+	const [cavityAmount, setCavMount] 		= useState("")
 	const prod_machine_id 								= machine_id
 	const status 													= "new"
 	let created_at 												= moment().format("YYYY-MM-DD HH:mm:ss")
 	let updated_at 												= moment().format("YYYY-MM-DD HH:mm:ss")
+	const [massProMM, setMassProMM]		  	= useState("")
+	const [massMold, setMassMold]		  		= useState("")
+	const [massNeeple, setMassNeeple]		  = useState("")
+	const [massStandard, setMassStandard]	= useState("")
+	const [massRemark, setMassRemark]		  = useState("")
+	const [massIPI, setMassIPI]		  = useState("")
 
+	const planning_id = parseInt(planningId)
+	
 	const submit = async() => {
 		const data = {
 			eng_product_id,
 			prod_machine_id,
 			sys_plant_id,
+			internal_part_id,
 			mold_condition,
 			neeple_cooling,
 			standard_part,
 			tooling,
+			planning_id,
 			remark,
 			status,
 			created_by,
@@ -46,6 +58,7 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 			updated_by,
 			updated_at
 		}
+		// console.log(data)
 		const token = await AsyncStorage.getItem("key")
 		const params = {
 			tbl: 'daily_inspection',
@@ -79,8 +92,9 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 			'Authorization': token
 		}
 		const name = await AsyncStorage.getItem('name')
-		setCreatedBy(name)
-		setUpdatedBy(name)
+		const id = await AsyncStorage.getItem('id')
+		setCreatedBy(id)
+		setUpdatedBy(id)
 
 		let jam = moment().format("HH:mm:ss")
 		if(parseInt(jam) >= 8 && parseInt(jam) <= 15)
@@ -106,14 +120,23 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 		Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
 		.then(response => {
 			setDataProduct1(response.data.data.product_1_detail)
+			setEngId(response.data.data.product_1_detail.id)
+			setDataIPI(response.data.data.product_1_detail.internal_part_id)
+			setCavMount(response.data.data.product_1_detail.cavity)
 			setTooling(response.data.data.planning.tooling_1)
+			setPlanningId(response.data.data.planning.id)
+			setMassProMM(response.data.data.masspro_mm)
+			setMassMold(response.data.data.masspro_mm.mold_condition)
+			setMassNeeple(response.data.data.masspro_mm.neeple_cooling)
+			setMassStandard(response.data.data.masspro_mm.standard_part)
+			setMassRemark(response.data.data.masspro_mm.remark)
+			setMassIPI(response.data.data.masspro_mm.internal_part_id)
 			console.log("List Data Maint. Mold: ", response.data.status, "OK")
 		})
 		.catch(error => {
 			console.log('List Data Maint. Mold: ', error)
 		})
 	}
-
 	const shiftFix = (value) => {
 		setHours(value)
 	}
@@ -132,7 +155,134 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 			<Text key={"key"} style={{marginTop: 1, fontWeight: 'bold', fontSize: 17}}>{yesterday}</Text>
 		)
 	}
-	
+
+	const statusMoldCondition = () => {
+		const mldCondition = massMold
+		const data = []
+		if(mldCondition != "OK" && mldCondition != "NG")
+		{
+			data.push(
+				<View key="skehj2" style={{borderWidth: 0.5, borderRadius: 25, width: 177, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<Picker 
+					mode="dropdown"
+					selectedValue={mold_condition}
+					onValueChange={(value) => setCondition(value)}
+					itemStyle={{marginLeft: 0}}
+					itemTextStyle={{fontSize: 9}}
+					key="asdweq"
+					>
+						<Picker.Item label="Pilih" value="" />
+						<Picker.Item label="OK" value="OK" />
+						<Picker.Item label="NG" value="NG" />
+					</Picker>
+				</View>
+			)
+		}else{
+			data.push(
+				<View key="skehj2" style={{borderWidth: 0.5, borderRadius: 25, width: 177, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+					<Text>{mldCondition}</Text>
+				</View>
+			)
+		}
+		return data
+	}
+	const neepleCoolingMold = () => {
+		const neepleCooling = massNeeple
+		const data = []
+		if(neepleCooling != "OK" && neepleCooling != "NG")
+		{
+			data.push(
+			<View key="sdw21" style={{borderWidth: 0.5, borderRadius: 25, width: 177, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+				<Picker 
+				mode="dropdown"
+				selectedValue={neeple_cooling}
+				onValueChange={(value) => setCooling(value)}
+				itemStyle={{marginLeft: 0}}
+				itemTextStyle={{fontSize: 9}}
+				key="asdweq"
+				>
+					<Picker.Item label="Pilih" value="" />
+					<Picker.Item label="OK" value="OK" />
+					<Picker.Item label="NG" value="NG" />
+				</Picker>
+			</View>
+			)
+		}else{
+			data.push(
+				<View key="sdw21" style={{borderWidth: 0.5, borderRadius: 25, width: 177, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+					<Text>{neepleCooling}</Text>
+				</View>
+			)
+		}
+		return data
+	}
+	const standardPart = () => {
+		const standardPart = massStandard
+		const data = []
+		if(standardPart != "OK" && standardPart != "NG")
+		{
+			data.push(
+				<View key="asdw2"  style={{borderWidth: 0.5, borderRadius: 25, width: 177, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<Picker 
+					mode="dropdown"
+					selectedValue={standard_part}
+					onValueChange={(value) => setStandard(value)}
+					itemStyle={{marginLeft: 0}}
+					itemTextStyle={{fontSize: 9}}
+					key="asdweq"
+					>
+						<Picker.Item label="Pilih" value="" />
+						<Picker.Item label="OK" value="OK" />
+						<Picker.Item label="NG" value="NG" />
+					</Picker>
+				</View>
+			)
+		}else{
+			data.push(
+				<View key="asle21" style={{borderWidth: 0.5, borderRadius: 25, width: 177, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+					<Text>{standardPart}</Text>
+				</View>
+			)
+		}
+		return data
+	}
+	const remarkData = () => {
+		const updateRemark = massRemark
+		const data = []
+		if(updateRemark != null){
+			data.push(
+				<View key="123seqw" style={{borderWidth: 0.5, borderRadius: 25, width: 177, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+					<Text>{updateRemark}</Text>
+				</View>
+			)
+		}else{
+			data.push(
+				<View key="123seqw" style={{borderWidth: 0.5, borderRadius: 25, width: 177, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+					<TextInput value={remark} onChangeText={(value) => setRemark(value)} style={{paddingLeft: 5, height: 40, width: 177}} placeholder="Type Here..." />
+				</View>
+			)
+		}
+		return data
+	}
+	const updateButton = () => {
+		const updateMS = massProMM
+		const data = []
+		if(updateMS != null){
+			data.push(
+				<View key="asd12q" style={{paddingTop: 10}}>
+					<Button style={{width: 172, borderRadius: 25, justifyContent: 'center', backgroundColor: '#05c46b'}} onPress={() => alert("Data Maintenance Mold Already Saved!")}><Text>SAVED</Text></Button>
+				</View>
+			)
+		}else{
+			data.push(
+				<View key="asd12q" style={{paddingTop: 10}}>
+					<Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>
+				</View>
+			)
+		}
+		return data
+	}
+
 	return(
 		<KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={{flex:1}}>
 			<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -187,20 +337,20 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 											<Picker.Item label="Shift 3 - 8" value="7" />
 										</Picker>
 									</View>
-									<Text style={{fontWeight: 'bold', fontSize: 11}}>{dataProduct1.name != null ? dataProduct1.name : "-"}</Text>
+									<Text style={{fontWeight: 'bold', fontSize: 11}}>{dataProduct1 != null ? dataProduct1.name : "-"}</Text>
 								</View>
 							</View>
 						</View>
 
 						<View style={{borderWidth: 0.5, flexDirection: 'row'}}>
 							<View style={{justifyContent: 'center', paddingLeft: 5, height: 25, width: "36%", backgroundColor: '#F5F5DC'}}>
-								<Text style={{fontSize: 13}}>{dataProduct1.internal_part_id != null ? dataProduct1.internal_part_id : "-"}</Text>
+								<Text style={{fontSize: 13}}>{dataProduct1 != null ? dataProduct1.internal_part_id : "-"}</Text>
 							</View>
 							<View style={{justifyContent: 'center', alignItems: 'center', height: 25, width: "30%", backgroundColor: '#F5F5DC'}}>
-								<Text style={{fontSize: 12}}>{dataProduct1.customer_part_number != null ? dataProduct1.customer_part_number : "-"}</Text>
+								<Text style={{fontSize: 12}}>{dataProduct1 != null ? dataProduct1.customer_part_number : "-"}</Text>
 							</View>
 							<View style={{flex: 1, justifyContent: 'center', alignItems: 'center', height: 25, backgroundColor: '#F5F5DC'}}>
-								<Text style={{fontSize: 12}}>{dataProduct1.model != null ? dataProduct1.model : "-"}</Text>
+								<Text style={{fontSize: 12}}>{dataProduct1 != null ? dataProduct1.model : "-"}</Text>
 							</View>
 						</View>
 
@@ -239,19 +389,7 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 									<Text style={{color: 'black'}}>:</Text>
 								</View>
 								<View style={{padding: 4, width: "50%"}}>
-									<View style={{borderWidth: 0.5, borderRadius: 25, width: 177, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-										<Picker 
-										mode="dropdown"
-										selectedValue={mold_condition}
-										onValueChange={(value) => setCondition(value)}
-										itemStyle={{marginLeft: 0}}
-										itemTextStyle={{fontSize: 9}}
-										>
-											<Picker.Item label="Pilih" value="" />
-											<Picker.Item label="OK" value="OK" />
-											<Picker.Item label="NG" value="NG" />
-										</Picker>
-									</View>
+									{statusMoldCondition()}
 								</View>
 							</View>
 							<View style={{flexDirection: 'row'}}>
@@ -262,19 +400,7 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 									<Text style={{color: 'black'}}>:</Text>
 								</View>
 								<View style={{padding: 4, width: "50%"}}>
-									<View style={{borderWidth: 0.5, borderRadius: 25, width: 177, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-										<Picker 
-										mode="dropdown"
-										selectedValue={neeple_cooling}
-										onValueChange={(value) => setCooling(value)}
-										itemStyle={{marginLeft: 0}}
-										itemTextStyle={{fontSize: 9}}
-										>
-											<Picker.Item label="Pilih" value="" />
-											<Picker.Item label="OK" value="OK" />
-											<Picker.Item label="NG" value="NG" />
-										</Picker>
-									</View>
+									{neepleCoolingMold()}
 								</View>
 							</View>
 							<View style={{flexDirection: 'row'}}>
@@ -285,19 +411,7 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 									<Text style={{color: 'black'}}>:</Text>
 								</View>
 								<View style={{padding: 4, width: "50%"}}>
-									<View style={{borderWidth: 0.5, borderRadius: 25, width: 177, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-										<Picker 
-										mode="dropdown"
-										selectedValue={standard_part}
-										onValueChange={(value) => setStandard(value)}
-										itemStyle={{marginLeft: 0}}
-										itemTextStyle={{fontSize: 9}}
-										>
-											<Picker.Item label="Pilih" value="" />
-											<Picker.Item label="OK" value="OK" />
-											<Picker.Item label="NG" value="NG" />
-										</Picker>
-									</View>
+									{standardPart()}
 								</View>
 							</View>
 							<View style={{flexDirection: 'row'}}>
@@ -308,14 +422,12 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 									<Text style={{color: 'black'}}>:</Text>
 								</View>
 								<View style={{padding: 4, width: "50%"}}>
-									<TextInput value={remark} onChangeText={(value) => setRemark(value)} style={{borderWidth: 0.5, borderRadius: 25, paddingLeft: 5, height: 40, width: 177}} placeholder="Type Here..." />
+									{remarkData()}
 								</View>
 							</View>
 
 							<View style={{justifyContent: 'center', alignItems: 'center'}}>
-								<View style={{paddingTop: 10}}>
-									<Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>
-								</View>
+								{updateButton()}
 							</View>
 
 						</ScrollView>
