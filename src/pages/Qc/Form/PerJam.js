@@ -90,8 +90,8 @@ const PerJam = ({route, navigation}) => {
 	const [shift, setShift]		  										= useState(0)
 	let created_at 																	= moment().format("YYYY-MM-DD HH:mm:ss")
 	let updated_at 																	= moment().format("YYYY-MM-DD HH:mm:ss")
-	const [created_by, setCreatedBy]		  = useState("")
-	const [updated_by, setUpdatedBy]		  = useState("")
+	const [created_by, setCreatedBy]		  					= useState("")
+	const [updated_by, setUpdatedBy]		  					= useState("")
 	
 	const date = []
 	const submit = async() => {
@@ -153,8 +153,9 @@ const PerJam = ({route, navigation}) => {
 		let jam = moment().format("HH:mm:ss")
 		const token = await AsyncStorage.getItem("key")
 		const name = await AsyncStorage.getItem('name')
-		setCreatedBy(name)
-		setUpdatedBy(name)
+		const id = await AsyncStorage.getItem('id')
+		setCreatedBy(id)
+		setUpdatedBy(id)
 		const headers = {
 			'Authorization': token
 		}

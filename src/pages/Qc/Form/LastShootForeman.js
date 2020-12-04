@@ -70,8 +70,9 @@ const LastShootForeman = ({route, navigation}) => {
 			'Authorization': token
 		}
 		const name = await AsyncStorage.getItem('name')
-		setCreatedBy(name)
-		setUpdatedBy(name)
+		const id = await AsyncStorage.getItem('id')
+		setCreatedBy(id)
+		setUpdatedBy(id)
 
 		let jam = moment().format("HH:mm:ss")
 		if(parseInt(jam) >= 8 && parseInt(jam) <= 15)

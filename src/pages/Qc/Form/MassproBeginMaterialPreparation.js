@@ -19,23 +19,32 @@ const MassproBeginMaterialPreparation = ({route, navigation}) => {
 	const [dataProduct1, setDataProduct1] 					= useState("")
 	const [created_by, setCreatedBy]								= useState("")
 	const [updated_by, setUpdatedBy]								= useState("")
-	const eng_product_id 														= dataProduct1.id
-	const cavityAmount 															= dataProduct1.cavity
+	const [massproMP, setMassporMP]																						= useState("")
+	const [massproMPCleaningHopper, setMassporMPCleanningHopper]							= useState("")
+	const [massproMPMaterialStandard, setMassporMPMaterialStandard]						= useState("")
+	const [massproMPTemperatureHopper, setMassporMPTemperaturHopper]					= useState("")
+	const [massproMPTemperatureHopperNote, setMassporMPTemperaturHopperNote]	= useState("")
+	const [massproMPRemark, setMassporMPRemark]																= useState("")
+	const [massproMPInternalPartId, setMassporMPIPI]													= useState("")
+	const [eng_product_id, setEngProdId] 						= useState("")
+	const [cavityAmount, setCavityAmount]						= useState("")
 	const prod_machine_id 													= machine_id
-	let dying_material 														  = moment().format("YYYY-MM-DD h:m:s")
+	let dying_material 														  = moment().format("YYYY-MM-DD hh:mm:ss A")
 	let created_at 																	= moment().format("YYYY-MM-DD HH:mm:ss")
 	let updated_at 																	= moment().format("YYYY-MM-DD HH:mm:ss")
 	const [remark, setRemark] 											= useState("")
 	const [qc_masspro_main_mold_id, setMaintMoldId]	= useState(0)
 	const [hours, setHours]		  										= useState(0)
 	const [shift, setShift]		  										= useState(0)
+	const [planningId, setPlanningId]		 		 				= useState("")
+	const [internal_part_id, setIPI]								= useState("")
 	const date = []
 	const status = "new"
 	const [tooling_num, setTooling]	= useState("")
 	const [dataMaterial, setMaterialData] = useState("")
 	const [temp_hopper, setTemperaturHopper] = useState("")
-	// const intHopper = parseInt(temp_hopper)
-	// console.log(intHopper)
+	const planning_id = parseInt(planningId)
+
 	const submit = async() => {
 		const data = {
 			eng_product_id,
@@ -44,6 +53,8 @@ const MassproBeginMaterialPreparation = ({route, navigation}) => {
 			tooling_num,
 			temp_hopper_val,
 			cleaning_hopper,
+			planning_id,
+			internal_part_id,
 			material_standard,
 			qc_masspro_main_mold_id,
 			hopper_temp,
@@ -86,9 +97,10 @@ const MassproBeginMaterialPreparation = ({route, navigation}) => {
 		const headers = {
 			'Authorization': token
 		}
+		const id = await AsyncStorage.getItem('id')
 		const name = await AsyncStorage.getItem('name')
-		setCreatedBy(name)
-		setUpdatedBy(name)
+		setCreatedBy(id)
+		setUpdatedBy(id)
 
 		let jam = moment().format("HH:mm:ss")
 		if(parseInt(jam) >= 8 && parseInt(jam) <= 15)
@@ -114,10 +126,21 @@ const MassproBeginMaterialPreparation = ({route, navigation}) => {
 		Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
 		.then(response => {
 			setDataProduct1(response.data.data.product_detail)
+			setIPI(response.data.data.product_detail.internal_part_id)
+			setEngProdId(response.data.data.product_detail.id)
+			setCavityAmount(response.data.data.product_detail.cavity)
 			setMaintMoldId(response.data.data.qc_masspro_main_mold_id)
 			setTooling(response.data.data.tooling_num)
 			setMaterialData(response.data.data.material_detail)
 			setTemperaturHopper(response.data.data.temp_hopper_val)
+			setPlanningId(response.data.data.planning_id)
+			setMassporMP(response.data.data.masspro_mp)
+			setMassporMPCleanningHopper(response.data.data.masspro_mp.cleaning_hopper)
+			setMassporMPMaterialStandard(response.data.data.masspro_mp.material_standard)
+			setMassporMPTemperaturHopperNote(response.data.data.masspro_mp.temperature_hopper_note)
+			setMassporMPTemperaturHopper(response.data.data.masspro_mp.temperature_hopper)
+			setMassporMPRemark(response.data.data.masspro_mp.remark)
+			setMassporMPIPI(response.data.data.masspro_mp.internal_part_id)
 			console.log("List Data Material Preparation: ", response.data.status, "OK")
 		})
 		.catch(error => {
@@ -142,6 +165,144 @@ const MassproBeginMaterialPreparation = ({route, navigation}) => {
 		date.push(
 			<Text key={"key"} style={{marginTop: 1, fontWeight: 'bold', fontSize: 17}}>{yesterday}</Text>
 		)
+	}
+
+	const updateCleaningHopper = () => {
+		const updateCleaning = massproMPCleaningHopper
+		const data = []
+		if(updateCleaning != "OK" && updateCleaning != "NG"){
+			data.push(
+				<View key="123sdaw" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center'}}>
+					<Picker 
+					mode="dropdown"
+					selectedValue={cleaning_hopper}
+					onValueChange={(value) => setHopper(value)}
+					>
+						<Picker.Item label="Pilih" value="" />
+						<Picker.Item label="OK" value="OK" />
+						<Picker.Item label="NG" value="NG" />
+					</Picker>
+				</View>
+			)
+		}else{
+			data.push(
+				<View key="123sdaw" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+					<Text>{updateCleaning}</Text>
+				</View>
+			)
+		}
+		return data
+	}
+
+	const updateMaterialStandard = () => {
+		const updateMS = massproMPMaterialStandard
+		const data = []
+		if(updateMS != "OK" && updateMS != "NG"){
+			data.push(
+				<View key="asdwe1" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center'}}>
+					<Picker 
+					mode="dropdown"
+					selectedValue={material_standard}
+					onValueChange={(value) => setConditionMaterial(value)}
+					>
+						<Picker.Item label="Pilih" value="" />
+						<Picker.Item label="OK" value="OK" />
+						<Picker.Item label="NG" value="NG" />
+					</Picker>
+				</View>
+			)
+		}else{
+			data.push(
+				<View key="asdwe1" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+					<Text>{updateMS}</Text>
+				</View>
+			)
+		}
+		return data
+	}
+
+	const updateTemperaturHopper = () => {
+		const updateMS = massproMPTemperatureHopperNote
+		const data = []
+		if(updateMS != null){
+			data.push(
+				<View key="asd23" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', backgroundColor: '#b8b8b8', paddingLeft: 5}}>
+					<Text>{updateMS}</Text>
+				</View>
+			)
+		}else{
+			data.push(
+				<View key="asd23" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center'}}>
+					<TextInput onChangeText={(value) => setTempHopper(value)} keyboardType='numeric' style={{borderWidth: 0.5, borderRadius: 25, paddingLeft: 5, height: 40}} placeholder="Type Here..." />
+				</View>
+			)
+		}
+		return data
+	}
+
+	const updateTemperaturHopperSelect = () => {
+		const updateMS = massproMPTemperatureHopper
+		const data = []
+		if(updateMS != "OK" && updateMS != "NG"){
+			data.push(
+				<View key="asdweq1" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center'}}>
+					<Picker 
+					mode="dropdown"
+					selectedValue={hopper_temp}
+					onValueChange={(value) => setConditionHopper(value)}
+					>
+						<Picker.Item label="Pilih" value="" />
+						<Picker.Item label="OK" value="OK" />
+						<Picker.Item label="NG" value="NG" />
+					</Picker>
+				</View>
+			)
+		}else{
+			data.push(
+				<View key="asdweq1" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+					<Text>{updateMS}</Text>
+				</View>
+			)
+		}
+		return data
+	}
+
+	const updateRemark = () => {
+		const updateMS = massproMPRemark
+		const data = []
+		if(updateMS != null){
+			data.push(
+				<View key="asd23" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', backgroundColor: '#b8b8b8', paddingLeft: 5}}>
+					<Text>{updateMS}</Text>
+				</View>
+			)
+		}else{
+			data.push(
+				<View key="asd23" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', backgroundColor: '#b8b8b8', paddingLeft: 5}}>
+					<TextInput value={remark} onChangeText={(value) => setRemark(value)} style={{paddingLeft: 5, height: 40}} placeholder="Type Here..." />
+				</View>
+			)
+		}
+		return data
+	}
+
+	const updateButton = () => {
+		const updateMS = massproMP
+		const data = []
+		if(updateMS != null){
+			data.push(
+				<View key="asd12q" style={{paddingTop: 10}}>
+					<Button style={{width: 172, borderRadius: 25, justifyContent: 'center', backgroundColor: '#05c46b'}} onPress={() => alert("Data Material Preparation Already Saved!")}><Text>SAVED</Text></Button>
+				</View>
+			)
+		}else{
+			data.push(
+				<View key="asd12q" style={{paddingTop: 10}}>
+					<Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>
+				</View>
+			)
+		}
+		return data
 	}
 
 	return(
@@ -198,20 +359,20 @@ const MassproBeginMaterialPreparation = ({route, navigation}) => {
 											<Picker.Item label="Shift 3 - 8" value="7" />
 										</Picker>
 									</View>
-									<Text style={{fontWeight: 'bold', fontSize: 11}}>{dataProduct1.name != null ? dataProduct1.name : "-"}</Text>
+									<Text style={{fontWeight: 'bold', fontSize: 11}}>{dataProduct1 != null ? dataProduct1.name : "-"}</Text>
 								</View>
 							</View>
 						</View>
 
 						<View style={{borderWidth: 0.5, flexDirection: 'row'}}>
 							<View style={{justifyContent: 'center', paddingLeft: 5, height: 25, width: "36%", backgroundColor: '#F5F5DC'}}>
-								<Text style={{fontSize: 12}}>{dataProduct1.internal_part_id != null ? dataProduct1.internal_part_id : "-"}</Text>
+								<Text style={{fontSize: 12}}>{dataProduct1 != null ? dataProduct1.internal_part_id : "-"}</Text>
 							</View>
 							<View style={{justifyContent: 'center', alignItems: 'center', height: 25, width: "30%", backgroundColor: '#F5F5DC'}}>
-								<Text style={{fontSize: 12}}>{dataProduct1.customer_part_number != null ? dataProduct1.customer_part_number : "-"}</Text>
+								<Text style={{fontSize: 12}}>{dataProduct1 != null ? dataProduct1.customer_part_number : "-"}</Text>
 							</View>
 							<View style={{flex: 1, justifyContent: 'center', alignItems: 'center', height: 25, backgroundColor: '#F5F5DC'}}>
-								<Text style={{fontSize: 12}}>{dataProduct1.model != null ? dataProduct1.model : "-"}</Text>
+								<Text style={{fontSize: 12}}>{dataProduct1 != null ? dataProduct1.model : "-"}</Text>
 							</View>
 						</View>
 						<ScrollView style={{flex: 1}}>
@@ -223,17 +384,7 @@ const MassproBeginMaterialPreparation = ({route, navigation}) => {
 									<Text>:</Text>
 								</View>
 								<View style={{padding: 4, width: "54%"}}>
-									<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center'}}>
-										<Picker 
-										mode="dropdown"
-										selectedValue={cleaning_hopper}
-										onValueChange={(value) => setHopper(value)}
-										>
-											<Picker.Item label="Pilih" value="" />
-											<Picker.Item label="OK" value="OK" />
-											<Picker.Item label="NG" value="NG" />
-										</Picker>
-									</View>
+									{updateCleaningHopper()}
 								</View>
 							</View>
 							<View style={{paddingTop: 20, flexDirection: 'row'}}>
@@ -249,17 +400,7 @@ const MassproBeginMaterialPreparation = ({route, navigation}) => {
 									</View>
 								</View>
 								<View style={{padding: 4, width: "25%"}}>
-									<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center'}}>
-										<Picker 
-										mode="dropdown"
-										selectedValue={material_standard}
-										onValueChange={(value) => setConditionMaterial(value)}
-										>
-											<Picker.Item label="Pilih" value="" />
-											<Picker.Item label="OK" value="OK" />
-											<Picker.Item label="NG" value="NG" />
-										</Picker>
-									</View>
+									{updateMaterialStandard()}
 								</View>
 							</View>
 							<View style={{paddingTop: 20, flexDirection: 'row'}}>
@@ -270,20 +411,10 @@ const MassproBeginMaterialPreparation = ({route, navigation}) => {
 									<Text>:</Text>
 								</View>
 								<View style={{padding: 4, width: "29%"}}>
-									<TextInput onChangeText={(value) => setTempHopper(value)} keyboardType='numeric' style={{borderWidth: 0.5, borderRadius: 25, paddingLeft: 5, height: 40}} placeholder="Type Here..." />
+									{updateTemperaturHopper()}
 								</View>
 								<View style={{padding: 4, width: "25%"}}>
-									<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center'}}>
-										<Picker 
-										mode="dropdown"
-										selectedValue={hopper_temp}
-										onValueChange={(value) => setConditionHopper(value)}
-										>
-											<Picker.Item label="Pilih" value="" />
-											<Picker.Item label="OK" value="OK" />
-											<Picker.Item label="NG" value="NG" />
-										</Picker>
-									</View>
+									{updateTemperaturHopperSelect()}
 								</View>
 							</View>
 							<View style={{paddingTop: 20, flexDirection: 'row'}}>
@@ -308,14 +439,12 @@ const MassproBeginMaterialPreparation = ({route, navigation}) => {
 									<Text>:</Text>
 								</View>
 								<View style={{padding: 4, width: "54%"}}>
-									<TextInput value={remark} onChangeText={(value) => setRemark(value)} style={{borderWidth: 0.5, borderRadius: 25, paddingLeft: 5, height: 40}} placeholder="Type Here..." />
+									{updateRemark()}
 								</View>
 							</View>
 
 							<View style={{justifyContent: 'center', alignItems: 'center'}}>
-								<View style={{paddingTop: 10}}>
-									<Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>
-								</View>
+								{updateButton()}
 							</View>
 						</ScrollView>
 					</View>

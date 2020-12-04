@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {View, Image, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView} from 'react-native';
 import LogoSIP from '../../assets/logo-sip3.png';
-import {Container, Button, Text, Spinner, Form, Item, Label, Input} from "native-base";
+import {Container, Button, Text, Spinner, Icon, Form, Item, Label, Input} from "native-base";
 import GeneralStatusBarColor from '../../components/GeneralStatusBarColor';
 import Axios from 'axios';
 import DeviceStorage from './DeviceStorage';
@@ -12,6 +12,7 @@ const Login = ({navigation}) => {
 	//Form
 	const [user, setUser] = useState("");
 	const [password, setPassword] = useState("");
+	const [icon, setIcon] = useState("")
 
 	const submit = () => {
 		const data = {
@@ -41,7 +42,7 @@ const Login = ({navigation}) => {
 						<GeneralStatusBarColor backgroundColor="#54c3f0" barStyle="light-content"/>
 					</View>
 					<View style={{justifyContent: 'center', alignItems: 'center'}}>
-						<Image source={LogoSIP} style={styles.logoSipBesar}/>
+					<Image source={LogoSIP} style={styles.logoSipBesar}/>
 					</View>
 					<Form style={{justifyContent: 'center', alignItems: 'center'}}>
 						<Item floatingLabel success style={styles.labelFloat}>
@@ -50,7 +51,7 @@ const Login = ({navigation}) => {
 						</Item>
 						<Item floatingLabel success style={styles.labelFloat}>
 							<Label>Password</Label>
-							<Input value={password} onChangeText={(value) => setPassword(value)}  secureTextEntry={true}/>
+							<Input value={password} onChangeText={(value) => setPassword(value)}  secureTextEntry={true} autoCapitalize='none' />
 						</Item>
 						<View style={{justifyContent: 'flex-end', marginLeft: 240}}>
 							<Button rounded info style={styles.buttonLogin} onPress={() => submit()}>

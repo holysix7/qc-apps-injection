@@ -20,16 +20,16 @@ const Per4Jam = ({route, navigation}) => {
 		function FixInspectionTime() {
 				let initialDate    = moment();
 				var inspection     = setInterval(() => {
-						var currentDate    = moment();    
-						var second         = parseInt((currentDate - initialDate)/1000);
-						var minutes        = parseInt(second/60);
-						var hour           = parseInt(minutes/60);
-						var second_kedua   = second - (minutes*60); 
-						var menit_kedua    = minutes - (hour*60);
-						var second_asli    = (second >= 60 ? second_kedua : second);
-						var menit_asli     = (minutes >= 60 ? menit_kedua : minutes);
-						var CombiningTime  = (hour + ":" + menit_asli + ":" + second_asli);
-						if(isMounted) setInspectionTime(CombiningTime)
+					var currentDate    = moment();    
+					var second         = parseInt((currentDate - initialDate)/1000);
+					var minutes        = parseInt(second/60);
+					var hour           = parseInt(minutes/60);
+					var second_kedua   = second - (minutes*60); 
+					var menit_kedua    = minutes - (hour*60);
+					var second_asli    = (second >= 60 ? second_kedua : second);
+					var menit_asli     = (minutes >= 60 ? menit_kedua : minutes);
+					var CombiningTime  = (hour + ":" + menit_asli + ":" + second_asli);
+					if(isMounted) setInspectionTime(CombiningTime)
 				}, 1000);
 		}
         
@@ -120,9 +120,13 @@ const Per4Jam = ({route, navigation}) => {
 	const [note17, setKeterangan17] 																	 	 = useState("")
 	const [note18, setKeterangan18] 																	 	 = useState("")
 
-	const [internal_part_id, setInternalPartId] = useState("")
-	const [customer_part_number, setCustomerPartNumber] = useState("")
-	const [model, setModel] = useState("")
+	const [internal_part_id, setInternalPartId] 													= useState("")
+	const [customer_part_number, setCustomerPartNumber] 									= useState("")
+	const [model, setModel] 																							= useState("")
+	const [created_by, setCreatedBy]																			= useState("")
+	let created_at 																												= moment().format("YYYY-MM-DD HH:mm:ss")
+	const [updated_by, setUpdatedBy]																			= useState("")
+	let updated_at 																												= moment().format("YYYY-MM-DD HH:mm:ss")
 
 	const [data, setData] = useState([]);
 	const date = []
@@ -144,6 +148,11 @@ const Per4Jam = ({route, navigation}) => {
 		const headers = {
 			'Authorization': token
 		}		
+		const id = await AsyncStorage.getItem('id')
+		const name = await AsyncStorage.getItem('name')
+		setCreatedBy(id)
+		setUpdatedBy(id)
+
 		let jam = moment().format("HH:mm:ss")
 		if(parseInt(jam) >= 8 && parseInt(jam) <= 15)
 		{
@@ -352,7 +361,11 @@ const Per4Jam = ({route, navigation}) => {
 			compare,
 			fittingTes,
 			inspectionTime,
-			item
+			item,
+			created_by,
+			created_at,
+			updated_by,
+			updated_at
 		}
 		const token = await AsyncStorage.getItem("key")
 		const params = {
