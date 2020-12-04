@@ -170,7 +170,30 @@ const MassproBeginMaterialPreparation = ({route, navigation}) => {
 	const updateCleaningHopper = () => {
 		const updateCleaning = massproMPCleaningHopper
 		const data = []
-		if(updateCleaning != "OK" && updateCleaning != "NG"){
+		const mpData = massproMP
+		if(mpData != null){
+			if(updateCleaning != "OK" && updateCleaning != "NG"){
+				data.push(
+					<View key="123sdaw" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center'}}>
+						<Picker 
+						mode="dropdown"
+						selectedValue={cleaning_hopper}
+						onValueChange={(value) => setHopper(value)}
+						>
+							<Picker.Item label="Pilih" value="" />
+							<Picker.Item label="OK" value="OK" />
+							<Picker.Item label="NG" value="NG" />
+						</Picker>
+					</View>
+				)
+			}else{
+				data.push(
+					<View key="123sdaw" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+						<Text>{updateCleaning}</Text>
+					</View>
+				)
+			}
+		}else{
 			data.push(
 				<View key="123sdaw" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center'}}>
 					<Picker 
@@ -184,12 +207,6 @@ const MassproBeginMaterialPreparation = ({route, navigation}) => {
 					</Picker>
 				</View>
 			)
-		}else{
-			data.push(
-				<View key="123sdaw" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-					<Text>{updateCleaning}</Text>
-				</View>
-			)
 		}
 		return data
 	}
@@ -197,7 +214,30 @@ const MassproBeginMaterialPreparation = ({route, navigation}) => {
 	const updateMaterialStandard = () => {
 		const updateMS = massproMPMaterialStandard
 		const data = []
-		if(updateMS != "OK" && updateMS != "NG"){
+		const mpData = massproMP
+		if(mpData != null){
+			if(updateMS != "OK" && updateMS != "NG"){
+				data.push(
+					<View key="asdwe1" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center'}}>
+						<Picker 
+						mode="dropdown"
+						selectedValue={material_standard}
+						onValueChange={(value) => setConditionMaterial(value)}
+						>
+							<Picker.Item label="Pilih" value="" />
+							<Picker.Item label="OK" value="OK" />
+							<Picker.Item label="NG" value="NG" />
+						</Picker>
+					</View>
+				)
+			}else{
+				data.push(
+					<View key="asdwe1" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+						<Text>{updateMS}</Text>
+					</View>
+				)
+			}
+		}else{
 			data.push(
 				<View key="asdwe1" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center'}}>
 					<Picker 
@@ -211,12 +251,6 @@ const MassproBeginMaterialPreparation = ({route, navigation}) => {
 					</Picker>
 				</View>
 			)
-		}else{
-			data.push(
-				<View key="asdwe1" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-					<Text>{updateMS}</Text>
-				</View>
-			)
 		}
 		return data
 	}
@@ -224,12 +258,21 @@ const MassproBeginMaterialPreparation = ({route, navigation}) => {
 	const updateTemperaturHopper = () => {
 		const updateMS = massproMPTemperatureHopperNote
 		const data = []
-		if(updateMS != null){
-			data.push(
-				<View key="asd23" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', backgroundColor: '#b8b8b8', paddingLeft: 5}}>
-					<Text>{updateMS}</Text>
-				</View>
-			)
+		const mpData = massproMP
+		if(mpData != null){
+			if(updateMS != null){
+				data.push(
+					<View key="asd23" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', backgroundColor: '#b8b8b8', paddingLeft: 5}}>
+						<Text>{updateMS}</Text>
+					</View>
+				)
+			}else{
+				data.push(
+					<View key="asd23" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center'}}>
+						<TextInput onChangeText={(value) => setTempHopper(value)} keyboardType='numeric' style={{borderWidth: 0.5, borderRadius: 25, paddingLeft: 5, height: 40}} placeholder="Type Here..." />
+					</View>
+				)
+			}
 		}else{
 			data.push(
 				<View key="asd23" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center'}}>
@@ -243,7 +286,30 @@ const MassproBeginMaterialPreparation = ({route, navigation}) => {
 	const updateTemperaturHopperSelect = () => {
 		const updateMS = massproMPTemperatureHopper
 		const data = []
-		if(updateMS != "OK" && updateMS != "NG"){
+		const mpData = massproMP
+		if(mpData != null){
+			if(updateMS != "OK" && updateMS != "NG"){
+				data.push(
+					<View key="asdweq1" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center'}}>
+						<Picker 
+						mode="dropdown"
+						selectedValue={hopper_temp}
+						onValueChange={(value) => setConditionHopper(value)}
+						>
+							<Picker.Item label="Pilih" value="" />
+							<Picker.Item label="OK" value="OK" />
+							<Picker.Item label="NG" value="NG" />
+						</Picker>
+					</View>
+				)
+			}else{
+				data.push(
+					<View key="asdweq1" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+						<Text>{updateMS}</Text>
+					</View>
+				)
+			}
+		}else{
 			data.push(
 				<View key="asdweq1" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center'}}>
 					<Picker 
@@ -257,12 +323,6 @@ const MassproBeginMaterialPreparation = ({route, navigation}) => {
 					</Picker>
 				</View>
 			)
-		}else{
-			data.push(
-				<View key="asdweq1" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-					<Text>{updateMS}</Text>
-				</View>
-			)
 		}
 		return data
 	}
@@ -270,12 +330,21 @@ const MassproBeginMaterialPreparation = ({route, navigation}) => {
 	const updateRemark = () => {
 		const updateMS = massproMPRemark
 		const data = []
-		if(updateMS != null){
-			data.push(
-				<View key="asd23" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', backgroundColor: '#b8b8b8', paddingLeft: 5}}>
-					<Text>{updateMS}</Text>
-				</View>
-			)
+		const mpData = massproMP
+		if(mpData != null){
+			if(updateMS != null){
+				data.push(
+					<View key="asd23" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', backgroundColor: '#b8b8b8', paddingLeft: 5}}>
+						<Text>{updateMS}</Text>
+					</View>
+				)
+			}else{
+				data.push(
+					<View key="asd23" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', backgroundColor: '#b8b8b8', paddingLeft: 5}}>
+						<TextInput value={remark} onChangeText={(value) => setRemark(value)} style={{paddingLeft: 5, height: 40}} placeholder="Type Here..." />
+					</View>
+				)
+			}
 		}else{
 			data.push(
 				<View key="asd23" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', backgroundColor: '#b8b8b8', paddingLeft: 5}}>

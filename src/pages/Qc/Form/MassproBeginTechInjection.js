@@ -11,12 +11,12 @@ const MassproBeginTechInjection = ({route, navigation}) => {
 		formOke()
 	}, [])
 
-	const {product_name, customer_name, sys_plant_id, machine_id, machine_name, today, yesterday} = route.params
+	const {customer_name, sys_plant_id, machine_id, machine_name, today, yesterday} = route.params
 	const [data1, setData1] 																							= useState("")
 	const [cleaning_mold, setCleaning] 																		= useState("")
 	const [standard_parameter, setParam] 																	= useState("")
 	const [robot_setting, setRobot] 																			= useState("")
-	const [check_tooling, setChannel] 																		= useState("")
+	const [check_cooling, setChannel] 																		= useState("")
 	const [four_m_check, setSheet] 																				= useState("")
 	const [mold_temp_act, setActMold] 																		= useState("")
 	const [remark, setRemark] 																						= useState("")
@@ -24,29 +24,46 @@ const MassproBeginTechInjection = ({route, navigation}) => {
 	let created_at 																												= moment().format("YYYY-MM-DD HH:mm:ss")
 	const [updated_by, setUpdatedBy]																			= useState("")
 	let updated_at 																												= moment().format("YYYY-MM-DD HH:mm:ss")
-	const [eng_product_id, setEngProd]																		= useState(0)
 	const [qc_masspro_main_mold_id, setMaintMoldId]												= useState(0)
 	const [qc_masspro_material_preparation_id, setMaterialPreparationId]	= useState(0)
 	const [qc_masspro_mold_setter_id, setMoldSetterId]										= useState(0)
 	const [hours, setHours]																								= useState(0)
 	const [shift, setShift]																								= useState(0)
+
+	const [planningId, setPlanningId]		= useState("")
+	const [internal_part_id, setIPI]		= useState("")
+	const [eng_product_id, setEngProd]	= useState(0)
+	const [massproTI, setMassproTI]			= useState("")
+	const [massproTICleanningMold, setCleaningMold]	  = useState("")
+	const [massproTIInputStandard, setInputStandard] 	= useState("")
+	const [massproTIRoboSetting, setRoboSetting] 			= useState("")
+	const [massproTICoolingChannel, setCooling] 			= useState("")
+	const [massproTI4mCheckSheet, set4mCheck]   			= useState("")
+	const [massproTIActMoldTemp, setActMoldTemp]   		= useState("")
+	const [massproTIRemark, setTIRemark]   						= useState("")
 	const date = []
 	const prod_machine_id = machine_id
 	const status = "new"
 	const [tooling_num, setTooling]	= useState("")
+	const planning_id = parseInt(planningId)
+
+
 	const submit = async() => {
 		const data = {
 			eng_product_id,
 			prod_machine_id,
 			sys_plant_id,
 			tooling_num,
+			mold_temp_act,
+			internal_part_id,
 			qc_masspro_main_mold_id,
 			qc_masspro_material_preparation_id,
 			qc_masspro_mold_setter_id,
 			cleaning_mold,
+			planning_id,
 			standard_parameter,
 			robot_setting,
-			check_tooling,
+			check_cooling,
 			four_m_check,
 			remark,
 			status,
@@ -118,9 +135,19 @@ const MassproBeginTechInjection = ({route, navigation}) => {
 			setMaintMoldId(response.data.data.qc_masspro_main_mold_id)
 			setMaterialPreparationId(response.data.data.qc_masspro_material_preparation_id)
 			setMoldSetterId(response.data.data.qc_masspro_mold_setter_id)
-			setEngProd(response.data.data.eng_product_id)
 			setData1(response.data.data.product_detail)
 			setTooling(response.data.data.tooling_num)
+			setEngProd(response.data.data.eng_product_id)
+			setPlanningId(response.data.data.planning_id)
+			setIPI(response.data.data.product_detail.internal_part_id)
+			setMassproTI(response.data.data.masspro_ti)
+			setCleaningMold(response.data.data.masspro_ti.cleaning_mold)
+			setInputStandard(response.data.data.masspro_ti.standard_parameter)
+			setRoboSetting(response.data.data.masspro_ti.robot_setting)
+			setCooling(response.data.data.masspro_ti.check_cooling)
+			set4mCheck(response.data.data.masspro_ti.four_m_check_sheet)
+			setActMoldTemp(response.data.data.masspro_ti.mold_temp)
+			setTIRemark(response.data.data.masspro_ti.remark)
 			console.log("List Data Tech. Injection: ", response.data.status, "OK")
 		})
 		.catch(error => {
@@ -146,6 +173,318 @@ const MassproBeginTechInjection = ({route, navigation}) => {
 			<Text key={"key"} style={{marginTop: 1, fontWeight: 'bold', fontSize: 17}}>{yesterday}</Text>
 		)
 	}
+
+	const updateCleaningMold = () => {
+		const updateTI = massproTICleanningMold
+		const data = []
+		const tiData = massproTI
+		if(tiData != null){
+			if(updateTI != "OK" && updateTI != "NG"){
+				data.push(
+					<View key="skwiu21odj" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+						<Picker 
+						mode="dropdown"
+						selectedValue={cleaning_mold}
+						onValueChange={(value) => setCleaning(value)}
+						>
+							<Picker.Item label="Pilih" value="" />
+							<Picker.Item label="OK" value="OK" />
+							<Picker.Item label="NG" value="NG" />
+						</Picker>
+					</View>
+				)
+			}else{
+				data.push(
+					<View key="skwiu21odj" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+						<Text>{updateTI}</Text>
+					</View>
+				)
+			}
+		}else{
+			data.push(
+				<View key="skwiu21odj" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<Picker 
+					mode="dropdown"
+					selectedValue={cleaning_mold}
+					onValueChange={(value) => setCleaning(value)}
+					>
+						<Picker.Item label="Pilih" value="" />
+						<Picker.Item label="OK" value="OK" />
+						<Picker.Item label="NG" value="NG" />
+					</Picker>
+				</View>
+			)
+		}
+		return data
+	}
+
+	const updateStandaradParameter = () => {
+		const updateTI = massproTIInputStandard
+		const data = []
+		const tiData = massproTI
+		if(tiData != null){
+			if(updateTI != "OK" && updateTI != "NG"){
+				data.push(
+					<View key="oasiSIj12" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+						<Picker 
+						mode="dropdown"
+						selectedValue={standard_parameter}
+						onValueChange={(value) => setParam(value)}
+						>
+							<Picker.Item label="Pilih" value="" />
+							<Picker.Item label="OK" value="OK" />
+							<Picker.Item label="NG" value="NG" />
+						</Picker>
+					</View>
+				)
+			}else{
+				data.push(
+					<View key="oasiSIj12" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+						<Text>{updateTI}</Text>
+					</View>
+				)
+			}
+		}else{
+			data.push(
+				<View key="oasiSIj12" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<Picker 
+					mode="dropdown"
+					selectedValue={standard_parameter}
+					onValueChange={(value) => setParam(value)}
+					>
+						<Picker.Item label="Pilih" value="" />
+						<Picker.Item label="OK" value="OK" />
+						<Picker.Item label="NG" value="NG" />
+					</Picker>
+				</View>
+			)
+		}
+		return data
+	}
+
+	const updateRoboSetting = () => {
+		const updateTI = massproTIRoboSetting
+		const data = []
+		const tiData = massproTI
+		if(tiData != null){
+			if(updateTI != "OK" && updateTI != "NG"){
+				data.push(
+					<View key="kaOPAIU2" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+						<Picker 
+						mode="dropdown"
+						selectedValue={robot_setting}
+						onValueChange={(value) => setRobot(value)}
+						>
+							<Picker.Item label="Pilih" value="" />
+							<Picker.Item label="OK" value="OK" />
+							<Picker.Item label="NG" value="NG" />
+						</Picker>
+					</View>
+				)
+			}else{
+				data.push(
+					<View key="kaOPAIU2" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+						<Text>{updateTI}</Text>
+					</View>
+				)
+			}
+		}else{
+			data.push(
+				<View key="kaOPAIU2" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<Picker 
+					mode="dropdown"
+					selectedValue={robot_setting}
+					onValueChange={(value) => setRobot(value)}
+					>
+						<Picker.Item label="Pilih" value="" />
+						<Picker.Item label="OK" value="OK" />
+						<Picker.Item label="NG" value="NG" />
+					</Picker>
+				</View>
+			)
+		}
+		return data
+	}
+
+	const updateCoolingChannel = () => {
+		const updateTI = massproTICoolingChannel
+		const data = []
+		const tiData = massproTI
+		if(tiData != null){
+			if(updateTI != "OK" && updateTI != "NG"){
+				data.push(
+					<View key="SOKwkjasu@13sa" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+						<Picker 
+						mode="dropdown"
+						selectedValue={check_cooling}
+						onValueChange={(value) => setChannel(value)}
+						>
+							<Picker.Item label="Pilih" value="" />
+							<Picker.Item label="OK" value="OK" />
+							<Picker.Item label="NG" value="NG" />
+						</Picker>
+					</View>
+				)
+			}else{
+				data.push(
+					<View key="SOKwkjasu@13sa" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+						<Text>{updateTI}</Text>
+					</View>
+				)
+			}
+		}else{
+			data.push(
+				<View key="SOKwkjasu@13sa" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<Picker 
+					mode="dropdown"
+					selectedValue={check_cooling}
+					onValueChange={(value) => setChannel(value)}
+					>
+						<Picker.Item label="Pilih" value="" />
+						<Picker.Item label="OK" value="OK" />
+						<Picker.Item label="NG" value="NG" />
+					</Picker>
+				</View>
+			)
+		}
+		return data
+	}
+
+	const update4CheckSheet = () => {
+		const updateTI = massproTI4mCheckSheet
+		const data = []
+		const tiData = massproTI
+		if(tiData != null){
+			if(updateTI != "OK" && updateTI != "NG"){
+				data.push(
+					<View key="sadw123as" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+						<Picker 
+						mode="dropdown"
+						selectedValue={four_m_check}
+						onValueChange={(value) => setSheet(value)}
+						>
+							<Picker.Item label="Pilih" value="" />
+							<Picker.Item label="OK" value="OK" />
+							<Picker.Item label="NG" value="NG" />
+						</Picker>
+					</View>
+				)
+			}else{
+				data.push(
+					<View key="sadw123as" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+						<Text>{updateTI}</Text>
+					</View>
+				)
+			}
+		}else{
+			data.push(
+				<View key="sadw123as" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<Picker 
+					mode="dropdown"
+					selectedValue={four_m_check}
+					onValueChange={(value) => setSheet(value)}
+					>
+						<Picker.Item label="Pilih" value="" />
+						<Picker.Item label="OK" value="OK" />
+						<Picker.Item label="NG" value="NG" />
+					</Picker>
+				</View>
+			)
+		}
+		return data
+	}
+
+	const updateActMoldTemp = () => {
+		const updateTI = massproTIActMoldTemp
+		const data = []
+		const tiData = massproTI
+		if(tiData != null){
+			if(updateTI != "OK" && updateTI != "NG"){
+				data.push(
+					<View key="sdk@isajdl1" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+						<Picker 
+						mode="dropdown"
+						selectedValue={mold_temp_act}
+						onValueChange={(value) => setActMold(value)}
+						>
+							<Picker.Item label="Pilih" value="" />
+							<Picker.Item label="OK" value="OK" />
+							<Picker.Item label="NG" value="NG" />
+						</Picker>
+					</View>
+				)
+			}else{
+				data.push(
+					<View key="sdk@isajdl1" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+						<Text>{updateTI}</Text>
+					</View>
+				)
+			}
+		}else{
+			data.push(
+				<View key="sdk@isajdl1" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<Picker 
+					mode="dropdown"
+					selectedValue={mold_temp_act}
+					onValueChange={(value) => setActMold(value)}
+					>
+						<Picker.Item label="Pilih" value="" />
+						<Picker.Item label="OK" value="OK" />
+						<Picker.Item label="NG" value="NG" />
+					</Picker>
+				</View>
+			)
+		}
+		return data
+	}
+
+	const updateRemark = () => {
+		const updateTI = massproTIRemark
+		const data = []
+		const tiData = massproTI
+		if(tiData != null){
+			if(updateTI == null){
+				data.push(
+					<View key="sdk@isajdl1" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+						<TextInput onChangeText={(value) => setRemark(value)}  style={{paddingLeft: 5, height: 40}} placeholder="Type Here..." />
+					</View>
+				)
+			}else{
+				data.push(
+					<View key="sdk@isajdl1" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+						<Text>{updateTI}</Text>
+					</View>
+				)
+			}
+		}else{
+			data.push(
+				<View key="sdk@isajdl1" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<TextInput onChangeText={(value) => setRemark(value)}  style={{paddingLeft: 5, height: 40}} placeholder="Type Here..." />
+				</View>
+			)
+		}
+		return data
+	}
+
+	const updateButton = () => {
+		const updateMS = massproTI
+		const data = []
+		if(updateMS != null){
+			data.push(
+				<View key="asd12q" style={{paddingTop: 10}}>
+					<Button style={{width: 172, borderRadius: 25, justifyContent: 'center', backgroundColor: '#05c46b'}} onPress={() => alert("Data Material Preparation Already Saved!")}><Text>SAVED</Text></Button>
+				</View>
+			)
+		}else{
+			data.push(
+				<View key="asd12q" style={{paddingTop: 10}}>
+					<Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>
+				</View>
+			)
+		}
+		return data
+	}
+
 	return(
 		<KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={{flex:1}}>
 			<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -200,20 +539,20 @@ const MassproBeginTechInjection = ({route, navigation}) => {
 											<Picker.Item label="Shift 3 - 8" value="7" />
 										</Picker>
 									</View>
-									<Text style={{fontWeight: 'bold', fontSize: 11}}>{data1.name != null ? data1.name : "-"}</Text>
+									<Text style={{fontWeight: 'bold', fontSize: 11}}>{data1 != null ? data1.name : "-"}</Text>
 								</View>
 							</View>
 						</View>
 
 						<View style={{borderWidth: 0.5, flexDirection: 'row'}}>
 							<View style={{justifyContent: 'center', paddingLeft: 5, height: 25, width: "36%", backgroundColor: '#F5F5DC'}}>
-								<Text style={{fontSize: 12}}>{data1.internal_part_id != null ? data1.internal_part_id : "-"}</Text>
+								<Text style={{fontSize: 12}}>{data1 != null ? data1.internal_part_id : "-"}</Text>
 							</View>
 							<View style={{justifyContent: 'center', alignItems: 'center', height: 25, width: "30%", backgroundColor: '#F5F5DC'}}>
-								<Text style={{fontSize: 12}}>{data1.customer_part_number != null ? data1.customer_part_number : "-"}</Text>
+								<Text style={{fontSize: 12}}>{data1 != null ? data1.customer_part_number : "-"}</Text>
 							</View>
 							<View style={{flex: 1, justifyContent: 'center', alignItems: 'center', height: 25, backgroundColor: '#F5F5DC'}}>
-								<Text style={{fontSize: 12}}>{data1.model != null ? data1.model : "-"}</Text>
+								<Text style={{fontSize: 12}}>{data1 != null ? data1.model : "-"}</Text>
 							</View>
 						</View>
 
@@ -227,17 +566,7 @@ const MassproBeginTechInjection = ({route, navigation}) => {
 										<Text style={{color: 'black'}}>:</Text>
 									</View>
 									<View style={{padding: 4, width: "50%"}}>
-										<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-											<Picker 
-											mode="dropdown"
-											selectedValue={cleaning_mold}
-											onValueChange={(value) => setCleaning(value)}
-											>
-												<Picker.Item label="Pilih" value="" />
-												<Picker.Item label="OK" value="OK" />
-												<Picker.Item label="NG" value="NG" />
-											</Picker>
-										</View>
+										{updateCleaningMold()}
 									</View>
 								</View>
 
@@ -249,17 +578,7 @@ const MassproBeginTechInjection = ({route, navigation}) => {
 										<Text style={{color: 'black'}}>:</Text>
 									</View>
 									<View style={{padding: 4, width: "50%"}}>
-										<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-											<Picker 
-											mode="dropdown"
-											selectedValue={standard_parameter}
-											onValueChange={(value) => setParam(value)}
-											>
-												<Picker.Item label="Pilih" value="" />
-												<Picker.Item label="OK" value="OK" />
-												<Picker.Item label="NG" value="NG" />
-											</Picker>
-										</View>
+										{updateStandaradParameter()}
 									</View>
 								</View>
 								
@@ -271,17 +590,7 @@ const MassproBeginTechInjection = ({route, navigation}) => {
 										<Text style={{color: 'black'}}>:</Text>
 									</View>
 									<View style={{padding: 4, width: "50%"}}>
-										<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-											<Picker 
-											mode="dropdown"
-											selectedValue={robot_setting}
-											onValueChange={(value) => setRobot(value)}
-											>
-												<Picker.Item label="Pilih" value="" />
-												<Picker.Item label="OK" value="OK" />
-												<Picker.Item label="NG" value="NG" />
-											</Picker>
-										</View>
+										{updateRoboSetting()}
 									</View>
 								</View>
 								
@@ -293,17 +602,7 @@ const MassproBeginTechInjection = ({route, navigation}) => {
 										<Text style={{color: 'black'}}>:</Text>
 									</View>
 									<View style={{padding: 4, width: "50%"}}>
-										<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-											<Picker 
-											mode="dropdown"
-											selectedValue={check_tooling}
-											onValueChange={(value) => setChannel(value)}
-											>
-												<Picker.Item label="Pilih" value="" />
-												<Picker.Item label="OK" value="OK" />
-												<Picker.Item label="NG" value="NG" />
-											</Picker>
-										</View>
+										{updateCoolingChannel()}
 									</View>
 								</View>
 								
@@ -315,17 +614,7 @@ const MassproBeginTechInjection = ({route, navigation}) => {
 										<Text style={{color: 'black'}}>:</Text>
 									</View>
 									<View style={{padding: 4, width: "50%"}}>
-										<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-											<Picker 
-											mode="dropdown"
-											selectedValue={four_m_check}
-											onValueChange={(value) => setSheet(value)}
-											>
-												<Picker.Item label="Pilih" value="" />
-												<Picker.Item label="OK" value="OK" />
-												<Picker.Item label="NG" value="NG" />
-											</Picker>
-										</View>
+										{update4CheckSheet()}
 									</View>
 								</View>
 								
@@ -337,17 +626,7 @@ const MassproBeginTechInjection = ({route, navigation}) => {
 										<Text style={{color: 'black'}}>:</Text>
 									</View>
 									<View style={{padding: 4, width: "50%"}}>
-										<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-											<Picker 
-											mode="dropdown"
-											selectedValue={mold_temp_act}
-											onValueChange={(value) => setActMold(value)}
-											>
-												<Picker.Item label="Pilih" value="" />
-												<Picker.Item label="OK" value="OK" />
-												<Picker.Item label="NG" value="NG" />
-											</Picker>
-										</View>
+										{updateActMoldTemp()}
 									</View>
 								</View>
 
@@ -359,14 +638,12 @@ const MassproBeginTechInjection = ({route, navigation}) => {
 										<Text style={{color: 'black'}}>:</Text>
 									</View>
 									<View style={{padding: 4, width: "50%"}}>
-										<TextInput onChangeText={(value) => setRemark(value)}  style={{borderWidth: 0.5, borderRadius: 25, paddingLeft: 5, height: 40}} placeholder="Type Here..." />
+										{updateRemark()}
 									</View>
 								</View>
 								
 								<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
-									<View>
-										<Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>
-									</View>
+									{updateButton()}
 								</View>
 							</TouchableOpacity>
 						</ScrollView>

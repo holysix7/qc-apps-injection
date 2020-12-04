@@ -158,9 +158,35 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 
 	const statusMoldCondition = () => {
 		const mldCondition = massMold
+		const mpmmData = massProMM
 		const data = []
-		if(mldCondition != "OK" && mldCondition != "NG")
-		{
+		if(mpmmData != null){
+			if(mldCondition != "OK" && mldCondition != "NG")
+			{
+				data.push(
+					<View key="skehj2" style={{borderWidth: 0.5, borderRadius: 25, width: 177, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+						<Picker 
+						mode="dropdown"
+						selectedValue={mold_condition}
+						onValueChange={(value) => setCondition(value)}
+						itemStyle={{marginLeft: 0}}
+						itemTextStyle={{fontSize: 9}}
+						key="asdweq"
+						>
+							<Picker.Item label="Pilih" value="" />
+							<Picker.Item label="OK" value="OK" />
+							<Picker.Item label="NG" value="NG" />
+						</Picker>
+					</View>
+				)
+			}else{
+				data.push(
+					<View key="skehj2" style={{borderWidth: 0.5, borderRadius: 25, width: 177, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+						<Text>{mldCondition}</Text>
+					</View>
+				)
+			}
+		}else{
 			data.push(
 				<View key="skehj2" style={{borderWidth: 0.5, borderRadius: 25, width: 177, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 					<Picker 
@@ -177,40 +203,54 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 					</Picker>
 				</View>
 			)
-		}else{
-			data.push(
-				<View key="skehj2" style={{borderWidth: 0.5, borderRadius: 25, width: 177, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-					<Text>{mldCondition}</Text>
-				</View>
-			)
 		}
 		return data
 	}
 	const neepleCoolingMold = () => {
 		const neepleCooling = massNeeple
 		const data = []
-		if(neepleCooling != "OK" && neepleCooling != "NG")
-		{
-			data.push(
-			<View key="sdw21" style={{borderWidth: 0.5, borderRadius: 25, width: 177, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-				<Picker 
-				mode="dropdown"
-				selectedValue={neeple_cooling}
-				onValueChange={(value) => setCooling(value)}
-				itemStyle={{marginLeft: 0}}
-				itemTextStyle={{fontSize: 9}}
-				key="asdweq"
-				>
-					<Picker.Item label="Pilih" value="" />
-					<Picker.Item label="OK" value="OK" />
-					<Picker.Item label="NG" value="NG" />
-				</Picker>
-			</View>
-			)
+		const mpmmData = massProMM
+		if(mpmmData != null){
+			if(neepleCooling != "OK" && neepleCooling != "NG")
+			{
+				data.push(
+				<View key="sdw21" style={{borderWidth: 0.5, borderRadius: 25, width: 177, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<Picker 
+					mode="dropdown"
+					selectedValue={neeple_cooling}
+					onValueChange={(value) => setCooling(value)}
+					itemStyle={{marginLeft: 0}}
+					itemTextStyle={{fontSize: 9}}
+					key="asdweq"
+					>
+						<Picker.Item label="Pilih" value="" />
+						<Picker.Item label="OK" value="OK" />
+						<Picker.Item label="NG" value="NG" />
+					</Picker>
+				</View>
+				)
+			}else{
+				data.push(
+					<View key="sdw21" style={{borderWidth: 0.5, borderRadius: 25, width: 177, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+						<Text>{neepleCooling}</Text>
+					</View>
+				)
+			}
 		}else{
 			data.push(
-				<View key="sdw21" style={{borderWidth: 0.5, borderRadius: 25, width: 177, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-					<Text>{neepleCooling}</Text>
+				<View key="sdw21" style={{borderWidth: 0.5, borderRadius: 25, width: 177, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<Picker 
+					mode="dropdown"
+					selectedValue={neeple_cooling}
+					onValueChange={(value) => setCooling(value)}
+					itemStyle={{marginLeft: 0}}
+					itemTextStyle={{fontSize: 9}}
+					key="asdweq"
+					>
+						<Picker.Item label="Pilih" value="" />
+						<Picker.Item label="OK" value="OK" />
+						<Picker.Item label="NG" value="NG" />
+					</Picker>
 				</View>
 			)
 		}
@@ -219,8 +259,34 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 	const standardPart = () => {
 		const standardPart = massStandard
 		const data = []
-		if(standardPart != "OK" && standardPart != "NG")
-		{
+		const mpmmData = massProMM
+		if(mpmmData != null){
+			if(standardPart != "OK" && standardPart != "NG")
+			{
+				data.push(
+					<View key="asdw2"  style={{borderWidth: 0.5, borderRadius: 25, width: 177, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+						<Picker 
+						mode="dropdown"
+						selectedValue={standard_part}
+						onValueChange={(value) => setStandard(value)}
+						itemStyle={{marginLeft: 0}}
+						itemTextStyle={{fontSize: 9}}
+						key="asdweq"
+						>
+							<Picker.Item label="Pilih" value="" />
+							<Picker.Item label="OK" value="OK" />
+							<Picker.Item label="NG" value="NG" />
+						</Picker>
+					</View>
+				)
+			}else{
+				data.push(
+					<View key="asle21" style={{borderWidth: 0.5, borderRadius: 25, width: 177, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+						<Text>{standardPart}</Text>
+					</View>
+				)
+			}
+		}else{
 			data.push(
 				<View key="asdw2"  style={{borderWidth: 0.5, borderRadius: 25, width: 177, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 					<Picker 
@@ -237,27 +303,30 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 					</Picker>
 				</View>
 			)
-		}else{
-			data.push(
-				<View key="asle21" style={{borderWidth: 0.5, borderRadius: 25, width: 177, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-					<Text>{standardPart}</Text>
-				</View>
-			)
 		}
 		return data
 	}
 	const remarkData = () => {
 		const updateRemark = massRemark
+		const mpmmData = massProMM
 		const data = []
-		if(updateRemark != null){
-			data.push(
-				<View key="123seqw" style={{borderWidth: 0.5, borderRadius: 25, width: 177, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-					<Text>{updateRemark}</Text>
-				</View>
-			)
+		if(mpmmData != null){
+			if(updateRemark != null){
+				data.push(
+					<View key="123seqw" style={{borderWidth: 0.5, borderRadius: 25, width: 177, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+						<Text>{updateRemark}</Text>
+					</View>
+				)
+			}else{
+				data.push(
+					<View key="123seqw" style={{borderWidth: 0.5, borderRadius: 25, width: 177, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+						<TextInput value={remark} onChangeText={(value) => setRemark(value)} style={{paddingLeft: 5, height: 40, width: 177}} placeholder="Type Here..." />
+					</View>
+				)
+			}
 		}else{
 			data.push(
-				<View key="123seqw" style={{borderWidth: 0.5, borderRadius: 25, width: 177, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+				<View key="123seqw" style={{borderWidth: 0.5, borderRadius: 25, width: 177, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 					<TextInput value={remark} onChangeText={(value) => setRemark(value)} style={{paddingLeft: 5, height: 40, width: 177}} placeholder="Type Here..." />
 				</View>
 			)
@@ -266,13 +335,23 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 	}
 	const updateButton = () => {
 		const updateMS = massProMM
+		const mpmmData = massProMM
 		const data = []
-		if(updateMS != null){
-			data.push(
-				<View key="asd12q" style={{paddingTop: 10}}>
-					<Button style={{width: 172, borderRadius: 25, justifyContent: 'center', backgroundColor: '#05c46b'}} onPress={() => alert("Data Maintenance Mold Already Saved!")}><Text>SAVED</Text></Button>
-				</View>
-			)
+		if(mpmmData != null)
+		{
+			if(updateMS != null){
+				data.push(
+					<View key="asd12q" style={{paddingTop: 10}}>
+						<Button style={{width: 172, borderRadius: 25, justifyContent: 'center', backgroundColor: '#05c46b'}} onPress={() => alert("Data Maintenance Mold Already Saved!")}><Text>SAVED</Text></Button>
+					</View>
+				)
+			}else{
+				data.push(
+					<View key="asd12q" style={{paddingTop: 10}}>
+						<Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>
+					</View>
+				)
+			}
 		}else{
 			data.push(
 				<View key="asd12q" style={{paddingTop: 10}}>
