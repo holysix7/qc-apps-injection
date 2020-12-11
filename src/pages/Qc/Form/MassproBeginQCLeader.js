@@ -179,7 +179,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 		}else{
 			var dataNGs = []
 			dataNGs.push(
-				<Picker.Item label="Tidak NG" value="" key="swQwdAcxz12" />
+				<Picker.Item label="Tidak NG" value="OK" key="swQwdAcxz12" />
 			)
 		}
 	}
@@ -649,14 +649,14 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 			if(cavity != null){ 
 				if(cavity > 0){
 					table1.push(
-						<View key={cavity} style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+						<View key="asc23" style={{flexDirection: 'row', height: 50}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
 								<View style={{justifyContent: 'center', width: 100, padding: 5}}>
 									<Text>1</Text>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 166}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+								<View style={{justifyContent: 'center', width: 168.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {judgement_first_piece1}
@@ -668,7 +668,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									</Picker>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
 								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
@@ -679,7 +679,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									</Picker>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
 								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
@@ -692,12 +692,12 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									</Picker>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
 								<View style={{justifyContent: 'center', width: 165.5}}>
 									<TextInput keyboardType="numeric" value={product_weight1} onChangeText={(value) => setProductWeight1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
 								<View style={{justifyContent: 'center', width: 145}}>
 									<TextInput value={note1} onChangeText={(value) => setKeterangan1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
 								</View>
@@ -707,13 +707,13 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				}
 				if(cavity > 1){
 					table1.push(
-						<View key={cavity} style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+						<View key="asc231" style={{flexDirection: 'row', height: 50}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
+								<View style={{width: 100, padding: 5}}>
 									<Text>2</Text>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
 								<View style={{justifyContent: 'center', width: 168.5}}>
 									<Picker 
 									mode="dropdown"
@@ -726,7 +726,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									</Picker>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
 								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
@@ -737,7 +737,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									</Picker>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
 								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
@@ -750,12 +750,12 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									</Picker>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<TextInput keyboardType="numeric" value={product_weight2} onChangeText={(value) => setProductWeight2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
 								<View style={{justifyContent: 'center', width: 145}}>
 									<TextInput value={note2} onChangeText={(value) => setKeterangan2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
 								</View>
@@ -766,13 +766,13 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 
 				if(cavity > 2){
 					table1.push(
-						<View key={cavity} style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+						<View key="ascs23" style={{flexDirection: 'row', height: 50}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
 								<View style={{justifyContent: 'center', width: 100, padding: 5}}>
 									<Text>3</Text>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
 								<View style={{justifyContent: 'center', width: 168.5}}>
 									<Picker 
 									mode="dropdown"
@@ -785,7 +785,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									</Picker>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
 								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
@@ -796,7 +796,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									</Picker>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
 								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
@@ -809,12 +809,12 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									</Picker>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<TextInput keyboardType="numeric" value={product_weight3} onChangeText={(value) => setProductWeight3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
 								<View style={{justifyContent: 'center', width: 145}}>
 									<TextInput value={note3} onChangeText={(value) => setKeterangan3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
 								</View>
@@ -825,13 +825,13 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 
 				if(cavity > 3){
 					table1.push(
-						<View key={cavity} style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+						<View key="asc23s" style={{flexDirection: 'row', height: 50}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
 								<View style={{justifyContent: 'center', width: 100, padding: 5}}>
 									<Text>4</Text>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
 								<View style={{justifyContent: 'center', width: 168.5}}>
 									<Picker 
 									mode="dropdown"
@@ -844,7 +844,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									</Picker>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
 								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
@@ -855,7 +855,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									</Picker>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
 								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
@@ -868,8 +868,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									</Picker>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<TextInput keyboardType="numeric" value={product_weight4} onChangeText={(value) => setProductWeight4(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
 								</View>
 							</View>
@@ -884,13 +884,13 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 
 				if(cavity > 4){
 					table1.push(
-						<View key={cavity} style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+						<View key="xczse1" style={{flexDirection: 'row', height: 50}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
 								<View style={{justifyContent: 'center', width: 100, padding: 5}}>
 									<Text>5</Text>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
 								<View style={{justifyContent: 'center', width: 168.5}}>
 									<Picker 
 									mode="dropdown"
@@ -903,7 +903,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									</Picker>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
 								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
@@ -914,7 +914,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									</Picker>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
 								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
@@ -927,12 +927,12 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									</Picker>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<TextInput keyboardType="numeric" value={product_weight5} onChangeText={(value) => setProductWeight5(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
 								<View style={{justifyContent: 'center', width: 145}}>
 									<TextInput value={note5} onChangeText={(value) => setKeterangan5(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
 								</View>
@@ -943,13 +943,13 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 
 				if(cavity > 5){
 					table1.push(
-						<View key={cavity} style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+						<View key="xczsoke2" style={{flexDirection: 'row', height: 50}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
 								<View style={{justifyContent: 'center', width: 100, padding: 5}}>
 									<Text>6</Text>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
 								<View style={{justifyContent: 'center', width: 168.5}}>
 									<Picker 
 									mode="dropdown"
@@ -962,7 +962,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									</Picker>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
 								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
@@ -973,7 +973,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									</Picker>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
 								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
@@ -986,8 +986,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									</Picker>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<TextInput keyboardType="numeric" value={product_weight6} onChangeText={(value) => setProductWeight6(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
 								</View>
 							</View>
@@ -1002,13 +1002,13 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 
 				if(cavity > 6){
 					table1.push(
-						<View key={cavity} style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+						<View key="asdpk2p1" style={{flexDirection: 'row', height: 50}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
 								<View style={{justifyContent: 'center', width: 100, padding: 5}}>
 									<Text>7</Text>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
 								<View style={{justifyContent: 'center', width: 168.5}}>
 									<Picker 
 									mode="dropdown"
@@ -1021,7 +1021,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									</Picker>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
 								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
@@ -1032,7 +1032,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									</Picker>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
 								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
@@ -1045,8 +1045,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									</Picker>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<TextInput keyboardType="numeric" value={product_weight7} onChangeText={(value) => setProductWeight7(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
 								</View>
 							</View>
@@ -1061,13 +1061,13 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 
 				if(cavity > 7){
 					table1.push(
-						<View key={cavity} style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+						<View key="xczs2" style={{flexDirection: 'row', height: 50}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
 								<View style={{justifyContent: 'center', width: 100, padding: 5}}>
 									<Text>8</Text>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
 								<View style={{justifyContent: 'center', width: 168.5}}>
 									<Picker 
 									mode="dropdown"
@@ -1080,7 +1080,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									</Picker>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
 								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
@@ -1091,7 +1091,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									</Picker>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
 								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
@@ -1104,8 +1104,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									</Picker>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<TextInput keyboardType="numeric" value={product_weight8} onChangeText={(value) => setProductWeight8(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
 								</View>
 							</View>
@@ -1120,13 +1120,13 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 
 				if(cavity > 8){
 					table1.push(
-						<View key={cavity} style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+						<View key="Asd12da" style={{flexDirection: 'row', height: 50}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
 								<View style={{justifyContent: 'center', width: 100, padding: 5}}>
 									<Text>9</Text>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
 								<View style={{justifyContent: 'center', width: 168.5}}>
 									<Picker 
 									mode="dropdown"
@@ -1139,7 +1139,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									</Picker>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
 								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
@@ -1150,7 +1150,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									</Picker>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
 								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
@@ -1163,8 +1163,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									</Picker>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<TextInput keyboardType="numeric" value={product_weight9} onChangeText={(value) => setProductWeight9(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
 								</View>
 							</View>
@@ -1179,13 +1179,13 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 
 				if(cavity > 9){
 					table1.push(
-						<View key={cavity} style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+						<View key="Asdasd1" style={{flexDirection: 'row', height: 50}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
 								<View style={{justifyContent: 'center', width: 100, padding: 5}}>
 									<Text>10</Text>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
 								<View style={{justifyContent: 'center', width: 168.5}}>
 									<Picker 
 									mode="dropdown"
@@ -1198,7 +1198,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									</Picker>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
 								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
@@ -1209,7 +1209,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									</Picker>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
 								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
@@ -1222,8 +1222,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									</Picker>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<TextInput keyboardType="numeric" value={product_weight10} onChangeText={(value) => setProductWeight10(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
 								</View>
 							</View>
@@ -1238,13 +1238,13 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 
 				if(cavity > 10){
 					table1.push(
-						<View key={cavity} style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+						<View key="zxczew2" style={{flexDirection: 'row', height: 50}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
 								<View style={{justifyContent: 'center', width: 100, padding: 5}}>
 									<Text>11</Text>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
 								<View style={{justifyContent: 'center', width: 168.5}}>
 									<Picker 
 									mode="dropdown"
@@ -1257,7 +1257,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									</Picker>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
 								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
@@ -1268,7 +1268,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									</Picker>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
 								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
@@ -1281,8 +1281,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									</Picker>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<TextInput keyboardType="numeric" value={product_weight11} onChangeText={(value) => setProductWeight11(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
 								</View>
 							</View>
@@ -1297,13 +1297,13 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 
 				if(cavity > 11){
 					table1.push(
-						<View key={cavity} style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+						<View key="Zxczsdweqw" style={{flexDirection: 'row', height: 50}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
 								<View style={{justifyContent: 'center', width: 100, padding: 5}}>
 									<Text>12</Text>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
 								<View style={{justifyContent: 'center', width: 168.5}}>
 									<Picker 
 									mode="dropdown"
@@ -1316,7 +1316,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									</Picker>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
 								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
@@ -1327,7 +1327,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									</Picker>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
 								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
@@ -1340,8 +1340,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									</Picker>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<TextInput keyboardType="numeric" value={product_weight12} onChangeText={(value) => setProductWeight12(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
 								</View>
 							</View>
@@ -1356,13 +1356,13 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 
 				if(cavity > 12){
 					table1.push(
-						<View key={cavity} style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+						<View key="asdkfoi23" style={{flexDirection: 'row', height: 50}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
 								<View style={{justifyContent: 'center', width: 100, padding: 5}}>
 									<Text>13</Text>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
 								<View style={{justifyContent: 'center', width: 168.5}}>
 									<Picker 
 									mode="dropdown"
@@ -1375,7 +1375,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									</Picker>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
 								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
@@ -1386,7 +1386,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									</Picker>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
 								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
@@ -1399,8 +1399,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									</Picker>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<TextInput keyboardType="numeric" value={product_weight13} onChangeText={(value) => setProductWeight13(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
 								</View>
 							</View>
@@ -1415,13 +1415,13 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 
 				if(cavity > 13){
 					table1.push(
-						<View key={cavity} style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+						<View key="coaisjdk1231" style={{flexDirection: 'row', height: 50}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
 								<View style={{justifyContent: 'center', width: 100, padding: 5}}>
 									<Text>14</Text>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
 								<View style={{justifyContent: 'center', width: 168.5}}>
 									<Picker 
 									mode="dropdown"
@@ -1434,7 +1434,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									</Picker>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
 								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
@@ -1445,7 +1445,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									</Picker>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
 								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
@@ -1458,8 +1458,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									</Picker>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<TextInput keyboardType="numeric" value={product_weight14} onChangeText={(value) => setProductWeight14(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
 								</View>
 							</View>
@@ -1474,13 +1474,13 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 
 				if(cavity > 14){
 					table1.push(
-						<View key={cavity} style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+						<View key="oicjkoi23" style={{flexDirection: 'row', height: 50}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
 								<View style={{justifyContent: 'center', width: 100, padding: 5}}>
 									<Text>15</Text>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
 								<View style={{justifyContent: 'center', width: 168.5}}>
 									<Picker 
 									mode="dropdown"
@@ -1493,7 +1493,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									</Picker>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
 								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
@@ -1504,7 +1504,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									</Picker>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
 								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
@@ -1517,8 +1517,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									</Picker>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<TextInput keyboardType="numeric" value={product_weight15} onChangeText={(value) => setProductWeight15(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
 								</View>
 							</View>
@@ -1533,13 +1533,13 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 
 				if(cavity > 15){
 					table1.push(
-						<View key={cavity} style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+						<View key="aoisdjki21" style={{flexDirection: 'row', height: 50}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
 								<View style={{justifyContent: 'center', width: 100, padding: 5}}>
 									<Text>16</Text>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
 								<View style={{justifyContent: 'center', width: 168.5}}>
 									<Picker 
 									mode="dropdown"
@@ -1552,7 +1552,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									</Picker>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
 								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
@@ -1563,7 +1563,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									</Picker>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
 								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
@@ -1576,8 +1576,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									</Picker>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<TextInput keyboardType="numeric" value={product_weight16} onChangeText={(value) => setProductWeight16(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
 								</View>
 							</View>
@@ -1592,13 +1592,13 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 
 				if(cavity > 16){
 					table1.push(
-						<View key={cavity} style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+						<View key="oxicmzk2" style={{flexDirection: 'row', height: 50}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
 								<View style={{justifyContent: 'center', width: 100, padding: 5}}>
 									<Text>17</Text>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
 								<View style={{justifyContent: 'center', width: 168.5}}>
 									<Picker 
 									mode="dropdown"
@@ -1611,7 +1611,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									</Picker>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
 								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
@@ -1622,7 +1622,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									</Picker>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
 								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
@@ -1635,8 +1635,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									</Picker>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<TextInput keyboardType="numeric" value={product_weight17} onChangeText={(value) => setProductWeight17(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
 								</View>
 							</View>
@@ -1652,13 +1652,13 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 
 				if(cavity > 17){
 					table1.push(
-						<View key={cavity} style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+						<View key="xozijokm1" style={{flexDirection: 'row', height: 50}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
 								<View style={{justifyContent: 'center', width: 100, padding: 5}}>
 									<Text>18</Text>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
 								<View style={{justifyContent: 'center', width: 168.5}}>
 									<Picker 
 									mode="dropdown"
@@ -1671,7 +1671,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									</Picker>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
 								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
@@ -1682,7 +1682,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									</Picker>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
 								<View style={{justifyContent: 'center', width: 165.5}}>
 									<Picker 
 									mode="dropdown"
@@ -1695,8 +1695,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									</Picker>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
+								<View style={{justifyContent: 'center', width: 165.5}}>
 									<TextInput keyboardType="numeric" value={product_weight18} onChangeText={(value) => setProductWeight18(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
 								</View>
 							</View>
@@ -1715,35 +1715,23 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				for (i = 0; i < cavity; i++) {
 					table1.push(
 						<View key={i} style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100, padding: 5}}>
-									<Text>{updateMassproQlItem[i].cavity}</Text>
-								</View>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
+								<Text>{updateMassproQlItem[i].cavity}</Text>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 166}}>
-									<Text>{updateMassproQlItem[i].first_piece}</Text>
-								</View>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+								<Text>{updateMassproQlItem[i].first_piece}</Text>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Text>{updateMassproQlItem[i].ng_category_id}</Text>
-								</View>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
+								<Text>{updateMassproQlItem[i].ng_category_id}</Text>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Text>{updateMassproQlItem[i].fitting_test}</Text>							
-								</View>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
+								<Text>{updateMassproQlItem[i].fitting_test}</Text>							
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Text>{updateMassproQlItem[i].product_weight}</Text>				
-								</View>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
+								<Text>{updateMassproQlItem[i].product_weight}</Text>				
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<Text>{updateMassproQlItem[i].note}</Text>				
-								</View>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
+								<Text>{updateMassproQlItem[i].note}</Text>				
 							</View>
 						</View>
 					)
@@ -1899,34 +1887,34 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							<ScrollView horizontal>
 								<TouchableOpacity>
 									<View style={{flexDirection: 'row', height: 50, paddingTop: 10}}>
-										<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9}}>
+										<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
 											<Text style={{fontWeight: 'bold'}}>Cavity</Text>
-											<View style={{justifyContent: 'center', width: 100}}>
+											<View style={{justifyContent: 'center'}}>
 											</View>
 										</View>
-										<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9}}>
-											<Text style={{fontWeight: 'bold'}}>Judgement 1st Piece</Text>
-											<View style={{justifyContent: 'center', width: 100}}>
+										<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+											<Text style={{fontWeight: 'bold', fontSize: 15}}>Judgement 1st Piece</Text>
+											<View style={{justifyContent: 'center'}}>
 											</View>
 										</View>
-										<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9}}>
+										<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
 											<Text style={{fontWeight: 'bold'}}>Kategori NG</Text>
-											<View style={{justifyContent: 'center', width: 165.5}}>
+											<View style={{justifyContent: 'center'}}>
 											</View>
 										</View>
-										<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9}}>
+										<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
 											<Text style={{fontWeight: 'bold'}}>Fitting Test</Text>
-											<View style={{justifyContent: 'center', width: 165.5}}>
+											<View style={{justifyContent: 'center'}}>
 											</View>
 										</View>
-										<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9}}>
+										<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
 											<Text style={{fontWeight: 'bold'}}>Product's Weight</Text>
-											<View style={{justifyContent: 'center', width: 100}}>
+											<View style={{justifyContent: 'center'}}>
 											</View>
 										</View>
-										<View style={{paddingLeft: 5, alignItems: 'center', borderRightWidth: 0.5, borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 150}}>
+										<View style={{paddingLeft: 5, alignItems: 'center', borderRightWidth: 0.5, borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 145}}>
 											<Text style={{fontWeight: 'bold'}}>Keterangan</Text>
-											<View style={{justifyContent: 'center', width: 100}}>
+											<View style={{justifyContent: 'center'}}>
 											</View>
 										</View>
 									</View>
