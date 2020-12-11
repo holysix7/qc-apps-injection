@@ -7,23 +7,30 @@ import moment from 'moment';
 import Axios from 'axios';
 
 const RevisiFirstPieceForeman = ({route, navigation}) => {
-	const {qc_daily_inspection_id, sys_plant_id, product_name, customer_name, internal_part_id, customer_part_number, model, machine_id, machine_name, machine_status, operator_nik, operator_nik_2, leader_nik, foreman_nik, qc_process_nik, today, yesterday} = route.params
+	const {qc_daily_inspection_id, sys_plant_id, product_name, customer_name, machine_id, machine_name, today, yesterday} = route.params
 
 	useEffect(() => {
 		formOke()
 	}, [])
 
-	const [judgement, setDecision] 					= useState("")
+	const [judgement, setDecision] 							= useState("")
 	const [tooling_num, setTooling] 						= useState("")
-	const [action_foreman, setActionForeman] = useState("")
-	const [hours, setHours]		  						= useState(0)
-	const [shift, setShift]		  						= useState(0)
-	const [data, setData] 									= useState([])
-	let created_at 													= moment().format("YYYY-MM-DD HH:mm:ss")
-	let updated_at 													= moment().format("YYYY-MM-DD HH:mm:ss")
-	const [created_by, setCreatedBy]		  	= useState("")
-	const [updated_by, setUpdatedBy]		  	= useState("")
-	const [eng_product_id, setEngProd] 			= useState(0)
+	const [action_foreman, setActionForeman] 		= useState("")
+	const [hours, setHours]		  								= useState(0)
+	const [shift, setShift]		  								= useState(0)
+	const [data, setData] 											= useState([])
+	let created_at 															= moment().format("YYYY-MM-DD HH:mm:ss")
+	let updated_at 															= moment().format("YYYY-MM-DD HH:mm:ss")
+	const [created_by, setCreatedBy]		  			= useState("")
+	const [updated_by, setUpdatedBy]		  			= useState("")
+	const [eng_product_id, setEngProd] 					= useState(0)
+	const [planningId, setPlanningId] 					= useState("")
+	const planning_id = parseInt(planningId)
+	const [massproFr, setFR] 										= useState("")
+	const [internal_part_id, setIPI] 										= useState("")
+	const [revisiForeman, setRevisiForeman] 						= useState("")
+	const [updateActionForeman, setUpdateActionForeman] = useState("")
+	const [updateJudgement, setUpdateDecision] 					= useState("")
 	const date = []
 	const prod_machine_id = machine_id
 	if(today != null)
@@ -69,6 +76,13 @@ const RevisiFirstPieceForeman = ({route, navigation}) => {
 				setEngProd(response.data.data.eng_product_id)
 				setData(response.data.data.daily_inspection)
 				setTooling(response.data.data.daily_inspection.tooling_num)
+				setPlanningId(response.data.data.planning_id)
+				setIPI(response.data.data.daily_inspection.internal_part_id)
+				setFR(response.data.data.masspro_fr)
+				setDecision(response.data.data.masspro_fr.judgement)
+				setRevisiForeman(response.data.data.revisi_foreman)
+				setUpdateActionForeman(response.data.data.revisi_foreman.action_foreman)
+				setUpdateDecision(response.data.data.revisi_foreman.judgement)
 				console.log("List Data Revisi First Piece Foreman: ", response.data.status, "OK")
 			})
 			.catch(error => {
@@ -92,6 +106,13 @@ const RevisiFirstPieceForeman = ({route, navigation}) => {
 				setEngProd(response.data.data.eng_product_id)
 				setData(response.data.data.daily_inspection)
 				setTooling(response.data.data.daily_inspection.tooling_num)
+				setPlanningId(response.data.data.planning_id)
+				setIPI(response.data.data.daily_inspection.internal_part_id)
+				setFR(response.data.data.masspro_fr)
+				setDecision(response.data.data.masspro_fr.judgement)
+				setRevisiForeman(response.data.data.revisi_foreman)
+				setUpdateActionForeman(response.data.data.revisi_foreman.action_foreman)
+				setUpdateDecision(response.data.data.revisi_foreman.judgement)
 				console.log("List Data Revisi First Piece Foreman: ", response.data.status, "OK")
 			})
 			.catch(error => {
@@ -115,6 +136,13 @@ const RevisiFirstPieceForeman = ({route, navigation}) => {
 				setEngProd(response.data.data.eng_product_id)
 				setData(response.data.data.daily_inspection)
 				setTooling(response.data.data.daily_inspection.tooling_num)
+				setPlanningId(response.data.data.planning_id)
+				setIPI(response.data.data.daily_inspection.internal_part_id)
+				setFR(response.data.data.masspro_fr)
+				setDecision(response.data.data.masspro_fr.judgement)
+				setRevisiForeman(response.data.data.revisi_foreman)
+				setUpdateActionForeman(response.data.data.revisi_foreman.action_foreman)
+				setUpdateDecision(response.data.data.revisi_foreman.judgement)
 				console.log("List Data Revisi First Piece Foreman: ", response.data.status, "OK")
 			})
 			.catch(error => {
@@ -132,6 +160,8 @@ const RevisiFirstPieceForeman = ({route, navigation}) => {
 			eng_product_id,
 			prod_machine_id,
 			sys_plant_id,
+			planning_id,
+			internal_part_id,
 			qc_daily_inspection_id,
 			action_foreman,
 			tooling_num,
@@ -166,6 +196,78 @@ const RevisiFirstPieceForeman = ({route, navigation}) => {
 		.catch(function (error){
 			console.log(error)
 		})
+	}
+
+	const updateActionForemanFunc = () => {
+		const updateFR = updateActionForeman
+		var data = []
+		const frData = revisiForeman
+		if(frData != null){
+			if(updateFR != null){
+				data.push(
+					<View key="askjdnui2" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+						<Text>{updateFR}</Text>
+					</View>
+				)
+			}else{
+				data.push(
+					<View key="askjdnui2" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+						<TextInput onChangeText={(value) => setActionForeman(value)} style={{paddingLeft: 5, height: 40}} placeholder="Type Here..." />
+					</View>
+				)
+			}
+		}else{
+			data.push(
+				<View key="askjdnui2" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<TextInput onChangeText={(value) => setActionForeman(value)} style={{paddingLeft: 5, height: 40}} placeholder="Type Here..." />
+				</View>
+			)
+		}
+		return data
+	}
+
+	const updateDecisionFunc = () => {
+		const updateFR = updateJudgement
+		var data = []
+		const frData = revisiForeman
+		if(frData != null){
+			if(updateFR != "OK" && updateFR != "NG"){
+				data.push(
+					<View key="asoidjn2jk" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+						<Picker 
+						mode="dropdown"
+						selectedValue={judgement}
+						onValueChange={(value) => setDecision(value)}
+						>
+							<Picker.Item label="Pilih" value="" />
+							<Picker.Item label="Running" value="running" />
+							<Picker.Item label="Stop" value="stop" />
+						</Picker>
+					</View>
+				)
+			}else{
+				data.push(
+					<View key="asoidjn2jk" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+						<Text>{updateFR}</Text>
+					</View>
+				)
+			}
+		}else{
+			data.push(
+				<View key="asoidjn2jk" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<Picker 
+					mode="dropdown"
+					selectedValue={judgement}
+					onValueChange={(value) => setDecision(value)}
+					>
+						<Picker.Item label="Pilih" value="" />
+						<Picker.Item label="Running" value="running" />
+						<Picker.Item label="Stop" value="stop" />
+					</Picker>
+				</View>
+			)
+		}
+		return data
 	}
 
 	const hString = hours.toString()
@@ -229,13 +331,13 @@ const RevisiFirstPieceForeman = ({route, navigation}) => {
 
 						<View style={{borderWidth: 0.5, flexDirection: 'row'}}>
 							<View style={{justifyContent: 'center', paddingLeft: 5, height: 25, width: "36%", backgroundColor: '#F5F5DC'}}>
-								<Text style={{fontSize: 12}}>{data.internal_part_id != null ? data.internal_part_id : "-"}</Text>
+								<Text style={{fontSize: 12}}>{data != null ? data.internal_part_id : "-"}</Text>
 							</View>
 							<View style={{justifyContent: 'center', alignItems: 'center', height: 25, width: "30%", backgroundColor: '#F5F5DC'}}>
-								<Text style={{fontSize: 12}}>{data.customer_part_number != null ? data.customer_part_number : "-"}</Text>
+								<Text style={{fontSize: 12}}>{data != null ? data.customer_part_number : "-"}</Text>
 							</View>
 							<View style={{flex: 1, justifyContent: 'center', alignItems: 'center', height: 25, backgroundColor: '#F5F5DC'}}>
-								<Text style={{fontSize: 12}}>{data.model != null ? data.model : "-"}</Text>
+								<Text style={{fontSize: 12}}>{data != null ? data.model : "-"}</Text>
 							</View>
 						</View>
 
@@ -265,7 +367,7 @@ const RevisiFirstPieceForeman = ({route, navigation}) => {
 								<View style={{padding: 4, width: "50%"}}>
 									<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
 										<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-											<Text>{tooling_num}</Text>
+											<Text>{massproFr != null ? massproFr.tooling_num : "-"}</Text>
 										</View>
 									</View>
 								</View>
@@ -280,7 +382,7 @@ const RevisiFirstPieceForeman = ({route, navigation}) => {
 								<View style={{padding: 4, width: "50%"}}>
 									<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
 										<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-											<Text>{data != null ? data.cavity : "-"}</Text>
+											<Text>{massproFr != null ? massproFr.cavity : "-"}</Text>
 										</View>
 									</View>
 								</View>
@@ -294,7 +396,7 @@ const RevisiFirstPieceForeman = ({route, navigation}) => {
 								</View>
 								<View style={{padding: 4, width: "50%"}}>
 									<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-										<TextInput onChangeText={(value) => setActionForeman(value)} style={{borderWidth: 0.5, borderRadius: 25, paddingLeft: 5, height: 40}} placeholder="Type Here..." />
+										{updateActionForemanFunc()}
 									</View>
 								</View>
 							</View>
@@ -307,17 +409,7 @@ const RevisiFirstPieceForeman = ({route, navigation}) => {
 								</View>
 								<View style={{padding: 4, width: "50%"}}>
 									<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-										<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-											<Picker 
-											mode="dropdown"
-											selectedValue={judgement}
-											onValueChange={(value) => setDecision(value)}
-											>
-												<Picker.Item label="Pilih" value="" />
-												<Picker.Item label="OK" value="OK" />
-												<Picker.Item label="NG" value="NG" />
-											</Picker>
-										</View>
+										{updateDecisionFunc()}
 									</View>
 								</View>
 							</View>

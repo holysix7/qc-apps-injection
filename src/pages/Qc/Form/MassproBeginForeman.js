@@ -11,21 +11,22 @@ const MassproBeginForeman = ({route, navigation}) => {
 		formOke()
 	}, [])
 
-	const {sys_plant_id, machine_id, product_name, customer_name, machine_name, machine_status, today, yesterday} = route.params
-	const [tooling_num, setTooling] 					= useState("")
-	const [keputusan, setKeputusan] 			= useState("")
-	const [remark, setRemark] 						= useState("")
-	const [hours, setHours]		  					= useState(0)
-	const [shift, setShift]		  					= useState(0)
-	const [data1, setData1]								= useState([])
+	const {sys_plant_id, machine_id, customer_name, machine_name, machine_status, today, yesterday} = route.params
+	const [tooling_num, setTooling] = useState("")
+	const [judgement, setKeputusan] = useState("")
+	const [remark, setRemark] 			= useState("")
+	const [hours, setHours]		  		= useState(0)
+	const [shift, setShift]		  		= useState(0)
+	const [data1, setData1]					= useState([])
+	const [cavity, setCavityData]		= useState([])
 
-	const [qc_masspro_main_mold_id, setMaintMoldId] = useState(0)
-	const [qc_masspro_material_preparation_id, setMaterialPreparationId] = useState(0)
-	const [qc_masspro_mold_setter_id, setSetter] = useState(0)
-	const [qc_masspro_tech_injection_id, setTechId] = useState(0)
-	const [qc_masspro_prod_leader_id, setProdLeaderId] = useState(0)
-	const [qc_masspro_qc_leader_id, setQcLeaderId] = useState(0)
-	const [eng_product_id, setEngProd] = useState(0)
+	const [qc_masspro_main_mold_id, setMaintMoldId] 											= useState(0)
+	const [qc_masspro_material_preparation_id, setMaterialPreparationId] 	= useState(0)
+	const [qc_masspro_mold_setter_id, setSetter] 													= useState(0)
+	const [qc_masspro_tech_injection_id, setTechId] 											= useState(0)
+	const [qc_masspro_prod_leader_id, setProdLeaderId] 										= useState(0)
+	const [qc_masspro_qc_leader_id, setQcLeaderId] 												= useState(0)
+	const [eng_product_id, setEngProd] 																		= useState(0)
 
 	const [qc_masspro_main_mold_status, setMaintMoldStatus] 		= useState("")
 	const [qc_masspro_material_preparation_status, setMaterial] = useState("")
@@ -34,20 +35,37 @@ const MassproBeginForeman = ({route, navigation}) => {
 	const [qc_masspro_prod_leader_status, setProdLeaderStatus]  = useState("")
 	const [qc_masspro_qc_leader_status, setQcLeaderStatus] 		  = useState("")
 	
-	const [created_by, setCreatedBy]														= useState("")
-	let created_at 																							= moment().format("YYYY-MM-DD HH:mm:ss")
-	const [updated_by, setUpdatedBy]														= useState("")
-	let updated_at 																							= moment().format("YYYY-MM-DD HH:mm:ss")
-	const prod_machine_id = machine_id
+	const [created_by, setCreatedBy]	= useState("")
+	let created_at 										= moment().format("YYYY-MM-DD HH:mm:ss")
+	const [updated_by, setUpdatedBy]	= useState("")
+	let updated_at 										= moment().format("YYYY-MM-DD HH:mm:ss")
+	const prod_machine_id 						= machine_id
+	
+	const [planningId, setPlanningId] 									= useState("")
+	const [internal_part_id, setIPI] 										= useState("")
+	const [massproFR, setMassproFR] 		  							= useState("")
+	const [updateMaint, setUpdateMaint] 								= useState("")
+	const [updateMaterial, setUpdateMaterial] 					= useState("")
+	const [updateMoldSetter, setUpdateMoldSetter] 			= useState("")
+	const [updateTechInjection, setUpdateTechInjection] = useState("")
+	const [updateProdLeader, setUpdateProdLeader] 			= useState("")
+	const [updateQCLeader, setUpdateQCLeader] 					= useState("")
+	const [updateJudgement, seUpdateKeputusan] 					= useState("")
+	const [updateRemark, seUpdateRemark] 								= useState("")
+	
+	const planning_id = parseInt(planningId)
+	const date	 			= []
+	const status 			= "approve"
 
-	const date	 = []
-	const status = "approve"
 	const submit = async() => {
 		const data = {
 			sys_plant_id,
 			prod_machine_id,
 			eng_product_id,
 			tooling_num,
+			planning_id,
+			cavity,
+			internal_part_id,
 			qc_masspro_main_mold_id,
 			qc_masspro_material_preparation_id,
 			qc_masspro_mold_setter_id,
@@ -62,6 +80,7 @@ const MassproBeginForeman = ({route, navigation}) => {
 			qc_masspro_qc_leader_status,
 			remark,
 			status,
+			judgement,
 			created_by,
 			created_at,
 			updated_by,
@@ -135,7 +154,19 @@ const MassproBeginForeman = ({route, navigation}) => {
 			setQcLeaderId(response.data.data.qc_masspro_qc_leader_id)
 			setEngProd(response.data.data.eng_product_id)
 			setData1(response.data.data.product_detail)
+			setCavityData(response.data.data.product_detail.cavity)
 			setTooling(response.data.data.tooling_num)
+			setPlanningId(response.data.data.planning_id)
+			setIPI(response.data.data.product_detail.internal_part_id)
+			setMassproFR(response.data.data.masspro_fr)
+			setUpdateMaint(response.data.data.qc_masspro_main_mold_status)
+			setUpdateMaterial(response.data.data.qc_masspro_material_preparation_status)
+			setUpdateMoldSetter(response.data.data.qc_masspro_mold_setter_status)
+			setUpdateTechInjection(response.data.data.qc_masspro_tech_injection_status)
+			setUpdateProdLeader(response.data.data.qc_masspro_prod_leader_status)
+			setUpdateQCLeader(response.data.data.qc_masspro_qc_leader_status)
+			seUpdateKeputusan(response.data.data.masspro_fr.judgement)
+			seUpdateRemark(response.data.data.masspro_fr.remark)
 			console.log("List Data Foreman: ", response.data.status, "OK")
 		})
 		.catch(error => {
@@ -162,6 +193,360 @@ const MassproBeginForeman = ({route, navigation}) => {
 		)
 	}
 
+	const updateCheckSheetMassProMaintMold = () => {
+		const updateFR = updateMaint
+		var data = []
+		const frData = massproFR
+		if(frData != null){
+			if(updateFR != "approved" && updateFR != "not_approved"){
+				data.push(
+					<View key="asiui2oj" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+						<Picker 
+						mode="dropdown"
+						selectedValue={qc_masspro_main_mold_status}
+						onValueChange={(value) => setMaintMoldStatus(value)}
+						>
+							<Picker.Item label="Pilih" value="" />
+							<Picker.Item label="Approved" value="approved" />
+							<Picker.Item label="Not Approved" value="not_approved" />
+						</Picker>
+					</View>
+				)
+			}else{
+				data.push(
+					<View key="asiui2oj" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+						<Text>{updateFR}</Text>
+					</View>
+				)
+			}
+		}else{
+			data.push(
+				<View key="asiui2oj" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<Picker 
+					mode="dropdown"
+					selectedValue={qc_masspro_main_mold_status}
+					onValueChange={(value) => setMaintMoldStatus(value)}
+					>
+						<Picker.Item label="Pilih" value="" />
+						<Picker.Item label="Approved" value="approved" />
+						<Picker.Item label="Not Approved" value="not_approved" />
+					</Picker>
+				</View>
+			)
+		}
+		return data
+	}
+
+	const updateCheckSheetMassProMaterialPreparation = () => {
+		const updateFR = updateMaterial
+		var data = []
+		const frData = massproFR
+		if(frData != null){
+			if(updateFR != "approved" && updateFR != "not_approved"){
+				data.push(
+					<View key="askdhj2ijk" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+						<Picker 
+						mode="dropdown"
+						selectedValue={qc_masspro_material_preparation_status}
+						onValueChange={(value) => setMaterial(value)}
+						>
+							<Picker.Item label="Pilih" value="" />
+							<Picker.Item label="Approved" value="approved" />
+							<Picker.Item label="Not Approved" value="not_approved" />
+						</Picker>
+					</View>
+				)
+			}else{
+				data.push(
+					<View key="askdhj2ijk" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+						<Text>{updateFR}</Text>
+					</View>
+				)
+			}
+		}else{
+			data.push(
+				<View key="askdhj2ijk" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<Picker 
+					mode="dropdown"
+					selectedValue={qc_masspro_material_preparation_status}
+					onValueChange={(value) => setMaterial(value)}
+					>
+						<Picker.Item label="Pilih" value="" />
+						<Picker.Item label="Approved" value="approved" />
+						<Picker.Item label="Not Approved" value="not_approved" />
+					</Picker>
+				</View>
+			)
+		}
+		return data
+	}
+
+	const updateCheckSheetMoldSetter = () => {
+		const updateFR = updateMoldSetter
+		var data = []
+		const frData = massproFR
+		if(frData != null){
+			if(updateFR != 'approved' && 'not_approved'){
+				data.push(
+					<View key="osij2okms" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+						<Picker 
+						mode="dropdown"
+						selectedValue={qc_masspro_mold_setter_status}
+						onValueChange={(value) => setMoldSetterStatus(value)}
+						>
+							<Picker.Item label="Pilih" value="" />
+							<Picker.Item label="Approved" value="approved" />
+							<Picker.Item label="Not Approved" value="not_approved" />
+						</Picker>
+					</View>
+				)
+			}else{
+				data.push(
+					<View key="osij2okms" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+						<Text>{updateFR}</Text>
+					</View>
+				)
+			}
+		}else{
+			data.push(
+				<View key="osij2okms" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<Picker 
+					mode="dropdown"
+					selectedValue={qc_masspro_mold_setter_status}
+					onValueChange={(value) => setMoldSetterStatus(value)}
+					>
+						<Picker.Item label="Pilih" value="" />
+						<Picker.Item label="Approved" value="approved" />
+						<Picker.Item label="Not Approved" value="not_approved" />
+					</Picker>
+				</View>
+			)
+		}
+		return data
+	}
+
+	const updateCheckSheetMassProTechInjection = () => {
+		const updateFR = updateTechInjection
+		var data = []
+		const frData = massproFR
+		if(frData != null){
+			if(updateFR != 'approved' && updateFR != 'not_approved'){
+				data.push(
+					<View key="asoij2km" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+						<Picker 
+						mode="dropdown"
+						selectedValue={qc_masspro_tech_injection_status}
+						onValueChange={(value) => setTechInjection(value)}
+						>
+							<Picker.Item label="Pilih" value="" />
+							<Picker.Item label="Approved" value="approved" />
+							<Picker.Item label="Not Approved" value="not_approved" />
+						</Picker>
+					</View>
+				)
+			}else{
+				data.push(
+					<View key="asoij2km" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+						<Text>{updateFR}</Text>
+					</View>
+				)
+			}
+		}else{
+			data.push(
+				<View key="asoij2km" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<Picker 
+					mode="dropdown"
+					selectedValue={qc_masspro_tech_injection_status}
+					onValueChange={(value) => setTechInjection(value)}
+					>
+						<Picker.Item label="Pilih" value="" />
+						<Picker.Item label="Approved" value="approved" />
+						<Picker.Item label="Not Approved" value="not_approved" />
+					</Picker>
+				</View>
+			)
+		}
+		return data
+	}
+
+	const updateCheckSheetMassProLeaderProd = () => {
+		const updateFR = updateProdLeader
+		var data = []
+		const frData = massproFR
+		if(frData != null){
+			if(updateFR != 'approved' && updateFR != 'not_approved'){
+				data.push(
+					<View key="asoidj2km" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+						<Picker 
+						mode="dropdown"
+						selectedValue={qc_masspro_prod_leader_status}
+						onValueChange={(value) => setProdLeaderStatus(value)}
+						>
+							<Picker.Item label="Pilih" value="" />
+							<Picker.Item label="Approved" value="approved" />
+							<Picker.Item label="Not Approved" value="not_approved" />
+						</Picker>
+					</View>
+				)
+			}else{
+				data.push(
+					<View key="asoidj2km" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+						<Text>{updateFR}</Text>
+					</View>
+				)
+			}
+		}else{
+			data.push(
+				<View key="asoidj2km" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<Picker 
+					mode="dropdown"
+					selectedValue={qc_masspro_prod_leader_status}
+					onValueChange={(value) => setProdLeaderStatus(value)}
+					>
+						<Picker.Item label="Pilih" value="" />
+						<Picker.Item label="Approved" value="approved" />
+						<Picker.Item label="Not Approved" value="not_approved" />
+					</Picker>
+				</View>
+			)
+		}
+		return data
+	}
+
+	const updateCheckSheetMassProLeaderQC = () => {
+		const updateFR = updateQCLeader
+		var data = [] 
+		const frData = massproFR
+		if(frData != null){
+			if(updateFR != 'approved' && updateFR != 'not_approved'){
+				data.push(
+					<View key="asdj2k" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+						<Picker 
+						mode="dropdown"
+						selectedValue={qc_masspro_qc_leader_status}
+						onValueChange={(value) => setQcLeaderStatus(value)}
+						>
+							<Picker.Item label="Pilih" value="" />
+							<Picker.Item label="Approved" value="approved" />
+							<Picker.Item label="Not Approved" value="not_approved" />
+						</Picker>
+					</View>
+				)
+			}else{
+				data.push(
+					<View key="asdj2k" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+						<Text>{updateFR}</Text>
+					</View>
+				)
+			}
+		}else{
+			data.push(
+				<View key="asdj2k" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<Picker 
+					mode="dropdown"
+					selectedValue={qc_masspro_qc_leader_status}
+					onValueChange={(value) => setQcLeaderStatus(value)}
+					>
+						<Picker.Item label="Pilih" value="" />
+						<Picker.Item label="Approved" value="approved" />
+						<Picker.Item label="Not Approved" value="not_approved" />
+					</Picker>
+				</View>
+			)
+		}
+		return data
+	}
+
+	const updateJudgementFunc = () => {
+		const updateFR = updateJudgement
+		var data = []
+		const frData = massproFR
+		if(frData != null){
+			if(updateFR != 'stop' && updateFR != 'running'){
+				data.push(
+					<View key="asjkdn2hj" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+						<Picker 
+						mode="dropdown"
+						selectedValue={judgement}
+						onValueChange={(value) => setKeputusan(value)}
+						>
+							<Picker.Item label="Pilih" value="" />
+							<Picker.Item label="Stop" value="stop" />
+							<Picker.Item label="Running" value="running" />
+						</Picker>
+					</View>
+				)
+			}else{
+				data.push(
+					<View key="asjkdn2hj" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+						<Text>{updateFR}</Text>
+					</View>
+				)
+			}
+		}else{
+			data.push(
+				<View key="asjkdn2hj" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<Picker 
+					mode="dropdown"
+					selectedValue={judgement}
+					onValueChange={(value) => setKeputusan(value)}
+					>
+						<Picker.Item label="Pilih" value="" />
+						<Picker.Item label="Stop" value="stop" />
+						<Picker.Item label="Running" value="running" />
+					</Picker>
+				</View>
+			)
+		}
+		return data
+	}
+
+	const updateRemarkFunc = () => {
+		const updateFR = updateRemark
+		var data = []
+		const frData = massproFR
+		if(frData != null){
+			if(updateFR != null){
+				data.push(
+					<View key="asjkdn2hj" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+						<Text>{updateFR}</Text>
+					</View>
+				)
+			}else{
+				data.push(
+					<View key="asjkdn2hj" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+						<TextInput onChangeText={(value) => setRemark(value)} style={{paddingLeft: 5, height: 40}} placeholder="Type Here..." />
+					</View>
+				)
+			}
+		}else{
+			data.push(
+				<View key="asjkdn2hj" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<TextInput onChangeText={(value) => setRemark(value)} style={{paddingLeft: 5, height: 40}} placeholder="Type Here..." />
+				</View>
+			)
+		}
+		return data
+	}
+
+	const updateButton = () => {
+		const updateFR = massproFR
+		const data = []
+		if(updateFR != null){
+			data.push(
+				<View key="asd12q" style={{paddingTop: 10}}>
+					<Button style={{width: 172, borderRadius: 25, justifyContent: 'center', backgroundColor: '#05c46b'}} onPress={() => alert("Data QC Leader Already Saved!")}><Text>SAVED</Text></Button>
+				</View>
+			)
+		}else{
+			data.push(
+				<View key="asd12q" style={{paddingTop: 10}}>
+					<Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>
+				</View>
+			)
+		}
+		return data
+	}
 
 	return(
 		<KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={{flex:1}}>
@@ -245,7 +630,7 @@ const MassproBeginForeman = ({route, navigation}) => {
 											<Text style={{color: 'black'}}>:</Text>
 										</View>
 										<View style={{padding: 4, width: "50%"}}>
-											<View style={{borderWidth: 0.5, borderRadius: 25, height: 30, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+											<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
 												<Text>{machine_status}</Text>
 											</View>
 										</View>
@@ -289,17 +674,7 @@ const MassproBeginForeman = ({route, navigation}) => {
 											<Text style={{color: 'black'}}>:</Text>
 										</View>
 										<View style={{padding: 4, width: "50%"}}>
-											<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-												<Picker 
-												mode="dropdown"
-												selectedValue={qc_masspro_main_mold_status}
-												onValueChange={(value) => setMaintMoldStatus(value)}
-												>
-													<Picker.Item label="Pilih" value="" />
-													<Picker.Item label="Yes" value="Yes" />
-													<Picker.Item label="No" value="No" />
-												</Picker>
-											</View>
+											{updateCheckSheetMassProMaintMold()}
 										</View>
 									</View>
 									
@@ -311,17 +686,7 @@ const MassproBeginForeman = ({route, navigation}) => {
 											<Text style={{color: 'black'}}>:</Text>
 										</View>
 										<View style={{padding: 4, width: "50%"}}>
-											<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-												<Picker 
-												mode="dropdown"
-												selectedValue={qc_masspro_material_preparation_status}
-												onValueChange={(value) => setMaterial(value)}
-												>
-													<Picker.Item label="Pilih" value="" />
-													<Picker.Item label="Yes" value="Yes" />
-													<Picker.Item label="No" value="No" />
-												</Picker>
-											</View>
+											{updateCheckSheetMassProMaterialPreparation()}
 										</View>
 									</View>
 
@@ -333,17 +698,7 @@ const MassproBeginForeman = ({route, navigation}) => {
 											<Text style={{color: 'black'}}>:</Text>
 										</View>
 										<View style={{padding: 4, width: "50%"}}>
-											<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-												<Picker 
-												mode="dropdown"
-												selectedValue={qc_masspro_mold_setter_status}
-												onValueChange={(value) => setMoldSetterStatus(value)}
-												>
-													<Picker.Item label="Pilih" value="" />
-													<Picker.Item label="Yes" value="Yes" />
-													<Picker.Item label="No" value="No" />
-												</Picker>
-											</View>
+											{updateCheckSheetMoldSetter()}
 										</View>
 									</View>
 
@@ -355,17 +710,7 @@ const MassproBeginForeman = ({route, navigation}) => {
 											<Text style={{color: 'black'}}>:</Text>
 										</View>
 										<View style={{padding: 4, width: "50%"}}>
-											<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-												<Picker 
-												mode="dropdown"
-												selectedValue={qc_masspro_tech_injection_status}
-												onValueChange={(value) => setTechInjection(value)}
-												>
-													<Picker.Item label="Pilih" value="" />
-													<Picker.Item label="Yes" value="Yes" />
-													<Picker.Item label="No" value="No" />
-												</Picker>
-											</View>
+											{updateCheckSheetMassProTechInjection()}
 										</View>
 									</View>
 
@@ -377,17 +722,7 @@ const MassproBeginForeman = ({route, navigation}) => {
 											<Text style={{color: 'black'}}>:</Text>
 										</View>
 										<View style={{padding: 4, width: "50%"}}>
-											<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-												<Picker 
-												mode="dropdown"
-												selectedValue={qc_masspro_prod_leader_status}
-												onValueChange={(value) => setProdLeaderStatus(value)}
-												>
-													<Picker.Item label="Pilih" value="" />
-													<Picker.Item label="Yes" value="Yes" />
-													<Picker.Item label="No" value="No" />
-												</Picker>
-											</View>
+											{updateCheckSheetMassProLeaderProd()}
 										</View>
 									</View>
 
@@ -399,17 +734,7 @@ const MassproBeginForeman = ({route, navigation}) => {
 											<Text style={{color: 'black'}}>:</Text>
 										</View>
 										<View style={{padding: 4, width: "50%"}}>
-											<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-												<Picker 
-												mode="dropdown"
-												selectedValue={qc_masspro_qc_leader_status}
-												onValueChange={(value) => setQcLeaderStatus(value)}
-												>
-													<Picker.Item label="Pilih" value="" />
-													<Picker.Item label="Yes" value="Yes" />
-													<Picker.Item label="No" value="No" />
-												</Picker>
-											</View>
+											{updateCheckSheetMassProLeaderQC()}
 										</View>
 									</View>
 
@@ -421,17 +746,7 @@ const MassproBeginForeman = ({route, navigation}) => {
 											<Text style={{color: 'black'}}>:</Text>
 										</View>
 										<View style={{padding: 4, width: "50%"}}>
-											<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-												<Picker 
-												mode="dropdown"
-												selectedValue={keputusan}
-												onValueChange={(value) => setKeputusan(value)}
-												>
-													<Picker.Item label="Pilih" value="" />
-													<Picker.Item label="Stop Running" value="Stop Running" />
-													<Picker.Item label="Running" value="Running" />
-												</Picker>
-											</View>
+											{updateJudgementFunc()}
 										</View>
 									</View>
 									
@@ -443,13 +758,13 @@ const MassproBeginForeman = ({route, navigation}) => {
 											<Text style={{color: 'black'}}>:</Text>
 										</View>
 										<View style={{padding: 4, width: "50%"}}>
-											<TextInput onChangeText={(value) => setRemark(value)} style={{borderWidth: 0.5, borderRadius: 25, paddingLeft: 5, height: 40}} placeholder="Type Here..." />
+											{updateRemarkFunc()}
 										</View>
 									</View>
 
 									<View style={{justifyContent: 'center', alignItems: 'center'}}>
 										<View style={{paddingTop: 10}}>
-											<Button onPress={() => submit()} style={{width: 172, borderRadius: 25, justifyContent: 'center'}}><Text>SAVE</Text></Button>
+											{updateButton()}
 										</View>
 									</View>
 								</TouchableOpacity>

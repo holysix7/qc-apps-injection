@@ -130,7 +130,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 	const [hours, setHours] 												= useState(0)
 	const [shift, setShift]		  										= useState(0)
 	const [cavityCheck, setCavityCheck] 						= useState("")
-	const [tooling_num, setTooling] 										= useState("")
+	const [tooling_num, setTooling] 								= useState("")
 	const [copy_sample, setCopySample]				 			= useState("")
 	const [check_sheet, setCheckSheet] 							= useState("")
 	const [created_by, setCreatedBy]		  					= useState("")
@@ -140,9 +140,17 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 	let updated_at 																	= moment().format("YYYY-MM-DD HH:mm:ss")
 	const date = []
 	const [data, setData] 													= useState([])
+	const [dataQl, setDataMachineStatus] 						= useState([])
 	const [ngCategories, setNGsData]								= useState([])
 	const [eng_product_id, setEngProd] 						 	= useState(0)
 	const prod_machine_id = machine_id
+	const [planningId, setPlanningId] 							= useState("")
+	const planning_id = parseInt(planningId)
+	const [internal_part_id, setIPI] 							= useState("")
+	const [revisiQc, setRevisiQc] 		  					= useState("")
+	const [updateCopySample, setUpdateCopySample] = useState("")
+	const [updateCheckSheet, setUpdateCheckSheet] = useState("")
+	const [updateRemark, setUpdateRemark] 	= useState("")
 	
 	if(today != null)
 	{
@@ -203,9 +211,20 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 			Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
 			.then(response => {
 				setEngProd(response.data.data.eng_product_id)
-				setData(response.data.data.daily_inspection)
+				setData(response.data.data.product_detail)
+				setDataMachineStatus(response.data.data.masspro_ql)
 				setNGsData(response.data.data.ng_category)
-				setTooling(response.data.data.daily_inspection.tooling_num)
+				setTooling(response.data.data.tooling_num)
+				setCavityCheck(response.data.data.product_detail.cavity)
+				setPlanningId(response.data.data.planning_id)
+				setIPI(response.data.data.product_detail.internal_part_id)
+				setRevisiQc(response.data.data.masspro_ql_items)
+				setUpdateCopySample(response.data.data.masspro_ql_items.copy_sample)
+				setUpdateCheckSheet(response.data.data.masspro_ql_items.check_sheet)
+				setCopySample(response.data.data.masspro_ql.compare_sample)
+				setCheckSheet(response.data.data.masspro_ql.check_sheet)
+				setRemark(response.data.data.masspro_ql.remark)
+				setUpdateRemark(response.data.data.masspro_ql_items.remark)
 				console.log("List Data Revisi First Piece Leader QC: ", response.data.status, "OK")
 			})
 			.catch(error => {
@@ -227,9 +246,20 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 			Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
 			.then(response => {
 				setEngProd(response.data.data.eng_product_id)
-				setData(response.data.data.daily_inspection)
+				setData(response.data.data.product_detail)
+				setDataMachineStatus(response.data.data.masspro_ql)
 				setNGsData(response.data.data.ng_category)
-				setTooling(response.data.data.daily_inspection.tooling_num)
+				setTooling(response.data.data.product_detail.tooling_num)
+				setCavityCheck(response.data.data.product_detail.cavity)
+				setPlanningId(response.data.data.planning_id)
+				setIPI(response.data.data.product_detail.internal_part_id)
+				setRevisiQc(response.data.data.masspro_ql_items)
+				setUpdateCopySample(response.data.data.masspro_ql_items.copy_sample)
+				setUpdateCheckSheet(response.data.data.masspro_ql_items.check_sheet)
+				setCopySample(response.data.data.masspro_ql.compare_sample)
+				setCheckSheet(response.data.data.masspro_ql.check_sheet)
+				setRemark(response.data.data.masspro_ql.remark)
+				setUpdateRemark(response.data.data.masspro_ql_items.remark)
 				console.log("List Data Revisi First Piece Leader QC: ", response.data.status, "OK")
 			})
 			.catch(error => {
@@ -251,9 +281,20 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 			Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
 			.then(response => {
 				setEngProd(response.data.data.eng_product_id)
-				setData(response.data.data.daily_inspection)
+				setData(response.data.data.product_detail)
+				setDataMachineStatus(response.data.data.masspro_ql)
 				setNGsData(response.data.data.ng_category)
-				setTooling(response.data.data.daily_inspection.tooling_num)
+				setTooling(response.data.data.product_detail.tooling_num)
+				setCavityCheck(response.data.data.product_detail.cavity)
+				setPlanningId(response.data.data.planning_id)
+				setIPI(response.data.data.product_detail.internal_part_id)
+				setRevisiQc(response.data.data.masspro_ql_items)
+				setUpdateCopySample(response.data.data.masspro_ql_items.copy_sample)
+				setUpdateCheckSheet(response.data.data.masspro_ql_items.check_sheet)
+				setCopySample(response.data.data.masspro_ql.compare_sample)
+				setCheckSheet(response.data.data.masspro_ql.check_sheet)
+				setRemark(response.data.data.masspro_ql.remark)
+				setUpdateRemark(response.data.data.masspro_ql_items.remark)
 				console.log("List Data Revisi First Piece Leader QC: ", response.data.status, "OK")
 			})
 			.catch(error => {
@@ -266,8 +307,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 		setHours(value)
 	}
 	
-	const item = JSON.stringify({
-		"item":{
+	const item = {
 			"cav_1": {
 				"cavity": statusCavity1,
 				"judgement_first_piece": judgement_first_piece1,
@@ -411,10 +451,10 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 				"fitting_test": fitting_test18,
 				"product_weight": product_weight18,
 				"note": note18
-			},
-		}
-	})
+			}
+	}
 
+	const cavity = cavityCheck
 
 	const submit = async() => {
 		const data = {
@@ -423,6 +463,8 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 			sys_plant_id,
 			qc_daily_inspection_id,
 			tooling_num,
+			planning_id,
+			internal_part_id,
 			copy_sample,
 			check_sheet,
 			remark,
@@ -458,8 +500,10 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 			console.log(error)
 		})
 	}
-	const cavity = data.cavity 
-	if(cavity != null)
+
+	const fxData = []
+	if(revisiQc == null){
+	if(cavityCheck != null)
 	{
 		var table1 = []
 		var table2 = []
@@ -479,7 +523,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 		var table16 = []
 		var table17 = []
 		var table18 = []
-		if(cavity == 1){
+		if(cavityCheck == 1){
 			table1.push(
 				<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -11494,7 +11538,153 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 			)
 		}
 	}
+	}else{
+		fxData.push(
+			<View key="asdk2" style={{flexDirection: 'row', height: 50, backgroundColor : '#b8b8b8'}}>
+				<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+					<View style={{justifyContent: 'center', width: 908.5, alignItems: 'center', justifyContent: 'center'}}>
+						<Text style={{fontSize: 18}}>Already Saved</Text>
+					</View>
+				</View>
+			</View>
+		)
+	}	
+
 	const hString = hours.toString()
+
+	const updateCompareCopyFunc = () => {
+		const updateRF = updateCopySample
+		var data = []
+		const rfData = revisiQc
+		if(rfData != null){
+			if(updateRF != "OK" && updateRF != "NG"){
+				data.push(
+					<View key="askdj2nk" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+						<Picker 
+						mode="dropdown"
+						selectedValue={copy_sample}
+						onValueChange={(value) => setCopySample(value)}
+						>
+							<Picker.Item label="Pilih" value="" />
+							<Picker.Item label="OK" value="OK" />
+							<Picker.Item label="NG" value="NG" />
+						</Picker>
+					</View>
+				)
+			}else{
+				data.push(
+					<View key="askdj2nk" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+						<Text>{updateRF}</Text>
+					</View>
+				)
+			}
+		}else{
+			data.push(
+				<View key="askdj2nk" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<Picker 
+					mode="dropdown"
+					selectedValue={copy_sample}
+					onValueChange={(value) => setCopySample(value)}
+					>
+						<Picker.Item label="Pilih" value="" />
+						<Picker.Item label="OK" value="OK" />
+						<Picker.Item label="NG" value="NG" />
+					</Picker>
+				</View>
+			)
+		}
+		return data
+	}
+
+	const updateCheckSheetFunc = () => {
+		const updateRF = updateCheckSheet
+		var data = []
+		const rfData = revisiQc
+		if(rfData != null){
+			if(updateRF != "OK" && updateRF != "NG"){
+				data.push(
+					<View key="Asoidjnj2" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+						<Picker 
+						mode="dropdown"
+						selectedValue={check_sheet}
+						onValueChange={(value) => setCheckSheet(value)}
+						>
+							<Picker.Item label="Pilih" value="" />
+							<Picker.Item label="OK" value="OK" />
+							<Picker.Item label="NG" value="NG" />
+						</Picker>
+					</View>
+				)
+			}else{
+				<View key="Asoidjnj2" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+					<Text>{updateRF}</Text>
+				</View>
+			}
+		}else{
+			data.push(
+				<View key="Asoidjnj2" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<Picker 
+					mode="dropdown"
+					selectedValue={check_sheet}
+					onValueChange={(value) => setCheckSheet(value)}
+					>
+						<Picker.Item label="Pilih" value="" />
+						<Picker.Item label="OK" value="OK" />
+						<Picker.Item label="NG" value="NG" />
+					</Picker>
+				</View>
+			)
+		}
+		return data
+	}
+
+	const updateRemarkFunc = () => {
+		const updateRF = updateRemark
+		var data = []
+		const rfData = revisiQc
+		if(rfData != null){
+			if(updateRF != null){
+				data.push(
+					<View key="asidjn2j" style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5, borderWidth: 0.5, borderRadius: 25,}}>
+						<Text>{updateRF}</Text>
+					</View>
+				)
+			}else{
+				data.push(
+					<View key="Asoidjnj2" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+						<TextInput onChangeText={(value) => setRemark(value)} style={{paddingLeft: 5, height: 40}} value={remark} placeholder="Type Here..." />
+					</View>
+				)
+			}
+		}else{
+			data.push(
+				<View key="Asoidjnj2" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<TextInput onChangeText={(value) => setRemark(value)} style={{paddingLeft: 5, height: 40}} value={remark} placeholder="Type Here..." />
+				</View>
+			)
+		}
+		return data
+	}
+
+	const updateButton = () => {
+		const updateRF = revisiQc
+		const data = []
+		if(updateRF != null){
+			data.push(
+				<View key="asd12q" style={{paddingTop: 10}}>
+					<Button style={{width: 172, borderRadius: 25, justifyContent: 'center', backgroundColor: '#05c46b'}} onPress={() => alert("Data QC Leader Already Saved!")}><Text>SAVED</Text></Button>
+				</View>
+			)
+		}else{
+			data.push(
+				<View key="asd12q" style={{paddingTop: 10}}>
+					<Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>
+				</View>
+			)
+		}
+		return data
+	}
+
 	return(
 		<KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={{flex: 1}} >
 			<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -11555,13 +11745,13 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 
 						<View style={{borderWidth: 0.5, flexDirection: 'row'}}>
 							<View style={{justifyContent: 'center', paddingLeft: 5, height: 25, width: "36%", backgroundColor: '#F5F5DC'}}>
-								<Text style={{fontSize: 12}}>{data.internal_part_id != null ? data.internal_part_id : "-"}</Text>
+								<Text style={{fontSize: 12}}>{data != null ? data.internal_part_id : "-"}</Text>
 							</View>
 							<View style={{justifyContent: 'center', alignItems: 'center', height: 25, width: "30%", backgroundColor: '#F5F5DC'}}>
-								<Text style={{fontSize: 12}}>{data.customer_part_number != null ? data.customer_part_number : "-"}</Text>
+								<Text style={{fontSize: 12}}>{data != null ? data.customer_part_number : "-"}</Text>
 							</View>
 							<View style={{flex: 1, justifyContent: 'center', alignItems: 'center', height: 25, backgroundColor: '#F5F5DC'}}>
-								<Text style={{fontSize: 12}}>{data.model != null ? data.model : "-"}</Text>
+								<Text style={{fontSize: 12}}>{data != null ? data.model : "-"}</Text>
 							</View>
 						</View>
 
@@ -11576,7 +11766,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 								<View style={{padding: 4, width: "50%"}}>
 									<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
 										<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-											<Text>{data.machine_status != null ? data.machine_status : "-"}</Text>
+											<Text>{dataQl != null ? dataQl.machine_status : "-"}</Text>
 										</View>
 									</View>
 								</View>
@@ -11608,7 +11798,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 								<View style={{padding: 4, width: "50%"}}>
 									<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
 										<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-											<Text>{data.cavity != null ? data.cavity : "-"}</Text>
+											<Text>{cavityCheck != null ? cavityCheck : "-"}</Text>
 										</View>
 									</View>
 								</View>
@@ -11623,17 +11813,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 								</View>
 								<View style={{padding: 4, width: "50%"}}>
 									<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-										<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-											<Picker 
-											mode="dropdown"
-											selectedValue={copy_sample}
-											onValueChange={(value) => setCopySample(value)}
-											>
-												<Picker.Item label="Pilih" value="" />
-												<Picker.Item label="OK" value="OK" />
-												<Picker.Item label="NG" value="NG" />
-											</Picker>
-										</View>
+										{updateCompareCopyFunc()}
 									</View>
 								</View>
 							</View>
@@ -11647,17 +11827,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 									</View>
 									<View style={{padding: 4, width: "50%"}}>
 										<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-											<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-												<Picker 
-												mode="dropdown"
-												selectedValue={check_sheet}
-												onValueChange={(value) => setCheckSheet(value)}
-												>
-													<Picker.Item label="Pilih" value="" />
-													<Picker.Item label="OK" value="OK" />
-													<Picker.Item label="NG" value="NG" />
-												</Picker>
-											</View>
+											{updateCheckSheetFunc()}
 										</View>
 									</View>
 								</View>
@@ -11670,9 +11840,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 									<Text style={{color: 'black'}}>:</Text>
 								</View>
 								<View style={{padding: 4, width: "50%"}}>
-									<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-										<TextInput onChangeText={(value) => setRemark(value)} style={{borderWidth: 0.5, borderRadius: 25, paddingLeft: 5, height: 40}} placeholder="Type Here..." />
-									</View>
+									{updateRemarkFunc()}
 								</View>
 							</View>
 						<ScrollView horizontal>
@@ -11709,6 +11877,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 									</View>
 								</View>
 							</View>
+							{fxData}
 							{table1}
 							{table2}
 							{table3}
@@ -11731,7 +11900,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 						</ScrollView>
 							<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
 								<View>
-									<Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>
+									{updateButton()}
 								</View>
 							</View>
 						</ScrollView>
