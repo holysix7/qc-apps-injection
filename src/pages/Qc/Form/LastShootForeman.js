@@ -10,7 +10,7 @@ const LastShootForeman = ({route, navigation}) => {
 	useEffect(() => {
 		formOke()
 	}, [])
-	const {qc_daily_inspection_id, sys_plant_id, machine_id, product_name, customer_name, machine_name, today, yesterday} = route.params
+	const {sys_plant_id, machine_id, product_name, customer_name, machine_name, today, yesterday} = route.params
 	const [hours, setHours]		  										= useState(0)
 	const [shift, setShift]		  										= useState(0)
 	const [stop_category, setStopCategory]					= useState("")
@@ -21,6 +21,7 @@ const LastShootForeman = ({route, navigation}) => {
 	let updated_at 																	= moment().format("YYYY-MM-DD HH:mm:ss")
 	const [eng_product_id, setEngProdId]		  			= useState(0)
 	const [data, setData]	=	useState("")
+	const [qc_daily_inspection_id, setIdInspection]	=	useState("")
 	const prod_machine_id = machine_id
 	const date = []
 
@@ -92,6 +93,7 @@ const LastShootForeman = ({route, navigation}) => {
 			Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
 			.then(response => {
 				setData(response.data.data.daily_inspection)
+				setIdInspection(response.data.data.daily_inspection.qc_daily_inspections_id)
 				setEngProdId(response.data.data.eng_product_id)
 				setTooling(response.data.data.daily_inspection.tooling_num)
 				console.log("List Data Last Shoot Foreman: ", response.data.status, "OK")
@@ -115,6 +117,7 @@ const LastShootForeman = ({route, navigation}) => {
 			Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
 			.then(response => {
 				setData(response.data.data.daily_inspection)
+				setIdInspection(response.data.data.daily_inspection.qc_daily_inspections_id)
 				setEngProdId(response.data.data.eng_product_id)
 				setTooling(response.data.data.daily_inspection.tooling_num)
 				console.log("List Data Last Shoot Foreman: ", response.data.status, "OK")
@@ -138,6 +141,7 @@ const LastShootForeman = ({route, navigation}) => {
 			Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
 			.then(response => {
 				setData(response.data.data.daily_inspection)
+				setIdInspection(response.data.data.daily_inspection.qc_daily_inspections_id)
 				setEngProdId(response.data.data.eng_product_id)
 				setTooling(response.data.data.daily_inspection.tooling_num)
 				console.log("List Data Last Shoot Foreman: ", response.data.status, "OK")

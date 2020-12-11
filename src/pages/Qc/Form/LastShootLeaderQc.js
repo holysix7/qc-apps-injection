@@ -143,8 +143,11 @@ const LastShootLeaderQc = ({route, navigation}) => {
 	let updated_at 																			= moment().format("YYYY-MM-DD HH:mm:ss")
 	const prod_machine_id = machine_id
 	const date = []
+	const [planningId, setPlanningId] 									= useState("")
+	const planning_id = parseInt(planningId)
+	const [internal_part_id, setIPI] 										= useState("")
 	if(today != null)
-{
+	{
 	date.push(
 		<Text key={"key"} style={{marginTop: 1, fontWeight: 'bold', fontSize: 17}}>{today}</Text>
 	)
@@ -255,8 +258,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 
 	const hString = hours.toString()
 	
-	const item = JSON.stringify({
-	"item":{
+	const item = {
 		"cav_1": {
 			"cavity": statusCavity1,
 			"judgement_first_piece": judgement_first_piece1,
@@ -400,9 +402,8 @@ const LastShootLeaderQc = ({route, navigation}) => {
 			"fitting_test": fitting_test18,
 			"product_weight": product_weight18,
 			"note": note18
-		},
+		}
 	}
-})
 
 	var dataNGs = []
 	ngCategories.map((element, key) => {
@@ -422,6 +423,8 @@ const LastShootLeaderQc = ({route, navigation}) => {
 		const data = {
 			eng_product_id,
 			prod_machine_id,
+			planning_id,
+			internal_part_id,
 			qc_daily_inspections_id,
 			qc_daily_inspection_item_id,
 			qc_daily_inspection_method_id,
@@ -11556,13 +11559,13 @@ const LastShootLeaderQc = ({route, navigation}) => {
 
 						<View style={{borderWidth: 0.5, flexDirection: 'row'}}>
 							<View style={{justifyContent: 'center', paddingLeft: 5, height: 25, width: "36%", backgroundColor: '#F5F5DC'}}>
-								<Text style={{fontSize: 12}}>{data.internal_part_id != null ? data.internal_part_id : "-"}</Text>
+								<Text style={{fontSize: 12}}>{data != null ? data.internal_part_id : "-"}</Text>
 							</View>
 							<View style={{justifyContent: 'center', alignItems: 'center', height: 25, width: "30%", backgroundColor: '#F5F5DC'}}>
-								<Text style={{fontSize: 12}}>{data.customer_part_number != null ? data.customer_part_number : "-"}</Text>
+								<Text style={{fontSize: 12}}>{data != null ? data.customer_part_number : "-"}</Text>
 							</View>
 							<View style={{flex: 1, justifyContent: 'center', alignItems: 'center', height: 25, backgroundColor: '#F5F5DC'}}>
-								<Text style={{fontSize: 12}}>{data.model != null ? data.model : "-"}</Text>
+								<Text style={{fontSize: 12}}>{data != null ? data.model : "-"}</Text>
 							</View>
 						</View>
 
@@ -11577,7 +11580,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								<View style={{padding: 4, width: "50%"}}>
 									<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
 										<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-											<Text>{data.machine_status != null ? data.machine_status : "-"}</Text>
+											<Text>{data != null ? data.machine_status : "-"}</Text>
 										</View>
 									</View>
 								</View>

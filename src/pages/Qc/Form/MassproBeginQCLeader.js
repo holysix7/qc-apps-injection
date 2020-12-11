@@ -144,13 +144,21 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 	let created_at 																											 = moment().format("YYYY-MM-DD HH:mm:ss")
 	const [updated_by, setUpdatedBy]																		 = useState("")
 	let updated_at 																											 = moment().format("YYYY-MM-DD HH:mm:ss")
-	const [hours, setHours]		  						= useState(0)
-	const [shift, setShift]		  						= useState(0)
-	const date = []
-	const prod_machine_id = machine_id
-	const status 					= "new"
-	const [tooling_num, setTooling]	= useState("")
-	const cavity	= data1.cavity
+	const [hours, setHours]		  																				= useState(0)
+	const [shift, setShift]		  																				= useState(0)
+	const [tooling_num, setTooling]																			= useState("")
+	const [planningId, setPlanningId]																		= useState("")
+	const [internal_part_id, setIPI]																		= useState("")
+	const [massproQCL, setMassproQCL]																		= useState("")
+	const [massproQCLMachineStatus, setMassproQCLMachineStatus]					= useState("")
+	const [massproQCLCompareCopySample, setMassproQCLCompareCopySample]	= useState("")
+	const [massproQCLCheckSheetQC, setMassproQCLCheckSheetQC]						= useState("")
+	const [massproQCLRemark, setMassproQCLRemark]												= useState("")
+	const [cavity, setCavity]	= useState("")
+	const prod_machine_id 		= machine_id
+	const status 							= "new"
+	const date 				= []
+	const planning_id = parseInt(planningId)
 
 	if(ngCategories.length > 0)
 	{
@@ -170,154 +178,152 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 		}
 	}
 
-	const item = JSON.stringify({
-		"item":{
-			"cav_1": {
-				"cavity": statusCavity1,
-				"judgement_first_piece": judgement_first_piece1,
-				"qc_ng_category_id": qc_ng_category_id1,
-				"fitting_test": fitting_test1,
-				"product_weight": product_weight1,
-				"note": note1
-			},
-			"cav_2": {
-				"cavity": statusCavity2,
-				"judgement_first_piece": judgement_first_piece2,
-				"qc_ng_category_id": qc_ng_category_id2,
-				"fitting_test": fitting_test2,
-				"product_weight": product_weight2,
-				"note": note2
-			},
-			"cav_3": {
-				"cavity": statusCavity3,
-				"judgement_first_piece": judgement_first_piece3,
-				"qc_ng_category_id": qc_ng_category_id3,
-				"fitting_test": fitting_test3,
-				"product_weight": product_weight3,
-				"note": note3
-			},
-			"cav_4": {
-				"cavity": statusCavity4,
-				"judgement_first_piece": judgement_first_piece4,
-				"qc_ng_category_id": qc_ng_category_id4,
-				"fitting_test": fitting_test4,
-				"product_weight": product_weight4,
-				"note": note4
-			},
-			"cav_5": {
-				"cavity": statusCavity5,
-				"judgement_first_piece": judgement_first_piece5,
-				"qc_ng_category_id": qc_ng_category_id5,
-				"fitting_test": fitting_test5,
-				"product_weight": product_weight5,
-				"note": note5
-			},
-			"cav_6": {
-				"cavity": statusCavity6,
-				"judgement_first_piece": judgement_first_piece6,
-				"qc_ng_category_id": qc_ng_category_id6,
-				"fitting_test": fitting_test6,
-				"product_weight": product_weight6,
-				"note": note6
-			},
-			"cav_7": {
-				"cavity": statusCavity7,
-				"judgement_first_piece": judgement_first_piece7,
-				"qc_ng_category_id": qc_ng_category_id7,
-				"fitting_test": fitting_test7,
-				"product_weight": product_weight7,
-				"note": note7
-			},
-			"cav_8": {
-				"cavity": statusCavity8,
-				"judgement_first_piece": judgement_first_piece8,
-				"qc_ng_category_id": qc_ng_category_id8,
-				"fitting_test": fitting_test8,
-				"product_weight": product_weight8,
-				"note": note8
-			},
-			"cav_9": {
-				"cavity": statusCavity9,
-				"judgement_first_piece": judgement_first_piece9,
-				"qc_ng_category_id": qc_ng_category_id9,
-				"fitting_test": fitting_test9,
-				"product_weight": product_weight9,
-				"note": note9
-			},
-			"cav_10": {
-				"cavity": statusCavity10,
-				"judgement_first_piece": judgement_first_piece10,
-				"qc_ng_category_id": qc_ng_category_id10,
-				"fitting_test": fitting_test10,
-				"product_weight": product_weight10,
-				"note": note10
-			},
-			"cav_11": {
-				"cavity": statusCavity11,
-				"judgement_first_piece": judgement_first_piece11,
-				"qc_ng_category_id": qc_ng_category_id11,
-				"fitting_test": fitting_test11,
-				"product_weight": product_weight11,
-				"note": note11
-			},
-			"cav_12": {
-				"cavity": statusCavity12,
-				"judgement_first_piece": judgement_first_piece12,
-				"qc_ng_category_id": qc_ng_category_id12,
-				"fitting_test": fitting_test12,
-				"product_weight": product_weight12,
-				"note": note12
-			},
-			"cav_13": {
-				"cavity": statusCavity13,
-				"judgement_first_piece": judgement_first_piece13,
-				"qc_ng_category_id": qc_ng_category_id13,
-				"fitting_test": fitting_test13,
-				"product_weight": product_weight13,
-				"note": note13
-			},
-			"cav_14": {
-				"cavity": statusCavity14,
-				"judgement_first_piece": judgement_first_piece14,
-				"qc_ng_category_id": qc_ng_category_id14,
-				"fitting_test": fitting_test14,
-				"product_weight": product_weight14,
-				"note": note14
-			},
-			"cav_15": {
-				"cavity": statusCavity15,
-				"judgement_first_piece": judgement_first_piece15,
-				"qc_ng_category_id": qc_ng_category_id15,
-				"fitting_test": fitting_test15,
-				"product_weight": product_weight15,
-				"note": note15
-			},
-			"cav_16": {
-				"cavity": statusCavity16,
-				"judgement_first_piece": judgement_first_piece16,
-				"qc_ng_category_id": qc_ng_category_id16,
-				"fitting_test": fitting_test16,
-				"product_weight": product_weight16,
-				"note": note16
-			},
-			"cav_17": {
-				"cavity": statusCavity17,
-				"judgement_first_piece": judgement_first_piece17,
-				"qc_ng_category_id": qc_ng_category_id17,
-				"fitting_test": fitting_test17,
-				"product_weight": product_weight17,
-				"note": note17
-			},
-			"cav_18": {
-				"cavity": statusCavity18,
-				"judgement_first_piece": judgement_first_piece18,
-				"qc_ng_category_id": qc_ng_category_id18,
-				"fitting_test": fitting_test18,
-				"product_weight": product_weight18,
-				"note": note18
-			},
+	const item = {
+		"cav_1": {
+			"cavity": 1,
+			"judgement_first_piece": judgement_first_piece1,
+			"qc_ng_category_id": qc_ng_category_id1,
+			"fitting_test": fitting_test1,
+			"product_weight": product_weight1,
+			"note": note1
+		},
+		"cav_2": {
+			"cavity": 2,
+			"judgement_first_piece": judgement_first_piece2,
+			"qc_ng_category_id": qc_ng_category_id2,
+			"fitting_test": fitting_test2,
+			"product_weight": product_weight2,
+			"note": note2
+		},
+		"cav_3": {
+			"cavity": 3,
+			"judgement_first_piece": judgement_first_piece3,
+			"qc_ng_category_id": qc_ng_category_id3,
+			"fitting_test": fitting_test3,
+			"product_weight": product_weight3,
+			"note": note3
+		},
+		"cav_4": {
+			"cavity": 4,
+			"judgement_first_piece": judgement_first_piece4,
+			"qc_ng_category_id": qc_ng_category_id4,
+			"fitting_test": fitting_test4,
+			"product_weight": product_weight4,
+			"note": note4
+		},
+		"cav_5": {
+			"cavity": 5,
+			"judgement_first_piece": judgement_first_piece5,
+			"qc_ng_category_id": qc_ng_category_id5,
+			"fitting_test": fitting_test5,
+			"product_weight": product_weight5,
+			"note": note5
+		},
+		"cav_6": {
+			"cavity": 6,
+			"judgement_first_piece": judgement_first_piece6,
+			"qc_ng_category_id": qc_ng_category_id6,
+			"fitting_test": fitting_test6,
+			"product_weight": product_weight6,
+			"note": note6
+		},
+		"cav_7": {
+			"cavity": 7,
+			"judgement_first_piece": judgement_first_piece7,
+			"qc_ng_category_id": qc_ng_category_id7,
+			"fitting_test": fitting_test7,
+			"product_weight": product_weight7,
+			"note": note7
+		},
+		"cav_8": {
+			"cavity": 8,
+			"judgement_first_piece": judgement_first_piece8,
+			"qc_ng_category_id": qc_ng_category_id8,
+			"fitting_test": fitting_test8,
+			"product_weight": product_weight8,
+			"note": note8
+		},
+		"cav_9": {
+			"cavity": 9,
+			"judgement_first_piece": judgement_first_piece9,
+			"qc_ng_category_id": qc_ng_category_id9,
+			"fitting_test": fitting_test9,
+			"product_weight": product_weight9,
+			"note": note9
+		},
+		"cav_10": {
+			"cavity": 10,
+			"judgement_first_piece": judgement_first_piece10,
+			"qc_ng_category_id": qc_ng_category_id10,
+			"fitting_test": fitting_test10,
+			"product_weight": product_weight10,
+			"note": note10
+		},
+		"cav_11": {
+			"cavity": 11,
+			"judgement_first_piece": judgement_first_piece11,
+			"qc_ng_category_id": qc_ng_category_id11,
+			"fitting_test": fitting_test11,
+			"product_weight": product_weight11,
+			"note": note11
+		},
+		"cav_12": {
+			"cavity": 12,
+			"judgement_first_piece": judgement_first_piece12,
+			"qc_ng_category_id": qc_ng_category_id12,
+			"fitting_test": fitting_test12,
+			"product_weight": product_weight12,
+			"note": note12
+		},
+		"cav_13": {
+			"cavity": 13,
+			"judgement_first_piece": judgement_first_piece13,
+			"qc_ng_category_id": qc_ng_category_id13,
+			"fitting_test": fitting_test13,
+			"product_weight": product_weight13,
+			"note": note13
+		},
+		"cav_14": {
+			"cavity": 14,
+			"judgement_first_piece": judgement_first_piece14,
+			"qc_ng_category_id": qc_ng_category_id14,
+			"fitting_test": fitting_test14,
+			"product_weight": product_weight14,
+			"note": note14
+		},
+		"cav_15": {
+			"cavity": 15,
+			"judgement_first_piece": judgement_first_piece15,
+			"qc_ng_category_id": qc_ng_category_id15,
+			"fitting_test": fitting_test15,
+			"product_weight": product_weight15,
+			"note": note15
+		},
+		"cav_16": {
+			"cavity": 16,
+			"judgement_first_piece": judgement_first_piece16,
+			"qc_ng_category_id": qc_ng_category_id16,
+			"fitting_test": fitting_test16,
+			"product_weight": product_weight16,
+			"note": note16
+		},
+		"cav_17": {
+			"cavity": 17,
+			"judgement_first_piece": judgement_first_piece17,
+			"qc_ng_category_id": qc_ng_category_id17,
+			"fitting_test": fitting_test17,
+			"product_weight": product_weight17,
+			"note": note17
+		},
+		"cav_18": {
+			"cavity": 18,
+			"judgement_first_piece": judgement_first_piece18,
+			"qc_ng_category_id": qc_ng_category_id18,
+			"fitting_test": fitting_test18,
+			"product_weight": product_weight18,
+			"note": note18
 		}
-	})
+	}
 	const machine_status = "start-mp"
 
 	const submit = async() => {
@@ -326,6 +332,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 			prod_machine_id,
 			sys_plant_id,
 			tooling_num,
+			planning_id,
+			internal_part_id,
 			qc_masspro_main_mold_id,
 			qc_masspro_material_preparation_id,
 			qc_masspro_mold_setter_id,
@@ -336,6 +344,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 			machine_engine_status,
 			tooling_num,
 			cavity,
+			remark,
 			compare_sample,
 			check_sheet,
 			item,
@@ -412,8 +421,16 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 			setProdLeaderId(response.data.data.qc_masspro_prod_leader_id)
 			setEngProd(response.data.data.eng_product_id)
 			setData1(response.data.data.product_detail)
+			setCavity(response.data.data.product_detail.cavity)
 			setNGCategories(response.data.data.ng_category)
 			setTooling(response.data.data.tooling_num)
+			setPlanningId(response.data.data.planning_id)
+			setIPI(response.data.data.product_detail.internal_part_id)
+			setMassproQCL(response.data.data.masspro_ql)
+			setMassproQCLMachineStatus(response.data.data.masspro_ql.machine_engine_status)
+			setMassproQCLCompareCopySample(response.data.data.masspro_ql.compare_sample)
+			setMassproQCLCheckSheetQC(response.data.data.masspro_ql.check_sheet)
+			setMassproQCLRemark(response.data.data.masspro_ql.remark)
 			console.log("List Data QC Leader: ", response.data.status, "OK")
 		})
 		.catch(error => {
@@ -440,7 +457,187 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 		)
 	}
 
-	// const tableLoop = () => {
+	const updateMachineEngineStatus = () => {
+		const updateQCL = massproQCLMachineStatus
+		const data = []
+		const qclData = massproQCL
+		if(qclData != null){
+			if(updateQCL != "normal" && updateQCL != "unnormal"){
+				data.push(
+					<View key="LKASJ2asd" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, marginTop: 5}}>
+						<Picker 
+						mode="dropdown"
+						selectedValue={machine_engine_status}
+						onValueChange={(value) => setItem(value)}
+						>
+							<Picker.Item label="Pilih" value="" />
+							<Picker.Item label="Normal" value="normal" />
+							<Picker.Item label="Unnormal" value="unnormal" />
+						</Picker>
+					</View>
+				)
+			}else{
+				data.push(
+					<View key="asokWoqk" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, marginTop: 5, backgroundColor: '#b8b8b8'}}>
+						<Text>{updateQCL}</Text>
+					</View>
+				)
+			}
+		}else{
+			data.push(
+				<View key="LKASJ2asd" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, marginTop: 5}}>
+					<Picker 
+					mode="dropdown"
+					selectedValue={machine_engine_status}
+					onValueChange={(value) => setItem(value)}
+					>
+						<Picker.Item label="Pilih" value="" />
+						<Picker.Item label="Normal" value="Normal" />
+						<Picker.Item label="Unnormal" value="Unnormal" />
+					</Picker>
+				</View>
+			)
+		}
+		return data
+	}
+
+	const updateCompareCopySample = () => {
+		const updateQCL = massproQCLCompareCopySample
+		const data = []
+		const qclData = massproQCL
+		if(qclData != null){
+			if(updateQCL != "OK" && updateQCL != "NG"){
+				data.push(
+					<View key="asjh1uiKJlkjwk" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+						<Picker 
+						mode="dropdown"
+						selectedValue={compare_sample}
+						onValueChange={(value) => setCopySample(value)}
+						>
+							<Picker.Item label="Pilih" value="" />
+							<Picker.Item label="OK" value="OK" />
+							<Picker.Item label="NG" value="NG" />
+						</Picker>
+					</View>
+				)
+			}else{
+				data.push(
+					<View key="asjh1uiKJlkjwk" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+						<Text>{updateQCL}</Text>
+					</View>
+				)
+			}
+		}else{
+			data.push(
+				<View key="asjh1uiKJlkjwk" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<Picker 
+					mode="dropdown"
+					selectedValue={compare_sample}
+					onValueChange={(value) => setCopySample(value)}
+					>
+						<Picker.Item label="Pilih" value="" />
+						<Picker.Item label="OK" value="OK" />
+						<Picker.Item label="NG" value="NG" />
+					</Picker>
+				</View>
+			)
+		}
+		return data
+	}
+
+	const updateCheckSheetQC = () => {
+		const updateQCL = massproQCLCheckSheetQC
+		const data = []
+		const qclData = massproQCL
+		if(qclData != null){
+			if(updateQCL != "OK" && updateQCL != "NG"){
+				data.push(
+					<View key="sk291skW" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+						<Picker 
+						mode="dropdown"
+						selectedValue={check_sheet}
+						onValueChange={(value) => setSheetQc(value)}
+						>
+							<Picker.Item label="Pilih" value="" />
+							<Picker.Item label="OK" value="OK" />
+							<Picker.Item label="NG" value="NG" />
+						</Picker>
+					</View>
+				)
+			}else{
+				data.push(
+					<View key="sk291skW" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+						<Text>{updateQCL}</Text>
+					</View>
+				)
+			}
+		}else{
+			data.push(
+				<View key="sk291skW" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<Picker 
+					mode="dropdown"
+					selectedValue={check_sheet}
+					onValueChange={(value) => setSheetQc(value)}
+					>
+						<Picker.Item label="Pilih" value="" />
+						<Picker.Item label="OK" value="OK" />
+						<Picker.Item label="NG" value="NG" />
+					</Picker>
+				</View>
+			)
+		}
+		return data
+	}
+
+	const updateRemark = () => {
+		const updateQCL = massproQCLRemark
+		const data = []
+		const qclData = massproQCL
+		if(qclData != null){
+			if(updateQCL == null){
+				data.push(
+					<View key="sk291skW" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+						<TextInput onChangeText={(value) => setRemark(value)} style={{paddingLeft: 5, height: 40}} placeholder="Type Here..." />
+					</View>
+				)
+			}else{
+				data.push(
+					<View key="sk291skW" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingTop: 5, paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+						<Text>{updateQCL}</Text>
+					</View>
+				)
+			}
+		}else{
+			data.push(
+				<View key="sk291skW" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<TextInput onChangeText={(value) => setRemark(value)} style={{paddingLeft: 5, height: 40}} placeholder="Type Here..." />
+				</View>
+			)
+		}
+		return data
+	}
+	
+	const updateButton = () => {
+		const updateQCL = massproQCL
+		const data = []
+		if(updateQCL != null){
+			data.push(
+				<View key="asd12q" style={{paddingTop: 10}}>
+					<Button style={{width: 172, borderRadius: 25, justifyContent: 'center', backgroundColor: '#05c46b'}} onPress={() => alert("Data QC Leader Already Saved!")}><Text>SAVED</Text></Button>
+				</View>
+			)
+		}else{
+			data.push(
+				<View key="asd12q" style={{paddingTop: 10}}>
+					<Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>
+				</View>
+			)
+		}
+		return data
+	}
+
+	const fxData = []
+	if(massproQCL == null){
 	if(cavity != null)
 	{
 		var table1 = []
@@ -465,16 +662,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table1.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity1}
-								onValueChange = {(value)=>setStatusCavity1(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>1</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -530,16 +719,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table1.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity1}
-								onValueChange = {(value)=>setStatusCavity1(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>1</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -594,16 +775,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table2.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity2}
-								onValueChange = {(value)=>setStatusCavity2(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>2</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -659,16 +832,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table1.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity1}
-								onValueChange = {(value)=>setStatusCavity1(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>1</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -723,16 +888,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table2.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity2}
-								onValueChange = {(value)=>setStatusCavity2(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>2</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -787,16 +944,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table3.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity3}
-								onValueChange = {(value)=>setStatusCavity3(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>3</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -852,16 +1001,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table1.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity1}
-								onValueChange = {(value)=>setStatusCavity1(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>1</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -916,16 +1057,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table2.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity2}
-								onValueChange = {(value)=>setStatusCavity2(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>2</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -980,16 +1113,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table3.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity3}
-								onValueChange = {(value)=>setStatusCavity3(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>3</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -1044,16 +1169,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table4.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity4}
-								onValueChange = {(value)=>setStatusCavity4(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>4</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -1109,16 +1226,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table1.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity1}
-								onValueChange = {(value)=>setStatusCavity1(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>1</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -1173,16 +1282,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table2.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity2}
-								onValueChange = {(value)=>setStatusCavity2(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>2</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -1237,16 +1338,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table3.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity3}
-								onValueChange = {(value)=>setStatusCavity3(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>3</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -1301,16 +1394,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table4.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity4}
-								onValueChange = {(value)=>setStatusCavity4(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>4</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -1365,16 +1450,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table5.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity5}
-								onValueChange = {(value)=>setStatusCavity5(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>5</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -1430,16 +1507,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table1.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity1}
-								onValueChange = {(value)=>setStatusCavity1(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>1</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -1494,16 +1563,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table2.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity2}
-								onValueChange = {(value)=>setStatusCavity2(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>2</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -1558,16 +1619,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table3.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity3}
-								onValueChange = {(value)=>setStatusCavity3(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>3</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -1622,16 +1675,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table4.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity4}
-								onValueChange = {(value)=>setStatusCavity4(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>4</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -1686,16 +1731,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table5.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity5}
-								onValueChange = {(value)=>setStatusCavity5(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>5</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -1750,16 +1787,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table6.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity6}
-								onValueChange = {(value)=>setStatusCavity6(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>6</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -1815,16 +1844,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table1.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity1}
-								onValueChange = {(value)=>setStatusCavity1(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>1</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -1879,16 +1900,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table2.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity2}
-								onValueChange = {(value)=>setStatusCavity2(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>2</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -1943,16 +1956,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table3.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity3}
-								onValueChange = {(value)=>setStatusCavity3(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>3</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -2007,16 +2012,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table4.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity4}
-								onValueChange = {(value)=>setStatusCavity4(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>4</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -2071,16 +2068,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table5.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity5}
-								onValueChange = {(value)=>setStatusCavity5(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>5</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -2135,16 +2124,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table6.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity6}
-								onValueChange = {(value)=>setStatusCavity6(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>6</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -2199,16 +2180,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table7.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity7}
-								onValueChange = {(value)=>setStatusCavity7(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>7</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -2264,16 +2237,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table1.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity1}
-								onValueChange = {(value)=>setStatusCavity1(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>1</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -2328,16 +2293,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table2.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity2}
-								onValueChange = {(value)=>setStatusCavity2(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>2</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -2392,16 +2349,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table3.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity3}
-								onValueChange = {(value)=>setStatusCavity3(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>3</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -2456,16 +2405,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table4.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity4}
-								onValueChange = {(value)=>setStatusCavity4(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>4</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -2520,16 +2461,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table5.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity5}
-								onValueChange = {(value)=>setStatusCavity5(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>5</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -2584,16 +2517,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table6.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity6}
-								onValueChange = {(value)=>setStatusCavity6(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>6</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -2648,16 +2573,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table7.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity7}
-								onValueChange = {(value)=>setStatusCavity7(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>7</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -2712,16 +2629,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table8.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity8}
-								onValueChange = {(value)=>setStatusCavity8(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>8</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -2777,16 +2686,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table1.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity1}
-								onValueChange = {(value)=>setStatusCavity1(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>1</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -2841,16 +2742,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table2.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity2}
-								onValueChange = {(value)=>setStatusCavity2(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>2</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -2905,16 +2798,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table3.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity3}
-								onValueChange = {(value)=>setStatusCavity3(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>3</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -2969,16 +2854,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table4.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity4}
-								onValueChange = {(value)=>setStatusCavity4(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>4</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -3033,16 +2910,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table5.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity5}
-								onValueChange = {(value)=>setStatusCavity5(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>5</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -3097,16 +2966,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table6.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity6}
-								onValueChange = {(value)=>setStatusCavity6(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>6</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -3161,16 +3022,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table7.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity7}
-								onValueChange = {(value)=>setStatusCavity7(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>7</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -3225,16 +3078,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table8.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity8}
-								onValueChange = {(value)=>setStatusCavity8(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>8</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -3289,16 +3134,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table9.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity9}
-								onValueChange = {(value)=>setStatusCavity9(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>9</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -3354,16 +3191,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table1.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity1}
-								onValueChange = {(value)=>setStatusCavity1(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>1</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -3418,16 +3247,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table2.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity2}
-								onValueChange = {(value)=>setStatusCavity2(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>2</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -3482,16 +3303,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table3.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity3}
-								onValueChange = {(value)=>setStatusCavity3(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>3</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -3546,16 +3359,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table4.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity4}
-								onValueChange = {(value)=>setStatusCavity4(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>4</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -3610,16 +3415,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table5.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity5}
-								onValueChange = {(value)=>setStatusCavity5(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>5</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -3674,16 +3471,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table6.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity6}
-								onValueChange = {(value)=>setStatusCavity6(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>6</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -3738,16 +3527,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table7.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity7}
-								onValueChange = {(value)=>setStatusCavity7(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>7</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -3802,16 +3583,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table8.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity8}
-								onValueChange = {(value)=>setStatusCavity8(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>8</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -3866,16 +3639,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table9.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity9}
-								onValueChange = {(value)=>setStatusCavity9(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>9</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -3930,16 +3695,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table10.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity10}
-								onValueChange = {(value)=>setStatusCavity10(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>10</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -3995,16 +3752,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table1.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity1}
-								onValueChange = {(value)=>setStatusCavity1(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>1</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -4059,16 +3808,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table2.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity2}
-								onValueChange = {(value)=>setStatusCavity2(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>2</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -4123,16 +3864,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table3.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity3}
-								onValueChange = {(value)=>setStatusCavity3(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>3</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -4187,16 +3920,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table4.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity4}
-								onValueChange = {(value)=>setStatusCavity4(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>4</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -4251,16 +3976,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table5.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity5}
-								onValueChange = {(value)=>setStatusCavity5(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>5</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -4315,16 +4032,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table6.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity6}
-								onValueChange = {(value)=>setStatusCavity6(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>6</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -4379,16 +4088,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table7.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity7}
-								onValueChange = {(value)=>setStatusCavity7(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>7</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -4443,16 +4144,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table8.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity8}
-								onValueChange = {(value)=>setStatusCavity8(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>8</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -4507,16 +4200,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table9.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity9}
-								onValueChange = {(value)=>setStatusCavity9(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>9</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -4571,16 +4256,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table10.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity10}
-								onValueChange = {(value)=>setStatusCavity10(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>10</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -4635,16 +4312,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table11.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity11}
-								onValueChange = {(value)=>setStatusCavity11(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>11</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -4700,16 +4369,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table1.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity1}
-								onValueChange = {(value)=>setStatusCavity1(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>1</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -4764,16 +4425,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table2.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity2}
-								onValueChange = {(value)=>setStatusCavity2(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>2</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -4828,16 +4481,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table3.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity3}
-								onValueChange = {(value)=>setStatusCavity3(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>3</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -4892,16 +4537,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table4.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity4}
-								onValueChange = {(value)=>setStatusCavity4(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>4</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -4956,16 +4593,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table5.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity5}
-								onValueChange = {(value)=>setStatusCavity5(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>5</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -5020,16 +4649,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table6.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity6}
-								onValueChange = {(value)=>setStatusCavity6(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>6</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -5084,16 +4705,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table7.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity7}
-								onValueChange = {(value)=>setStatusCavity7(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>7</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -5148,16 +4761,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table8.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity8}
-								onValueChange = {(value)=>setStatusCavity8(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>8</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -5212,16 +4817,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table9.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity9}
-								onValueChange = {(value)=>setStatusCavity9(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>9</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -5276,16 +4873,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table10.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity10}
-								onValueChange = {(value)=>setStatusCavity10(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>10</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -5340,16 +4929,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table11.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity11}
-								onValueChange = {(value)=>setStatusCavity11(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>11</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -5404,16 +4985,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table12.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity12}
-								onValueChange = {(value)=>setStatusCavity12(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>12</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -5469,16 +5042,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table1.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity1}
-								onValueChange = {(value)=>setStatusCavity1(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>1</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -5533,16 +5098,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table2.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity2}
-								onValueChange = {(value)=>setStatusCavity2(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>2</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -5597,16 +5154,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table3.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity3}
-								onValueChange = {(value)=>setStatusCavity3(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>3</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -5661,16 +5210,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table4.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity4}
-								onValueChange = {(value)=>setStatusCavity4(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>4</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -5725,16 +5266,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table5.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity5}
-								onValueChange = {(value)=>setStatusCavity5(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>5</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -5789,16 +5322,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table6.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity6}
-								onValueChange = {(value)=>setStatusCavity6(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>6</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -5853,16 +5378,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table7.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity7}
-								onValueChange = {(value)=>setStatusCavity7(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>7</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -5917,16 +5434,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table8.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity8}
-								onValueChange = {(value)=>setStatusCavity8(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>8</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -5981,16 +5490,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table9.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity9}
-								onValueChange = {(value)=>setStatusCavity9(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>9</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -6045,16 +5546,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table10.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity10}
-								onValueChange = {(value)=>setStatusCavity10(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>10</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -6109,16 +5602,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table11.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity11}
-								onValueChange = {(value)=>setStatusCavity11(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>11</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -6173,16 +5658,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table12.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity12}
-								onValueChange = {(value)=>setStatusCavity12(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>12</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -6237,16 +5714,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table13.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity13}
-								onValueChange = {(value)=>setStatusCavity13(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>13</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -6302,16 +5771,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table1.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity1}
-								onValueChange = {(value)=>setStatusCavity1(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>1</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -6366,16 +5827,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table2.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity2}
-								onValueChange = {(value)=>setStatusCavity2(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>2</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -6430,16 +5883,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table3.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity3}
-								onValueChange = {(value)=>setStatusCavity3(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>3</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -6494,16 +5939,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table4.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity4}
-								onValueChange = {(value)=>setStatusCavity4(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>4</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -6558,16 +5995,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table5.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity5}
-								onValueChange = {(value)=>setStatusCavity5(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>5</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -6622,16 +6051,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table6.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity6}
-								onValueChange = {(value)=>setStatusCavity6(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>6</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -6686,16 +6107,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table7.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity7}
-								onValueChange = {(value)=>setStatusCavity7(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>7</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -6750,16 +6163,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table8.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity8}
-								onValueChange = {(value)=>setStatusCavity8(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>8</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -6814,16 +6219,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table9.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity9}
-								onValueChange = {(value)=>setStatusCavity9(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>9</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -6878,16 +6275,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table10.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity10}
-								onValueChange = {(value)=>setStatusCavity10(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>10</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -6942,16 +6331,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table11.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity11}
-								onValueChange = {(value)=>setStatusCavity11(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>11</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -7006,16 +6387,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table12.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity12}
-								onValueChange = {(value)=>setStatusCavity12(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>12</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -7070,16 +6443,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table13.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity13}
-								onValueChange = {(value)=>setStatusCavity13(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>13</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -7134,16 +6499,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table14.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity14}
-								onValueChange = {(value)=>setStatusCavity14(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>14</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -7199,16 +6556,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table1.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity1}
-								onValueChange = {(value)=>setStatusCavity1(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>1</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -7263,16 +6612,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table2.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity2}
-								onValueChange = {(value)=>setStatusCavity2(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>2</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -7327,16 +6668,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table3.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity3}
-								onValueChange = {(value)=>setStatusCavity3(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>3</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -7391,16 +6724,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table4.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity4}
-								onValueChange = {(value)=>setStatusCavity4(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>4</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -7455,16 +6780,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table5.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity5}
-								onValueChange = {(value)=>setStatusCavity5(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>5</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -7519,16 +6836,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table6.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity6}
-								onValueChange = {(value)=>setStatusCavity6(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>6</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -7583,16 +6892,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table7.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity7}
-								onValueChange = {(value)=>setStatusCavity7(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>7</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -7647,16 +6948,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table8.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity8}
-								onValueChange = {(value)=>setStatusCavity8(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>8</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -7711,16 +7004,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table9.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity9}
-								onValueChange = {(value)=>setStatusCavity9(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>9</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -7775,16 +7060,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table10.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity10}
-								onValueChange = {(value)=>setStatusCavity10(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>10</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -7839,16 +7116,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table11.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity11}
-								onValueChange = {(value)=>setStatusCavity11(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>11</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -7903,16 +7172,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table12.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity12}
-								onValueChange = {(value)=>setStatusCavity12(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>12</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -7967,16 +7228,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table13.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity13}
-								onValueChange = {(value)=>setStatusCavity13(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>13</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -8031,16 +7284,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table14.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity14}
-								onValueChange = {(value)=>setStatusCavity14(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>14</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -8095,16 +7340,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table15.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity15}
-								onValueChange = {(value)=>setStatusCavity15(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>15</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -8160,16 +7397,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table1.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity1}
-								onValueChange = {(value)=>setStatusCavity1(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>1</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -8224,16 +7453,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table2.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity2}
-								onValueChange = {(value)=>setStatusCavity2(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>2</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -8288,16 +7509,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table3.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity3}
-								onValueChange = {(value)=>setStatusCavity3(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>3</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -8352,16 +7565,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table4.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity4}
-								onValueChange = {(value)=>setStatusCavity4(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>4</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -8416,16 +7621,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table5.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity5}
-								onValueChange = {(value)=>setStatusCavity5(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>5</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -8480,16 +7677,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table6.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity6}
-								onValueChange = {(value)=>setStatusCavity6(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>6</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -8544,16 +7733,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table7.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity7}
-								onValueChange = {(value)=>setStatusCavity7(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>7</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -8608,16 +7789,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table8.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity8}
-								onValueChange = {(value)=>setStatusCavity8(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>8</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -8672,16 +7845,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table9.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity9}
-								onValueChange = {(value)=>setStatusCavity9(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>9</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -8736,16 +7901,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table10.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity10}
-								onValueChange = {(value)=>setStatusCavity10(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>10</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -8800,16 +7957,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table11.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity11}
-								onValueChange = {(value)=>setStatusCavity11(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>11</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -8864,16 +8013,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table12.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity12}
-								onValueChange = {(value)=>setStatusCavity12(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>12</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -8928,16 +8069,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table13.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity13}
-								onValueChange = {(value)=>setStatusCavity13(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>13</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -8992,16 +8125,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table14.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity14}
-								onValueChange = {(value)=>setStatusCavity14(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>14</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -9056,16 +8181,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table15.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity15}
-								onValueChange = {(value)=>setStatusCavity15(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>15</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -9136,16 +8253,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table16.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity16}
-								onValueChange = {(value)=>setStatusCavity16(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>16</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -9201,16 +8310,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table1.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity1}
-								onValueChange = {(value)=>setStatusCavity1(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>1</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -9265,16 +8366,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table2.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity2}
-								onValueChange = {(value)=>setStatusCavity2(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>2</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -9329,16 +8422,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table3.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity3}
-								onValueChange = {(value)=>setStatusCavity3(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>3</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -9393,16 +8478,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table4.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity4}
-								onValueChange = {(value)=>setStatusCavity4(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>4</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -9457,16 +8534,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table5.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity5}
-								onValueChange = {(value)=>setStatusCavity5(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>5</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -9521,16 +8590,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table6.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity6}
-								onValueChange = {(value)=>setStatusCavity6(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>6</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -9585,16 +8646,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table7.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity7}
-								onValueChange = {(value)=>setStatusCavity7(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>7</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -9649,16 +8702,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table8.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity8}
-								onValueChange = {(value)=>setStatusCavity8(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>8</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -9713,16 +8758,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table9.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity9}
-								onValueChange = {(value)=>setStatusCavity9(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>9</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -9777,16 +8814,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table10.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity10}
-								onValueChange = {(value)=>setStatusCavity10(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>10</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -9841,16 +8870,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table11.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity11}
-								onValueChange = {(value)=>setStatusCavity11(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>11</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -9905,16 +8926,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table12.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity12}
-								onValueChange = {(value)=>setStatusCavity12(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>12</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -9969,16 +8982,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table13.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity13}
-								onValueChange = {(value)=>setStatusCavity13(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>13</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -10033,16 +9038,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table14.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity14}
-								onValueChange = {(value)=>setStatusCavity14(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>14</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -10097,16 +9094,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table15.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity15}
-								onValueChange = {(value)=>setStatusCavity15(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>15</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -10177,16 +9166,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table16.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity16}
-								onValueChange = {(value)=>setStatusCavity16(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>16</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -10241,16 +9222,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table17.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity17}
-								onValueChange = {(value)=>setStatusCavity17(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>17</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -10307,16 +9280,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table1.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity1}
-								onValueChange = {(value)=>setStatusCavity1(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>1</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -10371,16 +9336,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table2.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity2}
-								onValueChange = {(value)=>setStatusCavity2(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>2</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -10435,16 +9392,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table3.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity3}
-								onValueChange = {(value)=>setStatusCavity3(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>3</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -10499,16 +9448,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table4.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity4}
-								onValueChange = {(value)=>setStatusCavity4(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>4</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -10563,16 +9504,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table5.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity5}
-								onValueChange = {(value)=>setStatusCavity5(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>5</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -10627,16 +9560,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table6.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity6}
-								onValueChange = {(value)=>setStatusCavity6(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>6</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -10691,16 +9616,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table7.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity7}
-								onValueChange = {(value)=>setStatusCavity7(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>7</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -10755,16 +9672,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table8.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity8}
-								onValueChange = {(value)=>setStatusCavity8(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>8</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -10819,16 +9728,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table9.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity9}
-								onValueChange = {(value)=>setStatusCavity9(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>9</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -10883,16 +9784,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table10.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity10}
-								onValueChange = {(value)=>setStatusCavity10(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>10</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -10947,16 +9840,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table11.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity11}
-								onValueChange = {(value)=>setStatusCavity11(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>11</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -11011,16 +9896,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table12.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity12}
-								onValueChange = {(value)=>setStatusCavity12(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>12</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -11075,16 +9952,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table13.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity13}
-								onValueChange = {(value)=>setStatusCavity13(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>13</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -11139,16 +10008,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table14.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity14}
-								onValueChange = {(value)=>setStatusCavity14(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>14</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -11203,16 +10064,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table15.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity15}
-								onValueChange = {(value)=>setStatusCavity15(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>15</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -11283,16 +10136,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table16.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity16}
-								onValueChange = {(value)=>setStatusCavity16(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>16</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -11347,16 +10192,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table17.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity17}
-								onValueChange = {(value)=>setStatusCavity17(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>17</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -11411,16 +10248,8 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				table18.push(
 					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity18}
-								onValueChange = {(value)=>setStatusCavity18(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, padding: 5}}>
+								<Text>18</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
@@ -11474,7 +10303,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				)
 			}
 	}
-		
+	}else{
+		fxData.push(
+			<View key="asdk2" style={{flexDirection: 'row', height: 50, backgroundColor : '#b8b8b8'}}>
+				<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+					<View style={{justifyContent: 'center', width: 908.5, alignItems: 'center', justifyContent: 'center'}}>
+						<Text style={{fontSize: 18}}>Already Saved</Text>
+					</View>
+				</View>
+			</View>
+		)
+	}		
+	
 	return(
 		<KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={{flex:1}}>
 			<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -11529,20 +10369,20 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 											<Picker.Item label="Shift 3 - 8" value="7" />
 										</Picker>
 									</View>
-									<Text style={{fontWeight: 'bold', fontSize: 11}}>{data1.name != null ? data1.name : "-"}</Text>
+									<Text style={{fontWeight: 'bold', fontSize: 11}}>{data1 != null ? data1.name : "-"}</Text>
 								</View>
 							</View>
 						</View>
 
 						<View style={{borderWidth: 0.5, flexDirection: 'row'}}>
 							<View style={{justifyContent: 'center', paddingLeft: 5, height: 25, width: "36%", backgroundColor: '#F5F5DC'}}>
-								<Text style={{fontSize: 12}}>{data1.internal_part_id != null ? data1.internal_part_id : "-"}</Text>
+								<Text style={{fontSize: 12}}>{data1 != null ? data1.internal_part_id : "-"}</Text>
 							</View>
 							<View style={{justifyContent: 'center', alignItems: 'center', height: 25, width: "30%", backgroundColor: '#F5F5DC'}}>
-								<Text style={{fontSize: 12}}>{data1.customer_part_number != null ? data1.customer_part_number : "-"}</Text>
+								<Text style={{fontSize: 12}}>{data1 != null ? data1.customer_part_number : "-"}</Text>
 							</View>
 							<View style={{flex: 1, justifyContent: 'center', alignItems: 'center', height: 25, backgroundColor: '#F5F5DC'}}>
-								<Text style={{fontSize: 12}}>{data1.model != null ? data1.model : "-"}</Text>
+								<Text style={{fontSize: 12}}>{data1 != null ? data1.model : "-"}</Text>
 							</View>
 						</View>
 
@@ -11557,19 +10397,9 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 								<View style={{flexDirection: 'row', width: "50%"}}>
 									<View style={{padding: 4, width: "100%"}}>
 										<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-											<Text>Start MP</Text>
+											<Text>{machine_status}</Text>
 										</View>
-										<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, marginTop: 5}}>
-											<Picker 
-											mode="dropdown"
-											selectedValue={machine_engine_status}
-											onValueChange={(value) => setItem(value)}
-											>
-												<Picker.Item label="Pilih" value="" />
-												<Picker.Item label="Normal" value="Normal" />
-												<Picker.Item label="Unnormal" value="Unnormal" />
-											</Picker>
-										</View>
+										{updateMachineEngineStatus()}
 									</View>
 								</View>
 							</View>
@@ -11612,17 +10442,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									<Text style={{color: 'black'}}>:</Text>
 								</View>
 								<View style={{padding: 4, width: "50%"}}>
-									<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-										<Picker 
-										mode="dropdown"
-										selectedValue={compare_sample}
-										onValueChange={(value) => setCopySample(value)}
-										>
-											<Picker.Item label="Pilih" value="" />
-											<Picker.Item label="OK" value="OK" />
-											<Picker.Item label="NG" value="NG" />
-										</Picker>
-									</View>
+									{updateCompareCopySample()}
 								</View>
 							</View>
 							
@@ -11634,17 +10454,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									<Text style={{color: 'black'}}>:</Text>
 								</View>
 								<View style={{padding: 4, width: "50%"}}>
-									<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-										<Picker 
-										mode="dropdown"
-										selectedValue={check_sheet}
-										onValueChange={(value) => setSheetQc(value)}
-										>
-											<Picker.Item label="Pilih" value="" />
-											<Picker.Item label="OK" value="OK" />
-											<Picker.Item label="NG" value="NG" />
-										</Picker>
-									</View>
+									{updateCheckSheetQC()}
 								</View>
 							</View>
 							
@@ -11682,6 +10492,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 											</View>
 										</View>
 									</View>
+									{fxData}
 									{table1}
 									{table2}
 									{table3}
@@ -11711,13 +10522,13 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									<Text style={{color: 'black'}}>:</Text>
 								</View>
 								<View style={{padding: 4, width: "50%"}}>
-									<TextInput onChangeText={(value) => setRemark(value)} style={{borderWidth: 0.5, borderRadius: 25, paddingLeft: 5, height: 40}} placeholder="Type Here..." />
+									{updateRemark()}
 								</View>
 							</View>
 						
 							<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
 								<View>
-									<Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>
+									{updateButton()}
 								</View>
 							</View>
 						</ScrollView>
