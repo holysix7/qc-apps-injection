@@ -137,6 +137,10 @@ const LastShootLeaderQc = ({route, navigation}) => {
 	const [mtr_need, setMtrNeed]				  							= useState("")
 	const [created_by, setCreatedBy]										= useState("")
 	const [cavityShow, setCavityShow]										= useState("")
+
+	const [massproQCL, setMassproQcl]										= useState("")
+	const [massproql_items, setMassproQlItems]					= useState("")
+	
 	const [ngCategories, setNGCategories]  							= useState([])
 	let created_at 																			= moment().format("YYYY-MM-DD HH:mm:ss")
 	const [updated_by, setUpdatedBy]										= useState("")
@@ -192,6 +196,8 @@ const LastShootLeaderQc = ({route, navigation}) => {
 				setCavityShow(response.data.data.daily_inspection.cavity)
 				setNGCategories(response.data.data.ng_category)
 				setTooling(response.data.data.daily_inspection.tooling_num)
+				setMassproQcl(response.data.data.masspro_ql)
+				setMassproQlItems(response.data.data.masspro_ql_items)
 				console.log("List Data Last Shoot Leader QC: ", response.data.status, "OK")
 			})
 			.catch(error => {
@@ -218,6 +224,8 @@ const LastShootLeaderQc = ({route, navigation}) => {
 				setCavityShow(response.data.data.daily_inspection.cavity)
 				setNGCategories(response.data.data.ng_category)
 				setTooling(response.data.data.daily_inspection.tooling_num)
+				setMassproQcl(response.data.data.masspro_ql)
+				setMassproQlItems(response.data.data.masspro_ql_items)
 				console.log("List Data Last Shoot Leader QC: ", response.data.status, "OK")
 			})
 			.catch(error => {
@@ -244,6 +252,8 @@ const LastShootLeaderQc = ({route, navigation}) => {
 				setCavityShow(response.data.data.daily_inspection.cavity)
 				setNGCategories(response.data.data.ng_category)
 				setTooling(response.data.data.daily_inspection.tooling_num)
+				setMassproQcl(response.data.data.masspro_ql)
+				setMassproQlItems(response.data.data.masspro_ql_items)
 				console.log("List Data Last Shoot Leader QC: ", response.data.status, "OK")
 			})
 			.catch(error => {
@@ -257,10 +267,10 @@ const LastShootLeaderQc = ({route, navigation}) => {
 	}
 
 	const hString = hours.toString()
-	
+	// console.log("qcId: ", qc_daily_inspection_id)
 	const item = {
 		"cav_1": {
-			"cavity": statusCavity1,
+			"cavity": 1,
 			"judgement_first_piece": judgement_first_piece1,
 			"qc_ng_category_id": qc_ng_category_id1,
 			"fitting_test": fitting_test1,
@@ -268,7 +278,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 			"note": note1
 		},
 		"cav_2": {
-			"cavity": statusCavity2,
+			"cavity": 2,
 			"judgement_first_piece": judgement_first_piece2,
 			"qc_ng_category_id": qc_ng_category_id2,
 			"fitting_test": fitting_test2,
@@ -276,7 +286,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 			"note": note2
 		},
 		"cav_3": {
-			"cavity": statusCavity3,
+			"cavity": 3,
 			"judgement_first_piece": judgement_first_piece3,
 			"qc_ng_category_id": qc_ng_category_id3,
 			"fitting_test": fitting_test3,
@@ -284,7 +294,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 			"note": note3
 		},
 		"cav_4": {
-			"cavity": statusCavity4,
+			"cavity": 4,
 			"judgement_first_piece": judgement_first_piece4,
 			"qc_ng_category_id": qc_ng_category_id4,
 			"fitting_test": fitting_test4,
@@ -292,7 +302,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 			"note": note4
 		},
 		"cav_5": {
-			"cavity": statusCavity5,
+			"cavity": 5,
 			"judgement_first_piece": judgement_first_piece5,
 			"qc_ng_category_id": qc_ng_category_id5,
 			"fitting_test": fitting_test5,
@@ -300,7 +310,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 			"note": note5
 		},
 		"cav_6": {
-			"cavity": statusCavity6,
+			"cavity": 6,
 			"judgement_first_piece": judgement_first_piece6,
 			"qc_ng_category_id": qc_ng_category_id6,
 			"fitting_test": fitting_test6,
@@ -308,7 +318,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 			"note": note6
 		},
 		"cav_7": {
-			"cavity": statusCavity7,
+			"cavity": 7,
 			"judgement_first_piece": judgement_first_piece7,
 			"qc_ng_category_id": qc_ng_category_id7,
 			"fitting_test": fitting_test7,
@@ -316,7 +326,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 			"note": note7
 		},
 		"cav_8": {
-			"cavity": statusCavity8,
+			"cavity": 8,
 			"judgement_first_piece": judgement_first_piece8,
 			"qc_ng_category_id": qc_ng_category_id8,
 			"fitting_test": fitting_test8,
@@ -324,7 +334,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 			"note": note8
 		},
 		"cav_9": {
-			"cavity": statusCavity9,
+			"cavity": 9,
 			"judgement_first_piece": judgement_first_piece9,
 			"qc_ng_category_id": qc_ng_category_id9,
 			"fitting_test": fitting_test9,
@@ -332,7 +342,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 			"note": note9
 		},
 		"cav_10": {
-			"cavity": statusCavity10,
+			"cavity": 10,
 			"judgement_first_piece": judgement_first_piece10,
 			"qc_ng_category_id": qc_ng_category_id10,
 			"fitting_test": fitting_test10,
@@ -340,7 +350,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 			"note": note10
 		},
 		"cav_11": {
-			"cavity": statusCavity11,
+			"cavity": 11,
 			"judgement_first_piece": judgement_first_piece11,
 			"qc_ng_category_id": qc_ng_category_id11,
 			"fitting_test": fitting_test11,
@@ -348,7 +358,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 			"note": note11
 		},
 		"cav_12": {
-			"cavity": statusCavity12,
+			"cavity": 12,
 			"judgement_first_piece": judgement_first_piece12,
 			"qc_ng_category_id": qc_ng_category_id12,
 			"fitting_test": fitting_test12,
@@ -356,7 +366,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 			"note": note12
 		},
 		"cav_13": {
-			"cavity": statusCavity13,
+			"cavity": 13,
 			"judgement_first_piece": judgement_first_piece13,
 			"qc_ng_category_id": qc_ng_category_id13,
 			"fitting_test": fitting_test13,
@@ -364,7 +374,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 			"note": note13
 		},
 		"cav_14": {
-			"cavity": statusCavity14,
+			"cavity": 14,
 			"judgement_first_piece": judgement_first_piece14,
 			"qc_ng_category_id": qc_ng_category_id14,
 			"fitting_test": fitting_test14,
@@ -372,7 +382,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 			"note": note14
 		},
 		"cav_15": {
-			"cavity": statusCavity15,
+			"cavity": 15,
 			"judgement_first_piece": judgement_first_piece15,
 			"qc_ng_category_id": qc_ng_category_id15,
 			"fitting_test": fitting_test15,
@@ -380,7 +390,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 			"note": note15
 		},
 		"cav_16": {
-			"cavity": statusCavity16,
+			"cavity": 16,
 			"judgement_first_piece": judgement_first_piece16,
 			"qc_ng_category_id": qc_ng_category_id16,
 			"fitting_test": fitting_test16,
@@ -388,7 +398,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 			"note": note16
 		},
 		"cav_17": {
-			"cavity": statusCavity17,
+			"cavity": 17,
 			"judgement_first_piece": judgement_first_piece17,
 			"qc_ng_category_id": qc_ng_category_id17,
 			"fitting_test": fitting_test17,
@@ -396,7 +406,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 			"note": note17
 		},
 		"cav_18": {
-			"cavity": statusCavity18,
+			"cavity": 18,
 			"judgement_first_piece": judgement_first_piece18,
 			"qc_ng_category_id": qc_ng_category_id18,
 			"fitting_test": fitting_test18,
@@ -424,8 +434,9 @@ const LastShootLeaderQc = ({route, navigation}) => {
 			eng_product_id,
 			prod_machine_id,
 			planning_id,
+			sys_plant_id,
 			internal_part_id,
-			qc_daily_inspections_id,
+			qc_daily_inspection_id,
 			qc_daily_inspection_item_id,
 			qc_daily_inspection_method_id,
 			tooling_num,
@@ -460,13 +471,14 @@ const LastShootLeaderQc = ({route, navigation}) => {
 				console.log("Res: ", response.status, " Ok")
 			})
 		.catch(function (error){
+			alert("Failed Send Data!")
 			console.log(error)
 		})
 	}
 
 	const cavity = data.cavity
-	if(cavity != null)
-		{
+	// if(massproQCL == null){
+		if(cavity != null){
 			var table1 = []
 			var table2 = []
 			var table3 = []
@@ -485,11019 +497,9659 @@ const LastShootLeaderQc = ({route, navigation}) => {
 			var table16 = []
 			var table17 = []
 			var table18 = []
-				if(cavity == 1){
-					table1.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity1}
-									onValueChange = {(value)=>setStatusCavity1(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 166}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece1}
-									onValueChange = {(value)=>setJudgement1(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id1}
-									onValueChange = {(value)=>setCategoryNg1(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test1}
-									onValueChange = {(value)=>setFittingTest1(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<TextInput keyboardType="numeric" value={product_weight1} onChangeText={(value) => setProductWeight1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note1} onChangeText={(value) => setKeterangan1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-				}else if(cavity == 2){
-					table1.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity1}
-									onValueChange = {(value)=>setStatusCavity1(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece1}
-									onValueChange = {(value)=>setJudgement1(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id1}
-									onValueChange = {(value)=>setCategoryNg1(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test1}
-									onValueChange = {(value)=>setFittingTest1(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight1} onChangeText={(value) => setProductWeight1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note1} onChangeText={(value) => setKeterangan1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table2.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity2}
-									onValueChange = {(value)=>setStatusCavity2(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece2}
-									onValueChange = {(value)=>setJudgement2(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id2}
-									onValueChange = {(value)=>setCategoryNg2(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test2}
-									onValueChange = {(value)=>setFittingTest2(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight2} onChangeText={(value) => setProductWeight2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note2} onChangeText={(value) => setKeterangan2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-				}else if(cavity == 3){
-					table1.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity1}
-									onValueChange = {(value)=>setStatusCavity1(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece1}
-									onValueChange = {(value)=>setJudgement1(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id1}
-									onValueChange = {(value)=>setCategoryNg1(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test1}
-									onValueChange = {(value)=>setFittingTest1(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight1} onChangeText={(value) => setProductWeight1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note1} onChangeText={(value) => setKerangan1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table2.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity2}
-									onValueChange = {(value)=>setStatusCavity2(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece2}
-									onValueChange = {(value)=>setJudgement2(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id2}
-									onValueChange = {(value)=>setCategoryNg2(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test2}
-									onValueChange = {(value)=>setFittingTest2(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight2} onChangeText={(value) => setProductWeight2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note2} onChangeText={(value) => setKeterangan2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table3.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity3}
-									onValueChange = {(value)=>setStatusCavity3(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece3}
-									onValueChange = {(value)=>setJudgement3(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id3}
-									onValueChange = {(value)=>setCategoryNg3(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test3}
-									onValueChange = {(value)=>setFittingTest3(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight3} onChangeText={(value) => setProductWeight3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note3} onChangeText={(value) => setKeterangan3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-				}else if(cavity == 4){
-					table1.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity1}
-									onValueChange = {(value)=>setStatusCavity1(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece1}
-									onValueChange = {(value)=>setJudgement1(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id1}
-									onValueChange = {(value)=>setCategoryNg1(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test1}
-									onValueChange = {(value)=>setFittingTest1(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight1} onChangeText={(value) => setProductWeight1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note1} onChangeText={(value) => setKeterangan1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table2.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity2}
-									onValueChange = {(value)=>setStatusCavity2(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece2}
-									onValueChange = {(value)=>setJudgement2(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id2}
-									onValueChange = {(value)=>setCategoryNg2(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test2}
-									onValueChange = {(value)=>setFittingTest2(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight2} onChangeText={(value) => setProductWeight2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note2} onChangeText={(value) => setKeterangan2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table3.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity3}
-									onValueChange = {(value)=>setStatusCavity3(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece3}
-									onValueChange = {(value)=>setJudgement3(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id3}
-									onValueChange = {(value)=>setCategoryNg3(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test3}
-									onValueChange = {(value)=>setFittingTest3(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight3} onChangeText={(value) => setProductWeight3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note3} onChangeText={(value) => setKeterangan3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table4.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity4}
-									onValueChange = {(value)=>setStatusCavity4(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece4}
-									onValueChange = {(value)=>setJudgement4(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id4}
-									onValueChange = {(value)=>setCategoryNg4(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test4}
-									onValueChange = {(value)=>setFittingTest4(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight4} onChangeText={(value) => setProductWeight4(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note4} onChangeText={(value) => setKeterangan4(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-				}else if(cavity == 5){
-					table1.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity1}
-									onValueChange = {(value)=>setStatusCavity1(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece1}
-									onValueChange = {(value)=>setJudgement1(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id1}
-									onValueChange = {(value)=>setCategoryNg1(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test1}
-									onValueChange = {(value)=>setFittingTest1(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight1} onChangeText={(value) => setProductWeight1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note1} onChangeText={(value) => setKeterangan1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table2.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity2}
-									onValueChange = {(value)=>setStatusCavity2(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece2}
-									onValueChange = {(value)=>setJudgement2(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id2}
-									onValueChange = {(value)=>setCategoryNg2(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test2}
-									onValueChange = {(value)=>setFittingTest2(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight2} onChangeText={(value) => setProductWeight2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note2} onChangeText={(value) => setKeterangan2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table3.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity3}
-									onValueChange = {(value)=>setStatusCavity3(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece3}
-									onValueChange = {(value)=>setJudgement3(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id3}
-									onValueChange = {(value)=>setCategoryNg3(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test3}
-									onValueChange = {(value)=>setFittingTest3(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight3} onChangeText={(value) => setProductWeight3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note3} onChangeText={(value) => setKeterangan3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table4.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity4}
-									onValueChange = {(value)=>setStatusCavity4(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece4}
-									onValueChange = {(value)=>setJudgement4(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id4}
-									onValueChange = {(value)=>setCategoryNg4(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test4}
-									onValueChange = {(value)=>setFittingTest4(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight4} onChangeText={(value) => setProductWeight4(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note4} onChangeText={(value) => setKeterangan4(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table5.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity5}
-									onValueChange = {(value)=>setStatusCavity5(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece5}
-									onValueChange = {(value)=>setJudgement5(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id5}
-									onValueChange = {(value)=>setCategoryNg5(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test5}
-									onValueChange = {(value)=>setFittingTest5(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight5} onChangeText={(value) => setProductWeight5(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note5} onChangeText={(value) => setKeterangan5(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-				}else if(cavity == 6){
-					table1.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity1}
-									onValueChange = {(value)=>setStatusCavity1(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece1}
-									onValueChange = {(value)=>setJudgement1(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id1}
-									onValueChange = {(value)=>setCategoryNg1(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test1}
-									onValueChange = {(value)=>setFittingTest1(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight1} onChangeText={(value) => setProductWeight1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note1} onChangeText={(value) => setKeterangan1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table2.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity2}
-									onValueChange = {(value)=>setStatusCavity2(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece2}
-									onValueChange = {(value)=>setJudgement2(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id2}
-									onValueChange = {(value)=>setCategoryNg2(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test2}
-									onValueChange = {(value)=>setFittingTest2(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight2} onChangeText={(value) => setProductWeight2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note2} onChangeText={(value) => setKeterangan2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table3.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity3}
-									onValueChange = {(value)=>setStatusCavity3(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece3}
-									onValueChange = {(value)=>setJudgement3(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id3}
-									onValueChange = {(value)=>setCategoryNg3(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test3}
-									onValueChange = {(value)=>setFittingTest3(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight3} onChangeText={(value) => setProductWeight3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note3} onChangeText={(value) => setKeterangan3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table4.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity4}
-									onValueChange = {(value)=>setStatusCavity4(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece4}
-									onValueChange = {(value)=>setJudgement4(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id4}
-									onValueChange = {(value)=>setCategoryNg4(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test4}
-									onValueChange = {(value)=>setFittingTest4(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight4} onChangeText={(value) => setProductWeight4(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note4} onChangeText={(value) => setKeterangan4(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table5.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity5}
-									onValueChange = {(value)=>setStatusCavity5(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece5}
-									onValueChange = {(value)=>setJudgement5(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id5}
-									onValueChange = {(value)=>setCategoryNg5(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test5}
-									onValueChange = {(value)=>setFittingTest5(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight5} onChangeText={(value) => setProductWeight5(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note5} onChangeText={(value) => setKeterangan5(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table6.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity6}
-									onValueChange = {(value)=>setStatusCavity6(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece6}
-									onValueChange = {(value)=>setJudgement6(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id6}
-									onValueChange = {(value)=>setCategoryNg6(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test6}
-									onValueChange = {(value)=>setFittingTest6(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight6} onChangeText={(value) => setProductWeight6(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note6} onChangeText={(value) => setKeterangan6(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-				}else if(cavity == 7){
-					table1.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity1}
-									onValueChange = {(value)=>setStatusCavity1(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece1}
-									onValueChange = {(value)=>setJudgement1(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id1}
-									onValueChange = {(value)=>setCategoryNg1(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test1}
-									onValueChange = {(value)=>setFittingTest1(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight1} onChangeText={(value) => setProductWeight1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note1} onChangeText={(value) => setKeterangan1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table2.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity2}
-									onValueChange = {(value)=>setStatusCavity2(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece2}
-									onValueChange = {(value)=>setJudgement2(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id2}
-									onValueChange = {(value)=>setCategoryNg2(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test2}
-									onValueChange = {(value)=>setFittingTest2(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight2} onChangeText={(value) => setProductWeight2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note2} onChangeText={(value) => setKeterangan2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table3.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity3}
-									onValueChange = {(value)=>setStatusCavity3(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece3}
-									onValueChange = {(value)=>setJudgement3(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id3}
-									onValueChange = {(value)=>setCategoryNg3(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test3}
-									onValueChange = {(value)=>setFittingTest3(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight3} onChangeText={(value) => setProductWeight3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note3} onChangeText={(value) => setKeterangan3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table4.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity4}
-									onValueChange = {(value)=>setStatusCavity4(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece4}
-									onValueChange = {(value)=>setJudgement4(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id4}
-									onValueChange = {(value)=>setCategoryNg4(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test4}
-									onValueChange = {(value)=>setFittingTest4(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight4} onChangeText={(value) => setProductWeight4(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note4} onChangeText={(value) => setKeterangan4(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table5.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity5}
-									onValueChange = {(value)=>setStatusCavity5(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece5}
-									onValueChange = {(value)=>setJudgement5(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id5}
-									onValueChange = {(value)=>setCategoryNg5(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test5}
-									onValueChange = {(value)=>setFittingTest5(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight5} onChangeText={(value) => setProductWeight5(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note5} onChangeText={(value) => setKeterangan5(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table6.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity6}
-									onValueChange = {(value)=>setStatusCavity6(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece6}
-									onValueChange = {(value)=>setJudgement6(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id6}
-									onValueChange = {(value)=>setCategoryNg6(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test6}
-									onValueChange = {(value)=>setFittingTest6(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight6} onChangeText={(value) => setProductWeight6(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note6} onChangeText={(value) => setKeterangan6(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table7.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity7}
-									onValueChange = {(value)=>setStatusCavity7(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece7}
-									onValueChange = {(value)=>setJudgement7(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id7}
-									onValueChange = {(value)=>setCategoryNg7(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test7}
-									onValueChange = {(value)=>setFittingTest7(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight7} onChangeText={(value) => setProductWeight7(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note7} onChangeText={(value) => setKeterangan7(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-				}else if(cavity == 8){
-					table1.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity1}
-									onValueChange = {(value)=>setStatusCavity1(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece1}
-									onValueChange = {(value)=>setJudgement1(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id1}
-									onValueChange = {(value)=>setCategoryNg1(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test1}
-									onValueChange = {(value)=>setFittingTest1(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight1} onChangeText={(value) => setProductWeight1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note1} onChangeText={(value) => setKeterangan1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table2.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity2}
-									onValueChange = {(value)=>setStatusCavity2(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece2}
-									onValueChange = {(value)=>setJudgement2(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id2}
-									onValueChange = {(value)=>setCategoryNg2(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test2}
-									onValueChange = {(value)=>setFittingTest2(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight2} onChangeText={(value) => setProductWeight2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note2} onChangeText={(value) => setKeterangan2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table3.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity3}
-									onValueChange = {(value)=>setStatusCavity3(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece3}
-									onValueChange = {(value)=>setJudgement3(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id3}
-									onValueChange = {(value)=>setCategoryNg3(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test3}
-									onValueChange = {(value)=>setFittingTest3(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight3} onChangeText={(value) => setProductWeight3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note3} onChangeText={(value) => setKeterangan3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table4.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity4}
-									onValueChange = {(value)=>setStatusCavity4(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece4}
-									onValueChange = {(value)=>setJudgement4(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id4}
-									onValueChange = {(value)=>setCategoryNg4(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test4}
-									onValueChange = {(value)=>setFittingTest4(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight4} onChangeText={(value) => setProductWeight4(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note4} onChangeText={(value) => setKeterangan4(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table5.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity5}
-									onValueChange = {(value)=>setStatusCavity5(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece5}
-									onValueChange = {(value)=>setJudgement5(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id5}
-									onValueChange = {(value)=>setCategoryNg5(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test5}
-									onValueChange = {(value)=>setFittingTest5(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight5} onChangeText={(value) => setProductWeight5(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note5} onChangeText={(value) => setKeterangan5(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table6.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity6}
-									onValueChange = {(value)=>setStatusCavity6(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece6}
-									onValueChange = {(value)=>setJudgement6(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id6}
-									onValueChange = {(value)=>setCategoryNg6(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test6}
-									onValueChange = {(value)=>setFittingTest6(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight6} onChangeText={(value) => setProductWeight6(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note6} onChangeText={(value) => setKeterangan6(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table7.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity7}
-									onValueChange = {(value)=>setStatusCavity7(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece7}
-									onValueChange = {(value)=>setJudgement7(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id7}
-									onValueChange = {(value)=>setCategoryNg7(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test7}
-									onValueChange = {(value)=>setFittingTest7(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight7} onChangeText={(value) => setProductWeight7(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note7} onChangeText={(value) => setKeterangan7(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table8.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity8}
-									onValueChange = {(value)=>setStatusCavity8(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece8}
-									onValueChange = {(value)=>setJudgement8(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id8}
-									onValueChange = {(value)=>setCategoryNg8(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test8}
-									onValueChange = {(value)=>setFittingTest8(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight8} onChangeText={(value) => setProductWeight8(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={product_weight8} onChangeText={(value) => setProductWeight8(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-				}else if(cavity == 9){
-					table1.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity1}
-									onValueChange = {(value)=>setStatusCavity1(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece1}
-									onValueChange = {(value)=>setJudgement1(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id1}
-									onValueChange = {(value)=>setCategoryNg1(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test1}
-									onValueChange = {(value)=>setFittingTest1(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight1} onChangeText={(value) => setProductWeight1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note1} onChangeText={(value) => setKeterangan1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table2.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity2}
-									onValueChange = {(value)=>setStatusCavity2(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece2}
-									onValueChange = {(value)=>setJudgement2(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id2}
-									onValueChange = {(value)=>setCategoryNg2(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test2}
-									onValueChange = {(value)=>setFittingTest2(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight2} onChangeText={(value) => setProductWeight2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note2} onChangeText={(value) => setKeterangan2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table3.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity3}
-									onValueChange = {(value)=>setStatusCavity3(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece3}
-									onValueChange = {(value)=>setJudgement3(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id3}
-									onValueChange = {(value)=>setCategoryNg3(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test3}
-									onValueChange = {(value)=>setFittingTest3(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight3} onChangeText={(value) => setProductWeight3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note3} onChangeText={(value) => setKeterangan3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table4.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity4}
-									onValueChange = {(value)=>setStatusCavity4(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece4}
-									onValueChange = {(value)=>setJudgement4(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id4}
-									onValueChange = {(value)=>setCategoryNg4(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test4}
-									onValueChange = {(value)=>setFittingTest4(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight4} onChangeText={(value) => setProductWeight4(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note4} onChangeText={(value) => setKeterangan4(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table5.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity5}
-									onValueChange = {(value)=>setStatusCavity5(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece5}
-									onValueChange = {(value)=>setJudgement5(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id5}
-									onValueChange = {(value)=>setCategoryNg5(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test5}
-									onValueChange = {(value)=>setFittingTest5(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight5} onChangeText={(value) => setProductWeight5(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note5} onChangeText={(value) => setKeterangan5(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table6.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity6}
-									onValueChange = {(value)=>setStatusCavity6(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece6}
-									onValueChange = {(value)=>setJudgement6(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id6}
-									onValueChange = {(value)=>setCategoryNg6(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test6}
-									onValueChange = {(value)=>setFittingTest6(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight6} onChangeText={(value) => setProductWeight6(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note6} onChangeText={(value) => setKeterangan6(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table7.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity7}
-									onValueChange = {(value)=>setStatusCavity7(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece7}
-									onValueChange = {(value)=>setJudgement7(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id7}
-									onValueChange = {(value)=>setCategoryNg7(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test7}
-									onValueChange = {(value)=>setFittingTest7(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight7} onChangeText={(value) => setProductWeight7(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note7} onChangeText={(value) => setKeterangan7(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table8.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity8}
-									onValueChange = {(value)=>setStatusCavity8(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece8}
-									onValueChange = {(value)=>setJudgement8(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id8}
-									onValueChange = {(value)=>setCategoryNg8(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test8}
-									onValueChange = {(value)=>setFittingTest8(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight8} onChangeText={(value) => setProductWeight8(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={product_weight8} onChangeText={(value) => setProductWeight8(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table9.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity9}
-									onValueChange = {(value)=>setStatusCavity9(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece9}
-									onValueChange = {(value)=>setJudgement9(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id9}
-									onValueChange = {(value)=>setCategoryNg9(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test9}
-									onValueChange = {(value)=>setFittingTest9(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight9} onChangeText={(value) => setProductWeight9(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note9} onChangeText={(value) => setKeterangan9(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-				}else if(cavity == 10){
-					table1.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity1}
-									onValueChange = {(value)=>setStatusCavity1(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece1}
-									onValueChange = {(value)=>setJudgement1(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id1}
-									onValueChange = {(value)=>setCategoryNg1(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test1}
-									onValueChange = {(value)=>setFittingTest1(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight1} onChangeText={(value) => setProductWeight1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note1} onChangeText={(value) => setKeterangan1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table2.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity2}
-									onValueChange = {(value)=>setStatusCavity2(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece2}
-									onValueChange = {(value)=>setJudgement2(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id2}
-									onValueChange = {(value)=>setCategoryNg2(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test2}
-									onValueChange = {(value)=>setFittingTest2(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight2} onChangeText={(value) => setProductWeight2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note2} onChangeText={(value) => setKeterangan2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table3.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity3}
-									onValueChange = {(value)=>setStatusCavity3(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece3}
-									onValueChange = {(value)=>setJudgement3(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id3}
-									onValueChange = {(value)=>setCategoryNg3(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test3}
-									onValueChange = {(value)=>setFittingTest3(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight3} onChangeText={(value) => setProductWeight3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note3} onChangeText={(value) => setKeterangan3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table4.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity4}
-									onValueChange = {(value)=>setStatusCavity4(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece4}
-									onValueChange = {(value)=>setJudgement4(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id4}
-									onValueChange = {(value)=>setCategoryNg4(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test4}
-									onValueChange = {(value)=>setFittingTest4(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight4} onChangeText={(value) => setProductWeight4(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note4} onChangeText={(value) => setKeterangan4(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table5.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity5}
-									onValueChange = {(value)=>setStatusCavity5(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece5}
-									onValueChange = {(value)=>setJudgement5(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id5}
-									onValueChange = {(value)=>setCategoryNg5(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test5}
-									onValueChange = {(value)=>setFittingTest5(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight5} onChangeText={(value) => setProductWeight5(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note5} onChangeText={(value) => setKeterangan5(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table6.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity6}
-									onValueChange = {(value)=>setStatusCavity6(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece6}
-									onValueChange = {(value)=>setJudgement6(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id6}
-									onValueChange = {(value)=>setCategoryNg6(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test6}
-									onValueChange = {(value)=>setFittingTest6(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight6} onChangeText={(value) => setProductWeight6(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note6} onChangeText={(value) => setKeterangan6(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table7.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity7}
-									onValueChange = {(value)=>setStatusCavity7(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece7}
-									onValueChange = {(value)=>setJudgement7(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id7}
-									onValueChange = {(value)=>setCategoryNg7(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test7}
-									onValueChange = {(value)=>setFittingTest7(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight7} onChangeText={(value) => setProductWeight7(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note7} onChangeText={(value) => setKeterangan7(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table8.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity8}
-									onValueChange = {(value)=>setStatusCavity8(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece8}
-									onValueChange = {(value)=>setJudgement8(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id8}
-									onValueChange = {(value)=>setCategoryNg8(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test8}
-									onValueChange = {(value)=>setFittingTest8(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight8} onChangeText={(value) => setProductWeight8(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={product_weight8} onChangeText={(value) => setProductWeight8(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table9.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity9}
-									onValueChange = {(value)=>setStatusCavity9(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece9}
-									onValueChange = {(value)=>setJudgement9(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id9}
-									onValueChange = {(value)=>setCategoryNg9(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test9}
-									onValueChange = {(value)=>setFittingTest9(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight9} onChangeText={(value) => setProductWeight9(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note9} onChangeText={(value) => setKeterangan9(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table10.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity10}
-									onValueChange = {(value)=>setStatusCavity10(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece10}
-									onValueChange = {(value)=>setJudgement10(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id10}
-									onValueChange = {(value)=>setCategoryNg10(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test10}
-									onValueChange = {(value)=>setFittingTest10(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight10} onChangeText={(value) => setProductWeight10(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note10} onChangeText={(value) => setKeterangan10(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-				}else if(cavity == 11){
-					table1.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity1}
-									onValueChange = {(value)=>setStatusCavity1(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece1}
-									onValueChange = {(value)=>setJudgement1(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id1}
-									onValueChange = {(value)=>setCategoryNg1(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test1}
-									onValueChange = {(value)=>setFittingTest1(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight1} onChangeText={(value) => setProductWeight1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note1} onChangeText={(value) => setKeterangan1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table2.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity2}
-									onValueChange = {(value)=>setStatusCavity2(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece2}
-									onValueChange = {(value)=>setJudgement2(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id2}
-									onValueChange = {(value)=>setCategoryNg2(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test2}
-									onValueChange = {(value)=>setFittingTest2(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight2} onChangeText={(value) => setProductWeight2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note2} onChangeText={(value) => setKeterangan2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table3.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity3}
-									onValueChange = {(value)=>setStatusCavity3(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece3}
-									onValueChange = {(value)=>setJudgement3(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id3}
-									onValueChange = {(value)=>setCategoryNg3(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test3}
-									onValueChange = {(value)=>setFittingTest3(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight3} onChangeText={(value) => setProductWeight3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note3} onChangeText={(value) => setKeterangan3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table4.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity4}
-									onValueChange = {(value)=>setStatusCavity4(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece4}
-									onValueChange = {(value)=>setJudgement4(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id4}
-									onValueChange = {(value)=>setCategoryNg4(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test4}
-									onValueChange = {(value)=>setFittingTest4(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight4} onChangeText={(value) => setProductWeight4(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note4} onChangeText={(value) => setKeterangan4(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table5.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity5}
-									onValueChange = {(value)=>setStatusCavity5(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece5}
-									onValueChange = {(value)=>setJudgement5(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id5}
-									onValueChange = {(value)=>setCategoryNg5(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test5}
-									onValueChange = {(value)=>setFittingTest5(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight5} onChangeText={(value) => setProductWeight5(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note5} onChangeText={(value) => setKeterangan5(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table6.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity6}
-									onValueChange = {(value)=>setStatusCavity6(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece6}
-									onValueChange = {(value)=>setJudgement6(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id6}
-									onValueChange = {(value)=>setCategoryNg6(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test6}
-									onValueChange = {(value)=>setFittingTest6(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight6} onChangeText={(value) => setProductWeight6(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note6} onChangeText={(value) => setKeterangan6(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table7.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity7}
-									onValueChange = {(value)=>setStatusCavity7(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece7}
-									onValueChange = {(value)=>setJudgement7(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id7}
-									onValueChange = {(value)=>setCategoryNg7(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test7}
-									onValueChange = {(value)=>setFittingTest7(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight7} onChangeText={(value) => setProductWeight7(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note7} onChangeText={(value) => setKeterangan7(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table8.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity8}
-									onValueChange = {(value)=>setStatusCavity8(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece8}
-									onValueChange = {(value)=>setJudgement8(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id8}
-									onValueChange = {(value)=>setCategoryNg8(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test8}
-									onValueChange = {(value)=>setFittingTest8(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight8} onChangeText={(value) => setProductWeight8(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={product_weight8} onChangeText={(value) => setProductWeight8(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table9.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity9}
-									onValueChange = {(value)=>setStatusCavity9(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece9}
-									onValueChange = {(value)=>setJudgement9(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id9}
-									onValueChange = {(value)=>setCategoryNg9(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test9}
-									onValueChange = {(value)=>setFittingTest9(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight9} onChangeText={(value) => setProductWeight9(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note9} onChangeText={(value) => setKeterangan9(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table10.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity10}
-									onValueChange = {(value)=>setStatusCavity10(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece10}
-									onValueChange = {(value)=>setJudgement10(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id10}
-									onValueChange = {(value)=>setCategoryNg10(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test10}
-									onValueChange = {(value)=>setFittingTest10(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight10} onChangeText={(value) => setProductWeight10(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note10} onChangeText={(value) => setKeterangan10(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table11.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity11}
-									onValueChange = {(value)=>setStatusCavity11(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece11}
-									onValueChange = {(value)=>setJudgement11(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id11}
-									onValueChange = {(value)=>setCategoryNg11(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test11}
-									onValueChange = {(value)=>setFittingTest11(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight11} onChangeText={(value) => setProductWeight11(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note11} onChangeText={(value) => setKeterangan11(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-				}else if(cavity == 12){
-					table1.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity1}
-									onValueChange = {(value)=>setStatusCavity1(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece1}
-									onValueChange = {(value)=>setJudgement1(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id1}
-									onValueChange = {(value)=>setCategoryNg1(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test1}
-									onValueChange = {(value)=>setFittingTest1(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight1} onChangeText={(value) => setProductWeight1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note1} onChangeText={(value) => setKeterangan1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table2.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity2}
-									onValueChange = {(value)=>setStatusCavity2(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece2}
-									onValueChange = {(value)=>setJudgement2(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id2}
-									onValueChange = {(value)=>setCategoryNg2(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test2}
-									onValueChange = {(value)=>setFittingTest2(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight2} onChangeText={(value) => setProductWeight2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note2} onChangeText={(value) => setKeterangan2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table3.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity3}
-									onValueChange = {(value)=>setStatusCavity3(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece3}
-									onValueChange = {(value)=>setJudgement3(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id3}
-									onValueChange = {(value)=>setCategoryNg3(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test3}
-									onValueChange = {(value)=>setFittingTest3(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight3} onChangeText={(value) => setProductWeight3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note3} onChangeText={(value) => setKeterangan3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table4.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity4}
-									onValueChange = {(value)=>setStatusCavity4(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece4}
-									onValueChange = {(value)=>setJudgement4(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id4}
-									onValueChange = {(value)=>setCategoryNg4(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test4}
-									onValueChange = {(value)=>setFittingTest4(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight4} onChangeText={(value) => setProductWeight4(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note4} onChangeText={(value) => setKeterangan4(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table5.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity5}
-									onValueChange = {(value)=>setStatusCavity5(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece5}
-									onValueChange = {(value)=>setJudgement5(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id5}
-									onValueChange = {(value)=>setCategoryNg5(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test5}
-									onValueChange = {(value)=>setFittingTest5(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight5} onChangeText={(value) => setProductWeight5(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note5} onChangeText={(value) => setKeterangan5(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table6.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity6}
-									onValueChange = {(value)=>setStatusCavity6(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece6}
-									onValueChange = {(value)=>setJudgement6(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id6}
-									onValueChange = {(value)=>setCategoryNg6(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test6}
-									onValueChange = {(value)=>setFittingTest6(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight6} onChangeText={(value) => setProductWeight6(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note6} onChangeText={(value) => setKeterangan6(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table7.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity7}
-									onValueChange = {(value)=>setStatusCavity7(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece7}
-									onValueChange = {(value)=>setJudgement7(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id7}
-									onValueChange = {(value)=>setCategoryNg7(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test7}
-									onValueChange = {(value)=>setFittingTest7(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight7} onChangeText={(value) => setProductWeight7(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note7} onChangeText={(value) => setKeterangan7(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table8.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity8}
-									onValueChange = {(value)=>setStatusCavity8(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece8}
-									onValueChange = {(value)=>setJudgement8(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id8}
-									onValueChange = {(value)=>setCategoryNg8(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test8}
-									onValueChange = {(value)=>setFittingTest8(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight8} onChangeText={(value) => setProductWeight8(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={product_weight8} onChangeText={(value) => setProductWeight8(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table9.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity9}
-									onValueChange = {(value)=>setStatusCavity9(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece9}
-									onValueChange = {(value)=>setJudgement9(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id9}
-									onValueChange = {(value)=>setCategoryNg9(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test9}
-									onValueChange = {(value)=>setFittingTest9(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight9} onChangeText={(value) => setProductWeight9(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note9} onChangeText={(value) => setKeterangan9(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table10.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity10}
-									onValueChange = {(value)=>setStatusCavity10(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece10}
-									onValueChange = {(value)=>setJudgement10(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id10}
-									onValueChange = {(value)=>setCategoryNg10(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test10}
-									onValueChange = {(value)=>setFittingTest10(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight10} onChangeText={(value) => setProductWeight10(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note10} onChangeText={(value) => setKeterangan10(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table11.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity11}
-									onValueChange = {(value)=>setStatusCavity11(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece11}
-									onValueChange = {(value)=>setJudgement11(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id11}
-									onValueChange = {(value)=>setCategoryNg11(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test11}
-									onValueChange = {(value)=>setFittingTest11(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight11} onChangeText={(value) => setProductWeight11(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note11} onChangeText={(value) => setKeterangan11(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table12.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity12}
-									onValueChange = {(value)=>setStatusCavity12(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece12}
-									onValueChange = {(value)=>setJudgement12(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id12}
-									onValueChange = {(value)=>setCategoryNg12(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test12}
-									onValueChange = {(value)=>setFittingTest12(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight12} onChangeText={(value) => setProductWeight12(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note12} onChangeText={(value) => setKeterangan12(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-				}else if(cavity == 13){
-					table1.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity1}
-									onValueChange = {(value)=>setStatusCavity1(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece1}
-									onValueChange = {(value)=>setJudgement1(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id1}
-									onValueChange = {(value)=>setCategoryNg1(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test1}
-									onValueChange = {(value)=>setFittingTest1(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight1} onChangeText={(value) => setProductWeight1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note1} onChangeText={(value) => setKeterangan1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table2.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity2}
-									onValueChange = {(value)=>setStatusCavity2(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece2}
-									onValueChange = {(value)=>setJudgement2(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id2}
-									onValueChange = {(value)=>setCategoryNg2(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test2}
-									onValueChange = {(value)=>setFittingTest2(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight2} onChangeText={(value) => setProductWeight2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note2} onChangeText={(value) => setKeterangan2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table3.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity3}
-									onValueChange = {(value)=>setStatusCavity3(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece3}
-									onValueChange = {(value)=>setJudgement3(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id3}
-									onValueChange = {(value)=>setCategoryNg3(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test3}
-									onValueChange = {(value)=>setFittingTest3(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight3} onChangeText={(value) => setProductWeight3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note3} onChangeText={(value) => setKeterangan3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table4.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity4}
-									onValueChange = {(value)=>setStatusCavity4(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece4}
-									onValueChange = {(value)=>setJudgement4(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id4}
-									onValueChange = {(value)=>setCategoryNg4(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test4}
-									onValueChange = {(value)=>setFittingTest4(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight4} onChangeText={(value) => setProductWeight4(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note4} onChangeText={(value) => setKeterangan4(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table5.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity5}
-									onValueChange = {(value)=>setStatusCavity5(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece5}
-									onValueChange = {(value)=>setJudgement5(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id5}
-									onValueChange = {(value)=>setCategoryNg5(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test5}
-									onValueChange = {(value)=>setFittingTest5(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight5} onChangeText={(value) => setProductWeight5(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note5} onChangeText={(value) => setKeterangan5(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table6.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity6}
-									onValueChange = {(value)=>setStatusCavity6(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece6}
-									onValueChange = {(value)=>setJudgement6(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id6}
-									onValueChange = {(value)=>setCategoryNg6(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test6}
-									onValueChange = {(value)=>setFittingTest6(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight6} onChangeText={(value) => setProductWeight6(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note6} onChangeText={(value) => setKeterangan6(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table7.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity7}
-									onValueChange = {(value)=>setStatusCavity7(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece7}
-									onValueChange = {(value)=>setJudgement7(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id7}
-									onValueChange = {(value)=>setCategoryNg7(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test7}
-									onValueChange = {(value)=>setFittingTest7(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight7} onChangeText={(value) => setProductWeight7(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note7} onChangeText={(value) => setKeterangan7(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table8.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity8}
-									onValueChange = {(value)=>setStatusCavity8(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece8}
-									onValueChange = {(value)=>setJudgement8(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id8}
-									onValueChange = {(value)=>setCategoryNg8(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test8}
-									onValueChange = {(value)=>setFittingTest8(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight8} onChangeText={(value) => setProductWeight8(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={product_weight8} onChangeText={(value) => setProductWeight8(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table9.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity9}
-									onValueChange = {(value)=>setStatusCavity9(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece9}
-									onValueChange = {(value)=>setJudgement9(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id9}
-									onValueChange = {(value)=>setCategoryNg9(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test9}
-									onValueChange = {(value)=>setFittingTest9(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight9} onChangeText={(value) => setProductWeight9(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note9} onChangeText={(value) => setKeterangan9(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table10.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity10}
-									onValueChange = {(value)=>setStatusCavity10(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece10}
-									onValueChange = {(value)=>setJudgement10(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id10}
-									onValueChange = {(value)=>setCategoryNg10(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test10}
-									onValueChange = {(value)=>setFittingTest10(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight10} onChangeText={(value) => setProductWeight10(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note10} onChangeText={(value) => setKeterangan10(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table11.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity11}
-									onValueChange = {(value)=>setStatusCavity11(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece11}
-									onValueChange = {(value)=>setJudgement11(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id11}
-									onValueChange = {(value)=>setCategoryNg11(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test11}
-									onValueChange = {(value)=>setFittingTest11(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight11} onChangeText={(value) => setProductWeight11(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note11} onChangeText={(value) => setKeterangan11(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table12.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity12}
-									onValueChange = {(value)=>setStatusCavity12(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece12}
-									onValueChange = {(value)=>setJudgement12(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id12}
-									onValueChange = {(value)=>setCategoryNg12(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test12}
-									onValueChange = {(value)=>setFittingTest12(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight12} onChangeText={(value) => setProductWeight12(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note12} onChangeText={(value) => setKeterangan12(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table13.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity13}
-									onValueChange = {(value)=>setStatusCavity13(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece13}
-									onValueChange = {(value)=>setJudgement13(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id13}
-									onValueChange = {(value)=>setCategoryNg13(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test13}
-									onValueChange = {(value)=>setFittingTest13(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight13} onChangeText={(value) => setProductWeight13(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note13} onChangeText={(value) => setKeterangan13(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-				}else if(cavity == 14){
-					table1.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity1}
-									onValueChange = {(value)=>setStatusCavity1(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece1}
-									onValueChange = {(value)=>setJudgement1(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id1}
-									onValueChange = {(value)=>setCategoryNg1(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test1}
-									onValueChange = {(value)=>setFittingTest1(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight1} onChangeText={(value) => setProductWeight1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note1} onChangeText={(value) => setKeterangan1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table2.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity2}
-									onValueChange = {(value)=>setStatusCavity2(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece2}
-									onValueChange = {(value)=>setJudgement2(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id2}
-									onValueChange = {(value)=>setCategoryNg2(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test2}
-									onValueChange = {(value)=>setFittingTest2(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight2} onChangeText={(value) => setProductWeight2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note2} onChangeText={(value) => setKeterangan2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table3.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity3}
-									onValueChange = {(value)=>setStatusCavity3(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece3}
-									onValueChange = {(value)=>setJudgement3(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id3}
-									onValueChange = {(value)=>setCategoryNg3(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test3}
-									onValueChange = {(value)=>setFittingTest3(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight3} onChangeText={(value) => setProductWeight3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note3} onChangeText={(value) => setKeterangan3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table4.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity4}
-									onValueChange = {(value)=>setStatusCavity4(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece4}
-									onValueChange = {(value)=>setJudgement4(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id4}
-									onValueChange = {(value)=>setCategoryNg4(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test4}
-									onValueChange = {(value)=>setFittingTest4(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight4} onChangeText={(value) => setProductWeight4(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note4} onChangeText={(value) => setKeterangan4(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table5.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity5}
-									onValueChange = {(value)=>setStatusCavity5(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece5}
-									onValueChange = {(value)=>setJudgement5(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id5}
-									onValueChange = {(value)=>setCategoryNg5(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test5}
-									onValueChange = {(value)=>setFittingTest5(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight5} onChangeText={(value) => setProductWeight5(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note5} onChangeText={(value) => setKeterangan5(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table6.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity6}
-									onValueChange = {(value)=>setStatusCavity6(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece6}
-									onValueChange = {(value)=>setJudgement6(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id6}
-									onValueChange = {(value)=>setCategoryNg6(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test6}
-									onValueChange = {(value)=>setFittingTest6(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight6} onChangeText={(value) => setProductWeight6(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note6} onChangeText={(value) => setKeterangan6(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table7.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity7}
-									onValueChange = {(value)=>setStatusCavity7(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece7}
-									onValueChange = {(value)=>setJudgement7(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id7}
-									onValueChange = {(value)=>setCategoryNg7(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test7}
-									onValueChange = {(value)=>setFittingTest7(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight7} onChangeText={(value) => setProductWeight7(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note7} onChangeText={(value) => setKeterangan7(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table8.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity8}
-									onValueChange = {(value)=>setStatusCavity8(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece8}
-									onValueChange = {(value)=>setJudgement8(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id8}
-									onValueChange = {(value)=>setCategoryNg8(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test8}
-									onValueChange = {(value)=>setFittingTest8(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight8} onChangeText={(value) => setProductWeight8(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={product_weight8} onChangeText={(value) => setProductWeight8(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table9.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity9}
-									onValueChange = {(value)=>setStatusCavity9(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece9}
-									onValueChange = {(value)=>setJudgement9(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id9}
-									onValueChange = {(value)=>setCategoryNg9(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test9}
-									onValueChange = {(value)=>setFittingTest9(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight9} onChangeText={(value) => setProductWeight9(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note9} onChangeText={(value) => setKeterangan9(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table10.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity10}
-									onValueChange = {(value)=>setStatusCavity10(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece10}
-									onValueChange = {(value)=>setJudgement10(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id10}
-									onValueChange = {(value)=>setCategoryNg10(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test10}
-									onValueChange = {(value)=>setFittingTest10(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight10} onChangeText={(value) => setProductWeight10(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note10} onChangeText={(value) => setKeterangan10(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table11.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity11}
-									onValueChange = {(value)=>setStatusCavity11(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece11}
-									onValueChange = {(value)=>setJudgement11(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id11}
-									onValueChange = {(value)=>setCategoryNg11(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test11}
-									onValueChange = {(value)=>setFittingTest11(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight11} onChangeText={(value) => setProductWeight11(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note11} onChangeText={(value) => setKeterangan11(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table12.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity12}
-									onValueChange = {(value)=>setStatusCavity12(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece12}
-									onValueChange = {(value)=>setJudgement12(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id12}
-									onValueChange = {(value)=>setCategoryNg12(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test12}
-									onValueChange = {(value)=>setFittingTest12(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight12} onChangeText={(value) => setProductWeight12(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note12} onChangeText={(value) => setKeterangan12(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table13.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity13}
-									onValueChange = {(value)=>setStatusCavity13(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece13}
-									onValueChange = {(value)=>setJudgement13(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id13}
-									onValueChange = {(value)=>setCategoryNg13(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test13}
-									onValueChange = {(value)=>setFittingTest13(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight13} onChangeText={(value) => setProductWeight13(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note13} onChangeText={(value) => setKeterangan13(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table14.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity14}
-									onValueChange = {(value)=>setStatusCavity14(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece14}
-									onValueChange = {(value)=>setJudgement14(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id14}
-									onValueChange = {(value)=>setCategoryNg14(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test14}
-									onValueChange = {(value)=>setFittingTest14(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight14} onChangeText={(value) => setProductWeight14(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note14} onChangeText={(value) => setKeterangan14(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-				}else if(cavity == 15){
-					table1.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity1}
-									onValueChange = {(value)=>setStatusCavity1(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece1}
-									onValueChange = {(value)=>setJudgement1(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id1}
-									onValueChange = {(value)=>setCategoryNg1(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test1}
-									onValueChange = {(value)=>setFittingTest1(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight1} onChangeText={(value) => setProductWeight1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput keyboardType="numeric" value={note1} onChangeText={(value) => setKeterangan1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table2.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity2}
-									onValueChange = {(value)=>setStatusCavity2(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece2}
-									onValueChange = {(value)=>setJudgement2(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id2}
-									onValueChange = {(value)=>setCategoryNg2(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test2}
-									onValueChange = {(value)=>setFittingTest2(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight2} onChangeText={(value) => setProductWeight2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note2} onChangeText={(value) => setKeterangan2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table3.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity3}
-									onValueChange = {(value)=>setStatusCavity3(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece3}
-									onValueChange = {(value)=>setJudgement3(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id3}
-									onValueChange = {(value)=>setCategoryNg3(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test3}
-									onValueChange = {(value)=>setFittingTest3(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight3} onChangeText={(value) => setProductWeight3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note3} onChangeText={(value) => setKeterangan3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table4.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity4}
-									onValueChange = {(value)=>setStatusCavity4(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece4}
-									onValueChange = {(value)=>setJudgement4(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id4}
-									onValueChange = {(value)=>setCategoryNg4(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test4}
-									onValueChange = {(value)=>setFittingTest4(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight4} onChangeText={(value) => setProductWeight4(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note4} onChangeText={(value) => setKeterangan4(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table5.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity5}
-									onValueChange = {(value)=>setStatusCavity5(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece5}
-									onValueChange = {(value)=>setJudgement5(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id5}
-									onValueChange = {(value)=>setCategoryNg5(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test5}
-									onValueChange = {(value)=>setFittingTest5(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight5} onChangeText={(value) => setProductWeight5(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note5} onChangeText={(value) => setKeterangan5(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table6.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity6}
-									onValueChange = {(value)=>setStatusCavity6(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece6}
-									onValueChange = {(value)=>setJudgement6(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id6}
-									onValueChange = {(value)=>setCategoryNg6(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test6}
-									onValueChange = {(value)=>setFittingTest6(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight6} onChangeText={(value) => setProductWeight6(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note6} onChangeText={(value) => setKeterangan6(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table7.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity7}
-									onValueChange = {(value)=>setStatusCavity7(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece7}
-									onValueChange = {(value)=>setJudgement7(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id7}
-									onValueChange = {(value)=>setCategoryNg7(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test7}
-									onValueChange = {(value)=>setFittingTest7(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight7} onChangeText={(value) => setProductWeight7(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note7} onChangeText={(value) => setKeterangan7(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table8.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity8}
-									onValueChange = {(value)=>setStatusCavity8(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece8}
-									onValueChange = {(value)=>setJudgement8(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id8}
-									onValueChange = {(value)=>setCategoryNg8(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test8}
-									onValueChange = {(value)=>setFittingTest8(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight8} onChangeText={(value) => setProductWeight8(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={product_weight8} onChangeText={(value) => setProductWeight8(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table9.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity9}
-									onValueChange = {(value)=>setStatusCavity9(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece9}
-									onValueChange = {(value)=>setJudgement9(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id9}
-									onValueChange = {(value)=>setCategoryNg9(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test9}
-									onValueChange = {(value)=>setFittingTest9(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight9} onChangeText={(value) => setProductWeight9(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note9} onChangeText={(value) => setKeterangan9(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table10.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity10}
-									onValueChange = {(value)=>setStatusCavity10(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece10}
-									onValueChange = {(value)=>setJudgement10(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id10}
-									onValueChange = {(value)=>setCategoryNg10(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test10}
-									onValueChange = {(value)=>setFittingTest10(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight10} onChangeText={(value) => setProductWeight10(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note10} onChangeText={(value) => setKeterangan10(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table11.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity11}
-									onValueChange = {(value)=>setStatusCavity11(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece11}
-									onValueChange = {(value)=>setJudgement11(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id11}
-									onValueChange = {(value)=>setCategoryNg11(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test11}
-									onValueChange = {(value)=>setFittingTest11(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight11} onChangeText={(value) => setProductWeight11(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note11} onChangeText={(value) => setKeterangan11(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table12.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity12}
-									onValueChange = {(value)=>setStatusCavity12(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece12}
-									onValueChange = {(value)=>setJudgement12(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id12}
-									onValueChange = {(value)=>setCategoryNg12(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test12}
-									onValueChange = {(value)=>setFittingTest12(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight12} onChangeText={(value) => setProductWeight12(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note12} onChangeText={(value) => setKeterangan12(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table13.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity13}
-									onValueChange = {(value)=>setStatusCavity13(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece13}
-									onValueChange = {(value)=>setJudgement13(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id13}
-									onValueChange = {(value)=>setCategoryNg13(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test13}
-									onValueChange = {(value)=>setFittingTest13(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight13} onChangeText={(value) => setProductWeight13(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note13} onChangeText={(value) => setKeterangan13(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table14.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity14}
-									onValueChange = {(value)=>setStatusCavity14(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece14}
-									onValueChange = {(value)=>setJudgement14(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id14}
-									onValueChange = {(value)=>setCategoryNg14(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test14}
-									onValueChange = {(value)=>setFittingTest14(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight14} onChangeText={(value) => setProductWeight14(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note14} onChangeText={(value) => setKeterangan14(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table15.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity15}
-									onValueChange = {(value)=>setStatusCavity15(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece15}
-									onValueChange = {(value)=>setJudgement15(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id15}
-									onValueChange = {(value)=>setCategoryNg15(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test15}
-									onValueChange = {(value)=>setFittingTest15(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight15} onChangeText={(value) => setProductWeight15(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note15} onChangeText={(value) => setKeterangan15(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-				}else if(cavity == 16){
-					table1.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity1}
-									onValueChange = {(value)=>setStatusCavity1(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece1}
-									onValueChange = {(value)=>setJudgement1(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id1}
-									onValueChange = {(value)=>setCategoryNg1(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test1}
-									onValueChange = {(value)=>setFittingTest1(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight1} onChangeText={(value) => setProductWeight1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note1} onChangeText={(value) => setKeterangan1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table2.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity2}
-									onValueChange = {(value)=>setStatusCavity2(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece2}
-									onValueChange = {(value)=>setJudgement2(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id2}
-									onValueChange = {(value)=>setCategoryNg2(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test2}
-									onValueChange = {(value)=>setFittingTest2(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight2} onChangeText={(value) => setProductWeight2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note2} onChangeText={(value) => setKeterangan2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table3.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity3}
-									onValueChange = {(value)=>setStatusCavity3(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece3}
-									onValueChange = {(value)=>setJudgement3(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id3}
-									onValueChange = {(value)=>setCategoryNg3(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test3}
-									onValueChange = {(value)=>setFittingTest3(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight3} onChangeText={(value) => setProductWeight3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note3} onChangeText={(value) => setKeterangan3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table4.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity4}
-									onValueChange = {(value)=>setStatusCavity4(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece4}
-									onValueChange = {(value)=>setJudgement4(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id4}
-									onValueChange = {(value)=>setCategoryNg4(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test4}
-									onValueChange = {(value)=>setFittingTest4(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight4} onChangeText={(value) => setProductWeight4(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note4} onChangeText={(value) => setKeterangan4(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table5.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity5}
-									onValueChange = {(value)=>setStatusCavity5(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece5}
-									onValueChange = {(value)=>setJudgement5(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id5}
-									onValueChange = {(value)=>setCategoryNg5(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test5}
-									onValueChange = {(value)=>setFittingTest5(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight5} onChangeText={(value) => setProductWeight5(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note5} onChangeText={(value) => setKeterangan5(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table6.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity6}
-									onValueChange = {(value)=>setStatusCavity6(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece6}
-									onValueChange = {(value)=>setJudgement6(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id6}
-									onValueChange = {(value)=>setCategoryNg6(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test6}
-									onValueChange = {(value)=>setFittingTest6(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight6} onChangeText={(value) => setProductWeight6(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note6} onChangeText={(value) => setKeterangan6(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table7.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity7}
-									onValueChange = {(value)=>setStatusCavity7(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece7}
-									onValueChange = {(value)=>setJudgement7(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id7}
-									onValueChange = {(value)=>setCategoryNg7(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test7}
-									onValueChange = {(value)=>setFittingTest7(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight7} onChangeText={(value) => setProductWeight7(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note7} onChangeText={(value) => setKeterangan7(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table8.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity8}
-									onValueChange = {(value)=>setStatusCavity8(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece8}
-									onValueChange = {(value)=>setJudgement8(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id8}
-									onValueChange = {(value)=>setCategoryNg8(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test8}
-									onValueChange = {(value)=>setFittingTest8(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight8} onChangeText={(value) => setProductWeight8(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={product_weight8} onChangeText={(value) => setProductWeight8(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table9.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity9}
-									onValueChange = {(value)=>setStatusCavity9(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece9}
-									onValueChange = {(value)=>setJudgement9(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id9}
-									onValueChange = {(value)=>setCategoryNg9(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test9}
-									onValueChange = {(value)=>setFittingTest9(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight9} onChangeText={(value) => setProductWeight9(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note9} onChangeText={(value) => setKeterangan9(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table10.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity10}
-									onValueChange = {(value)=>setStatusCavity10(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece10}
-									onValueChange = {(value)=>setJudgement10(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id10}
-									onValueChange = {(value)=>setCategoryNg10(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test10}
-									onValueChange = {(value)=>setFittingTest10(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight10} onChangeText={(value) => setProductWeight10(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note10} onChangeText={(value) => setKeterangan10(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table11.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity11}
-									onValueChange = {(value)=>setStatusCavity11(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece11}
-									onValueChange = {(value)=>setJudgement11(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id11}
-									onValueChange = {(value)=>setCategoryNg11(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test11}
-									onValueChange = {(value)=>setFittingTest11(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight11} onChangeText={(value) => setProductWeight11(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note11} onChangeText={(value) => setKeterangan11(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table12.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity12}
-									onValueChange = {(value)=>setStatusCavity12(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece12}
-									onValueChange = {(value)=>setJudgement12(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id12}
-									onValueChange = {(value)=>setCategoryNg12(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test12}
-									onValueChange = {(value)=>setFittingTest12(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight12} onChangeText={(value) => setProductWeight12(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note12} onChangeText={(value) => setKeterangan12(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table13.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity13}
-									onValueChange = {(value)=>setStatusCavity13(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece13}
-									onValueChange = {(value)=>setJudgement13(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id13}
-									onValueChange = {(value)=>setCategoryNg13(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test13}
-									onValueChange = {(value)=>setFittingTest13(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight13} onChangeText={(value) => setProductWeight13(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note13} onChangeText={(value) => setKeterangan13(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table14.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity14}
-									onValueChange = {(value)=>setStatusCavity14(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece14}
-									onValueChange = {(value)=>setJudgement14(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id14}
-									onValueChange = {(value)=>setCategoryNg14(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test14}
-									onValueChange = {(value)=>setFittingTest14(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight14} onChangeText={(value) => setProductWeight14(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note14} onChangeText={(value) => setKeterangan14(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table15.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity15}
-									onValueChange = {(value)=>setStatusCavity15(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece15}
-									onValueChange = {(value)=>setJudgement15(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id15}
-									onValueChange = {(value)=>setCategoryNg15(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test15}
-									onValueChange = {(value)=>setFittingTest15(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {product_weight15}
-									onValueChange = {(value)=>setProductWeight15(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {note15}
-									onValueChange = {(value)=>setKeterangan15(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-						</View>
-					)
-					table16.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity16}
-									onValueChange = {(value)=>setStatusCavity16(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece16}
-									onValueChange = {(value)=>setJudgement16(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id16}
-									onValueChange = {(value)=>setCategoryNg16(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test16}
-									onValueChange = {(value)=>setFittingTest16(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight16} onChangeText={(value) => setProductWeight16(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note16} onChangeText={(value) => setKeterangan16(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-				}else if(cavity == 17){
-					table1.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity1}
-									onValueChange = {(value)=>setStatusCavity1(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece1}
-									onValueChange = {(value)=>setJudgement1(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id1}
-									onValueChange = {(value)=>setCategoryNg1(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test1}
-									onValueChange = {(value)=>setFittingTest1(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight1} onChangeText={(value) => setProductWeight1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note1} onChangeText={(value) => setKeterangan1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table2.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity2}
-									onValueChange = {(value)=>setStatusCavity2(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece2}
-									onValueChange = {(value)=>setJudgement2(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id2}
-									onValueChange = {(value)=>setCategoryNg2(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test2}
-									onValueChange = {(value)=>setFittingTest2(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight2} onChangeText={(value) => setProductWeight2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note2} onChangeText={(value) => setKeterangan2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table3.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity3}
-									onValueChange = {(value)=>setStatusCavity3(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece3}
-									onValueChange = {(value)=>setJudgement3(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id3}
-									onValueChange = {(value)=>setCategoryNg3(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test3}
-									onValueChange = {(value)=>setFittingTest3(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight3} onChangeText={(value) => setProductWeight3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note3} onChangeText={(value) => setKeterangan3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table4.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity4}
-									onValueChange = {(value)=>setStatusCavity4(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece4}
-									onValueChange = {(value)=>setJudgement4(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id4}
-									onValueChange = {(value)=>setCategoryNg4(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test4}
-									onValueChange = {(value)=>setFittingTest4(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight4} onChangeText={(value) => setProductWeight4(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note4} onChangeText={(value) => setKeterangan4(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table5.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity5}
-									onValueChange = {(value)=>setStatusCavity5(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece5}
-									onValueChange = {(value)=>setJudgement5(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id5}
-									onValueChange = {(value)=>setCategoryNg5(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test5}
-									onValueChange = {(value)=>setFittingTest5(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight5} onChangeText={(value) => setProductWeight5(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note5} onChangeText={(value) => setKeterangan5(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table6.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity6}
-									onValueChange = {(value)=>setStatusCavity6(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece6}
-									onValueChange = {(value)=>setJudgement6(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id6}
-									onValueChange = {(value)=>setCategoryNg6(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test6}
-									onValueChange = {(value)=>setFittingTest6(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight6} onChangeText={(value) => setProductWeight6(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note6} onChangeText={(value) => setKeterangan6(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table7.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity7}
-									onValueChange = {(value)=>setStatusCavity7(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece7}
-									onValueChange = {(value)=>setJudgement7(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id7}
-									onValueChange = {(value)=>setCategoryNg7(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test7}
-									onValueChange = {(value)=>setFittingTest7(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight7} onChangeText={(value) => setProductWeight7(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note7} onChangeText={(value) => setKeterangan7(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table8.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity8}
-									onValueChange = {(value)=>setStatusCavity8(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece8}
-									onValueChange = {(value)=>setJudgement8(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id8}
-									onValueChange = {(value)=>setCategoryNg8(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test8}
-									onValueChange = {(value)=>setFittingTest8(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight8} onChangeText={(value) => setProductWeight8(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={product_weight8} onChangeText={(value) => setProductWeight8(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table9.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity9}
-									onValueChange = {(value)=>setStatusCavity9(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece9}
-									onValueChange = {(value)=>setJudgement9(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id9}
-									onValueChange = {(value)=>setCategoryNg9(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test9}
-									onValueChange = {(value)=>setFittingTest9(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight9} onChangeText={(value) => setProductWeight9(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note9} onChangeText={(value) => setKeterangan9(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table10.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity10}
-									onValueChange = {(value)=>setStatusCavity10(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece10}
-									onValueChange = {(value)=>setJudgement10(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id10}
-									onValueChange = {(value)=>setCategoryNg10(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test10}
-									onValueChange = {(value)=>setFittingTest10(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight10} onChangeText={(value) => setProductWeight10(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note10} onChangeText={(value) => setKeterangan10(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table11.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity11}
-									onValueChange = {(value)=>setStatusCavity11(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece11}
-									onValueChange = {(value)=>setJudgement11(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id11}
-									onValueChange = {(value)=>setCategoryNg11(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test11}
-									onValueChange = {(value)=>setFittingTest11(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight11} onChangeText={(value) => setProductWeight11(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note11} onChangeText={(value) => setKeterangan11(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table12.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity12}
-									onValueChange = {(value)=>setStatusCavity12(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece12}
-									onValueChange = {(value)=>setJudgement12(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id12}
-									onValueChange = {(value)=>setCategoryNg12(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test12}
-									onValueChange = {(value)=>setFittingTest12(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight12} onChangeText={(value) => setProductWeight12(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note12} onChangeText={(value) => setKeterangan12(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table13.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity13}
-									onValueChange = {(value)=>setStatusCavity13(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece13}
-									onValueChange = {(value)=>setJudgement13(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id13}
-									onValueChange = {(value)=>setCategoryNg13(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test13}
-									onValueChange = {(value)=>setFittingTest13(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight13} onChangeText={(value) => setProductWeight13(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note13} onChangeText={(value) => setKeterangan13(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table14.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity14}
-									onValueChange = {(value)=>setStatusCavity14(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece14}
-									onValueChange = {(value)=>setJudgement14(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id14}
-									onValueChange = {(value)=>setCategoryNg14(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test14}
-									onValueChange = {(value)=>setFittingTest14(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight14} onChangeText={(value) => setProductWeight14(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note14} onChangeText={(value) => setKeterangan14(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table15.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity15}
-									onValueChange = {(value)=>setStatusCavity15(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece15}
-									onValueChange = {(value)=>setJudgement15(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id15}
-									onValueChange = {(value)=>setCategoryNg15(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test15}
-									onValueChange = {(value)=>setFittingTest15(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {product_weight15}
-									onValueChange = {(value)=>setProductWeight15(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {note15}
-									onValueChange = {(value)=>setKeterangan15(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-						</View>
-					)
-					table16.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity16}
-									onValueChange = {(value)=>setStatusCavity16(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece16}
-									onValueChange = {(value)=>setJudgement16(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id16}
-									onValueChange = {(value)=>setCategoryNg16(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test16}
-									onValueChange = {(value)=>setFittingTest16(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight16} onChangeText={(value) => setProductWeight16(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note16} onChangeText={(value) => setKeterangan16(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table17.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity17}
-									onValueChange = {(value)=>setStatusCavity17(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece17}
-									onValueChange = {(value)=>setJudgement17(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id17}
-									onValueChange = {(value)=>setCategoryNg17(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test17}
-									onValueChange = {(value)=>setFittingTest17(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight17} onChangeText={(value) => setProductWeight17(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note17} onChangeText={(value) => setKeterangan17(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-				
-				}else if(cavity == 18){
-					table1.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity1}
-									onValueChange = {(value)=>setStatusCavity1(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece1}
-									onValueChange = {(value)=>setJudgement1(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id1}
-									onValueChange = {(value)=>setCategoryNg1(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test1}
-									onValueChange = {(value)=>setFittingTest1(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight1} onChangeText={(value) => setProductWeight1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note1} onChangeText={(value) => setKeterangan1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table2.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity2}
-									onValueChange = {(value)=>setStatusCavity2(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece2}
-									onValueChange = {(value)=>setJudgement2(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id2}
-									onValueChange = {(value)=>setCategoryNg2(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test2}
-									onValueChange = {(value)=>setFittingTest2(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight2} onChangeText={(value) => setProductWeight2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note2} onChangeText={(value) => setKeterangan2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table3.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity3}
-									onValueChange = {(value)=>setStatusCavity3(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece3}
-									onValueChange = {(value)=>setJudgement3(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id3}
-									onValueChange = {(value)=>setCategoryNg3(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test3}
-									onValueChange = {(value)=>setFittingTest3(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight3} onChangeText={(value) => setProductWeight3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note3} onChangeText={(value) => setKeterangan3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table4.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity4}
-									onValueChange = {(value)=>setStatusCavity4(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece4}
-									onValueChange = {(value)=>setJudgement4(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id4}
-									onValueChange = {(value)=>setCategoryNg4(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test4}
-									onValueChange = {(value)=>setFittingTest4(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight4} onChangeText={(value) => setProductWeight4(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note4} onChangeText={(value) => setKeterangan4(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table5.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity5}
-									onValueChange = {(value)=>setStatusCavity5(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece5}
-									onValueChange = {(value)=>setJudgement5(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id5}
-									onValueChange = {(value)=>setCategoryNg5(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test5}
-									onValueChange = {(value)=>setFittingTest5(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight5} onChangeText={(value) => setProductWeight5(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note5} onChangeText={(value) => setKeterangan5(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table6.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity6}
-									onValueChange = {(value)=>setStatusCavity6(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece6}
-									onValueChange = {(value)=>setJudgement6(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id6}
-									onValueChange = {(value)=>setCategoryNg6(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test6}
-									onValueChange = {(value)=>setFittingTest6(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight6} onChangeText={(value) => setProductWeight6(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note6} onChangeText={(value) => setKeterangan6(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table7.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity7}
-									onValueChange = {(value)=>setStatusCavity7(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece7}
-									onValueChange = {(value)=>setJudgement7(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id7}
-									onValueChange = {(value)=>setCategoryNg7(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test7}
-									onValueChange = {(value)=>setFittingTest7(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight7} onChangeText={(value) => setProductWeight7(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note7} onChangeText={(value) => setKeterangan7(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table8.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity8}
-									onValueChange = {(value)=>setStatusCavity8(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece8}
-									onValueChange = {(value)=>setJudgement8(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id8}
-									onValueChange = {(value)=>setCategoryNg8(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test8}
-									onValueChange = {(value)=>setFittingTest8(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight8} onChangeText={(value) => setProductWeight8(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={product_weight8} onChangeText={(value) => setProductWeight8(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table9.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity9}
-									onValueChange = {(value)=>setStatusCavity9(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece9}
-									onValueChange = {(value)=>setJudgement9(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id9}
-									onValueChange = {(value)=>setCategoryNg9(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test9}
-									onValueChange = {(value)=>setFittingTest9(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight9} onChangeText={(value) => setProductWeight9(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note9} onChangeText={(value) => setKeterangan9(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table10.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity10}
-									onValueChange = {(value)=>setStatusCavity10(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece10}
-									onValueChange = {(value)=>setJudgement10(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id10}
-									onValueChange = {(value)=>setCategoryNg10(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test10}
-									onValueChange = {(value)=>setFittingTest10(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight10} onChangeText={(value) => setProductWeight10(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note10} onChangeText={(value) => setKeterangan10(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table11.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity11}
-									onValueChange = {(value)=>setStatusCavity11(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece11}
-									onValueChange = {(value)=>setJudgement11(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id11}
-									onValueChange = {(value)=>setCategoryNg11(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test11}
-									onValueChange = {(value)=>setFittingTest11(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight11} onChangeText={(value) => setProductWeight11(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note11} onChangeText={(value) => setKeterangan11(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table12.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity12}
-									onValueChange = {(value)=>setStatusCavity12(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece12}
-									onValueChange = {(value)=>setJudgement12(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id12}
-									onValueChange = {(value)=>setCategoryNg12(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test12}
-									onValueChange = {(value)=>setFittingTest12(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight12} onChangeText={(value) => setProductWeight12(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note12} onChangeText={(value) => setKeterangan12(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table13.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity13}
-									onValueChange = {(value)=>setStatusCavity13(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece13}
-									onValueChange = {(value)=>setJudgement13(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id13}
-									onValueChange = {(value)=>setCategoryNg13(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test13}
-									onValueChange = {(value)=>setFittingTest13(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight13} onChangeText={(value) => setProductWeight13(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note13} onChangeText={(value) => setKeterangan13(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table14.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity14}
-									onValueChange = {(value)=>setStatusCavity14(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece14}
-									onValueChange = {(value)=>setJudgement14(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id14}
-									onValueChange = {(value)=>setCategoryNg14(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test14}
-									onValueChange = {(value)=>setFittingTest14(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight14} onChangeText={(value) => setProductWeight14(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note14} onChangeText={(value) => setKeterangan14(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table15.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity15}
-									onValueChange = {(value)=>setStatusCavity15(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece15}
-									onValueChange = {(value)=>setJudgement15(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id15}
-									onValueChange = {(value)=>setCategoryNg15(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test15}
-									onValueChange = {(value)=>setFittingTest15(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {product_weight15}
-									onValueChange = {(value)=>setProductWeight15(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {note15}
-									onValueChange = {(value)=>setKeterangan15(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-						</View>
-					)
-					table16.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity16}
-									onValueChange = {(value)=>setStatusCavity16(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece16}
-									onValueChange = {(value)=>setJudgement16(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id16}
-									onValueChange = {(value)=>setCategoryNg16(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test16}
-									onValueChange = {(value)=>setFittingTest16(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight16} onChangeText={(value) => setProductWeight16(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note16} onChangeText={(value) => setKeterangan16(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table17.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity17}
-									onValueChange = {(value)=>setStatusCavity17(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece17}
-									onValueChange = {(value)=>setJudgement17(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id17}
-									onValueChange = {(value)=>setCategoryNg17(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test17}
-									onValueChange = {(value)=>setFittingTest17(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight17} onChangeText={(value) => setProductWeight17(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note17} onChangeText={(value) => setKeterangan17(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-					table18.push(
-						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity18}
-									onValueChange = {(value)=>setStatusCavity18(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {judgement_first_piece18}
-									onValueChange = {(value)=>setJudgement18(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {qc_ng_category_id18}
-									onValueChange = {(value)=>setCategoryNg18(value)}
-									>
-										{dataNGs}
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test18}
-									onValueChange = {(value)=>setFittingTest18(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 133.5}}>
-									<TextInput keyboardType="numeric" value={product_weight18} onChangeText={(value) => setProductWeight18(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note18} onChangeText={(value) => setKeterangan18(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-				}
-	}
+			if(cavity == 1){
+				table1.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>1</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 166}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece1}
+								onValueChange = {(value)=>setJudgement1(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id1}
+								onValueChange = {(value)=>setCategoryNg1(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test1}
+								onValueChange = {(value)=>setFittingTest1(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<TextInput keyboardType="numeric" value={product_weight1} onChangeText={(value) => setProductWeight1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note1} onChangeText={(value) => setKeterangan1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+			}else if(cavity == 2){
+				table1.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>1</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece1}
+								onValueChange = {(value)=>setJudgement1(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id1}
+								onValueChange = {(value)=>setCategoryNg1(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test1}
+								onValueChange = {(value)=>setFittingTest1(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight1} onChangeText={(value) => setProductWeight1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note1} onChangeText={(value) => setKeterangan1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table2.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>2</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece2}
+								onValueChange = {(value)=>setJudgement2(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id2}
+								onValueChange = {(value)=>setCategoryNg2(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test2}
+								onValueChange = {(value)=>setFittingTest2(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight2} onChangeText={(value) => setProductWeight2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note2} onChangeText={(value) => setKeterangan2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+			}else if(cavity == 3){
+				table1.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>1</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece1}
+								onValueChange = {(value)=>setJudgement1(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id1}
+								onValueChange = {(value)=>setCategoryNg1(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test1}
+								onValueChange = {(value)=>setFittingTest1(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight1} onChangeText={(value) => setProductWeight1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note1} onChangeText={(value) => setKerangan1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table2.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>2</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece2}
+								onValueChange = {(value)=>setJudgement2(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id2}
+								onValueChange = {(value)=>setCategoryNg2(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test2}
+								onValueChange = {(value)=>setFittingTest2(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight2} onChangeText={(value) => setProductWeight2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note2} onChangeText={(value) => setKeterangan2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table3.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>3</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece3}
+								onValueChange = {(value)=>setJudgement3(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id3}
+								onValueChange = {(value)=>setCategoryNg3(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test3}
+								onValueChange = {(value)=>setFittingTest3(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight3} onChangeText={(value) => setProductWeight3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note3} onChangeText={(value) => setKeterangan3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+			}else if(cavity == 4){
+				table1.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>1</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece1}
+								onValueChange = {(value)=>setJudgement1(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id1}
+								onValueChange = {(value)=>setCategoryNg1(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test1}
+								onValueChange = {(value)=>setFittingTest1(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight1} onChangeText={(value) => setProductWeight1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note1} onChangeText={(value) => setKeterangan1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table2.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>2</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece2}
+								onValueChange = {(value)=>setJudgement2(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id2}
+								onValueChange = {(value)=>setCategoryNg2(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test2}
+								onValueChange = {(value)=>setFittingTest2(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight2} onChangeText={(value) => setProductWeight2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note2} onChangeText={(value) => setKeterangan2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table3.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>3</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece3}
+								onValueChange = {(value)=>setJudgement3(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id3}
+								onValueChange = {(value)=>setCategoryNg3(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test3}
+								onValueChange = {(value)=>setFittingTest3(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight3} onChangeText={(value) => setProductWeight3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note3} onChangeText={(value) => setKeterangan3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table4.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>4</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece4}
+								onValueChange = {(value)=>setJudgement4(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id4}
+								onValueChange = {(value)=>setCategoryNg4(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test4}
+								onValueChange = {(value)=>setFittingTest4(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight4} onChangeText={(value) => setProductWeight4(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note4} onChangeText={(value) => setKeterangan4(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+			}else if(cavity == 5){
+				table1.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>1</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece1}
+								onValueChange = {(value)=>setJudgement1(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id1}
+								onValueChange = {(value)=>setCategoryNg1(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test1}
+								onValueChange = {(value)=>setFittingTest1(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight1} onChangeText={(value) => setProductWeight1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note1} onChangeText={(value) => setKeterangan1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table2.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>2</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece2}
+								onValueChange = {(value)=>setJudgement2(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id2}
+								onValueChange = {(value)=>setCategoryNg2(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test2}
+								onValueChange = {(value)=>setFittingTest2(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight2} onChangeText={(value) => setProductWeight2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note2} onChangeText={(value) => setKeterangan2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table3.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>3</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece3}
+								onValueChange = {(value)=>setJudgement3(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id3}
+								onValueChange = {(value)=>setCategoryNg3(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test3}
+								onValueChange = {(value)=>setFittingTest3(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight3} onChangeText={(value) => setProductWeight3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note3} onChangeText={(value) => setKeterangan3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table4.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>4</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece4}
+								onValueChange = {(value)=>setJudgement4(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id4}
+								onValueChange = {(value)=>setCategoryNg4(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test4}
+								onValueChange = {(value)=>setFittingTest4(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight4} onChangeText={(value) => setProductWeight4(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note4} onChangeText={(value) => setKeterangan4(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table5.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>5</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece5}
+								onValueChange = {(value)=>setJudgement5(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id5}
+								onValueChange = {(value)=>setCategoryNg5(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test5}
+								onValueChange = {(value)=>setFittingTest5(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight5} onChangeText={(value) => setProductWeight5(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note5} onChangeText={(value) => setKeterangan5(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+			}else if(cavity == 6){
+				table1.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>1</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece1}
+								onValueChange = {(value)=>setJudgement1(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id1}
+								onValueChange = {(value)=>setCategoryNg1(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test1}
+								onValueChange = {(value)=>setFittingTest1(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight1} onChangeText={(value) => setProductWeight1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note1} onChangeText={(value) => setKeterangan1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table2.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>2</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece2}
+								onValueChange = {(value)=>setJudgement2(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id2}
+								onValueChange = {(value)=>setCategoryNg2(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test2}
+								onValueChange = {(value)=>setFittingTest2(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight2} onChangeText={(value) => setProductWeight2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note2} onChangeText={(value) => setKeterangan2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table3.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>3</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece3}
+								onValueChange = {(value)=>setJudgement3(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id3}
+								onValueChange = {(value)=>setCategoryNg3(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test3}
+								onValueChange = {(value)=>setFittingTest3(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight3} onChangeText={(value) => setProductWeight3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note3} onChangeText={(value) => setKeterangan3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table4.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>4</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece4}
+								onValueChange = {(value)=>setJudgement4(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id4}
+								onValueChange = {(value)=>setCategoryNg4(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test4}
+								onValueChange = {(value)=>setFittingTest4(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight4} onChangeText={(value) => setProductWeight4(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note4} onChangeText={(value) => setKeterangan4(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table5.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>5</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece5}
+								onValueChange = {(value)=>setJudgement5(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id5}
+								onValueChange = {(value)=>setCategoryNg5(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test5}
+								onValueChange = {(value)=>setFittingTest5(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight5} onChangeText={(value) => setProductWeight5(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note5} onChangeText={(value) => setKeterangan5(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table6.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>6</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece6}
+								onValueChange = {(value)=>setJudgement6(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id6}
+								onValueChange = {(value)=>setCategoryNg6(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test6}
+								onValueChange = {(value)=>setFittingTest6(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight6} onChangeText={(value) => setProductWeight6(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note6} onChangeText={(value) => setKeterangan6(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+			}else if(cavity == 7){
+				table1.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>1</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece1}
+								onValueChange = {(value)=>setJudgement1(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id1}
+								onValueChange = {(value)=>setCategoryNg1(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test1}
+								onValueChange = {(value)=>setFittingTest1(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight1} onChangeText={(value) => setProductWeight1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note1} onChangeText={(value) => setKeterangan1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table2.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>2</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece2}
+								onValueChange = {(value)=>setJudgement2(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id2}
+								onValueChange = {(value)=>setCategoryNg2(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test2}
+								onValueChange = {(value)=>setFittingTest2(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight2} onChangeText={(value) => setProductWeight2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note2} onChangeText={(value) => setKeterangan2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table3.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>3</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece3}
+								onValueChange = {(value)=>setJudgement3(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id3}
+								onValueChange = {(value)=>setCategoryNg3(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test3}
+								onValueChange = {(value)=>setFittingTest3(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight3} onChangeText={(value) => setProductWeight3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note3} onChangeText={(value) => setKeterangan3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table4.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>4</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece4}
+								onValueChange = {(value)=>setJudgement4(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id4}
+								onValueChange = {(value)=>setCategoryNg4(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test4}
+								onValueChange = {(value)=>setFittingTest4(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight4} onChangeText={(value) => setProductWeight4(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note4} onChangeText={(value) => setKeterangan4(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table5.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>5</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece5}
+								onValueChange = {(value)=>setJudgement5(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id5}
+								onValueChange = {(value)=>setCategoryNg5(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test5}
+								onValueChange = {(value)=>setFittingTest5(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight5} onChangeText={(value) => setProductWeight5(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note5} onChangeText={(value) => setKeterangan5(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table6.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>6</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece6}
+								onValueChange = {(value)=>setJudgement6(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id6}
+								onValueChange = {(value)=>setCategoryNg6(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test6}
+								onValueChange = {(value)=>setFittingTest6(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight6} onChangeText={(value) => setProductWeight6(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note6} onChangeText={(value) => setKeterangan6(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table7.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>7</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece7}
+								onValueChange = {(value)=>setJudgement7(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id7}
+								onValueChange = {(value)=>setCategoryNg7(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test7}
+								onValueChange = {(value)=>setFittingTest7(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight7} onChangeText={(value) => setProductWeight7(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note7} onChangeText={(value) => setKeterangan7(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+			}else if(cavity == 8){
+				table1.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>1</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece1}
+								onValueChange = {(value)=>setJudgement1(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id1}
+								onValueChange = {(value)=>setCategoryNg1(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test1}
+								onValueChange = {(value)=>setFittingTest1(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight1} onChangeText={(value) => setProductWeight1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note1} onChangeText={(value) => setKeterangan1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table2.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>2</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece2}
+								onValueChange = {(value)=>setJudgement2(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id2}
+								onValueChange = {(value)=>setCategoryNg2(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test2}
+								onValueChange = {(value)=>setFittingTest2(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight2} onChangeText={(value) => setProductWeight2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note2} onChangeText={(value) => setKeterangan2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table3.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>3</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece3}
+								onValueChange = {(value)=>setJudgement3(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id3}
+								onValueChange = {(value)=>setCategoryNg3(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test3}
+								onValueChange = {(value)=>setFittingTest3(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight3} onChangeText={(value) => setProductWeight3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note3} onChangeText={(value) => setKeterangan3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table4.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>4</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece4}
+								onValueChange = {(value)=>setJudgement4(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id4}
+								onValueChange = {(value)=>setCategoryNg4(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test4}
+								onValueChange = {(value)=>setFittingTest4(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight4} onChangeText={(value) => setProductWeight4(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note4} onChangeText={(value) => setKeterangan4(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table5.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>5</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece5}
+								onValueChange = {(value)=>setJudgement5(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id5}
+								onValueChange = {(value)=>setCategoryNg5(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test5}
+								onValueChange = {(value)=>setFittingTest5(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight5} onChangeText={(value) => setProductWeight5(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note5} onChangeText={(value) => setKeterangan5(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table6.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>6</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece6}
+								onValueChange = {(value)=>setJudgement6(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id6}
+								onValueChange = {(value)=>setCategoryNg6(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test6}
+								onValueChange = {(value)=>setFittingTest6(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight6} onChangeText={(value) => setProductWeight6(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note6} onChangeText={(value) => setKeterangan6(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table7.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>7</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece7}
+								onValueChange = {(value)=>setJudgement7(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id7}
+								onValueChange = {(value)=>setCategoryNg7(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test7}
+								onValueChange = {(value)=>setFittingTest7(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight7} onChangeText={(value) => setProductWeight7(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note7} onChangeText={(value) => setKeterangan7(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table8.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>8</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece8}
+								onValueChange = {(value)=>setJudgement8(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id8}
+								onValueChange = {(value)=>setCategoryNg8(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test8}
+								onValueChange = {(value)=>setFittingTest8(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight8} onChangeText={(value) => setProductWeight8(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={product_weight8} onChangeText={(value) => setProductWeight8(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+			}else if(cavity == 9){
+				table1.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>1</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece1}
+								onValueChange = {(value)=>setJudgement1(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id1}
+								onValueChange = {(value)=>setCategoryNg1(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test1}
+								onValueChange = {(value)=>setFittingTest1(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight1} onChangeText={(value) => setProductWeight1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note1} onChangeText={(value) => setKeterangan1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table2.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>2</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece2}
+								onValueChange = {(value)=>setJudgement2(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id2}
+								onValueChange = {(value)=>setCategoryNg2(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test2}
+								onValueChange = {(value)=>setFittingTest2(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight2} onChangeText={(value) => setProductWeight2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note2} onChangeText={(value) => setKeterangan2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table3.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>3</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece3}
+								onValueChange = {(value)=>setJudgement3(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id3}
+								onValueChange = {(value)=>setCategoryNg3(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test3}
+								onValueChange = {(value)=>setFittingTest3(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight3} onChangeText={(value) => setProductWeight3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note3} onChangeText={(value) => setKeterangan3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table4.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>4</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece4}
+								onValueChange = {(value)=>setJudgement4(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id4}
+								onValueChange = {(value)=>setCategoryNg4(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test4}
+								onValueChange = {(value)=>setFittingTest4(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight4} onChangeText={(value) => setProductWeight4(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note4} onChangeText={(value) => setKeterangan4(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table5.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>5</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece5}
+								onValueChange = {(value)=>setJudgement5(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id5}
+								onValueChange = {(value)=>setCategoryNg5(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test5}
+								onValueChange = {(value)=>setFittingTest5(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight5} onChangeText={(value) => setProductWeight5(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note5} onChangeText={(value) => setKeterangan5(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table6.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>6</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece6}
+								onValueChange = {(value)=>setJudgement6(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id6}
+								onValueChange = {(value)=>setCategoryNg6(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test6}
+								onValueChange = {(value)=>setFittingTest6(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight6} onChangeText={(value) => setProductWeight6(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note6} onChangeText={(value) => setKeterangan6(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table7.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>7</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece7}
+								onValueChange = {(value)=>setJudgement7(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id7}
+								onValueChange = {(value)=>setCategoryNg7(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test7}
+								onValueChange = {(value)=>setFittingTest7(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight7} onChangeText={(value) => setProductWeight7(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note7} onChangeText={(value) => setKeterangan7(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table8.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>8</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece8}
+								onValueChange = {(value)=>setJudgement8(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id8}
+								onValueChange = {(value)=>setCategoryNg8(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test8}
+								onValueChange = {(value)=>setFittingTest8(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight8} onChangeText={(value) => setProductWeight8(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={product_weight8} onChangeText={(value) => setProductWeight8(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table9.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>9</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece9}
+								onValueChange = {(value)=>setJudgement9(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id9}
+								onValueChange = {(value)=>setCategoryNg9(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test9}
+								onValueChange = {(value)=>setFittingTest9(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight9} onChangeText={(value) => setProductWeight9(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note9} onChangeText={(value) => setKeterangan9(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+			}else if(cavity == 10){
+				table1.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>1</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece1}
+								onValueChange = {(value)=>setJudgement1(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id1}
+								onValueChange = {(value)=>setCategoryNg1(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test1}
+								onValueChange = {(value)=>setFittingTest1(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight1} onChangeText={(value) => setProductWeight1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note1} onChangeText={(value) => setKeterangan1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table2.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>2</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece2}
+								onValueChange = {(value)=>setJudgement2(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id2}
+								onValueChange = {(value)=>setCategoryNg2(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test2}
+								onValueChange = {(value)=>setFittingTest2(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight2} onChangeText={(value) => setProductWeight2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note2} onChangeText={(value) => setKeterangan2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table3.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>3</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece3}
+								onValueChange = {(value)=>setJudgement3(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id3}
+								onValueChange = {(value)=>setCategoryNg3(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test3}
+								onValueChange = {(value)=>setFittingTest3(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight3} onChangeText={(value) => setProductWeight3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note3} onChangeText={(value) => setKeterangan3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table4.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>4</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece4}
+								onValueChange = {(value)=>setJudgement4(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id4}
+								onValueChange = {(value)=>setCategoryNg4(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test4}
+								onValueChange = {(value)=>setFittingTest4(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight4} onChangeText={(value) => setProductWeight4(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note4} onChangeText={(value) => setKeterangan4(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table5.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>5</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece5}
+								onValueChange = {(value)=>setJudgement5(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id5}
+								onValueChange = {(value)=>setCategoryNg5(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test5}
+								onValueChange = {(value)=>setFittingTest5(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight5} onChangeText={(value) => setProductWeight5(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note5} onChangeText={(value) => setKeterangan5(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table6.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>6</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece6}
+								onValueChange = {(value)=>setJudgement6(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id6}
+								onValueChange = {(value)=>setCategoryNg6(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test6}
+								onValueChange = {(value)=>setFittingTest6(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight6} onChangeText={(value) => setProductWeight6(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note6} onChangeText={(value) => setKeterangan6(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table7.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>7</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece7}
+								onValueChange = {(value)=>setJudgement7(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id7}
+								onValueChange = {(value)=>setCategoryNg7(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test7}
+								onValueChange = {(value)=>setFittingTest7(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight7} onChangeText={(value) => setProductWeight7(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note7} onChangeText={(value) => setKeterangan7(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table8.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>8</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece8}
+								onValueChange = {(value)=>setJudgement8(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id8}
+								onValueChange = {(value)=>setCategoryNg8(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test8}
+								onValueChange = {(value)=>setFittingTest8(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight8} onChangeText={(value) => setProductWeight8(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={product_weight8} onChangeText={(value) => setProductWeight8(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table9.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>9</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece9}
+								onValueChange = {(value)=>setJudgement9(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id9}
+								onValueChange = {(value)=>setCategoryNg9(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test9}
+								onValueChange = {(value)=>setFittingTest9(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight9} onChangeText={(value) => setProductWeight9(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note9} onChangeText={(value) => setKeterangan9(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table10.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>10</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece10}
+								onValueChange = {(value)=>setJudgement10(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id10}
+								onValueChange = {(value)=>setCategoryNg10(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test10}
+								onValueChange = {(value)=>setFittingTest10(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight10} onChangeText={(value) => setProductWeight10(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note10} onChangeText={(value) => setKeterangan10(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+			}else if(cavity == 11){
+				table1.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>1</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece1}
+								onValueChange = {(value)=>setJudgement1(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id1}
+								onValueChange = {(value)=>setCategoryNg1(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test1}
+								onValueChange = {(value)=>setFittingTest1(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight1} onChangeText={(value) => setProductWeight1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note1} onChangeText={(value) => setKeterangan1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table2.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>2</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece2}
+								onValueChange = {(value)=>setJudgement2(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id2}
+								onValueChange = {(value)=>setCategoryNg2(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test2}
+								onValueChange = {(value)=>setFittingTest2(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight2} onChangeText={(value) => setProductWeight2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note2} onChangeText={(value) => setKeterangan2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table3.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>3</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece3}
+								onValueChange = {(value)=>setJudgement3(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id3}
+								onValueChange = {(value)=>setCategoryNg3(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test3}
+								onValueChange = {(value)=>setFittingTest3(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight3} onChangeText={(value) => setProductWeight3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note3} onChangeText={(value) => setKeterangan3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table4.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>4</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece4}
+								onValueChange = {(value)=>setJudgement4(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id4}
+								onValueChange = {(value)=>setCategoryNg4(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test4}
+								onValueChange = {(value)=>setFittingTest4(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight4} onChangeText={(value) => setProductWeight4(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note4} onChangeText={(value) => setKeterangan4(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table5.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>5</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece5}
+								onValueChange = {(value)=>setJudgement5(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id5}
+								onValueChange = {(value)=>setCategoryNg5(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test5}
+								onValueChange = {(value)=>setFittingTest5(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight5} onChangeText={(value) => setProductWeight5(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note5} onChangeText={(value) => setKeterangan5(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table6.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>6</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece6}
+								onValueChange = {(value)=>setJudgement6(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id6}
+								onValueChange = {(value)=>setCategoryNg6(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test6}
+								onValueChange = {(value)=>setFittingTest6(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight6} onChangeText={(value) => setProductWeight6(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note6} onChangeText={(value) => setKeterangan6(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table7.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>7</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece7}
+								onValueChange = {(value)=>setJudgement7(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id7}
+								onValueChange = {(value)=>setCategoryNg7(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test7}
+								onValueChange = {(value)=>setFittingTest7(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight7} onChangeText={(value) => setProductWeight7(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note7} onChangeText={(value) => setKeterangan7(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table8.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>8</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece8}
+								onValueChange = {(value)=>setJudgement8(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id8}
+								onValueChange = {(value)=>setCategoryNg8(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test8}
+								onValueChange = {(value)=>setFittingTest8(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight8} onChangeText={(value) => setProductWeight8(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={product_weight8} onChangeText={(value) => setProductWeight8(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table9.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>9</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece9}
+								onValueChange = {(value)=>setJudgement9(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id9}
+								onValueChange = {(value)=>setCategoryNg9(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test9}
+								onValueChange = {(value)=>setFittingTest9(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight9} onChangeText={(value) => setProductWeight9(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note9} onChangeText={(value) => setKeterangan9(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table10.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>10</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece10}
+								onValueChange = {(value)=>setJudgement10(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id10}
+								onValueChange = {(value)=>setCategoryNg10(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test10}
+								onValueChange = {(value)=>setFittingTest10(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight10} onChangeText={(value) => setProductWeight10(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note10} onChangeText={(value) => setKeterangan10(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table11.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>11</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece11}
+								onValueChange = {(value)=>setJudgement11(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id11}
+								onValueChange = {(value)=>setCategoryNg11(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test11}
+								onValueChange = {(value)=>setFittingTest11(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight11} onChangeText={(value) => setProductWeight11(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note11} onChangeText={(value) => setKeterangan11(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+			}else if(cavity == 12){
+				table1.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>1</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece1}
+								onValueChange = {(value)=>setJudgement1(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id1}
+								onValueChange = {(value)=>setCategoryNg1(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test1}
+								onValueChange = {(value)=>setFittingTest1(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight1} onChangeText={(value) => setProductWeight1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note1} onChangeText={(value) => setKeterangan1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table2.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>2</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece2}
+								onValueChange = {(value)=>setJudgement2(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id2}
+								onValueChange = {(value)=>setCategoryNg2(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test2}
+								onValueChange = {(value)=>setFittingTest2(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight2} onChangeText={(value) => setProductWeight2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note2} onChangeText={(value) => setKeterangan2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table3.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>3</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece3}
+								onValueChange = {(value)=>setJudgement3(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id3}
+								onValueChange = {(value)=>setCategoryNg3(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test3}
+								onValueChange = {(value)=>setFittingTest3(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight3} onChangeText={(value) => setProductWeight3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note3} onChangeText={(value) => setKeterangan3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table4.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>4</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece4}
+								onValueChange = {(value)=>setJudgement4(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id4}
+								onValueChange = {(value)=>setCategoryNg4(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test4}
+								onValueChange = {(value)=>setFittingTest4(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight4} onChangeText={(value) => setProductWeight4(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note4} onChangeText={(value) => setKeterangan4(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table5.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>5</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece5}
+								onValueChange = {(value)=>setJudgement5(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id5}
+								onValueChange = {(value)=>setCategoryNg5(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test5}
+								onValueChange = {(value)=>setFittingTest5(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight5} onChangeText={(value) => setProductWeight5(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note5} onChangeText={(value) => setKeterangan5(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table6.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>6</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece6}
+								onValueChange = {(value)=>setJudgement6(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id6}
+								onValueChange = {(value)=>setCategoryNg6(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test6}
+								onValueChange = {(value)=>setFittingTest6(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight6} onChangeText={(value) => setProductWeight6(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note6} onChangeText={(value) => setKeterangan6(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table7.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>7</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece7}
+								onValueChange = {(value)=>setJudgement7(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id7}
+								onValueChange = {(value)=>setCategoryNg7(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test7}
+								onValueChange = {(value)=>setFittingTest7(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight7} onChangeText={(value) => setProductWeight7(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note7} onChangeText={(value) => setKeterangan7(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table8.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>8</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece8}
+								onValueChange = {(value)=>setJudgement8(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id8}
+								onValueChange = {(value)=>setCategoryNg8(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test8}
+								onValueChange = {(value)=>setFittingTest8(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight8} onChangeText={(value) => setProductWeight8(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={product_weight8} onChangeText={(value) => setProductWeight8(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table9.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>9</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece9}
+								onValueChange = {(value)=>setJudgement9(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id9}
+								onValueChange = {(value)=>setCategoryNg9(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test9}
+								onValueChange = {(value)=>setFittingTest9(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight9} onChangeText={(value) => setProductWeight9(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note9} onChangeText={(value) => setKeterangan9(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table10.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>10</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece10}
+								onValueChange = {(value)=>setJudgement10(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id10}
+								onValueChange = {(value)=>setCategoryNg10(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test10}
+								onValueChange = {(value)=>setFittingTest10(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight10} onChangeText={(value) => setProductWeight10(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note10} onChangeText={(value) => setKeterangan10(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table11.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>11</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece11}
+								onValueChange = {(value)=>setJudgement11(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id11}
+								onValueChange = {(value)=>setCategoryNg11(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test11}
+								onValueChange = {(value)=>setFittingTest11(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight11} onChangeText={(value) => setProductWeight11(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note11} onChangeText={(value) => setKeterangan11(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table12.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>12</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece12}
+								onValueChange = {(value)=>setJudgement12(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id12}
+								onValueChange = {(value)=>setCategoryNg12(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test12}
+								onValueChange = {(value)=>setFittingTest12(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight12} onChangeText={(value) => setProductWeight12(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note12} onChangeText={(value) => setKeterangan12(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+			}else if(cavity == 13){
+				table1.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>1</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece1}
+								onValueChange = {(value)=>setJudgement1(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id1}
+								onValueChange = {(value)=>setCategoryNg1(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test1}
+								onValueChange = {(value)=>setFittingTest1(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight1} onChangeText={(value) => setProductWeight1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note1} onChangeText={(value) => setKeterangan1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table2.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>2</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece2}
+								onValueChange = {(value)=>setJudgement2(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id2}
+								onValueChange = {(value)=>setCategoryNg2(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test2}
+								onValueChange = {(value)=>setFittingTest2(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight2} onChangeText={(value) => setProductWeight2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note2} onChangeText={(value) => setKeterangan2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table3.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>3</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece3}
+								onValueChange = {(value)=>setJudgement3(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id3}
+								onValueChange = {(value)=>setCategoryNg3(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test3}
+								onValueChange = {(value)=>setFittingTest3(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight3} onChangeText={(value) => setProductWeight3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note3} onChangeText={(value) => setKeterangan3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table4.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>4</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece4}
+								onValueChange = {(value)=>setJudgement4(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id4}
+								onValueChange = {(value)=>setCategoryNg4(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test4}
+								onValueChange = {(value)=>setFittingTest4(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight4} onChangeText={(value) => setProductWeight4(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note4} onChangeText={(value) => setKeterangan4(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table5.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>5</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece5}
+								onValueChange = {(value)=>setJudgement5(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id5}
+								onValueChange = {(value)=>setCategoryNg5(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test5}
+								onValueChange = {(value)=>setFittingTest5(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight5} onChangeText={(value) => setProductWeight5(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note5} onChangeText={(value) => setKeterangan5(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table6.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>6</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece6}
+								onValueChange = {(value)=>setJudgement6(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id6}
+								onValueChange = {(value)=>setCategoryNg6(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test6}
+								onValueChange = {(value)=>setFittingTest6(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight6} onChangeText={(value) => setProductWeight6(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note6} onChangeText={(value) => setKeterangan6(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table7.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>7</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece7}
+								onValueChange = {(value)=>setJudgement7(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id7}
+								onValueChange = {(value)=>setCategoryNg7(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test7}
+								onValueChange = {(value)=>setFittingTest7(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight7} onChangeText={(value) => setProductWeight7(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note7} onChangeText={(value) => setKeterangan7(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table8.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>8</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece8}
+								onValueChange = {(value)=>setJudgement8(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id8}
+								onValueChange = {(value)=>setCategoryNg8(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test8}
+								onValueChange = {(value)=>setFittingTest8(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight8} onChangeText={(value) => setProductWeight8(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={product_weight8} onChangeText={(value) => setProductWeight8(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table9.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>9</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece9}
+								onValueChange = {(value)=>setJudgement9(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id9}
+								onValueChange = {(value)=>setCategoryNg9(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test9}
+								onValueChange = {(value)=>setFittingTest9(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight9} onChangeText={(value) => setProductWeight9(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note9} onChangeText={(value) => setKeterangan9(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table10.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>10</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece10}
+								onValueChange = {(value)=>setJudgement10(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id10}
+								onValueChange = {(value)=>setCategoryNg10(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test10}
+								onValueChange = {(value)=>setFittingTest10(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight10} onChangeText={(value) => setProductWeight10(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note10} onChangeText={(value) => setKeterangan10(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table11.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>11</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece11}
+								onValueChange = {(value)=>setJudgement11(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id11}
+								onValueChange = {(value)=>setCategoryNg11(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test11}
+								onValueChange = {(value)=>setFittingTest11(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight11} onChangeText={(value) => setProductWeight11(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note11} onChangeText={(value) => setKeterangan11(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table12.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>12</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece12}
+								onValueChange = {(value)=>setJudgement12(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id12}
+								onValueChange = {(value)=>setCategoryNg12(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test12}
+								onValueChange = {(value)=>setFittingTest12(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight12} onChangeText={(value) => setProductWeight12(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note12} onChangeText={(value) => setKeterangan12(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table13.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>13</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece13}
+								onValueChange = {(value)=>setJudgement13(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id13}
+								onValueChange = {(value)=>setCategoryNg13(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test13}
+								onValueChange = {(value)=>setFittingTest13(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight13} onChangeText={(value) => setProductWeight13(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note13} onChangeText={(value) => setKeterangan13(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+			}else if(cavity == 14){
+				table1.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>1</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece1}
+								onValueChange = {(value)=>setJudgement1(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id1}
+								onValueChange = {(value)=>setCategoryNg1(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test1}
+								onValueChange = {(value)=>setFittingTest1(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight1} onChangeText={(value) => setProductWeight1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note1} onChangeText={(value) => setKeterangan1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table2.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>2</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece2}
+								onValueChange = {(value)=>setJudgement2(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id2}
+								onValueChange = {(value)=>setCategoryNg2(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test2}
+								onValueChange = {(value)=>setFittingTest2(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight2} onChangeText={(value) => setProductWeight2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note2} onChangeText={(value) => setKeterangan2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table3.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>3</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece3}
+								onValueChange = {(value)=>setJudgement3(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id3}
+								onValueChange = {(value)=>setCategoryNg3(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test3}
+								onValueChange = {(value)=>setFittingTest3(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight3} onChangeText={(value) => setProductWeight3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note3} onChangeText={(value) => setKeterangan3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table4.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>4</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece4}
+								onValueChange = {(value)=>setJudgement4(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id4}
+								onValueChange = {(value)=>setCategoryNg4(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test4}
+								onValueChange = {(value)=>setFittingTest4(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight4} onChangeText={(value) => setProductWeight4(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note4} onChangeText={(value) => setKeterangan4(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table5.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>5</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece5}
+								onValueChange = {(value)=>setJudgement5(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id5}
+								onValueChange = {(value)=>setCategoryNg5(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test5}
+								onValueChange = {(value)=>setFittingTest5(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight5} onChangeText={(value) => setProductWeight5(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note5} onChangeText={(value) => setKeterangan5(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table6.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>6</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece6}
+								onValueChange = {(value)=>setJudgement6(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id6}
+								onValueChange = {(value)=>setCategoryNg6(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test6}
+								onValueChange = {(value)=>setFittingTest6(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight6} onChangeText={(value) => setProductWeight6(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note6} onChangeText={(value) => setKeterangan6(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table7.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>7</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece7}
+								onValueChange = {(value)=>setJudgement7(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id7}
+								onValueChange = {(value)=>setCategoryNg7(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test7}
+								onValueChange = {(value)=>setFittingTest7(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight7} onChangeText={(value) => setProductWeight7(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note7} onChangeText={(value) => setKeterangan7(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table8.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>8</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece8}
+								onValueChange = {(value)=>setJudgement8(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id8}
+								onValueChange = {(value)=>setCategoryNg8(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test8}
+								onValueChange = {(value)=>setFittingTest8(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight8} onChangeText={(value) => setProductWeight8(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={product_weight8} onChangeText={(value) => setProductWeight8(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table9.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>9</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece9}
+								onValueChange = {(value)=>setJudgement9(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id9}
+								onValueChange = {(value)=>setCategoryNg9(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test9}
+								onValueChange = {(value)=>setFittingTest9(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight9} onChangeText={(value) => setProductWeight9(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note9} onChangeText={(value) => setKeterangan9(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table10.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>10</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece10}
+								onValueChange = {(value)=>setJudgement10(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id10}
+								onValueChange = {(value)=>setCategoryNg10(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test10}
+								onValueChange = {(value)=>setFittingTest10(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight10} onChangeText={(value) => setProductWeight10(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note10} onChangeText={(value) => setKeterangan10(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table11.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>11</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece11}
+								onValueChange = {(value)=>setJudgement11(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id11}
+								onValueChange = {(value)=>setCategoryNg11(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test11}
+								onValueChange = {(value)=>setFittingTest11(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight11} onChangeText={(value) => setProductWeight11(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note11} onChangeText={(value) => setKeterangan11(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table12.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>12</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece12}
+								onValueChange = {(value)=>setJudgement12(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id12}
+								onValueChange = {(value)=>setCategoryNg12(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test12}
+								onValueChange = {(value)=>setFittingTest12(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight12} onChangeText={(value) => setProductWeight12(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note12} onChangeText={(value) => setKeterangan12(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table13.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>13</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece13}
+								onValueChange = {(value)=>setJudgement13(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id13}
+								onValueChange = {(value)=>setCategoryNg13(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test13}
+								onValueChange = {(value)=>setFittingTest13(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight13} onChangeText={(value) => setProductWeight13(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note13} onChangeText={(value) => setKeterangan13(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table14.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>14</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece14}
+								onValueChange = {(value)=>setJudgement14(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id14}
+								onValueChange = {(value)=>setCategoryNg14(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test14}
+								onValueChange = {(value)=>setFittingTest14(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight14} onChangeText={(value) => setProductWeight14(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note14} onChangeText={(value) => setKeterangan14(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+			}else if(cavity == 15){
+				table1.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>1</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece1}
+								onValueChange = {(value)=>setJudgement1(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id1}
+								onValueChange = {(value)=>setCategoryNg1(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test1}
+								onValueChange = {(value)=>setFittingTest1(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight1} onChangeText={(value) => setProductWeight1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput keyboardType="numeric" value={note1} onChangeText={(value) => setKeterangan1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table2.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>2</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece2}
+								onValueChange = {(value)=>setJudgement2(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id2}
+								onValueChange = {(value)=>setCategoryNg2(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test2}
+								onValueChange = {(value)=>setFittingTest2(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight2} onChangeText={(value) => setProductWeight2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note2} onChangeText={(value) => setKeterangan2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table3.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>3</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece3}
+								onValueChange = {(value)=>setJudgement3(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id3}
+								onValueChange = {(value)=>setCategoryNg3(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test3}
+								onValueChange = {(value)=>setFittingTest3(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight3} onChangeText={(value) => setProductWeight3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note3} onChangeText={(value) => setKeterangan3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table4.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>4</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece4}
+								onValueChange = {(value)=>setJudgement4(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id4}
+								onValueChange = {(value)=>setCategoryNg4(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test4}
+								onValueChange = {(value)=>setFittingTest4(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight4} onChangeText={(value) => setProductWeight4(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note4} onChangeText={(value) => setKeterangan4(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table5.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>5</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece5}
+								onValueChange = {(value)=>setJudgement5(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id5}
+								onValueChange = {(value)=>setCategoryNg5(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test5}
+								onValueChange = {(value)=>setFittingTest5(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight5} onChangeText={(value) => setProductWeight5(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note5} onChangeText={(value) => setKeterangan5(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table6.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>6</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece6}
+								onValueChange = {(value)=>setJudgement6(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id6}
+								onValueChange = {(value)=>setCategoryNg6(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test6}
+								onValueChange = {(value)=>setFittingTest6(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight6} onChangeText={(value) => setProductWeight6(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note6} onChangeText={(value) => setKeterangan6(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table7.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>7</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece7}
+								onValueChange = {(value)=>setJudgement7(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id7}
+								onValueChange = {(value)=>setCategoryNg7(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test7}
+								onValueChange = {(value)=>setFittingTest7(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight7} onChangeText={(value) => setProductWeight7(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note7} onChangeText={(value) => setKeterangan7(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table8.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>8</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece8}
+								onValueChange = {(value)=>setJudgement8(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id8}
+								onValueChange = {(value)=>setCategoryNg8(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test8}
+								onValueChange = {(value)=>setFittingTest8(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight8} onChangeText={(value) => setProductWeight8(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={product_weight8} onChangeText={(value) => setProductWeight8(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table9.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>9</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece9}
+								onValueChange = {(value)=>setJudgement9(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id9}
+								onValueChange = {(value)=>setCategoryNg9(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test9}
+								onValueChange = {(value)=>setFittingTest9(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight9} onChangeText={(value) => setProductWeight9(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note9} onChangeText={(value) => setKeterangan9(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table10.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>10</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece10}
+								onValueChange = {(value)=>setJudgement10(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id10}
+								onValueChange = {(value)=>setCategoryNg10(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test10}
+								onValueChange = {(value)=>setFittingTest10(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight10} onChangeText={(value) => setProductWeight10(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note10} onChangeText={(value) => setKeterangan10(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table11.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>11</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece11}
+								onValueChange = {(value)=>setJudgement11(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id11}
+								onValueChange = {(value)=>setCategoryNg11(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test11}
+								onValueChange = {(value)=>setFittingTest11(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight11} onChangeText={(value) => setProductWeight11(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note11} onChangeText={(value) => setKeterangan11(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table12.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>12</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece12}
+								onValueChange = {(value)=>setJudgement12(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id12}
+								onValueChange = {(value)=>setCategoryNg12(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test12}
+								onValueChange = {(value)=>setFittingTest12(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight12} onChangeText={(value) => setProductWeight12(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note12} onChangeText={(value) => setKeterangan12(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table13.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>13</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece13}
+								onValueChange = {(value)=>setJudgement13(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id13}
+								onValueChange = {(value)=>setCategoryNg13(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test13}
+								onValueChange = {(value)=>setFittingTest13(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight13} onChangeText={(value) => setProductWeight13(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note13} onChangeText={(value) => setKeterangan13(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table14.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>14</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece14}
+								onValueChange = {(value)=>setJudgement14(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id14}
+								onValueChange = {(value)=>setCategoryNg14(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test14}
+								onValueChange = {(value)=>setFittingTest14(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight14} onChangeText={(value) => setProductWeight14(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note14} onChangeText={(value) => setKeterangan14(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table15.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>15</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece15}
+								onValueChange = {(value)=>setJudgement15(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id15}
+								onValueChange = {(value)=>setCategoryNg15(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test15}
+								onValueChange = {(value)=>setFittingTest15(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight15} onChangeText={(value) => setProductWeight15(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note15} onChangeText={(value) => setKeterangan15(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+			}else if(cavity == 16){
+				table1.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>1</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece1}
+								onValueChange = {(value)=>setJudgement1(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id1}
+								onValueChange = {(value)=>setCategoryNg1(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test1}
+								onValueChange = {(value)=>setFittingTest1(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight1} onChangeText={(value) => setProductWeight1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note1} onChangeText={(value) => setKeterangan1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table2.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>2</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece2}
+								onValueChange = {(value)=>setJudgement2(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id2}
+								onValueChange = {(value)=>setCategoryNg2(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test2}
+								onValueChange = {(value)=>setFittingTest2(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight2} onChangeText={(value) => setProductWeight2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note2} onChangeText={(value) => setKeterangan2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table3.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>3</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece3}
+								onValueChange = {(value)=>setJudgement3(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id3}
+								onValueChange = {(value)=>setCategoryNg3(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test3}
+								onValueChange = {(value)=>setFittingTest3(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight3} onChangeText={(value) => setProductWeight3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note3} onChangeText={(value) => setKeterangan3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table4.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>4</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece4}
+								onValueChange = {(value)=>setJudgement4(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id4}
+								onValueChange = {(value)=>setCategoryNg4(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test4}
+								onValueChange = {(value)=>setFittingTest4(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight4} onChangeText={(value) => setProductWeight4(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note4} onChangeText={(value) => setKeterangan4(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table5.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>5</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece5}
+								onValueChange = {(value)=>setJudgement5(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id5}
+								onValueChange = {(value)=>setCategoryNg5(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test5}
+								onValueChange = {(value)=>setFittingTest5(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight5} onChangeText={(value) => setProductWeight5(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note5} onChangeText={(value) => setKeterangan5(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table6.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>6</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece6}
+								onValueChange = {(value)=>setJudgement6(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id6}
+								onValueChange = {(value)=>setCategoryNg6(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test6}
+								onValueChange = {(value)=>setFittingTest6(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight6} onChangeText={(value) => setProductWeight6(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note6} onChangeText={(value) => setKeterangan6(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table7.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>7</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece7}
+								onValueChange = {(value)=>setJudgement7(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id7}
+								onValueChange = {(value)=>setCategoryNg7(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test7}
+								onValueChange = {(value)=>setFittingTest7(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight7} onChangeText={(value) => setProductWeight7(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note7} onChangeText={(value) => setKeterangan7(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table8.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>8</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece8}
+								onValueChange = {(value)=>setJudgement8(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id8}
+								onValueChange = {(value)=>setCategoryNg8(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test8}
+								onValueChange = {(value)=>setFittingTest8(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight8} onChangeText={(value) => setProductWeight8(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={product_weight8} onChangeText={(value) => setProductWeight8(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table9.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>9</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece9}
+								onValueChange = {(value)=>setJudgement9(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id9}
+								onValueChange = {(value)=>setCategoryNg9(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test9}
+								onValueChange = {(value)=>setFittingTest9(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight9} onChangeText={(value) => setProductWeight9(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note9} onChangeText={(value) => setKeterangan9(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table10.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>10</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece10}
+								onValueChange = {(value)=>setJudgement10(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id10}
+								onValueChange = {(value)=>setCategoryNg10(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test10}
+								onValueChange = {(value)=>setFittingTest10(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight10} onChangeText={(value) => setProductWeight10(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note10} onChangeText={(value) => setKeterangan10(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table11.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>11</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece11}
+								onValueChange = {(value)=>setJudgement11(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id11}
+								onValueChange = {(value)=>setCategoryNg11(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test11}
+								onValueChange = {(value)=>setFittingTest11(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight11} onChangeText={(value) => setProductWeight11(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note11} onChangeText={(value) => setKeterangan11(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table12.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>12</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece12}
+								onValueChange = {(value)=>setJudgement12(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id12}
+								onValueChange = {(value)=>setCategoryNg12(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test12}
+								onValueChange = {(value)=>setFittingTest12(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight12} onChangeText={(value) => setProductWeight12(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note12} onChangeText={(value) => setKeterangan12(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table13.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>13</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece13}
+								onValueChange = {(value)=>setJudgement13(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id13}
+								onValueChange = {(value)=>setCategoryNg13(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test13}
+								onValueChange = {(value)=>setFittingTest13(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight13} onChangeText={(value) => setProductWeight13(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note13} onChangeText={(value) => setKeterangan13(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table14.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>14</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece14}
+								onValueChange = {(value)=>setJudgement14(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id14}
+								onValueChange = {(value)=>setCategoryNg14(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test14}
+								onValueChange = {(value)=>setFittingTest14(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight14} onChangeText={(value) => setProductWeight14(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note14} onChangeText={(value) => setKeterangan14(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table15.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>15</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece15}
+								onValueChange = {(value)=>setJudgement15(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id15}
+								onValueChange = {(value)=>setCategoryNg15(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test15}
+								onValueChange = {(value)=>setFittingTest15(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {product_weight15}
+								onValueChange = {(value)=>setProductWeight15(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {note15}
+								onValueChange = {(value)=>setKeterangan15(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+					</View>
+				)
+				table16.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>16</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece16}
+								onValueChange = {(value)=>setJudgement16(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id16}
+								onValueChange = {(value)=>setCategoryNg16(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test16}
+								onValueChange = {(value)=>setFittingTest16(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight16} onChangeText={(value) => setProductWeight16(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note16} onChangeText={(value) => setKeterangan16(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+			}else if(cavity == 17){
+				table1.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>1</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece1}
+								onValueChange = {(value)=>setJudgement1(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id1}
+								onValueChange = {(value)=>setCategoryNg1(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test1}
+								onValueChange = {(value)=>setFittingTest1(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight1} onChangeText={(value) => setProductWeight1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note1} onChangeText={(value) => setKeterangan1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table2.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>2</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece2}
+								onValueChange = {(value)=>setJudgement2(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id2}
+								onValueChange = {(value)=>setCategoryNg2(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test2}
+								onValueChange = {(value)=>setFittingTest2(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight2} onChangeText={(value) => setProductWeight2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note2} onChangeText={(value) => setKeterangan2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table3.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>3</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece3}
+								onValueChange = {(value)=>setJudgement3(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id3}
+								onValueChange = {(value)=>setCategoryNg3(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test3}
+								onValueChange = {(value)=>setFittingTest3(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight3} onChangeText={(value) => setProductWeight3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note3} onChangeText={(value) => setKeterangan3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table4.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>4</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece4}
+								onValueChange = {(value)=>setJudgement4(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id4}
+								onValueChange = {(value)=>setCategoryNg4(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test4}
+								onValueChange = {(value)=>setFittingTest4(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight4} onChangeText={(value) => setProductWeight4(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note4} onChangeText={(value) => setKeterangan4(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table5.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>5</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece5}
+								onValueChange = {(value)=>setJudgement5(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id5}
+								onValueChange = {(value)=>setCategoryNg5(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test5}
+								onValueChange = {(value)=>setFittingTest5(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight5} onChangeText={(value) => setProductWeight5(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note5} onChangeText={(value) => setKeterangan5(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table6.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>6</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece6}
+								onValueChange = {(value)=>setJudgement6(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id6}
+								onValueChange = {(value)=>setCategoryNg6(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test6}
+								onValueChange = {(value)=>setFittingTest6(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight6} onChangeText={(value) => setProductWeight6(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note6} onChangeText={(value) => setKeterangan6(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table7.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>7</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece7}
+								onValueChange = {(value)=>setJudgement7(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id7}
+								onValueChange = {(value)=>setCategoryNg7(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test7}
+								onValueChange = {(value)=>setFittingTest7(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight7} onChangeText={(value) => setProductWeight7(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note7} onChangeText={(value) => setKeterangan7(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table8.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>8</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece8}
+								onValueChange = {(value)=>setJudgement8(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id8}
+								onValueChange = {(value)=>setCategoryNg8(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test8}
+								onValueChange = {(value)=>setFittingTest8(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight8} onChangeText={(value) => setProductWeight8(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={product_weight8} onChangeText={(value) => setProductWeight8(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table9.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>9</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece9}
+								onValueChange = {(value)=>setJudgement9(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id9}
+								onValueChange = {(value)=>setCategoryNg9(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test9}
+								onValueChange = {(value)=>setFittingTest9(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight9} onChangeText={(value) => setProductWeight9(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note9} onChangeText={(value) => setKeterangan9(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table10.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>10</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece10}
+								onValueChange = {(value)=>setJudgement10(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id10}
+								onValueChange = {(value)=>setCategoryNg10(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test10}
+								onValueChange = {(value)=>setFittingTest10(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight10} onChangeText={(value) => setProductWeight10(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note10} onChangeText={(value) => setKeterangan10(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table11.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>11</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece11}
+								onValueChange = {(value)=>setJudgement11(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id11}
+								onValueChange = {(value)=>setCategoryNg11(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test11}
+								onValueChange = {(value)=>setFittingTest11(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight11} onChangeText={(value) => setProductWeight11(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note11} onChangeText={(value) => setKeterangan11(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table12.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>12</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece12}
+								onValueChange = {(value)=>setJudgement12(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id12}
+								onValueChange = {(value)=>setCategoryNg12(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test12}
+								onValueChange = {(value)=>setFittingTest12(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight12} onChangeText={(value) => setProductWeight12(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note12} onChangeText={(value) => setKeterangan12(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table13.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>13</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece13}
+								onValueChange = {(value)=>setJudgement13(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id13}
+								onValueChange = {(value)=>setCategoryNg13(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test13}
+								onValueChange = {(value)=>setFittingTest13(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight13} onChangeText={(value) => setProductWeight13(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note13} onChangeText={(value) => setKeterangan13(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table14.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>14</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece14}
+								onValueChange = {(value)=>setJudgement14(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id14}
+								onValueChange = {(value)=>setCategoryNg14(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test14}
+								onValueChange = {(value)=>setFittingTest14(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight14} onChangeText={(value) => setProductWeight14(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note14} onChangeText={(value) => setKeterangan14(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table15.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>15</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece15}
+								onValueChange = {(value)=>setJudgement15(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id15}
+								onValueChange = {(value)=>setCategoryNg15(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test15}
+								onValueChange = {(value)=>setFittingTest15(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {product_weight15}
+								onValueChange = {(value)=>setProductWeight15(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {note15}
+								onValueChange = {(value)=>setKeterangan15(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+					</View>
+				)
+				table16.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>6</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece16}
+								onValueChange = {(value)=>setJudgement16(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id16}
+								onValueChange = {(value)=>setCategoryNg16(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test16}
+								onValueChange = {(value)=>setFittingTest16(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight16} onChangeText={(value) => setProductWeight16(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note16} onChangeText={(value) => setKeterangan16(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table17.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>17</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece17}
+								onValueChange = {(value)=>setJudgement17(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id17}
+								onValueChange = {(value)=>setCategoryNg17(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test17}
+								onValueChange = {(value)=>setFittingTest17(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight17} onChangeText={(value) => setProductWeight17(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note17} onChangeText={(value) => setKeterangan17(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+			
+			}else if(cavity == 18){
+				table1.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>1</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece1}
+								onValueChange = {(value)=>setJudgement1(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id1}
+								onValueChange = {(value)=>setCategoryNg1(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test1}
+								onValueChange = {(value)=>setFittingTest1(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight1} onChangeText={(value) => setProductWeight1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note1} onChangeText={(value) => setKeterangan1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table2.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>2</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece2}
+								onValueChange = {(value)=>setJudgement2(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id2}
+								onValueChange = {(value)=>setCategoryNg2(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test2}
+								onValueChange = {(value)=>setFittingTest2(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight2} onChangeText={(value) => setProductWeight2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note2} onChangeText={(value) => setKeterangan2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table3.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>3</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece3}
+								onValueChange = {(value)=>setJudgement3(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id3}
+								onValueChange = {(value)=>setCategoryNg3(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test3}
+								onValueChange = {(value)=>setFittingTest3(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight3} onChangeText={(value) => setProductWeight3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note3} onChangeText={(value) => setKeterangan3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table4.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>4</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece4}
+								onValueChange = {(value)=>setJudgement4(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id4}
+								onValueChange = {(value)=>setCategoryNg4(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test4}
+								onValueChange = {(value)=>setFittingTest4(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight4} onChangeText={(value) => setProductWeight4(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note4} onChangeText={(value) => setKeterangan4(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table5.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>5</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece5}
+								onValueChange = {(value)=>setJudgement5(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id5}
+								onValueChange = {(value)=>setCategoryNg5(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test5}
+								onValueChange = {(value)=>setFittingTest5(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight5} onChangeText={(value) => setProductWeight5(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note5} onChangeText={(value) => setKeterangan5(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table6.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>6</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece6}
+								onValueChange = {(value)=>setJudgement6(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id6}
+								onValueChange = {(value)=>setCategoryNg6(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test6}
+								onValueChange = {(value)=>setFittingTest6(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight6} onChangeText={(value) => setProductWeight6(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note6} onChangeText={(value) => setKeterangan6(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table7.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>7</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece7}
+								onValueChange = {(value)=>setJudgement7(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id7}
+								onValueChange = {(value)=>setCategoryNg7(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test7}
+								onValueChange = {(value)=>setFittingTest7(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight7} onChangeText={(value) => setProductWeight7(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note7} onChangeText={(value) => setKeterangan7(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table8.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>8</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece8}
+								onValueChange = {(value)=>setJudgement8(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id8}
+								onValueChange = {(value)=>setCategoryNg8(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test8}
+								onValueChange = {(value)=>setFittingTest8(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight8} onChangeText={(value) => setProductWeight8(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={product_weight8} onChangeText={(value) => setProductWeight8(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table9.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>9</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece9}
+								onValueChange = {(value)=>setJudgement9(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id9}
+								onValueChange = {(value)=>setCategoryNg9(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test9}
+								onValueChange = {(value)=>setFittingTest9(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight9} onChangeText={(value) => setProductWeight9(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note9} onChangeText={(value) => setKeterangan9(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table10.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>10</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece10}
+								onValueChange = {(value)=>setJudgement10(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id10}
+								onValueChange = {(value)=>setCategoryNg10(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test10}
+								onValueChange = {(value)=>setFittingTest10(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight10} onChangeText={(value) => setProductWeight10(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note10} onChangeText={(value) => setKeterangan10(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table11.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>11</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece11}
+								onValueChange = {(value)=>setJudgement11(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id11}
+								onValueChange = {(value)=>setCategoryNg11(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test11}
+								onValueChange = {(value)=>setFittingTest11(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight11} onChangeText={(value) => setProductWeight11(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note11} onChangeText={(value) => setKeterangan11(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table12.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>12</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece12}
+								onValueChange = {(value)=>setJudgement12(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id12}
+								onValueChange = {(value)=>setCategoryNg12(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test12}
+								onValueChange = {(value)=>setFittingTest12(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight12} onChangeText={(value) => setProductWeight12(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note12} onChangeText={(value) => setKeterangan12(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table13.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>13</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece13}
+								onValueChange = {(value)=>setJudgement13(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id13}
+								onValueChange = {(value)=>setCategoryNg13(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test13}
+								onValueChange = {(value)=>setFittingTest13(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight13} onChangeText={(value) => setProductWeight13(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note13} onChangeText={(value) => setKeterangan13(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table14.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>14</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece14}
+								onValueChange = {(value)=>setJudgement14(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id14}
+								onValueChange = {(value)=>setCategoryNg14(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test14}
+								onValueChange = {(value)=>setFittingTest14(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight14} onChangeText={(value) => setProductWeight14(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note14} onChangeText={(value) => setKeterangan14(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table15.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>15</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece15}
+								onValueChange = {(value)=>setJudgement15(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id15}
+								onValueChange = {(value)=>setCategoryNg15(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test15}
+								onValueChange = {(value)=>setFittingTest15(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {product_weight15}
+								onValueChange = {(value)=>setProductWeight15(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {note15}
+								onValueChange = {(value)=>setKeterangan15(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+					</View>
+				)
+				table16.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>16</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece16}
+								onValueChange = {(value)=>setJudgement16(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id16}
+								onValueChange = {(value)=>setCategoryNg16(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test16}
+								onValueChange = {(value)=>setFittingTest16(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight16} onChangeText={(value) => setProductWeight16(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note16} onChangeText={(value) => setKeterangan16(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table17.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>17</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece17}
+								onValueChange = {(value)=>setJudgement17(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id17}
+								onValueChange = {(value)=>setCategoryNg17(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test17}
+								onValueChange = {(value)=>setFittingTest17(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight17} onChangeText={(value) => setProductWeight17(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note17} onChangeText={(value) => setKeterangan17(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+				table18.push(
+					<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 100}}>
+								<Text>18</Text>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 168.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {judgement_first_piece18}
+								onValueChange = {(value)=>setJudgement18(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {qc_ng_category_id18}
+								onValueChange = {(value)=>setCategoryNg18(value)}
+								>
+									{dataNGs}
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 165.5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue= {fitting_test18}
+								onValueChange = {(value)=>setFittingTest18(value)}
+								>
+									<Picker.Item label="Pilih" value=""/>
+									<Picker.Item label="OK" value="OK"/>
+									<Picker.Item label="NG" value="NG"/>
+								</Picker>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 133.5}}>
+								<TextInput keyboardType="numeric" value={product_weight18} onChangeText={(value) => setProductWeight18(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', width: 145}}>
+								<TextInput value={note18} onChangeText={(value) => setKeterangan18(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+							</View>
+						</View>
+					</View>
+				)
+			}
+		}
+	// }else{
+	// 	if(massproql_items.length > 0){
+	// 		var i
+	// 		for(i = 0; i < cavityShow; i++){
+
+	// 		}
+	// 	}
+	// }
 
 	return(
 		<KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={{flex: 1}} >
