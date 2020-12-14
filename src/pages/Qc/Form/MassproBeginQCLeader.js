@@ -12,7 +12,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 	useEffect(() => {
 		formOke()
 	}, [])
-	const {product_name, customer_name, sys_plant_id, machine_id, machine_name, today, yesterday} = route.params
+	const {customer_name, sys_plant_id, machine_id, machine_name, today, yesterday} = route.params
 	const [machine_engine_status, setItem] 															 = useState("")
 	const [compare_sample, setCopySample] 															 = useState("")
 	const [check_sheet, setSheetQc] 																		 = useState("")
@@ -763,7 +763,6 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 						</View>
 					)
 				}
-
 				if(cavity > 2){
 					table1.push(
 						<View key="ascs23" style={{flexDirection: 'row', height: 50}}>
@@ -822,7 +821,6 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 						</View>
 					)
 				}
-
 				if(cavity > 3){
 					table1.push(
 						<View key="asc23s" style={{flexDirection: 'row', height: 50}}>
@@ -881,7 +879,6 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 						</View>
 					)
 				}
-
 				if(cavity > 4){
 					table1.push(
 						<View key="xczse1" style={{flexDirection: 'row', height: 50}}>
@@ -940,7 +937,6 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 						</View>
 					)
 				}
-
 				if(cavity > 5){
 					table1.push(
 						<View key="xczsoke2" style={{flexDirection: 'row', height: 50}}>
@@ -999,7 +995,6 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 						</View>
 					)
 				}
-
 				if(cavity > 6){
 					table1.push(
 						<View key="asdpk2p1" style={{flexDirection: 'row', height: 50}}>
@@ -1058,7 +1053,6 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 						</View>
 					)
 				}
-
 				if(cavity > 7){
 					table1.push(
 						<View key="xczs2" style={{flexDirection: 'row', height: 50}}>
@@ -1117,7 +1111,6 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 						</View>
 					)
 				}
-
 				if(cavity > 8){
 					table1.push(
 						<View key="Asd12da" style={{flexDirection: 'row', height: 50}}>
@@ -1176,7 +1169,6 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 						</View>
 					)
 				}
-
 				if(cavity > 9){
 					table1.push(
 						<View key="Asdasd1" style={{flexDirection: 'row', height: 50}}>
@@ -1235,7 +1227,6 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 						</View>
 					)
 				}
-
 				if(cavity > 10){
 					table1.push(
 						<View key="zxczew2" style={{flexDirection: 'row', height: 50}}>
@@ -1294,7 +1285,6 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 						</View>
 					)
 				}
-
 				if(cavity > 11){
 					table1.push(
 						<View key="Zxczsdweqw" style={{flexDirection: 'row', height: 50}}>
@@ -1353,7 +1343,6 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 						</View>
 					)
 				}
-
 				if(cavity > 12){
 					table1.push(
 						<View key="asdkfoi23" style={{flexDirection: 'row', height: 50}}>
@@ -1412,7 +1401,6 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 						</View>
 					)
 				}
-
 				if(cavity > 13){
 					table1.push(
 						<View key="coaisjdk1231" style={{flexDirection: 'row', height: 50}}>
@@ -1471,7 +1459,6 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 						</View>
 					)
 				}
-
 				if(cavity > 14){
 					table1.push(
 						<View key="oicjkoi23" style={{flexDirection: 'row', height: 50}}>
@@ -1530,7 +1517,6 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 						</View>
 					)
 				}
-
 				if(cavity > 15){
 					table1.push(
 						<View key="aoisdjki21" style={{flexDirection: 'row', height: 50}}>
@@ -1589,7 +1575,6 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 						</View>
 					)
 				}
-
 				if(cavity > 16){
 					table1.push(
 						<View key="oxicmzk2" style={{flexDirection: 'row', height: 50}}>
@@ -1649,7 +1634,6 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 					)
 				
 				}
-
 				if(cavity > 17){
 					table1.push(
 						<View key="xozijokm1" style={{flexDirection: 'row', height: 50}}>
@@ -1709,28 +1693,28 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 					)
 				}
 			}
-		} else {
-			if (updateMassproQlItem.length > 0) {
+		}else{
+			if(updateMassproQlItem.length > 0){
 				var i
 				for (i = 0; i < cavity; i++) {
 					table1.push(
 						<View key={i} style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, backgroundColor: '#b8b8b8', width: 100}}>
 								<Text>{updateMassproQlItem[i].cavity}</Text>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, backgroundColor: '#b8b8b8', width: 168.5}}>
 								<Text>{updateMassproQlItem[i].first_piece}</Text>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
-								<Text>{updateMassproQlItem[i].ng_category_id}</Text>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, backgroundColor: '#b8b8b8', width: 165.5}}>
+								<Text>{updateMassproQlItem[i].ng_category_id == null ? "Data OK" : updateMassproQlItem[i].ng_category_id}</Text>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, backgroundColor: '#b8b8b8', width: 165.5}}>
 								<Text>{updateMassproQlItem[i].fitting_test}</Text>							
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, backgroundColor: '#b8b8b8', width: 165.5}}>
 								<Text>{updateMassproQlItem[i].product_weight}</Text>				
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, backgroundColor: '#b8b8b8', width: 145}}>
 								<Text>{updateMassproQlItem[i].note}</Text>				
 							</View>
 						</View>
