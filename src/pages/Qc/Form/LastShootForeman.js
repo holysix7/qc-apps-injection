@@ -1,4 +1,4 @@
-import {Image, View, ScrollView, TextInput, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, TouchableOpacity} from 'react-native';
+import {Image, View, ScrollView, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import { Container, Text, Button, Picker } from 'native-base';
 import LogoSIP from '../../../assets/logo-sip370x50.png';
@@ -10,21 +10,20 @@ const LastShootForeman = ({route, navigation}) => {
 	useEffect(() => {
 		formOke()
 	}, [])
-	const {sys_plant_id, machine_id, product_name, customer_name, machine_name, today, yesterday} = route.params
+	const {qc_daily_inspection_id, sys_plant_id, machine_id, product_name, customer_name, machine_name, today, yesterday} = route.params
 	const [hours, setHours]		  										= useState(0)
 	const [shift, setShift]		  										= useState(0)
 	const [stop_category, setStopCategory]					= useState("")
 	const [created_by, setCreatedBy]		  					= useState("")
 	const [updated_by, setUpdatedBy]		  					= useState("")
 	const [tooling_num, setTooling] 								= useState("")
+	const [lastShootFR, setlast_shoot_fr] 					= useState("")
 	let created_at 																	= moment().format("YYYY-MM-DD HH:mm:ss")
 	let updated_at 																	= moment().format("YYYY-MM-DD HH:mm:ss")
 	const [eng_product_id, setEngProdId]		  			= useState(0)
 	const [data, setData]	=	useState("")
-	const [qc_daily_inspection_id, setIdInspection]	=	useState("")
 	const prod_machine_id = machine_id
 	const date = []
-
 	const submit = async() => {
 		const data = {
 			eng_product_id,
@@ -56,7 +55,7 @@ const LastShootForeman = ({route, navigation}) => {
 		};
 		Axios(config)
 		.then(function (response){
-			navigation.navigate('ShowProducts')
+			navigation.navigate('Qc')
 			alert("Success Send Data!")
 			console.log("Res: ", response.status, " Ok")
 		})
@@ -93,9 +92,9 @@ const LastShootForeman = ({route, navigation}) => {
 			Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
 			.then(response => {
 				setData(response.data.data.daily_inspection)
-				setIdInspection(response.data.data.daily_inspection.qc_daily_inspections_id)
 				setEngProdId(response.data.data.eng_product_id)
 				setTooling(response.data.data.daily_inspection.tooling_num)
+				setlast_shoot_fr(response.data.data.last_shoot_fr)
 				console.log("List Data Last Shoot Foreman: ", response.data.status, "OK")
 			})
 			.catch(error => {
@@ -117,9 +116,9 @@ const LastShootForeman = ({route, navigation}) => {
 			Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
 			.then(response => {
 				setData(response.data.data.daily_inspection)
-				setIdInspection(response.data.data.daily_inspection.qc_daily_inspections_id)
 				setEngProdId(response.data.data.eng_product_id)
 				setTooling(response.data.data.daily_inspection.tooling_num)
+				setlast_shoot_fr(response.data.data.last_shoot_fr)
 				console.log("List Data Last Shoot Foreman: ", response.data.status, "OK")
 			})
 			.catch(error => {
@@ -141,9 +140,9 @@ const LastShootForeman = ({route, navigation}) => {
 			Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
 			.then(response => {
 				setData(response.data.data.daily_inspection)
-				setIdInspection(response.data.data.daily_inspection.qc_daily_inspections_id)
 				setEngProdId(response.data.data.eng_product_id)
 				setTooling(response.data.data.daily_inspection.tooling_num)
+				setlast_shoot_fr(response.data.data.last_shoot_fr)
 				console.log("List Data Last Shoot Foreman: ", response.data.status, "OK")
 			})
 			.catch(error => {
@@ -169,6 +168,58 @@ const LastShootForeman = ({route, navigation}) => {
 		date.push(
 			<Text key={"key"} style={{marginTop: 1, fontWeight: 'bold', fontSize: 17}}>{yesterday}</Text>
 		)
+	}
+
+	const updateStopCategory = () => {
+		var data = []
+		// console.log(lastShootFR)
+		if(lastShootFR != null){
+			if(lastShootFR.stop_category != null){
+				data.push(
+					<View key="asjdnoi2" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', backgroundColor: '#b8b8b8'}}>
+						<Text style={{paddingLeft: 5}}>{lastShootFR.stop_category == null ? "-" : lastShootFR.stop_category}</Text>
+					</View>
+				)
+			}
+		}else{
+			data.push(
+				<View key="asjdnoi2" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center'}}>
+					<Picker 
+					mode="dropdown"
+					selectedValue={stop_category}
+					onValueChange={(value) => setStopCategory(value)}
+					>
+						<Picker.Item label="Pilih" value="" />
+						<Picker.Item label="Sched PPIC" value="Sched PPIC" />
+						<Picker.Item label="There's No Packing" value="There's No Packing" />
+						<Picker.Item label="There's No Material" value="There's No Material" />
+						<Picker.Item label="There's No Operator" value="There's No Operator" />
+						<Picker.Item label="Mold's Problem" value="Mold's Problem" />
+						<Picker.Item label="Machine's Problem" value="Machine's Problem" />
+						<Picker.Item label="Quality's Problem" value="Quality's Problem" />
+					</Picker>
+				</View>
+			)
+		}
+		return data
+	}
+
+	const updateButton = () => {
+		var data = []
+		if(lastShootFR != null){
+			data.push(
+				<View key="aPOkmw">
+					<Button style={{width: 172, borderRadius: 25, justifyContent: 'center', backgroundColor: '#05c46b'}} onPress={() => alert("Data Already Saved!")}><Text>SAVED</Text></Button>
+				</View>
+			)
+		}else{
+			data.push(
+				<View key="asomaw312">
+					<Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>
+				</View>
+			)
+		}
+		return data
 	}
 
 	return(
@@ -281,29 +332,12 @@ const LastShootForeman = ({route, navigation}) => {
 									<Text style={{color: 'black'}}>:</Text>
 								</View>
 								<View style={{padding: 4, width: "50%"}}>
-									<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center'}}>
-										<Picker 
-										mode="dropdown"
-										selectedValue={stop_category}
-										onValueChange={(value) => setStopCategory(value)}
-										>
-											<Picker.Item label="Pilih" value="" />
-											<Picker.Item label="Sched PPIC" value="Sched PPIC" />
-											<Picker.Item label="There's No Packing" value="There's No Packing" />
-											<Picker.Item label="There's No Material" value="There's No Material" />
-											<Picker.Item label="There's No Operator" value="There's No Operator" />
-											<Picker.Item label="Mold's Problem" value="Mold's Problem" />
-											<Picker.Item label="Machine's Problem" value="Machine's Problem" />
-											<Picker.Item label="Quality's Problem" value="Quality's Problem" />
-										</Picker>
-									</View>
+									{updateStopCategory()}
 								</View>
 							</View>
 
 							<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
-								<View>
-									<Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>
-								</View>
+								{updateButton()}
 							</View>
 						</ScrollView>
 					</View>

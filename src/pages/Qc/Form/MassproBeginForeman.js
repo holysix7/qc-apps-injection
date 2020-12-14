@@ -11,7 +11,7 @@ const MassproBeginForeman = ({route, navigation}) => {
 		formOke()
 	}, [])
 
-	const {sys_plant_id, machine_id, customer_name, machine_name, machine_status, today, yesterday} = route.params
+	const {sys_plant_id, machine_id, customer_name, machine_name, today, yesterday} = route.params
 	const [tooling_num, setTooling] = useState("")
 	const [judgement, setKeputusan] = useState("")
 	const [remark, setRemark] 			= useState("")
@@ -52,6 +52,8 @@ const MassproBeginForeman = ({route, navigation}) => {
 	const [updateQCLeader, setUpdateQCLeader] 					= useState("")
 	const [updateJudgement, seUpdateKeputusan] 					= useState("")
 	const [updateRemark, seUpdateRemark] 								= useState("")
+	
+	const [machine_status, setMachineStatus] 						= useState("")
 	
 	const planning_id = parseInt(planningId)
 	const date	 			= []
@@ -104,7 +106,7 @@ const MassproBeginForeman = ({route, navigation}) => {
 		};
 		Axios(config)
 		.then(function (response){
-			navigation.navigate('ShowProducts')
+			navigation.navigate('Qc')
 			alert("Success Send Data!")
 			console.log("Res: ", response.status, " Ok")
 		})
@@ -152,6 +154,7 @@ const MassproBeginForeman = ({route, navigation}) => {
 			setTechId(response.data.data.qc_masspro_tech_injection_id)
 			setProdLeaderId(response.data.data.qc_masspro_prod_leader_id)
 			setQcLeaderId(response.data.data.qc_masspro_qc_leader_id)
+			setMachineStatus(response.data.data.machine_status)
 			setEngProd(response.data.data.eng_product_id)
 			setData1(response.data.data.product_detail)
 			setCavityData(response.data.data.product_detail.cavity)

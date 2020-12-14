@@ -341,14 +341,14 @@ const MassproBeginMaterialPreparation = ({route, navigation}) => {
 				)
 			}else{
 				data.push(
-					<View key="asd23" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', backgroundColor: '#b8b8b8', paddingLeft: 5}}>
+					<View key="asd23" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 						<TextInput value={remark} onChangeText={(value) => setRemark(value)} style={{paddingLeft: 5, height: 40}} placeholder="Type Here..." />
 					</View>
 				)
 			}
 		}else{
 			data.push(
-				<View key="asd23" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', backgroundColor: '#b8b8b8', paddingLeft: 5}}>
+				<View key="asd23" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 					<TextInput value={remark} onChangeText={(value) => setRemark(value)} style={{paddingLeft: 5, height: 40}} placeholder="Type Here..." />
 				</View>
 			)

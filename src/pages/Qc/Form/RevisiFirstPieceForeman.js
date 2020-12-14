@@ -13,6 +13,7 @@ const RevisiFirstPieceForeman = ({route, navigation}) => {
 		formOke()
 	}, [])
 
+	const [masspro_fr_id, setMassproFRId] 			= useState("")
 	const [judgement, setDecision] 							= useState("")
 	const [tooling_num, setTooling] 						= useState("")
 	const [action_foreman, setActionForeman] 		= useState("")
@@ -79,6 +80,8 @@ const RevisiFirstPieceForeman = ({route, navigation}) => {
 				setPlanningId(response.data.data.planning_id)
 				setIPI(response.data.data.daily_inspection.internal_part_id)
 				setFR(response.data.data.masspro_fr)
+				setActionForeman(response.data.data.masspro_fr.action_foreman)
+				setMassproFRId(response.data.data.masspro_fr.id)
 				setDecision(response.data.data.masspro_fr.judgement)
 				setRevisiForeman(response.data.data.revisi_foreman)
 				setUpdateActionForeman(response.data.data.revisi_foreman.action_foreman)
@@ -109,6 +112,8 @@ const RevisiFirstPieceForeman = ({route, navigation}) => {
 				setPlanningId(response.data.data.planning_id)
 				setIPI(response.data.data.daily_inspection.internal_part_id)
 				setFR(response.data.data.masspro_fr)
+				setActionForeman(response.data.data.masspro_fr.action_foreman)
+				setMassproFRId(response.data.data.masspro_fr.id)
 				setDecision(response.data.data.masspro_fr.judgement)
 				setRevisiForeman(response.data.data.revisi_foreman)
 				setUpdateActionForeman(response.data.data.revisi_foreman.action_foreman)
@@ -139,6 +144,8 @@ const RevisiFirstPieceForeman = ({route, navigation}) => {
 				setPlanningId(response.data.data.planning_id)
 				setIPI(response.data.data.daily_inspection.internal_part_id)
 				setFR(response.data.data.masspro_fr)
+				setActionForeman(response.data.data.masspro_fr.action_foreman)
+				setMassproFRId(response.data.data.masspro_fr.id)
 				setDecision(response.data.data.masspro_fr.judgement)
 				setRevisiForeman(response.data.data.revisi_foreman)
 				setUpdateActionForeman(response.data.data.revisi_foreman.action_foreman)
@@ -154,10 +161,11 @@ const RevisiFirstPieceForeman = ({route, navigation}) => {
 	const shiftFix = async(value) => {
 		setHours(value)
 	}
-    
+	
 	const submit = async() => {
 		const data = {
 			eng_product_id,
+			masspro_fr_id,
 			prod_machine_id,
 			sys_plant_id,
 			planning_id,
@@ -189,7 +197,7 @@ const RevisiFirstPieceForeman = ({route, navigation}) => {
 		};
 		Axios(config)
 		.then(function (response){
-			navigation.navigate('ShowProducts')
+			navigation.navigate('Qc')
 			alert("Success Send Data!")
 			console.log("Res: ", response.status, " Ok")
 		})
@@ -212,14 +220,14 @@ const RevisiFirstPieceForeman = ({route, navigation}) => {
 			}else{
 				data.push(
 					<View key="askjdnui2" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-						<TextInput onChangeText={(value) => setActionForeman(value)} style={{paddingLeft: 5, height: 40}} placeholder="Type Here..." />
+						<TextInput value={action_foreman} onChangeText={(value) => setActionForeman(value)} style={{paddingLeft: 5, height: 40}} placeholder="Type Here..." />
 					</View>
 				)
 			}
 		}else{
 			data.push(
 				<View key="askjdnui2" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-					<TextInput onChangeText={(value) => setActionForeman(value)} style={{paddingLeft: 5, height: 40}} placeholder="Type Here..." />
+					<TextInput value={action_foreman} onChangeText={(value) => setActionForeman(value)} style={{paddingLeft: 5, height: 40}} placeholder="Type Here..." />
 				</View>
 			)
 		}
@@ -402,7 +410,7 @@ const RevisiFirstPieceForeman = ({route, navigation}) => {
 							</View>
 							<View style={{paddingTop: 20, flexDirection: 'row'}}>
 								<View style={{padding: 10, width: "44%"}}>
-									<Text>Decision</Text>
+									<Text>Judgement</Text>
 								</View>
 								<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
 									<Text style={{color: 'black'}}>:</Text>

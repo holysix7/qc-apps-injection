@@ -142,7 +142,7 @@ const MassproBeginMoldSetter = ({route, navigation}) => {
 			setLimitSwitch(response.data.data.masspro_ms.cooling_system)
 			setEjectStroke(response.data.data.masspro_ms.eject_stroke)
 			setTouchingNozzle(response.data.data.masspro_ms.touching_nozzle)
-			setHydraulicCore(response.data.data.masspro_ms.hydraulic_core)
+			setHydraulicCore(response.data.data.masspro_ms.hydraulic_core_pack)
 			setMsRemark(response.data.data.masspro_ms.remark)
 			console.log("List Data Mold Setter: ", response.data.status, "OK")
 		})
@@ -413,9 +413,11 @@ const MassproBeginMoldSetter = ({route, navigation}) => {
 					</View>
 				)
 			}else{
-				<View key="skp21" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-					<Text>{updateMS}</Text>
-				</View>
+				data.push(
+					<View key="skp21" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+						<Text>{updateMS}</Text>
+					</View>
+				)
 			}
 		}else{
 			data.push(
