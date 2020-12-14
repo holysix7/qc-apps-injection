@@ -137,6 +137,10 @@ const LastShootLeaderQc = ({route, navigation}) => {
 	const [mtr_need, setMtrNeed]				  							= useState("")
 	const [created_by, setCreatedBy]										= useState("")
 	const [cavityShow, setCavityShow]										= useState("")
+
+	const [massproQCL, setMassproQcl]										= useState("")
+	const [massproql_items, setMassproQlItems]					= useState("")
+	
 	const [ngCategories, setNGCategories]  							= useState([])
 	let created_at 																			= moment().format("YYYY-MM-DD HH:mm:ss")
 	const [updated_by, setUpdatedBy]										= useState("")
@@ -192,6 +196,8 @@ const LastShootLeaderQc = ({route, navigation}) => {
 				setCavityShow(response.data.data.daily_inspection.cavity)
 				setNGCategories(response.data.data.ng_category)
 				setTooling(response.data.data.daily_inspection.tooling_num)
+				setMassproQcl(response.data.data.masspro_ql)
+				setMassproQlItems(response.data.data.masspro_ql_items)
 				console.log("List Data Last Shoot Leader QC: ", response.data.status, "OK")
 			})
 			.catch(error => {
@@ -218,6 +224,8 @@ const LastShootLeaderQc = ({route, navigation}) => {
 				setCavityShow(response.data.data.daily_inspection.cavity)
 				setNGCategories(response.data.data.ng_category)
 				setTooling(response.data.data.daily_inspection.tooling_num)
+				setMassproQcl(response.data.data.masspro_ql)
+				setMassproQlItems(response.data.data.masspro_ql_items)
 				console.log("List Data Last Shoot Leader QC: ", response.data.status, "OK")
 			})
 			.catch(error => {
@@ -244,6 +252,8 @@ const LastShootLeaderQc = ({route, navigation}) => {
 				setCavityShow(response.data.data.daily_inspection.cavity)
 				setNGCategories(response.data.data.ng_category)
 				setTooling(response.data.data.daily_inspection.tooling_num)
+				setMassproQcl(response.data.data.masspro_ql)
+				setMassproQlItems(response.data.data.masspro_ql_items)
 				console.log("List Data Last Shoot Leader QC: ", response.data.status, "OK")
 			})
 			.catch(error => {
@@ -257,10 +267,10 @@ const LastShootLeaderQc = ({route, navigation}) => {
 	}
 
 	const hString = hours.toString()
-	
+	// console.log("qcId: ", qc_daily_inspection_id)
 	const item = {
 		"cav_1": {
-			"cavity": statusCavity1,
+			"cavity": 1,
 			"judgement_first_piece": judgement_first_piece1,
 			"qc_ng_category_id": qc_ng_category_id1,
 			"fitting_test": fitting_test1,
@@ -268,7 +278,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 			"note": note1
 		},
 		"cav_2": {
-			"cavity": statusCavity2,
+			"cavity": 2,
 			"judgement_first_piece": judgement_first_piece2,
 			"qc_ng_category_id": qc_ng_category_id2,
 			"fitting_test": fitting_test2,
@@ -276,7 +286,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 			"note": note2
 		},
 		"cav_3": {
-			"cavity": statusCavity3,
+			"cavity": 3,
 			"judgement_first_piece": judgement_first_piece3,
 			"qc_ng_category_id": qc_ng_category_id3,
 			"fitting_test": fitting_test3,
@@ -284,7 +294,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 			"note": note3
 		},
 		"cav_4": {
-			"cavity": statusCavity4,
+			"cavity": 4,
 			"judgement_first_piece": judgement_first_piece4,
 			"qc_ng_category_id": qc_ng_category_id4,
 			"fitting_test": fitting_test4,
@@ -292,7 +302,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 			"note": note4
 		},
 		"cav_5": {
-			"cavity": statusCavity5,
+			"cavity": 5,
 			"judgement_first_piece": judgement_first_piece5,
 			"qc_ng_category_id": qc_ng_category_id5,
 			"fitting_test": fitting_test5,
@@ -300,7 +310,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 			"note": note5
 		},
 		"cav_6": {
-			"cavity": statusCavity6,
+			"cavity": 6,
 			"judgement_first_piece": judgement_first_piece6,
 			"qc_ng_category_id": qc_ng_category_id6,
 			"fitting_test": fitting_test6,
@@ -308,7 +318,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 			"note": note6
 		},
 		"cav_7": {
-			"cavity": statusCavity7,
+			"cavity": 7,
 			"judgement_first_piece": judgement_first_piece7,
 			"qc_ng_category_id": qc_ng_category_id7,
 			"fitting_test": fitting_test7,
@@ -316,7 +326,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 			"note": note7
 		},
 		"cav_8": {
-			"cavity": statusCavity8,
+			"cavity": 8,
 			"judgement_first_piece": judgement_first_piece8,
 			"qc_ng_category_id": qc_ng_category_id8,
 			"fitting_test": fitting_test8,
@@ -324,7 +334,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 			"note": note8
 		},
 		"cav_9": {
-			"cavity": statusCavity9,
+			"cavity": 9,
 			"judgement_first_piece": judgement_first_piece9,
 			"qc_ng_category_id": qc_ng_category_id9,
 			"fitting_test": fitting_test9,
@@ -332,7 +342,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 			"note": note9
 		},
 		"cav_10": {
-			"cavity": statusCavity10,
+			"cavity": 10,
 			"judgement_first_piece": judgement_first_piece10,
 			"qc_ng_category_id": qc_ng_category_id10,
 			"fitting_test": fitting_test10,
@@ -340,7 +350,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 			"note": note10
 		},
 		"cav_11": {
-			"cavity": statusCavity11,
+			"cavity": 11,
 			"judgement_first_piece": judgement_first_piece11,
 			"qc_ng_category_id": qc_ng_category_id11,
 			"fitting_test": fitting_test11,
@@ -348,7 +358,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 			"note": note11
 		},
 		"cav_12": {
-			"cavity": statusCavity12,
+			"cavity": 12,
 			"judgement_first_piece": judgement_first_piece12,
 			"qc_ng_category_id": qc_ng_category_id12,
 			"fitting_test": fitting_test12,
@@ -356,7 +366,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 			"note": note12
 		},
 		"cav_13": {
-			"cavity": statusCavity13,
+			"cavity": 13,
 			"judgement_first_piece": judgement_first_piece13,
 			"qc_ng_category_id": qc_ng_category_id13,
 			"fitting_test": fitting_test13,
@@ -364,7 +374,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 			"note": note13
 		},
 		"cav_14": {
-			"cavity": statusCavity14,
+			"cavity": 14,
 			"judgement_first_piece": judgement_first_piece14,
 			"qc_ng_category_id": qc_ng_category_id14,
 			"fitting_test": fitting_test14,
@@ -372,7 +382,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 			"note": note14
 		},
 		"cav_15": {
-			"cavity": statusCavity15,
+			"cavity": 15,
 			"judgement_first_piece": judgement_first_piece15,
 			"qc_ng_category_id": qc_ng_category_id15,
 			"fitting_test": fitting_test15,
@@ -380,7 +390,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 			"note": note15
 		},
 		"cav_16": {
-			"cavity": statusCavity16,
+			"cavity": 16,
 			"judgement_first_piece": judgement_first_piece16,
 			"qc_ng_category_id": qc_ng_category_id16,
 			"fitting_test": fitting_test16,
@@ -388,7 +398,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 			"note": note16
 		},
 		"cav_17": {
-			"cavity": statusCavity17,
+			"cavity": 17,
 			"judgement_first_piece": judgement_first_piece17,
 			"qc_ng_category_id": qc_ng_category_id17,
 			"fitting_test": fitting_test17,
@@ -396,7 +406,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 			"note": note17
 		},
 		"cav_18": {
-			"cavity": statusCavity18,
+			"cavity": 18,
 			"judgement_first_piece": judgement_first_piece18,
 			"qc_ng_category_id": qc_ng_category_id18,
 			"fitting_test": fitting_test18,
@@ -424,8 +434,9 @@ const LastShootLeaderQc = ({route, navigation}) => {
 			eng_product_id,
 			prod_machine_id,
 			planning_id,
+			sys_plant_id,
 			internal_part_id,
-			qc_daily_inspections_id,
+			qc_daily_inspection_id,
 			qc_daily_inspection_item_id,
 			qc_daily_inspection_method_id,
 			tooling_num,
@@ -460,6 +471,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 				console.log("Res: ", response.status, " Ok")
 			})
 		.catch(function (error){
+			alert("Failed Send Data!")
 			console.log(error)
 		})
 	}
@@ -1529,7 +1541,6 @@ const LastShootLeaderQc = ({route, navigation}) => {
 			)
 		}
 	}
-
 	return(
 		<KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={{flex: 1}} >
 			<TouchableWithoutFeedback onPress={Keyboard.dismiss}>

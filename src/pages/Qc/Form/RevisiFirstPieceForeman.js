@@ -382,7 +382,7 @@ const RevisiFirstPieceForeman = ({route, navigation}) => {
 								<View style={{padding: 4, width: "50%"}}>
 									<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
 										<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-											<Text>{massproFr != null ? massproFr.cavity : "-"}</Text>
+											<Text>{data != null ? data.cavity : "-"}</Text>
 										</View>
 									</View>
 								</View>
