@@ -37,7 +37,7 @@ const Per4Jam = ({route, navigation}) => {
     }, [])
 
 	const [cavityCheck, setCavityCheck] 			= useState("")
-	const [tooling_num, setTooling] 								= useState("")
+	const [tooling_num, setTooling] 					= useState("")
 	const [statusCavity, setStatusCavity] 		= useState("")
 	const [fittingTes, setFittingTes] 				= useState("")
 	const [inspectionTime, setInspectionTime] = useState("")
@@ -128,7 +128,8 @@ const Per4Jam = ({route, navigation}) => {
 	const [updated_by, setUpdatedBy]																			= useState("")
 	let updated_at 																												= moment().format("YYYY-MM-DD HH:mm:ss")
 
-	const [data, setData] = useState([]);
+	const [data, setData] = useState("");
+	const [daily_inspection, setDaily] = useState("");
 	const date = []
 	if(today != null)
 	{
@@ -176,10 +177,11 @@ const Per4Jam = ({route, navigation}) => {
 				setCustomerPartNumber(response.data.data.daily_inspection.customer_part_number)
 				setModel(response.data.data.daily_inspection.model)
 				setTooling(response.data.data.daily_inspection.tooling_num)
+				setDaily(response.data.data.daily_inspection)
 				console.log("List Data Per 4 Jam: ", response.data.status, "OK")
 			})
 			.catch(error => {
-					console.log('List Data Per 4 Jam: ', error)
+				console.log('List Data Per 4 Jam: ', error)
 			})
 		}else if(parseInt(jam) >= 16 && parseInt(jam) <= 23){
 			const nilaiJam = parseInt(jam)
@@ -202,10 +204,11 @@ const Per4Jam = ({route, navigation}) => {
 				setCustomerPartNumber(response.data.data.daily_inspection.customer_part_number)
 				setModel(response.data.data.daily_inspection.model)
 				setTooling(response.data.data.daily_inspection.tooling_num)
+				setDaily(response.data.data.daily_inspection)
 				console.log("List Data Per 4 Jam: ", response.data.status, "OK")
 			})
 			.catch(error => {
-					console.log('List Data Per 4 Jam: ', error)
+				console.log('List Data Per 4 Jam: ', error)
 			})
 		}else{
 			const nilaiJam = parseInt(jam)
@@ -228,6 +231,7 @@ const Per4Jam = ({route, navigation}) => {
 				setCustomerPartNumber(response.data.data.daily_inspection.customer_part_number)
 				setModel(response.data.data.daily_inspection.model)
 				setTooling(response.data.data.daily_inspection.tooling_num)
+				setDaily(response.data.data.daily_inspection)
 				console.log("List Data Per 4 Jam: ", response.data.status, "OK")
 			})
 			.catch(error => {
@@ -391,6 +395,7 @@ const Per4Jam = ({route, navigation}) => {
 				console.log("Res: ", response.status, " Ok")
 			})
 		.catch(function (error){
+			alert("Failed Send Data!")
 			console.log(error)
 		})
 	}
@@ -399,27 +404,20 @@ const Per4Jam = ({route, navigation}) => {
 		setHours(value)
 	}
 
-	const checkData = data.daily_inspection
 	const hString = hours.toString()
-	
-	if(checkData != null)
-		{
+	const dataItem = () => {
+		const checkData = daily_inspection
+		var table1 = []
+		if(checkData != null){
 			const checkingCavity = checkData.cavity
-			var table1 = []
 			if(checkingCavity > 0){
 				table1.push(
 					<View key="asdk2123asd" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity1}
-								onValueChange = {(value)=>setStatusCavity1(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
+								<Text>
+									1
+								</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
@@ -448,7 +446,7 @@ const Per4Jam = ({route, navigation}) => {
 								</Picker>
 							</View>
 						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
 							<View style={{justifyContent: 'center', width: 145}}>
 								<TextInput value={note1} onChangeText={(value) => setKeterangan1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
 							</View>
@@ -461,16 +459,10 @@ const Per4Jam = ({route, navigation}) => {
 				table1.push(
 					<View key="assadwdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity2}
-								onValueChange = {(value)=>setStatusCavity2(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
+								<Text>
+									2
+								</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
@@ -499,7 +491,7 @@ const Per4Jam = ({route, navigation}) => {
 								</Picker>
 							</View>
 						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
 							<View style={{justifyContent: 'center', width: 145}}>
 								<TextInput value={note2} onChangeText={(value) => setKeterangan2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
 							</View>
@@ -512,16 +504,10 @@ const Per4Jam = ({route, navigation}) => {
 				table1.push(
 					<View key="asdzxczxk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity3}
-								onValueChange = {(value)=>setStatusCavity3(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
+								<Text>
+									3
+								</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
@@ -550,7 +536,7 @@ const Per4Jam = ({route, navigation}) => {
 								</Picker>
 							</View>
 						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
 							<View style={{justifyContent: 'center', width: 145}}>
 								<TextInput value={note3} onChangeText={(value) => setKeterangan3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
 							</View>
@@ -563,16 +549,10 @@ const Per4Jam = ({route, navigation}) => {
 				table1.push(
 					<View key="asqweasdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity4}
-								onValueChange = {(value)=>setStatusCavity4(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
+								<Text>
+									4
+								</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
@@ -601,7 +581,7 @@ const Per4Jam = ({route, navigation}) => {
 								</Picker>
 							</View>
 						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
 							<View style={{justifyContent: 'center', width: 145}}>
 								<TextInput value={note4} onChangeText={(value) => setKeterangan4(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
 							</View>
@@ -614,16 +594,10 @@ const Per4Jam = ({route, navigation}) => {
 				table1.push(
 					<View key="asdzxcqdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity5}
-								onValueChange = {(value)=>setStatusCavity5(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
+								<Text>
+									5
+								</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
@@ -652,7 +626,7 @@ const Per4Jam = ({route, navigation}) => {
 								</Picker>
 							</View>
 						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
 							<View style={{justifyContent: 'center', width: 145}}>
 								<TextInput value={note5} onChangeText={(value) => setKeterangan5(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
 							</View>
@@ -665,16 +639,10 @@ const Per4Jam = ({route, navigation}) => {
 				table1.push(
 					<View key="aasdwqsdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity6}
-								onValueChange = {(value)=>setStatusCavity6(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
+								<Text>
+									6
+								</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
@@ -703,7 +671,7 @@ const Per4Jam = ({route, navigation}) => {
 								</Picker>
 							</View>
 						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
 							<View style={{justifyContent: 'center', width: 145}}>
 								<TextInput value={note6} onChangeText={(value) => setKeterangan6(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
 							</View>
@@ -716,16 +684,10 @@ const Per4Jam = ({route, navigation}) => {
 				table1.push(
 					<View key="zxcwqasdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity7}
-								onValueChange = {(value)=>setStatusCavity7(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
+								<Text>
+									7
+								</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
@@ -754,7 +716,7 @@ const Per4Jam = ({route, navigation}) => {
 								</Picker>
 							</View>
 						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
 							<View style={{justifyContent: 'center', width: 145}}>
 								<TextInput value={note7} onChangeText={(value) => setKeterangan7(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
 							</View>
@@ -767,16 +729,10 @@ const Per4Jam = ({route, navigation}) => {
 				table1.push(
 					<View key="aszxcqfdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity8}
-								onValueChange = {(value)=>setStatusCavity8(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
+								<Text>
+									8
+								</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
@@ -805,7 +761,7 @@ const Per4Jam = ({route, navigation}) => {
 								</Picker>
 							</View>
 						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
 							<View style={{justifyContent: 'center', width: 145}}>
 								<TextInput value={note8} onChangeText={(value) => setProductWeight8(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
 							</View>
@@ -818,16 +774,10 @@ const Per4Jam = ({route, navigation}) => {
 				table1.push(
 					<View key="avfssasdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity9}
-								onValueChange = {(value)=>setStatusCavity9(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
+								<Text>
+									9
+								</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
@@ -856,7 +806,7 @@ const Per4Jam = ({route, navigation}) => {
 								</Picker>
 							</View>
 						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
 							<View style={{justifyContent: 'center', width: 145}}>
 								<TextInput value={note9} onChangeText={(value) => setKeterangan9(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
 							</View>
@@ -869,16 +819,10 @@ const Per4Jam = ({route, navigation}) => {
 				table1.push(
 					<View key="aszxcqeasdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity10}
-								onValueChange = {(value)=>setStatusCavity10(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
+								<Text>
+									10
+								</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
@@ -907,7 +851,7 @@ const Per4Jam = ({route, navigation}) => {
 								</Picker>
 							</View>
 						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
 							<View style={{justifyContent: 'center', width: 145}}>
 								<TextInput value={note10} onChangeText={(value) => setKeterangan10(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
 							</View>
@@ -920,16 +864,10 @@ const Per4Jam = ({route, navigation}) => {
 				table1.push(
 					<View key="avdvwsdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity11}
-								onValueChange = {(value)=>setStatusCavity11(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
+								<Text>
+									11
+								</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
@@ -958,7 +896,7 @@ const Per4Jam = ({route, navigation}) => {
 								</Picker>
 							</View>
 						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
 							<View style={{justifyContent: 'center', width: 145}}>
 								<TextInput value={note11} onChangeText={(value) => setKeterangan11(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
 							</View>
@@ -971,16 +909,10 @@ const Per4Jam = ({route, navigation}) => {
 				table1.push(
 					<View key="asdvfdsdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity12}
-								onValueChange = {(value)=>setStatusCavity12(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
+								<Text>
+									12
+								</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
@@ -1009,7 +941,7 @@ const Per4Jam = ({route, navigation}) => {
 								</Picker>
 							</View>
 						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
 							<View style={{justifyContent: 'center', width: 145}}>
 								<TextInput value={note12} onChangeText={(value) => setKeterangan12(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
 							</View>
@@ -1022,16 +954,10 @@ const Per4Jam = ({route, navigation}) => {
 				table1.push(
 					<View key="asfewqdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity13}
-								onValueChange = {(value)=>setStatusCavity13(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
+								<Text>
+									13
+								</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
@@ -1060,7 +986,7 @@ const Per4Jam = ({route, navigation}) => {
 								</Picker>
 							</View>
 						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
 							<View style={{justifyContent: 'center', width: 145}}>
 								<TextInput value={note13} onChangeText={(value) => setKeterangan13(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
 							</View>
@@ -1073,16 +999,10 @@ const Per4Jam = ({route, navigation}) => {
 				table1.push(
 					<View key="asdfeqqfk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity14}
-								onValueChange = {(value)=>setStatusCavity14(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
+								<Text>
+									14
+								</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
@@ -1111,7 +1031,7 @@ const Per4Jam = ({route, navigation}) => {
 								</Picker>
 							</View>
 						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
 							<View style={{justifyContent: 'center', width: 145}}>
 								<TextInput value={note14} onChangeText={(value) => setKeterangan14(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
 							</View>
@@ -1124,16 +1044,10 @@ const Per4Jam = ({route, navigation}) => {
 				table1.push(
 					<View key="afewfqsdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity15}
-								onValueChange = {(value)=>setStatusCavity15(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
+								<Text>
+									15
+								</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
@@ -1162,7 +1076,7 @@ const Per4Jam = ({route, navigation}) => {
 								</Picker>
 							</View>
 						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
 							<View style={{justifyContent: 'center', width: 145}}>
 								<TextInput value={note15} onChangeText={(value) => setKeterangan15(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
 							</View>
@@ -1175,16 +1089,10 @@ const Per4Jam = ({route, navigation}) => {
 				table1.push(
 					<View key="ascasczxdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity16}
-								onValueChange = {(value)=>setStatusCavity16(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
+								<Text>
+									16
+								</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
@@ -1213,7 +1121,7 @@ const Per4Jam = ({route, navigation}) => {
 								</Picker>
 							</View>
 						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
 							<View style={{justifyContent: 'center', width: 145}}>
 								<TextInput value={note16} onChangeText={(value) => setKeterangan16(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
 							</View>
@@ -1226,16 +1134,10 @@ const Per4Jam = ({route, navigation}) => {
 				table1.push(
 					<View key="ascqsqwdk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity17}
-								onValueChange = {(value)=>setStatusCavity17(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
+								<Text>
+									17
+								</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
@@ -1264,7 +1166,7 @@ const Per4Jam = ({route, navigation}) => {
 								</Picker>
 							</View>
 						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
 							<View style={{justifyContent: 'center', width: 145}}>
 								<TextInput value={note17} onChangeText={(value) => setKeterangan17(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
 							</View>
@@ -1278,16 +1180,10 @@ const Per4Jam = ({route, navigation}) => {
 				table1.push(
 					<View key="asasdq2dk2" style={{flexDirection: 'row', height: 50}}>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {statusCavity18}
-								onValueChange = {(value)=>setStatusCavity18(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
+								<Text>
+									18
+								</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
@@ -1316,7 +1212,7 @@ const Per4Jam = ({route, navigation}) => {
 								</Picker>
 							</View>
 						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
 							<View style={{justifyContent: 'center', width: 145}}>
 								<TextInput value={note18} onChangeText={(value) => setKeterangan18(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
 							</View>
@@ -1325,6 +1221,8 @@ const Per4Jam = ({route, navigation}) => {
 				)
 			}
 		}
+		return table1
+	}
 
 	return(
 		<KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={{flex: 1}} >
@@ -1407,7 +1305,7 @@ const Per4Jam = ({route, navigation}) => {
 								<View style={{padding: 4, width: "50%"}}>
 									<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
 										<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-											<Text>{data.daily_inspection != null ? data.daily_inspection.machine_status : "-"}</Text>
+											<Text>{daily_inspection != null ? daily_inspection.machine_status : "-"}</Text>
 										</View>
 									</View>
 								</View>

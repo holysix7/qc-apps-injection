@@ -376,13 +376,14 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 			},
 			data : data
 		};
-			Axios(config)
-			.then(function (response){
-				navigation.navigate('ListForm')
-				alert("Success Send Data!")
-				console.log("Res: ", response.status, " Ok")
-			})
+		Axios(config)
+		.then(function (response){
+			navigation.navigate('ListForm')
+			alert("Success Send Data!")
+			console.log("Res: ", response.status, " Ok")
+		})
 		.catch(function (error){
+			alert("Failed Send Data!")
 			console.log(error)
 		})
 	}

@@ -1552,6 +1552,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 	}
 
 	const updateCompareCopySampleFunc = () => {
+		// console.log("data:", qc_daily_inspection_id)
 		var data = []
 		if(massproQCL != null){
 			data.push(
@@ -1777,7 +1778,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 											</View>
 										</View>
 										<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-											<Text style={{fontWeight: 'bold', fontSize: 15}}>Judgement 1st Piece</Text>
+											<Text style={{fontWeight: 'bold', fontSize: 15}}>Judgement Last Shoot</Text>
 											<View style={{justifyContent: 'center'}}>
 											</View>
 										</View>
