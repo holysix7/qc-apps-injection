@@ -495,6 +495,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 			console.log("Res: ", response.status, " Ok")
 		})
 		.catch(function (error){
+			alert("Failed Send Data!")
 			console.log(error)
 		})
 	}
@@ -1734,6 +1735,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 	const hString = hours.toString()
 
 	const updateCompareCopyFunc = () => {
+		console.log("data: ", qc_daily_inspection_id)
 		const updateRF = updateCopySample
 		var data = []
 		const rfData = revisiQc

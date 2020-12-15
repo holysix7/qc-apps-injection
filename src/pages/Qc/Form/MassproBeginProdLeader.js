@@ -458,6 +458,7 @@ const MassproBeginProdLeader = ({route, navigation}) => {
 							<Picker.Item label="Pilih" value="" />
 							<Picker.Item label="OK" value="OK" />
 							<Picker.Item label="NG" value="NG" />
+							<Picker.Item label="No Check" value="no_check" />
 						</Picker>
 					</View>
 				)
@@ -479,6 +480,7 @@ const MassproBeginProdLeader = ({route, navigation}) => {
 						<Picker.Item label="Pilih" value="" />
 						<Picker.Item label="OK" value="OK" />
 						<Picker.Item label="NG" value="NG" />
+						<Picker.Item label="No Check" value="no_check" />
 					</Picker>
 				</View>
 			)
@@ -680,7 +682,7 @@ const MassproBeginProdLeader = ({route, navigation}) => {
 
 								<View style={{paddingTop: 20, flexDirection: 'row'}}>
 									<View style={{padding: 10, width: "44%"}}>
-										<Text>JIG (Alat Ukur)</Text>
+										<Text>JIG / Alat Ukur</Text>
 									</View>
 									<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
 										<Text style={{color: 'black'}}>:</Text>

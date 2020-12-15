@@ -111,6 +111,7 @@ const MassproBeginForeman = ({route, navigation}) => {
 			console.log("Res: ", response.status, " Ok")
 		})
 		.catch(function (error){
+			alert("Failed Send Data!")
 			console.log(error)
 		})
 	}
