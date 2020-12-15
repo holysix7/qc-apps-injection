@@ -468,7 +468,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 			console.log(error)
 		})
 	}
-
+  
 	const dataItem = () => {
 		var table1 = []
 		const cavity = data.cavity
@@ -1621,7 +1621,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 		}
 		return data
 	}
-
+  
 	return(
 		<KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={{flex: 1}} >
 			<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -1803,6 +1803,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 											</View>
 										</View>
 									</View>
+
 									{dataItem()}
 								</TouchableOpacity>
 							</ScrollView>
