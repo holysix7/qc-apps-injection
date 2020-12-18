@@ -1,4 +1,4 @@
-import {Image, View, ScrollView, TextInput, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView} from 'react-native';
+import {Image, View, ScrollView, TextInput, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, ActivityIndicator} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import { Container, Text, Button, Picker} from 'native-base';
 import AsyncStorage from "@react-native-community/async-storage";
@@ -44,7 +44,10 @@ const MassproBeginMoldSetter = ({route, navigation}) => {
 	const [tooling_num, setTooling]	= useState("")
 	const planning_id = parseInt(planningId)
 
+	const [loading, setLoading] = useState(false)
+
 	const submit = async() => {
+		setLoading(false)
 		const data = {
 			eng_product_id,
 			qc_masspro_main_mold_id,
@@ -86,9 +89,10 @@ const MassproBeginMoldSetter = ({route, navigation}) => {
 		};
 		Axios(config)
 		.then(function (response){
+			setLoading(true)
+			console.log("Res: ", response.status, " Ok")
 			navigation.navigate('ListForm')
 			alert("Success Send Data!")
-			console.log("Res: ", response.status, " Ok")
 		})
 		.catch(function (error){
 			alert("Failed Send Data!")
@@ -129,6 +133,7 @@ const MassproBeginMoldSetter = ({route, navigation}) => {
 		}
 		Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
 		.then(response => {
+			setLoading(true)
 			setMaintMoldId(response.data.data.qc_masspro_main_mold_id)
 			setMaterialPreparationId(response.data.data.qc_masspro_material_preparation_id)
 			setEngProd(response.data.data.eng_product_id)
@@ -485,6 +490,103 @@ const MassproBeginMoldSetter = ({route, navigation}) => {
 		return data
 	}
 
+	const content = () => {
+		var dataContent = []
+		dataContent.push(
+			<ScrollView key="23" style={{flex: 1}}>
+				<View style={{paddingTop: 20, flexDirection: 'row'}}>
+					<View style={{padding: 10, width: "44%"}}>
+						<Text>Clamping Bolt</Text>
+					</View>
+					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+						<Text style={{color: 'black'}}>:</Text>
+					</View>
+					<View style={{padding: 4, width: "50%"}}>
+						{updateClampingBolt()}
+					</View>
+				</View>
+
+				<View style={{paddingTop: 20, flexDirection: 'row'}}>
+					<View style={{padding: 10, width: "44%"}}>
+						<Text>Cooling System</Text>
+					</View>
+					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+						<Text style={{color: 'black'}}>:</Text>
+					</View>
+					<View style={{padding: 4, width: "50%"}}>
+						{updateCoolingSystem()}
+					</View>
+				</View>
+				
+				<View style={{paddingTop: 20, flexDirection: 'row'}}>
+					<View style={{padding: 10, width: "44%"}}>
+						<Text>Limit Switch Ejector / Slider</Text>
+					</View>
+					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+						<Text style={{color: 'black'}}>:</Text>
+					</View>
+					<View style={{padding: 4, width: "50%"}}>
+						{updateLimitSwitch()}
+					</View>
+				</View>
+				
+				<View style={{paddingTop: 20, flexDirection: 'row'}}>
+					<View style={{padding: 10, width: "44%"}}>
+						<Text>Eject Stroke</Text>
+					</View>
+					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+						<Text style={{color: 'black'}}>:</Text>
+					</View>
+					<View style={{padding: 4, width: "50%"}}>
+						{updateEjectStroke()}
+					</View>
+				</View>
+				
+				<View style={{paddingTop: 20, flexDirection: 'row'}}>
+					<View style={{padding: 10, width: "44%"}}>
+						<Text>Touching Nozzle With SprueBush</Text>
+					</View>
+					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+						<Text style={{color: 'black'}}>:</Text>
+					</View>
+					<View style={{padding: 4, width: "50%"}}>
+						{updateTouchingNozzle()}
+					</View>
+				</View>
+				
+				<View style={{paddingTop: 20, flexDirection: 'row'}}>
+					<View style={{padding: 10, width: "44%"}}>
+						<Text>Hydraulic Core Pack</Text>
+					</View>
+					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+						<Text style={{color: 'black'}}>:</Text>
+					</View>
+					<View style={{padding: 4, width: "50%"}}>
+						{updateHydraulicCore()}
+					</View>
+				</View>
+
+				<View style={{paddingTop: 20, flexDirection: 'row'}}>
+					<View style={{padding: 10, width: "44%"}}>
+						<Text>Remark</Text>
+					</View>
+					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+						<Text style={{color: 'black'}}>:</Text>
+					</View>
+					<View style={{padding: 4, width: "50%"}}>
+						{updateRemark()}
+					</View>
+				</View>
+			
+				<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
+				{updateButton()}
+				</View>
+				
+			</ScrollView>
+		)
+		return dataContent
+	}
+
 	return(
 		<KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={{flex:1}}>
 			<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -555,98 +657,7 @@ const MassproBeginMoldSetter = ({route, navigation}) => {
 								<Text style={{fontSize: 12}}>{data1 != null ? data1.model : "-"}</Text>
 							</View>
 						</View>
-
-						<ScrollView style={{flex: 1}}>
-							<View style={{paddingTop: 20, flexDirection: 'row'}}>
-								<View style={{padding: 10, width: "44%"}}>
-									<Text>Clamping Bolt</Text>
-								</View>
-								<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-									<Text style={{color: 'black'}}>:</Text>
-								</View>
-								<View style={{padding: 4, width: "50%"}}>
-									{updateClampingBolt()}
-								</View>
-							</View>
-
-							<View style={{paddingTop: 20, flexDirection: 'row'}}>
-								<View style={{padding: 10, width: "44%"}}>
-									<Text>Cooling System</Text>
-								</View>
-								<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-									<Text style={{color: 'black'}}>:</Text>
-								</View>
-								<View style={{padding: 4, width: "50%"}}>
-									{updateCoolingSystem()}
-								</View>
-							</View>
-							
-							<View style={{paddingTop: 20, flexDirection: 'row'}}>
-								<View style={{padding: 10, width: "44%"}}>
-									<Text>Limit Switch Ejector / Slider</Text>
-								</View>
-								<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-									<Text style={{color: 'black'}}>:</Text>
-								</View>
-								<View style={{padding: 4, width: "50%"}}>
-									{updateLimitSwitch()}
-								</View>
-							</View>
-							
-							<View style={{paddingTop: 20, flexDirection: 'row'}}>
-								<View style={{padding: 10, width: "44%"}}>
-									<Text>Eject Stroke</Text>
-								</View>
-								<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-									<Text style={{color: 'black'}}>:</Text>
-								</View>
-								<View style={{padding: 4, width: "50%"}}>
-									{updateEjectStroke()}
-								</View>
-							</View>
-							
-							<View style={{paddingTop: 20, flexDirection: 'row'}}>
-								<View style={{padding: 10, width: "44%"}}>
-									<Text>Touching Nozzle With SprueBush</Text>
-								</View>
-								<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-									<Text style={{color: 'black'}}>:</Text>
-								</View>
-								<View style={{padding: 4, width: "50%"}}>
-									{updateTouchingNozzle()}
-								</View>
-							</View>
-							
-							<View style={{paddingTop: 20, flexDirection: 'row'}}>
-								<View style={{padding: 10, width: "44%"}}>
-									<Text>Hydraulic Core Pack</Text>
-								</View>
-								<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-									<Text style={{color: 'black'}}>:</Text>
-								</View>
-								<View style={{padding: 4, width: "50%"}}>
-									{updateHydraulicCore()}
-								</View>
-							</View>
-
-							<View style={{paddingTop: 20, flexDirection: 'row'}}>
-								<View style={{padding: 10, width: "44%"}}>
-									<Text>Remark</Text>
-								</View>
-								<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-									<Text style={{color: 'black'}}>:</Text>
-								</View>
-								<View style={{padding: 4, width: "50%"}}>
-									{updateRemark()}
-								</View>
-							</View>
-						
-							<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
-							{updateButton()}
-							</View>
-							
-						</ScrollView>
-
+						{loading ? content() : <View style={{justifyContent: 'center'}}><ActivityIndicator size="large" color="#0000ff"/></View>}
 					</View>
 				</Container>
 			</TouchableWithoutFeedback>

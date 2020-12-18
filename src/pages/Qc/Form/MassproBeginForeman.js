@@ -1,4 +1,4 @@
-import {Image, View, ScrollView, TextInput, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, TouchableOpacity} from 'react-native';
+import {Image, View, ScrollView, TextInput, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, TouchableOpacity, ActivityIndicator} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import { Container, Text, Button, Input, Picker } from 'native-base';
 import LogoSIP from '../../../assets/logo-sip370x50.png';
@@ -58,8 +58,11 @@ const MassproBeginForeman = ({route, navigation}) => {
 	const planning_id = parseInt(planningId)
 	const date	 			= []
 	const status 			= "approve"
+	
+	const [loading, setLoading] = useState(false)
 
 	const submit = async() => {
+		setLoading(false)
 		const data = {
 			sys_plant_id,
 			prod_machine_id,
@@ -106,9 +109,10 @@ const MassproBeginForeman = ({route, navigation}) => {
 		};
 		Axios(config)
 		.then(function (response){
+			setLoading(true)
+			console.log("Res: ", response.status, " Ok")
 			navigation.navigate('Qc')
 			alert("Success Send Data!")
-			console.log("Res: ", response.status, " Ok")
 		})
 		.catch(function (error){
 			alert("Failed Send Data!")
@@ -149,6 +153,7 @@ const MassproBeginForeman = ({route, navigation}) => {
 		}
 		Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
 		.then(response => {
+			setLoading(true)
 			setMaintMoldId(response.data.data.qc_masspro_main_mold_id)
 			setMaterialPreparationId(response.data.data.qc_masspro_material_preparation_id)
 			setSetter(response.data.data.qc_masspro_mold_setter_id)
@@ -552,6 +557,164 @@ const MassproBeginForeman = ({route, navigation}) => {
 		return data
 	}
 
+	const content = () => {
+		var dataContent = []
+		dataContent.push(
+			<ScrollView key="23" style={{flex: 1}}>
+				<View style={{paddingBottom: 40}}>
+					<TouchableOpacity>
+						<View style={{paddingTop: 20, flexDirection: 'row'}}>
+							<View style={{padding: 10, width: "44%"}}>
+								<Text>Machines Status</Text>
+							</View>
+							<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+								<Text style={{color: 'black'}}>:</Text>
+							</View>
+							<View style={{padding: 4, width: "50%"}}>
+								<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+									<Text>{machine_status}</Text>
+								</View>
+							</View>
+						</View>
+
+						<View style={{paddingTop: 20, flexDirection: 'row'}}>
+							<View style={{padding: 10, width: "44%"}}>
+								<Text>Tooling</Text>
+							</View>
+							<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+								<Text style={{color: 'black'}}>:</Text>
+							</View>
+							<View style={{padding: 4, width: "50%"}}>
+								<View style={{height: 30, justifyContent: 'center'}}>
+									<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+										<Text>{tooling_num}</Text>
+									</View>
+								</View>
+							</View>
+						</View>
+						
+						<View style={{paddingTop: 20, flexDirection: 'row'}}>
+							<View style={{padding: 10, width: "44%"}}>
+								<Text>Cavity Amount</Text>
+							</View>
+							<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+								<Text style={{color: 'black'}}>:</Text>
+							</View>
+							<View style={{padding: 4, width: "50%"}}>
+								<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+									<Text>{data1 != null ? data1.cavity : "-"}</Text>
+								</View>
+							</View>
+						</View>
+						
+						<View style={{paddingTop: 20, flexDirection: 'row'}}>
+							<View style={{padding: 10, width: "44%"}}>
+								<Text>Check Sheet Sebelum Mesin Mass Pro Maint. Mold</Text>
+							</View>
+							<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+								<Text style={{color: 'black'}}>:</Text>
+							</View>
+							<View style={{padding: 4, width: "50%"}}>
+								{updateCheckSheetMassProMaintMold()}
+							</View>
+						</View>
+						
+						<View style={{paddingTop: 20, flexDirection: 'row'}}>
+							<View style={{padding: 10, width: "44%"}}>
+								<Text>Check Sheet Sebelum Mesin Mass Pro Material Preparation</Text>
+							</View>
+							<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+								<Text style={{color: 'black'}}>:</Text>
+							</View>
+							<View style={{padding: 4, width: "50%"}}>
+								{updateCheckSheetMassProMaterialPreparation()}
+							</View>
+						</View>
+
+						<View style={{paddingTop: 20, flexDirection: 'row'}}>
+							<View style={{padding: 10, width: "44%"}}>
+								<Text>Check sheet Sebelum mesin Mass Pro Mold Setter</Text>
+							</View>
+							<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+								<Text style={{color: 'black'}}>:</Text>
+							</View>
+							<View style={{padding: 4, width: "50%"}}>
+								{updateCheckSheetMoldSetter()}
+							</View>
+						</View>
+
+						<View style={{paddingTop: 20, flexDirection: 'row'}}>
+							<View style={{padding: 10, width: "44%"}}>
+								<Text>Check Sheet Sebelum Mesin Mass Pro Tech Injection</Text>
+							</View>
+							<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+								<Text style={{color: 'black'}}>:</Text>
+							</View>
+							<View style={{padding: 4, width: "50%"}}>
+								{updateCheckSheetMassProTechInjection()}
+							</View>
+						</View>
+
+						<View style={{paddingTop: 20, flexDirection: 'row'}}>
+							<View style={{padding: 10, width: "44%"}}>
+								<Text>Check Sheet Sebelum Mesin Mass Pro Leader Production</Text>
+							</View>
+							<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+								<Text style={{color: 'black'}}>:</Text>
+							</View>
+							<View style={{padding: 4, width: "50%"}}>
+								{updateCheckSheetMassProLeaderProd()}
+							</View>
+						</View>
+
+						<View style={{paddingTop: 20, flexDirection: 'row'}}>
+							<View style={{padding: 10, width: "44%"}}>
+								<Text>Check Sheet Sebelum Mesin Mass Pro Leader QC</Text>
+							</View>
+							<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+								<Text style={{color: 'black'}}>:</Text>
+							</View>
+							<View style={{padding: 4, width: "50%"}}>
+								{updateCheckSheetMassProLeaderQC()}
+							</View>
+						</View>
+
+						<View style={{paddingTop: 20, flexDirection: 'row'}}>
+							<View style={{padding: 10, width: "44%"}}>
+								<Text>Keputusan</Text>
+							</View>
+							<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+								<Text style={{color: 'black'}}>:</Text>
+							</View>
+							<View style={{padding: 4, width: "50%"}}>
+								{updateJudgementFunc()}
+							</View>
+						</View>
+						
+						<View style={{paddingTop: 20, flexDirection: 'row'}}>
+							<View style={{padding: 10, width: "44%"}}>
+								<Text>Remark</Text>
+							</View>
+							<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+								<Text style={{color: 'black'}}>:</Text>
+							</View>
+							<View style={{padding: 4, width: "50%"}}>
+								{updateRemarkFunc()}
+							</View>
+						</View>
+
+						<View style={{justifyContent: 'center', alignItems: 'center'}}>
+							<View style={{paddingTop: 10}}>
+								{updateButton()}
+							</View>
+						</View>
+					</TouchableOpacity>
+				</View>
+			</ScrollView>
+		)
+		return dataContent
+	}
+
 	return(
 		<KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={{flex:1}}>
 			<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -623,157 +786,7 @@ const MassproBeginForeman = ({route, navigation}) => {
 							</View>
 						</View>
 
-						<ScrollView style={{flex: 1}}>
-							<View style={{paddingBottom: 40}}>
-								<TouchableOpacity>
-									<View style={{paddingTop: 20, flexDirection: 'row'}}>
-										<View style={{padding: 10, width: "44%"}}>
-											<Text>Machines Status</Text>
-										</View>
-										<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-											<Text style={{color: 'black'}}>:</Text>
-										</View>
-										<View style={{padding: 4, width: "50%"}}>
-											<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-												<Text>{machine_status}</Text>
-											</View>
-										</View>
-									</View>
-
-									<View style={{paddingTop: 20, flexDirection: 'row'}}>
-										<View style={{padding: 10, width: "44%"}}>
-											<Text>Tooling</Text>
-										</View>
-										<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-											<Text style={{color: 'black'}}>:</Text>
-										</View>
-										<View style={{padding: 4, width: "50%"}}>
-											<View style={{height: 30, justifyContent: 'center'}}>
-												<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-													<Text>{tooling_num}</Text>
-												</View>
-											</View>
-										</View>
-									</View>
-									
-									<View style={{paddingTop: 20, flexDirection: 'row'}}>
-										<View style={{padding: 10, width: "44%"}}>
-											<Text>Cavity Amount</Text>
-										</View>
-										<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-											<Text style={{color: 'black'}}>:</Text>
-										</View>
-										<View style={{padding: 4, width: "50%"}}>
-											<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-												<Text>{data1 != null ? data1.cavity : "-"}</Text>
-											</View>
-										</View>
-									</View>
-									
-									<View style={{paddingTop: 20, flexDirection: 'row'}}>
-										<View style={{padding: 10, width: "44%"}}>
-											<Text>Check Sheet Sebelum Mesin Mass Pro Maint. Mold</Text>
-										</View>
-										<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-											<Text style={{color: 'black'}}>:</Text>
-										</View>
-										<View style={{padding: 4, width: "50%"}}>
-											{updateCheckSheetMassProMaintMold()}
-										</View>
-									</View>
-									
-									<View style={{paddingTop: 20, flexDirection: 'row'}}>
-										<View style={{padding: 10, width: "44%"}}>
-											<Text>Check Sheet Sebelum Mesin Mass Pro Material Preparation</Text>
-										</View>
-										<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-											<Text style={{color: 'black'}}>:</Text>
-										</View>
-										<View style={{padding: 4, width: "50%"}}>
-											{updateCheckSheetMassProMaterialPreparation()}
-										</View>
-									</View>
-
-									<View style={{paddingTop: 20, flexDirection: 'row'}}>
-										<View style={{padding: 10, width: "44%"}}>
-											<Text>Check sheet Sebelum mesin Mass Pro Mold Setter</Text>
-										</View>
-										<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-											<Text style={{color: 'black'}}>:</Text>
-										</View>
-										<View style={{padding: 4, width: "50%"}}>
-											{updateCheckSheetMoldSetter()}
-										</View>
-									</View>
-
-									<View style={{paddingTop: 20, flexDirection: 'row'}}>
-										<View style={{padding: 10, width: "44%"}}>
-											<Text>Check Sheet Sebelum Mesin Mass Pro Tech Injection</Text>
-										</View>
-										<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-											<Text style={{color: 'black'}}>:</Text>
-										</View>
-										<View style={{padding: 4, width: "50%"}}>
-											{updateCheckSheetMassProTechInjection()}
-										</View>
-									</View>
-
-									<View style={{paddingTop: 20, flexDirection: 'row'}}>
-										<View style={{padding: 10, width: "44%"}}>
-											<Text>Check Sheet Sebelum Mesin Mass Pro Leader Production</Text>
-										</View>
-										<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-											<Text style={{color: 'black'}}>:</Text>
-										</View>
-										<View style={{padding: 4, width: "50%"}}>
-											{updateCheckSheetMassProLeaderProd()}
-										</View>
-									</View>
-
-									<View style={{paddingTop: 20, flexDirection: 'row'}}>
-										<View style={{padding: 10, width: "44%"}}>
-											<Text>Check Sheet Sebelum Mesin Mass Pro Leader QC</Text>
-										</View>
-										<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-											<Text style={{color: 'black'}}>:</Text>
-										</View>
-										<View style={{padding: 4, width: "50%"}}>
-											{updateCheckSheetMassProLeaderQC()}
-										</View>
-									</View>
-
-									<View style={{paddingTop: 20, flexDirection: 'row'}}>
-										<View style={{padding: 10, width: "44%"}}>
-											<Text>Keputusan</Text>
-										</View>
-										<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-											<Text style={{color: 'black'}}>:</Text>
-										</View>
-										<View style={{padding: 4, width: "50%"}}>
-											{updateJudgementFunc()}
-										</View>
-									</View>
-									
-									<View style={{paddingTop: 20, flexDirection: 'row'}}>
-										<View style={{padding: 10, width: "44%"}}>
-											<Text>Remark</Text>
-										</View>
-										<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-											<Text style={{color: 'black'}}>:</Text>
-										</View>
-										<View style={{padding: 4, width: "50%"}}>
-											{updateRemarkFunc()}
-										</View>
-									</View>
-
-									<View style={{justifyContent: 'center', alignItems: 'center'}}>
-										<View style={{paddingTop: 10}}>
-											{updateButton()}
-										</View>
-									</View>
-								</TouchableOpacity>
-							</View>
-						</ScrollView>
+						{loading ? content() : <View style={{justifyContent: 'center'}}><ActivityIndicator size="large" color="#0000ff"/></View>}
 					</View>
 				</Container>
 			</TouchableWithoutFeedback>

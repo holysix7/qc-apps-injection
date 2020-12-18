@@ -1184,16 +1184,6 @@
   resolved "https://registry.yarnpkg.com/@react-native-community/masked-view/-/masked-view-0.1.10.tgz#5dda643e19e587793bc2034dd9bf7398ad43d401"
   integrity sha512-rk4sWFsmtOw8oyx8SD3KSvawwaK7gRBSEIy2TAwURyGt+3TizssXP1r8nx3zY+R7v2vYYHXZ+k2/GULAT/bcaQ==
 
-"@react-native-community/picker@^1.6.0":
-  version "1.8.0"
-  resolved "https://registry.yarnpkg.com/@react-native-community/picker/-/picker-1.8.0.tgz#32425321af1e29e3da882fbd627a71ea142c75e4"
-  integrity sha512-aS506wjynNzKDZjynlDasbc665GKGHdhrCob9KdOprPFlE+zMnoR3k0Ce0OkIuGHcY/GMVvQqTc+LYVm2UOmbg==
-
-"@react-native-community/picker@^1.8.1":
-  version "1.8.1"
-  resolved "https://registry.yarnpkg.com/@react-native-community/picker/-/picker-1.8.1.tgz#94f14f0aad98fa7592967b941be97deec95c3805"
-  integrity sha512-Sj9DzX1CSnmYiuEQ5fQhExoo4XjSKoZkqLPAAybycq6RHtCuWppf+eJXRMCOJki25BlKSSt+qVqg0fIe//ujNQ==
-
 "@react-navigation/core@^5.12.4":
   version "5.12.4"
   resolved "https://registry.yarnpkg.com/@react-navigation/core/-/core-5.12.4.tgz#1bd0c81d098895c8ffe49f8624fae60c9abc5684"
@@ -5252,14 +5242,7 @@ mkdirp@^0.5.1:
   dependencies:
     minimist "^1.2.5"
 
-moment-timezone@^0.5.31:
-  version "0.5.31"
-  resolved "https://registry.yarnpkg.com/moment-timezone/-/moment-timezone-0.5.31.tgz#9c40d8c5026f0c7ab46eda3d63e49c155148de05"
-  integrity sha512-+GgHNg8xRhMXfEbv81iDtrVeTcWt0kWmTEY1XQK14dICTXnWJnT0dxdlPspwqF3keKMVPXwayEsk1DI0AA/jdA==
-  dependencies:
-    moment ">= 2.9.0"
-
-"moment@>= 2.9.0", moment@^2.29.1:
+moment@^2.29.1:
   version "2.29.1"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.1.tgz#b2be769fa31940be9eeea6469c075e35006fa3d3"
   integrity sha512-kHmoybcPV8Sqy59DwNDY3Jefr64lK/by/da0ViFcuA4DH0vQg5Q6Ze5VimxkfQNSC+Mls/Kx53s7TjP1RhFEDQ==
@@ -5429,6 +5412,11 @@ nullthrows@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/nullthrows/-/nullthrows-1.1.1.tgz#7818258843856ae971eae4208ad7d7eb19a431b1"
   integrity sha512-2vPPEi+Z7WqML2jZYddDIfy5Dqb0r2fze2zTxNNknZaFpVHU3mFB3R+DWeJWGVx0ecvttSGlJTI+WG+8Z4cDWw==
+
+number-to-words@^1.2.4:
+  version "1.2.4"
+  resolved "https://registry.yarnpkg.com/number-to-words/-/number-to-words-1.2.4.tgz#e0f124de9628f8d86c4eeb89bac6c07699264501"
+  integrity sha512-/fYevVkXRcyBiZDg6yzZbm0RuaD6i0qRfn8yr+6D0KgBMOndFPxuW10qCHpzs50nN8qKuv78k8MuotZhcVX6Pw==
 
 nwsapi@^2.2.0:
   version "2.2.0"
@@ -5951,18 +5939,6 @@ react-is@^16.12.0, react-is@^16.13.0, react-is@^16.7.0, react-is@^16.8.1, react-
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
-react-moment@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/react-moment/-/react-moment-1.0.0.tgz#aedac867cd08739065799de9452c898d954ba6d7"
-  integrity sha512-J4iIiwUT4oZcL7cp2U7naQKbQtqvmzGXXBMg/DLj+Pi7n9EW0VhBRx/1aJ1Tp2poCqTCAPoadLEoUIkReGnNNg==
-
-react-native-countup@0.0.2:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/react-native-countup/-/react-native-countup-0.0.2.tgz#3c8fbf8d364469be3e0989f3ba3c8f2195bfb489"
-  integrity sha512-itiBFeDf9ffI1/Fvhcd6/BuioYUjOuM6Tnmhn72GrIKELl40O/C3H0mM8PsReuY5eEF9zPBRRvYUeLfKXOlqeQ==
-  dependencies:
-    react-timer-mixin "^0.13.3"
-
 react-native-drawer@2.5.1:
   version "2.5.1"
   resolved "https://registry.yarnpkg.com/react-native-drawer/-/react-native-drawer-2.5.1.tgz#08b9314184f48c724f1b467f8859797369798654"
@@ -6008,6 +5984,11 @@ react-native-image-picker@^2.3.4:
   resolved "https://registry.yarnpkg.com/react-native-image-picker/-/react-native-image-picker-2.3.4.tgz#1c31dbe9872ade17e2ed6457b0c669d63c322590"
   integrity sha512-4UHu+zOyDT570r5mIbjH6h1iMrKIq/qfsKiAVUEZwncVegh0usJiEYNyJw4CEVwNeehmye/ia5sLDsa+kzIE4g==
 
+react-native-image-resizer@^1.4.1:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/react-native-image-resizer/-/react-native-image-resizer-1.4.1.tgz#b808a4d1d9a910167e11bf666ad793e94e3f423d"
+  integrity sha512-70xTt2wS/pT37nH0WdzW8L1X5z2sZuFQpFTDrVyqnA9V/ff8vFq0p0vQIYzO3zSBCm3JJP6IUzZRtEtG2eCl4A==
+
 react-native-iphone-x-helper@^1.0.3, react-native-iphone-x-helper@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.2.1.tgz#645e2ffbbb49e80844bb4cbbe34a126fda1e6772"
@@ -6019,14 +6000,6 @@ react-native-onboarding-swiper@^1.1.4:
   integrity sha512-dG2J6giQpt5kKlU+Xe68E9xy+OkmC9Yf5XD7S1mJQ5VvwySfCIXnPojai0PEQ9NmbbH06k9lqN5Ik1PGYnIdVA==
   dependencies:
     tinycolor2 "^1.4.1"
-
-react-native-picker-select@^8.0.0:
-  version "8.0.0"
-  resolved "https://registry.yarnpkg.com/react-native-picker-select/-/react-native-picker-select-8.0.0.tgz#75d9e1fd982ea3cdbb9f47f327f33ce8007a5ef3"
-  integrity sha512-iX9Me6vzyQUcWiOwXXZoYBNzvMo5LJRMq3bu41aZd9I32XKd30x/apk0p8+2xtJKPa/eAdkQUQrULSCmxxuA/g==
-  dependencies:
-    "@react-native-community/picker" "^1.6.0"
-    lodash.isequal "^4.5.0"
 
 react-native-ratings@^7.2.0:
   version "7.3.0"
@@ -6050,11 +6023,6 @@ react-native-status-bar-height@^2.5.0:
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/react-native-status-bar-height/-/react-native-status-bar-height-2.5.0.tgz#bc0fb85230603850aab9667ee8111a62954de90c"
   integrity sha512-sYBCPYA/NapBSHkdm/IVL4ID3LLlIuLqINi2FBDyMkc2BU9pfSGOtkz9yfxoK39mYJuTrlTOQ7mManARUsYDSA==
-
-react-native-timer@^1.3.6:
-  version "1.3.6"
-  resolved "https://registry.yarnpkg.com/react-native-timer/-/react-native-timer-1.3.6.tgz#726bae63b5cc6f51a0bd3a9227e07ef0836ff350"
-  integrity sha512-/YytE7B2YrnYwqNsoQopxg3GtHwrSH/f3pP9UgpHPpJok33YkNX+sSODI6dt75/FLDKQWIYcDHLc3WkdfKKdTg==
 
 react-native-vector-icons@^7.0.0:
   version "7.1.0"
@@ -6117,11 +6085,6 @@ react-test-renderer@16.13.1:
     prop-types "^15.6.2"
     react-is "^16.8.6"
     scheduler "^0.19.1"
-
-react-timer-mixin@^0.13.3:
-  version "0.13.4"
-  resolved "https://registry.yarnpkg.com/react-timer-mixin/-/react-timer-mixin-0.13.4.tgz#75a00c3c94c13abe29b43d63b4c65a88fc8264d3"
-  integrity sha512-4+ow23tp/Tv7hBM5Az5/Be/eKKF7DIvJ09voz5LyHGQaqqz9WV8YMs31eFvcYQs7d451LSg7kDJV70XYN/Ug/Q==
 
 react-tween-state@^0.1.5:
   version "0.1.5"
@@ -7290,6 +7253,11 @@ v8-to-istanbul@^5.0.1:
     "@types/istanbul-lib-coverage" "^2.0.1"
     convert-source-map "^1.6.0"
     source-map "^0.7.3"
+
+validate.js@^0.13.1:
+  version "0.13.1"
+  resolved "https://registry.yarnpkg.com/validate.js/-/validate.js-0.13.1.tgz#b58bfac04a0f600a340f62e5227e70d95971e92a"
+  integrity sha512-PnFM3xiZ+kYmLyTiMgTYmU7ZHkjBZz2/+F0DaALc/uUtVzdCt1wAosvYJ5hFQi/hz8O4zb52FQhHZRC+uVkJ+g==
 
 vary@~1.1.2:
   version "1.1.2"

@@ -1,4 +1,4 @@
-import {Image, View, ScrollView, TextInput, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, TouchableOpacity} from 'react-native';
+import {Image, View, ScrollView, TextInput, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, TouchableOpacity, ActivityIndicator} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import { Container, Text, Button, Picker } from 'native-base';
 import LogoSIP from '../../../assets/logo-sip370x50.png';
@@ -7,7 +7,7 @@ import moment from 'moment';
 import Axios from 'axios';
 
 const PerShift = ({route, navigation}) => {
-	const {qc_daily_inspection_id, qc_daily_inspection_item_id, qc_daily_inspection_method_id, sys_plant_id, product_name, customer_name, machine_id, machine_name, machine_status, operator_nik, operator_nik_2, leader_nik, foreman_nik, qc_process_nik, today, yesterday} = route.params
+	const {qc_daily_inspection_id, qc_daily_inspection_method_id, sys_plant_id, product_name, customer_name, machine_id, machine_name, machine_status, operator_nik, operator_nik_2, leader_nik, foreman_nik, qc_process_nik, today, yesterday} = route.params
 	useEffect(() => {
 		formOke()
 		let isMounted = true
@@ -69,26 +69,7 @@ const PerShift = ({route, navigation}) => {
 	const [product_weight16, setproduct_weight16]   		= useState("")
 	const [product_weight17, setproduct_weight17]   		= useState("")
 	const [product_weight18, setproduct_weight18]   		= useState("")
-	
-	const [weight_standard1, setweight_standard1] 			= useState("")
-	const [weight_standard2, setweight_standard2] 			= useState("")
-	const [weight_standard3, setweight_standard3] 			= useState("")
-	const [weight_standard4, setweight_standard4] 			= useState("")
-	const [weight_standard5, setweight_standard5] 			= useState("")
-	const [weight_standard6, setweight_standard6] 			= useState("")
-	const [weight_standard7, setweight_standard7] 			= useState("")
-	const [weight_standard8, setweight_standard8] 			= useState("")
-	const [weight_standard9, setweight_standard9] 			= useState("")
-	const [weight_standard10, setweight_standard10] 		= useState("")
-	const [weight_standard11, setweight_standard11] 		= useState("")
-	const [weight_standard12, setweight_standard12] 		= useState("")
-	const [weight_standard13, setweight_standard13] 		= useState("")
-	const [weight_standard14, setweight_standard14] 		= useState("")
-	const [weight_standard15, setweight_standard15] 		= useState("")
-	const [weight_standard16, setweight_standard16] 		= useState("")
-	const [weight_standard17, setweight_standard17] 		= useState("")
-	const [weight_standard18, setweight_standard18] 		= useState("")
-	
+
 	const [note1, setKeterangan1] 											= useState("")
 	const [note2, setKeterangan2] 											= useState("")
 	const [note3, setKeterangan3] 											= useState("")
@@ -115,10 +96,9 @@ const PerShift = ({route, navigation}) => {
 	const [dataCavity, setDataCavity] = useState("")
 
 	const [cavityCheck, setCavityCheck] 			= useState(0)
+	const [qc_daily_inspection_item_id, setqc_daily_inspection_item_id] 			= useState(0)
+	const [weightStandard, setWeightStandard] = useState(0)
 	const [tooling_num, setTooling] 					= useState("")
-	const [statusCavity, setStatusCavity] 		= useState("")
-	const [ProductsWeight, setProductsWeight] = useState([])
-	const [WeightStandard, setWeightStandard] = useState([])
 	const [keterangan, setKeterangan] 				= useState([])
 	const [inspectionTime, setInspectionTime] = useState([])
 	const [data, setData] 										= useState([]);
@@ -130,6 +110,8 @@ const PerShift = ({route, navigation}) => {
 	const [created_by, setCreatedBy]		  		= useState("")
 	const [updated_by, setUpdatedBy]		  		= useState("")
 	const date = []
+
+	const [loading, setLoading]		= useState(false)
 
 	if(today != null)
 	{
@@ -172,13 +154,16 @@ const PerShift = ({route, navigation}) => {
 			}
 			Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
 			.then(response => {
+				setLoading(true)
 				setData(response.data.data)
+				setqc_daily_inspection_item_id(response.data.data.daily_inspection.qc_daily_inpspection_item_id)
 				setInternalPartId(response.data.data.daily_inspection.internal_part_id)
 				setCustomerPartNumber(response.data.data.daily_inspection.customer_part_number)
 				setModel(response.data.data.daily_inspection.model)
 				setData1(response.data.data.daily_inspection)
 				setTooling(response.data.data.daily_inspection.tooling_num)
 				setDataCavity(response.data.data.daily_inspection.cavity)
+				setWeightStandard(response.data.data.product_weight)
 				console.log("List Data Per Shift: ", response.data.status, "OK")
 			})
 			.catch(error => {
@@ -200,13 +185,16 @@ const PerShift = ({route, navigation}) => {
 			}
 			Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
 			.then(response => {
+				setLoading(true)
 				setData(response.data.data)
+				setqc_daily_inspection_item_id(response.data.data.daily_inspection.qc_daily_inpspection_item_id)
 				setInternalPartId(response.data.data.daily_inspection.internal_part_id)
 				setCustomerPartNumber(response.data.data.daily_inspection.customer_part_number)
 				setModel(response.data.data.daily_inspection.model)
 				setData1(response.data.data.daily_inspection)
 				setTooling(response.data.data.daily_inspection.tooling_num)
 				setDataCavity(response.data.data.daily_inspection.cavity)
+				setWeightStandard(response.data.data.product_weight)
 				console.log("List Data Per Shift: ", response.data.status, "OK")
 			})
 			.catch(error => {
@@ -228,7 +216,9 @@ const PerShift = ({route, navigation}) => {
 			}
 			Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
 			.then(response => {
+				setLoading(true)
 				setData(response.data.data)
+				setqc_daily_inspection_item_id(response.data.data.daily_inspection.qc_daily_inpspection_item_id)
 				setInternalPartId(response.data.data.daily_inspection.internal_part_id)
 				setCustomerPartNumber(response.data.data.daily_inspection.customer_part_number)
 				setModel(response.data.data.daily_inspection.model)
@@ -236,6 +226,7 @@ const PerShift = ({route, navigation}) => {
 				setCheckCavity(response.data.data.daily_inspection.cavity)
 				setTooling(response.data.data.daily_inspection.tooling_num)
 				setDataCavity(response.data.data.daily_inspection.cavity)
+				setWeightStandard(response.data.data.product_weight)
 				console.log("List Data Per Shift: ", response.data.status, "OK")
 			})
 			.catch(error => {
@@ -261,10 +252,13 @@ const PerShift = ({route, navigation}) => {
 		}
 		Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
 		.then(response => {
+			setLoading(true)
 			setData(response.data.data)
+			setqc_daily_inspection_item_id(response.data.data.daily_inspection.qc_daily_inpspection_item_id)
 			setCavityCheck(response.data.data.daily_inspection.cavity)
 			setTooling(response.data.data.daily_inspection.tooling_num)
 			setDataCavity(response.data.data.daily_inspection.cavity)
+			setWeightStandard(response.data.data.product_weight)
 			console.log("List Data Per Shift Berdasarkan Shift: ", response.data.status, "OK")
 		})
 		.catch(error => {
@@ -274,129 +268,126 @@ const PerShift = ({route, navigation}) => {
 	
 	const hString = hours.toString()
 
-	const item = JSON.stringify({
-	"item":{
+	const item = {
 		"cav_1": {
-			"cavity": statusCavity1,
-			"weight_standard": weight_standard1,
+			"cavity": 1,
+			"weight_standard": weightStandard,
 			"product_weight": product_weight1,
 			"note": note1
 		},
 		"cav_2": {
-			"cavity": statusCavity2,
-			"weight_standard": weight_standard2,
+			"cavity": 2,
+			"weight_standard": weightStandard,
 			"product_weight": product_weight2,
 			"note": note2
 		},
 		"cav_3": {
-			"cavity": statusCavity3,
-			"weight_standard": weight_standard3,
+			"cavity": 3,
+			"weight_standard": weightStandard,
 			"product_weight": product_weight3,
 			"note": note3
 		},
 		"cav_4": {
-			"cavity": statusCavity4,
-			"weight_standard": weight_standard4,
+			"cavity": 4,
+			"weight_standard": weightStandard,
 			"product_weight": product_weight4,
 			"note": note4
 		},
 		"cav_5": {
-			"cavity": statusCavity5,
-			"weight_standard": weight_standard5,
+			"cavity": 5,
+			"weight_standard": weightStandard,
 			"product_weight": product_weight5,
 			"note": note5
 		},
 		"cav_6": {
-			"cavity": statusCavity6,
-			"weight_standard": weight_standard6,
+			"cavity": 6,
+			"weight_standard": weightStandard,
 			"product_weight": product_weight6,
 			"note": note6
 		},
 		"cav_7": {
-			"cavity": statusCavity7,
-			"weight_standard": weight_standard7,
+			"cavity": 7,
+			"weight_standard": weightStandard,
 			"product_weight": product_weight7,
 			"note": note7
 		},
 		"cav_8": {
-			"cavity": statusCavity8,
-			"weight_standard": weight_standard8,
+			"cavity": 8,
+			"weight_standard": weightStandard,
 			"product_weight": product_weight8,
 			"note": note8
 		},
 		"cav_9": {
-			"cavity": statusCavity9,
-			"weight_standard": weight_standard9,
+			"cavity": 9,
+			"weight_standard": weightStandard,
 			"product_weight": product_weight9,
 			"note": note9
 		},
 		"cav_10": {
-			"cavity": statusCavity10,
-			"weight_standard": weight_standard10,
+			"cavity": 10,
+			"weight_standard": weightStandard,
 			"product_weight": product_weight10,
 			"note": note10
 		},
 		"cav_11": {
-			"cavity": statusCavity11,
-			"weight_standard": weight_standard11,
+			"cavity": 11,
+			"weight_standard": weightStandard,
 			"product_weight": product_weight11,
 			"note": note11
 		},
 		"cav_12": {
-			"cavity": statusCavity12,
-			"weight_standard": weight_standard12,
+			"cavity": 12,
+			"weight_standard": weightStandard,
 			"product_weight": product_weight12,
 			"note": note12
 		},
 		"cav_13": {
-			"cavity": statusCavity13,
-			"weight_standard": weight_standard13,
+			"cavity": 13,
+			"weight_standard": weightStandard,
 			"product_weight": product_weight13,
 			"note": note13
 		},
 		"cav_14": {
-			"cavity": statusCavity14,
-			"weight_standard": weight_standard14,
+			"cavity": 14,
+			"weight_standard": weightStandard,
 			"product_weight": product_weight14,
 			"note": note14
 		},
 		"cav_15": {
-			"cavity": statusCavity15,
-			"weight_standard": weight_standard15,
+			"cavity": 15,
+			"weight_standard": weightStandard,
 			"product_weight": product_weight15,
 			"note": note15
 		},
 		"cav_16": {
-			"cavity": statusCavity16,
-			"weight_standard": weight_standard16,
+			"cavity": 16,
+			"weight_standard": weightStandard,
 			"product_weight": product_weight16,
 			"note": note16
 		},
 		"cav_17": {
-			"cavity": statusCavity17,
-			"weight_standard": weight_standard17,
+			"cavity": 17,
+			"weight_standard": weightStandard,
 			"product_weight": product_weight17,
 			"note": note17
 		},
 		"cav_18": {
-			"cavity": statusCavity18,
-			"weight_standard": weight_standard18,
+			"cavity": 18,
+			"weight_standard": weightStandard,
 			"product_weight": product_weight18,
 			"note": note18
 		},
+
 	}
-})
 
 	const submit = async() => {
+		setLoading(false)
 		const el = {
 			qc_daily_inspection_id,
 			qc_daily_inspection_item_id,
 			qc_daily_inspection_method_id,
 			hours,
 			tooling_num,
-			statusCavity,
-			ProductsWeight,
-			WeightStandard,
 			keterangan,
 			inspectionTime,
 			item,
@@ -424,12 +415,14 @@ const PerShift = ({route, navigation}) => {
 		};
 		Axios(config)
 		.then(function (response){
+			setLoading(true)
+			console.log("Res: ", response.status, " Ok")
 			navigation.navigate('ListForm')
 			alert("Success Send Data!")
-			console.log("Res: ", response.status, " Ok")
 		})
 		.catch(function (error){
 			alert("Failed Send Data!")
+			setLoading(true)
 			console.log(error)
 		})
 	}
@@ -448,28 +441,12 @@ const PerShift = ({route, navigation}) => {
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
 							<View style={{justifyContent: 'center', width: 168.5}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {product_weight1}
-								onValueChange = {(value)=>setproduct_weight1(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<TextInput keyboardType="numeric" value={product_weight1} onChangeText={(value) => setproduct_weight1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
 							<View style={{justifyContent: 'center', width: 168.5}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {weight_standard1}
-								onValueChange = {(value)=>setweight_standard1(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+								<Text>{weightStandard}</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
@@ -490,28 +467,12 @@ const PerShift = ({route, navigation}) => {
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
 							<View style={{justifyContent: 'center', width: 168.5}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {product_weight2}
-								onValueChange = {(value)=>setproduct_weight2(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<TextInput keyboardType="numeric" value={product_weight2} onChangeText={(value) => setproduct_weight2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
 							<View style={{justifyContent: 'center', width: 168.5}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {weight_standard2}
-								onValueChange = {(value)=>setweight_standard2(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+								<Text>{weightStandard}</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
@@ -532,28 +493,12 @@ const PerShift = ({route, navigation}) => {
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
 							<View style={{justifyContent: 'center', width: 168.5}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {product_weight3}
-								onValueChange = {(value)=>setproduct_weight3(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<TextInput keyboardType="numeric" value={product_weight3} onChangeText={(value) => setproduct_weight3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
 							<View style={{justifyContent: 'center', width: 168.5}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {weight_standard3}
-								onValueChange = {(value)=>setweight_standard3(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+								<Text>{weightStandard}</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
@@ -574,28 +519,12 @@ const PerShift = ({route, navigation}) => {
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
 							<View style={{justifyContent: 'center', width: 168.5}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {product_weight4}
-								onValueChange = {(value)=>setproduct_weight4(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<TextInput keyboardType="numeric" value={product_weight4} onChangeText={(value) => setproduct_weight4(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
 							<View style={{justifyContent: 'center', width: 168.5}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {weight_standard4}
-								onValueChange = {(value)=>setweight_standard4(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+								<Text>{weightStandard}</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
@@ -616,28 +545,12 @@ const PerShift = ({route, navigation}) => {
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
 							<View style={{justifyContent: 'center', width: 168.5}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {product_weight5}
-								onValueChange = {(value)=>setproduct_weight5(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<TextInput keyboardType="numeric" value={product_weight5} onChangeText={(value) => setproduct_weight5(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
 							<View style={{justifyContent: 'center', width: 168.5}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {weight_standard5}
-								onValueChange = {(value)=>setweight_standard5(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+								<Text>{weightStandard}</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
@@ -658,28 +571,12 @@ const PerShift = ({route, navigation}) => {
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
 							<View style={{justifyContent: 'center', width: 168.5}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {product_weight6}
-								onValueChange = {(value)=>setproduct_weight6(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<TextInput keyboardType="numeric" value={product_weight6} onChangeText={(value) => setproduct_weight6(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
 							<View style={{justifyContent: 'center', width: 168.5}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {weight_standard6}
-								onValueChange = {(value)=>setweight_standard6(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+								<Text>{weightStandard}</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
@@ -700,28 +597,12 @@ const PerShift = ({route, navigation}) => {
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
 							<View style={{justifyContent: 'center', width: 168.5}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {product_weight7}
-								onValueChange = {(value)=>setproduct_weight7(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<TextInput keyboardType="numeric" value={product_weight7} onChangeText={(value) => setproduct_weight7(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
 							<View style={{justifyContent: 'center', width: 168.5}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {weight_standard7}
-								onValueChange = {(value)=>setweight_standard7(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+								<Text>{weightStandard}</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
@@ -742,33 +623,17 @@ const PerShift = ({route, navigation}) => {
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
 							<View style={{justifyContent: 'center', width: 168.5}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {product_weight8}
-								onValueChange = {(value)=>setproduct_weight8(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<TextInput keyboardType="numeric" value={product_weight8} onChangeText={(value) => setproduct_weight8(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
 							<View style={{justifyContent: 'center', width: 168.5}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {weight_standard8}
-								onValueChange = {(value)=>setweight_standard8(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+								<Text>{weightStandard}</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
 							<View style={{justifyContent: 'center', width: 145}}>
-								<TextInput value={product_weight8} onChangeText={(value) => setProductWeight8(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+								<TextInput value={note8} onChangeText={(value) => setKeterangan8(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
 							</View>
 						</View>
 					</View>
@@ -784,28 +649,12 @@ const PerShift = ({route, navigation}) => {
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
 							<View style={{justifyContent: 'center', width: 168.5}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {product_weight9}
-								onValueChange = {(value)=>setproduct_weight9(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<TextInput keyboardType="numeric" value={product_weight9} onChangeText={(value) => setproduct_weight9(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
 							<View style={{justifyContent: 'center', width: 168.5}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {weight_standard9}
-								onValueChange = {(value)=>setweight_standard9(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+								<Text>{weightStandard}</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
@@ -826,28 +675,12 @@ const PerShift = ({route, navigation}) => {
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
 							<View style={{justifyContent: 'center', width: 168.5}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {product_weight10}
-								onValueChange = {(value)=>setproduct_weight10(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<TextInput keyboardType="numeric" value={product_weight10} onChangeText={(value) => setproduct_weight10(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
 							<View style={{justifyContent: 'center', width: 168.5}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {weight_standard10}
-								onValueChange = {(value)=>setweight_standard10(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+								<Text>{weightStandard}</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
@@ -868,28 +701,12 @@ const PerShift = ({route, navigation}) => {
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
 							<View style={{justifyContent: 'center', width: 168.5}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {product_weight11}
-								onValueChange = {(value)=>setproduct_weight11(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<TextInput keyboardType="numeric" value={product_weight11} onChangeText={(value) => setproduct_weight11(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
 							<View style={{justifyContent: 'center', width: 168.5}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {weight_standard11}
-								onValueChange = {(value)=>setweight_standard11(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+								<Text>{weightStandard}</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
@@ -910,28 +727,12 @@ const PerShift = ({route, navigation}) => {
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
 							<View style={{justifyContent: 'center', width: 168.5}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {product_weight12}
-								onValueChange = {(value)=>setproduct_weight12(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<TextInput keyboardType="numeric" value={product_weight12} onChangeText={(value) => setproduct_weight12(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
 							<View style={{justifyContent: 'center', width: 168.5}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {weight_standard12}
-								onValueChange = {(value)=>setweight_standard12(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+								<Text>{weightStandard}</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
@@ -952,28 +753,12 @@ const PerShift = ({route, navigation}) => {
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
 							<View style={{justifyContent: 'center', width: 168.5}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {product_weight13}
-								onValueChange = {(value)=>setproduct_weight13(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<TextInput keyboardType="numeric" value={product_weight13} onChangeText={(value) => setproduct_weight13(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
 							<View style={{justifyContent: 'center', width: 168.5}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {weight_standard13}
-								onValueChange = {(value)=>setweight_standard13(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+								<Text>{weightStandard}</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
@@ -994,28 +779,12 @@ const PerShift = ({route, navigation}) => {
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
 							<View style={{justifyContent: 'center', width: 168.5}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {product_weight14}
-								onValueChange = {(value)=>setproduct_weight14(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<TextInput keyboardType="numeric" value={product_weight14} onChangeText={(value) => setproduct_weight14(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
 							<View style={{justifyContent: 'center', width: 168.5}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {weight_standard14}
-								onValueChange = {(value)=>setweight_standard14(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+								<Text>{weightStandard}</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
@@ -1036,28 +805,12 @@ const PerShift = ({route, navigation}) => {
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
 							<View style={{justifyContent: 'center', width: 168.5}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {product_weight15}
-								onValueChange = {(value)=>setproduct_weight15(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<TextInput keyboardType="numeric" value={product_weight15} onChangeText={(value) => setproduct_weight15(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
 							<View style={{justifyContent: 'center', width: 168.5}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {weight_standard15}
-								onValueChange = {(value)=>setweight_standard15(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+								<Text>{weightStandard}</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
@@ -1078,28 +831,12 @@ const PerShift = ({route, navigation}) => {
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
 							<View style={{justifyContent: 'center', width: 168.5}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {product_weight16}
-								onValueChange = {(value)=>setproduct_weight16(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<TextInput keyboardType="numeric" value={product_weight16} onChangeText={(value) => setproduct_weight16(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
 							<View style={{justifyContent: 'center', width: 168.5}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {weight_standard16}
-								onValueChange = {(value)=>setweight_standard16(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+								<Text>{weightStandard}</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
@@ -1120,28 +857,12 @@ const PerShift = ({route, navigation}) => {
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
 							<View style={{justifyContent: 'center', width: 168.5}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {product_weight17}
-								onValueChange = {(value)=>setproduct_weight17(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<TextInput keyboardType="numeric" value={product_weight17} onChangeText={(value) => setproduct_weight17(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
 							<View style={{justifyContent: 'center', width: 168.5}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {weight_standard17}
-								onValueChange = {(value)=>setweight_standard17(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+								<Text>{weightStandard}</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
@@ -1163,28 +884,12 @@ const PerShift = ({route, navigation}) => {
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
 							<View style={{justifyContent: 'center', width: 168.5}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {product_weight18}
-								onValueChange = {(value)=>setproduct_weight18(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+							<TextInput keyboardType="numeric" value={product_weight18} onChangeText={(value) => setproduct_weight18(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
 							<View style={{justifyContent: 'center', width: 168.5}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue= {weight_standard18}
-								onValueChange = {(value)=>setweight_standard18(value)}
-								>
-									<Picker.Item label="Pilih" value=""/>
-									<Picker.Item label="OK" value="OK"/>
-									<Picker.Item label="NG" value="NG"/>
-								</Picker>
+								<Text>{weightStandard}</Text>
 							</View>
 						</View>
 						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
@@ -1199,7 +904,111 @@ const PerShift = ({route, navigation}) => {
 		}
 		return table1
 	}
-	// console.log(table1)
+
+	const content = () => {
+		var dataContent = []
+		dataContent.push(
+			<ScrollView key="asoijm2" style={{flex: 1}}>
+				<View style={{paddingTop: 20, flexDirection: 'row'}}>
+					<View style={{padding: 10, width: "44%"}}>
+						<Text>Machines Status</Text>
+					</View>
+					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+						<Text style={{color: 'black'}}>:</Text>
+					</View>
+					<View style={{padding: 4, width: "50%"}}>
+						<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+							<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+								<Text>{data.daily_inspection != null ? data.daily_inspection.machine_status : "-"}</Text>
+							</View>
+						</View>
+					</View>
+				</View>
+
+				<View style={{paddingTop: 20, flexDirection: 'row'}}>
+					<View style={{padding: 10, width: "44%"}}>
+						<Text>Tooling</Text>
+					</View>
+					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+						<Text style={{color: 'black'}}>:</Text>
+					</View>
+					<View style={{padding: 4, width: "50%"}}>
+						<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+							<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+								<Text>{tooling_num}</Text>
+							</View>
+						</View>
+					</View>
+				</View>
+				
+				<View style={{paddingTop: 20, flexDirection: 'row'}}>
+					<View style={{padding: 10, width: "44%"}}>
+						<Text>Cavity Amount</Text>
+					</View>
+					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+						<Text style={{color: 'black'}}>:</Text>
+					</View>
+					<View style={{padding: 4, width: "50%"}}>
+						<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+							<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+								{/* <Text>2</Text> */}
+								<Text>{data.daily_inspection != null ? data.daily_inspection.cavity : "-"}</Text>
+							</View>
+						</View>
+					</View>
+				</View>
+
+				<ScrollView horizontal>
+					<TouchableOpacity>
+						<View style={{flexDirection: 'row', height: 50, paddingTop: 10}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
+								<Text style={{fontWeight: 'bold'}}>Cavity</Text>
+								<View style={{justifyContent: 'center'}}>
+								</View>
+							</View>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+								<Text style={{fontWeight: 'bold'}}>Products Weight</Text>
+								<View style={{justifyContent: 'center'}}>
+								</View>
+							</View>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+								<Text style={{fontWeight: 'bold'}}>Weight Standard</Text>
+								<View style={{justifyContent: 'center'}}>
+								</View>
+							</View>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
+								<Text style={{fontWeight: 'bold'}}>Keterangan</Text>
+								<View style={{justifyContent: 'center'}}>
+								</View>
+							</View>
+						</View>
+						{dataItem()}
+					</TouchableOpacity>
+				</ScrollView>
+
+				<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
+					<View>
+						<Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>
+					</View>
+				</View>
+
+				<View style={{flexDirection: 'column', height: 50}}>
+						<View style={{height: 27, alignItems: 'center'}}>
+							<Text style={{fontWeight: 'bold'}}>
+								Inspection Time
+							</Text>
+						</View>
+						<View style={{height: 23, alignItems: 'center'}}>
+							<Text>
+								{inspectionTime}
+							</Text>
+						</View>
+					</View>
+			</ScrollView>
+		
+		)
+		return dataContent
+	}
 
 	return(
 		<KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={{flex: 1}} >
@@ -1271,103 +1080,7 @@ const PerShift = ({route, navigation}) => {
 							</View>
 						</View>
 
-						<ScrollView style={{flex: 1}}>
-							<View style={{paddingTop: 20, flexDirection: 'row'}}>
-								<View style={{padding: 10, width: "44%"}}>
-									<Text>Machines Status</Text>
-								</View>
-								<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-									<Text style={{color: 'black'}}>:</Text>
-								</View>
-								<View style={{padding: 4, width: "50%"}}>
-									<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-										<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-											<Text>{data.daily_inspection != null ? data.daily_inspection.machine_status : "-"}</Text>
-										</View>
-									</View>
-								</View>
-							</View>
-
-							<View style={{paddingTop: 20, flexDirection: 'row'}}>
-								<View style={{padding: 10, width: "44%"}}>
-									<Text>Tooling</Text>
-								</View>
-								<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-									<Text style={{color: 'black'}}>:</Text>
-								</View>
-								<View style={{padding: 4, width: "50%"}}>
-									<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-										<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-											<Text>{tooling_num}</Text>
-										</View>
-									</View>
-								</View>
-							</View>
-							
-							<View style={{paddingTop: 20, flexDirection: 'row'}}>
-								<View style={{padding: 10, width: "44%"}}>
-									<Text>Cavity Amount</Text>
-								</View>
-								<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-									<Text style={{color: 'black'}}>:</Text>
-								</View>
-								<View style={{padding: 4, width: "50%"}}>
-									<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-										<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-											{/* <Text>2</Text> */}
-											<Text>{data.daily_inspection != null ? data.daily_inspection.cavity : "-"}</Text>
-										</View>
-									</View>
-								</View>
-							</View>
-
-							<ScrollView horizontal>
-								<TouchableOpacity>
-									<View style={{flexDirection: 'row', height: 50, paddingTop: 10}}>
-										<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-											<Text style={{fontWeight: 'bold'}}>Cavity</Text>
-											<View style={{justifyContent: 'center'}}>
-											</View>
-										</View>
-										<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-											<Text style={{fontWeight: 'bold'}}>Products Weight</Text>
-											<View style={{justifyContent: 'center'}}>
-											</View>
-										</View>
-										<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-											<Text style={{fontWeight: 'bold'}}>Weight Standard</Text>
-											<View style={{justifyContent: 'center'}}>
-											</View>
-										</View>
-										<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
-											<Text style={{fontWeight: 'bold'}}>Keterangan</Text>
-											<View style={{justifyContent: 'center'}}>
-											</View>
-										</View>
-									</View>
-									{dataItem()}
-								</TouchableOpacity>
-							</ScrollView>
-
-							<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
-								<View>
-									<Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>
-								</View>
-							</View>
-
-							<View style={{flexDirection: 'column', height: 50}}>
-									<View style={{height: 27, alignItems: 'center'}}>
-										<Text style={{fontWeight: 'bold'}}>
-											Inspection Time
-										</Text>
-									</View>
-									<View style={{height: 23, alignItems: 'center'}}>
-										<Text>
-											{inspectionTime}
-										</Text>
-									</View>
-								</View>
-						</ScrollView>
+						{loading ? content() : <View style={{justifyContent: 'center'}}><ActivityIndicator size="large" color="#0000ff"/></View>}
 					</View>
 				</Container>
 			</TouchableWithoutFeedback>

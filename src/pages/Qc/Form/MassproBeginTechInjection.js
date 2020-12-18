@@ -1,4 +1,4 @@
-import {Image, View, ScrollView, TextInput, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, TouchableOpacity} from 'react-native';
+import {Image, View, ScrollView, TextInput, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, TouchableOpacity, ActivityIndicator} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import { Container, Text, Button, Picker} from 'native-base';
 import LogoSIP from '../../../assets/logo-sip370x50.png';
@@ -47,8 +47,10 @@ const MassproBeginTechInjection = ({route, navigation}) => {
 	const [tooling_num, setTooling]	= useState("")
 	const planning_id = parseInt(planningId)
 
+	const [loading, setLoading] = useState(false)
 
 	const submit = async() => {
+		setLoading(false)
 		const data = {
 			eng_product_id,
 			prod_machine_id,
@@ -90,9 +92,10 @@ const MassproBeginTechInjection = ({route, navigation}) => {
 		};
 		Axios(config)
 		.then(function (response){
+			setLoading(true)
+			console.log("Res: ", response.status, " Ok")
 			navigation.navigate('ListForm')
 			alert("Success Send Data!")
-			console.log("Res: ", response.status, " Ok")
 		})
 		.catch(function (error){
 			alert("Failed Send Data!")
@@ -133,6 +136,7 @@ const MassproBeginTechInjection = ({route, navigation}) => {
 
 		Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
 		.then(response => {
+			setLoading(true)
 			setMaintMoldId(response.data.data.qc_masspro_main_mold_id)
 			setMaterialPreparationId(response.data.data.qc_masspro_material_preparation_id)
 			setMoldSetterId(response.data.data.qc_masspro_mold_setter_id)
@@ -486,6 +490,104 @@ const MassproBeginTechInjection = ({route, navigation}) => {
 		return data
 	}
 
+	const content = () => {
+		var dataContent = []
+		dataContent.push(
+			<ScrollView key="31" style={{flex: 1}}>
+				<TouchableOpacity>
+					<View style={{paddingTop: 20, flexDirection: 'row'}}>
+						<View style={{padding: 10, width: "44%"}}>
+							<Text>Cleaning Mold Core / Cavity</Text>
+						</View>
+						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+							<Text style={{color: 'black'}}>:</Text>
+						</View>
+						<View style={{padding: 4, width: "50%"}}>
+							{updateCleaningMold()}
+						</View>
+					</View>
+
+					<View style={{paddingTop: 20, flexDirection: 'row'}}>
+						<View style={{padding: 10, width: "44%"}}>
+							<Text>Input Standar Parameter</Text>
+						</View>
+						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+							<Text style={{color: 'black'}}>:</Text>
+						</View>
+						<View style={{padding: 4, width: "50%"}}>
+							{updateStandaradParameter()}
+						</View>
+					</View>
+					
+					<View style={{paddingTop: 20, flexDirection: 'row'}}>
+						<View style={{padding: 10, width: "44%"}}>
+							<Text>Robot setting</Text>
+						</View>
+						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+							<Text style={{color: 'black'}}>:</Text>
+						</View>
+						<View style={{padding: 4, width: "50%"}}>
+							{updateRoboSetting()}
+						</View>
+					</View>
+					
+					<View style={{paddingTop: 20, flexDirection: 'row'}}>
+						<View style={{padding: 10, width: "44%"}}>
+							<Text>Check cooling Channel</Text>
+						</View>
+						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+							<Text style={{color: 'black'}}>:</Text>
+						</View>
+						<View style={{padding: 4, width: "50%"}}>
+							{updateCoolingChannel()}
+						</View>
+					</View>
+					
+					<View style={{paddingTop: 20, flexDirection: 'row'}}>
+						<View style={{padding: 10, width: "44%"}}>
+							<Text>4M Check Sheet</Text>
+						</View>
+						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+							<Text style={{color: 'black'}}>:</Text>
+						</View>
+						<View style={{padding: 4, width: "50%"}}>
+							{update4CheckSheet()}
+						</View>
+					</View>
+					
+					<View style={{paddingTop: 20, flexDirection: 'row'}}>
+						<View style={{padding: 10, width: "44%"}}>
+							<Text>Mold Temp ActMold Temp Act</Text>
+						</View>
+						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+							<Text style={{color: 'black'}}>:</Text>
+						</View>
+						<View style={{padding: 4, width: "50%"}}>
+							{updateActMoldTemp()}
+						</View>
+					</View>
+
+					<View style={{paddingTop: 20, flexDirection: 'row'}}>
+						<View style={{padding: 10, width: "44%"}}>
+							<Text>Remark</Text>
+						</View>
+						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+							<Text style={{color: 'black'}}>:</Text>
+						</View>
+						<View style={{padding: 4, width: "50%"}}>
+							{updateRemark()}
+						</View>
+					</View>
+					
+					<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
+						{updateButton()}
+					</View>
+				</TouchableOpacity>
+			</ScrollView>
+		)
+		return dataContent
+	}
+
 	return(
 		<KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={{flex:1}}>
 			<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -557,97 +659,7 @@ const MassproBeginTechInjection = ({route, navigation}) => {
 							</View>
 						</View>
 
-						<ScrollView style={{flex: 1}}>
-							<TouchableOpacity>
-								<View style={{paddingTop: 20, flexDirection: 'row'}}>
-									<View style={{padding: 10, width: "44%"}}>
-										<Text>Cleaning Mold Core / Cavity</Text>
-									</View>
-									<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-										<Text style={{color: 'black'}}>:</Text>
-									</View>
-									<View style={{padding: 4, width: "50%"}}>
-										{updateCleaningMold()}
-									</View>
-								</View>
-
-								<View style={{paddingTop: 20, flexDirection: 'row'}}>
-									<View style={{padding: 10, width: "44%"}}>
-										<Text>Input Standar Parameter</Text>
-									</View>
-									<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-										<Text style={{color: 'black'}}>:</Text>
-									</View>
-									<View style={{padding: 4, width: "50%"}}>
-										{updateStandaradParameter()}
-									</View>
-								</View>
-								
-								<View style={{paddingTop: 20, flexDirection: 'row'}}>
-									<View style={{padding: 10, width: "44%"}}>
-										<Text>Robot setting</Text>
-									</View>
-									<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-										<Text style={{color: 'black'}}>:</Text>
-									</View>
-									<View style={{padding: 4, width: "50%"}}>
-										{updateRoboSetting()}
-									</View>
-								</View>
-								
-								<View style={{paddingTop: 20, flexDirection: 'row'}}>
-									<View style={{padding: 10, width: "44%"}}>
-										<Text>Check cooling Channel</Text>
-									</View>
-									<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-										<Text style={{color: 'black'}}>:</Text>
-									</View>
-									<View style={{padding: 4, width: "50%"}}>
-										{updateCoolingChannel()}
-									</View>
-								</View>
-								
-								<View style={{paddingTop: 20, flexDirection: 'row'}}>
-									<View style={{padding: 10, width: "44%"}}>
-										<Text>4M Check Sheet</Text>
-									</View>
-									<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-										<Text style={{color: 'black'}}>:</Text>
-									</View>
-									<View style={{padding: 4, width: "50%"}}>
-										{update4CheckSheet()}
-									</View>
-								</View>
-								
-								<View style={{paddingTop: 20, flexDirection: 'row'}}>
-									<View style={{padding: 10, width: "44%"}}>
-										<Text>Mold Temp ActMold Temp Act</Text>
-									</View>
-									<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-										<Text style={{color: 'black'}}>:</Text>
-									</View>
-									<View style={{padding: 4, width: "50%"}}>
-										{updateActMoldTemp()}
-									</View>
-								</View>
-
-								<View style={{paddingTop: 20, flexDirection: 'row'}}>
-									<View style={{padding: 10, width: "44%"}}>
-										<Text>Remark</Text>
-									</View>
-									<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-										<Text style={{color: 'black'}}>:</Text>
-									</View>
-									<View style={{padding: 4, width: "50%"}}>
-										{updateRemark()}
-									</View>
-								</View>
-								
-								<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
-									{updateButton()}
-								</View>
-							</TouchableOpacity>
-						</ScrollView>
+						{loading ? content() : <View style={{justifyContent: 'center'}}><ActivityIndicator size="large" color="#0000ff"/></View>}
 					</View>
 				</Container>
 			</TouchableWithoutFeedback>

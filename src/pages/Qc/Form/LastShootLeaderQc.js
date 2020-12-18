@@ -1,4 +1,4 @@
-import {Image, View, ScrollView, TextInput, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, TouchableOpacity} from 'react-native';
+import {Image, View, ScrollView, TextInput, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, TouchableOpacity, ActivityIndicator} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import { Container, Text, Button, Picker } from 'native-base';
 import LogoSIP from '../../../assets/logo-sip370x50.png';
@@ -131,6 +131,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 	const [hours, setHours]		  												= useState(0)
 	const [shift, setShift]		  												= useState(0)
 	const [data, setData] 															= useState([])
+	const [dataCavity, setDataCavity] 															= useState([])
 	const [eng_product_id, setEngProd]									= useState(0)
 	const [copy_sample, setCopySample]	  							= useState("")
 	const [mtr_need, setMtrNeed]				  							= useState("")
@@ -149,6 +150,9 @@ const LastShootLeaderQc = ({route, navigation}) => {
 	const [planningId, setPlanningId] 									= useState("")
 	const planning_id = parseInt(planningId)
 	const [internal_part_id, setIPI] 										= useState("")
+
+	const [loading, setLoading]	= useState(false)
+
 	if(today != null)
 	{
 	date.push(
@@ -189,7 +193,9 @@ const LastShootLeaderQc = ({route, navigation}) => {
 			}
 			Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
 			.then(response => {
+				setLoading(true)
 				setData(response.data.data.daily_inspection)
+				setDataCavity(response.data.data.daily_inspection.cavity)
 				setEngProd(response.data.data.eng_product_id)
 				setNGCategories(response.data.data.ng_category)
 				setTooling(response.data.data.daily_inspection.tooling_num)
@@ -215,7 +221,9 @@ const LastShootLeaderQc = ({route, navigation}) => {
 			}
 			Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
 			.then(response => {
+				setLoading(true)
 				setData(response.data.data.daily_inspection)
+				setDataCavity(response.data.data.daily_inspection.cavity)
 				setEngProd(response.data.data.eng_product_id)
 				setNGCategories(response.data.data.ng_category)
 				setTooling(response.data.data.daily_inspection.tooling_num)
@@ -241,7 +249,9 @@ const LastShootLeaderQc = ({route, navigation}) => {
 			}
 			Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
 			.then(response => {
+				setLoading(true)
 				setData(response.data.data.daily_inspection)
+				setDataCavity(response.data.data.daily_inspection.cavity)
 				setEngProd(response.data.data.eng_product_id)
 				setNGCategories(response.data.data.ng_category)
 				setTooling(response.data.data.daily_inspection.tooling_num)
@@ -408,21 +418,181 @@ const LastShootLeaderQc = ({route, navigation}) => {
 		}
 	}
 
-	var dataNGs = []
-	ngCategories.map((element, key) => {
-		if(copy_sample == "NG")
-		{
-			dataNGs.push(
-				<Picker.Item label={element.name} value={element.id} key={key} />
+const itemNGsLoop = () => {
+		var dataNGs = []
+		var itemCheckNGs = [
+			{
+				"cavity": statusCavity1,
+				"judgement_first_piece": judgement_first_piece1,
+				"qc_ng_category_id": qc_ng_category_id1,
+				"fitting_test": fitting_test1,
+				"product_weight": product_weight1,
+				"note": note1
+			},
+			{
+				"cavity": statusCavity2,
+				"judgement_first_piece": judgement_first_piece2,
+				"qc_ng_category_id": qc_ng_category_id2,
+				"fitting_test": fitting_test2,
+				"product_weight": product_weight2,
+				"note": note2
+			},
+			{
+				"cavity": statusCavity3,
+				"judgement_first_piece": judgement_first_piece3,
+				"qc_ng_category_id": qc_ng_category_id3,
+				"fitting_test": fitting_test3,
+				"product_weight": product_weight3,
+				"note": note3
+			},
+			{
+				"cavity": statusCavity4,
+				"judgement_first_piece": judgement_first_piece4,
+				"qc_ng_category_id": qc_ng_category_id4,
+				"fitting_test": fitting_test4,
+				"product_weight": product_weight4,
+				"note": note4
+			},
+			{
+				"cavity": statusCavity5,
+				"judgement_first_piece": judgement_first_piece5,
+				"qc_ng_category_id": qc_ng_category_id5,
+				"fitting_test": fitting_test5,
+				"product_weight": product_weight5,
+				"note": note5
+			},
+			{
+				"cavity": statusCavity6,
+				"judgement_first_piece": judgement_first_piece6,
+				"qc_ng_category_id": qc_ng_category_id6,
+				"fitting_test": fitting_test6,
+				"product_weight": product_weight6,
+				"note": note6
+			},
+			{
+				"cavity": statusCavity7,
+				"judgement_first_piece": judgement_first_piece7,
+				"qc_ng_category_id": qc_ng_category_id7,
+				"fitting_test": fitting_test7,
+				"product_weight": product_weight7,
+				"note": note7
+			},
+			{
+				"cavity": statusCavity8,
+				"judgement_first_piece": judgement_first_piece8,
+				"qc_ng_category_id": qc_ng_category_id8,
+				"fitting_test": fitting_test8,
+				"product_weight": product_weight8,
+				"note": note8
+			},
+			{
+				"cavity": statusCavity9,
+				"judgement_first_piece": judgement_first_piece9,
+				"qc_ng_category_id": qc_ng_category_id9,
+				"fitting_test": fitting_test9,
+				"product_weight": product_weight9,
+				"note": note9
+			},
+			{
+				"cavity": statusCavity10,
+				"judgement_first_piece": judgement_first_piece10,
+				"qc_ng_category_id": qc_ng_category_id10,
+				"fitting_test": fitting_test10,
+				"product_weight": product_weight10,
+				"note": note10
+			},
+			{
+				"cavity": statusCavity11,
+				"judgement_first_piece": judgement_first_piece11,
+				"qc_ng_category_id": qc_ng_category_id11,
+				"fitting_test": fitting_test11,
+				"product_weight": product_weight11,
+				"note": note11
+			},
+			{
+				"cavity": statusCavity12,
+				"judgement_first_piece": judgement_first_piece12,
+				"qc_ng_category_id": qc_ng_category_id12,
+				"fitting_test": fitting_test12,
+				"product_weight": product_weight12,
+				"note": note12
+			},
+			{
+				"cavity": statusCavity13,
+				"judgement_first_piece": judgement_first_piece13,
+				"qc_ng_category_id": qc_ng_category_id13,
+				"fitting_test": fitting_test13,
+				"product_weight": product_weight13,
+				"note": note13
+			},
+			{
+				"cavity": statusCavity14,
+				"judgement_first_piece": judgement_first_piece14,
+				"qc_ng_category_id": qc_ng_category_id14,
+				"fitting_test": fitting_test14,
+				"product_weight": product_weight14,
+				"note": note14
+			},
+			{
+				"cavity": statusCavity15,
+				"judgement_first_piece": judgement_first_piece15,
+				"qc_ng_category_id": qc_ng_category_id15,
+				"fitting_test": fitting_test15,
+				"product_weight": product_weight15,
+				"note": note15
+			},
+			{
+				"cavity": statusCavity16,
+				"judgement_first_piece": judgement_first_piece16,
+				"qc_ng_category_id": qc_ng_category_id16,
+				"fitting_test": fitting_test16,
+				"product_weight": product_weight16,
+				"note": note16
+			},
+			{
+				"cavity": statusCavity17,
+				"judgement_first_piece": judgement_first_piece17,
+				"qc_ng_category_id": qc_ng_category_id17,
+				"fitting_test": fitting_test17,
+				"product_weight": product_weight17,
+				"note": note17
+			},
+			{
+				"cavity": statusCavity18,
+				"judgement_first_piece": judgement_first_piece18,
+				"qc_ng_category_id": qc_ng_category_id18,
+				"fitting_test": fitting_test18,
+				"product_weight": product_weight18,
+				"note": note18
+			}
+		]
+		itemCheckNGs.map((element, key) => {
+			// console.log("xcv: ", key)
+		if(element.judgement_first_piece == "NG" || element.fitting_test == "NG" || copy_sample == "NG"){
+			setCopySample("NG")
+			var dataNGItems = []
+			dataNGItems.push(
+				<Picker.Item label="--Pilih--" value={0} key="apsodkmk2" />
 			)
+			ngCategories.map((elementdua, keydua) => {
+				dataNGItems.push(
+					<Picker.Item label={elementdua.name} value={elementdua.id} key={keydua} />
+				)
+			})
+			dataNGs.push(dataNGItems)
 		}else{
-			dataNGs.push(
-				<Picker.Item label="Tidak NG" value="" key="swQwdAcxz12" />
+			var dataNGItems = []
+			dataNGItems.push(
+				<Picker.Item label="Tidak NG" value={9999} key="swQwdAcxz12" />
 			)
-		}
-	})
+			dataNGs.push(dataNGItems)
+			}
+		})
+		return dataNGs
+	}
 
 	const submit = async() => {
+		setLoading(false)
 		const data = {
 			eng_product_id,
 			prod_machine_id,
@@ -459,9 +629,10 @@ const LastShootLeaderQc = ({route, navigation}) => {
 		};
 			Axios(config)
 			.then(function (response){
+				setLoading(true)
+				console.log("Res: ", response.status, " Ok")
 				navigation.navigate('ShowProducts')
 				alert("Success Send Data!")
-				console.log("Res: ", response.status, " Ok")
 			})
 		.catch(function (error){
 			alert("Failed Send Data!")
@@ -471,7 +642,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
   
 	const dataItem = () => {
 		var table1 = []
-		const cavity = data.cavity
+		const cavity = dataCavity
 		if(massproQCL == null){
 			if(cavity != null){
 				if(cavity > 0){
@@ -502,7 +673,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 									selectedValue= {qc_ng_category_id1}
 									onValueChange = {(value)=>setCategoryNg1(value)}
 									>
-										{dataNGs}
+										{itemNGsLoop()[0]}
 									</Picker>
 								</View>
 							</View>
@@ -560,7 +731,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 									selectedValue= {qc_ng_category_id2}
 									onValueChange = {(value)=>setCategoryNg2(value)}
 									>
-										{dataNGs}
+										{itemNGsLoop()[1]}
 									</Picker>
 								</View>
 							</View>
@@ -618,7 +789,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 									selectedValue= {qc_ng_category_id3}
 									onValueChange = {(value)=>setCategoryNg3(value)}
 									>
-										{dataNGs}
+										{itemNGsLoop()[2]}
 									</Picker>
 								</View>
 							</View>
@@ -676,7 +847,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 									selectedValue= {qc_ng_category_id4}
 									onValueChange = {(value)=>setCategoryNg4(value)}
 									>
-										{dataNGs}
+										{itemNGsLoop()[3]}
 									</Picker>
 								</View>
 							</View>
@@ -734,7 +905,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 									selectedValue= {qc_ng_category_id5}
 									onValueChange = {(value)=>setCategoryNg5(value)}
 									>
-										{dataNGs}
+										{itemNGsLoop()[4]}
 									</Picker>
 								</View>
 							</View>
@@ -792,7 +963,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 									selectedValue= {qc_ng_category_id6}
 									onValueChange = {(value)=>setCategoryNg6(value)}
 									>
-										{dataNGs}
+										{itemNGsLoop()[5]}
 									</Picker>
 								</View>
 							</View>
@@ -850,7 +1021,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 									selectedValue= {qc_ng_category_id7}
 									onValueChange = {(value)=>setCategoryNg7(value)}
 									>
-										{dataNGs}
+										{itemNGsLoop()[6]}
 									</Picker>
 								</View>
 							</View>
@@ -908,7 +1079,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 									selectedValue= {qc_ng_category_id8}
 									onValueChange = {(value)=>setCategoryNg8(value)}
 									>
-										{dataNGs}
+										{itemNGsLoop()[7]}
 									</Picker>
 								</View>
 							</View>
@@ -966,7 +1137,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 									selectedValue= {qc_ng_category_id9}
 									onValueChange = {(value)=>setCategoryNg9(value)}
 									>
-										{dataNGs}
+										{itemNGsLoop()[8]}
 									</Picker>
 								</View>
 							</View>
@@ -1024,7 +1195,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 									selectedValue= {qc_ng_category_id10}
 									onValueChange = {(value)=>setCategoryNg10(value)}
 									>
-										{dataNGs}
+										{itemNGsLoop()[9]}
 									</Picker>
 								</View>
 							</View>
@@ -1082,7 +1253,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 									selectedValue= {qc_ng_category_id11}
 									onValueChange = {(value)=>setCategoryNg11(value)}
 									>
-										{dataNGs}
+										{itemNGsLoop()[10]}
 									</Picker>
 								</View>
 							</View>
@@ -1140,7 +1311,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 									selectedValue= {qc_ng_category_id12}
 									onValueChange = {(value)=>setCategoryNg12(value)}
 									>
-										{dataNGs}
+										{itemNGsLoop()[11]}
 									</Picker>
 								</View>
 							</View>
@@ -1198,7 +1369,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 									selectedValue= {qc_ng_category_id13}
 									onValueChange = {(value)=>setCategoryNg13(value)}
 									>
-										{dataNGs}
+										{itemNGsLoop()[12]}
 									</Picker>
 								</View>
 							</View>
@@ -1256,7 +1427,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 									selectedValue= {qc_ng_category_id14}
 									onValueChange = {(value)=>setCategoryNg14(value)}
 									>
-										{dataNGs}
+										{itemNGsLoop()[13]}
 									</Picker>
 								</View>
 							</View>
@@ -1314,7 +1485,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 									selectedValue= {qc_ng_category_id15}
 									onValueChange = {(value)=>setCategoryNg15(value)}
 									>
-										{dataNGs}
+										{itemNGsLoop()[14]}
 									</Picker>
 								</View>
 							</View>
@@ -1372,7 +1543,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 									selectedValue= {qc_ng_category_id16}
 									onValueChange = {(value)=>setCategoryNg16(value)}
 									>
-										{dataNGs}
+										{itemNGsLoop()[15]}
 									</Picker>
 								</View>
 							</View>
@@ -1430,7 +1601,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 									selectedValue= {qc_ng_category_id17}
 									onValueChange = {(value)=>setCategoryNg17(value)}
 									>
-										{dataNGs}
+										{itemNGsLoop()[16]}
 									</Picker>
 								</View>
 							</View>
@@ -1488,7 +1659,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 									selectedValue= {qc_ng_category_id18}
 									onValueChange = {(value)=>setCategoryNg18(value)}
 									>
-										{dataNGs}
+										{itemNGsLoop()[17]}
 									</Picker>
 								</View>
 							</View>
@@ -1621,7 +1792,134 @@ const LastShootLeaderQc = ({route, navigation}) => {
 		}
 		return data
 	}
-  
+	
+	const content = () => {
+		var dataContent = []
+		dataContent.push(
+			<ScrollView key="asjdn2" style={{flex: 1}}>
+				<View style={{paddingTop: 20, flexDirection: 'row'}}>
+					<View style={{padding: 10, width: "44%"}}>
+						<Text>Machines Status</Text>
+					</View>
+					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+						<Text style={{color: 'black'}}>:</Text>
+					</View>
+					<View style={{padding: 4, width: "50%"}}>
+						<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+							<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+								<Text>{data != null ? data.machine_status : "-"}</Text>
+							</View>
+						</View>
+					</View>
+				</View>
+
+				<View style={{paddingTop: 20, flexDirection: 'row'}}>
+					<View style={{padding: 10, width: "44%"}}>
+						<Text>Tooling</Text>
+					</View>
+					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+						<Text style={{color: 'black'}}>:</Text>
+					</View>
+					<View style={{padding: 4, width: "50%"}}>
+						<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+							<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+								<Text>{data != null ? data.tooling_num : "-"}</Text>
+							</View>
+						</View>
+					</View>
+				</View>
+					
+				<View style={{paddingTop: 20, flexDirection: 'row'}}>
+					<View style={{padding: 10, width: "44%"}}>
+						<Text>Cavity Amount</Text>
+					</View>
+					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+						<Text style={{color: 'black'}}>:</Text>
+					</View>
+					<View style={{padding: 4, width: "50%"}}>
+						<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+							<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+								<Text>{data != null ? dataCavity : "-"}</Text>
+							</View>
+						</View>
+					</View>
+				</View>
+
+				<View style={{paddingTop: 20, flexDirection: 'row'}}>
+					<View style={{padding: 10, width: "44%"}}>
+						<Text>Compare Copy Sample</Text>
+					</View>
+					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+						<Text style={{color: 'black'}}>:</Text>
+					</View>
+					<View style={{padding: 4, width: "50%"}}>
+						<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+							{updateCompareCopySampleFunc()}
+						</View>
+					</View>
+				</View>
+
+				<View style={{paddingTop: 20, flexDirection: 'row'}}>
+					<View style={{padding: 10, width: "44%"}}>
+						<Text>Need MTR</Text>
+					</View>
+					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+						<Text style={{color: 'black'}}>:</Text>
+					</View>
+					<View style={{padding: 4, width: "50%"}}>
+						<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+							{updateMTRFunc()}
+						</View>
+					</View>
+				</View>
+
+				<ScrollView horizontal>
+					<TouchableOpacity>
+						<View style={{flexDirection: 'row', height: 50, paddingTop: 10}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
+								<Text style={{fontWeight: 'bold'}}>Cavity</Text>
+								<View style={{justifyContent: 'center'}}>
+								</View>
+							</View>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+								<Text style={{fontWeight: 'bold', fontSize: 15}}>Judgement Last Shoot</Text>
+								<View style={{justifyContent: 'center'}}>
+								</View>
+							</View>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
+								<Text style={{fontWeight: 'bold'}}>Kategori NG</Text>
+								<View style={{justifyContent: 'center'}}>
+								</View>
+							</View>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
+								<Text style={{fontWeight: 'bold'}}>Fitting Test</Text>
+								<View style={{justifyContent: 'center'}}>
+								</View>
+							</View>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
+								<Text style={{fontWeight: 'bold'}}>Product's Weight</Text>
+								<View style={{justifyContent: 'center'}}>
+								</View>
+							</View>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderRightWidth: 0.5, borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 145}}>
+								<Text style={{fontWeight: 'bold'}}>Keterangan</Text>
+								<View style={{justifyContent: 'center'}}>
+								</View>
+							</View>
+						</View>
+
+						{dataItem()}
+					</TouchableOpacity>
+				</ScrollView>
+				<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
+					{updateButtonFunc()}
+				</View>
+			</ScrollView>
+		
+		)
+		return dataContent
+	}
+
 	return(
 		<KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={{flex: 1}} >
 			<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -1691,126 +1989,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 								<Text style={{fontSize: 12}}>{data != null ? data.model : "-"}</Text>
 							</View>
 						</View>
-
-						<ScrollView style={{flex: 1}}>
-							<View style={{paddingTop: 20, flexDirection: 'row'}}>
-								<View style={{padding: 10, width: "44%"}}>
-									<Text>Machines Status</Text>
-								</View>
-								<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-									<Text style={{color: 'black'}}>:</Text>
-								</View>
-								<View style={{padding: 4, width: "50%"}}>
-									<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-										<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-											<Text>{data != null ? data.machine_status : "-"}</Text>
-										</View>
-									</View>
-								</View>
-							</View>
-
-							<View style={{paddingTop: 20, flexDirection: 'row'}}>
-								<View style={{padding: 10, width: "44%"}}>
-									<Text>Tooling</Text>
-								</View>
-								<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-									<Text style={{color: 'black'}}>:</Text>
-								</View>
-								<View style={{padding: 4, width: "50%"}}>
-									<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-										<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-											<Text>{data != null ? data.tooling_num : "-"}</Text>
-										</View>
-									</View>
-								</View>
-							</View>
-								
-							<View style={{paddingTop: 20, flexDirection: 'row'}}>
-								<View style={{padding: 10, width: "44%"}}>
-									<Text>Cavity Amount</Text>
-								</View>
-								<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-									<Text style={{color: 'black'}}>:</Text>
-								</View>
-								<View style={{padding: 4, width: "50%"}}>
-									<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-										<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-											<Text>{data != null ? data.cavity : "-"}</Text>
-										</View>
-									</View>
-								</View>
-							</View>
-
-							<View style={{paddingTop: 20, flexDirection: 'row'}}>
-								<View style={{padding: 10, width: "44%"}}>
-									<Text>Compare Copy Sample</Text>
-								</View>
-								<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-									<Text style={{color: 'black'}}>:</Text>
-								</View>
-								<View style={{padding: 4, width: "50%"}}>
-									<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-										{updateCompareCopySampleFunc()}
-									</View>
-								</View>
-							</View>
-
-							<View style={{paddingTop: 20, flexDirection: 'row'}}>
-								<View style={{padding: 10, width: "44%"}}>
-									<Text>Need MTR</Text>
-								</View>
-								<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-									<Text style={{color: 'black'}}>:</Text>
-								</View>
-								<View style={{padding: 4, width: "50%"}}>
-									<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-										{updateMTRFunc()}
-									</View>
-								</View>
-							</View>
-
-							<ScrollView horizontal>
-								<TouchableOpacity>
-									<View style={{flexDirection: 'row', height: 50, paddingTop: 10}}>
-										<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-											<Text style={{fontWeight: 'bold'}}>Cavity</Text>
-											<View style={{justifyContent: 'center'}}>
-											</View>
-										</View>
-										<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-											<Text style={{fontWeight: 'bold', fontSize: 15}}>Judgement Last Shoot</Text>
-											<View style={{justifyContent: 'center'}}>
-											</View>
-										</View>
-										<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
-											<Text style={{fontWeight: 'bold'}}>Kategori NG</Text>
-											<View style={{justifyContent: 'center'}}>
-											</View>
-										</View>
-										<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
-											<Text style={{fontWeight: 'bold'}}>Fitting Test</Text>
-											<View style={{justifyContent: 'center'}}>
-											</View>
-										</View>
-										<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
-											<Text style={{fontWeight: 'bold'}}>Product's Weight</Text>
-											<View style={{justifyContent: 'center'}}>
-											</View>
-										</View>
-										<View style={{paddingLeft: 5, alignItems: 'center', borderRightWidth: 0.5, borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 145}}>
-											<Text style={{fontWeight: 'bold'}}>Keterangan</Text>
-											<View style={{justifyContent: 'center'}}>
-											</View>
-										</View>
-									</View>
-
-									{dataItem()}
-								</TouchableOpacity>
-							</ScrollView>
-							<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
-								{updateButtonFunc()}
-							</View>
-						</ScrollView>
+						{loading ? content() : <View style={{justifyContent: 'center'}}><ActivityIndicator size="large" color="#0000ff"/></View>}
 					</View>
 				</Container>
 			</TouchableWithoutFeedback>

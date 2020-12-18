@@ -1,4 +1,4 @@
-import {Image, View, ScrollView, TextInput, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, TouchableOpacity} from 'react-native';
+import {Image, View, ScrollView, TextInput, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, TouchableOpacity, ActivityIndicator} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import { Container, Text, Button, Picker} from 'native-base';
 import LogoSIP from '../../../assets/logo-sip370x50.png';
@@ -50,7 +50,10 @@ const MassproBeginProdLeader = ({route, navigation}) => {
 	const [massproPLRemark, setUpdateRemark]   						= useState("")
 	const planning_id = parseInt(planningId)
 
+	const [loading, setLoading] = useState(false)
+
 	const submit = async() => {
+		setLoading(false)
 		const data = {
 			eng_product_id,
 			internal_part_id,
@@ -90,9 +93,10 @@ const MassproBeginProdLeader = ({route, navigation}) => {
 		};
 		Axios(config)
 		.then(function (response){
+			setLoading(true)
+			console.log("Res: ", response.status, " Ok")
 			navigation.navigate('ListForm')
 			alert("Success Send Data!")
-			console.log("Res: ", response.status, " Ok")
 		})
 		.catch(function (error){
 			alert("Failed Send Data!")
@@ -133,6 +137,7 @@ const MassproBeginProdLeader = ({route, navigation}) => {
 		}
 		Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
 		.then(response => {
+			setLoading(true)
 			setMaintMoldId(response.data.data.qc_masspro_main_mold_id)
 			setMaterialPreparationId(response.data.data.qc_masspro_material_preparation_id)
 			setMoldSetterId(response.data.data.qc_masspro_mold_setter_id)
@@ -535,6 +540,118 @@ const MassproBeginProdLeader = ({route, navigation}) => {
 		return data
 	}
 
+	const content = () => {
+		var dataContent = []
+		dataContent.push(
+			<ScrollView key="2" style={{flex: 1}}>
+				<TouchableOpacity>							
+					<View style={{paddingTop: 20, flexDirection: 'row'}}>
+						<View style={{padding: 10, width: "44%"}}>
+							<Text>WI Product</Text>
+						</View>
+						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+							<Text style={{color: 'black'}}>:</Text>
+						</View>
+						<View style={{padding: 4, width: "50%"}}>
+							{updateWiProduct()}
+						</View>
+					</View>
+
+					<View style={{paddingTop: 20, flexDirection: 'row'}}>
+						<View style={{padding: 10, width: "44%"}}>
+							<Text>Packing Standard</Text>
+						</View>
+						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+							<Text style={{color: 'black'}}>:</Text>
+						</View>
+						<View style={{padding: 4, width: "50%"}}>
+							{updatePackingStandard()}
+						</View>
+					</View>
+					
+					<View style={{paddingTop: 20, flexDirection: 'row'}}>
+						<View style={{padding: 10, width: "44%"}}>
+							<Text>Production Work Tools</Text>
+						</View>
+						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+							<Text style={{color: 'black'}}>:</Text>
+						</View>
+						<View style={{padding: 4, width: "50%"}}>
+							{updateProductionWorkTools()}
+						</View>
+					</View>
+					
+					<View style={{paddingTop: 20, flexDirection: 'row'}}>
+						<View style={{padding: 10, width: "44%"}}>
+							<Text>Production Report</Text>
+						</View>
+						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+							<Text style={{color: 'black'}}>:</Text>
+						</View>
+						<View style={{padding: 4, width: "50%"}}>
+							{updateProductionReport()}
+						</View>
+					</View>
+					
+					<View style={{paddingTop: 20, flexDirection: 'row'}}>
+						<View style={{padding: 10, width: "44%"}}>
+							<Text>Lable</Text>
+						</View>
+						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+							<Text style={{color: 'black'}}>:</Text>
+						</View>
+						<View style={{padding: 4, width: "50%"}}>
+							{updateLable()}
+						</View>
+					</View>
+					
+					<View style={{paddingTop: 20, flexDirection: 'row'}}>
+						<View style={{padding: 10, width: "44%"}}>
+							<Text>NG Form</Text>
+						</View>
+						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+							<Text style={{color: 'black'}}>:</Text>
+						</View>
+						<View style={{padding: 4, width: "50%"}}>
+							{updateNGForm()}
+						</View>
+					</View>
+
+					<View style={{paddingTop: 20, flexDirection: 'row'}}>
+						<View style={{padding: 10, width: "44%"}}>
+							<Text>JIG / Alat Ukur</Text>
+						</View>
+						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+							<Text style={{color: 'black'}}>:</Text>
+						</View>
+						<View style={{padding: 4, width: "50%"}}>
+							{updateJIG()}
+						</View>
+					</View>
+
+					<View style={{paddingTop: 20, flexDirection: 'row'}}>
+						<View style={{padding: 10, width: "44%"}}>
+							<Text>Remark</Text>
+						</View>
+						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+							<Text style={{color: 'black'}}>:</Text>
+						</View>
+						<View style={{padding: 4, width: "50%"}}>
+							{updateRemark()}
+						</View>
+					</View>
+				
+					<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
+						<View>
+							{updateButton()}
+						</View>
+					</View>
+				</TouchableOpacity>
+			</ScrollView>
+		)
+		return dataContent
+	}
+
     return(
 		<KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={{flex:1}}>
 			<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -606,111 +723,7 @@ const MassproBeginProdLeader = ({route, navigation}) => {
 							</View>
 						</View>
 
-						<ScrollView style={{flex: 1}}>
-							<TouchableOpacity>							
-								<View style={{paddingTop: 20, flexDirection: 'row'}}>
-									<View style={{padding: 10, width: "44%"}}>
-										<Text>WI Product</Text>
-									</View>
-									<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-										<Text style={{color: 'black'}}>:</Text>
-									</View>
-									<View style={{padding: 4, width: "50%"}}>
-										{updateWiProduct()}
-									</View>
-								</View>
-
-								<View style={{paddingTop: 20, flexDirection: 'row'}}>
-									<View style={{padding: 10, width: "44%"}}>
-										<Text>Packing Standard</Text>
-									</View>
-									<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-										<Text style={{color: 'black'}}>:</Text>
-									</View>
-									<View style={{padding: 4, width: "50%"}}>
-										{updatePackingStandard()}
-									</View>
-								</View>
-								
-								<View style={{paddingTop: 20, flexDirection: 'row'}}>
-									<View style={{padding: 10, width: "44%"}}>
-										<Text>Production Work Tools</Text>
-									</View>
-									<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-										<Text style={{color: 'black'}}>:</Text>
-									</View>
-									<View style={{padding: 4, width: "50%"}}>
-										{updateProductionWorkTools()}
-									</View>
-								</View>
-								
-								<View style={{paddingTop: 20, flexDirection: 'row'}}>
-									<View style={{padding: 10, width: "44%"}}>
-										<Text>Production Report</Text>
-									</View>
-									<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-										<Text style={{color: 'black'}}>:</Text>
-									</View>
-									<View style={{padding: 4, width: "50%"}}>
-										{updateProductionReport()}
-									</View>
-								</View>
-								
-								<View style={{paddingTop: 20, flexDirection: 'row'}}>
-									<View style={{padding: 10, width: "44%"}}>
-										<Text>Lable</Text>
-									</View>
-									<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-										<Text style={{color: 'black'}}>:</Text>
-									</View>
-									<View style={{padding: 4, width: "50%"}}>
-										{updateLable()}
-									</View>
-								</View>
-								
-								<View style={{paddingTop: 20, flexDirection: 'row'}}>
-									<View style={{padding: 10, width: "44%"}}>
-										<Text>NG Form</Text>
-									</View>
-									<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-										<Text style={{color: 'black'}}>:</Text>
-									</View>
-									<View style={{padding: 4, width: "50%"}}>
-										{updateNGForm()}
-									</View>
-								</View>
-
-								<View style={{paddingTop: 20, flexDirection: 'row'}}>
-									<View style={{padding: 10, width: "44%"}}>
-										<Text>JIG / Alat Ukur</Text>
-									</View>
-									<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-										<Text style={{color: 'black'}}>:</Text>
-									</View>
-									<View style={{padding: 4, width: "50%"}}>
-										{updateJIG()}
-									</View>
-								</View>
-
-								<View style={{paddingTop: 20, flexDirection: 'row'}}>
-									<View style={{padding: 10, width: "44%"}}>
-										<Text>Remark</Text>
-									</View>
-									<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-										<Text style={{color: 'black'}}>:</Text>
-									</View>
-									<View style={{padding: 4, width: "50%"}}>
-										{updateRemark()}
-									</View>
-								</View>
-							
-								<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
-									<View>
-										{updateButton()}
-									</View>
-								</View>
-							</TouchableOpacity>
-						</ScrollView>
+						{loading ? content() : <View style={{justifyContent: 'center'}}><ActivityIndicator size="large" color="#0000ff"/></View>}
 					</View>
 				</Container>
 			</TouchableWithoutFeedback>

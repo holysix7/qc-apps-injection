@@ -1,4 +1,4 @@
-import {Image, View, TextInput, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, Keyboard, ScrollView} from 'react-native';
+import {Image, View, TextInput, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, Keyboard, ScrollView, ActivityIndicator} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import { Container, Text, Button, Picker} from 'native-base';
 import AsyncStorage from "@react-native-community/async-storage";
@@ -45,7 +45,10 @@ const MassproBeginMaterialPreparation = ({route, navigation}) => {
 	const [temp_hopper, setTemperaturHopper] = useState("")
 	const planning_id = parseInt(planningId)
 
+	const [loading, setLoading] = useState(false)
+
 	const submit = async() => {
+		setLoading(false)
 		const data = {
 			eng_product_id,
 			prod_machine_id,
@@ -83,9 +86,10 @@ const MassproBeginMaterialPreparation = ({route, navigation}) => {
 		};
 		Axios(config)
 		.then(function (response){
+			setLoading(true)
+			console.log("Res: ", response.status, " Ok")
 			navigation.navigate('ListForm')
 			alert("Success Send Data!")
-			console.log("Res: ", response.status, " Ok")
 		})
 		.catch(function (error){
 			alert("Failed Send Data!")
@@ -126,6 +130,7 @@ const MassproBeginMaterialPreparation = ({route, navigation}) => {
 		}
 		Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
 		.then(response => {
+			setLoading(true)
 			setDataProduct1(response.data.data.product_detail)
 			setIPI(response.data.data.product_detail.internal_part_id)
 			setEngProdId(response.data.data.product_detail.id)
@@ -375,6 +380,84 @@ const MassproBeginMaterialPreparation = ({route, navigation}) => {
 		return data
 	}
 
+	const content = () => {
+		var dataContent = []
+		dataContent.push(
+			<ScrollView key="3" style={{flex: 1}}>
+				<View style={{paddingTop: 20, flexDirection: 'row'}}>
+					<View style={{padding: 10, width: "40%"}}>
+						<Text style={{fontSize: 14}}>Cleaning Hopper</Text>
+					</View>
+					<View style={{padding: 10, width: "6%"}}>
+						<Text>:</Text>
+					</View>
+					<View style={{padding: 4, width: "54%"}}>
+						{updateCleaningHopper()}
+					</View>
+				</View>
+				<View style={{paddingTop: 20, flexDirection: 'row'}}>
+					<View style={{padding: 10, width: "40%"}}>
+						<Text style={{fontSize: 14}}>Material By Standard</Text>
+					</View>
+					<View style={{padding: 10, width: "6%"}}>
+						<Text>:</Text>
+					</View>
+					<View style={{padding: 4, width: "29%"}}>
+						<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+							<Text style={{fontSize: 9.5}}>{dataMaterial.name}</Text>
+						</View>
+					</View>
+					<View style={{padding: 4, width: "25%"}}>
+						{updateMaterialStandard()}
+					</View>
+				</View>
+				<View style={{paddingTop: 20, flexDirection: 'row'}}>
+					<View style={{padding: 10, width: "40%"}}>
+						<Text style={{fontSize: 14}}>Temperatur Hopper</Text>
+					</View>
+					<View style={{padding: 10, width: "6%"}}>
+						<Text>:</Text>
+					</View>
+					<View style={{padding: 4, width: "29%"}}>
+						{updateTemperaturHopper()}
+					</View>
+					<View style={{padding: 4, width: "25%"}}>
+						{updateTemperaturHopperSelect()}
+					</View>
+				</View>
+				<View style={{paddingTop: 20, flexDirection: 'row'}}>
+					<View style={{padding: 10, width: "40%"}}>
+						<Text style={{fontSize: 14}}>Drying Material</Text>
+					</View>
+					<View style={{padding: 10, width: "6%"}}>
+						<Text>:</Text>
+					</View>
+					<View style={{paddingTop: 14}}>
+						<Text style={{fontSize: 12, fontWeight: 'bold'}}>Start From:</Text>
+					</View>
+					<View style={{paddingTop: 14, paddingLeft: 4}}>
+						<Text style={{fontSize: 12}}>{dying_material}</Text>
+					</View>
+				</View>
+				<View style={{paddingTop: 20, flexDirection: 'row'}}>
+					<View style={{padding: 10, width: "40%"}}>
+						<Text>Remark</Text>
+					</View>
+					<View style={{padding: 10, width: "6%"}}>
+						<Text>:</Text>
+					</View>
+					<View style={{padding: 4, width: "54%"}}>
+						{updateRemark()}
+					</View>
+				</View>
+				<View style={{justifyContent: 'center', alignItems: 'center'}}>
+					{updateButton()}
+				</View>
+			</ScrollView>
+		)
+		return dataContent
+	}
+
 	return(
 		<KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={{flex:1}}>
 			<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -445,78 +528,7 @@ const MassproBeginMaterialPreparation = ({route, navigation}) => {
 								<Text style={{fontSize: 12}}>{dataProduct1 != null ? dataProduct1.model : "-"}</Text>
 							</View>
 						</View>
-						<ScrollView style={{flex: 1}}>
-							<View style={{paddingTop: 20, flexDirection: 'row'}}>
-								<View style={{padding: 10, width: "40%"}}>
-									<Text style={{fontSize: 14}}>Cleaning Hopper</Text>
-								</View>
-								<View style={{padding: 10, width: "6%"}}>
-									<Text>:</Text>
-								</View>
-								<View style={{padding: 4, width: "54%"}}>
-									{updateCleaningHopper()}
-								</View>
-							</View>
-							<View style={{paddingTop: 20, flexDirection: 'row'}}>
-								<View style={{padding: 10, width: "40%"}}>
-									<Text style={{fontSize: 14}}>Material By Standard</Text>
-								</View>
-								<View style={{padding: 10, width: "6%"}}>
-									<Text>:</Text>
-								</View>
-								<View style={{padding: 4, width: "29%"}}>
-									<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-										<Text style={{fontSize: 9.5}}>{dataMaterial.name}</Text>
-									</View>
-								</View>
-								<View style={{padding: 4, width: "25%"}}>
-									{updateMaterialStandard()}
-								</View>
-							</View>
-							<View style={{paddingTop: 20, flexDirection: 'row'}}>
-								<View style={{padding: 10, width: "40%"}}>
-									<Text style={{fontSize: 14}}>Temperatur Hopper</Text>
-								</View>
-								<View style={{padding: 10, width: "6%"}}>
-									<Text>:</Text>
-								</View>
-								<View style={{padding: 4, width: "29%"}}>
-									{updateTemperaturHopper()}
-								</View>
-								<View style={{padding: 4, width: "25%"}}>
-									{updateTemperaturHopperSelect()}
-								</View>
-							</View>
-							<View style={{paddingTop: 20, flexDirection: 'row'}}>
-								<View style={{padding: 10, width: "40%"}}>
-									<Text style={{fontSize: 14}}>Drying Material</Text>
-								</View>
-								<View style={{padding: 10, width: "6%"}}>
-									<Text>:</Text>
-								</View>
-								<View style={{paddingTop: 14}}>
-									<Text style={{fontSize: 12, fontWeight: 'bold'}}>Start From:</Text>
-								</View>
-								<View style={{paddingTop: 14, paddingLeft: 4}}>
-									<Text style={{fontSize: 12}}>{dying_material}</Text>
-								</View>
-							</View>
-							<View style={{paddingTop: 20, flexDirection: 'row'}}>
-								<View style={{padding: 10, width: "40%"}}>
-									<Text>Remark</Text>
-								</View>
-								<View style={{padding: 10, width: "6%"}}>
-									<Text>:</Text>
-								</View>
-								<View style={{padding: 4, width: "54%"}}>
-									{updateRemark()}
-								</View>
-							</View>
-
-							<View style={{justifyContent: 'center', alignItems: 'center'}}>
-								{updateButton()}
-							</View>
-						</ScrollView>
+						{loading ? content() : <View style={{justifyContent: 'center'}}><ActivityIndicator size="large" color="#0000ff"/></View>}
 					</View>
 				</Container>
 			</TouchableWithoutFeedback>

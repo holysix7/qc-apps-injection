@@ -1,4 +1,4 @@
-import {Image, View, ScrollView, TextInput, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, TouchableOpacity} from 'react-native';
+import {Image, View, ScrollView, TextInput, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, TouchableOpacity, ActivityIndicator} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import { Container, Text, Button, Picker } from 'native-base';
 import LogoSIP from '../../../assets/logo-sip370x50.png';
@@ -51,24 +51,24 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 	const [judgement_first_piece17, setJudgement17] 										 = useState("")
 	const [judgement_first_piece18, setJudgement18] 										 = useState("")
 	
-	const [qc_ng_category_id1, setCategoryNg1] 													 = useState("")
-	const [qc_ng_category_id2, setCategoryNg2] 													 = useState("")
-	const [qc_ng_category_id3, setCategoryNg3] 													 = useState("")
-	const [qc_ng_category_id4, setCategoryNg4] 													 = useState("")
-	const [qc_ng_category_id5, setCategoryNg5] 													 = useState("")
-	const [qc_ng_category_id6, setCategoryNg6] 													 = useState("")
-	const [qc_ng_category_id7, setCategoryNg7] 													 = useState("")
-	const [qc_ng_category_id8, setCategoryNg8] 													 = useState("")
-	const [qc_ng_category_id9, setCategoryNg9] 													 = useState("")
-	const [qc_ng_category_id10, setCategoryNg10] 												 = useState("")
-	const [qc_ng_category_id11, setCategoryNg11] 												 = useState("")
-	const [qc_ng_category_id12, setCategoryNg12] 												 = useState("")
-	const [qc_ng_category_id13, setCategoryNg13] 												 = useState("")
-	const [qc_ng_category_id14, setCategoryNg14] 												 = useState("")
-	const [qc_ng_category_id15, setCategoryNg15] 												 = useState("")
-	const [qc_ng_category_id16, setCategoryNg16] 												 = useState("")
-	const [qc_ng_category_id17, setCategoryNg17] 												 = useState("")
-	const [qc_ng_category_id18, setCategoryNg18] 												 = useState("")
+	const [qc_ng_category_id1, setCategoryNg1] 													 = useState(0)
+	const [qc_ng_category_id2, setCategoryNg2] 													 = useState(0)
+	const [qc_ng_category_id3, setCategoryNg3] 													 = useState(0)
+	const [qc_ng_category_id4, setCategoryNg4] 													 = useState(0)
+	const [qc_ng_category_id5, setCategoryNg5] 													 = useState(0)
+	const [qc_ng_category_id6, setCategoryNg6] 													 = useState(0)
+	const [qc_ng_category_id7, setCategoryNg7] 													 = useState(0)
+	const [qc_ng_category_id8, setCategoryNg8] 													 = useState(0)
+	const [qc_ng_category_id9, setCategoryNg9] 													 = useState(0)
+	const [qc_ng_category_id10, setCategoryNg10] 												 = useState(0)
+	const [qc_ng_category_id11, setCategoryNg11] 												 = useState(0)
+	const [qc_ng_category_id12, setCategoryNg12] 												 = useState(0)
+	const [qc_ng_category_id13, setCategoryNg13] 												 = useState(0)
+	const [qc_ng_category_id14, setCategoryNg14] 												 = useState(0)
+	const [qc_ng_category_id15, setCategoryNg15] 												 = useState(0)
+	const [qc_ng_category_id16, setCategoryNg16] 												 = useState(0)
+	const [qc_ng_category_id17, setCategoryNg17] 												 = useState(0)
+	const [qc_ng_category_id18, setCategoryNg18] 												 = useState(0)
 	
 	const [fitting_test1, setFittingTest1] 															 = useState("")
 	const [fitting_test2, setFittingTest2] 															 = useState("")
@@ -131,7 +131,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 	const [shift, setShift]		  										= useState(0)
 	const [cavityCheck, setCavityCheck] 						= useState("")
 	const [tooling_num, setTooling] 								= useState("")
-	const [copy_sample, setCopySample]				 			= useState("")
+	const [compare_sample, setCopySample]				 			= useState("")
 	const [check_sheet, setCheckSheet] 							= useState("")
 	const [created_by, setCreatedBy]		  					= useState("")
 	const [updated_by, setUpdatedBy]		  					= useState("")
@@ -141,6 +141,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 	const date = []
 	const [data, setData] 													= useState([])
 	const [dataQl, setDataMachineStatus] 						= useState("")
+	const [masspro_ql_id, setMassproQlId] 					= useState("")
 	const [ngCategories, setNGsData]								= useState([])
 	const [eng_product_id, setEngProd] 						 	= useState(0)
 	const prod_machine_id = machine_id
@@ -152,6 +153,27 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 	const [updateCheckSheet, setUpdateCheckSheet] = useState("")
 	const [updateRemark, setUpdateRemark] 	= useState("")
 	
+	const [item_id_1, setItemId1]	= useState("")
+	const [item_id_2, setItemId2]	= useState("")
+	const [item_id_3, setItemId3]	= useState("")
+	const [item_id_4, setItemId4]	= useState("")
+	const [item_id_5, setItemId5]	= useState("")
+	const [item_id_6, setItemId6]	= useState("")
+	const [item_id_7, setItemId7]	= useState("")
+	const [item_id_8, setItemId8]	= useState("")
+	const [item_id_9, setItemId9]	= useState("")
+	const [item_id_10, setItemId10]	= useState("")
+	const [item_id_11, setItemId11]	= useState("")
+	const [item_id_12, setItemId12]	= useState("")
+	const [item_id_13, setItemId13]	= useState("")
+	const [item_id_14, setItemId14]	= useState("")
+	const [item_id_15, setItemId15]	= useState("")
+	const [item_id_16, setItemId16]	= useState("")
+	const [item_id_17, setItemId17]	= useState("")
+	const [item_id_18, setItemId18]	= useState("")
+
+	const [loading, setLoading] = useState(false)
+
 	if(today != null)
 	{
 		date.push(
@@ -163,24 +185,6 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 		date.push(
 			<Text key={"key"} style={{marginTop: 1, fontWeight: 'bold', fontSize: 17}}>{yesterday}</Text>
 		)
-	}
-
-	if(ngCategories.length > 0)
-	{
-		if(check_sheet == "NG" || copy_sample == "NG")
-		{
-			var dataNGs = []
-			ngCategories.map((element, key) => {
-				dataNGs.push(
-				<Picker.Item label={element.name} value={element.id} key={key} />
-				)
-			})
-		}else{
-			var dataNGs = []
-			dataNGs.push(
-				<Picker.Item label="Tidak NG" value="" key="swQwdAcxz12" />
-			)
-		}
 	}
 
 	const formOke = async() => {
@@ -210,9 +214,11 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 			}
 			Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
 			.then(response => {
+				setLoading(true)
 				setEngProd(response.data.data.eng_product_id)
 				setData(response.data.data.product_detail)
 				setDataMachineStatus(response.data.data.masspro_ql)
+				setMassproQlId(response.data.data.masspro_ql.id)
 				setNGsData(response.data.data.ng_category)
 				setTooling(response.data.data.tooling_num)
 				setCavityCheck(response.data.data.product_detail.cavity)
@@ -245,9 +251,11 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 			}
 			Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
 			.then(response => {
+				setLoading(true)
 				setEngProd(response.data.data.eng_product_id)
 				setData(response.data.data.product_detail)
 				setDataMachineStatus(response.data.data.masspro_ql)
+				setMassproQlId(response.data.data.masspro_ql.id)
 				setNGsData(response.data.data.ng_category)
 				setTooling(response.data.data.product_detail.tooling_num)
 				setCavityCheck(response.data.data.product_detail.cavity)
@@ -280,9 +288,11 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 			}
 			Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
 			.then(response => {
+				setLoading(true)
 				setEngProd(response.data.data.eng_product_id)
 				setData(response.data.data.product_detail)
 				setDataMachineStatus(response.data.data.masspro_ql)
+				setMassproQlId(response.data.data.masspro_ql.id)
 				setNGsData(response.data.data.ng_category)
 				setTooling(response.data.data.product_detail.tooling_num)
 				setCavityCheck(response.data.data.product_detail.cavity)
@@ -303,12 +313,185 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 		}
 	}
 
-	const shiftFix = async(value) => {
+	const shiftFix = (value) => {
 		setHours(value)
 	}
 	
-	const item = {
-			"cav_1": {
+	var item = []
+	if(revisiQc.length > 0){
+		item.push(
+			{
+				"item_id": revisiQc.length > 0 ? revisiQc[0].id : null,
+				"cavity": 1,
+				"judgement_first_piece": judgement_first_piece1,
+				"qc_ng_category_id": qc_ng_category_id1,
+				"fitting_test": fitting_test1,
+				"product_weight": product_weight1,
+				"note": note1
+			},
+			{
+				"item_id": revisiQc.length > 1 ? revisiQc[1].id : null,
+				"cavity":  2,
+				"judgement_first_piece": judgement_first_piece2,
+				"qc_ng_category_id": qc_ng_category_id2,
+				"fitting_test": fitting_test2,
+				"product_weight": product_weight2,
+				"note": note2
+			},
+			{
+				"item_id": revisiQc.length > 2 ? revisiQc[2].id : null,
+				"cavity": 3,
+				"judgement_first_piece": judgement_first_piece3,
+				"qc_ng_category_id": qc_ng_category_id3,
+				"fitting_test": fitting_test3,
+				"product_weight": product_weight3,
+				"note": note3
+			},
+			{
+				"item_id": revisiQc.length > 3 ? revisiQc[3].id : null,
+				"cavity": 4,
+				"judgement_first_piece": judgement_first_piece4,
+				"qc_ng_category_id": qc_ng_category_id4,
+				"fitting_test": fitting_test4,
+				"product_weight": product_weight4,
+				"note": note4
+			},
+			{
+				"item_id": revisiQc.length > 4 ? revisiQc[4].id : null,
+				"cavity": 5,
+				"judgement_first_piece": judgement_first_piece5,
+				"qc_ng_category_id": qc_ng_category_id5,
+				"fitting_test": fitting_test5,
+				"product_weight": product_weight5,
+				"note": note5
+			},
+			{
+				"item_id": revisiQc.length > 5 ? revisiQc[5].id : null,
+				"cavity": 6,
+				"judgement_first_piece": judgement_first_piece6,
+				"qc_ng_category_id": qc_ng_category_id6,
+				"fitting_test": fitting_test6,
+				"product_weight": product_weight6,
+				"note": note6
+			},
+			{
+				"item_id": revisiQc.length > 6 ? revisiQc[6].id : null,
+				"cavity": 7,
+				"judgement_first_piece": judgement_first_piece7,
+				"qc_ng_category_id": qc_ng_category_id7,
+				"fitting_test": fitting_test7,
+				"product_weight": product_weight7,
+				"note": note7
+			},
+			{
+				"item_id": revisiQc.length > 7 ? revisiQc[7].id : null,
+				"cavity": 8,
+				"judgement_first_piece": judgement_first_piece8,
+				"qc_ng_category_id": qc_ng_category_id8,
+				"fitting_test": fitting_test8,
+				"product_weight": product_weight8,
+				"note": note8
+			},
+			{
+				"item_id": revisiQc.length > 8 ? revisiQc[8].id : null,
+				"cavity": 9,
+				"judgement_first_piece": judgement_first_piece9,
+				"qc_ng_category_id": qc_ng_category_id9,
+				"fitting_test": fitting_test9,
+				"product_weight": product_weight9,
+				"note": note9
+			},
+			{
+				"item_id": revisiQc.length > 9 ? revisiQc[9].id : null,
+				"cavity": 10,
+				"judgement_first_piece": judgement_first_piece10,
+				"qc_ng_category_id": qc_ng_category_id10,
+				"fitting_test": fitting_test10,
+				"product_weight": product_weight10,
+				"note": note10
+			},
+			{
+				"item_id": revisiQc.length > 10 ? revisiQc[10].id : null,
+				"cavity": 11,
+				"judgement_first_piece": judgement_first_piece11,
+				"qc_ng_category_id": qc_ng_category_id11,
+				"fitting_test": fitting_test11,
+				"product_weight": product_weight11,
+				"note": note11
+			},
+			{
+				"item_id": revisiQc.length > 11 ? revisiQc[11].id : null,
+				"cavity": 12,
+				"judgement_first_piece": judgement_first_piece12,
+				"qc_ng_category_id": qc_ng_category_id12,
+				"fitting_test": fitting_test12,
+				"product_weight": product_weight12,
+				"note": note12
+			},
+			{
+				"item_id": revisiQc.length > 12 ? revisiQc[12].id : null,
+				"cavity": 13,
+				"judgement_first_piece": judgement_first_piece13,
+				"qc_ng_category_id": qc_ng_category_id13,
+				"fitting_test": fitting_test13,
+				"product_weight": product_weight13,
+				"note": note13
+			},
+			{
+				"item_id": revisiQc.length > 13 ? revisiQc[13].id : null,
+				"cavity": 14,
+				"judgement_first_piece": judgement_first_piece14,
+				"qc_ng_category_id": qc_ng_category_id14,
+				"fitting_test": fitting_test14,
+				"product_weight": product_weight14,
+				"note": note14
+			},
+			{
+				"item_id": revisiQc.length > 14 ? revisiQc[14].id : null,
+				"cavity": 15,
+				"judgement_first_piece": judgement_first_piece15,
+				"qc_ng_category_id": qc_ng_category_id15,
+				"fitting_test": fitting_test15,
+				"product_weight": product_weight15,
+				"note": note15
+			},
+			{
+				"item_id": revisiQc.length > 15 ? revisiQc[15].id : null,
+				"cavity": 16,
+				"judgement_first_piece": judgement_first_piece16,
+				"qc_ng_category_id": qc_ng_category_id16,
+				"fitting_test": fitting_test16,
+				"product_weight": product_weight16,
+				"note": note16
+			},
+			{
+				"item_id": revisiQc.length > 16 ? revisiQc[16].id : null,
+				"cavity": 17,
+				"judgement_first_piece": judgement_first_piece17,
+				"qc_ng_category_id": qc_ng_category_id17,
+				"fitting_test": fitting_test17,
+				"product_weight": product_weight17,
+				"note": note17
+			},
+			{
+				"item_id": revisiQc.length > 17 ? revisiQc[17].id : null,
+				"cavity": 18,
+				"judgement_first_piece": judgement_first_piece18,
+				"qc_ng_category_id": qc_ng_category_id18,
+				"fitting_test": fitting_test18,
+				"product_weight": product_weight18,
+				"note": note18
+			}
+		)
+	}
+
+	// if(ngCategories.length > 0){
+		// console.log("ngs: ", ngCategories)
+	// }
+	const itemNGsLoop = () => {
+		var dataNGs = []
+		var itemCheckNGs = [
+			{
 				"cavity": statusCavity1,
 				"judgement_first_piece": judgement_first_piece1,
 				"qc_ng_category_id": qc_ng_category_id1,
@@ -316,7 +499,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 				"product_weight": product_weight1,
 				"note": note1
 			},
-			"cav_2": {
+			{
 				"cavity": statusCavity2,
 				"judgement_first_piece": judgement_first_piece2,
 				"qc_ng_category_id": qc_ng_category_id2,
@@ -324,7 +507,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 				"product_weight": product_weight2,
 				"note": note2
 			},
-			"cav_3": {
+			{
 				"cavity": statusCavity3,
 				"judgement_first_piece": judgement_first_piece3,
 				"qc_ng_category_id": qc_ng_category_id3,
@@ -332,7 +515,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 				"product_weight": product_weight3,
 				"note": note3
 			},
-			"cav_4": {
+			{
 				"cavity": statusCavity4,
 				"judgement_first_piece": judgement_first_piece4,
 				"qc_ng_category_id": qc_ng_category_id4,
@@ -340,7 +523,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 				"product_weight": product_weight4,
 				"note": note4
 			},
-			"cav_5": {
+			{
 				"cavity": statusCavity5,
 				"judgement_first_piece": judgement_first_piece5,
 				"qc_ng_category_id": qc_ng_category_id5,
@@ -348,7 +531,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 				"product_weight": product_weight5,
 				"note": note5
 			},
-			"cav_6": {
+			{
 				"cavity": statusCavity6,
 				"judgement_first_piece": judgement_first_piece6,
 				"qc_ng_category_id": qc_ng_category_id6,
@@ -356,7 +539,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 				"product_weight": product_weight6,
 				"note": note6
 			},
-			"cav_7": {
+			{
 				"cavity": statusCavity7,
 				"judgement_first_piece": judgement_first_piece7,
 				"qc_ng_category_id": qc_ng_category_id7,
@@ -364,7 +547,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 				"product_weight": product_weight7,
 				"note": note7
 			},
-			"cav_8": {
+			{
 				"cavity": statusCavity8,
 				"judgement_first_piece": judgement_first_piece8,
 				"qc_ng_category_id": qc_ng_category_id8,
@@ -372,7 +555,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 				"product_weight": product_weight8,
 				"note": note8
 			},
-			"cav_9": {
+			{
 				"cavity": statusCavity9,
 				"judgement_first_piece": judgement_first_piece9,
 				"qc_ng_category_id": qc_ng_category_id9,
@@ -380,7 +563,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 				"product_weight": product_weight9,
 				"note": note9
 			},
-			"cav_10": {
+			{
 				"cavity": statusCavity10,
 				"judgement_first_piece": judgement_first_piece10,
 				"qc_ng_category_id": qc_ng_category_id10,
@@ -388,7 +571,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 				"product_weight": product_weight10,
 				"note": note10
 			},
-			"cav_11": {
+			{
 				"cavity": statusCavity11,
 				"judgement_first_piece": judgement_first_piece11,
 				"qc_ng_category_id": qc_ng_category_id11,
@@ -396,7 +579,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 				"product_weight": product_weight11,
 				"note": note11
 			},
-			"cav_12": {
+			{
 				"cavity": statusCavity12,
 				"judgement_first_piece": judgement_first_piece12,
 				"qc_ng_category_id": qc_ng_category_id12,
@@ -404,7 +587,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 				"product_weight": product_weight12,
 				"note": note12
 			},
-			"cav_13": {
+			{
 				"cavity": statusCavity13,
 				"judgement_first_piece": judgement_first_piece13,
 				"qc_ng_category_id": qc_ng_category_id13,
@@ -412,7 +595,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 				"product_weight": product_weight13,
 				"note": note13
 			},
-			"cav_14": {
+			{
 				"cavity": statusCavity14,
 				"judgement_first_piece": judgement_first_piece14,
 				"qc_ng_category_id": qc_ng_category_id14,
@@ -420,7 +603,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 				"product_weight": product_weight14,
 				"note": note14
 			},
-			"cav_15": {
+			{
 				"cavity": statusCavity15,
 				"judgement_first_piece": judgement_first_piece15,
 				"qc_ng_category_id": qc_ng_category_id15,
@@ -428,7 +611,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 				"product_weight": product_weight15,
 				"note": note15
 			},
-			"cav_16": {
+			{
 				"cavity": statusCavity16,
 				"judgement_first_piece": judgement_first_piece16,
 				"qc_ng_category_id": qc_ng_category_id16,
@@ -436,7 +619,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 				"product_weight": product_weight16,
 				"note": note16
 			},
-			"cav_17": {
+			{
 				"cavity": statusCavity17,
 				"judgement_first_piece": judgement_first_piece17,
 				"qc_ng_category_id": qc_ng_category_id17,
@@ -444,7 +627,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 				"product_weight": product_weight17,
 				"note": note17
 			},
-			"cav_18": {
+			{
 				"cavity": statusCavity18,
 				"judgement_first_piece": judgement_first_piece18,
 				"qc_ng_category_id": qc_ng_category_id18,
@@ -452,18 +635,43 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 				"product_weight": product_weight18,
 				"note": note18
 			}
+		]
+		itemCheckNGs.map((element, key) => {
+			// console.log("xcv: ", key)
+		if(element.judgement_first_piece == "NG" || element.fitting_test == "NG" || compare_sample == "NG" || check_sheet == "NG"){
+			var dataNGItems = []
+			dataNGItems.push(
+				<Picker.Item label="--Pilih--" value={0} key="apsodkmk2" />
+			)
+			ngCategories.map((elementdua, keydua) => {
+				dataNGItems.push(
+					<Picker.Item label={elementdua.name} value={elementdua.id} key={keydua} />
+				)
+			})
+			dataNGs.push(dataNGItems)
+		}else{
+			var dataNGItems = []
+			dataNGItems.push(
+				<Picker.Item label="Tidak NG" value={9999} key="swQwdAcxz12" />
+			)
+			dataNGs.push(dataNGItems)
+			}
+		})
+		return dataNGs
 	}
 
 	const submit = async() => {
+		setLoading(false)
 		const data = {
 			eng_product_id,
 			prod_machine_id,
 			sys_plant_id,
 			qc_daily_inspection_id,
+			masspro_ql_id,
 			tooling_num,
 			planning_id,
 			internal_part_id,
-			copy_sample,
+			compare_sample,
 			check_sheet,
 			remark,
 			item,
@@ -490,9 +698,10 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 		};
 		Axios(config)
 		.then(function (response){
+			setLoading(true)
+			console.log("Res: ", response.status, " Ok")
 			navigation.navigate('ShowProducts')
 			alert("Success Send Data!")
-			console.log("Res: ", response.status, " Ok")
 		})
 		.catch(function (error){
 			alert("Failed Send Data!")
@@ -500,32 +709,169 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 		})
 	}
 
+	const updateStatus1 = (value) => {
+		setJudgement1(value)
+		if(value != "NG"){
+			setCopySample("OK")
+		}else{
+			setCopySample("NG")
+		}
+	}
+	const updateStatus2 = (value) => {
+		setJudgement2(value)
+		if(value != "NG"){
+			setCopySample("OK")
+		}else{
+			setCopySample("NG")
+		}
+	}
+	const updateStatus3 = (value) => {
+		setJudgement3(value)
+		if(value != "NG"){
+			setCopySample("OK")
+		}else{
+			setCopySample("NG")
+		}
+	}
+	const updateStatus4 = (value) => {
+		setJudgement4(value)
+		if(value != "NG"){
+			setCopySample("OK")
+		}else{
+			setCopySample("NG")
+		}
+	}
+	const updateStatus5 = (value) => {
+		setJudgement5(value)
+		if(value != "NG"){
+			setCopySample("OK")
+		}else{
+			setCopySample("NG")
+		}
+	}
+	const updateStatus6 = (value) => {
+		setJudgement6(value)
+		if(value != "NG"){
+			setCopySample("OK")
+		}else{
+			setCopySample("NG")
+		}
+	}
+	const updateStatus7 = (value) => {
+		setJudgement7(value)
+		if(value != "NG"){
+			setCopySample("OK")
+		}else{
+			setCopySample("NG")
+		}
+	}
+	const updateStatus8 = (value) => {
+		setJudgement8(value)
+		if(value != "NG"){
+			setCopySample("OK")
+		}else{
+			setCopySample("NG")
+		}
+	}
+	const updateStatus9 = (value) => {
+		setJudgement9(value)
+		if(value != "NG"){
+			setCopySample("OK")
+		}else{
+			setCopySample("NG")
+		}
+	}
+	const updateStatus10 = (value) => {
+		setJudgement10(value)
+		if(value != "NG"){
+			setCopySample("OK")
+		}else{
+			setCopySample("NG")
+		}
+	}
+	const updateStatus11 = (value) => {
+		setJudgement11(value)
+		if(value != "NG"){
+			setCopySample("OK")
+		}else{
+			setCopySample("NG")
+		}
+	}
+	const updateStatus12 = (value) => {
+		setJudgement12(value)
+		if(value != "NG"){
+			setCopySample("OK")
+		}else{
+			setCopySample("NG")
+		}
+	}
+	const updateStatus13 = (value) => {
+		setJudgement13(value)
+		if(value != "NG"){
+			setCopySample("OK")
+		}else{
+			setCopySample("NG")
+		}
+	}
+	const updateStatus14 = (value) => {
+		setJudgement14(value)
+		if(value != "NG"){
+			setCopySample("OK")
+		}else{
+			setCopySample("NG")
+		}
+	}
+	const updateStatus15 = (value) => {
+		setJudgement15(value)
+		if(value != "NG"){
+			setCopySample("OK")
+		}else{
+			setCopySample("NG")
+		}
+	}
+	const updateStatus16 = (value) => {
+		setJudgement16(value)
+		if(value != "NG"){
+			setCopySample("OK")
+		}else{
+			setCopySample("NG")
+		}
+	}
+	const updateStatus17 = (value) => {
+		setJudgement17(value)
+		if(value != "NG"){
+			setCopySample("OK")
+		}else{
+			setCopySample("NG")
+		}
+	}
+	const updateStatus18 = (value) => {
+		setJudgement18(value)
+		if(value != "NG"){
+			setCopySample("OK")
+		}else{
+			setCopySample("NG")
+		}
+	}
+
 	const dataItem = () => {
 		var table1 = []
-		if(dataQl == null){
+		if(dataQl != null){
 			if(cavityCheck != null){
 				if(cavityCheck > 0){
 					table1.push(
 						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity1}
-									onValueChange = {(value)=>setStatusCavity1(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
+								<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
+									<Text>1</Text>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 166}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+								<View style={{justifyContent: 'center', width: 168.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {judgement_first_piece1}
-									onValueChange = {(value)=>setJudgement1(value)}
+									onValueChange = {(value)=>updateStatus1(value)}
 									>
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
@@ -540,9 +886,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 									selectedValue= {qc_ng_category_id1}
 									onValueChange = {(value)=>setCategoryNg1(value)}
 									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
+										{itemNGsLoop()[0]}
 									</Picker>
 								</View>
 							</View>
@@ -559,8 +903,8 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 									</Picker>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-								<View style={{justifyContent: 'center', width: 165.5}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+								<View style={{justifyContent: 'center', width: 168.5}}>
 									<TextInput keyboardType="numeric" value={product_weight1} onChangeText={(value) => setProductWeight1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
 								</View>
 							</View>
@@ -576,24 +920,16 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 					table1.push(
 						<View key="asdzxczxczck2" style={{flexDirection: 'row', height: 50}}>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity2}
-									onValueChange = {(value)=>setStatusCavity2(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
+								<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
+								<Text>2</Text>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
 								<View style={{justifyContent: 'center', width: 168.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {judgement_first_piece2}
-									onValueChange = {(value)=>setJudgement2(value)}
+									onValueChange = {(value)=>updateStatus2(value)}
 									>
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
@@ -608,7 +944,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 									selectedValue= {qc_ng_category_id2}
 									onValueChange = {(value)=>setCategoryNg2(value)}
 									>
-										{dataNGs}
+										{itemNGsLoop()[1]}
 									</Picker>
 								</View>
 							</View>
@@ -642,24 +978,16 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 					table1.push(
 						<View key="azxczcsdk2" style={{flexDirection: 'row', height: 50}}>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity3}
-									onValueChange = {(value)=>setStatusCavity3(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
+								<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
+								<Text></Text>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
 								<View style={{justifyContent: 'center', width: 168.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {judgement_first_piece3}
-									onValueChange = {(value)=>setJudgement3(value)}
+									onValueChange = {(value)=>updateStatus3(value)}
 									>
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
@@ -674,7 +1002,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 									selectedValue= {qc_ng_category_id3}
 									onValueChange = {(value)=>setCategoryNg3(value)}
 									>
-										{dataNGs}
+										{itemNGsLoop()[2]}
 									</Picker>
 								</View>
 							</View>
@@ -708,24 +1036,16 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 					table1.push(
 						<View key="Vcsdfq" style={{flexDirection: 'row', height: 50}}>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity4}
-									onValueChange = {(value)=>setStatusCavity4(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
+								<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
+								<Text></Text>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
 								<View style={{justifyContent: 'center', width: 168.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {judgement_first_piece4}
-									onValueChange = {(value)=>setJudgement4(value)}
+									onValueChange = {(value)=>updateStatus4(value)}
 									>
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
@@ -740,7 +1060,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 									selectedValue= {qc_ng_category_id4}
 									onValueChange = {(value)=>setCategoryNg4(value)}
 									>
-										{dataNGs}
+										{itemNGsLoop()[3]}
 									</Picker>
 								</View>
 							</View>
@@ -774,24 +1094,16 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 					table1.push(
 						<View key="Vsacxzc" style={{flexDirection: 'row', height: 50}}>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity5}
-									onValueChange = {(value)=>setStatusCavity5(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
+								<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
+								<Text></Text>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
 								<View style={{justifyContent: 'center', width: 168.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {judgement_first_piece5}
-									onValueChange = {(value)=>setJudgement5(value)}
+									onValueChange = {(value)=>updateStatus5(value)}
 									>
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
@@ -806,7 +1118,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 									selectedValue= {qc_ng_category_id5}
 									onValueChange = {(value)=>setCategoryNg5(value)}
 									>
-										{dataNGs}
+										{itemNGsLoop()[4]}
 									</Picker>
 								</View>
 							</View>
@@ -840,24 +1152,16 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 					table1.push(
 						<View key="Csawqeq" style={{flexDirection: 'row', height: 50}}>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity6}
-									onValueChange = {(value)=>setStatusCavity6(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
+								<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
+								<Text></Text>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
 								<View style={{justifyContent: 'center', width: 168.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {judgement_first_piece6}
-									onValueChange = {(value)=>setJudgement6(value)}
+									onValueChange = {(value)=>updateStatus6(value)}
 									>
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
@@ -872,7 +1176,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 									selectedValue= {qc_ng_category_id6}
 									onValueChange = {(value)=>setCategoryNg6(value)}
 									>
-										{dataNGs}
+										{itemNGsLoop()[5]}
 									</Picker>
 								</View>
 							</View>
@@ -906,24 +1210,16 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 					table1.push(
 						<View key="Bcaweq" style={{flexDirection: 'row', height: 50}}>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity7}
-									onValueChange = {(value)=>setStatusCavity7(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
+								<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
+								<Text></Text>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
 								<View style={{justifyContent: 'center', width: 168.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {judgement_first_piece7}
-									onValueChange = {(value)=>setJudgement7(value)}
+									onValueChange = {(value)=>updateStatus7(value)}
 									>
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
@@ -938,7 +1234,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 									selectedValue= {qc_ng_category_id7}
 									onValueChange = {(value)=>setCategoryNg7(value)}
 									>
-										{dataNGs}
+										{itemNGsLoop()[6]}
 									</Picker>
 								</View>
 							</View>
@@ -972,24 +1268,16 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 					table1.push(
 						<View key="Vxzkmcow" style={{flexDirection: 'row', height: 50}}>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity8}
-									onValueChange = {(value)=>setStatusCavity8(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
+								<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
+								<Text></Text>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
 								<View style={{justifyContent: 'center', width: 168.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {judgement_first_piece8}
-									onValueChange = {(value)=>setJudgement8(value)}
+									onValueChange = {(value)=>updateStatus8(value)}
 									>
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
@@ -1004,7 +1292,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 									selectedValue= {qc_ng_category_id8}
 									onValueChange = {(value)=>setCategoryNg8(value)}
 									>
-										{dataNGs}
+										{itemNGsLoop()[7]}
 									</Picker>
 								</View>
 							</View>
@@ -1038,24 +1326,16 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 					table1.push(
 						<View key="Popxkcmmww2" style={{flexDirection: 'row', height: 50}}>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity9}
-									onValueChange = {(value)=>setStatusCavity9(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
+								<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
+								<Text></Text>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
 								<View style={{justifyContent: 'center', width: 168.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {judgement_first_piece9}
-									onValueChange = {(value)=>setJudgement9(value)}
+									onValueChange = {(value)=>updateStatus9(value)}
 									>
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
@@ -1070,7 +1350,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 									selectedValue= {qc_ng_category_id9}
 									onValueChange = {(value)=>setCategoryNg9(value)}
 									>
-										{dataNGs}
+										{itemNGsLoop()[8]}
 									</Picker>
 								</View>
 							</View>
@@ -1104,24 +1384,16 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 					table1.push(
 						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity10}
-									onValueChange = {(value)=>setStatusCavity10(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
+								<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
+								<Text></Text>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
 								<View style={{justifyContent: 'center', width: 168.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {judgement_first_piece10}
-									onValueChange = {(value)=>setJudgement10(value)}
+									onValueChange = {(value)=>updateStatus10(value)}
 									>
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
@@ -1136,7 +1408,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 									selectedValue= {qc_ng_category_id10}
 									onValueChange = {(value)=>setCategoryNg10(value)}
 									>
-										{dataNGs}
+										{itemNGsLoop()[9]}
 									</Picker>
 								</View>
 							</View>
@@ -1170,24 +1442,16 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 					table1.push(
 						<View key="Vkcmoqw" style={{flexDirection: 'row', height: 50}}>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity11}
-									onValueChange = {(value)=>setStatusCavity11(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
+								<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
+								<Text></Text>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
 								<View style={{justifyContent: 'center', width: 168.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {judgement_first_piece11}
-									onValueChange = {(value)=>setJudgement11(value)}
+									onValueChange = {(value)=>updateStatus11(value)}
 									>
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
@@ -1202,7 +1466,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 									selectedValue= {qc_ng_category_id11}
 									onValueChange = {(value)=>setCategoryNg11(value)}
 									>
-										{dataNGs}
+										{itemNGsLoop()[10]}
 									</Picker>
 								</View>
 							</View>
@@ -1236,24 +1500,16 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 					table1.push(
 						<View key="KMslaiwje" style={{flexDirection: 'row', height: 50}}>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity12}
-									onValueChange = {(value)=>setStatusCavity12(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
+								<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
+								<Text></Text>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
 								<View style={{justifyContent: 'center', width: 168.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {judgement_first_piece12}
-									onValueChange = {(value)=>setJudgement12(value)}
+									onValueChange = {(value)=>updateStatus12(value)}
 									>
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
@@ -1268,7 +1524,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 									selectedValue= {qc_ng_category_id12}
 									onValueChange = {(value)=>setCategoryNg12(value)}
 									>
-										{dataNGs}
+										{itemNGsLoop()[11]}
 									</Picker>
 								</View>
 							</View>
@@ -1302,24 +1558,16 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 					table1.push(
 						<View key="Vkamsliwj213" style={{flexDirection: 'row', height: 50}}>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity13}
-									onValueChange = {(value)=>setStatusCavity13(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
+								<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
+								<Text></Text>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
 								<View style={{justifyContent: 'center', width: 168.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {judgement_first_piece13}
-									onValueChange = {(value)=>setJudgement13(value)}
+									onValueChange = {(value)=>updateStatus13(value)}
 									>
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
@@ -1334,7 +1582,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 									selectedValue= {qc_ng_category_id13}
 									onValueChange = {(value)=>setCategoryNg13(value)}
 									>
-										{dataNGs}
+										{itemNGsLoop()[12]}
 									</Picker>
 								</View>
 							</View>
@@ -1368,24 +1616,16 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 					table1.push(
 						<View key="Klasomqo2135" style={{flexDirection: 'row', height: 50}}>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity14}
-									onValueChange = {(value)=>setStatusCavity14(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
+								<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
+								<Text></Text>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
 								<View style={{justifyContent: 'center', width: 168.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {judgement_first_piece14}
-									onValueChange = {(value)=>setJudgement14(value)}
+									onValueChange = {(value)=>updateStatus14(value)}
 									>
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
@@ -1400,7 +1640,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 									selectedValue= {qc_ng_category_id14}
 									onValueChange = {(value)=>setCategoryNg14(value)}
 									>
-										{dataNGs}
+										{itemNGsLoop()[13]}
 									</Picker>
 								</View>
 							</View>
@@ -1434,24 +1674,16 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 					table1.push(
 						<View key="Pkasolw12kjn1" style={{flexDirection: 'row', height: 50}}>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity15}
-									onValueChange = {(value)=>setStatusCavity15(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
+								<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
+								<Text></Text>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
 								<View style={{justifyContent: 'center', width: 168.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {judgement_first_piece15}
-									onValueChange = {(value)=>setJudgement15(value)}
+									onValueChange = {(value)=>updateStatus15(value)}
 									>
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
@@ -1466,7 +1698,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 									selectedValue= {qc_ng_category_id15}
 									onValueChange = {(value)=>setCategoryNg15(value)}
 									>
-										{dataNGs}
+										{itemNGsLoop()[14]}
 									</Picker>
 								</View>
 							</View>
@@ -1500,24 +1732,16 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 					table1.push(
 						<View key="Bmaskjdnw" style={{flexDirection: 'row', height: 50}}>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity16}
-									onValueChange = {(value)=>setStatusCavity16(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
+								<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
+								<Text></Text>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
 								<View style={{justifyContent: 'center', width: 168.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {judgement_first_piece16}
-									onValueChange = {(value)=>setJudgement16(value)}
+									onValueChange = {(value)=>updateStatus16(value)}
 									>
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
@@ -1532,7 +1756,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 									selectedValue= {qc_ng_category_id16}
 									onValueChange = {(value)=>setCategoryNg16(value)}
 									>
-										{dataNGs}
+										{itemNGsLoop()[15]}
 									</Picker>
 								</View>
 							</View>
@@ -1566,24 +1790,16 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 					table1.push(
 						<View key="BzxPokskajnKJn" style={{flexDirection: 'row', height: 50}}>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity17}
-									onValueChange = {(value)=>setStatusCavity17(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
+								<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
+								<Text></Text>
 								</View>
 							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
 								<View style={{justifyContent: 'center', width: 168.5}}>
 									<Picker 
 									mode="dropdown"
 									selectedValue= {judgement_first_piece17}
-									onValueChange = {(value)=>setJudgement17(value)}
+									onValueChange = {(value)=>updateStatus17(value)}
 									>
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
@@ -1598,7 +1814,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 									selectedValue= {qc_ng_category_id17}
 									onValueChange = {(value)=>setCategoryNg17(value)}
 									>
-										{dataNGs}
+										{itemNGsLoop()[16]}
 									</Picker>
 								</View>
 							</View>
@@ -1633,16 +1849,8 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 					table1.push(
 						<View key="VPaokskw" style={{flexDirection: 'row', height: 50}}>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-								<View style={{justifyContent: 'center', width: 100}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {statusCavity18}
-									onValueChange = {(value)=>setStatusCavity18(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
+								<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
+								<Text></Text>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
@@ -1650,7 +1858,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 									<Picker 
 									mode="dropdown"
 									selectedValue= {judgement_first_piece18}
-									onValueChange = {(value)=>setJudgement18(value)}
+									onValueChange = {(value)=>updateStatus18(value)}
 									>
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
@@ -1665,7 +1873,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 									selectedValue= {qc_ng_category_id18}
 									onValueChange = {(value)=>setCategoryNg18(value)}
 									>
-										{dataNGs}
+										{itemNGsLoop()[17]}
 									</Picker>
 								</View>
 							</View>
@@ -1700,6 +1908,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 			if(revisiQc.length > 0){
 				var i
 				for(i = 0; i < cavityCheck; i++){
+					// console.log("id_cavity: ", revisiQc[i].id)
 					table1.push(
 						<View key={i} style={{flexDirection: 'row', height: 50}}>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, backgroundColor: '#b8b8b8', borderBottomWidth: 0.9, width: 100}}>
@@ -1735,7 +1944,6 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 	const hString = hours.toString()
 
 	const updateCompareCopyFunc = () => {
-		console.log("data: ", qc_daily_inspection_id)
 		const updateRF = updateCopySample
 		var data = []
 		const rfData = revisiQc
@@ -1745,7 +1953,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 					<View key="askdj2nk" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 						<Picker 
 						mode="dropdown"
-						selectedValue={copy_sample}
+						selectedValue={compare_sample}
 						onValueChange={(value) => setCopySample(value)}
 						>
 							<Picker.Item label="Pilih" value="" />
@@ -1766,7 +1974,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 				<View key="askdj2nk" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 					<Picker 
 					mode="dropdown"
-					selectedValue={copy_sample}
+					selectedValue={compare_sample}
 					onValueChange={(value) => setCopySample(value)}
 					>
 						<Picker.Item label="Pilih" value="" />
@@ -1852,20 +2060,151 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 	const updateButton = () => {
 		const updateRF = revisiQc
 		const data = []
-		if(updateRF != null){
-			data.push(
-				<View key="asd12q" style={{paddingTop: 10}}>
-					<Button style={{width: 172, borderRadius: 25, justifyContent: 'center', backgroundColor: '#05c46b'}} onPress={() => alert("Data QC Leader Already Saved!")}><Text>SAVED</Text></Button>
-				</View>
-			)
-		}else{
 			data.push(
 				<View key="asd12q" style={{paddingTop: 10}}>
 					<Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>
 				</View>
 			)
-		}
 		return data
+	}
+
+	const content = () => {
+		var dataContent = []
+		dataContent.push(
+			<ScrollView key="asoij2" style={{flex: 1}}>
+				<View style={{paddingTop: 20, flexDirection: 'row'}}>
+					<View style={{padding: 10, width: "44%"}}>
+						<Text>Machines Status</Text>
+					</View>
+					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+						<Text style={{color: 'black'}}>:</Text>
+					</View>
+					<View style={{padding: 4, width: "50%"}}>
+						<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+							<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+								<Text>{dataQl != null ? dataQl.machine_status : "-"}</Text>
+							</View>
+						</View>
+					</View>
+				</View>
+
+				<View style={{paddingTop: 20, flexDirection: 'row'}}>
+					<View style={{padding: 10, width: "44%"}}>
+						<Text>Tooling</Text>
+					</View>
+					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+						<Text style={{color: 'black'}}>:</Text>
+					</View>
+					<View style={{padding: 4, width: "50%"}}>
+						<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+							<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+								<Text>{tooling_num}</Text>
+							</View>
+						</View>
+					</View>
+				</View>
+				
+				<View style={{paddingTop: 20, flexDirection: 'row'}}>
+					<View style={{padding: 10, width: "44%"}}>
+						<Text>Cavity Amount</Text>
+					</View>
+					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+						<Text style={{color: 'black'}}>:</Text>
+					</View>
+					<View style={{padding: 4, width: "50%"}}>
+						<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+							<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+								<Text>{cavityCheck != null ? cavityCheck : "-"}</Text>
+							</View>
+						</View>
+					</View>
+				</View>
+
+				<View style={{paddingTop: 20, flexDirection: 'row'}}>		
+					<View style={{padding: 10, width: "44%"}}>
+						<Text>Compare Copy Sample</Text>
+					</View>
+					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+						<Text style={{color: 'black'}}>:</Text>
+					</View>
+					<View style={{padding: 4, width: "50%"}}>
+						<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+							{updateCompareCopyFunc()}
+						</View>
+					</View>
+				</View>
+
+				<View style={{paddingTop: 20, flexDirection: 'row'}}>
+						<View style={{padding: 10, width: "44%"}}>
+							<Text>Check Sheet QC</Text>
+						</View>
+						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+							<Text style={{color: 'black'}}>:</Text>
+						</View>
+						<View style={{padding: 4, width: "50%"}}>
+							<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+								{updateCheckSheetFunc()}
+							</View>
+						</View>
+					</View>
+
+				<View style={{paddingTop: 20, flexDirection: 'row'}}>
+					<View style={{padding: 10, width: "44%"}}>
+						<Text>Remark</Text>
+					</View>
+					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+						<Text style={{color: 'black'}}>:</Text>
+					</View>
+					<View style={{padding: 4, width: "50%"}}>
+						{updateRemarkFunc()}
+					</View>
+				</View>
+			<ScrollView horizontal>
+			<TouchableOpacity>
+				<View style={{flexDirection: 'row', justifyContent: 'center', height: 50, paddingTop: 10}}>
+					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
+						<Text style={{fontWeight: 'bold'}}>Cavity</Text>
+						<View style={{justifyContent: 'center'}}>
+						</View>
+					</View>
+					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+						<Text style={{fontWeight: 'bold', fontSize: 15}}>Judgement 1st Piece</Text>
+						<View style={{justifyContent: 'center'}}>
+						</View>
+					</View>
+					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+						<Text style={{fontWeight: 'bold'}}>Kategori NG</Text>
+						<View style={{justifyContent: 'center'}}>
+						</View>
+					</View>
+					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+						<Text style={{fontWeight: 'bold'}}>Fitting Test</Text>
+						<View style={{justifyContent: 'center'}}>
+						</View>
+					</View>
+					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+						<Text style={{fontWeight: 'bold'}}>Product's Weight</Text>
+						<View style={{justifyContent: 'center'}}>
+						</View>
+					</View>
+					<View style={{paddingLeft: 5, alignItems: 'center', borderRightWidth: 0.5, borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 145}}>
+						<Text style={{fontWeight: 'bold'}}>Keterangan</Text>
+						<View style={{justifyContent: 'center'}}>
+						</View>
+					</View>
+				</View>
+				{dataItem()}
+			</TouchableOpacity>
+			</ScrollView>
+				<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
+					<View>
+						{updateButton()}
+					</View>
+				</View>
+			</ScrollView>
+		
+		)
+		return dataContent
 	}
 
 	return(
@@ -1938,137 +2277,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 							</View>
 						</View>
 
-						<ScrollView style={{flex: 1}}>
-							<View style={{paddingTop: 20, flexDirection: 'row'}}>
-								<View style={{padding: 10, width: "44%"}}>
-									<Text>Machines Status</Text>
-								</View>
-								<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-									<Text style={{color: 'black'}}>:</Text>
-								</View>
-								<View style={{padding: 4, width: "50%"}}>
-									<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-										<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-											<Text>{dataQl != null ? dataQl.machine_status : "-"}</Text>
-										</View>
-									</View>
-								</View>
-							</View>
-
-							<View style={{paddingTop: 20, flexDirection: 'row'}}>
-								<View style={{padding: 10, width: "44%"}}>
-									<Text>Tooling</Text>
-								</View>
-								<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-									<Text style={{color: 'black'}}>:</Text>
-								</View>
-								<View style={{padding: 4, width: "50%"}}>
-									<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-										<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-											<Text>{tooling_num}</Text>
-										</View>
-									</View>
-								</View>
-							</View>
-							
-							<View style={{paddingTop: 20, flexDirection: 'row'}}>
-								<View style={{padding: 10, width: "44%"}}>
-									<Text>Cavity Amount</Text>
-								</View>
-								<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-									<Text style={{color: 'black'}}>:</Text>
-								</View>
-								<View style={{padding: 4, width: "50%"}}>
-									<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-										<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-											<Text>{cavityCheck != null ? cavityCheck : "-"}</Text>
-										</View>
-									</View>
-								</View>
-							</View>
-
-							<View style={{paddingTop: 20, flexDirection: 'row'}}>		
-								<View style={{padding: 10, width: "44%"}}>
-									<Text>Compare Copy Sample</Text>
-								</View>
-								<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-									<Text style={{color: 'black'}}>:</Text>
-								</View>
-								<View style={{padding: 4, width: "50%"}}>
-									<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-										{updateCompareCopyFunc()}
-									</View>
-								</View>
-							</View>
-
-							<View style={{paddingTop: 20, flexDirection: 'row'}}>
-									<View style={{padding: 10, width: "44%"}}>
-										<Text>Check Sheet QC</Text>
-									</View>
-									<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-										<Text style={{color: 'black'}}>:</Text>
-									</View>
-									<View style={{padding: 4, width: "50%"}}>
-										<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-											{updateCheckSheetFunc()}
-										</View>
-									</View>
-								</View>
-
-							<View style={{paddingTop: 20, flexDirection: 'row'}}>
-								<View style={{padding: 10, width: "44%"}}>
-									<Text>Remark</Text>
-								</View>
-								<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-									<Text style={{color: 'black'}}>:</Text>
-								</View>
-								<View style={{padding: 4, width: "50%"}}>
-									{updateRemarkFunc()}
-								</View>
-							</View>
-						<ScrollView horizontal>
-						<TouchableOpacity>
-							<View style={{flexDirection: 'row', justifyContent: 'center', height: 50, paddingTop: 10}}>
-								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-									<Text style={{fontWeight: 'bold'}}>Cavity</Text>
-									<View style={{justifyContent: 'center'}}>
-									</View>
-								</View>
-								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-									<Text style={{fontWeight: 'bold', fontSize: 15}}>Judgement 1st Piece</Text>
-									<View style={{justifyContent: 'center'}}>
-									</View>
-								</View>
-								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-									<Text style={{fontWeight: 'bold'}}>Kategori NG</Text>
-									<View style={{justifyContent: 'center'}}>
-									</View>
-								</View>
-								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-									<Text style={{fontWeight: 'bold'}}>Fitting Test</Text>
-									<View style={{justifyContent: 'center'}}>
-									</View>
-								</View>
-								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-									<Text style={{fontWeight: 'bold'}}>Product's Weight</Text>
-									<View style={{justifyContent: 'center'}}>
-									</View>
-								</View>
-								<View style={{paddingLeft: 5, alignItems: 'center', borderRightWidth: 0.5, borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 145}}>
-									<Text style={{fontWeight: 'bold'}}>Keterangan</Text>
-									<View style={{justifyContent: 'center'}}>
-									</View>
-								</View>
-							</View>
-							{dataItem()}
-						</TouchableOpacity>
-						</ScrollView>
-							<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
-								<View>
-									{updateButton()}
-								</View>
-							</View>
-						</ScrollView>
+						{loading ? content() : <View style={{justifyContent: 'center'}}><ActivityIndicator size="large" color="#0000ff"/></View>}
 					</View>
 				</Container>
 			</TouchableWithoutFeedback>

@@ -1,4 +1,4 @@
-import {Image, View, ScrollView, TextInput, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, TouchableOpacity} from 'react-native';
+import {Image, View, ScrollView, TextInput, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, TouchableOpacity, ActivityIndicator} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import { Container, Text, Button, Picker } from 'native-base';
 import LogoSIP from '../../../assets/logo-sip370x50.png';
@@ -7,7 +7,7 @@ import moment from 'moment';
 import Axios from 'axios';
 
 const Per4Jam = ({route, navigation}) => {
-	const {qc_daily_inspection_id, qc_daily_inspection_item_id, qc_daily_inspection_method_id, sys_plant_id, product_name, customer_name, machine_id, machine_name, today, yesterday} = route.params
+	const {qc_daily_inspection_id, qc_daily_inspection_method_id, sys_plant_id, product_name, customer_name, machine_id, machine_name, today, yesterday} = route.params
 	useEffect(() => {
 		// fixPer4Jam()
 		formOke()
@@ -120,6 +120,7 @@ const Per4Jam = ({route, navigation}) => {
 	const [note17, setKeterangan17] 																	 	 = useState("")
 	const [note18, setKeterangan18] 																	 	 = useState("")
 
+	const [qc_daily_inspection_item_id, setqc_daily_inpspection_item_id] = useState("")
 	const [internal_part_id, setInternalPartId] 													= useState("")
 	const [customer_part_number, setCustomerPartNumber] 									= useState("")
 	const [model, setModel] 																							= useState("")
@@ -127,6 +128,8 @@ const Per4Jam = ({route, navigation}) => {
 	let created_at 																												= moment().format("YYYY-MM-DD HH:mm:ss")
 	const [updated_by, setUpdatedBy]																			= useState("")
 	let updated_at 																												= moment().format("YYYY-MM-DD HH:mm:ss")
+
+	const [loading, setLoading] = useState(false)
 
 	const [data, setData] = useState("");
 	const [daily_inspection, setDaily] = useState("");
@@ -172,7 +175,9 @@ const Per4Jam = ({route, navigation}) => {
 			}
 			Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
 			.then(response => {
+				setLoading(true)
 				setData(response.data.data)
+				setqc_daily_inpspection_item_id(response.data.data.daily_inspection.qc_daily_inpspection_item_id)
 				setInternalPartId(response.data.data.daily_inspection.internal_part_id)
 				setCustomerPartNumber(response.data.data.daily_inspection.customer_part_number)
 				setModel(response.data.data.daily_inspection.model)
@@ -199,7 +204,10 @@ const Per4Jam = ({route, navigation}) => {
 			}
 			Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
 			.then(response => {
+				setLoading(true)
 				setData(response.data.data)
+				setqc_daily_inpspection_item_id(response.data.data.daily_inspection.qc_daily_inpspection_item_id)
+				setqc_daily_inpspection_item_id(response.data.data.daily_inspection.qc_daily_inpspection_item_id)
 				setInternalPartId(response.data.data.daily_inspection.internal_part_id)
 				setCustomerPartNumber(response.data.data.daily_inspection.customer_part_number)
 				setModel(response.data.data.daily_inspection.model)
@@ -226,7 +234,10 @@ const Per4Jam = ({route, navigation}) => {
 			}
 			Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
 			.then(response => {
+				setLoading(true)
 				setData(response.data.data)
+				setqc_daily_inpspection_item_id(response.data.data.daily_inspection.qc_daily_inpspection_item_id)
+				setqc_daily_inpspection_item_id(response.data.data.daily_inspection.qc_daily_inpspection_item_id)
 				setInternalPartId(response.data.data.daily_inspection.internal_part_id)
 				setCustomerPartNumber(response.data.data.daily_inspection.customer_part_number)
 				setModel(response.data.data.daily_inspection.model)
@@ -240,130 +251,126 @@ const Per4Jam = ({route, navigation}) => {
 		}
 	}
 
-	const item = JSON.stringify({
-		"item":{
-			"cav_1": {
-				"cavity": statusCavity1,
-				"compare": compare1,
-				"fitting_test": fitting_test1,
-				"note": note1
-			},
-			"cav_2": {
-				"cavity": statusCavity2,
-				"compare": compare2,
-				"fitting_test": fitting_test2,
-				"note": note2
-			},
-			"cav_3": {
-				"cavity": statusCavity3,
-				"compare": compare3,
-				"fitting_test": fitting_test3,
-				"note": note3
-			},
-			"cav_4": {
-				"cavity": statusCavity4,
-				"compare": compare4,
-				"fitting_test": fitting_test4,
-				"note": note4
-			},
-			"cav_5": {
-				"cavity": statusCavity5,
-				"compare": compare5,
-				"fitting_test": fitting_test5,
-				"note": note5
-			},
-			"cav_6": {
-				"cavity": statusCavity6,
-				"compare": compare6,
-				"fitting_test": fitting_test6,
-				"note": note6
-			},
-			"cav_7": {
-				"cavity": statusCavity7,
-				"compare": compare7,
-				"fitting_test": fitting_test7,
-				"note": note7
-			},
-			"cav_8": {
-				"cavity": statusCavity8,
-				"compare": compare8,
-				"fitting_test": fitting_test8,
-				"note": note8
-			},
-			"cav_9": {
-				"cavity": statusCavity9,
-				"compare": compare9,
-				"fitting_test": fitting_test9,
-				"note": note9
-			},
-			"cav_10": {
-				"cavity": statusCavity10,
-				"compare": compare10,
-				"fitting_test": fitting_test10,
-				"note": note10
-			},
-			"cav_11": {
-				"cavity": statusCavity11,
-				"compare": compare11,
-				"fitting_test": fitting_test11,
-				"note": note11
-			},
-			"cav_12": {
-				"cavity": statusCavity12,
-				"compare": compare12,
-				"fitting_test": fitting_test12,
-				"note": note12
-			},
-			"cav_13": {
-				"cavity": statusCavity13,
-				"compare": compare13,
-				"fitting_test": fitting_test13,
-				"note": note13
-			},
-			"cav_14": {
-				"cavity": statusCavity14,
-				"compare": compare14,
-				"fitting_test": fitting_test14,
-				"note": note14
-			},
-			"cav_15": {
-				"cavity": statusCavity15,
-				"compare": compare15,
-				"fitting_test": fitting_test15,
-				"note": note15
-			},
-			"cav_16": {
-				"cavity": statusCavity16,
-				"compare": compare16,
-				"fitting_test": fitting_test16,
-				"note": note16
-			},
-			"cav_17": {
-				"cavity": statusCavity17,
-				"compare": compare17,
-				"fitting_test": fitting_test17,
-				"note": note17
-			},
-			"cav_18": {
-				"cavity": statusCavity18,
-				"compare": compare18,
-				"fitting_test": fitting_test18,
-				"note": note18
-			},
-		}
-	})
+	const item = {
+		"cav_1": {
+			"cavity": 1,
+			"compare": compare1,
+			"fitting_test": fitting_test1,
+			"note": note1
+		},
+		"cav_2": {
+			"cavity": 2,
+			"compare": compare2,
+			"fitting_test": fitting_test2,
+			"note": note2
+		},
+		"cav_3": {
+			"cavity": 3,
+			"compare": compare3,
+			"fitting_test": fitting_test3,
+			"note": note3
+		},
+		"cav_4": {
+			"cavity": 4,
+			"compare": compare4,
+			"fitting_test": fitting_test4,
+			"note": note4
+		},
+		"cav_5": {
+			"cavity": 5,
+			"compare": compare5,
+			"fitting_test": fitting_test5,
+			"note": note5
+		},
+		"cav_6": {
+			"cavity": 6,
+			"compare": compare6,
+			"fitting_test": fitting_test6,
+			"note": note6
+		},
+		"cav_7": {
+			"cavity": 7,
+			"compare": compare7,
+			"fitting_test": fitting_test7,
+			"note": note7
+		},
+		"cav_8": {
+			"cavity": 8,
+			"compare": compare8,
+			"fitting_test": fitting_test8,
+			"note": note8
+		},
+		"cav_9": {
+			"cavity": 9,
+			"compare": compare9,
+			"fitting_test": fitting_test9,
+			"note": note9
+		},
+		"cav_10": {
+			"cavity": 10,
+			"compare": compare10,
+			"fitting_test": fitting_test10,
+			"note": note10
+		},
+		"cav_11": {
+			"cavity": 11,
+			"compare": compare11,
+			"fitting_test": fitting_test11,
+			"note": note11
+		},
+		"cav_12": {
+			"cavity": 12,
+			"compare": compare12,
+			"fitting_test": fitting_test12,
+			"note": note12
+		},
+		"cav_13": {
+			"cavity": 13,
+			"compare": compare13,
+			"fitting_test": fitting_test13,
+			"note": note13
+		},
+		"cav_14": {
+			"cavity": 14,
+			"compare": compare14,
+			"fitting_test": fitting_test14,
+			"note": note14
+		},
+		"cav_15": {
+			"cavity": 15,
+			"compare": compare15,
+			"fitting_test": fitting_test15,
+			"note": note15
+		},
+		"cav_16": {
+			"cavity": 16,
+			"compare": compare16,
+			"fitting_test": fitting_test16,
+			"note": note16
+		},
+		"cav_17": {
+			"cavity": 17,
+			"compare": compare17,
+			"fitting_test": fitting_test17,
+			"note": note17
+		},
+		"cav_18": {
+			"cavity": 18,
+			"compare": compare18,
+			"fitting_test": fitting_test18,
+			"note": note18
+		},
+	}
 
 
 	const submit = async() => {
+		setLoading(false)
 		const el = {
 			qc_daily_inspection_id,
 			qc_daily_inspection_item_id,
 			qc_daily_inspection_method_id,
 			hours,
 			tooling_num,
-			statusCavity,
-			compare,
-			fittingTes,
 			inspectionTime,
 			item,
 			created_by,
@@ -390,12 +397,14 @@ const Per4Jam = ({route, navigation}) => {
 		};
 			Axios(config)
 			.then(function (response){
+				setLoading(true)
+				console.log("Res: ", response.status, " Ok")
 				navigation.navigate('ListForm')
 				alert("Success Send Data!")
-				console.log("Res: ", response.status, " Ok")
 			})
 		.catch(function (error){
 			alert("Failed Send Data!")
+			setLoading(true)
 			console.log(error)
 		})
 	}
@@ -1224,6 +1233,110 @@ const Per4Jam = ({route, navigation}) => {
 		return table1
 	}
 
+	const content = () => {
+		var dataContent = []
+		dataContent.push(
+			<ScrollView key="asoijkm" style={{flex: 1}}>
+				<View style={{paddingTop: 20, flexDirection: 'row'}}>
+					<View style={{padding: 10, width: "44%"}}>
+						<Text>Machines Status</Text>
+					</View>
+					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+						<Text style={{color: 'black'}}>:</Text>
+					</View>
+					<View style={{padding: 4, width: "50%"}}>
+						<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+							<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+								<Text>{daily_inspection != null ? daily_inspection.machine_status : "-"}</Text>
+							</View>
+						</View>
+					</View>
+				</View>
+
+				<View style={{paddingTop: 20, flexDirection: 'row'}}>
+					<View style={{padding: 10, width: "44%"}}>
+						<Text>Tooling</Text>
+					</View>
+					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+						<Text style={{color: 'black'}}>:</Text>
+					</View>
+					<View style={{padding: 4, width: "50%"}}>
+						<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+							<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+								<Text>{tooling_num}</Text>
+							</View>
+						</View>
+					</View>
+				</View>
+					
+				<View style={{paddingTop: 20, flexDirection: 'row'}}>
+					<View style={{padding: 10, width: "44%"}}>
+						<Text>Cavity Amount</Text>
+					</View>
+					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+						<Text style={{color: 'black'}}>:</Text>
+					</View>
+					<View style={{padding: 4, width: "50%"}}>
+						<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+							<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+								{/* <Text>2</Text> */}
+								<Text>{data.daily_inspection != null ? data.daily_inspection.cavity : "-"}</Text>
+							</View>
+						</View>
+					</View>
+				</View>
+
+				<ScrollView horizontal>
+					<TouchableOpacity>
+						<View style={{flexDirection: 'row', height: 50, paddingTop: 10}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
+								<Text style={{fontWeight: 'bold'}}>Cavity</Text>
+								<View style={{justifyContent: 'center'}}>
+								</View>
+							</View>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+								<Text style={{fontWeight: 'bold'}}>Compare</Text>
+								<View style={{justifyContent: 'center'}}>
+								</View>
+							</View>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+								<Text style={{fontWeight: 'bold'}}>Fitting Test</Text>
+								<View style={{justifyContent: 'center'}}>
+								</View>
+							</View>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
+								<Text style={{fontWeight: 'bold'}}>Keterangan</Text>
+								<View style={{justifyContent: 'center'}}>
+								</View>
+							</View>
+						</View>
+						{dataItem()}
+					</TouchableOpacity>
+				</ScrollView>
+
+				<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
+					<View>
+						<Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>
+					</View>
+				</View>
+
+				<View style={{flexDirection: 'column', height: 50}}>
+					<View style={{height: 27, alignItems: 'center'}}>
+						<Text style={{fontWeight: 'bold'}}>
+							Inspection Time
+						</Text>
+					</View>
+					<View style={{height: 23, alignItems: 'center'}}>
+						<Text>
+							{inspectionTime}
+						</Text>
+					</View>
+				</View>
+			</ScrollView>
+		)
+		return dataContent
+	}
+
 	return(
 		<KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={{flex: 1}} >
 			<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -1294,103 +1407,8 @@ const Per4Jam = ({route, navigation}) => {
 							</View>
 						</View>
 
-						<ScrollView style={{flex: 1}}>
-							<View style={{paddingTop: 20, flexDirection: 'row'}}>
-								<View style={{padding: 10, width: "44%"}}>
-									<Text>Machines Status</Text>
-								</View>
-								<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-									<Text style={{color: 'black'}}>:</Text>
-								</View>
-								<View style={{padding: 4, width: "50%"}}>
-									<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-										<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-											<Text>{daily_inspection != null ? daily_inspection.machine_status : "-"}</Text>
-										</View>
-									</View>
-								</View>
-							</View>
-
-							<View style={{paddingTop: 20, flexDirection: 'row'}}>
-								<View style={{padding: 10, width: "44%"}}>
-									<Text>Tooling</Text>
-								</View>
-								<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-									<Text style={{color: 'black'}}>:</Text>
-								</View>
-								<View style={{padding: 4, width: "50%"}}>
-									<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-										<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-											<Text>{tooling_num}</Text>
-										</View>
-									</View>
-								</View>
-							</View>
-								
-							<View style={{paddingTop: 20, flexDirection: 'row'}}>
-								<View style={{padding: 10, width: "44%"}}>
-									<Text>Cavity Amount</Text>
-								</View>
-								<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-									<Text style={{color: 'black'}}>:</Text>
-								</View>
-								<View style={{padding: 4, width: "50%"}}>
-									<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-										<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-											{/* <Text>2</Text> */}
-											<Text>{data.daily_inspection != null ? data.daily_inspection.cavity : "-"}</Text>
-										</View>
-									</View>
-								</View>
-							</View>
-
-							<ScrollView horizontal>
-								<TouchableOpacity>
-									<View style={{flexDirection: 'row', height: 50, paddingTop: 10}}>
-										<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-											<Text style={{fontWeight: 'bold'}}>Cavity</Text>
-											<View style={{justifyContent: 'center'}}>
-											</View>
-										</View>
-										<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-											<Text style={{fontWeight: 'bold'}}>Compare</Text>
-											<View style={{justifyContent: 'center'}}>
-											</View>
-										</View>
-										<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-											<Text style={{fontWeight: 'bold'}}>Fitting Test</Text>
-											<View style={{justifyContent: 'center'}}>
-											</View>
-										</View>
-										<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
-											<Text style={{fontWeight: 'bold'}}>Keterangan</Text>
-											<View style={{justifyContent: 'center'}}>
-											</View>
-										</View>
-									</View>
-									{dataItem()}
-								</TouchableOpacity>
-							</ScrollView>
-
-							<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
-								<View>
-									<Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>
-								</View>
-							</View>
-
-							<View style={{flexDirection: 'column', height: 50}}>
-								<View style={{height: 27, alignItems: 'center'}}>
-									<Text style={{fontWeight: 'bold'}}>
-										Inspection Time
-									</Text>
-								</View>
-								<View style={{height: 23, alignItems: 'center'}}>
-									<Text>
-										{inspectionTime}
-									</Text>
-								</View>
-							</View>
-						</ScrollView>
+						{loading ? content() : <View style={{justifyContent: 'center'}}><ActivityIndicator size="large" color="#0000ff"/></View>}
+					
 					</View>
 				</Container>
 			</TouchableWithoutFeedback>

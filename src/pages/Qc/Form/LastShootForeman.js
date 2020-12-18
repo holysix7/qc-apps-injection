@@ -1,4 +1,4 @@
-import {Image, View, ScrollView, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView} from 'react-native';
+import {Image, View, ScrollView, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, ActivityIndicator} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import { Container, Text, Button, Picker } from 'native-base';
 import LogoSIP from '../../../assets/logo-sip370x50.png';
@@ -24,7 +24,9 @@ const LastShootForeman = ({route, navigation}) => {
 	const [data, setData]	=	useState("")
 	const prod_machine_id = machine_id
 	const date = []
+	const [loading, setLoading] = useState(false)
 	const submit = async() => {
+		setLoading(false)
 		const data = {
 			eng_product_id,
 			prod_machine_id,
@@ -55,9 +57,10 @@ const LastShootForeman = ({route, navigation}) => {
 		};
 		Axios(config)
 		.then(function (response){
+			setLoading(true)
+			console.log("Res: ", response.status, " Ok")
 			navigation.navigate('Qc')
 			alert("Success Send Data!")
-			console.log("Res: ", response.status, " Ok")
 		})
 		.catch(function (error){
 			alert("Failed Send Data!")
@@ -92,6 +95,7 @@ const LastShootForeman = ({route, navigation}) => {
 			}
 			Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
 			.then(response => {
+				setLoading(true)
 				setData(response.data.data.daily_inspection)
 				setEngProdId(response.data.data.eng_product_id)
 				setTooling(response.data.data.daily_inspection.tooling_num)
@@ -116,6 +120,7 @@ const LastShootForeman = ({route, navigation}) => {
 			}
 			Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
 			.then(response => {
+				setLoading(true)
 				setData(response.data.data.daily_inspection)
 				setEngProdId(response.data.data.eng_product_id)
 				setTooling(response.data.data.daily_inspection.tooling_num)
@@ -140,6 +145,7 @@ const LastShootForeman = ({route, navigation}) => {
 			}
 			Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
 			.then(response => {
+				setLoading(true)
 				setData(response.data.data.daily_inspection)
 				setEngProdId(response.data.data.eng_product_id)
 				setTooling(response.data.data.daily_inspection.tooling_num)
@@ -223,6 +229,60 @@ const LastShootForeman = ({route, navigation}) => {
 		return data
 	}
 
+	const content = () => {
+		var dataContent = []
+		dataContent.push(
+			<ScrollView key="askjdn2" style={{flex: 1}}>
+				<View style={{paddingTop: 20, flexDirection: 'row'}}>
+					<View style={{padding: 10, width: "44%"}}>
+						<Text>Tooling</Text>
+					</View>
+					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+						<Text style={{color: 'black'}}>:</Text>
+					</View>
+					<View style={{padding: 4, width: "50%"}}>
+						<View style={{height: 40, justifyContent: 'center'}}>
+							<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+								<Text>{tooling_num}</Text>
+							</View>
+						</View>
+					</View>
+				</View>
+				
+				<View style={{paddingTop: 20, flexDirection: 'row'}}>
+					<View style={{padding: 10, width: "44%"}}>
+						<Text>Cavity Amount</Text>
+					</View>
+					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+						<Text style={{color: 'black'}}>:</Text>
+					</View>
+					<View style={{padding: 4, width: "50%"}}>
+						<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+							<Text>{data.cavity != null ? data.cavity : "-"}</Text>
+						</View>
+					</View>
+				</View>
+
+				<View style={{paddingTop: 20, flexDirection: 'row'}}>
+					<View style={{padding: 10, width: "44%"}}>
+						<Text>Stop Category</Text>
+					</View>
+					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+						<Text style={{color: 'black'}}>:</Text>
+					</View>
+					<View style={{padding: 4, width: "50%"}}>
+						{updateStopCategory()}
+					</View>
+				</View>
+
+				<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
+					{updateButton()}
+				</View>
+			</ScrollView>
+		)
+		return dataContent
+	}
+
 	return(
 		<KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={{flex: 1}} >
 			<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -293,54 +353,7 @@ const LastShootForeman = ({route, navigation}) => {
 								<Text style={{fontSize: 12}}>{data.model != null ? data.model : "-"}</Text>
 							</View>
 						</View>
-
-						<ScrollView style={{flex: 1}}>
-							<View style={{paddingTop: 20, flexDirection: 'row'}}>
-								<View style={{padding: 10, width: "44%"}}>
-									<Text>Tooling</Text>
-								</View>
-								<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-									<Text style={{color: 'black'}}>:</Text>
-								</View>
-								<View style={{padding: 4, width: "50%"}}>
-									<View style={{height: 40, justifyContent: 'center'}}>
-										<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-											<Text>{tooling_num}</Text>
-										</View>
-									</View>
-								</View>
-							</View>
-							
-							<View style={{paddingTop: 20, flexDirection: 'row'}}>
-								<View style={{padding: 10, width: "44%"}}>
-									<Text>Cavity Amount</Text>
-								</View>
-								<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-									<Text style={{color: 'black'}}>:</Text>
-								</View>
-								<View style={{padding: 4, width: "50%"}}>
-									<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-										<Text>{data.cavity != null ? data.cavity : "-"}</Text>
-									</View>
-								</View>
-							</View>
-
-							<View style={{paddingTop: 20, flexDirection: 'row'}}>
-								<View style={{padding: 10, width: "44%"}}>
-									<Text>Stop Category</Text>
-								</View>
-								<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-									<Text style={{color: 'black'}}>:</Text>
-								</View>
-								<View style={{padding: 4, width: "50%"}}>
-									{updateStopCategory()}
-								</View>
-							</View>
-
-							<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
-								{updateButton()}
-							</View>
-						</ScrollView>
+						{loading ? content() : <View style={{justifyContent: 'center'}}><ActivityIndicator size="large" color="#0000ff"/></View>}
 					</View>
 				</Container>
 			</TouchableWithoutFeedback>

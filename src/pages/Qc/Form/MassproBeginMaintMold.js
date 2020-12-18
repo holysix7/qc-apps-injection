@@ -1,4 +1,4 @@
-import {Image, View, TextInput, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, ScrollView} from 'react-native';
+import {Image, View, TextInput, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, ScrollView, ActivityIndicator} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import { Container, Text, Button, Picker } from 'native-base';
 import LogoSIP from '../../../assets/logo-sip370x50.png';
@@ -13,6 +13,7 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 
 	const {sys_plant_id, machine_id, customer_name, machine_name, today, yesterday} = route.params
 	const [mold_condition, setCondition] 	= useState("")
+	const [loading, setLoading] 					= useState(false)
 	const [neeple_cooling, setCooling] 		= useState("")
 	const [standard_part, setStandard] 		= useState("")
 	const [remark, setRemark] 						= useState("")
@@ -41,6 +42,7 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 	const planning_id = parseInt(planningId)
 	
 	const submit = async() => {
+		setLoading(false)
 		const data = {
 			eng_product_id,
 			prod_machine_id,
@@ -76,16 +78,21 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 			},
 		data : data
 		};
-		Axios(config)
-		.then(function (response){
-			navigation.navigate('ListForm')
-			alert("Success Send Data!")
-			console.log("Res: ", response.status, " Ok")
-		})
-		.catch(function (error){
-			alert("Failed Send Data!")
-			console.log(error)
-		})
+		try {
+			Axios(config)
+			.then(function (response){
+				console.log("Res: ", response.status, " Ok")
+				setLoading(true)
+				alert("Success Send Data!")
+				navigation.navigate('ListForm')
+			})
+			.catch(function (error){
+				alert("Failed Send Data!")
+				console.log(error)
+			})
+		} catch (error) {
+			
+		}
 	}
 	const formOke = async() => {
 		const token = await AsyncStorage.getItem("key")
@@ -120,6 +127,7 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 		}
 		Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
 		.then(response => {
+			setLoading(true)
 			setDataProduct1(response.data.data.product_1_detail)
 			setEngId(response.data.data.product_1_detail.id)
 			setDataIPI(response.data.data.product_1_detail.internal_part_id)
@@ -141,7 +149,6 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 	const shiftFix = (value) => {
 		setHours(value)
 	}
-
 	const hString = hours.toString()
 
 	if(today != null)
@@ -363,6 +370,88 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 		return data
 	}
 
+	const content = () => {
+		var dataContent = []
+		dataContent.push(
+			<ScrollView key="2" style={{flex: 1}}>
+				<View style={{paddingTop: 20, flexDirection: 'row'}}>
+					<View style={{padding: 10, width: "44%"}}>
+						<Text>Tooling</Text>
+					</View>
+					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+						<Text style={{color: 'black'}}>:</Text>
+					</View>
+					<View style={{padding: 4, width: "50%"}}>
+						<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8', width: 177}}>
+							<Text>{tooling != null ? tooling : "-"}</Text>
+						</View>
+					</View>
+				</View>
+				<View style={{flexDirection: 'row'}}>
+					<View style={{padding: 10, width: "44%"}}>
+						<Text>Cavity Amount</Text>
+					</View>
+					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+						<Text style={{color: 'black'}}>:</Text>
+					</View>
+					<View style={{padding: 4, width: "50%"}}>
+						<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8', width: 177}}>
+							<Text>{cavityAmount != null ? cavityAmount : "-"}</Text>
+						</View>
+					</View>
+				</View>
+				<View style={{flexDirection: 'row'}}>
+					<View style={{padding: 10, width: "44%"}}>
+						<Text>Status and Mold Condition</Text>
+					</View>
+					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+						<Text style={{color: 'black'}}>:</Text>
+					</View>
+					<View style={{padding: 4, width: "50%"}}>
+						{statusMoldCondition()}
+					</View>
+				</View>
+				<View style={{flexDirection: 'row'}}>
+					<View style={{padding: 10, width: "44%"}}>
+						<Text>Neeple Cooling Mold</Text>
+					</View>
+					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+						<Text style={{color: 'black'}}>:</Text>
+					</View>
+					<View style={{padding: 4, width: "50%"}}>
+						{neepleCoolingMold()}
+					</View>
+				</View>
+				<View style={{flexDirection: 'row'}}>
+					<View style={{padding: 10, width: "44%"}}>
+						<Text>Standard Part</Text>
+					</View>
+					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+						<Text style={{color: 'black'}}>:</Text>
+					</View>
+					<View style={{padding: 4, width: "50%"}}>
+						{standardPart()}
+					</View>
+				</View>
+				<View style={{flexDirection: 'row'}}>
+					<View style={{padding: 10, width: "44%"}}>
+						<Text>Remark</Text>
+					</View>
+					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+						<Text style={{color: 'black'}}>:</Text>
+					</View>
+					<View style={{padding: 4, width: "50%"}}>
+						{remarkData()}
+					</View>
+				</View>
+				<View style={{justifyContent: 'center', alignItems: 'center'}}>
+					{updateButton()}
+				</View>
+			</ScrollView>
+		)
+		return dataContent
+	}
+
 	return(
 		<KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={{flex:1}}>
 			<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -433,84 +522,7 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 								<Text style={{fontSize: 12}}>{dataProduct1 != null ? dataProduct1.model : "-"}</Text>
 							</View>
 						</View>
-
-						<ScrollView style={{flex: 1}}>
-							<View style={{paddingTop: 20, flexDirection: 'row'}}>
-								<View style={{padding: 10, width: "44%"}}>
-									<Text>Tooling</Text>
-								</View>
-								<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-									<Text style={{color: 'black'}}>:</Text>
-								</View>
-								<View style={{padding: 4, width: "50%"}}>
-									<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8', width: 177}}>
-										<Text>{tooling != null ? tooling : "-"}</Text>
-									</View>
-								</View>
-							</View>
-							<View style={{flexDirection: 'row'}}>
-								<View style={{padding: 10, width: "44%"}}>
-									<Text>Cavity Amount</Text>
-								</View>
-								<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-									<Text style={{color: 'black'}}>:</Text>
-								</View>
-								<View style={{padding: 4, width: "50%"}}>
-									<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8', width: 177}}>
-										<Text>{cavityAmount != null ? cavityAmount : "-"}</Text>
-									</View>
-								</View>
-							</View>
-							<View style={{flexDirection: 'row'}}>
-								<View style={{padding: 10, width: "44%"}}>
-									<Text>Status and Mold Condition</Text>
-								</View>
-								<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-									<Text style={{color: 'black'}}>:</Text>
-								</View>
-								<View style={{padding: 4, width: "50%"}}>
-									{statusMoldCondition()}
-								</View>
-							</View>
-							<View style={{flexDirection: 'row'}}>
-								<View style={{padding: 10, width: "44%"}}>
-									<Text>Neeple Cooling Mold</Text>
-								</View>
-								<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-									<Text style={{color: 'black'}}>:</Text>
-								</View>
-								<View style={{padding: 4, width: "50%"}}>
-									{neepleCoolingMold()}
-								</View>
-							</View>
-							<View style={{flexDirection: 'row'}}>
-								<View style={{padding: 10, width: "44%"}}>
-									<Text>Standard Part</Text>
-								</View>
-								<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-									<Text style={{color: 'black'}}>:</Text>
-								</View>
-								<View style={{padding: 4, width: "50%"}}>
-									{standardPart()}
-								</View>
-							</View>
-							<View style={{flexDirection: 'row'}}>
-								<View style={{padding: 10, width: "44%"}}>
-									<Text>Remark</Text>
-								</View>
-								<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-									<Text style={{color: 'black'}}>:</Text>
-								</View>
-								<View style={{padding: 4, width: "50%"}}>
-									{remarkData()}
-								</View>
-							</View>
-
-							<View style={{justifyContent: 'center', alignItems: 'center'}}>
-								{updateButton()}
-							</View>
-
-						</ScrollView>
+						{loading ? content() : <View style={{justifyContent: 'center'}}><ActivityIndicator size="large" color="#0000ff"/></View>}
 					</View>
 				</Container>
 			</TouchableWithoutFeedback>

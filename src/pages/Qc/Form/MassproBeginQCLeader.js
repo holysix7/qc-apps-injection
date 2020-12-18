@@ -1,4 +1,4 @@
-import {Image, View, ScrollView, TextInput, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, TouchableOpacity} from 'react-native';
+import {Image, View, ScrollView, TextInput, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, TouchableOpacity, ActivityIndicator} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import { Container, Text, Button, Input, Picker } from 'native-base';
 import LogoSIP from '../../../assets/logo-sip370x50.png';
@@ -40,7 +40,6 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 	
 
 
-	const [judgement_first_piece, setJudgement] 											 	 = useState("")
 	const [judgement_first_piece1, setJudgement1] 											 = useState("")
 	const [judgement_first_piece2, setJudgement2] 											 = useState("")
 	const [judgement_first_piece3, setJudgement3] 											 = useState("")
@@ -60,24 +59,24 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 	const [judgement_first_piece17, setJudgement17] 										 = useState("")
 	const [judgement_first_piece18, setJudgement18] 										 = useState("")
 	
-	const [qc_ng_category_id1, setCategoryNg1] 													 = useState("")
-	const [qc_ng_category_id2, setCategoryNg2] 													 = useState("")
-	const [qc_ng_category_id3, setCategoryNg3] 													 = useState("")
-	const [qc_ng_category_id4, setCategoryNg4] 													 = useState("")
-	const [qc_ng_category_id5, setCategoryNg5] 													 = useState("")
-	const [qc_ng_category_id6, setCategoryNg6] 													 = useState("")
-	const [qc_ng_category_id7, setCategoryNg7] 													 = useState("")
-	const [qc_ng_category_id8, setCategoryNg8] 													 = useState("")
-	const [qc_ng_category_id9, setCategoryNg9] 													 = useState("")
-	const [qc_ng_category_id10, setCategoryNg10] 												 = useState("")
-	const [qc_ng_category_id11, setCategoryNg11] 												 = useState("")
-	const [qc_ng_category_id12, setCategoryNg12] 												 = useState("")
-	const [qc_ng_category_id13, setCategoryNg13] 												 = useState("")
-	const [qc_ng_category_id14, setCategoryNg14] 												 = useState("")
-	const [qc_ng_category_id15, setCategoryNg15] 												 = useState("")
-	const [qc_ng_category_id16, setCategoryNg16] 												 = useState("")
-	const [qc_ng_category_id17, setCategoryNg17] 												 = useState("")
-	const [qc_ng_category_id18, setCategoryNg18] 												 = useState("")
+	const [qc_ng_category_id1, setCategoryNg1] 													 = useState(0)
+	const [qc_ng_category_id2, setCategoryNg2] 													 = useState(0)
+	const [qc_ng_category_id3, setCategoryNg3] 													 = useState(0)
+	const [qc_ng_category_id4, setCategoryNg4] 													 = useState(0)
+	const [qc_ng_category_id5, setCategoryNg5] 													 = useState(0)
+	const [qc_ng_category_id6, setCategoryNg6] 													 = useState(0)
+	const [qc_ng_category_id7, setCategoryNg7] 													 = useState(0)
+	const [qc_ng_category_id8, setCategoryNg8] 													 = useState(0)
+	const [qc_ng_category_id9, setCategoryNg9] 													 = useState(0)
+	const [qc_ng_category_id10, setCategoryNg10] 												 = useState(0)
+	const [qc_ng_category_id11, setCategoryNg11] 												 = useState(0)
+	const [qc_ng_category_id12, setCategoryNg12] 												 = useState(0)
+	const [qc_ng_category_id13, setCategoryNg13] 												 = useState(0)
+	const [qc_ng_category_id14, setCategoryNg14] 												 = useState(0)
+	const [qc_ng_category_id15, setCategoryNg15] 												 = useState(0)
+	const [qc_ng_category_id16, setCategoryNg16] 												 = useState(0)
+	const [qc_ng_category_id17, setCategoryNg17] 												 = useState(0)
+	const [qc_ng_category_id18, setCategoryNg18] 												 = useState(0)
 	
 	const [fitting_test1, setFittingTest1] 															 = useState("")
 	const [fitting_test2, setFittingTest2] 															 = useState("")
@@ -166,26 +165,10 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 	const date 				= []
 	const planning_id = parseInt(planningId)
 
-	if(ngCategories.length > 0)
-	{
-		if(compare_sample == "NG" || check_sheet == "NG")
-		{
-			var dataNGs = []
-			ngCategories.map((element, key) => {
-				dataNGs.push(
-					<Picker.Item label={element.name} value={element.id} key={key} />
-				)
-			})
-		}else{
-			var dataNGs = []
-			dataNGs.push(
-				<Picker.Item label="Tidak NG" value="OK" key="swQwdAcxz12" />
-			)
-		}
-	}
+	const [loading, setLoading] = useState(false)
 
-	const item = {
-		"cav_1": {
+	const item = [
+		{
 			"cavity": 1,
 			"judgement_first_piece": judgement_first_piece1,
 			"qc_ng_category_id": qc_ng_category_id1,
@@ -193,7 +176,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 			"product_weight": product_weight1,
 			"note": note1
 		},
-		"cav_2": {
+		{
 			"cavity": 2,
 			"judgement_first_piece": judgement_first_piece2,
 			"qc_ng_category_id": qc_ng_category_id2,
@@ -201,7 +184,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 			"product_weight": product_weight2,
 			"note": note2
 		},
-		"cav_3": {
+		{
 			"cavity": 3,
 			"judgement_first_piece": judgement_first_piece3,
 			"qc_ng_category_id": qc_ng_category_id3,
@@ -209,7 +192,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 			"product_weight": product_weight3,
 			"note": note3
 		},
-		"cav_4": {
+		{
 			"cavity": 4,
 			"judgement_first_piece": judgement_first_piece4,
 			"qc_ng_category_id": qc_ng_category_id4,
@@ -217,7 +200,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 			"product_weight": product_weight4,
 			"note": note4
 		},
-		"cav_5": {
+		{
 			"cavity": 5,
 			"judgement_first_piece": judgement_first_piece5,
 			"qc_ng_category_id": qc_ng_category_id5,
@@ -225,7 +208,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 			"product_weight": product_weight5,
 			"note": note5
 		},
-		"cav_6": {
+		{
 			"cavity": 6,
 			"judgement_first_piece": judgement_first_piece6,
 			"qc_ng_category_id": qc_ng_category_id6,
@@ -233,7 +216,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 			"product_weight": product_weight6,
 			"note": note6
 		},
-		"cav_7": {
+		{
 			"cavity": 7,
 			"judgement_first_piece": judgement_first_piece7,
 			"qc_ng_category_id": qc_ng_category_id7,
@@ -241,7 +224,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 			"product_weight": product_weight7,
 			"note": note7
 		},
-		"cav_8": {
+		{
 			"cavity": 8,
 			"judgement_first_piece": judgement_first_piece8,
 			"qc_ng_category_id": qc_ng_category_id8,
@@ -249,7 +232,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 			"product_weight": product_weight8,
 			"note": note8
 		},
-		"cav_9": {
+		{
 			"cavity": 9,
 			"judgement_first_piece": judgement_first_piece9,
 			"qc_ng_category_id": qc_ng_category_id9,
@@ -257,7 +240,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 			"product_weight": product_weight9,
 			"note": note9
 		},
-		"cav_10": {
+		{
 			"cavity": 10,
 			"judgement_first_piece": judgement_first_piece10,
 			"qc_ng_category_id": qc_ng_category_id10,
@@ -265,7 +248,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 			"product_weight": product_weight10,
 			"note": note10
 		},
-		"cav_11": {
+		{
 			"cavity": 11,
 			"judgement_first_piece": judgement_first_piece11,
 			"qc_ng_category_id": qc_ng_category_id11,
@@ -273,7 +256,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 			"product_weight": product_weight11,
 			"note": note11
 		},
-		"cav_12": {
+		{
 			"cavity": 12,
 			"judgement_first_piece": judgement_first_piece12,
 			"qc_ng_category_id": qc_ng_category_id12,
@@ -281,7 +264,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 			"product_weight": product_weight12,
 			"note": note12
 		},
-		"cav_13": {
+		{
 			"cavity": 13,
 			"judgement_first_piece": judgement_first_piece13,
 			"qc_ng_category_id": qc_ng_category_id13,
@@ -289,7 +272,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 			"product_weight": product_weight13,
 			"note": note13
 		},
-		"cav_14": {
+		{
 			"cavity": 14,
 			"judgement_first_piece": judgement_first_piece14,
 			"qc_ng_category_id": qc_ng_category_id14,
@@ -297,7 +280,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 			"product_weight": product_weight14,
 			"note": note14
 		},
-		"cav_15": {
+		{
 			"cavity": 15,
 			"judgement_first_piece": judgement_first_piece15,
 			"qc_ng_category_id": qc_ng_category_id15,
@@ -305,7 +288,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 			"product_weight": product_weight15,
 			"note": note15
 		},
-		"cav_16": {
+		{
 			"cavity": 16,
 			"judgement_first_piece": judgement_first_piece16,
 			"qc_ng_category_id": qc_ng_category_id16,
@@ -313,7 +296,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 			"product_weight": product_weight16,
 			"note": note16
 		},
-		"cav_17": {
+		{
 			"cavity": 17,
 			"judgement_first_piece": judgement_first_piece17,
 			"qc_ng_category_id": qc_ng_category_id17,
@@ -321,7 +304,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 			"product_weight": product_weight17,
 			"note": note17
 		},
-		"cav_18": {
+		{
 			"cavity": 18,
 			"judgement_first_piece": judgement_first_piece18,
 			"qc_ng_category_id": qc_ng_category_id18,
@@ -329,10 +312,42 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 			"product_weight": product_weight18,
 			"note": note18
 		}
+	]
+	
+	const dataNGsFunc = () => {
+		var dataNGs = []
+		if(ngCategories.length > 0){
+			item.map((element, key) => {
+				if(element.judgement_first_piece == "NG" || element.fitting_test == "NG" || compare_sample == "NG" || check_sheet == "NG"){
+					var dataNGItems = []
+					dataNGItems.push(
+						<Picker.Item label="--Pilih--" value={0} key="apsodkmk2" />
+					)
+					dataNGItems.push(
+						<Picker.Item label="Others" value={0} key="apsodkmk2" />
+					)
+					ngCategories.map((elementdua, keydua) => {
+						dataNGItems.push(
+							<Picker.Item label={elementdua.name} value={elementdua.id} key={keydua} />
+						)
+					})
+					dataNGs.push(dataNGItems)
+				}else{
+					var dataNGItems = []
+					dataNGItems.push(
+						<Picker.Item label="Tidak NG" value={9999} key="swQwdAcxz12" />
+					)
+					dataNGs.push(dataNGItems)
+				}
+			})
+		}
+		return dataNGs
 	}
+
 	const machine_status = "start-mp"
 
 	const submit = async() => {
+		setLoading(false)
 		const data = {
 			eng_product_id,
 			prod_machine_id,
@@ -378,9 +393,10 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 		};
 		Axios(config)
 		.then(function (response){
+			setLoading(true)
+			console.log("Res: ", response.status, " Ok")
 			navigation.navigate('ListForm')
 			alert("Success Send Data!")
-			console.log("Res: ", response.status, " Ok")
 		})
 		.catch(function (error){
 			alert("Failed Send Data!")
@@ -421,6 +437,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 		}
 		Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
 		.then(response => {
+			setLoading(true)
 			setMaintMoldId(response.data.data.qc_masspro_main_mold_id)
 			setMaterialPreparationId(response.data.data.qc_masspro_material_preparation_id)
 			setMoldSetterId(response.data.data.qc_masspro_mold_setter_id)
@@ -644,6 +661,286 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 		return data
 	}
 	
+	const content = () => {
+		var dataContent = []
+		dataContent.push(
+			<ScrollView key="29" style={{flex: 1}}>
+				<View style={{paddingTop: 20, flexDirection: 'row'}}>
+					<View style={{justifyContent: 'center', paddingLeft: 10, width: "44%"}}>
+						<Text>Machines Status</Text>
+					</View>
+					<View style={{padding: 10, width: "6%", justifyContent: 'center', alignItems: 'center'}}>
+						<Text style={{color: 'black'}}>:</Text>
+					</View>
+					<View style={{flexDirection: 'row', width: "50%"}}>
+						<View style={{padding: 4, width: "100%"}}>
+							<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+								<Text>{machine_status}</Text>
+							</View>
+							{updateMachineEngineStatus()}
+						</View>
+					</View>
+				</View>
+
+				<View style={{paddingTop: 20, flexDirection: 'row'}}>
+					<View style={{padding: 10, width: "44%"}}>
+						<Text>Tooling</Text>
+					</View>
+					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+						<Text style={{color: 'black'}}>:</Text>
+					</View>
+					<View style={{padding: 4, width: "50%"}}>
+						<View style={{height: 40, justifyContent: 'center'}}>
+							<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+								<Text>{tooling_num}</Text>
+							</View>
+						</View>
+					</View>
+				</View>
+				
+				<View style={{paddingTop: 20, flexDirection: 'row'}}>
+					<View style={{padding: 10, width: "44%"}}>
+						<Text>Cavity Amount</Text>
+					</View>
+					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+						<Text style={{color: 'black'}}>:</Text>
+					</View>
+					<View style={{padding: 4, width: "50%"}}>
+						<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+							<Text>{cavity}</Text>
+						</View>
+					</View>
+				</View>
+				
+				<View style={{paddingTop: 20, flexDirection: 'row'}}>
+					<View style={{padding: 10, width: "44%"}}>
+						<Text>Compare Copy Sample</Text>
+					</View>
+					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+						<Text style={{color: 'black'}}>:</Text>
+					</View>
+					<View style={{padding: 4, width: "50%"}}>
+						{updateCompareCopySample()}
+					</View>
+				</View>
+				
+				<View style={{paddingTop: 20, flexDirection: 'row'}}>
+					<View style={{padding: 10, width: "44%"}}>
+						<Text>Check Sheet QC</Text>
+					</View>
+					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+						<Text style={{color: 'black'}}>:</Text>
+					</View>
+					<View style={{padding: 4, width: "50%"}}>
+						{updateCheckSheetQC()}
+					</View>
+				</View>
+				
+				<ScrollView horizontal>
+					<TouchableOpacity>
+						<View style={{flexDirection: 'row', height: 50, paddingTop: 10}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
+								<Text style={{fontWeight: 'bold'}}>Cavity</Text>
+								<View style={{justifyContent: 'center'}}>
+								</View>
+							</View>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+								<Text style={{fontWeight: 'bold', fontSize: 15}}>Judgement 1st Piece</Text>
+								<View style={{justifyContent: 'center'}}>
+								</View>
+							</View>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
+								<Text style={{fontWeight: 'bold'}}>Kategori NG</Text>
+								<View style={{justifyContent: 'center'}}>
+								</View>
+							</View>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
+								<Text style={{fontWeight: 'bold'}}>Fitting Test</Text>
+								<View style={{justifyContent: 'center'}}>
+								</View>
+							</View>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
+								<Text style={{fontWeight: 'bold'}}>Product's Weight</Text>
+								<View style={{justifyContent: 'center'}}>
+								</View>
+							</View>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderRightWidth: 0.5, borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 145}}>
+								<Text style={{fontWeight: 'bold'}}>Keterangan</Text>
+								<View style={{justifyContent: 'center'}}>
+								</View>
+							</View>
+						</View>
+						{uye()}
+					</TouchableOpacity>
+				</ScrollView>
+
+				<View style={{paddingTop: 5, flexDirection: 'row'}}>
+					<View style={{padding: 10, width: "44%"}}>
+						<Text>Remark</Text>
+					</View>
+					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+						<Text style={{color: 'black'}}>:</Text>
+					</View>
+					<View style={{padding: 4, width: "50%"}}>
+						{updateRemark()}
+					</View>
+				</View>
+			
+				<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
+					<View>
+						{updateButton()}
+					</View>
+				</View>
+			</ScrollView>
+		)
+		return dataContent
+	}
+
+	const updateStatus1 = (value) => {
+		setJudgement1(value)
+		if(value != "NG"){
+			setCopySample("OK")
+		}else{
+			setCopySample("NG")
+		}
+	}
+	const updateStatus2 = (value) => {
+		setJudgement2(value)
+		if(value != "NG"){
+			setCopySample("OK")
+		}else{
+			setCopySample("NG")
+		}
+	}
+	const updateStatus3 = (value) => {
+		setJudgement3(value)
+		if(value != "NG"){
+			setCopySample("OK")
+		}else{
+			setCopySample("NG")
+		}
+	}
+	const updateStatus4 = (value) => {
+		setJudgement4(value)
+		if(value != "NG"){
+			setCopySample("OK")
+		}else{
+			setCopySample("NG")
+		}
+	}
+	const updateStatus5 = (value) => {
+		setJudgement5(value)
+		if(value != "NG"){
+			setCopySample("OK")
+		}else{
+			setCopySample("NG")
+		}
+	}
+	const updateStatus6 = (value) => {
+		setJudgement6(value)
+		if(value != "NG"){
+			setCopySample("OK")
+		}else{
+			setCopySample("NG")
+		}
+	}
+	const updateStatus7 = (value) => {
+		setJudgement7(value)
+		if(value != "NG"){
+			setCopySample("OK")
+		}else{
+			setCopySample("NG")
+		}
+	}
+	const updateStatus8 = (value) => {
+		setJudgement8(value)
+		if(value != "NG"){
+			setCopySample("OK")
+		}else{
+			setCopySample("NG")
+		}
+	}
+	const updateStatus9 = (value) => {
+		setJudgement9(value)
+		if(value != "NG"){
+			setCopySample("OK")
+		}else{
+			setCopySample("NG")
+		}
+	}
+	const updateStatus10 = (value) => {
+		setJudgement10(value)
+		if(value != "NG"){
+			setCopySample("OK")
+		}else{
+			setCopySample("NG")
+		}
+	}
+	const updateStatus11 = (value) => {
+		setJudgement11(value)
+		if(value != "NG"){
+			setCopySample("OK")
+		}else{
+			setCopySample("NG")
+		}
+	}
+	const updateStatus12 = (value) => {
+		setJudgement12(value)
+		if(value != "NG"){
+			setCopySample("OK")
+		}else{
+			setCopySample("NG")
+		}
+	}
+	const updateStatus13 = (value) => {
+		setJudgement13(value)
+		if(value != "NG"){
+			setCopySample("OK")
+		}else{
+			setCopySample("NG")
+		}
+	}
+	const updateStatus14 = (value) => {
+		setJudgement14(value)
+		if(value != "NG"){
+			setCopySample("OK")
+		}else{
+			setCopySample("NG")
+		}
+	}
+	const updateStatus15 = (value) => {
+		setJudgement15(value)
+		if(value != "NG"){
+			setCopySample("OK")
+		}else{
+			setCopySample("NG")
+		}
+	}
+	const updateStatus16 = (value) => {
+		setJudgement16(value)
+		if(value != "NG"){
+			setCopySample("OK")
+		}else{
+			setCopySample("NG")
+		}
+	}
+	const updateStatus17 = (value) => {
+		setJudgement17(value)
+		if(value != "NG"){
+			setCopySample("OK")
+		}else{
+			setCopySample("NG")
+		}
+	}
+	const updateStatus18 = (value) => {
+		setJudgement18(value)
+		if(value != "NG"){
+			setCopySample("OK")
+		}else{
+			setCopySample("NG")
+		}
+	}
+
 	const uye = () => {
 		var table1 = []
 		if(massproQCL == null){
@@ -661,7 +958,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									<Picker 
 									mode="dropdown"
 									selectedValue= {judgement_first_piece1}
-									onValueChange = {(value)=>setJudgement1(value)}
+									onValueChange = {(value)=>updateStatus1(value)}
 									>
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
@@ -676,7 +973,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									selectedValue= {qc_ng_category_id1}
 									onValueChange = {(value)=>setCategoryNg1(value)}
 									>
-										{dataNGs}
+										{dataNGsFunc()[0]}
 									</Picker>
 								</View>
 							</View>
@@ -719,7 +1016,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									<Picker 
 									mode="dropdown"
 									selectedValue= {judgement_first_piece2}
-									onValueChange = {(value)=>setJudgement2(value)}
+									onValueChange = {(value)=>updateStatus2(value)}
 									>
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
@@ -734,7 +1031,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									selectedValue= {qc_ng_category_id2}
 									onValueChange = {(value)=>setCategoryNg2(value)}
 									>
-										{dataNGs}
+										{dataNGsFunc()[1]}
 									</Picker>
 								</View>
 							</View>
@@ -777,7 +1074,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									<Picker 
 									mode="dropdown"
 									selectedValue= {judgement_first_piece3}
-									onValueChange = {(value)=>setJudgement3(value)}
+									onValueChange = {(value)=>updateStatus3(value)}
 									>
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
@@ -792,7 +1089,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									selectedValue= {qc_ng_category_id3}
 									onValueChange = {(value)=>setCategoryNg3(value)}
 									>
-										{dataNGs}
+										{dataNGsFunc()[2]}
 									</Picker>
 								</View>
 							</View>
@@ -835,7 +1132,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									<Picker 
 									mode="dropdown"
 									selectedValue= {judgement_first_piece4}
-									onValueChange = {(value)=>setJudgement4(value)}
+									onValueChange = {(value)=>updateStatus4(value)}
 									>
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
@@ -850,7 +1147,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									selectedValue= {qc_ng_category_id4}
 									onValueChange = {(value)=>setCategoryNg4(value)}
 									>
-										{dataNGs}
+										{dataNGsFunc()[3]}
 									</Picker>
 								</View>
 							</View>
@@ -893,7 +1190,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									<Picker 
 									mode="dropdown"
 									selectedValue= {judgement_first_piece5}
-									onValueChange = {(value)=>setJudgement5(value)}
+									onValueChange = {(value)=>updateStatus5(value)}
 									>
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
@@ -908,7 +1205,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									selectedValue= {qc_ng_category_id5}
 									onValueChange = {(value)=>setCategoryNg5(value)}
 									>
-										{dataNGs}
+										{dataNGsFunc()[4]}
 									</Picker>
 								</View>
 							</View>
@@ -951,7 +1248,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									<Picker 
 									mode="dropdown"
 									selectedValue= {judgement_first_piece6}
-									onValueChange = {(value)=>setJudgement6(value)}
+									onValueChange = {(value)=>updateStatus6(value)}
 									>
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
@@ -966,7 +1263,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									selectedValue= {qc_ng_category_id6}
 									onValueChange = {(value)=>setCategoryNg6(value)}
 									>
-										{dataNGs}
+										{dataNGsFunc()[5]}
 									</Picker>
 								</View>
 							</View>
@@ -1009,7 +1306,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									<Picker 
 									mode="dropdown"
 									selectedValue= {judgement_first_piece7}
-									onValueChange = {(value)=>setJudgement7(value)}
+									onValueChange = {(value)=>updateStatus7(value)}
 									>
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
@@ -1024,7 +1321,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									selectedValue= {qc_ng_category_id7}
 									onValueChange = {(value)=>setCategoryNg7(value)}
 									>
-										{dataNGs}
+										{dataNGsFunc()[6]}
 									</Picker>
 								</View>
 							</View>
@@ -1067,7 +1364,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									<Picker 
 									mode="dropdown"
 									selectedValue= {judgement_first_piece8}
-									onValueChange = {(value)=>setJudgement8(value)}
+									onValueChange = {(value)=>updateStatus8(value)}
 									>
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
@@ -1082,7 +1379,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									selectedValue= {qc_ng_category_id8}
 									onValueChange = {(value)=>setCategoryNg8(value)}
 									>
-										{dataNGs}
+										{dataNGsFunc()[7]}
 									</Picker>
 								</View>
 							</View>
@@ -1125,7 +1422,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									<Picker 
 									mode="dropdown"
 									selectedValue= {judgement_first_piece9}
-									onValueChange = {(value)=>setJudgement9(value)}
+									onValueChange = {(value)=>updateStatus9(value)}
 									>
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
@@ -1140,7 +1437,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									selectedValue= {qc_ng_category_id9}
 									onValueChange = {(value)=>setCategoryNg9(value)}
 									>
-										{dataNGs}
+										{dataNGsFunc()[8]}
 									</Picker>
 								</View>
 							</View>
@@ -1183,7 +1480,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									<Picker 
 									mode="dropdown"
 									selectedValue= {judgement_first_piece10}
-									onValueChange = {(value)=>setJudgement10(value)}
+									onValueChange = {(value)=>updateStatus10(value)}
 									>
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
@@ -1198,7 +1495,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									selectedValue= {qc_ng_category_id10}
 									onValueChange = {(value)=>setCategoryNg10(value)}
 									>
-										{dataNGs}
+										{dataNGsFunc()[9]}
 									</Picker>
 								</View>
 							</View>
@@ -1241,7 +1538,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									<Picker 
 									mode="dropdown"
 									selectedValue= {judgement_first_piece11}
-									onValueChange = {(value)=>setJudgement11(value)}
+									onValueChange = {(value)=>updateStatus11(value)}
 									>
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
@@ -1256,7 +1553,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									selectedValue= {qc_ng_category_id11}
 									onValueChange = {(value)=>setCategoryNg11(value)}
 									>
-										{dataNGs}
+										{dataNGsFunc()[10]}
 									</Picker>
 								</View>
 							</View>
@@ -1299,7 +1596,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									<Picker 
 									mode="dropdown"
 									selectedValue= {judgement_first_piece12}
-									onValueChange = {(value)=>setJudgement12(value)}
+									onValueChange = {(value)=>updateStatus12(value)}
 									>
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
@@ -1314,7 +1611,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									selectedValue= {qc_ng_category_id12}
 									onValueChange = {(value)=>setCategoryNg12(value)}
 									>
-										{dataNGs}
+										{dataNGsFunc()[11]}
 									</Picker>
 								</View>
 							</View>
@@ -1357,7 +1654,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									<Picker 
 									mode="dropdown"
 									selectedValue= {judgement_first_piece13}
-									onValueChange = {(value)=>setJudgement13(value)}
+									onValueChange = {(value)=>updateStatus13(value)}
 									>
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
@@ -1372,7 +1669,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									selectedValue= {qc_ng_category_id13}
 									onValueChange = {(value)=>setCategoryNg13(value)}
 									>
-										{dataNGs}
+										{dataNGsFunc()[12]}
 									</Picker>
 								</View>
 							</View>
@@ -1415,7 +1712,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									<Picker 
 									mode="dropdown"
 									selectedValue= {judgement_first_piece14}
-									onValueChange = {(value)=>setJudgement14(value)}
+									onValueChange = {(value)=>updateStatus14(value)}
 									>
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
@@ -1430,7 +1727,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									selectedValue= {qc_ng_category_id14}
 									onValueChange = {(value)=>setCategoryNg14(value)}
 									>
-										{dataNGs}
+										{dataNGsFunc()[13]}
 									</Picker>
 								</View>
 							</View>
@@ -1473,7 +1770,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									<Picker 
 									mode="dropdown"
 									selectedValue= {judgement_first_piece15}
-									onValueChange = {(value)=>setJudgement15(value)}
+									onValueChange = {(value)=>updateStatus15(value)}
 									>
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
@@ -1488,7 +1785,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									selectedValue= {qc_ng_category_id15}
 									onValueChange = {(value)=>setCategoryNg15(value)}
 									>
-										{dataNGs}
+										{dataNGsFunc()[14]}
 									</Picker>
 								</View>
 							</View>
@@ -1531,7 +1828,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									<Picker 
 									mode="dropdown"
 									selectedValue= {judgement_first_piece16}
-									onValueChange = {(value)=>setJudgement16(value)}
+									onValueChange = {(value)=>updateStatus16(value)}
 									>
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
@@ -1546,7 +1843,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									selectedValue= {qc_ng_category_id16}
 									onValueChange = {(value)=>setCategoryNg16(value)}
 									>
-										{dataNGs}
+										{dataNGsFunc()[15]}
 									</Picker>
 								</View>
 							</View>
@@ -1589,7 +1886,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									<Picker 
 									mode="dropdown"
 									selectedValue= {judgement_first_piece17}
-									onValueChange = {(value)=>setJudgement17(value)}
+									onValueChange = {(value)=>updateStatus17(value)}
 									>
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
@@ -1604,7 +1901,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									selectedValue= {qc_ng_category_id17}
 									onValueChange = {(value)=>setCategoryNg17(value)}
 									>
-										{dataNGs}
+										{dataNGsFunc()[16]}
 									</Picker>
 								</View>
 							</View>
@@ -1648,7 +1945,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									<Picker 
 									mode="dropdown"
 									selectedValue= {judgement_first_piece18}
-									onValueChange = {(value)=>setJudgement18(value)}
+									onValueChange = {(value)=>updateStatus18(value)}
 									>
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
@@ -1663,7 +1960,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 									selectedValue= {qc_ng_category_id18}
 									onValueChange = {(value)=>setCategoryNg18(value)}
 									>
-										{dataNGs}
+										{dataNGsFunc()[17]}
 									</Picker>
 								</View>
 							</View>
@@ -1707,7 +2004,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 								<Text>{updateMassproQlItem[i].first_piece}</Text>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, backgroundColor: '#b8b8b8', width: 165.5}}>
-								<Text>{updateMassproQlItem[i].ng_category_id == null ? "Data OK" : updateMassproQlItem[i].ng_category_id}</Text>
+								<Text>{updateMassproQlItem[i].ng_category_id == null ? "-" : updateMassproQlItem[i].ng_category_id}</Text>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, backgroundColor: '#b8b8b8', width: 165.5}}>
 								<Text>{updateMassproQlItem[i].fitting_test}</Text>							
@@ -1796,136 +2093,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 								<Text style={{fontSize: 12}}>{data1 != null ? data1.model : "-"}</Text>
 							</View>
 						</View>
-
-						<ScrollView style={{flex: 1}}>
-							<View style={{paddingTop: 20, flexDirection: 'row'}}>
-								<View style={{justifyContent: 'center', paddingLeft: 10, width: "44%"}}>
-									<Text>Machines Status</Text>
-								</View>
-								<View style={{padding: 10, width: "6%", justifyContent: 'center', alignItems: 'center'}}>
-									<Text style={{color: 'black'}}>:</Text>
-								</View>
-								<View style={{flexDirection: 'row', width: "50%"}}>
-									<View style={{padding: 4, width: "100%"}}>
-										<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-											<Text>{machine_status}</Text>
-										</View>
-										{updateMachineEngineStatus()}
-									</View>
-								</View>
-							</View>
-
-							<View style={{paddingTop: 20, flexDirection: 'row'}}>
-								<View style={{padding: 10, width: "44%"}}>
-									<Text>Tooling</Text>
-								</View>
-								<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-									<Text style={{color: 'black'}}>:</Text>
-								</View>
-								<View style={{padding: 4, width: "50%"}}>
-									<View style={{height: 40, justifyContent: 'center'}}>
-										<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-											<Text>{tooling_num}</Text>
-										</View>
-									</View>
-								</View>
-							</View>
-							
-							<View style={{paddingTop: 20, flexDirection: 'row'}}>
-								<View style={{padding: 10, width: "44%"}}>
-									<Text>Cavity Amount</Text>
-								</View>
-								<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-									<Text style={{color: 'black'}}>:</Text>
-								</View>
-								<View style={{padding: 4, width: "50%"}}>
-									<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-										<Text>{cavity}</Text>
-									</View>
-								</View>
-							</View>
-							
-							<View style={{paddingTop: 20, flexDirection: 'row'}}>
-								<View style={{padding: 10, width: "44%"}}>
-									<Text>Compare Copy Sample</Text>
-								</View>
-								<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-									<Text style={{color: 'black'}}>:</Text>
-								</View>
-								<View style={{padding: 4, width: "50%"}}>
-									{updateCompareCopySample()}
-								</View>
-							</View>
-							
-							<View style={{paddingTop: 20, flexDirection: 'row'}}>
-								<View style={{padding: 10, width: "44%"}}>
-									<Text>Check Sheet QC</Text>
-								</View>
-								<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-									<Text style={{color: 'black'}}>:</Text>
-								</View>
-								<View style={{padding: 4, width: "50%"}}>
-									{updateCheckSheetQC()}
-								</View>
-							</View>
-							
-							<ScrollView horizontal>
-								<TouchableOpacity>
-									<View style={{flexDirection: 'row', height: 50, paddingTop: 10}}>
-										<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-											<Text style={{fontWeight: 'bold'}}>Cavity</Text>
-											<View style={{justifyContent: 'center'}}>
-											</View>
-										</View>
-										<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-											<Text style={{fontWeight: 'bold', fontSize: 15}}>Judgement 1st Piece</Text>
-											<View style={{justifyContent: 'center'}}>
-											</View>
-										</View>
-										<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
-											<Text style={{fontWeight: 'bold'}}>Kategori NG</Text>
-											<View style={{justifyContent: 'center'}}>
-											</View>
-										</View>
-										<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
-											<Text style={{fontWeight: 'bold'}}>Fitting Test</Text>
-											<View style={{justifyContent: 'center'}}>
-											</View>
-										</View>
-										<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
-											<Text style={{fontWeight: 'bold'}}>Product's Weight</Text>
-											<View style={{justifyContent: 'center'}}>
-											</View>
-										</View>
-										<View style={{paddingLeft: 5, alignItems: 'center', borderRightWidth: 0.5, borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 145}}>
-											<Text style={{fontWeight: 'bold'}}>Keterangan</Text>
-											<View style={{justifyContent: 'center'}}>
-											</View>
-										</View>
-									</View>
-									{uye()}
-								</TouchableOpacity>
-							</ScrollView>
-
-							<View style={{paddingTop: 5, flexDirection: 'row'}}>
-								<View style={{padding: 10, width: "44%"}}>
-									<Text>Remark</Text>
-								</View>
-								<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-									<Text style={{color: 'black'}}>:</Text>
-								</View>
-								<View style={{padding: 4, width: "50%"}}>
-									{updateRemark()}
-								</View>
-							</View>
-						
-							<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
-								<View>
-									{updateButton()}
-								</View>
-							</View>
-						</ScrollView>
-
+						{loading ? content() : <View style={{justifyContent: 'center'}}><ActivityIndicator size="large" color="#0000ff"/></View>}
 					</View>
 				</Container>
 			</TouchableWithoutFeedback>
