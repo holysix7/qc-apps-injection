@@ -131,7 +131,7 @@ const PerJam = ({route, navigation}) => {
 		}
 		var config = {
 			method: 'put',
-			url: 'http://139.255.26.194:3003/api/v1/qcs/update?',
+			url: 'https://api.tri-saudara.com/api/v2/qcs/update?',
 			params: params,
 			headers: { 
 				'Authorization': token, 
@@ -182,7 +182,7 @@ const PerJam = ({route, navigation}) => {
 				hours: nilaiJam,
 				qc_daily_inspection_id: qc_daily_inspection_id
 			}
-			Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
+			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 			.then(response => {
 				setNGData(response.data.data.ng_category)
 				setData(response.data.data)
@@ -208,7 +208,7 @@ const PerJam = ({route, navigation}) => {
 				hours: nilaiJam,
 				qc_daily_inspection_id: qc_daily_inspection_id
 			}
-			Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
+			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 			.then(response => {
 				setNGData(response.data.data.ng_category)
 				setData(response.data.data)
@@ -234,7 +234,7 @@ const PerJam = ({route, navigation}) => {
 				hours: nilaiJam,
 				qc_daily_inspection_id: qc_daily_inspection_id
 			}
-			Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
+			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 			.then(response => { 
 				setNGData(response.data.data.ng_category)
 				setData(response.data.data)
@@ -257,28 +257,35 @@ const PerJam = ({route, navigation}) => {
 		const headers = {
 			'Authorization': token
 		}
+		let hoursNow = moment().format("HH")
+		const minHours = parseInt(hoursNow) - 1
 		const params = {
 			tbl: 'daily_inspection',
 			kind: 'get_hour',
 			sys_plant_id: sys_plant_id,
 			machine_id: machine_id,
-			hrd_work_shift_id: 2,
 			hours: parseInt(value),
 			qc_daily_inspection_id: qc_daily_inspection_id
 		}
-		Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
+		Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 		.then(response => {
 			setNGData(response.data.data.ng_category)
 			setData(response.data.data)
-			setLoading()
+			setLoading(true)
 			setTooling(response.data.data.daily_inspection.tooling_num)
 			setDataProduction(response.data.data.output_production.gross_prod)
-			changeShift(response.data.data.output_production.gross_prod)
 			console.log("List Data By Shift: ", response.data.status, "OK")
 		})
 		.catch(error => {
+			setLoading(true)
 			console.log('List Data Per Jam: ', error)
 		})
+		if(value == minHours || value == hoursNow){
+			console.log("Berhasil!")
+		}else{
+			alert("Access Denied")
+			setHours(parseInt(hoursNow))
+		}
 	}
 
 	// console.log(loading)

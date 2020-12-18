@@ -81,7 +81,7 @@ const MassproBeginTechInjection = ({route, navigation}) => {
 		}
 		var config = {
 			method: 'put',
-			url: 'http://139.255.26.194:3003/api/v1/qcs/update?',
+			url: 'https://api.tri-saudara.com/api/v2/qcs/update?',
 			params: params,
 			headers: { 
 				'Authorization': token, 
@@ -134,7 +134,7 @@ const MassproBeginTechInjection = ({route, navigation}) => {
 			machine_id: machine_id
 		}
 
-		Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
+		Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 		.then(response => {
 			setLoading(true)
 			setMaintMoldId(response.data.data.qc_masspro_main_mold_id)

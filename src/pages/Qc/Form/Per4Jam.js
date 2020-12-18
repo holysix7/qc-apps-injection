@@ -173,7 +173,7 @@ const Per4Jam = ({route, navigation}) => {
 				hours: parseInt(jam),
 				qc_daily_inspection_id: qc_daily_inspection_id
 			}
-			Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
+			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 			.then(response => {
 				setLoading(true)
 				setData(response.data.data)
@@ -202,7 +202,7 @@ const Per4Jam = ({route, navigation}) => {
 				hours: parseInt(jam),
 				qc_daily_inspection_id: qc_daily_inspection_id
 			}
-			Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
+			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 			.then(response => {
 				setLoading(true)
 				setData(response.data.data)
@@ -232,7 +232,7 @@ const Per4Jam = ({route, navigation}) => {
 				hours: parseInt(jam),
 				qc_daily_inspection_id: qc_daily_inspection_id
 			}
-			Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
+			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 			.then(response => {
 				setLoading(true)
 				setData(response.data.data)
@@ -386,7 +386,7 @@ const Per4Jam = ({route, navigation}) => {
 		}
 		var config = {
 			method: 'put',
-			url: 'http://139.255.26.194:3003/api/v1/qcs/update?',
+			url: 'https://api.tri-saudara.com/api/v2/qcs/update?',
 			params: params,
 			headers: { 
 					'Authorization': token, 
@@ -409,8 +409,45 @@ const Per4Jam = ({route, navigation}) => {
 		})
 	}
 	
-	const shiftFix = (value) => {
+	const shiftFix = async(value) => {
+		setLoading(false)
 		setHours(value)
+		const token = await AsyncStorage.getItem("key")
+		const headers = {
+			'Authorization': token
+		}
+		const params = {
+			tbl: 'daily_inspection',
+			kind: 'get_4hour',
+			sys_plant_id: sys_plant_id,
+			machine_id: machine_id,
+			hours: parseInt(value),
+			qc_daily_inspection_id: qc_daily_inspection_id
+		}
+		Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
+		.then(response => {
+			setLoading(true)
+			setData(response.data.data)
+			setqc_daily_inpspection_item_id(response.data.data.daily_inspection.qc_daily_inpspection_item_id)
+			setInternalPartId(response.data.data.daily_inspection.internal_part_id)
+			setCustomerPartNumber(response.data.data.daily_inspection.customer_part_number)
+			setModel(response.data.data.daily_inspection.model)
+			setTooling(response.data.data.daily_inspection.tooling_num)
+			setDaily(response.data.data.daily_inspection)
+			console.log("List Data Per 4 Jam: ", response.data.status, "OK")
+		})
+		.catch(error => {
+			console.log('List Data Per 4 Jam: ', error)
+		})
+		let hoursNow = moment().format("HH")
+		const minHours = parseInt(hoursNow) - 1
+			if(value == minHours || value == hoursNow){
+			console.log("Berhasil!")
+		}else{
+			alert("Access Denied")
+			setLoading(true)
+			setHours(parseInt(hoursNow))
+		}
 	}
 
 	const hString = hours.toString()

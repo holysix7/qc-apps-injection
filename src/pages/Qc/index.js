@@ -32,7 +32,7 @@ const Qc = ({navigation}) => {
       sys_plant_id: value
     }
     try {
-      axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
+      axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
       .then(response => {
         setLoading(true)
         setData(response.data.data)
@@ -82,7 +82,7 @@ const Qc = ({navigation}) => {
       if(element.status  == 'loaded')
       {
         machines.push(
-          <Button key={element.id} style={{marginTop: 5, marginHorizontal: 4, alignItems: 'center', justifyContent: 'center', width: "31%", borderRadius: 15, flexDirection: 'column'}}
+          <Button key={element.id} style={{marginTop: 5, marginVertical: 2, marginHorizontal: 3, height: 45, width: "23%", borderRadius: 5, flexDirection: 'column'}}
           onPress={() => {
             navigation.navigate('ShowProducts', {
               machine_id: element.id,
@@ -91,13 +91,13 @@ const Qc = ({navigation}) => {
             })
           }}
           >
-            <Text style={{fontSize: 17, fontWeight: 'bold'}}>{element.number}</Text>
-            <Text style={{fontSize: 8}}>{element.name}</Text>
+            <Text style={{fontSize: 12, fontWeight: 'bold'}}>{element.number}</Text>
+            <Text style={{fontSize: 6}}>{element.name}</Text>
           </Button>
         )
       }else if(element.status == 'no_load'){
         machines.push(
-          <Button key={element.id} style={{backgroundColor: 'yellow', marginTop: 5, marginHorizontal: 4, alignItems: 'center', justifyContent: 'center', width: "31%", borderRadius: 15, flexDirection: 'column'}}
+          <Button key={element.id} style={{backgroundColor: 'yellow', marginTop: 5, marginVertical: 2, marginHorizontal: 3, height: 45, width: "23%", borderRadius: 5, flexDirection: 'column'}}
           onPress={() => {
             navigation.navigate('ShowProducts', {
               machine_id: element.id,
@@ -106,13 +106,13 @@ const Qc = ({navigation}) => {
             })
           }}
           >
-            <Text style={{color: 'black', fontSize: 17, fontWeight: 'bold'}}>{element.number}</Text>
-            <Text style={{color: 'black', fontSize: 8}}>{element.name}</Text>
+            <Text style={{color: 'black', fontSize: 12, fontWeight: 'bold'}}>{element.number}</Text>
+            <Text style={{color: 'black', fontSize: 6}}>{element.name}</Text>
           </Button>
         )
       }else if(element.status == 'broken'){
         machines.push(
-          <Button key={element.id} style={{backgroundColor: 'red', marginTop: 5, marginHorizontal: 4, alignItems: 'center', justifyContent: 'center', width: "31%", borderRadius: 15, flexDirection: 'column'}}
+          <Button key={element.id} style={{backgroundColor: 'red', marginTop: 5, marginVertical: 2, marginHorizontal: 3, height: 45, width: "23%", borderRadius: 5, flexDirection: 'column'}}
           onPress={() => {
             navigation.navigate('ShowProducts', {
               machine_id: element.id,
@@ -121,13 +121,13 @@ const Qc = ({navigation}) => {
             })
           }}
           >
-            <Text style={{color: 'black', fontSize: 17, fontWeight: 'bold'}}>{element.number}</Text>
-            <Text style={{color: 'black', fontSize: 8}}>{element.name}</Text>
+            <Text style={{color: 'black', fontSize: 12, fontWeight: 'bold'}}>{element.number}</Text>
+            <Text style={{color: 'black', fontSize: 6}}>{element.name}</Text>
           </Button>
         )
       }else if(element.status == 'maintenance'){
         machines.push(
-          <Button key={element.id} style={{backgroundColor: '#ebae34', marginTop: 5, marginHorizontal: 4, alignItems: 'center', justifyContent: 'center', width: "31%", borderRadius: 15, flexDirection: 'column'}}
+          <Button key={element.id} style={{backgroundColor: '#ebae34', marginTop: 5, marginVertical: 2, marginHorizontal: 3, height: 45, width: "23%", borderRadius: 5, flexDirection: 'column'}}
           onPress={() => {
             navigation.navigate('ShowProducts', {
               machine_id: element.id,
@@ -136,14 +136,14 @@ const Qc = ({navigation}) => {
             })
           }}
           >
-            <Text style={{color: 'black', fontSize: 17, fontWeight: 'bold'}}>{element.number}</Text>
-            <Text style={{color: 'black', fontSize: 8}}>{element.name}</Text>
+            <Text style={{color: 'black', fontSize: 12, fontWeight: 'bold'}}>{element.number}</Text>
+            <Text style={{color: 'black', fontSize: 6}}>{element.name}</Text>
           </Button>
         )
 
       }else{
         machines.push(
-          <Button key={element.id} style={{backgroundColor: 'green', marginTop: 5, marginHorizontal: 4, alignItems: 'center', justifyContent: 'center', width: "31%", borderRadius: 15, flexDirection: 'column'}}
+          <Button key={element.id} style={{backgroundColor: 'green', marginTop: 5, marginVertical: 2, marginHorizontal: 3, height: 45, width: "23%", borderRadius: 5, flexDirection: 'column'}}
           onPress={() => {
             navigation.navigate('ShowProducts', {
               machine_id: element.id,
@@ -152,8 +152,8 @@ const Qc = ({navigation}) => {
             })
           }}
           >
-            <Text style={{fontSize: 17, fontWeight: 'bold'}}>{element.number}</Text>
-            <Text style={{fontSize: 8}}>{element.name}</Text>
+            <Text style={{fontSize: 12, fontWeight: 'bold'}}>{element.number}</Text>
+            <Text style={{fontSize: 6}}>{element.name}</Text>
           </Button>
         )
       }

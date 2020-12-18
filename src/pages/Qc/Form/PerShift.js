@@ -152,7 +152,7 @@ const PerShift = ({route, navigation}) => {
 				hours: parseInt(jam),
 				qc_daily_inspection_id: qc_daily_inspection_id
 			}
-			Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
+			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 			.then(response => {
 				setLoading(true)
 				setData(response.data.data)
@@ -183,7 +183,7 @@ const PerShift = ({route, navigation}) => {
 				hours: parseInt(jam),
 				qc_daily_inspection_id: qc_daily_inspection_id
 			}
-			Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
+			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 			.then(response => {
 				setLoading(true)
 				setData(response.data.data)
@@ -214,7 +214,7 @@ const PerShift = ({route, navigation}) => {
 				hours: parseInt(jam),
 				qc_daily_inspection_id: qc_daily_inspection_id
 			}
-			Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
+			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 			.then(response => {
 				setLoading(true)
 				setData(response.data.data)
@@ -236,6 +236,7 @@ const PerShift = ({route, navigation}) => {
 	}
 
 	const shiftFix = async(value) => {
+		setLoading(false)
 		setHours(value)
 		const token = await AsyncStorage.getItem("key")
 		const headers = {
@@ -250,7 +251,7 @@ const PerShift = ({route, navigation}) => {
 			hours: value,
 			qc_daily_inspection_id: qc_daily_inspection_id
 		}
-		Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
+		Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 		.then(response => {
 			setLoading(true)
 			setData(response.data.data)
@@ -264,6 +265,15 @@ const PerShift = ({route, navigation}) => {
 		.catch(error => {
 			console.log('List Data Per Shift: ', error)
 		})
+		let hoursNow = moment().format("HH")
+		const minHours = parseInt(hoursNow) - 1
+			if(value == minHours || value == hoursNow){
+			console.log("Berhasil!")
+		}else{
+			alert("Access Denied")
+			setLoading(true)
+			setHours(parseInt(hoursNow))
+		}
 	}
 	
 	const hString = hours.toString()
@@ -404,7 +414,7 @@ const PerShift = ({route, navigation}) => {
 		}
 		var config = {
 			method: 'put',
-			url: 'http://139.255.26.194:3003/api/v1/qcs/update?',
+			url: 'https://api.tri-saudara.com/api/v2/qcs/update?',
 			params: params,
 			headers: { 
 				'Authorization': token, 
