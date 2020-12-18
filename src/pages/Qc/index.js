@@ -1,4 +1,4 @@
-import {View, ScrollView} from 'react-native';
+import {View, ScrollView, ActivityIndicator} from 'react-native';
 import React, {useState, useEffect } from 'react';
 import { Container, Text, Button, Picker} from 'native-base';
 import GeneralStatusBarColor from '../../components/GeneralStatusBarColor';
@@ -12,6 +12,7 @@ const Qc = ({navigation}) => {
   const [name, setCekName] = useState("");
   const [deptName, setCekDeptName] = useState("");
   const [dutyId, setDutyId] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   useEffect(() => {
     session()
@@ -20,7 +21,7 @@ const Qc = ({navigation}) => {
   
   const mesin = async(value) => {
     setCekId(value)
-    
+    setLoading(false)
     const token = await AsyncStorage.getItem("key")
     const headers = {
       'Authorization': token
@@ -30,13 +31,17 @@ const Qc = ({navigation}) => {
       kind: 'machine',
       sys_plant_id: value
     }
-    // console.log(params)
-    axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
-    .then(response => {
-      setData(response.data.data)
-      console.log("Machines List Data: ", response.data.status, "OK")
-    })
-    .catch(error => console.log('err: ', error))
+    try {
+      axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
+      .then(response => {
+        setLoading(true)
+        setData(response.data.data)
+        console.log("Machines List Data: ", response.data.status, "OK")
+      })
+      .catch(error => console.log('err: ', error))
+    } catch (error) {
+      console.log("Machines Lisst Data: ", error)
+    }
   }
 
   const session = async () => {
@@ -46,6 +51,7 @@ const Qc = ({navigation}) => {
       const plantId = await AsyncStorage.getItem('sys_plant_id')
       const duty = await AsyncStorage.getItem('duty_plant_option_select')
       const deptName    = await AsyncStorage.getItem('department_name')
+      const name    = await AsyncStorage.getItem('name')
       setDutyId(JSON.parse(duty))
       setCekId(plantId)
       setCekDeptName(deptName)
@@ -76,7 +82,7 @@ const Qc = ({navigation}) => {
       if(element.status  == 'loaded')
       {
         machines.push(
-          <Button key={element.id} style={{marginTop: 5, marginHorizontal: 4, alignItems: 'center', justifyContent: 'center', width: "31%", borderRadius: 15, flexDirection: 'column'}}
+          <Button key={element.id} style={{marginTop: 5, marginVertical: 2, marginHorizontal: 3, height: 45, width: "23%", borderRadius: 5, flexDirection: 'column'}}
           onPress={() => {
             navigation.navigate('ShowProducts', {
               machine_id: element.id,
@@ -85,13 +91,13 @@ const Qc = ({navigation}) => {
             })
           }}
           >
-            <Text style={{fontSize: 17, fontWeight: 'bold'}}>{element.number}</Text>
-            <Text style={{fontSize: 8}}>{element.name}</Text>
+            <Text style={{fontSize: 12, fontWeight: 'bold'}}>{element.number}</Text>
+            <Text style={{fontSize: 6}}>{element.name}</Text>
           </Button>
         )
       }else if(element.status == 'no_load'){
         machines.push(
-          <Button key={element.id} style={{backgroundColor: 'yellow', marginTop: 5, marginHorizontal: 4, alignItems: 'center', justifyContent: 'center', width: "31%", borderRadius: 15, flexDirection: 'column'}}
+          <Button key={element.id} style={{backgroundColor: 'yellow', marginTop: 5, marginVertical: 2, marginHorizontal: 3, height: 45, width: "23%", borderRadius: 5, flexDirection: 'column'}}
           onPress={() => {
             navigation.navigate('ShowProducts', {
               machine_id: element.id,
@@ -100,13 +106,13 @@ const Qc = ({navigation}) => {
             })
           }}
           >
-            <Text style={{color: 'black', fontSize: 17, fontWeight: 'bold'}}>{element.number}</Text>
-            <Text style={{color: 'black', fontSize: 8}}>{element.name}</Text>
+            <Text style={{color: 'black', fontSize: 12, fontWeight: 'bold'}}>{element.number}</Text>
+            <Text style={{color: 'black', fontSize: 6}}>{element.name}</Text>
           </Button>
         )
       }else if(element.status == 'broken'){
         machines.push(
-          <Button key={element.id} style={{backgroundColor: 'red', marginTop: 5, marginHorizontal: 4, alignItems: 'center', justifyContent: 'center', width: "31%", borderRadius: 15, flexDirection: 'column'}}
+          <Button key={element.id} style={{backgroundColor: 'red', marginTop: 5, marginVertical: 2, marginHorizontal: 3, height: 45, width: "23%", borderRadius: 5, flexDirection: 'column'}}
           onPress={() => {
             navigation.navigate('ShowProducts', {
               machine_id: element.id,
@@ -115,13 +121,13 @@ const Qc = ({navigation}) => {
             })
           }}
           >
-            <Text style={{color: 'black', fontSize: 17, fontWeight: 'bold'}}>{element.number}</Text>
-            <Text style={{color: 'black', fontSize: 8}}>{element.name}</Text>
+            <Text style={{color: 'black', fontSize: 12, fontWeight: 'bold'}}>{element.number}</Text>
+            <Text style={{color: 'black', fontSize: 6}}>{element.name}</Text>
           </Button>
         )
       }else if(element.status == 'maintenance'){
         machines.push(
-          <Button key={element.id} style={{backgroundColor: '#ebae34', marginTop: 5, marginHorizontal: 4, alignItems: 'center', justifyContent: 'center', width: "31%", borderRadius: 15, flexDirection: 'column'}}
+          <Button key={element.id} style={{backgroundColor: '#ebae34', marginTop: 5, marginVertical: 2, marginHorizontal: 3, height: 45, width: "23%", borderRadius: 5, flexDirection: 'column'}}
           onPress={() => {
             navigation.navigate('ShowProducts', {
               machine_id: element.id,
@@ -130,14 +136,14 @@ const Qc = ({navigation}) => {
             })
           }}
           >
-            <Text style={{color: 'black', fontSize: 17, fontWeight: 'bold'}}>{element.number}</Text>
-            <Text style={{color: 'black', fontSize: 8}}>{element.name}</Text>
+            <Text style={{color: 'black', fontSize: 12, fontWeight: 'bold'}}>{element.number}</Text>
+            <Text style={{color: 'black', fontSize: 6}}>{element.name}</Text>
           </Button>
         )
 
       }else{
         machines.push(
-          <Button key={element.id} style={{backgroundColor: 'green', marginTop: 5, marginHorizontal: 4, alignItems: 'center', justifyContent: 'center', width: "31%", borderRadius: 15, flexDirection: 'column'}}
+          <Button key={element.id} style={{backgroundColor: 'green', marginTop: 5, marginVertical: 2, marginHorizontal: 3, height: 45, width: "23%", borderRadius: 5, flexDirection: 'column'}}
           onPress={() => {
             navigation.navigate('ShowProducts', {
               machine_id: element.id,
@@ -146,13 +152,14 @@ const Qc = ({navigation}) => {
             })
           }}
           >
-            <Text style={{fontSize: 17, fontWeight: 'bold'}}>{element.number}</Text>
-            <Text style={{fontSize: 8}}>{element.name}</Text>
+            <Text style={{fontSize: 12, fontWeight: 'bold'}}>{element.number}</Text>
+            <Text style={{fontSize: 6}}>{element.name}</Text>
           </Button>
         )
       }
     });
   }
+  // if(loading)
   return (
     <Container>
       <View>
@@ -178,8 +185,9 @@ const Qc = ({navigation}) => {
       </View>
       <View style={{flex: 1, backgroundColor: '#F5F5DC'}}>
         <ScrollView style={styles.contentFull}>
+          {/* {loading == true ? <View><ActivityIndicator size="large" color='#0000ff'/></View> : null} */}
           <View style={styles.responsiveButtonLoop}>
-            {machines}
+        {loading ? machines : <View style={{flex: 1, height: 500, justifyContent: 'center'}}><ActivityIndicator size="large" color="#0000ff"/></View> }
           </View>
         </ScrollView>
       </View>
@@ -198,7 +206,7 @@ const Qc = ({navigation}) => {
         </Button>
       </View>
     </Container>
-  )
+  ) 
 }
 
 export default Qc

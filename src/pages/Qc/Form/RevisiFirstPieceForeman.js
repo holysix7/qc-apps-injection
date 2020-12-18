@@ -1,4 +1,4 @@
-import {Image, View, ScrollView, TextInput, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, TouchableOpacity} from 'react-native';
+import {Image, View, ScrollView, TextInput, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, TouchableOpacity, ActivityIndicator} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import { Container, Text, Button, Picker } from 'native-base';
 import LogoSIP from '../../../assets/logo-sip370x50.png';
@@ -34,6 +34,9 @@ const RevisiFirstPieceForeman = ({route, navigation}) => {
 	const [updateJudgement, setUpdateDecision] 					= useState("")
 	const date = []
 	const prod_machine_id = machine_id
+
+	const [loading, setLoading] = useState(false)
+
 	if(today != null)
 	{
 		date.push(
@@ -72,8 +75,9 @@ const RevisiFirstPieceForeman = ({route, navigation}) => {
 				hours: nilaiJam,
 				qc_daily_inspection_id: qc_daily_inspection_id
 			}
-			Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
+			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 			.then(response => {
+				setLoading(true)
 				setEngProd(response.data.data.eng_product_id)
 				setData(response.data.data.daily_inspection)
 				setTooling(response.data.data.daily_inspection.tooling_num)
@@ -104,8 +108,9 @@ const RevisiFirstPieceForeman = ({route, navigation}) => {
 				hours: nilaiJam,
 				qc_daily_inspection_id: qc_daily_inspection_id
 			}
-			Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
+			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 			.then(response => {
+				setLoading(true)
 				setEngProd(response.data.data.eng_product_id)
 				setData(response.data.data.daily_inspection)
 				setTooling(response.data.data.daily_inspection.tooling_num)
@@ -136,8 +141,9 @@ const RevisiFirstPieceForeman = ({route, navigation}) => {
 				hours: nilaiJam,
 				qc_daily_inspection_id: qc_daily_inspection_id
 			}
-			Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
+			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 			.then(response => {
+				setLoading(true)
 				setEngProd(response.data.data.eng_product_id)
 				setData(response.data.data.daily_inspection)
 				setTooling(response.data.data.daily_inspection.tooling_num)
@@ -163,6 +169,7 @@ const RevisiFirstPieceForeman = ({route, navigation}) => {
 	}
 	
 	const submit = async() => {
+		setLoading(false)
 		const data = {
 			eng_product_id,
 			masspro_fr_id,
@@ -186,7 +193,7 @@ const RevisiFirstPieceForeman = ({route, navigation}) => {
 		}
 		var config = {
 			method: 'put',
-			url: 'http://139.255.26.194:3003/api/v1/qcs/update?',
+			url: 'https://api.tri-saudara.com/api/v2/qcs/update?',
 			params: params,
 			headers: { 
 				'Authorization': token, 
@@ -197,9 +204,10 @@ const RevisiFirstPieceForeman = ({route, navigation}) => {
 		};
 		Axios(config)
 		.then(function (response){
+			setLoading(true)
+			console.log("Res: ", response.status, " Ok")
 			navigation.navigate('Qc')
 			alert("Success Send Data!")
-			console.log("Res: ", response.status, " Ok")
 		})
 		.catch(function (error){
 			alert("Failed Send Data!")
@@ -279,6 +287,92 @@ const RevisiFirstPieceForeman = ({route, navigation}) => {
 		return data
 	}
 
+	const content = () => {
+		var dataContent = []
+		dataContent.push(
+			<ScrollView key="asij2" style={{flex: 1}}>
+				<View style={{paddingTop: 20, flexDirection: 'row'}}>
+					<View style={{padding: 10, width: "44%"}}>
+						<Text>Machines Status</Text>
+					</View>
+					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+						<Text style={{color: 'black'}}>:</Text>
+					</View>
+					<View style={{padding: 4, width: "50%"}}>
+						<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+							<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+								<Text>{data != null ? data.machine_status : "-"}</Text>
+							</View>
+						</View>
+					</View>
+				</View>
+				<View style={{paddingTop: 20, flexDirection: 'row'}}>
+					<View style={{padding: 10, width: "44%"}}>
+						<Text>Tooling</Text>
+					</View>
+					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+						<Text style={{color: 'black'}}>:</Text>
+					</View>
+					<View style={{padding: 4, width: "50%"}}>
+						<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+							<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+								<Text>{massproFr != null ? massproFr.tooling_num : "-"}</Text>
+							</View>
+						</View>
+					</View>
+				</View>
+				<View style={{paddingTop: 20, flexDirection: 'row'}}>
+					<View style={{padding: 10, width: "44%"}}>
+						<Text>Cavity Amount</Text>
+					</View>
+					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+						<Text style={{color: 'black'}}>:</Text>
+					</View>
+					<View style={{padding: 4, width: "50%"}}>
+						<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+							<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+								<Text>{data != null ? data.cavity : "-"}</Text>
+							</View>
+						</View>
+					</View>
+				</View>
+				<View style={{paddingTop: 20, flexDirection: 'row'}}>
+					<View style={{padding: 10, width: "44%"}}>
+						<Text>Action Foreman</Text>
+					</View>
+					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+						<Text style={{color: 'black'}}>:</Text>
+					</View>
+					<View style={{padding: 4, width: "50%"}}>
+						<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+							{updateActionForemanFunc()}
+						</View>
+					</View>
+				</View>
+				<View style={{paddingTop: 20, flexDirection: 'row'}}>
+					<View style={{padding: 10, width: "44%"}}>
+						<Text>Judgement</Text>
+					</View>
+					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+						<Text style={{color: 'black'}}>:</Text>
+					</View>
+					<View style={{padding: 4, width: "50%"}}>
+						<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+							{updateDecisionFunc()}
+						</View>
+					</View>
+				</View>
+				<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
+					<View>
+						<Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>
+					</View>
+				</View>
+			</ScrollView>
+		
+		)
+		return dataContent
+	}
+
 	const hString = hours.toString()
 	return(
 		<KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={{flex: 1}} >
@@ -349,85 +443,7 @@ const RevisiFirstPieceForeman = ({route, navigation}) => {
 								<Text style={{fontSize: 12}}>{data != null ? data.model : "-"}</Text>
 							</View>
 						</View>
-
-						<ScrollView style={{flex: 1}}>
-							<View style={{paddingTop: 20, flexDirection: 'row'}}>
-								<View style={{padding: 10, width: "44%"}}>
-									<Text>Machines Status</Text>
-								</View>
-								<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-									<Text style={{color: 'black'}}>:</Text>
-								</View>
-								<View style={{padding: 4, width: "50%"}}>
-									<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-										<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-											<Text>{data != null ? data.machine_status : "-"}</Text>
-										</View>
-									</View>
-								</View>
-							</View>
-							<View style={{paddingTop: 20, flexDirection: 'row'}}>
-								<View style={{padding: 10, width: "44%"}}>
-									<Text>Tooling</Text>
-								</View>
-								<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-									<Text style={{color: 'black'}}>:</Text>
-								</View>
-								<View style={{padding: 4, width: "50%"}}>
-									<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-										<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-											<Text>{massproFr != null ? massproFr.tooling_num : "-"}</Text>
-										</View>
-									</View>
-								</View>
-							</View>
-							<View style={{paddingTop: 20, flexDirection: 'row'}}>
-								<View style={{padding: 10, width: "44%"}}>
-									<Text>Cavity Amount</Text>
-								</View>
-								<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-									<Text style={{color: 'black'}}>:</Text>
-								</View>
-								<View style={{padding: 4, width: "50%"}}>
-									<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-										<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-											<Text>{data != null ? data.cavity : "-"}</Text>
-										</View>
-									</View>
-								</View>
-							</View>
-							<View style={{paddingTop: 20, flexDirection: 'row'}}>
-								<View style={{padding: 10, width: "44%"}}>
-									<Text>Action Foreman</Text>
-								</View>
-								<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-									<Text style={{color: 'black'}}>:</Text>
-								</View>
-								<View style={{padding: 4, width: "50%"}}>
-									<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-										{updateActionForemanFunc()}
-									</View>
-								</View>
-							</View>
-							<View style={{paddingTop: 20, flexDirection: 'row'}}>
-								<View style={{padding: 10, width: "44%"}}>
-									<Text>Judgement</Text>
-								</View>
-								<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-									<Text style={{color: 'black'}}>:</Text>
-								</View>
-								<View style={{padding: 4, width: "50%"}}>
-									<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-										{updateDecisionFunc()}
-									</View>
-								</View>
-							</View>
-							<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
-								<View>
-									<Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>
-								</View>
-							</View>
-						</ScrollView>
+						{loading ? content() : <View style={{justifyContent: 'center'}}><ActivityIndicator size="large" color="#0000ff"/></View>}
 					</View>
 				</Container>
 			</TouchableWithoutFeedback>

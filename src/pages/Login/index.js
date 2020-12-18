@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Image, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView} from 'react-native';
+import {View, Image, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, ActivityIndicator} from 'react-native';
 import LogoSIP from '../../assets/logo-sip3.png';
 import {Container, Button, Text, Spinner, Icon, Form, Item, Label, Input} from "native-base";
 import GeneralStatusBarColor from '../../components/GeneralStatusBarColor';
@@ -13,27 +13,33 @@ const Login = ({navigation}) => {
 	const [user, setUser] = useState("");
 	const [password, setPassword] = useState("");
 	const [icon, setIcon] = useState("")
+	const [loading, setLoading] = useState(true)
 
-	const submit = () => {
+	const submit = async() => {
+		// setLoading(false)
 		const data = {
 			user,
 			password
 		}
-
-		Axios.post('http://139.255.26.194:3003/auth', data)
-		.then(res => {
-			DeviceStorage(res.data.data.token)
-			Session(res.data.data)
-			alert("Login Success!")
-			console.log("Login Success!")
-			navigation.replace('Qc')
-		})
-		.catch(function (error){
-			console.log(error)
+		try {
+			Axios.post('https://api.tri-saudara.com/auth', data)
+			.then(res => {
+				// setLoading(true)
+				DeviceStorage(res.data.data.token)
+				Session(res.data.data)
+				console.log("Login Success!")
+				navigation.replace('Qc')
+				alert("Login Success!")
+			}).catch((err) => {
+				console.log("Login: ", err)
+				alert("Login Failed!")
+			})
+		} catch (error) {
+			// setLoading(true)
+			console.log("Login: ", error)
 			alert("Login Failed!")
-		})
+		}
 	}
-
 	return (
 		<KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={{flex:1}}>
 			<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -44,6 +50,7 @@ const Login = ({navigation}) => {
 					<View style={{justifyContent: 'center', alignItems: 'center'}}>
 					<Image source={LogoSIP} style={styles.logoSipBesar}/>
 					</View>
+					{/* {loading ? null : <View style={{justifyContent: 'center'}}><ActivityIndicator size="large" color="#0000ff"/></View> } */}
 					<Form style={{justifyContent: 'center', alignItems: 'center'}}>
 						<Item floatingLabel success style={styles.labelFloat}>
 							<Label>NIK</Label>

@@ -1,16 +1,17 @@
-import {Image, View, ScrollView, TextInput, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, TouchableOpacity, Dimensions} from 'react-native';
+import {Image, View, ScrollView, TextInput, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, TouchableOpacity, Dimensions, ActivityIndicator} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import { Container, Text, Button, Picker } from 'native-base';
 import LogoSIP from '../../../assets/logo-sip370x50.png';
 import cameraIcons from '../../../assets/cameraicon.png';
 import ImagePicker from 'react-native-image-picker';
+import ImageResizer from 'react-native-image-resizer';
 import AsyncStorage from "@react-native-community/async-storage";
 import moment from 'moment';
 import Axios from 'axios';
 
 const PerJam = ({route, navigation}) => {
-	const {machine_id, qc_daily_inspection_id, qc_daily_inspection_item_id, qc_daily_inspection_method_id, sys_plant_id, product_name, customer_name, internal_part_id, customer_part_number, model, machine_name, machine_status, operator_nik, operator_nik_2, leader_nik, foreman_nik, qc_process_nik, today, yesterday} = route.params
-	
+	const {machine_id, qc_daily_inspection_id, qc_daily_inspection_item_id, qc_daily_inspection_method_id, sys_plant_id, customer_name, machine_name, machine_status, operator_nik, operator_nik_2, leader_nik, foreman_nik, qc_process_nik, today, yesterday} = route.params
+
 	useEffect(() => {
 		formOke()
 		let isMounted = true
@@ -41,20 +42,20 @@ const PerJam = ({route, navigation}) => {
 		const options = {
 			title: 'Select Image',
 			storageOptions: {
-					skipBackup: true,
-					path: 'images',
+				skipBackup: true,
+				path: 'images',
 			},
 		};
 		ImagePicker.showImagePicker(options, (response) => {
 			if (response.didCancel) {
-					console.log('User cancelled image picker');
+				console.log('User cancelled image picker');
 			} else if (response.error) {
-					console.log('ImagePicker Error: ', response.error);
+				console.log('ImagePicker Error: ', response.error);
 			} else if (response.customButton) {
-					console.log('User tapped custom button: ', response.customButton);
+				console.log('User tapped custom button: ', response.customButton);
 			} else {
-					const source = { uri: 'data:image/jpeg;base64,' + response.data }
-					setImage({source})
+				const source = { uri: 'data:image/jpeg;base64,' + response.data }
+				setImage({source})
 			}
 		})
 	}
@@ -71,30 +72,33 @@ const PerJam = ({route, navigation}) => {
 		}
 	}
 
-    // form
-	const [data, setData] 													= useState([])
-	const [NGdata, setNGData] 											= useState([])
-	const [gross_prod, setDataProduction] 					= useState(0)
-	const [appearance_pn, setPN] 										= useState("")
-	const [start_label, setStartLabel] 							= useState("")
-	const [end_label, setEndLabel] 									= useState("")
-	const [appearance_n, setAppearance] 						= useState("")
-	const [tooling_num, setTooling] 								= useState("")
-	const [checkPackaging, setCheckPacking] 				= useState("")
-	const [status, setStatus] 											= useState("")
-	const [categoryNG, setCategoryNG] 							= useState("")
-	const [specialItem, setSpecialItem] 						= useState("")
-	const [noteUnnormal, setNoteUnnormal] 					= useState("")
-	const [inspectionTime, setInspectionTime] 			= useState("")
-	const [hours, setHours]		  										= useState(0)
-	const [shift, setShift]		  										= useState(0)
-	let created_at 																	= moment().format("YYYY-MM-DD HH:mm:ss")
-	let updated_at 																	= moment().format("YYYY-MM-DD HH:mm:ss")
-	const [created_by, setCreatedBy]		  					= useState("")
-	const [updated_by, setUpdatedBy]		  					= useState("")
+	// console.log(uploadedImage)
 	
-	const date = []
+    // form
+	const [data, setData] 										= useState([])
+	const [NGdata, setNGData] 								= useState([])
+	const [gross_prod, setDataProduction] 		= useState(0)
+	const [loading, setLoading] 							= useState(false)
+	const [appearance_pn, setPN] 							= useState("")
+	const [start_label, setStartLabel] 				= useState("")
+	const [end_label, setEndLabel] 						= useState("")
+	const [appearance_n, setAppearance] 			= useState("")
+	const [tooling_num, setTooling] 					= useState("")
+	const [checkPackaging, setCheckPacking] 	= useState("")
+	const [status, setStatus] 								= useState("")
+	const [categoryNG, setCategoryNG] 				= useState(0)
+	const [specialItem, setSpecialItem] 			= useState("")
+	const [noteUnnormal, setNoteUnnormal] 		= useState("")
+	const [inspectionTime, setInspectionTime] = useState("")
+	const [hours, setHours]		  							= useState(0)
+	const [shift, setShift]		  							= useState(0)
+	let created_at 														= moment().format("YYYY-MM-DD HH:mm:ss")
+	let updated_at 														= moment().format("YYYY-MM-DD HH:mm:ss")
+	const [created_by, setCreatedBy]		  		= useState("")
+	const [updated_by, setUpdatedBy]		  		= useState("")
+	
 	const submit = async() => {
+		setLoading(false)
 		const data = {
 			qc_daily_inspection_id,
 			qc_daily_inspection_item_id,
@@ -119,7 +123,6 @@ const PerJam = ({route, navigation}) => {
 			updated_by,
 			updated_at
 		}
-    console.log(data)
 		const token = await AsyncStorage.getItem("key")
 		const params = {
 			tbl: 'daily_inspection',
@@ -128,32 +131,37 @@ const PerJam = ({route, navigation}) => {
 		}
 		var config = {
 			method: 'put',
-			url: 'http://139.255.26.194:3003/api/v1/qcs/update?',
+			url: 'https://api.tri-saudara.com/api/v2/qcs/update?',
 			params: params,
 			headers: { 
-					'Authorization': token, 
-					'Content-Type': 'application/json', 
-					'Cookie': '_denapi_session=ubcfq3AHCuVeTlxtg%2F1nyEa3Ktylg8nY1lIEPD7pgS3YAWwlKOxwA0S9pw7JhvZ2mNkrYl0j62wAWJWJZd7AbfolGuHCwXgEMeJH6EoLiQ%3D%3D--M%2BjBb0uJeHmOf%2B3o--%2F2Fjw57x0Fyr90Ec9FVibQ%3D%3D'
+				'Authorization': token, 
+				'Content-Type': 'application/json', 
+				'Cookie': '_denapi_session=ubcfq3AHCuVeTlxtg%2F1nyEa3Ktylg8nY1lIEPD7pgS3YAWwlKOxwA0S9pw7JhvZ2mNkrYl0j62wAWJWJZd7AbfolGuHCwXgEMeJH6EoLiQ%3D%3D--M%2BjBb0uJeHmOf%2B3o--%2F2Fjw57x0Fyr90Ec9FVibQ%3D%3D'
 			},
 		data : data
 		};
-		Axios(config)
-		.then(function (response){
-			navigation.navigate('ListForm')
-			alert("Success Send Data!")
-			console.log("Res: ", response.status, " Ok")
-		})
-		.catch(function (error){
-			alert("Failed Send Data!")
-			console.log(error)
-		})
+		try {
+			Axios(config)
+			.then(function (response){
+				console.log("Res: ", response.status, " Ok")
+				setLoading(true)
+				alert("Success Send Data!")
+				navigation.navigate('ListForm')
+			})
+			.catch(function (error){
+				setLoading(true)
+				alert("Failed Send Data!")
+				console.log(error)
+			})
+		} catch (error) {
+			console.log(error);
+		}
 	}
 		//end Form
 		
 	const formOke = async() => {
 		let jam = moment().format("HH:mm:ss")
 		const token = await AsyncStorage.getItem("key")
-		const name = await AsyncStorage.getItem('name')
 		const id = await AsyncStorage.getItem('id')
 		setCreatedBy(id)
 		setUpdatedBy(id)
@@ -174,10 +182,11 @@ const PerJam = ({route, navigation}) => {
 				hours: nilaiJam,
 				qc_daily_inspection_id: qc_daily_inspection_id
 			}
-			Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
+			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 			.then(response => {
 				setNGData(response.data.data.ng_category)
 				setData(response.data.data)
+				setLoading(true)
 				setTooling(response.data.data.daily_inspection.tooling_num)
 				setDataProduction(response.data.data.output_production.gross_prod)
 				setAppearance(response.data.data.output_production.appearance_n)
@@ -199,10 +208,11 @@ const PerJam = ({route, navigation}) => {
 				hours: nilaiJam,
 				qc_daily_inspection_id: qc_daily_inspection_id
 			}
-			Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
+			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 			.then(response => {
 				setNGData(response.data.data.ng_category)
 				setData(response.data.data)
+				setLoading(true)
 				setTooling(response.data.data.daily_inspection.tooling_num)
 				setDataProduction(response.data.data.output_production.gross_prod)
 				setAppearance(response.data.data.output_production.appearance_n)
@@ -224,10 +234,11 @@ const PerJam = ({route, navigation}) => {
 				hours: nilaiJam,
 				qc_daily_inspection_id: qc_daily_inspection_id
 			}
-			Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
+			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 			.then(response => { 
 				setNGData(response.data.data.ng_category)
 				setData(response.data.data)
+				setLoading(true)
 				setTooling(response.data.data.daily_inspection.tooling_num)
 				setDataProduction(response.data.data.output_production.gross_prod)
 				setAppearance(response.data.data.output_production.appearance_n)
@@ -241,70 +252,89 @@ const PerJam = ({route, navigation}) => {
 	//getdata berdasarkan jam
 	const shiftFix = async(value) => {
 		setHours(value)
+		setLoading(false)
 		const token = await AsyncStorage.getItem("key")
 		const headers = {
 			'Authorization': token
 		}
+		let hoursNow = moment().format("HH")
+		const minHours = parseInt(hoursNow) - 1
 		const params = {
 			tbl: 'daily_inspection',
 			kind: 'get_hour',
 			sys_plant_id: sys_plant_id,
 			machine_id: machine_id,
-			hrd_work_shift_id: 2,
 			hours: parseInt(value),
 			qc_daily_inspection_id: qc_daily_inspection_id
 		}
-		Axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
+		Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 		.then(response => {
 			setNGData(response.data.data.ng_category)
 			setData(response.data.data)
+			setLoading(true)
 			setTooling(response.data.data.daily_inspection.tooling_num)
 			setDataProduction(response.data.data.output_production.gross_prod)
-			changeShift(response.data.data.output_production.gross_prod)
 			console.log("List Data By Shift: ", response.data.status, "OK")
 		})
 		.catch(error => {
+			setLoading(true)
 			console.log('List Data Per Jam: ', error)
 		})
+		if(value == minHours || value == hoursNow){
+			console.log("Berhasil!")
+		}else{
+			alert("Access Denied")
+			setHours(parseInt(hoursNow))
+		}
 	}
+
+	// console.log(loading)
 
 	const hString = hours.toString()
 
-	if(today != null)
-	{
-		date.push(
-			<Text key={"key"}>{today}</Text>
-		)
-	}
-	if(yesterday != null)
-	{
-		date.push(
-			<Text key={"key"}>{yesterday}</Text>
-		)
-	}
-    
-	if(NGdata.length > 0)
-	{
-		if(checkPackaging == "NG" || status == "NG")
+	const dateFix = () => {
+		const date = []
+		if(today != null)
 		{
-		var dataNGs = []
-		NGdata.map((element, key) => {
-			dataNGs.push(
-				<Picker.Item label={element.name} value={element.id} key={key} />
-				)
-			})
-		}else{
-			var dataNGs = []
-			dataNGs.push(
-				<Picker.Item label="Tidak NG" value="" key="swQwdAcxz12" />
+			date.push(
+				<Text key={"key"}>{today}</Text>
 			)
+		}
+		if(yesterday != null)
+		{
+			date.push(
+				<Text key={"key"}>{yesterday}</Text>
+			)
+		}
+		return date
+	}
+		
+	const ngsDataFix = () => {
+		if(NGdata.length > 0)
+		{
+			var dataNGs = []
+			if(checkPackaging == "NG" || status == "NG")
+			{
+			dataNGs.push(
+				<Picker.Item label="--Pilih--" value={0} key="key1" />
+			)
+			NGdata.map((element, key) => {
+				dataNGs.push(
+					<Picker.Item label={element.name} value={element.id} key={key} />
+					)
+				})
+			}else{
+				dataNGs.push(
+					<Picker.Item label="Tidak NG" value={0} key="swQwdAcxz12" />
+				)
+			}
+			return dataNGs
 		}
 	}
 
 	const updateStatus = (value) => {
 		setPN(value)
 		const tVal = parseInt(value)
-		console.log(tVal)
 		if(tVal > 0){
 			const stVal = "NG"
 			setStatus(stVal)
@@ -312,6 +342,245 @@ const PerJam = ({route, navigation}) => {
 			const stVal = "OK"
 			setStatus(stVal)
 		}
+	}
+
+	const content = () => {
+		var bodatData = []
+		bodatData.push(
+			<TouchableOpacity key="12">
+				<View style={{paddingTop: 20, flexDirection: 'row'}}>
+					<View style={{padding: 10, width: "44%"}}>
+						<Text>Machines Status</Text>
+					</View>
+					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+						<Text style={{color: 'black'}}>:</Text>
+					</View>
+					<View style={{padding: 4, width: "50%"}}>
+						<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+							<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+								<Text>{data.daily_inspection == null ? "-" : data.daily_inspection.machine_status}</Text>
+							</View>
+						</View>
+					</View>
+				</View>
+
+				<View style={{paddingTop: 20, flexDirection: 'row'}}>
+					<View style={{padding: 10, width: "44%"}}>
+						<Text>Tooling</Text>
+					</View>
+					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+						<Text style={{color: 'black'}}>:</Text>
+					</View>
+					<View style={{padding: 4, width: "50%"}}>
+						<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+							<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+								<Text>{tooling_num != null ? tooling_num : "-"}</Text>
+							</View>
+						</View>
+					</View>
+				</View>
+				
+				<View style={{paddingTop: 20, flexDirection: 'row'}}>
+					<View style={{padding: 10, width: "44%"}}>
+						<Text>Production Output</Text>
+					</View>
+					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+						<Text style={{color: 'black'}}>:</Text>
+					</View>
+					<View style={{padding: 4, width: "50%", paddingLeft: 7}}>
+						<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+							<Text>{gross_prod != null ? gross_prod : "-"}</Text>
+						</View>
+					</View>
+				</View>
+				
+				<View style={{paddingTop: 20, flexDirection: 'row'}}>
+					<View style={{padding: 10, width: "44%"}}>
+						<Text>Check Appearance</Text>
+					</View>
+					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+						<Text style={{color: 'black'}}>:</Text>
+					</View>
+					<View style={{width: "6%", height: 70, flexDirection: 'column', paddingLeft: 5, justifyContent: 'center'}}>
+						<View style={{height: 25}}>
+							<Text style={{fontSize: 12}}>PN</Text>                                    
+						</View>
+						<View style={{height: 25}}>
+							<Text style={{marginTop: 10, fontSize: 12}}>N</Text>
+						</View>
+					</View>
+					<View style={{paddingTop: 8, paddingHorizontal: 4, paddingBottom: 4, width: "44%"}}>
+						<View style={{paddingTop: 5, height: 50, justifyContent: 'center'}}>
+							<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+								<TextInput onChangeText={(value) => updateStatus(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." keyboardType="numeric"/>
+							</View>
+							<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, marginTop: 5, backgroundColor: '#b8b8b8'}}>
+								<Text>{appearance_n != 0 ? appearance_n : "-"}</Text>
+							</View>
+						</View>
+					</View>
+				</View>
+				
+				<View style={{paddingTop: 20, flexDirection: 'row'}}>
+						<View style={{padding: 10, width: "44%"}}>
+								<Text>Check Packing</Text>
+						</View>
+						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+								<Text style={{color: 'black'}}>:</Text>
+						</View>
+						<View style={{padding: 4, width: "50%"}}>
+								<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+										<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+												<Picker 
+												mode="dropdown"
+												selectedValue={checkPackaging}
+												onValueChange={(value) => setCheckPacking(value)}
+												>
+														<Picker.Item label="Pilih" value="" />
+														<Picker.Item label="OK" value="OK" />
+														<Picker.Item label="NG" value="NG" />
+												</Picker>
+										</View>
+								</View>
+						</View>
+				</View>
+				
+				<View style={{paddingTop: 20, flexDirection: 'row'}}>
+					<View style={{paddingHorizontal: 10, paddingBottom: 10, paddingTop: 20, width: "44%"}}>
+						<Text>Check Label And Write Label Number</Text>
+					</View>
+					<View style={{paddingHorizontal: 10, paddingBottom: 10, paddingTop: 20, width: "6%", alignItems: 'flex-end'}}>
+						<Text style={{color: 'black'}}>:</Text>
+					</View>
+					<View style={{padding: 4, width: "50%", flexDirection: 'row'}}>
+						<View style={{width: "50%", alignItems: 'center'}}>
+							<Text>Start</Text>
+							<View style={{width: "100%", marginTop: 5, borderWidth: 0.5, borderRadius: 25, paddingLeft: 5, height: 40}}>
+								<TextInput onChangeText={(value) => setStartLabel(value)} style={{paddingLeft: 5, height: 40}} placeholder="Type Here..." keyboardType="numeric"/>
+								{/* <Text style={{marginTop: 5}}>{data.daily_inspection != null ? data.daily_inspection.label_begin : "-"}</Text> */}
+							</View>
+						</View>
+						<View style={{flex: 1, alignItems: 'center'}}>
+							<Text>End</Text>
+							<View style={{width: "100%", marginTop: 5, marginLeft: 2, borderWidth: 0.5, borderRadius: 25, paddingLeft: 5, height: 40}}>
+								{/* <Text style={{marginTop: 5}}>{data.daily_inspection != null ? data.daily_inspection.label_end : "-"}</Text> */}
+								<TextInput onChangeText={(value) => setEndLabel(value)} style={{paddingLeft: 5, height: 40}} placeholder="Type Here..." keyboardType="numeric"/>
+							</View>
+						</View>
+					</View>
+				</View>
+
+				<View style={{paddingTop: 20, flexDirection: 'row'}}>
+					<View style={{padding: 10, width: "44%"}}>
+						<Text>Special Item</Text>
+					</View>
+					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+						<Text style={{color: 'black'}}>:</Text>
+					</View>
+					<View style={{padding: 4, width: "50%"}}>
+						<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+							<TextInput onChangeText={(value) => setSpecialItem(value)} style={{borderWidth: 0.5, borderRadius: 25, paddingLeft: 5, height: 40}} placeholder="Type Here..." />
+						</View>
+					</View>
+				</View>
+
+				<View style={{paddingTop: 20, flexDirection: 'row'}}>
+					<View style={{padding: 10, width: "44%"}}>
+						<Text>Status</Text>
+					</View>
+					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+						<Text style={{color: 'black'}}>:</Text>
+					</View>
+					<View style={{padding: 4, width: "50%"}}>
+						<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+							<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, marginTop: 5, backgroundColor: '#b8b8b8'}}>
+								<Text>{status != null ? status : "-"}</Text>
+							</View>
+						</View>
+					</View>
+				</View>
+
+				<View style={{paddingTop: 20, flexDirection: 'row'}}>
+					<View style={{padding: 10, width: "44%"}}>
+						<Text>Category NG</Text>
+					</View>
+					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+						<Text style={{color: 'black'}}>:</Text>
+					</View>
+					<View style={{padding: 4, width: "50%"}}>
+						<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+							<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+								<Picker 
+								mode="dropdown"
+								selectedValue={categoryNG}
+								onValueChange={(value) => setCategoryNG(value)}
+								>
+									{ngsDataFix()}
+								</Picker>
+							</View>
+						</View>
+					</View>
+				</View>
+
+				<View style={{paddingTop: 20, flexDirection: 'row'}}>
+						<View style={{padding: 10, width: "44%"}}>
+								<Text>Note Unnormal</Text>
+						</View>
+						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+								<Text style={{color: 'black'}}>:</Text>
+						</View>
+						<View style={{padding: 4, width: "50%"}}>
+								<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+									<TextInput onChangeText={(value) => setNoteUnnormal(value)} style={{borderWidth: 0.5, borderRadius: 25, paddingLeft: 5, height: 40}} placeholder="Type Here..." />
+								</View>
+						</View>
+				</View>
+
+				<View style={{flexDirection: 'row', height: 75, paddingTop: 10}}>
+						<View style={{alignItems: 'center', width: "25%"}}>
+								<Text style={{fontWeight: 'bold', fontSize: 12}}>NIK Operator</Text>
+								<Text>{operator_nik}</Text>
+								<Text>{operator_nik_2}</Text>
+						</View>
+						<View style={{alignItems: 'center', width: "25%"}}>
+								<Text style={{fontWeight: 'bold', fontSize: 12}}>NIK QC</Text>
+								<Text>{qc_process_nik}</Text>
+						</View>
+						<View style={{alignItems: 'center', width: "25%"}}>
+								<Text style={{fontWeight: 'bold', fontSize: 12}}>NIK Leader</Text>
+								<Text>{leader_nik}</Text>
+						</View>
+						<View style={{alignItems: 'center', width: "25%"}}>
+								<Text style={{fontWeight: 'bold', fontSize: 12}}>NIK Foreman</Text>
+								<Text>{foreman_nik}</Text>
+						</View>
+				</View>
+				
+				<View style={{width: "100%", justifyContent: 'center', alignItems: 'center'}}>
+					{resultImage()}
+				</View>
+
+				<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
+					<View>
+						<Button onPress={() => submit()} style={{width: 172, borderRadius: 25, justifyContent: 'center'}}><Text>SAVE</Text></Button>
+					</View>
+				</View>
+
+				<View style={{flexDirection: 'column', height: 50}}>
+					<View style={{height: 27, alignItems: 'center'}}>
+						<Text style={{fontWeight: 'bold'}}>
+							Inspection Time
+						</Text>
+					</View>
+					<View style={{height: 23, alignItems: 'center'}}>
+						<Text>
+							{inspectionTime}
+						</Text>
+					</View>
+				</View>
+			</TouchableOpacity>
+		)
+		return bodatData
 	}
 
 	return(
@@ -325,7 +594,7 @@ const PerJam = ({route, navigation}) => {
 
 						<View style={{flexDirection: 'row'}}>
 							<View style={{borderTopWidth: 0.3, borderRightWidth: 0.3, height: 100, justifyContent: 'center', alignItems: 'center', width: "50%", backgroundColor: '#F5F5DC'}}>
-								<Text style={{marginTop: 5, fontWeight: 'bold', fontSize: 17}}>{date}</Text>
+								<Text style={{marginTop: 5, fontWeight: 'bold', fontSize: 17}}>{dateFix()}</Text>
 								<Text style={{marginTop: 1, fontWeight: 'bold', fontSize: 17}}>Edit Daily Inspection</Text>
 								<Text style={{marginTop: 1, fontWeight: 'bold', fontSize: 11}}>Per Jam</Text>
 								<Text style={{marginTop: 1, fontWeight: 'bold', fontSize: 11}}>{customer_name}</Text>
@@ -385,239 +654,8 @@ const PerJam = ({route, navigation}) => {
 						</View>
 
 						<ScrollView style={{flex: 1}}>
-							<View style={{paddingBottom: 40}}>                            
-								<TouchableOpacity>
-									<View style={{paddingTop: 20, flexDirection: 'row'}}>
-										<View style={{padding: 10, width: "44%"}}>
-											<Text>Machines Status</Text>
-										</View>
-										<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-											<Text style={{color: 'black'}}>:</Text>
-										</View>
-										<View style={{padding: 4, width: "50%"}}>
-											<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-												<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-													<Text>{data.daily_inspection != null ? data.daily_inspection.machine_status : "-"}</Text>
-												</View>
-											</View>
-										</View>
-									</View>
-
-									<View style={{paddingTop: 20, flexDirection: 'row'}}>
-										<View style={{padding: 10, width: "44%"}}>
-											<Text>Tooling</Text>
-										</View>
-										<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-											<Text style={{color: 'black'}}>:</Text>
-										</View>
-										<View style={{padding: 4, width: "50%"}}>
-											<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-												<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-													<Text>{tooling_num != null ? tooling_num : "-"}</Text>
-												</View>
-											</View>
-										</View>
-									</View>
-									
-									<View style={{paddingTop: 20, flexDirection: 'row'}}>
-										<View style={{padding: 10, width: "44%"}}>
-											<Text>Production Output</Text>
-										</View>
-										<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-											<Text style={{color: 'black'}}>:</Text>
-										</View>
-										<View style={{padding: 4, width: "50%", paddingLeft: 7}}>
-											<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-												<Text>{gross_prod != null ? gross_prod : "-"}</Text>
-											</View>
-										</View>
-									</View>
-									
-									<View style={{paddingTop: 20, flexDirection: 'row'}}>
-										<View style={{padding: 10, width: "44%"}}>
-											<Text>Check Appearance</Text>
-										</View>
-										<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-											<Text style={{color: 'black'}}>:</Text>
-										</View>
-										<View style={{width: "6%", height: 70, flexDirection: 'column', paddingLeft: 5, justifyContent: 'center'}}>
-											<View style={{height: 25}}>
-												<Text style={{fontSize: 12}}>PN</Text>                                    
-											</View>
-											<View style={{height: 25}}>
-												<Text style={{marginTop: 10, fontSize: 12}}>N</Text>
-											</View>
-										</View>
-										<View style={{paddingTop: 8, paddingHorizontal: 4, paddingBottom: 4, width: "44%"}}>
-											<View style={{paddingTop: 5, height: 50, justifyContent: 'center'}}>
-												<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-													<TextInput onChangeText={(value) => updateStatus(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." keyboardType="numeric"/>
-												</View>
-												<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, marginTop: 5, backgroundColor: '#b8b8b8'}}>
-													<Text>{appearance_n != 0 ? appearance_n : "-"}</Text>
-												</View>
-											</View>
-										</View>
-									</View>
-									
-									<View style={{paddingTop: 20, flexDirection: 'row'}}>
-											<View style={{padding: 10, width: "44%"}}>
-													<Text>Check Packing</Text>
-											</View>
-											<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-													<Text style={{color: 'black'}}>:</Text>
-											</View>
-											<View style={{padding: 4, width: "50%"}}>
-													<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-															<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-																	<Picker 
-																	mode="dropdown"
-																	selectedValue={checkPackaging}
-																	onValueChange={(value) => setCheckPacking(value)}
-																	>
-																			<Picker.Item label="Pilih" value="" />
-																			<Picker.Item label="OK" value="OK" />
-																			<Picker.Item label="NG" value="NG" />
-																	</Picker>
-															</View>
-													</View>
-											</View>
-									</View>
-									
-									<View style={{paddingTop: 20, flexDirection: 'row'}}>
-										<View style={{paddingHorizontal: 10, paddingBottom: 10, paddingTop: 20, width: "44%"}}>
-											<Text>Check Label And Write Label Number</Text>
-										</View>
-										<View style={{paddingHorizontal: 10, paddingBottom: 10, paddingTop: 20, width: "6%", alignItems: 'flex-end'}}>
-											<Text style={{color: 'black'}}>:</Text>
-										</View>
-										<View style={{padding: 4, width: "50%", flexDirection: 'row'}}>
-											<View style={{width: "50%", alignItems: 'center'}}>
-												<Text>Start</Text>
-												<View style={{width: "100%", marginTop: 5, borderWidth: 0.5, borderRadius: 25, paddingLeft: 5, height: 40}}>
-													<TextInput onChangeText={(value) => setStartLabel(value)} style={{paddingLeft: 5, height: 40}} placeholder="Type Here..." keyboardType="numeric"/>
-													{/* <Text style={{marginTop: 5}}>{data.daily_inspection != null ? data.daily_inspection.label_begin : "-"}</Text> */}
-												</View>
-											</View>
-											<View style={{flex: 1, alignItems: 'center'}}>
-												<Text>End</Text>
-												<View style={{width: "100%", marginTop: 5, marginLeft: 2, borderWidth: 0.5, borderRadius: 25, paddingLeft: 5, height: 40}}>
-													{/* <Text style={{marginTop: 5}}>{data.daily_inspection != null ? data.daily_inspection.label_end : "-"}</Text> */}
-													<TextInput onChangeText={(value) => setEndLabel(value)} style={{paddingLeft: 5, height: 40}} placeholder="Type Here..." keyboardType="numeric"/>
-												</View>
-											</View>
-										</View>
-									</View>
-
-									<View style={{paddingTop: 20, flexDirection: 'row'}}>
-										<View style={{padding: 10, width: "44%"}}>
-											<Text>Special Item</Text>
-										</View>
-										<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-											<Text style={{color: 'black'}}>:</Text>
-										</View>
-										<View style={{padding: 4, width: "50%"}}>
-											<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-												<TextInput onChangeText={(value) => setSpecialItem(value)} style={{borderWidth: 0.5, borderRadius: 25, paddingLeft: 5, height: 40}} placeholder="Type Here..." />
-											</View>
-										</View>
-									</View>
-
-									<View style={{paddingTop: 20, flexDirection: 'row'}}>
-										<View style={{padding: 10, width: "44%"}}>
-											<Text>Status</Text>
-										</View>
-										<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-											<Text style={{color: 'black'}}>:</Text>
-										</View>
-										<View style={{padding: 4, width: "50%"}}>
-											<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-												<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, marginTop: 5, backgroundColor: '#b8b8b8'}}>
-													<Text>{status != null ? status : "-"}</Text>
-												</View>
-											</View>
-										</View>
-									</View>
-
-									<View style={{paddingTop: 20, flexDirection: 'row'}}>
-										<View style={{padding: 10, width: "44%"}}>
-											<Text>Category NG</Text>
-										</View>
-										<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-											<Text style={{color: 'black'}}>:</Text>
-										</View>
-										<View style={{padding: 4, width: "50%"}}>
-											<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-												<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-													<Picker 
-													mode="dropdown"
-													selectedValue={categoryNG}
-													onValueChange={(value) => setCategoryNG(value)}
-													>
-														{dataNGs}
-													</Picker>
-												</View>
-											</View>
-										</View>
-									</View>
-
-									<View style={{paddingTop: 20, flexDirection: 'row'}}>
-											<View style={{padding: 10, width: "44%"}}>
-													<Text>Note Unnormal</Text>
-											</View>
-											<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-													<Text style={{color: 'black'}}>:</Text>
-											</View>
-											<View style={{padding: 4, width: "50%"}}>
-													<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-														<TextInput onChangeText={(value) => setNoteUnnormal(value)} style={{borderWidth: 0.5, borderRadius: 25, paddingLeft: 5, height: 40}} placeholder="Type Here..." />
-													</View>
-											</View>
-									</View>
-
-									<View style={{flexDirection: 'row', height: 75, paddingTop: 10}}>
-											<View style={{alignItems: 'center', width: "25%"}}>
-													<Text style={{fontWeight: 'bold', fontSize: 12}}>NIK Operator</Text>
-													<Text>{operator_nik}</Text>
-													<Text>{operator_nik_2}</Text>
-											</View>
-											<View style={{alignItems: 'center', width: "25%"}}>
-													<Text style={{fontWeight: 'bold', fontSize: 12}}>NIK QC</Text>
-													<Text>{qc_process_nik}</Text>
-											</View>
-											<View style={{alignItems: 'center', width: "25%"}}>
-													<Text style={{fontWeight: 'bold', fontSize: 12}}>NIK Leader</Text>
-													<Text>{leader_nik}</Text>
-											</View>
-											<View style={{alignItems: 'center', width: "25%"}}>
-													<Text style={{fontWeight: 'bold', fontSize: 12}}>NIK Foreman</Text>
-													<Text>{foreman_nik}</Text>
-											</View>
-									</View>
-									
-									<View style={{width: "100%", justifyContent: 'center', alignItems: 'center'}}>
-										{resultImage()}
-									</View>
-
-									<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
-										<View>
-											<Button onPress={() => submit()} style={{width: 172, borderRadius: 25, justifyContent: 'center'}}><Text>SAVE</Text></Button>
-										</View>
-									</View>
-
-									<View style={{flexDirection: 'column', height: 50}}>
-										<View style={{height: 27, alignItems: 'center'}}>
-											<Text style={{fontWeight: 'bold'}}>
-												Inspection Time
-											</Text>
-										</View>
-										<View style={{height: 23, alignItems: 'center'}}>
-											<Text>
-												{inspectionTime}
-											</Text>
-										</View>
-									</View>
-								</TouchableOpacity>
+							<View style={{paddingBottom: 40}}> 
+							  {loading ? content() : <View style={{justifyContent: 'center'}}><ActivityIndicator size="large" color="#0000ff"/></View>}               
 							</View>
 						</ScrollView>
 					</View>

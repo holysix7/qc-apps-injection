@@ -1,4 +1,4 @@
-import {Image, View, ScrollView} from 'react-native';
+import {Image, View, ScrollView, ActivityIndicator} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import LogoSIP from '../../assets/logo-sip370x50.png';
 import AsyncStorage from "@react-native-community/async-storage";
@@ -10,6 +10,7 @@ import styles from '../../components/styles/Styling';
 const ShowProducts = ({route, navigation}) => {
 	const {machine_id, machine_name, sys_plant_id} = route.params
 	const [data, setData] = useState([])
+  const [loading, setLoading] = useState(false);
 	useEffect(() => {
 		let isMounted = true;
 		const products = async () => {
@@ -24,12 +25,17 @@ const ShowProducts = ({route, navigation}) => {
 				machine_id: machine_id
 			}
 			// console.log(params)
-			axios.get('http://139.255.26.194:3003/api/v1/qcs?', {params: params, headers: headers})
-			.then(response => {
-			if(isMounted) setData(response.data.data)
-			console.log("Products List Data: ", response.data.status, response.data.message)
-			})
-			.catch(error => console.log(error))
+			try {
+				axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
+				.then(response => {
+					setLoading(true)
+					if(isMounted) setData(response.data.data)
+					console.log("Products List Data: ", response.data.status, response.data.message)
+				})
+				.catch(error => console.log(error))
+			} catch (error) {
+				console.log(error)
+			}
 		}
 		products()
 		return () => {
@@ -139,15 +145,15 @@ const ShowProducts = ({route, navigation}) => {
 				<ScrollView>
 					<View style={styles.contentHeader}>
 						<Text style={styles.fontProduct}>{today}</Text>
-						{allProductsToday}
+						{loading ? allProductsToday : <View style={{justifyContent: 'center'}}><ActivityIndicator size="large" color="#0000ff"/></View>}
 					</View>
 					<View style={styles.contentHeader}>
 						<Text style={styles.fontProduct}>{yesterday}</Text>
-						{allProductsYesterday}
+						{loading ? allProductsYesterday : <View style={{justifyContent: 'center'}}><ActivityIndicator size="large" color="#0000ff"/></View>}
 					</View>
 					<View style={{paddingTop: 100}}>
-						{noDataText}
-						{noData}
+						{loading ? noData : <View style={{justifyContent: 'center'}}><ActivityIndicator size="large" color="#0000ff"/></View>}
+						{loading ? noDataText : <View style={{justifyContent: 'center'}}><ActivityIndicator size="large" color="#0000ff"/></View>}
 					</View>
 				</ScrollView>
 			</View>
