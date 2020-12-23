@@ -26,7 +26,7 @@ const ShowProducts = ({route, navigation}) => {
 			}
 			// console.log(params)
 			try {
-				axios.get('http://192.168.131.226:3003/api/v2/qcs?', {params: params, headers: headers})
+				axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 				.then(response => {
 					setLoading(true)
 					if(isMounted) setData(response.data.data)

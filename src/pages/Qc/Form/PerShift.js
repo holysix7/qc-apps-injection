@@ -139,7 +139,7 @@ const PerShift = ({route, navigation}) => {
 				hours: parseInt(jam),
 				qc_daily_inspection_id: qc_daily_inspection_id
 			}
-			Axios.get('http://192.168.131.226:3003/api/v2/qcs?', {params: params, headers: headers})
+			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 			.then(response => {
 				setLoading(true)
 				setData(response.data.data)
@@ -172,7 +172,7 @@ const PerShift = ({route, navigation}) => {
 				hours: parseInt(jam),
 				qc_daily_inspection_id: qc_daily_inspection_id
 			}
-			Axios.get('http://192.168.131.226:3003/api/v2/qcs?', {params: params, headers: headers})
+			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 			.then(response => {
 				setLoading(true)
 				setData(response.data.data)
@@ -205,7 +205,7 @@ const PerShift = ({route, navigation}) => {
 				hours: parseInt(jam),
 				qc_daily_inspection_id: qc_daily_inspection_id
 			}
-			Axios.get('http://192.168.131.226:3003/api/v2/qcs?', {params: params, headers: headers})
+			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 			.then(response => {
 				setLoading(true)
 				setData(response.data.data)
@@ -248,7 +248,7 @@ const PerShift = ({route, navigation}) => {
 					hours: parseInt(value),
 					qc_daily_inspection_id: qc_daily_inspection_id
 				}
-				Axios.get('http://192.168.131.226:3003/api/v2/qcs?', {params: params, headers: headers})
+				Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 				.then(response => {
 					setLoading(true)
 					setData(response.data.data)
@@ -274,7 +274,7 @@ const PerShift = ({route, navigation}) => {
 					hours: parseInt(value),
 					qc_daily_inspection_id: qc_daily_inspection_id
 				}
-				Axios.get('http://192.168.131.226:3003/api/v2/qcs?', {params: params, headers: headers})
+				Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 				.then(response => {
 					setLoading(true)
 					setData(response.data.data)
@@ -300,7 +300,7 @@ const PerShift = ({route, navigation}) => {
 					hours: parseInt(value),
 					qc_daily_inspection_id: qc_daily_inspection_id
 				}
-				Axios.get('http://192.168.131.226:3003/api/v2/qcs?', {params: params, headers: headers})
+				Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 				.then(response => {
 					setLoading(true)
 					setData(response.data.data)
@@ -464,7 +464,7 @@ const PerShift = ({route, navigation}) => {
 		}
 		var config = {
 			method: 'put',
-			url: 'http://192.168.131.226:3003/api/v2/qcs/update?',
+			url: 'https://api.tri-saudara.com/api/v2/qcs/update?',
 			params: params,
 			headers: { 
 				'Authorization': token, 
