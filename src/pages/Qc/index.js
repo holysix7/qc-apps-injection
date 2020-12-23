@@ -12,6 +12,7 @@ const Qc = ({navigation}) => {
   const [name, setCekName] = useState("");
   const [deptName, setCekDeptName] = useState("");
   const [dutyId, setDutyId] = useState([]);
+  const [featureUser, setFeature] = useState([]);
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   useEffect(() => {
@@ -32,7 +33,7 @@ const Qc = ({navigation}) => {
       sys_plant_id: value
     }
     try {
-      axios.get('http://192.168.131.226:3003/api/v2/qcs?', {params: params, headers: headers})
+      axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
       .then(response => {
         setLoading(true)
         setData(response.data.data)
@@ -46,12 +47,14 @@ const Qc = ({navigation}) => {
 
   const session = async () => {
     try {
-      const UserSession = await AsyncStorage.multiGet(['user', 'name', 'department_name', 'sys_plant_id', 'duty_plant_option_select'])
+      const UserSession = await AsyncStorage.multiGet(['user', 'name', 'department_name', 'sys_plant_id', 'duty_plant_option_select', 'feature'])
       const id = await AsyncStorage.getItem('id')
       const plantId = await AsyncStorage.getItem('sys_plant_id')
       const duty = await AsyncStorage.getItem('duty_plant_option_select')
       const deptName    = await AsyncStorage.getItem('department_name')
       const name    = await AsyncStorage.getItem('name')
+      const feature    = await AsyncStorage.getItem('feature')
+      setFeature(JSON.parse(feature))
       setDutyId(JSON.parse(duty))
       setCekId(plantId)
       setCekDeptName(deptName)

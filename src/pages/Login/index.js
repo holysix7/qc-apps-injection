@@ -16,15 +16,15 @@ const Login = ({navigation}) => {
 	const [loading, setLoading] = useState(true)
 
 	const submit = async() => {
-		// setLoading(false)
+		setLoading(false)
 		const data = {
 			user,
 			password
 		}
 		try {
-			Axios.post('http://192.168.131.226:3003/auth', data)
+			Axios.post('https://api.tri-saudara.com/signin', data)
 			.then(res => {
-				// setLoading(true)
+				setLoading(true)
 				DeviceStorage(res.data.data.token)
 				Session(res.data.data)
 				console.log("Login Success!")
@@ -40,6 +40,31 @@ const Login = ({navigation}) => {
 			alert("Login Failed!")
 		}
 	}
+
+	const content = () => {
+		var data = []
+		data.push(
+			<Form key="aAoksmkw" style={{justifyContent: 'center', alignItems: 'center'}}>
+				<Item floatingLabel success style={styles.labelFloat}>
+					<Label>NIK</Label>
+					<Input value={user} onChangeText={(value) => setUser(value)} keyboardType="numeric" />
+				</Item>
+				<Item floatingLabel success style={styles.labelFloat}>
+					<Label>Password</Label>
+					<Input value={password} onChangeText={(value) => setPassword(value)}  secureTextEntry={true} autoCapitalize='none' />
+				</Item>
+				<View style={{justifyContent: 'flex-end', marginLeft: 240}}>
+					<Button rounded info style={styles.buttonLogin} onPress={() => submit()}>
+						<Text>
+							Login
+						</Text>
+					</Button>
+				</View>
+			</Form>
+		)
+		return data
+	}
+
 	return (
 		<KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={{flex:1}}>
 			<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -51,23 +76,7 @@ const Login = ({navigation}) => {
 					<Image source={LogoSIP} style={styles.logoSipBesar}/>
 					</View>
 					{/* {loading ? null : <View style={{justifyContent: 'center'}}><ActivityIndicator size="large" color="#0000ff"/></View> } */}
-					<Form style={{justifyContent: 'center', alignItems: 'center'}}>
-						<Item floatingLabel success style={styles.labelFloat}>
-							<Label>NIK</Label>
-							<Input value={user} onChangeText={(value) => setUser(value)} keyboardType="numeric" />
-						</Item>
-						<Item floatingLabel success style={styles.labelFloat}>
-							<Label>Password</Label>
-							<Input value={password} onChangeText={(value) => setPassword(value)}  secureTextEntry={true} autoCapitalize='none' />
-						</Item>
-						<View style={{justifyContent: 'flex-end', marginLeft: 240}}>
-							<Button rounded info style={styles.buttonLogin} onPress={() => submit()}>
-								<Text>
-									Login
-								</Text>
-							</Button>
-						</View>
-					</Form>
+					{loading ? content() : <View style={{justifyContent: 'center'}}><ActivityIndicator size="large" color="#0000ff"/></View>}
 				</Container>
 			</TouchableWithoutFeedback>
 		</KeyboardAvoidingView>

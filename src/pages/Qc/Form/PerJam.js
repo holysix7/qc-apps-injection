@@ -45,6 +45,10 @@ const PerJam = ({route, navigation}) => {
 				skipBackup: true,
 				path: 'images',
 			},
+			mediaType: 'photo',
+			includeBase64: true,
+			maxHeight: 400,
+			maxWidth: 400
 		};
 		ImagePicker.showImagePicker(options, (response) => {
 			if (response.didCancel) {
@@ -54,7 +58,8 @@ const PerJam = ({route, navigation}) => {
 			} else if (response.customButton) {
 				console.log('User tapped custom button: ', response.customButton);
 			} else {
-				const source = { uri: 'data:image/jpeg;base64,' + response.data }
+				const source = { uri: 'data:image/jpeg;base64;,' + response.data }
+				console.log(source)
 				setImage({source})
 			}
 		})
@@ -63,11 +68,11 @@ const PerJam = ({route, navigation}) => {
 	const resultImage = () => {
 		if(uploadedImage != null)
 		{
-			return <Image source={{uri: uploadedImage.source.uri}} style={{width: Dimensions.get('window').width,height:Dimensions.get('window').width, resizeMode: 'contain'}}/>
+			return <Image source={{uri: uploadedImage.source.uri}} style={{width: Dimensions.get('window').width,height:Dimensions.get('window').width, resizeMode: 'contain'}} onPress={() => chooseImage()}/>
 		}else{
 			return (
 			<View style={{height: 150, paddingTop: 20, borderWidth: 1, width: "100%"}}>
-				<Text style={{flex: 1, width: "100%", textAlign: 'center'}} onPress={() => chooseImage() }><Image style={{height: 50, width: 50}} source={cameraIcons} /></Text>
+				<Text style={{flex: 1, width: "100%", textAlign: 'center'}} onPress={() => chooseImage()}><Image style={{height: 50, width: 50}} source={cameraIcons} /></Text>
 			</View>)
 		}
 	}
@@ -143,7 +148,7 @@ const PerJam = ({route, navigation}) => {
 		}
 		var config = {
 			method: 'put',
-			url: 'http://192.168.131.226:3003/api/v2/qcs/update?',
+			url: 'https://api.tri-saudara.com/api/v2/qcs/update?',
 			params: params,
 			headers: { 
 				'Authorization': token, 
@@ -194,7 +199,7 @@ const PerJam = ({route, navigation}) => {
 				hours: nilaiJam,
 				qc_daily_inspection_id: qc_daily_inspection_id
 			}
-			Axios.get('http://192.168.131.226:3003/api/v2/qcs?', {params: params, headers: headers})
+			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 			.then(response => {
 				setNGData(response.data.data.ng_category)
 				setData(response.data.data)
@@ -215,6 +220,7 @@ const PerJam = ({route, navigation}) => {
 			})
 			.catch(error => {
 				console.log('List Data Per Jam: ', error)
+				alert("Connection Failure!")
 			})
 		}else if(parseInt(jam) >= 16 && parseInt(jam) <= 23){
 			const nilaiJam = parseInt(jam)
@@ -229,7 +235,7 @@ const PerJam = ({route, navigation}) => {
 				hours: nilaiJam,
 				qc_daily_inspection_id: qc_daily_inspection_id
 			}
-			Axios.get('http://192.168.131.226:3003/api/v2/qcs?', {params: params, headers: headers})
+			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 			.then(response => {
 				setNGData(response.data.data.ng_category)
 				setData(response.data.data)
@@ -250,6 +256,7 @@ const PerJam = ({route, navigation}) => {
 			})
 			.catch(error => {
 				console.log('List Data Per Jam: ', error)
+				alert("Connection Failure!")
 			})
 		}else{
 			const nilaiJam = parseInt(jam)
@@ -264,7 +271,7 @@ const PerJam = ({route, navigation}) => {
 				hours: nilaiJam,
 				qc_daily_inspection_id: qc_daily_inspection_id
 			}
-			Axios.get('http://192.168.131.226:3003/api/v2/qcs?', {params: params, headers: headers})
+			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 			.then(response => { 
 				setNGData(response.data.data.ng_category)
 				setData(response.data.data)
@@ -285,6 +292,7 @@ const PerJam = ({route, navigation}) => {
 			})
 			.catch(error => {
 				console.log('List Data Per Jam: ', error)
+				alert("Connection Failure!")
 			})
 		}
 	}
@@ -298,7 +306,7 @@ const PerJam = ({route, navigation}) => {
 		}
 		let hoursNow = moment().format("HH")
 		const minHours = parseInt(hoursNow) - 1
-		if(value == minHours || value == hoursNow){
+		if(value <= minHours || value == hoursNow){
 			if(value >= 8 && value <= 15){
 				const params = {
 					tbl: 'daily_inspection',
@@ -309,7 +317,7 @@ const PerJam = ({route, navigation}) => {
 					hours: parseInt(value),
 					qc_daily_inspection_id: qc_daily_inspection_id
 				}
-				Axios.get('http://192.168.131.226:3003/api/v2/qcs?', {params: params, headers: headers})
+				Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 				.then(response => {
 					setNGData(response.data.data.ng_category)
 					setData(response.data.data)
@@ -330,6 +338,7 @@ const PerJam = ({route, navigation}) => {
 				.catch(error => {
 					setLoading(true)
 					console.log('List Data Per Jam: ', error)
+					alert("Connection Failure!")
 				})
 			}else if(value >= 16 && value <= 23){
 				const params = {
@@ -341,7 +350,7 @@ const PerJam = ({route, navigation}) => {
 					hours: parseInt(value),
 					qc_daily_inspection_id: qc_daily_inspection_id
 				}
-				Axios.get('http://192.168.131.226:3003/api/v2/qcs?', {params: params, headers: headers})
+				Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 				.then(response => {
 					setNGData(response.data.data.ng_category)
 					setData(response.data.data)
@@ -362,6 +371,7 @@ const PerJam = ({route, navigation}) => {
 				.catch(error => {
 					setLoading(true)
 					console.log('List Data Per Jam: ', error)
+					alert("Connection Failure!")
 				})
 			}else{
 				const params = {
@@ -373,7 +383,7 @@ const PerJam = ({route, navigation}) => {
 					hours: parseInt(value),
 					qc_daily_inspection_id: qc_daily_inspection_id
 				}
-				Axios.get('http://192.168.131.226:3003/api/v2/qcs?', {params: params, headers: headers})
+				Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 				.then(response => {
 					setNGData(response.data.data.ng_category)
 					setData(response.data.data)
@@ -394,6 +404,7 @@ const PerJam = ({route, navigation}) => {
 				.catch(error => {
 					setLoading(true)
 					console.log('List Data Per Jam: ', error)
+					alert("Connection Failure!")
 				})
 			}
 			setLoading(true)
