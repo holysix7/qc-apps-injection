@@ -26,7 +26,7 @@ const ShowProducts = ({route, navigation}) => {
 			}
 			// console.log(params)
 			try {
-				axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
+				axios.get('http://192.168.131.226:3003/api/v2/qcs?', {params: params, headers: headers})
 				.then(response => {
 					setLoading(true)
 					if(isMounted) setData(response.data.data)
@@ -55,11 +55,11 @@ const ShowProducts = ({route, navigation}) => {
 									.format('YYYY-MM-DD')
 	if(data.length > 0)
 	{
-		data.map((element) => {
+		data.map((element, key) => {
 			if(today == element.date)
 			{
 				allProductsToday.push(
-					<Button key={element.qc_daily_inspections_id} style={styles.productsButton} onPress={() => navigation.navigate('ListForm',
+					<Button key={key} style={styles.productsButton} onPress={() => navigation.navigate('ListForm',
 					{
 						qc_daily_inspection_id: element.qc_daily_inspections_id,
 						qc_daily_inspection_item_id: element.qc_daily_inspection_item_id,
@@ -89,7 +89,7 @@ const ShowProducts = ({route, navigation}) => {
 			if(yesterday == element.date)
 			{
 				allProductsYesterday.push(
-					<Button key={element.qc_daily_inspections_id} style={styles.productsButton} onPress={() => navigation.navigate('ListForm',
+					<Button key={key} style={styles.productsButton} onPress={() => navigation.navigate('ListForm',
 					{
 						qc_daily_inspection_id: element.qc_daily_inspections_id,
 						qc_daily_inspection_item_id: element.qc_daily_inspection_item_id,

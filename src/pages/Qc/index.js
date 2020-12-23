@@ -32,7 +32,7 @@ const Qc = ({navigation}) => {
       sys_plant_id: value
     }
     try {
-      axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
+      axios.get('http://192.168.131.226:3003/api/v2/qcs?', {params: params, headers: headers})
       .then(response => {
         setLoading(true)
         setData(response.data.data)

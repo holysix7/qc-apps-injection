@@ -82,7 +82,7 @@ const MassproBeginProdLeader = ({route, navigation}) => {
 		}
 		var config = {
 			method: 'put',
-			url: 'https://api.tri-saudara.com/api/v2/qcs/update?',
+			url: 'http://192.168.131.226:3003/api/v2/qcs/update?',
 			params: params,
 			headers: { 
 				'Authorization': token, 
@@ -135,7 +135,7 @@ const MassproBeginProdLeader = ({route, navigation}) => {
 			sys_plant_id: sys_plant_id,
 			machine_id: machine_id
 		}
-		Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
+		Axios.get('http://192.168.131.226:3003/api/v2/qcs?', {params: params, headers: headers})
 		.then(response => {
 			setLoading(true)
 			setMaintMoldId(response.data.data.qc_masspro_main_mold_id)
@@ -160,10 +160,9 @@ const MassproBeginProdLeader = ({route, navigation}) => {
 		})
 		.catch(error => {
 			console.log('List Data Prod. Leader: ', error)
-		})
-		
+		})		
 	}
-
+		
 	const shiftFix = (value) => {
 		setHours(value)
 	}
@@ -449,10 +448,11 @@ const MassproBeginProdLeader = ({route, navigation}) => {
 
 	const updateJIG = () => {
 		const updatePL = massproPLJig
+		// console.log(updatePL)
 		const data = []
 		const plData = massproPL
 		if(plData != null){
-			if(updatePL != "OK" && updatePL != "NG"){
+			if(updatePL != "OK" && updatePL != "NG" && updatePL != "no_check"){
 				data.push(
 					<View key="aoij2o" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 						<Picker 

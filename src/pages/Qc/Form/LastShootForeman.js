@@ -46,7 +46,7 @@ const LastShootForeman = ({route, navigation}) => {
 		}
 		var config = {
 			method: 'put',
-			url: 'https://api.tri-saudara.com/api/v2/qcs/update?',
+			url: 'http://192.168.131.226:3003/api/v2/qcs/update?',
 			params: params,
 			headers: { 
 				'Authorization': token, 
@@ -63,7 +63,8 @@ const LastShootForeman = ({route, navigation}) => {
 			alert("Success Send Data!")
 		})
 		.catch(function (error){
-			alert("Failed Send Data!")
+			setLoading(true)
+			alert("Isi Remark Dengan Action Yang Diambil!")
 			console.log(error)
 		})
 	}
@@ -93,7 +94,7 @@ const LastShootForeman = ({route, navigation}) => {
 				hours: nilaiJam,
 				qc_daily_inspection_id: qc_daily_inspection_id
 			}
-			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
+			Axios.get('http://192.168.131.226:3003/api/v2/qcs?', {params: params, headers: headers})
 			.then(response => {
 				setLoading(true)
 				setData(response.data.data.daily_inspection)
@@ -103,6 +104,7 @@ const LastShootForeman = ({route, navigation}) => {
 				console.log("List Data Last Shoot Foreman: ", response.data.status, "OK")
 			})
 			.catch(error => {
+				setLoading(true)
 				console.log('List Data Last Shoot Foreman: ', error)
 			})
 		}else if(parseInt(jam) >= 16 && parseInt(jam) <= 23){
@@ -118,7 +120,7 @@ const LastShootForeman = ({route, navigation}) => {
 				hours: nilaiJam,
 				qc_daily_inspection_id: qc_daily_inspection_id
 			}
-			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
+			Axios.get('http://192.168.131.226:3003/api/v2/qcs?', {params: params, headers: headers})
 			.then(response => {
 				setLoading(true)
 				setData(response.data.data.daily_inspection)
@@ -128,6 +130,7 @@ const LastShootForeman = ({route, navigation}) => {
 				console.log("List Data Last Shoot Foreman: ", response.data.status, "OK")
 			})
 			.catch(error => {
+				setLoading(true)
 				console.log('List Data Last Shoot Foreman: ', error)
 			})
 		}else{
@@ -143,7 +146,7 @@ const LastShootForeman = ({route, navigation}) => {
 				hours: nilaiJam,
 				qc_daily_inspection_id: qc_daily_inspection_id
 			}
-			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
+			Axios.get('http://192.168.131.226:3003/api/v2/qcs?', {params: params, headers: headers})
 			.then(response => {
 				setLoading(true)
 				setData(response.data.data.daily_inspection)
@@ -153,6 +156,7 @@ const LastShootForeman = ({route, navigation}) => {
 				console.log("List Data Last Shoot Foreman: ", response.data.status, "OK")
 			})
 			.catch(error => {
+				setLoading(true)
 				console.log('List Data Last Shoot Foreman: ', error)
 			})
 		}
