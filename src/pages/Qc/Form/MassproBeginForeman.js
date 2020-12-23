@@ -14,7 +14,7 @@ const MassproBeginForeman = ({route, navigation}) => {
 	const {sys_plant_id, machine_id, customer_name, machine_name, today, yesterday} = route.params
 	const [tooling_num, setTooling] = useState("")
 	const [judgement, setKeputusan] = useState("")
-	const [remark, setRemark] 			= useState("")
+	const [remark, setRemark] 			= useState(null)
 	const [hours, setHours]		  		= useState(0)
 	const [shift, setShift]		  		= useState(0)
 	const [data1, setData1]					= useState([])
@@ -98,7 +98,7 @@ const MassproBeginForeman = ({route, navigation}) => {
 		}
 		var config = {
 			method: 'put',
-			url: 'https://api.tri-saudara.com/api/v2/qcs/update?',
+			url: 'http://192.168.131.226:3003/api/v2/qcs/update?',
 			params: params,
 			headers: { 
 				'Authorization': token, 
@@ -115,8 +115,9 @@ const MassproBeginForeman = ({route, navigation}) => {
 			alert("Success Send Data!")
 		})
 		.catch(function (error){
-			alert("Failed Send Data!")
+			setLoading(true)
 			console.log(error)
+			alert("Failed Send Data!")
 		})
 	}
 
@@ -151,7 +152,7 @@ const MassproBeginForeman = ({route, navigation}) => {
 			sys_plant_id: sys_plant_id,
 			machine_id: machine_id
 		}
-		Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
+		Axios.get('http://192.168.131.226:3003/api/v2/qcs?', {params: params, headers: headers})
 		.then(response => {
 			setLoading(true)
 			setMaintMoldId(response.data.data.qc_masspro_main_mold_id)

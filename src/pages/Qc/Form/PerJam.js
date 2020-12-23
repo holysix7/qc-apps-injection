@@ -97,6 +97,18 @@ const PerJam = ({route, navigation}) => {
 	const [created_by, setCreatedBy]		  		= useState("")
 	const [updated_by, setUpdatedBy]		  		= useState("")
 	
+	const [updatePNData, setUpdatePN]		  					= useState("")
+	const [updateCheckPackaging, setCheckPackaging]	= useState(null)
+	const [updateStart, setUpdateStart]		  				= useState("")
+	const [updateEnd, setUpdateEnd]		  						= useState("")
+	const [updateSpecialItem, setUpdateSpItem]		  = useState("")
+	const [updateCategoryNG, setUpdateCNG]		  		= useState("")
+	const [updateNote, setUpdateCNT]		  					= useState("")
+	const [updateStatusData, setUpdateStdT]		  		= useState(null)
+	const [updateinspection_time, setUpdateIT]		  = useState("")
+	
+	const check_appearance_n = appearance_n
+
 	const submit = async() => {
 		setLoading(false)
 		const data = {
@@ -108,7 +120,7 @@ const PerJam = ({route, navigation}) => {
 			tooling_num,
 			gross_prod,
 			appearance_pn,
-			appearance_n,
+			check_appearance_n,
 			start_label,
 			end_label,
 			checkPackaging,
@@ -131,7 +143,7 @@ const PerJam = ({route, navigation}) => {
 		}
 		var config = {
 			method: 'put',
-			url: 'https://api.tri-saudara.com/api/v2/qcs/update?',
+			url: 'http://192.168.131.226:3003/api/v2/qcs/update?',
 			params: params,
 			headers: { 
 				'Authorization': token, 
@@ -160,7 +172,6 @@ const PerJam = ({route, navigation}) => {
 		//end Form
 		
 	const formOke = async() => {
-		let jam = moment().format("HH:mm:ss")
 		const token = await AsyncStorage.getItem("key")
 		const id = await AsyncStorage.getItem('id')
 		setCreatedBy(id)
@@ -168,6 +179,7 @@ const PerJam = ({route, navigation}) => {
 		const headers = {
 			'Authorization': token
 		}
+		let jam = moment().format("HH:mm:ss")
 		if(parseInt(jam) >= 8 && parseInt(jam) <= 15)
 		{
 			const nilaiJam = parseInt(jam)
@@ -182,10 +194,19 @@ const PerJam = ({route, navigation}) => {
 				hours: nilaiJam,
 				qc_daily_inspection_id: qc_daily_inspection_id
 			}
-			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
+			Axios.get('http://192.168.131.226:3003/api/v2/qcs?', {params: params, headers: headers})
 			.then(response => {
 				setNGData(response.data.data.ng_category)
 				setData(response.data.data)
+				setUpdatePN(response.data.data.daily_inspection.check_appearance_pn)
+				setCheckPackaging(response.data.data.daily_inspection.check_packaging)
+				setUpdateStart(response.data.data.daily_inspection.label_begin)
+				setUpdateEnd(response.data.data.daily_inspection.label_end)
+				setUpdateSpItem(response.data.data.daily_inspection.special_item)
+				setUpdateCNG(response.data.data.daily_inspection.ng_name)
+				setUpdateCNT(response.data.data.daily_inspection.note)
+				setUpdateStdT(response.data.data.daily_inspection.status)
+				setUpdateIT(response.data.data.daily_inspection.inspection_time)
 				setLoading(true)
 				setTooling(response.data.data.daily_inspection.tooling_num)
 				setDataProduction(response.data.data.output_production.gross_prod)
@@ -208,10 +229,19 @@ const PerJam = ({route, navigation}) => {
 				hours: nilaiJam,
 				qc_daily_inspection_id: qc_daily_inspection_id
 			}
-			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
+			Axios.get('http://192.168.131.226:3003/api/v2/qcs?', {params: params, headers: headers})
 			.then(response => {
 				setNGData(response.data.data.ng_category)
 				setData(response.data.data)
+				setUpdatePN(response.data.data.daily_inspection.check_appearance_pn)
+				setCheckPackaging(response.data.data.daily_inspection.check_packaging)
+				setUpdateStart(response.data.data.daily_inspection.label_begin)
+				setUpdateEnd(response.data.data.daily_inspection.label_end)
+				setUpdateSpItem(response.data.data.daily_inspection.special_item)
+				setUpdateCNG(response.data.data.daily_inspection.ng_name)
+				setUpdateCNT(response.data.data.daily_inspection.note)
+				setUpdateStdT(response.data.data.daily_inspection.status)
+				setUpdateIT(response.data.data.daily_inspection.inspection_time)
 				setLoading(true)
 				setTooling(response.data.data.daily_inspection.tooling_num)
 				setDataProduction(response.data.data.output_production.gross_prod)
@@ -234,10 +264,19 @@ const PerJam = ({route, navigation}) => {
 				hours: nilaiJam,
 				qc_daily_inspection_id: qc_daily_inspection_id
 			}
-			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
+			Axios.get('http://192.168.131.226:3003/api/v2/qcs?', {params: params, headers: headers})
 			.then(response => { 
 				setNGData(response.data.data.ng_category)
 				setData(response.data.data)
+				setUpdatePN(response.data.data.daily_inspection.check_appearance_pn)
+				setCheckPackaging(response.data.data.daily_inspection.check_packaging)
+				setUpdateStart(response.data.data.daily_inspection.label_begin)
+				setUpdateEnd(response.data.data.daily_inspection.label_end)
+				setUpdateSpItem(response.data.data.daily_inspection.special_item)
+				setUpdateCNG(response.data.data.daily_inspection.ng_name)
+				setUpdateCNT(response.data.data.daily_inspection.note)
+				setUpdateStdT(response.data.data.daily_inspection.status)
+				setUpdateIT(response.data.data.daily_inspection.inspection_time)
 				setLoading(true)
 				setTooling(response.data.data.daily_inspection.tooling_num)
 				setDataProduction(response.data.data.output_production.gross_prod)
@@ -251,40 +290,118 @@ const PerJam = ({route, navigation}) => {
 	}
 	//getdata berdasarkan jam
 	const shiftFix = async(value) => {
-		setHours(value)
 		setLoading(false)
+		setHours(value)
 		const token = await AsyncStorage.getItem("key")
 		const headers = {
 			'Authorization': token
 		}
 		let hoursNow = moment().format("HH")
 		const minHours = parseInt(hoursNow) - 1
-		const params = {
-			tbl: 'daily_inspection',
-			kind: 'get_hour',
-			sys_plant_id: sys_plant_id,
-			machine_id: machine_id,
-			hours: parseInt(value),
-			qc_daily_inspection_id: qc_daily_inspection_id
-		}
-		Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
-		.then(response => {
-			setNGData(response.data.data.ng_category)
-			setData(response.data.data)
-			setLoading(true)
-			setTooling(response.data.data.daily_inspection.tooling_num)
-			setDataProduction(response.data.data.output_production.gross_prod)
-			console.log("List Data By Shift: ", response.data.status, "OK")
-		})
-		.catch(error => {
-			setLoading(true)
-			console.log('List Data Per Jam: ', error)
-		})
 		if(value == minHours || value == hoursNow){
+			if(value >= 8 && value <= 15){
+				const params = {
+					tbl: 'daily_inspection',
+					kind: 'get_hour',
+					sys_plant_id: sys_plant_id,
+					machine_id: machine_id,
+					hrd_work_shift_id: 2,
+					hours: parseInt(value),
+					qc_daily_inspection_id: qc_daily_inspection_id
+				}
+				Axios.get('http://192.168.131.226:3003/api/v2/qcs?', {params: params, headers: headers})
+				.then(response => {
+					setNGData(response.data.data.ng_category)
+					setData(response.data.data)
+					setUpdatePN(response.data.data.daily_inspection.check_appearance_pn)
+					setCheckPackaging(response.data.data.daily_inspection.check_packaging)
+					setUpdateStart(response.data.data.daily_inspection.label_begin)
+				setUpdateEnd(response.data.data.daily_inspection.label_end)
+				setUpdateSpItem(response.data.data.daily_inspection.special_item)
+				setUpdateCNG(response.data.data.daily_inspection.ng_name)
+				setUpdateCNT(response.data.data.daily_inspection.note)
+				setUpdateStdT(response.data.data.daily_inspection.status)
+				setUpdateIT(response.data.data.daily_inspection.inspection_time)
+					setTooling(response.data.data.daily_inspection.tooling_num)
+					setDataProduction(response.data.data.output_production.gross_prod)
+					setLoading(true)
+					console.log("List Data By Shift 1: ", response.data.status, "OK")
+				})
+				.catch(error => {
+					setLoading(true)
+					console.log('List Data Per Jam: ', error)
+				})
+			}else if(value >= 16 && value <= 23){
+				const params = {
+					tbl: 'daily_inspection',
+					kind: 'get_hour',
+					sys_plant_id: sys_plant_id,
+					machine_id: machine_id,
+					hrd_work_shift_id: 3,
+					hours: parseInt(value),
+					qc_daily_inspection_id: qc_daily_inspection_id
+				}
+				Axios.get('http://192.168.131.226:3003/api/v2/qcs?', {params: params, headers: headers})
+				.then(response => {
+					setNGData(response.data.data.ng_category)
+					setData(response.data.data)
+					setUpdatePN(response.data.data.daily_inspection.check_appearance_pn)
+					setCheckPackaging(response.data.data.daily_inspection.check_packaging)
+					setUpdateStart(response.data.data.daily_inspection.label_begin)
+				setUpdateEnd(response.data.data.daily_inspection.label_end)
+				setUpdateSpItem(response.data.data.daily_inspection.special_item)
+				setUpdateCNG(response.data.data.daily_inspection.ng_name)
+				setUpdateCNT(response.data.data.daily_inspection.note)
+				setUpdateStdT(response.data.data.daily_inspection.status)
+				setUpdateIT(response.data.data.daily_inspection.inspection_time)
+					setTooling(response.data.data.daily_inspection.tooling_num)
+					setDataProduction(response.data.data.output_production.gross_prod)
+					setLoading(true)
+					console.log("List Data By Shift 2: ", response.data.status, "OK")
+				})
+				.catch(error => {
+					setLoading(true)
+					console.log('List Data Per Jam: ', error)
+				})
+			}else{
+				const params = {
+					tbl: 'daily_inspection',
+					kind: 'get_hour',
+					sys_plant_id: sys_plant_id,
+					machine_id: machine_id,
+					hrd_work_shift_id: 4,
+					hours: parseInt(value),
+					qc_daily_inspection_id: qc_daily_inspection_id
+				}
+				Axios.get('http://192.168.131.226:3003/api/v2/qcs?', {params: params, headers: headers})
+				.then(response => {
+					setNGData(response.data.data.ng_category)
+					setData(response.data.data)
+					setUpdatePN(response.data.data.daily_inspection.check_appearance_pn)
+					setCheckPackaging(response.data.data.daily_inspection.check_packaging)
+					setUpdateStart(response.data.data.daily_inspection.label_begin)
+				setUpdateEnd(response.data.data.daily_inspection.label_end)
+				setUpdateSpItem(response.data.data.daily_inspection.special_item)
+				setUpdateCNG(response.data.data.daily_inspection.ng_name)
+				setUpdateCNT(response.data.data.daily_inspection.note)
+				setUpdateStdT(response.data.data.daily_inspection.status)
+				setUpdateIT(response.data.data.daily_inspection.inspection_time)
+					setTooling(response.data.data.daily_inspection.tooling_num)
+					setDataProduction(response.data.data.output_production.gross_prod)
+					setLoading(true)
+					console.log("List Data By Shift 3: ", response.data.status, "OK")
+				})
+				.catch(error => {
+					setLoading(true)
+					console.log('List Data Per Jam: ', error)
+				})
+			}
+			setLoading(true)
 			console.log("Berhasil!")
 		}else{
-			alert("Access Denied")
+			setLoading(true)
 			setHours(parseInt(hoursNow))
+			alert("Access Denied")
 		}
 	}
 
@@ -342,6 +459,164 @@ const PerJam = ({route, navigation}) => {
 			const stVal = "OK"
 			setStatus(stVal)
 		}
+	}
+
+	const updatePN = () => {
+		var data = []
+		if(updatePNData != null){
+			data.push(
+				<View key="sok2" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+					<Text>{updatePNData}</Text>
+				</View>
+			)
+		}else{
+			data.push(
+				<View key="saoij2m" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<TextInput onChangeText={(value) => updateStatus(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." keyboardType="numeric"/>
+				</View>
+			)
+		}
+		return data
+	}
+
+	const updateCheckPackagingFunc = () => {
+		var data = []
+		if(updateCheckPackaging != null){
+			data.push(
+				<View key="029ijkas" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+					<Text>{updateCheckPackaging}</Text>
+				</View>
+			)
+		}else{
+			data.push(
+				<View key="029ijkas" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<Picker 
+					mode="dropdown"
+					selectedValue={checkPackaging}
+					onValueChange={(value) => setCheckPacking(value)}
+					>
+							<Picker.Item label="Pilih" value="" />
+							<Picker.Item label="OK" value="OK" />
+							<Picker.Item label="NG" value="NG" />
+					</Picker>
+				</View>
+			)
+		}
+		return data
+	}
+
+	const updateStartFunc = () => {
+		var data = []
+		if(updateStart != null){
+			data.push(
+				<View key="asoidjn2" style={{width: "100%", marginTop: 5, borderWidth: 0.5, borderRadius: 25, backgroundColor: '#b8b8b8', paddingTop: 5, paddingLeft: 5, height: 40}}>
+					<Text>{updateStart}</Text>
+				</View>
+			)
+		}else{
+			data.push(
+				<View key="asoidjn2" style={{width: "100%", marginTop: 5, borderWidth: 0.5, borderRadius: 25, paddingLeft: 5, height: 40}}>
+					<TextInput onChangeText={(value) => setStartLabel(value)} style={{paddingLeft: 5, height: 40}} placeholder="Type Here..." keyboardType="numeric"/>
+				</View>
+			)
+		}
+		return data
+	}
+	
+	const updateEndFunc = () => {
+		var data = []
+		if(updateEnd != null){
+			data.push(
+				<View key="asoidjn2" style={{width: "100%", marginTop: 5, borderWidth: 0.5, borderRadius: 25, backgroundColor: '#b8b8b8', paddingTop: 5, paddingLeft: 5, height: 40}}>
+					<Text>{updateEnd}</Text>
+				</View>
+			)
+		}else{
+			data.push(
+				<View key="asoidjn2" style={{width: "100%", marginTop: 5, marginLeft: 2, borderWidth: 0.5, borderRadius: 25, paddingLeft: 5, height: 40}}>
+					<TextInput onChangeText={(value) => setEndLabel(value)} style={{paddingLeft: 5, height: 40}} placeholder="Type Here..." keyboardType="numeric"/>
+				</View>
+			)
+		}
+		return data
+	}
+
+	const updateSpecialItemFunc = () => {
+		var data = []
+		if(updateSpecialItem != null){
+			data.push(
+				<View key="asiuhj2" style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5, borderWidth: 0.5, borderRadius: 25, backgroundColor: '#b8b8b8', height: 40}}>
+					<Text>{updateSpecialItem}</Text>
+				</View>
+			)
+		}else{
+			data.push(
+				<View key="asiuhj2" style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+					<TextInput onChangeText={(value) => setSpecialItem(value)} style={{borderWidth: 0.5, borderRadius: 25, paddingLeft: 5, height: 40}} placeholder="Type Here..." />
+				</View>
+			)
+		}
+		return data
+	}
+
+	const updateCategoryNGFunc = () => {
+		var data = []
+		if(updateCategoryNG != null){
+			data.push(
+				<View key="asoijdi2" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+					<Text>{updateCategoryNG}</Text>
+				</View>
+			)
+		}else{
+			data.push(
+				<View key="asoijdi2" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<Picker 
+					mode="dropdown"
+					selectedValue={categoryNG}
+					onValueChange={(value) => setCategoryNG(value)}
+					>
+						{ngsDataFix()}
+					</Picker>
+				</View>
+			)
+		}
+		return data
+	}
+
+	const updateNoteFunc = () => {
+		var data = []
+		if(updateNote != null){
+			data.push(
+				<View key="asih2n" style={{height: 40, justifyContent: 'center', paddingLeft: 5, paddingTop: 5, borderWidth: 0.5, borderRadius: 25, backgroundColor: '#b8b8b8'}}>
+					<Text>{updateNote}</Text>
+				</View>
+			)
+		}else{
+			data.push(
+				<View key="asih2n" style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+					<TextInput onChangeText={(value) => setNoteUnnormal(value)} style={{borderWidth: 0.5, borderRadius: 25, paddingLeft: 5, height: 40}} placeholder="Type Here..." />
+				</View>
+			)
+		}
+		return data
+	}
+
+	const updateStatusFunc = () => {
+		var data = []
+		if(updateStatusData != null){
+			data.push(
+				<View key="asoihdnj2" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, marginTop: 5, backgroundColor: '#b8b8b8'}}>
+					<Text>{updateStatusData}</Text>
+				</View>
+			)
+		}else{
+			data.push(
+				<View key="asoihdnj2" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, marginTop: 5, backgroundColor: '#b8b8b8'}}>
+					<Text>{status != null ? status : "-"}</Text>
+				</View>
+			)
+		}
+		return data
 	}
 
 	const content = () => {
@@ -411,9 +686,7 @@ const PerJam = ({route, navigation}) => {
 					</View>
 					<View style={{paddingTop: 8, paddingHorizontal: 4, paddingBottom: 4, width: "44%"}}>
 						<View style={{paddingTop: 5, height: 50, justifyContent: 'center'}}>
-							<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-								<TextInput onChangeText={(value) => updateStatus(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." keyboardType="numeric"/>
-							</View>
+							{updatePN()}
 							<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, marginTop: 5, backgroundColor: '#b8b8b8'}}>
 								<Text>{appearance_n != 0 ? appearance_n : "-"}</Text>
 							</View>
@@ -423,24 +696,14 @@ const PerJam = ({route, navigation}) => {
 				
 				<View style={{paddingTop: 20, flexDirection: 'row'}}>
 						<View style={{padding: 10, width: "44%"}}>
-								<Text>Check Packing</Text>
+								<Text>Check Packaging</Text>
 						</View>
 						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
 								<Text style={{color: 'black'}}>:</Text>
 						</View>
 						<View style={{padding: 4, width: "50%"}}>
 								<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-										<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-												<Picker 
-												mode="dropdown"
-												selectedValue={checkPackaging}
-												onValueChange={(value) => setCheckPacking(value)}
-												>
-														<Picker.Item label="Pilih" value="" />
-														<Picker.Item label="OK" value="OK" />
-														<Picker.Item label="NG" value="NG" />
-												</Picker>
-										</View>
+										{updateCheckPackagingFunc()}
 								</View>
 						</View>
 				</View>
@@ -455,17 +718,11 @@ const PerJam = ({route, navigation}) => {
 					<View style={{padding: 4, width: "50%", flexDirection: 'row'}}>
 						<View style={{width: "50%", alignItems: 'center'}}>
 							<Text>Start</Text>
-							<View style={{width: "100%", marginTop: 5, borderWidth: 0.5, borderRadius: 25, paddingLeft: 5, height: 40}}>
-								<TextInput onChangeText={(value) => setStartLabel(value)} style={{paddingLeft: 5, height: 40}} placeholder="Type Here..." keyboardType="numeric"/>
-								{/* <Text style={{marginTop: 5}}>{data.daily_inspection != null ? data.daily_inspection.label_begin : "-"}</Text> */}
-							</View>
+							{updateStartFunc()}
 						</View>
 						<View style={{flex: 1, alignItems: 'center'}}>
 							<Text>End</Text>
-							<View style={{width: "100%", marginTop: 5, marginLeft: 2, borderWidth: 0.5, borderRadius: 25, paddingLeft: 5, height: 40}}>
-								{/* <Text style={{marginTop: 5}}>{data.daily_inspection != null ? data.daily_inspection.label_end : "-"}</Text> */}
-								<TextInput onChangeText={(value) => setEndLabel(value)} style={{paddingLeft: 5, height: 40}} placeholder="Type Here..." keyboardType="numeric"/>
-							</View>
+							{updateEndFunc()}
 						</View>
 					</View>
 				</View>
@@ -478,9 +735,7 @@ const PerJam = ({route, navigation}) => {
 						<Text style={{color: 'black'}}>:</Text>
 					</View>
 					<View style={{padding: 4, width: "50%"}}>
-						<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-							<TextInput onChangeText={(value) => setSpecialItem(value)} style={{borderWidth: 0.5, borderRadius: 25, paddingLeft: 5, height: 40}} placeholder="Type Here..." />
-						</View>
+						{updateSpecialItemFunc()}
 					</View>
 				</View>
 
@@ -493,9 +748,7 @@ const PerJam = ({route, navigation}) => {
 					</View>
 					<View style={{padding: 4, width: "50%"}}>
 						<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-							<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, marginTop: 5, backgroundColor: '#b8b8b8'}}>
-								<Text>{status != null ? status : "-"}</Text>
-							</View>
+							{updateStatusFunc()}
 						</View>
 					</View>
 				</View>
@@ -509,15 +762,7 @@ const PerJam = ({route, navigation}) => {
 					</View>
 					<View style={{padding: 4, width: "50%"}}>
 						<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-							<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-								<Picker 
-								mode="dropdown"
-								selectedValue={categoryNG}
-								onValueChange={(value) => setCategoryNG(value)}
-								>
-									{ngsDataFix()}
-								</Picker>
-							</View>
+							{updateCategoryNGFunc()}
 						</View>
 					</View>
 				</View>
@@ -530,9 +775,7 @@ const PerJam = ({route, navigation}) => {
 								<Text style={{color: 'black'}}>:</Text>
 						</View>
 						<View style={{padding: 4, width: "50%"}}>
-								<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-									<TextInput onChangeText={(value) => setNoteUnnormal(value)} style={{borderWidth: 0.5, borderRadius: 25, paddingLeft: 5, height: 40}} placeholder="Type Here..." />
-								</View>
+							{updateNoteFunc()}
 						</View>
 				</View>
 
@@ -557,12 +800,12 @@ const PerJam = ({route, navigation}) => {
 				</View>
 				
 				<View style={{width: "100%", justifyContent: 'center', alignItems: 'center'}}>
-					{resultImage()}
+					{updateinspection_time == null ? resultImage() : null}
 				</View>
 
 				<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
 					<View>
-						<Button onPress={() => submit()} style={{width: 172, borderRadius: 25, justifyContent: 'center'}}><Text>SAVE</Text></Button>
+						{updateinspection_time != null ? <Button onPress={() => alert("Already Saved!")} style={{width: 172, borderRadius: 25, justifyContent: 'center', backgroundColor: '#05c46b'}}><Text>SAVE</Text></Button> : <Button onPress={() => submit()} style={{width: 172, borderRadius: 25, justifyContent: 'center'}}><Text>SAVE</Text></Button>}
 					</View>
 				</View>
 
@@ -574,7 +817,7 @@ const PerJam = ({route, navigation}) => {
 					</View>
 					<View style={{height: 23, alignItems: 'center'}}>
 						<Text>
-							{inspectionTime}
+							{updateinspection_time != null ? updateinspection_time : inspectionTime}
 						</Text>
 					</View>
 				</View>

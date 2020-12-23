@@ -75,7 +75,7 @@ const MassproBeginMaterialPreparation = ({route, navigation}) => {
 		}
 		var config = {
 			method: 'put',
-			url: 'https://api.tri-saudara.com/api/v2/qcs/update?',
+			url: 'http://192.168.131.226:3003/api/v2/qcs/update?',
 			params: params,
 			headers: { 
 				'Authorization': token, 
@@ -128,7 +128,7 @@ const MassproBeginMaterialPreparation = ({route, navigation}) => {
 			sys_plant_id: sys_plant_id,
 			machine_id: machine_id
 		}
-		Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
+		Axios.get('http://192.168.131.226:3003/api/v2/qcs?', {params: params, headers: headers})
 		.then(response => {
 			setLoading(true)
 			setDataProduct1(response.data.data.product_detail)

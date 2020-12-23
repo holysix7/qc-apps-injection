@@ -17,28 +17,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 	const [compare_sample, setCopySample] 															 = useState("")
 	const [check_sheet, setSheetQc] 																		 = useState("")
 
-	const [statusCavity1, setStatusCavity1] 														 = useState("")
-	const [statusCavity2, setStatusCavity2] 														 = useState("")
-	const [statusCavity3, setStatusCavity3] 														 = useState("")
-	const [statusCavity4, setStatusCavity4] 														 = useState("")
-	const [statusCavity5, setStatusCavity5] 														 = useState("")
-	const [statusCavity6, setStatusCavity6] 														 = useState("")
-	const [statusCavity7, setStatusCavity7] 														 = useState("")
-	const [statusCavity8, setStatusCavity8] 														 = useState("")
-	const [statusCavity9, setStatusCavity9] 														 = useState("")
-	const [statusCavity10, setStatusCavity10] 													 = useState("")
-	const [statusCavity11, setStatusCavity11] 													 = useState("")
-	const [statusCavity12, setStatusCavity12] 													 = useState("")
-	const [statusCavity13, setStatusCavity13] 													 = useState("")
-	const [statusCavity14, setStatusCavity14] 													 = useState("")
-	const [statusCavity15, setStatusCavity15] 													 = useState("")
-	const [statusCavity16, setStatusCavity16] 													 = useState("")
-	const [statusCavity17, setStatusCavity17] 													 = useState("")
-	const [statusCavity18, setStatusCavity18] 													 = useState("")
-
 	const [updateMassproQlItem, setUpdateMassproQlItem] 								 = useState("")
-	
-
 
 	const [judgement_first_piece1, setJudgement1] 											 = useState("")
 	const [judgement_first_piece2, setJudgement2] 											 = useState("")
@@ -321,10 +300,10 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				if(element.judgement_first_piece == "NG" || element.fitting_test == "NG" || compare_sample == "NG" || check_sheet == "NG"){
 					var dataNGItems = []
 					dataNGItems.push(
-						<Picker.Item label="--Pilih--" value={0} key="apsodkmk2" />
+						<Picker.Item label="--Pilih--" value={0} key={key} />
 					)
 					dataNGItems.push(
-						<Picker.Item label="Others" value={0} key="apsodkmk2" />
+						<Picker.Item label="Others" value={0} key={key} />
 					)
 					ngCategories.map((elementdua, keydua) => {
 						dataNGItems.push(
@@ -335,7 +314,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				}else{
 					var dataNGItems = []
 					dataNGItems.push(
-						<Picker.Item label="Tidak NG" value={9999} key="swQwdAcxz12" />
+						<Picker.Item label="Tidak NG" value={9999} key={key} />
 					)
 					dataNGs.push(dataNGItems)
 				}
@@ -382,7 +361,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 		}
 		var config = {
 			method: 'put',
-			url: 'https://api.tri-saudara.com/api/v2/qcs/update?',
+			url: 'http://192.168.131.226:3003/api/v2/qcs/update?',
 			params: params,
 			headers: { 
 					'Authorization': token, 
@@ -435,7 +414,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 			sys_plant_id: sys_plant_id,
 			machine_id: machine_id
 		}
-		Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
+		Axios.get('http://192.168.131.226:3003/api/v2/qcs?', {params: params, headers: headers})
 		.then(response => {
 			setLoading(true)
 			setMaintMoldId(response.data.data.qc_masspro_main_mold_id)
@@ -987,6 +966,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
 										<Picker.Item label="NG" value="NG"/>
+										<Picker.Item label="No Check" value="no_check"/>
 									</Picker>
 								</View>
 							</View>
@@ -1045,6 +1025,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
 										<Picker.Item label="NG" value="NG"/>
+										<Picker.Item label="No Check" value="no_check"/>
 									</Picker>
 								</View>
 							</View>
@@ -1103,6 +1084,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
 										<Picker.Item label="NG" value="NG"/>
+										<Picker.Item label="No Check" value="no_check"/>
 									</Picker>
 								</View>
 							</View>
@@ -1161,6 +1143,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
 										<Picker.Item label="NG" value="NG"/>
+										<Picker.Item label="No Check" value="no_check"/>
 									</Picker>
 								</View>
 							</View>
@@ -1219,6 +1202,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
 										<Picker.Item label="NG" value="NG"/>
+										<Picker.Item label="No Check" value="no_check"/>
 									</Picker>
 								</View>
 							</View>
@@ -1277,6 +1261,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
 										<Picker.Item label="NG" value="NG"/>
+										<Picker.Item label="No Check" value="no_check"/>
 									</Picker>
 								</View>
 							</View>
@@ -1335,6 +1320,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
 										<Picker.Item label="NG" value="NG"/>
+										<Picker.Item label="No Check" value="no_check"/>
 									</Picker>
 								</View>
 							</View>
@@ -1393,6 +1379,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
 										<Picker.Item label="NG" value="NG"/>
+										<Picker.Item label="No Check" value="no_check"/>
 									</Picker>
 								</View>
 							</View>
@@ -1451,6 +1438,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
 										<Picker.Item label="NG" value="NG"/>
+										<Picker.Item label="No Check" value="no_check"/>
 									</Picker>
 								</View>
 							</View>
@@ -1509,6 +1497,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
 										<Picker.Item label="NG" value="NG"/>
+										<Picker.Item label="No Check" value="no_check"/>
 									</Picker>
 								</View>
 							</View>
@@ -1567,6 +1556,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
 										<Picker.Item label="NG" value="NG"/>
+										<Picker.Item label="No Check" value="no_check"/>
 									</Picker>
 								</View>
 							</View>
@@ -1625,6 +1615,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
 										<Picker.Item label="NG" value="NG"/>
+										<Picker.Item label="No Check" value="no_check"/>
 									</Picker>
 								</View>
 							</View>
@@ -1683,6 +1674,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
 										<Picker.Item label="NG" value="NG"/>
+										<Picker.Item label="No Check" value="no_check"/>
 									</Picker>
 								</View>
 							</View>
@@ -1741,6 +1733,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
 										<Picker.Item label="NG" value="NG"/>
+										<Picker.Item label="No Check" value="no_check"/>
 									</Picker>
 								</View>
 							</View>
@@ -1799,6 +1792,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
 										<Picker.Item label="NG" value="NG"/>
+										<Picker.Item label="No Check" value="no_check"/>
 									</Picker>
 								</View>
 							</View>
@@ -1857,6 +1851,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
 										<Picker.Item label="NG" value="NG"/>
+										<Picker.Item label="No Check" value="no_check"/>
 									</Picker>
 								</View>
 							</View>
@@ -1915,6 +1910,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
 										<Picker.Item label="NG" value="NG"/>
+										<Picker.Item label="No Check" value="no_check"/>
 									</Picker>
 								</View>
 							</View>
@@ -1974,6 +1970,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
 										<Picker.Item label="NG" value="NG"/>
+										<Picker.Item label="No Check" value="no_check"/>
 									</Picker>
 								</View>
 							</View>

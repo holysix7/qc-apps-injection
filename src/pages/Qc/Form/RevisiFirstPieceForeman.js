@@ -16,7 +16,7 @@ const RevisiFirstPieceForeman = ({route, navigation}) => {
 	const [masspro_fr_id, setMassproFRId] 			= useState("")
 	const [judgement, setDecision] 							= useState("")
 	const [tooling_num, setTooling] 						= useState("")
-	const [action_foreman, setActionForeman] 		= useState("")
+	const [action_foreman, setActionForeman] 		= useState(null)
 	const [hours, setHours]		  								= useState(0)
 	const [shift, setShift]		  								= useState(0)
 	const [data, setData] 											= useState([])
@@ -32,6 +32,7 @@ const RevisiFirstPieceForeman = ({route, navigation}) => {
 	const [revisiForeman, setRevisiForeman] 						= useState("")
 	const [updateActionForeman, setUpdateActionForeman] = useState("")
 	const [updateJudgement, setUpdateDecision] 					= useState("")
+	const [remark, setRemark] 					= useState("")
 	const date = []
 	const prod_machine_id = machine_id
 
@@ -59,7 +60,6 @@ const RevisiFirstPieceForeman = ({route, navigation}) => {
 		const id = await AsyncStorage.getItem('id')
 		setCreatedBy(id)
 		setUpdatedBy(id)
-
 		let jam = moment().format("HH:mm:ss")
 		if(parseInt(jam) >= 8 && parseInt(jam) <= 15)
 		{
@@ -75,7 +75,7 @@ const RevisiFirstPieceForeman = ({route, navigation}) => {
 				hours: nilaiJam,
 				qc_daily_inspection_id: qc_daily_inspection_id
 			}
-			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
+			Axios.get('http://192.168.131.226:3003/api/v2/qcs?', {params: params, headers: headers})
 			.then(response => {
 				setLoading(true)
 				setEngProd(response.data.data.eng_product_id)
@@ -87,12 +87,14 @@ const RevisiFirstPieceForeman = ({route, navigation}) => {
 				setActionForeman(response.data.data.masspro_fr.action_foreman)
 				setMassproFRId(response.data.data.masspro_fr.id)
 				setDecision(response.data.data.masspro_fr.judgement)
+				setRemark(response.data.data.masspro_fr.remark)
 				setRevisiForeman(response.data.data.revisi_foreman)
 				setUpdateActionForeman(response.data.data.revisi_foreman.action_foreman)
 				setUpdateDecision(response.data.data.revisi_foreman.judgement)
 				console.log("List Data Revisi First Piece Foreman: ", response.data.status, "OK")
 			})
 			.catch(error => {
+				setLoading(true)
 				console.log('List Data Revisi First Piece Foreman: ', error)
 			})
 		}else if(parseInt(jam) >= 16 && parseInt(jam) <= 23){
@@ -108,7 +110,7 @@ const RevisiFirstPieceForeman = ({route, navigation}) => {
 				hours: nilaiJam,
 				qc_daily_inspection_id: qc_daily_inspection_id
 			}
-			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
+			Axios.get('http://192.168.131.226:3003/api/v2/qcs?', {params: params, headers: headers})
 			.then(response => {
 				setLoading(true)
 				setEngProd(response.data.data.eng_product_id)
@@ -120,12 +122,14 @@ const RevisiFirstPieceForeman = ({route, navigation}) => {
 				setActionForeman(response.data.data.masspro_fr.action_foreman)
 				setMassproFRId(response.data.data.masspro_fr.id)
 				setDecision(response.data.data.masspro_fr.judgement)
+				setRemark(response.data.data.masspro_fr.remark)
 				setRevisiForeman(response.data.data.revisi_foreman)
 				setUpdateActionForeman(response.data.data.revisi_foreman.action_foreman)
 				setUpdateDecision(response.data.data.revisi_foreman.judgement)
 				console.log("List Data Revisi First Piece Foreman: ", response.data.status, "OK")
 			})
 			.catch(error => {
+				setLoading(true)
 				console.log('List Data Revisi First Piece Foreman: ', error)
 			})
 		}else{
@@ -141,7 +145,7 @@ const RevisiFirstPieceForeman = ({route, navigation}) => {
 				hours: nilaiJam,
 				qc_daily_inspection_id: qc_daily_inspection_id
 			}
-			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
+			Axios.get('http://192.168.131.226:3003/api/v2/qcs?', {params: params, headers: headers})
 			.then(response => {
 				setLoading(true)
 				setEngProd(response.data.data.eng_product_id)
@@ -153,12 +157,14 @@ const RevisiFirstPieceForeman = ({route, navigation}) => {
 				setActionForeman(response.data.data.masspro_fr.action_foreman)
 				setMassproFRId(response.data.data.masspro_fr.id)
 				setDecision(response.data.data.masspro_fr.judgement)
+				setRemark(response.data.data.masspro_fr.remark)
 				setRevisiForeman(response.data.data.revisi_foreman)
 				setUpdateActionForeman(response.data.data.revisi_foreman.action_foreman)
 				setUpdateDecision(response.data.data.revisi_foreman.judgement)
 				console.log("List Data Revisi First Piece Foreman: ", response.data.status, "OK")
 			})
 			.catch(error => {
+				setLoading(true)
 				console.log('List Data Revisi First Piece Foreman: ', error)
 			})
 		}
@@ -176,6 +182,7 @@ const RevisiFirstPieceForeman = ({route, navigation}) => {
 			prod_machine_id,
 			sys_plant_id,
 			planning_id,
+			remark,
 			internal_part_id,
 			qc_daily_inspection_id,
 			action_foreman,
@@ -191,9 +198,10 @@ const RevisiFirstPieceForeman = ({route, navigation}) => {
 			tbl: 'daily_inspection',
 			kind: 'rev_first_piece_fr'
 		}
+		// setLoading(true)
 		var config = {
 			method: 'put',
-			url: 'https://api.tri-saudara.com/api/v2/qcs/update?',
+			url: 'http://192.168.131.226:3003/api/v2/qcs/update?',
 			params: params,
 			headers: { 
 				'Authorization': token, 
@@ -211,6 +219,7 @@ const RevisiFirstPieceForeman = ({route, navigation}) => {
 		})
 		.catch(function (error){
 			alert("Failed Send Data!")
+			setLoading(true)
 			console.log(error)
 		})
 	}

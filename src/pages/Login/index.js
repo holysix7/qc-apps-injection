@@ -22,7 +22,7 @@ const Login = ({navigation}) => {
 			password
 		}
 		try {
-			Axios.post('https://api.tri-saudara.com/auth', data)
+			Axios.post('http://192.168.131.226:3003/auth', data)
 			.then(res => {
 				// setLoading(true)
 				DeviceStorage(res.data.data.token)

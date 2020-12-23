@@ -32,24 +32,6 @@ const PerShift = ({route, navigation}) => {
 		} 
 	}, [])
 
-	const [statusCavity1, setStatusCavity1] 						= useState("")
-	const [statusCavity2, setStatusCavity2] 						= useState("")
-	const [statusCavity3, setStatusCavity3] 						= useState("")
-	const [statusCavity4, setStatusCavity4] 						= useState("")
-	const [statusCavity5, setStatusCavity5] 						= useState("")
-	const [statusCavity6, setStatusCavity6] 						= useState("")
-	const [statusCavity7, setStatusCavity7] 						= useState("")
-	const [statusCavity8, setStatusCavity8] 						= useState("")
-	const [statusCavity9, setStatusCavity9] 						= useState("")
-	const [statusCavity10, setStatusCavity10] 					= useState("")
-	const [statusCavity11, setStatusCavity11] 					= useState("")
-	const [statusCavity12, setStatusCavity12] 					= useState("")
-	const [statusCavity13, setStatusCavity13] 					= useState("")
-	const [statusCavity14, setStatusCavity14] 					= useState("")
-	const [statusCavity15, setStatusCavity15] 					= useState("")
-	const [statusCavity16, setStatusCavity16] 					= useState("")
-	const [statusCavity17, setStatusCavity17] 					= useState("")
-	const [statusCavity18, setStatusCavity18] 					= useState("")
 	
 	const [product_weight1, setproduct_weight1]	  			= useState("")
 	const [product_weight2, setproduct_weight2]   			= useState("")
@@ -89,13 +71,14 @@ const PerShift = ({route, navigation}) => {
 	const [note17, setKeterangan17] 										= useState("")
 	const [note18, setKeterangan18] 										= useState("")
 
+	const [cavityDetail, setCavityDetail] = useState("")
 	const [internal_part_id, setInternalPartId] = useState("")
 	const [customer_part_number, setCustomerPartNumber] = useState("")
 	const [model, setModel] = useState("")
 	const [data1, setData1] = useState("")
 	const [dataCavity, setDataCavity] = useState("")
 
-	const [cavityCheck, setCavityCheck] 			= useState(0)
+	const [cavityCheck, setCavityCheck] 			= useState("")
 	const [qc_daily_inspection_item_id, setqc_daily_inspection_item_id] 			= useState(0)
 	const [weightStandard, setWeightStandard] = useState(0)
 	const [tooling_num, setTooling] 					= useState("")
@@ -109,6 +92,10 @@ const PerShift = ({route, navigation}) => {
 	let updated_at 														= moment().format("YYYY-MM-DD HH:mm:ss")
 	const [created_by, setCreatedBy]		  		= useState("")
 	const [updated_by, setUpdatedBy]		  		= useState("")
+	
+	const [updateinspection_time, setinspection_timeupdate]		  		= useState("")
+	
+	
 	const date = []
 
 	const [loading, setLoading]		= useState(false)
@@ -152,10 +139,12 @@ const PerShift = ({route, navigation}) => {
 				hours: parseInt(jam),
 				qc_daily_inspection_id: qc_daily_inspection_id
 			}
-			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
+			Axios.get('http://192.168.131.226:3003/api/v2/qcs?', {params: params, headers: headers})
 			.then(response => {
 				setLoading(true)
 				setData(response.data.data)
+				setinspection_timeupdate(response.data.data.daily_inspection.inspection_time)
+				setCavityDetail(response.data.data.cavity_detail)
 				setqc_daily_inspection_item_id(response.data.data.daily_inspection.qc_daily_inpspection_item_id)
 				setInternalPartId(response.data.data.daily_inspection.internal_part_id)
 				setCustomerPartNumber(response.data.data.daily_inspection.customer_part_number)
@@ -183,10 +172,12 @@ const PerShift = ({route, navigation}) => {
 				hours: parseInt(jam),
 				qc_daily_inspection_id: qc_daily_inspection_id
 			}
-			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
+			Axios.get('http://192.168.131.226:3003/api/v2/qcs?', {params: params, headers: headers})
 			.then(response => {
 				setLoading(true)
 				setData(response.data.data)
+				setinspection_timeupdate(response.data.data.daily_inspection.inspection_time)
+				setCavityDetail(response.data.data.cavity_detail)
 				setqc_daily_inspection_item_id(response.data.data.daily_inspection.qc_daily_inpspection_item_id)
 				setInternalPartId(response.data.data.daily_inspection.internal_part_id)
 				setCustomerPartNumber(response.data.data.daily_inspection.customer_part_number)
@@ -214,10 +205,12 @@ const PerShift = ({route, navigation}) => {
 				hours: parseInt(jam),
 				qc_daily_inspection_id: qc_daily_inspection_id
 			}
-			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
+			Axios.get('http://192.168.131.226:3003/api/v2/qcs?', {params: params, headers: headers})
 			.then(response => {
 				setLoading(true)
 				setData(response.data.data)
+				setinspection_timeupdate(response.data.data.daily_inspection.inspection_time)
+				setCavityDetail(response.data.data.cavity_detail)
 				setqc_daily_inspection_item_id(response.data.data.daily_inspection.qc_daily_inpspection_item_id)
 				setInternalPartId(response.data.data.daily_inspection.internal_part_id)
 				setCustomerPartNumber(response.data.data.daily_inspection.customer_part_number)
@@ -242,37 +235,94 @@ const PerShift = ({route, navigation}) => {
 		const headers = {
 			'Authorization': token
 		}
-		const params = {
-			tbl: 'daily_inspection',
-			kind: 'get_shift',
-			sys_plant_id: sys_plant_id,
-			machine_id: machine_id,
-			hrd_work_shift_id: 2,
-			hours: value,
-			qc_daily_inspection_id: qc_daily_inspection_id
-		}
-		Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
-		.then(response => {
-			setLoading(true)
-			setData(response.data.data)
-			setqc_daily_inspection_item_id(response.data.data.daily_inspection.qc_daily_inpspection_item_id)
-			setCavityCheck(response.data.data.daily_inspection.cavity)
-			setTooling(response.data.data.daily_inspection.tooling_num)
-			setDataCavity(response.data.data.daily_inspection.cavity)
-			setWeightStandard(response.data.data.product_weight)
-			console.log("List Data Per Shift Berdasarkan Shift: ", response.data.status, "OK")
-		})
-		.catch(error => {
-			console.log('List Data Per Shift: ', error)
-		})
 		let hoursNow = moment().format("HH")
 		const minHours = parseInt(hoursNow) - 1
-			if(value == minHours || value == hoursNow){
+		if(value == minHours || value == hoursNow){
+			if(value >= 8 && value <= 15){
+				const params = {
+					tbl: 'daily_inspection',
+					kind: 'get_shift',
+					sys_plant_id: sys_plant_id,
+					machine_id: machine_id,
+					hrd_work_shift_id: 2,
+					hours: parseInt(value),
+					qc_daily_inspection_id: qc_daily_inspection_id
+				}
+				Axios.get('http://192.168.131.226:3003/api/v2/qcs?', {params: params, headers: headers})
+				.then(response => {
+					setLoading(true)
+					setData(response.data.data)
+					setinspection_timeupdate(response.data.data.daily_inspection.inspection_time)
+					setCavityDetail(response.data.data.cavity_detail)
+					setqc_daily_inspection_item_id(response.data.data.daily_inspection.qc_daily_inpspection_item_id)
+					setCavityCheck(response.data.data.daily_inspection.cavity)
+					setTooling(response.data.data.daily_inspection.tooling_num)
+					setDataCavity(response.data.data.daily_inspection.cavity)
+					setWeightStandard(response.data.data.product_weight)
+					console.log("List Data Per Shift Berdasarkan Shift 1: ", response.data.status, "OK")
+				})
+				.catch(error => {
+					console.log('List Data Per Shift: ', error)
+				})
+			}else if(value >= 16 && value <= 23){
+				const params = {
+					tbl: 'daily_inspection',
+					kind: 'get_shift',
+					sys_plant_id: sys_plant_id,
+					machine_id: machine_id,
+					hrd_work_shift_id: 3,
+					hours: parseInt(value),
+					qc_daily_inspection_id: qc_daily_inspection_id
+				}
+				Axios.get('http://192.168.131.226:3003/api/v2/qcs?', {params: params, headers: headers})
+				.then(response => {
+					setLoading(true)
+					setData(response.data.data)
+					setinspection_timeupdate(response.data.data.daily_inspection.inspection_time)
+					setCavityDetail(response.data.data.cavity_detail)
+					setqc_daily_inspection_item_id(response.data.data.daily_inspection.qc_daily_inpspection_item_id)
+					setCavityCheck(response.data.data.daily_inspection.cavity)
+					setTooling(response.data.data.daily_inspection.tooling_num)
+					setDataCavity(response.data.data.daily_inspection.cavity)
+					setWeightStandard(response.data.data.product_weight)
+					console.log("List Data Per Shift Berdasarkan Shift 2: ", response.data.status, "OK")
+				})
+				.catch(error => {
+					console.log('List Data Per Shift: ', error)
+				})
+			}else{
+				const params = {
+					tbl: 'daily_inspection',
+					kind: 'get_shift',
+					sys_plant_id: sys_plant_id,
+					machine_id: machine_id,
+					hrd_work_shift_id: 4,
+					hours: parseInt(value),
+					qc_daily_inspection_id: qc_daily_inspection_id
+				}
+				Axios.get('http://192.168.131.226:3003/api/v2/qcs?', {params: params, headers: headers})
+				.then(response => {
+					setLoading(true)
+					setData(response.data.data)
+					setinspection_timeupdate(response.data.data.daily_inspection.inspection_time)
+					setCavityDetail(response.data.data.cavity_detail)
+					setqc_daily_inspection_item_id(response.data.data.daily_inspection.qc_daily_inpspection_item_id)
+					setCavityCheck(response.data.data.daily_inspection.cavity)
+					setTooling(response.data.data.daily_inspection.tooling_num)
+					setDataCavity(response.data.data.daily_inspection.cavity)
+					setWeightStandard(response.data.data.product_weight)
+					console.log("List Data Per Shift Berdasarkan Shift 3: ", response.data.status, "OK")
+				})
+				.catch(error => {
+					console.log('List Data Per Shift: ', error)
+				})
+			}
+			setLoading(true)
 			console.log("Berhasil!")
 		}else{
-			alert("Access Denied")
 			setLoading(true)
 			setHours(parseInt(hoursNow))
+			alert("Access Denied")
 		}
 	}
 	
@@ -414,7 +464,7 @@ const PerShift = ({route, navigation}) => {
 		}
 		var config = {
 			method: 'put',
-			url: 'https://api.tri-saudara.com/api/v2/qcs/update?',
+			url: 'http://192.168.131.226:3003/api/v2/qcs/update?',
 			params: params,
 			headers: { 
 				'Authorization': token, 
@@ -440,479 +490,529 @@ const PerShift = ({route, navigation}) => {
 	const dataItem = () => {
 		const checkingCavity = dataCavity
 		var table1 = []
-		if(checkingCavity != null){
-			if(checkingCavity > 0){
-				table1.push(
-					<View key="asdk2Caxd" style={{flexDirection: 'row', height: 50}}>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Text>1</Text>
-							</View>
-						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-							<View style={{justifyContent: 'center', width: 168.5}}>
-							<TextInput keyboardType="numeric" value={product_weight1} onChangeText={(value) => setproduct_weight1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-							</View>
-						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-							<View style={{justifyContent: 'center', width: 168.5}}>
-								<Text>{weightStandard}</Text>
-							</View>
-						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
-							<View style={{justifyContent: 'center', width: 145}}>
-								<TextInput value={note1} onChangeText={(value) => setKeterangan1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-							</View>
-						</View>
-					</View>
-				)
-			}
-			if(checkingCavity > 1){
-				table1.push(
-					<View key="VGacwFAs" style={{flexDirection: 'row', height: 50}}>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Text>2</Text>
-							</View>
-						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-							<View style={{justifyContent: 'center', width: 168.5}}>
-							<TextInput keyboardType="numeric" value={product_weight2} onChangeText={(value) => setproduct_weight2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-							</View>
-						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-							<View style={{justifyContent: 'center', width: 168.5}}>
-								<Text>{weightStandard}</Text>
-							</View>
-						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
-							<View style={{justifyContent: 'center', width: 145}}>
-								<TextInput value={note2} onChangeText={(value) => setKeterangan2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-							</View>
-						</View>
-					</View>
-				)
-			}
-			if(checkingCavity > 2){
-				table1.push(
-					<View key="BHnvxFerq" style={{flexDirection: 'row', height: 50}}>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Text>3</Text>
-							</View>
-						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 168.5}}>
-							<TextInput keyboardType="numeric" value={product_weight3} onChangeText={(value) => setproduct_weight3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-							</View>
-						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-							<View style={{justifyContent: 'center', width: 168.5}}>
-								<Text>{weightStandard}</Text>
-							</View>
-						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
-							<View style={{justifyContent: 'center', width: 145}}>
-								<TextInput value={note3} onChangeText={(value) => setKeterangan3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-							</View>
-						</View>
-					</View>
-				)
-			}
-			if(checkingCavity > 3){
-				table1.push(
-					<View key="BvCDVDxSEqsd11" style={{flexDirection: 'row', height: 50}}>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Text>4</Text>
-							</View>
-						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 168.5}}>
-							<TextInput keyboardType="numeric" value={product_weight4} onChangeText={(value) => setproduct_weight4(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-							</View>
-						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-							<View style={{justifyContent: 'center', width: 168.5}}>
-								<Text>{weightStandard}</Text>
-							</View>
-						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
-							<View style={{justifyContent: 'center', width: 145}}>
-								<TextInput value={note4} onChangeText={(value) => setKeterangan4(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-							</View>
-						</View>
-					</View>
-				)
-			}
-			if(checkingCavity > 4){
-				table1.push(
-					<View key="PlvKnXOijw" style={{flexDirection: 'row', height: 50}}>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Text>5</Text>
-							</View>
-						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 168.5}}>
-							<TextInput keyboardType="numeric" value={product_weight5} onChangeText={(value) => setproduct_weight5(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-							</View>
-						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-							<View style={{justifyContent: 'center', width: 168.5}}>
-								<Text>{weightStandard}</Text>
-							</View>
-						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
-							<View style={{justifyContent: 'center', width: 145}}>
-								<TextInput value={note5} onChangeText={(value) => setKeterangan5(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-							</View>
-						</View>
-					</View>
-				)
-			}
-			if(checkingCavity > 5){
-				table1.push(
-					<View key="Vdfswe6" style={{flexDirection: 'row', height: 50}}>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Text>6</Text>
-							</View>
-						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 168.5}}>
-							<TextInput keyboardType="numeric" value={product_weight6} onChangeText={(value) => setproduct_weight6(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-							</View>
-						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-							<View style={{justifyContent: 'center', width: 168.5}}>
-								<Text>{weightStandard}</Text>
-							</View>
-						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
-							<View style={{justifyContent: 'center', width: 145}}>
-								<TextInput value={note6} onChangeText={(value) => setKeterangan6(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-							</View>
-						</View>
-					</View>
-				)
-			}
-			if(checkingCavity > 6){
-				table1.push(
-					<View key="BgCacxdfa7" style={{flexDirection: 'row', height: 50}}>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Text>7</Text>
-							</View>
-						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 168.5}}>
-							<TextInput keyboardType="numeric" value={product_weight7} onChangeText={(value) => setproduct_weight7(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-							</View>
-						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-							<View style={{justifyContent: 'center', width: 168.5}}>
-								<Text>{weightStandard}</Text>
-							</View>
-						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
-							<View style={{justifyContent: 'center', width: 145}}>
-								<TextInput value={note7} onChangeText={(value) => setKeterangan7(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-							</View>
-						</View>
-					</View>
-				)
-			}
-			if(checkingCavity > 7){
-				table1.push(
-					<View key="VxCasdXWeq2" style={{flexDirection: 'row', height: 50}}>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Text>8</Text>
-							</View>
-						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 168.5}}>
-							<TextInput keyboardType="numeric" value={product_weight8} onChangeText={(value) => setproduct_weight8(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-							</View>
-						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-							<View style={{justifyContent: 'center', width: 168.5}}>
-								<Text>{weightStandard}</Text>
-							</View>
-						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 145}}>
-								<TextInput value={note8} onChangeText={(value) => setKeterangan8(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-							</View>
-						</View>
-					</View>
-				)
-			}
-			if(checkingCavity > 8){
-				table1.push(
-					<View key="BghAsdwCvzx" style={{flexDirection: 'row', height: 50}}>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Text>9</Text>
-							</View>
-						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 168.5}}>
-							<TextInput keyboardType="numeric" value={product_weight9} onChangeText={(value) => setproduct_weight9(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-							</View>
-						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-							<View style={{justifyContent: 'center', width: 168.5}}>
-								<Text>{weightStandard}</Text>
-							</View>
-						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
-							<View style={{justifyContent: 'center', width: 145}}>
-								<TextInput value={note9} onChangeText={(value) => setKeterangan9(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-							</View>
-						</View>
-					</View>
-				)
-			}
-			if(checkingCavity > 9){
-				table1.push(
-					<View key="BhGasdw231" style={{flexDirection: 'row', height: 50}}>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Text>10</Text>
-							</View>
-						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 168.5}}>
-							<TextInput keyboardType="numeric" value={product_weight10} onChangeText={(value) => setproduct_weight10(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-							</View>
-						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-							<View style={{justifyContent: 'center', width: 168.5}}>
-								<Text>{weightStandard}</Text>
-							</View>
-						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
-							<View style={{justifyContent: 'center', width: 145}}>
-								<TextInput value={note10} onChangeText={(value) => setKeterangan10(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-							</View>
-						</View>
-					</View>
-				)
-			}
-			if(checkingCavity > 10){
-				table1.push(
-					<View key="Axkcmwklnqiuhn11" style={{flexDirection: 'row', height: 50}}>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Text>11</Text>
-							</View>
-						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 168.5}}>
-							<TextInput keyboardType="numeric" value={product_weight11} onChangeText={(value) => setproduct_weight11(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-							</View>
-						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-							<View style={{justifyContent: 'center', width: 168.5}}>
-								<Text>{weightStandard}</Text>
-							</View>
-						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
-							<View style={{justifyContent: 'center', width: 145}}>
-								<TextInput value={note11} onChangeText={(value) => setKeterangan11(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-							</View>
-						</View>
-					</View>
-				)
-			}
-			if(checkingCavity > 11){
-				table1.push(
-					<View key="VbAcXSDqsDxx" style={{flexDirection: 'row', height: 50}}>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Text>12</Text>
-							</View>
-						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 168.5}}>
-							<TextInput keyboardType="numeric" value={product_weight12} onChangeText={(value) => setproduct_weight12(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-							</View>
-						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-							<View style={{justifyContent: 'center', width: 168.5}}>
-								<Text>{weightStandard}</Text>
-							</View>
-						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
-							<View style={{justifyContent: 'center', width: 145}}>
-								<TextInput value={note12} onChangeText={(value) => setKeterangan12(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-							</View>
-						</View>
-					</View>
-				)
-			}
-			if(checkingCavity > 12){
-				table1.push(
-					<View key="VBFGascwEQsd" style={{flexDirection: 'row', height: 50}}>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Text>13</Text>
-							</View>
-						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 168.5}}>
-							<TextInput keyboardType="numeric" value={product_weight13} onChangeText={(value) => setproduct_weight13(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-							</View>
-						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-							<View style={{justifyContent: 'center', width: 168.5}}>
-								<Text>{weightStandard}</Text>
-							</View>
-						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
-							<View style={{justifyContent: 'center', width: 145}}>
-								<TextInput value={note13} onChangeText={(value) => setKeterangan13(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-							</View>
-						</View>
-					</View>
-				)
-			}
-			if(checkingCavity > 13){
-				table1.push(
-					<View key="VGsjjkJVkjnkasjdo" style={{flexDirection: 'row', height: 50}}>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Text>14</Text>
-							</View>
-						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 168.5}}>
-							<TextInput keyboardType="numeric" value={product_weight14} onChangeText={(value) => setproduct_weight14(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-							</View>
-						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-							<View style={{justifyContent: 'center', width: 168.5}}>
-								<Text>{weightStandard}</Text>
-							</View>
-						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
-							<View style={{justifyContent: 'center', width: 145}}>
-								<TextInput value={note14} onChangeText={(value) => setKeterangan14(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-							</View>
-						</View>
-					</View>
-				)
-			}
-			if(checkingCavity > 14){
-				table1.push(
-					<View key="BhgkMOsijd" style={{flexDirection: 'row', height: 50}}>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Text>15</Text>
-							</View>
-						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 168.5}}>
-							<TextInput keyboardType="numeric" value={product_weight15} onChangeText={(value) => setproduct_weight15(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-							</View>
-						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-							<View style={{justifyContent: 'center', width: 168.5}}>
-								<Text>{weightStandard}</Text>
-							</View>
-						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
-							<View style={{justifyContent: 'center', width: 145}}>
-								<TextInput value={note15} onChangeText={(value) => setKeterangan15(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-							</View>
-						</View>
-					</View>
-				)
-			}
-			if(checkingCavity > 15){
-				table1.push(
-					<View key="Axcdfqwe16" style={{flexDirection: 'row', height: 50}}>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Text>16</Text>
-							</View>
-						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 168.5}}>
-							<TextInput keyboardType="numeric" value={product_weight16} onChangeText={(value) => setproduct_weight16(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-							</View>
-						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-							<View style={{justifyContent: 'center', width: 168.5}}>
-								<Text>{weightStandard}</Text>
-							</View>
-						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
-							<View style={{justifyContent: 'center', width: 145}}>
-								<TextInput value={note16} onChangeText={(value) => setKeterangan16(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-							</View>
-						</View>
-					</View>
-				)
-			}
-			if(checkingCavity > 16){
-				table1.push(
-					<View key="Ascawionai17" style={{flexDirection: 'row', height: 50}}>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Text>17</Text>
-							</View>
-						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 168.5}}>
-							<TextInput keyboardType="numeric" value={product_weight17} onChangeText={(value) => setproduct_weight17(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-							</View>
-						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-							<View style={{justifyContent: 'center', width: 168.5}}>
-								<Text>{weightStandard}</Text>
-							</View>
-						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
-							<View style={{justifyContent: 'center', width: 145}}>
-								<TextInput value={note17} onChangeText={(value) => setKeterangan17(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-							</View>
-						</View>
-					</View>
-				)
-			
-			}
-			if(checkingCavity > 17){
-				table1.push(
-					<View key="AxkcmOIujnsdKJn18" style={{flexDirection: 'row', height: 50}}>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-							<View style={{justifyContent: 'center', width: 100}}>
-								<Text>18</Text>
-							</View>
-						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
-							<View style={{justifyContent: 'center', width: 168.5}}>
-							<TextInput keyboardType="numeric" value={product_weight18} onChangeText={(value) => setproduct_weight18(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-							</View>
-						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-							<View style={{justifyContent: 'center', width: 168.5}}>
-								<Text>{weightStandard}</Text>
-							</View>
-						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
-							<View style={{justifyContent: 'center', width: 145}}>
-								<TextInput value={note18} onChangeText={(value) => setKeterangan18(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-							</View>
-						</View>
-					</View>
-				)
-		
+		if(cavityDetail.length > 0){
+			if(cavityDetail[0].weight_product != null){
+				var i
+				for(i = 0; i < dataCavity; i++){
+					table1.push(
+						<View key={i} style={{flexDirection: 'row', height: 50}}>
+							<View style={{backgroundColor: '#b8b8b8', paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
+								<View style={{alignItems: 'center', justifyContent: 'center', width: 100, alignItems: 'center'}}>
+									<Text>{cavityDetail[i].cavity}</Text>
+								</View>
+							</View>
+							<View style={{backgroundColor: '#b8b8b8', paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+								<View style={{alignItems: 'center', justifyContent: 'center', width: 168.5}}>
+									<Text>{cavityDetail[i].weight_product}</Text>
+								</View>
+							</View>
+							<View style={{backgroundColor: '#b8b8b8', paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+								<View style={{alignItems: 'center', justifyContent: 'center', width: 168.5}}>
+									<Text>{weightStandard}</Text>
+								</View>
+							</View>
+							<View style={{backgroundColor: '#b8b8b8', paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
+								<View style={{alignItems: 'center', justifyContent: 'center', width: 145}}>
+									<Text>{cavityDetail[i].note_shift}</Text>
+								</View>
+							</View>
+						</View>
+					)
+				}	
+			}else{
+				if(checkingCavity != null){
+					if(checkingCavity > 0){
+						table1.push(
+							<View key="asdk2Caxd" style={{flexDirection: 'row', height: 50}}>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
+									<View style={{justifyContent: 'center', width: 100}}>
+										<Text>1</Text>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+									<View style={{justifyContent: 'center', width: 168.5}}>
+									<TextInput keyboardType="numeric" value={product_weight1} onChangeText={(value) => setproduct_weight1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+									<View style={{justifyContent: 'center', width: 168.5}}>
+										<Text>{weightStandard}</Text>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
+									<View style={{justifyContent: 'center', width: 145}}>
+										<TextInput value={note1} onChangeText={(value) => setKeterangan1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+									</View>
+								</View>
+							</View>
+						)
+					}
+					if(checkingCavity > 1){
+						table1.push(
+							<View key="VGacwFAs" style={{flexDirection: 'row', height: 50}}>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
+									<View style={{justifyContent: 'center', width: 100}}>
+										<Text>2</Text>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+									<View style={{justifyContent: 'center', width: 168.5}}>
+									<TextInput keyboardType="numeric" value={product_weight2} onChangeText={(value) => setproduct_weight2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+									<View style={{justifyContent: 'center', width: 168.5}}>
+										<Text>{weightStandard}</Text>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
+									<View style={{justifyContent: 'center', width: 145}}>
+										<TextInput value={note2} onChangeText={(value) => setKeterangan2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+									</View>
+								</View>
+							</View>
+						)
+					}
+					if(checkingCavity > 2){
+						table1.push(
+							<View key="BHnvxFerq" style={{flexDirection: 'row', height: 50}}>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
+									<View style={{justifyContent: 'center', width: 100}}>
+										<Text>3</Text>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+									<View style={{justifyContent: 'center', width: 168.5}}>
+									<TextInput keyboardType="numeric" value={product_weight3} onChangeText={(value) => setproduct_weight3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+									<View style={{justifyContent: 'center', width: 168.5}}>
+										<Text>{weightStandard}</Text>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
+									<View style={{justifyContent: 'center', width: 145}}>
+										<TextInput value={note3} onChangeText={(value) => setKeterangan3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+									</View>
+								</View>
+							</View>
+						)
+					}
+					if(checkingCavity > 3){
+						table1.push(
+							<View key="BvCDVDxSEqsd11" style={{flexDirection: 'row', height: 50}}>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
+									<View style={{justifyContent: 'center', width: 100}}>
+										<Text>4</Text>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+									<View style={{justifyContent: 'center', width: 168.5}}>
+									<TextInput keyboardType="numeric" value={product_weight4} onChangeText={(value) => setproduct_weight4(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+									<View style={{justifyContent: 'center', width: 168.5}}>
+										<Text>{weightStandard}</Text>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
+									<View style={{justifyContent: 'center', width: 145}}>
+										<TextInput value={note4} onChangeText={(value) => setKeterangan4(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+									</View>
+								</View>
+							</View>
+						)
+					}
+					if(checkingCavity > 4){
+						table1.push(
+							<View key="PlvKnXOijw" style={{flexDirection: 'row', height: 50}}>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
+									<View style={{justifyContent: 'center', width: 100}}>
+										<Text>5</Text>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+									<View style={{justifyContent: 'center', width: 168.5}}>
+									<TextInput keyboardType="numeric" value={product_weight5} onChangeText={(value) => setproduct_weight5(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+									<View style={{justifyContent: 'center', width: 168.5}}>
+										<Text>{weightStandard}</Text>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
+									<View style={{justifyContent: 'center', width: 145}}>
+										<TextInput value={note5} onChangeText={(value) => setKeterangan5(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+									</View>
+								</View>
+							</View>
+						)
+					}
+					if(checkingCavity > 5){
+						table1.push(
+							<View key="Vdfswe6" style={{flexDirection: 'row', height: 50}}>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
+									<View style={{justifyContent: 'center', width: 100}}>
+										<Text>6</Text>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+									<View style={{justifyContent: 'center', width: 168.5}}>
+									<TextInput keyboardType="numeric" value={product_weight6} onChangeText={(value) => setproduct_weight6(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+									<View style={{justifyContent: 'center', width: 168.5}}>
+										<Text>{weightStandard}</Text>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
+									<View style={{justifyContent: 'center', width: 145}}>
+										<TextInput value={note6} onChangeText={(value) => setKeterangan6(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+									</View>
+								</View>
+							</View>
+						)
+					}
+					if(checkingCavity > 6){
+						table1.push(
+							<View key="BgCacxdfa7" style={{flexDirection: 'row', height: 50}}>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
+									<View style={{justifyContent: 'center', width: 100}}>
+										<Text>7</Text>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+									<View style={{justifyContent: 'center', width: 168.5}}>
+									<TextInput keyboardType="numeric" value={product_weight7} onChangeText={(value) => setproduct_weight7(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+									<View style={{justifyContent: 'center', width: 168.5}}>
+										<Text>{weightStandard}</Text>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
+									<View style={{justifyContent: 'center', width: 145}}>
+										<TextInput value={note7} onChangeText={(value) => setKeterangan7(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+									</View>
+								</View>
+							</View>
+						)
+					}
+					if(checkingCavity > 7){
+						table1.push(
+							<View key="VxCasdXWeq2" style={{flexDirection: 'row', height: 50}}>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
+									<View style={{justifyContent: 'center', width: 100}}>
+										<Text>8</Text>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+									<View style={{justifyContent: 'center', width: 168.5}}>
+									<TextInput keyboardType="numeric" value={product_weight8} onChangeText={(value) => setproduct_weight8(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+									<View style={{justifyContent: 'center', width: 168.5}}>
+										<Text>{weightStandard}</Text>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
+									<View style={{justifyContent: 'center', width: 145}}>
+										<TextInput value={note8} onChangeText={(value) => setKeterangan8(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+									</View>
+								</View>
+							</View>
+						)
+					}
+					if(checkingCavity > 8){
+						table1.push(
+							<View key="BghAsdwCvzx" style={{flexDirection: 'row', height: 50}}>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
+									<View style={{justifyContent: 'center', width: 100}}>
+										<Text>9</Text>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+									<View style={{justifyContent: 'center', width: 168.5}}>
+									<TextInput keyboardType="numeric" value={product_weight9} onChangeText={(value) => setproduct_weight9(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+									<View style={{justifyContent: 'center', width: 168.5}}>
+										<Text>{weightStandard}</Text>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
+									<View style={{justifyContent: 'center', width: 145}}>
+										<TextInput value={note9} onChangeText={(value) => setKeterangan9(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+									</View>
+								</View>
+							</View>
+						)
+					}
+					if(checkingCavity > 9){
+						table1.push(
+							<View key="BhGasdw231" style={{flexDirection: 'row', height: 50}}>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
+									<View style={{justifyContent: 'center', width: 100}}>
+										<Text>10</Text>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+									<View style={{justifyContent: 'center', width: 168.5}}>
+									<TextInput keyboardType="numeric" value={product_weight10} onChangeText={(value) => setproduct_weight10(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+									<View style={{justifyContent: 'center', width: 168.5}}>
+										<Text>{weightStandard}</Text>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
+									<View style={{justifyContent: 'center', width: 145}}>
+										<TextInput value={note10} onChangeText={(value) => setKeterangan10(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+									</View>
+								</View>
+							</View>
+						)
+					}
+					if(checkingCavity > 10){
+						table1.push(
+							<View key="Axkcmwklnqiuhn11" style={{flexDirection: 'row', height: 50}}>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
+									<View style={{justifyContent: 'center', width: 100}}>
+										<Text>11</Text>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+									<View style={{justifyContent: 'center', width: 168.5}}>
+									<TextInput keyboardType="numeric" value={product_weight11} onChangeText={(value) => setproduct_weight11(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+									<View style={{justifyContent: 'center', width: 168.5}}>
+										<Text>{weightStandard}</Text>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
+									<View style={{justifyContent: 'center', width: 145}}>
+										<TextInput value={note11} onChangeText={(value) => setKeterangan11(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+									</View>
+								</View>
+							</View>
+						)
+					}
+					if(checkingCavity > 11){
+						table1.push(
+							<View key="VbAcXSDqsDxx" style={{flexDirection: 'row', height: 50}}>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
+									<View style={{justifyContent: 'center', width: 100}}>
+										<Text>12</Text>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+									<View style={{justifyContent: 'center', width: 168.5}}>
+									<TextInput keyboardType="numeric" value={product_weight12} onChangeText={(value) => setproduct_weight12(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+									<View style={{justifyContent: 'center', width: 168.5}}>
+										<Text>{weightStandard}</Text>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
+									<View style={{justifyContent: 'center', width: 145}}>
+										<TextInput value={note12} onChangeText={(value) => setKeterangan12(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+									</View>
+								</View>
+							</View>
+						)
+					}
+					if(checkingCavity > 12){
+						table1.push(
+							<View key="VBFGascwEQsd" style={{flexDirection: 'row', height: 50}}>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
+									<View style={{justifyContent: 'center', width: 100}}>
+										<Text>13</Text>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+									<View style={{justifyContent: 'center', width: 168.5}}>
+									<TextInput keyboardType="numeric" value={product_weight13} onChangeText={(value) => setproduct_weight13(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+									<View style={{justifyContent: 'center', width: 168.5}}>
+										<Text>{weightStandard}</Text>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
+									<View style={{justifyContent: 'center', width: 145}}>
+										<TextInput value={note13} onChangeText={(value) => setKeterangan13(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+									</View>
+								</View>
+							</View>
+						)
+					}
+					if(checkingCavity > 13){
+						table1.push(
+							<View key="VGsjjkJVkjnkasjdo" style={{flexDirection: 'row', height: 50}}>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
+									<View style={{justifyContent: 'center', width: 100}}>
+										<Text>14</Text>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+									<View style={{justifyContent: 'center', width: 168.5}}>
+									<TextInput keyboardType="numeric" value={product_weight14} onChangeText={(value) => setproduct_weight14(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+									<View style={{justifyContent: 'center', width: 168.5}}>
+										<Text>{weightStandard}</Text>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
+									<View style={{justifyContent: 'center', width: 145}}>
+										<TextInput value={note14} onChangeText={(value) => setKeterangan14(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+									</View>
+								</View>
+							</View>
+						)
+					}
+					if(checkingCavity > 14){
+						table1.push(
+							<View key="BhgkMOsijd" style={{flexDirection: 'row', height: 50}}>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
+									<View style={{justifyContent: 'center', width: 100}}>
+										<Text>15</Text>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+									<View style={{justifyContent: 'center', width: 168.5}}>
+									<TextInput keyboardType="numeric" value={product_weight15} onChangeText={(value) => setproduct_weight15(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+									<View style={{justifyContent: 'center', width: 168.5}}>
+										<Text>{weightStandard}</Text>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
+									<View style={{justifyContent: 'center', width: 145}}>
+										<TextInput value={note15} onChangeText={(value) => setKeterangan15(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+									</View>
+								</View>
+							</View>
+						)
+					}
+					if(checkingCavity > 15){
+						table1.push(
+							<View key="Axcdfqwe16" style={{flexDirection: 'row', height: 50}}>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
+									<View style={{justifyContent: 'center', width: 100}}>
+										<Text>16</Text>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+									<View style={{justifyContent: 'center', width: 168.5}}>
+									<TextInput keyboardType="numeric" value={product_weight16} onChangeText={(value) => setproduct_weight16(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+									<View style={{justifyContent: 'center', width: 168.5}}>
+										<Text>{weightStandard}</Text>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
+									<View style={{justifyContent: 'center', width: 145}}>
+										<TextInput value={note16} onChangeText={(value) => setKeterangan16(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+									</View>
+								</View>
+							</View>
+						)
+					}
+					if(checkingCavity > 16){
+						table1.push(
+							<View key="Ascawionai17" style={{flexDirection: 'row', height: 50}}>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
+									<View style={{justifyContent: 'center', width: 100}}>
+										<Text>17</Text>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+									<View style={{justifyContent: 'center', width: 168.5}}>
+									<TextInput keyboardType="numeric" value={product_weight17} onChangeText={(value) => setproduct_weight17(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+									<View style={{justifyContent: 'center', width: 168.5}}>
+										<Text>{weightStandard}</Text>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
+									<View style={{justifyContent: 'center', width: 145}}>
+										<TextInput value={note17} onChangeText={(value) => setKeterangan17(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+									</View>
+								</View>
+							</View>
+						)
+					
+					}
+					if(checkingCavity > 17){
+						table1.push(
+							<View key="AxkcmOIujnsdKJn18" style={{flexDirection: 'row', height: 50}}>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
+									<View style={{justifyContent: 'center', width: 100}}>
+										<Text>18</Text>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9}}>
+									<View style={{justifyContent: 'center', width: 168.5}}>
+									<TextInput keyboardType="numeric" value={product_weight18} onChangeText={(value) => setproduct_weight18(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+									<View style={{justifyContent: 'center', width: 168.5}}>
+										<Text>{weightStandard}</Text>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
+									<View style={{justifyContent: 'center', width: 145}}>
+										<TextInput value={note18} onChangeText={(value) => setKeterangan18(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+									</View>
+								</View>
+							</View>
+						)
+				
+					}
+				}
 			}
 		}
 		return table1
+	}
+
+	const buttonUpdate = () => {
+		var data = []
+		if(cavityDetail > 0){
+			data.push(
+				<View key="SokemlIj2">
+					<Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => alert("Already Saved!")}><Text>SAVED</Text></Button>
+				</View>
+			)
+		}else{
+			data.push(
+				<View key="SokemlIj2">
+					<Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>
+				</View>
+			)
+		}
+		return data
 	}
 
 	const content = () => {
@@ -997,9 +1097,7 @@ const PerShift = ({route, navigation}) => {
 				</ScrollView>
 
 				<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
-					<View>
-						<Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>
-					</View>
+					{buttonUpdate()}
 				</View>
 
 				<View style={{flexDirection: 'column', height: 50}}>
@@ -1010,7 +1108,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 						<View style={{height: 23, alignItems: 'center'}}>
 							<Text>
-								{inspectionTime}
+								{updateinspection_time != null ? updateinspection_time : inspectionTime}
 							</Text>
 						</View>
 					</View>

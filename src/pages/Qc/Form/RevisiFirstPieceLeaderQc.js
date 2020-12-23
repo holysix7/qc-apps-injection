@@ -152,25 +152,6 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 	const [updateCopySample, setUpdateCopySample] = useState("")
 	const [updateCheckSheet, setUpdateCheckSheet] = useState("")
 	const [updateRemark, setUpdateRemark] 	= useState("")
-	
-	const [item_id_1, setItemId1]	= useState("")
-	const [item_id_2, setItemId2]	= useState("")
-	const [item_id_3, setItemId3]	= useState("")
-	const [item_id_4, setItemId4]	= useState("")
-	const [item_id_5, setItemId5]	= useState("")
-	const [item_id_6, setItemId6]	= useState("")
-	const [item_id_7, setItemId7]	= useState("")
-	const [item_id_8, setItemId8]	= useState("")
-	const [item_id_9, setItemId9]	= useState("")
-	const [item_id_10, setItemId10]	= useState("")
-	const [item_id_11, setItemId11]	= useState("")
-	const [item_id_12, setItemId12]	= useState("")
-	const [item_id_13, setItemId13]	= useState("")
-	const [item_id_14, setItemId14]	= useState("")
-	const [item_id_15, setItemId15]	= useState("")
-	const [item_id_16, setItemId16]	= useState("")
-	const [item_id_17, setItemId17]	= useState("")
-	const [item_id_18, setItemId18]	= useState("")
 
 	const [loading, setLoading] = useState(false)
 
@@ -212,7 +193,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 				hours: nilaiJam,
 				qc_daily_inspection_id: qc_daily_inspection_id
 			}
-			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
+			Axios.get('http://192.168.131.226:3003/api/v2/qcs?', {params: params, headers: headers})
 			.then(response => {
 				setLoading(true)
 				setEngProd(response.data.data.eng_product_id)
@@ -249,7 +230,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 				hours: nilaiJam,
 				qc_daily_inspection_id: qc_daily_inspection_id
 			}
-			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
+			Axios.get('http://192.168.131.226:3003/api/v2/qcs?', {params: params, headers: headers})
 			.then(response => {
 				setLoading(true)
 				setEngProd(response.data.data.eng_product_id)
@@ -257,7 +238,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 				setDataMachineStatus(response.data.data.masspro_ql)
 				setMassproQlId(response.data.data.masspro_ql.id)
 				setNGsData(response.data.data.ng_category)
-				setTooling(response.data.data.product_detail.tooling_num)
+				setTooling(response.data.data.tooling_num)
 				setCavityCheck(response.data.data.product_detail.cavity)
 				setPlanningId(response.data.data.planning_id)
 				setIPI(response.data.data.product_detail.internal_part_id)
@@ -286,7 +267,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 				hours: nilaiJam,
 				qc_daily_inspection_id: qc_daily_inspection_id
 			}
-			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
+			Axios.get('http://192.168.131.226:3003/api/v2/qcs?', {params: params, headers: headers})
 			.then(response => {
 				setLoading(true)
 				setEngProd(response.data.data.eng_product_id)
@@ -294,7 +275,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 				setDataMachineStatus(response.data.data.masspro_ql)
 				setMassproQlId(response.data.data.masspro_ql.id)
 				setNGsData(response.data.data.ng_category)
-				setTooling(response.data.data.product_detail.tooling_num)
+				setTooling(response.data.data.tooling_num)
 				setCavityCheck(response.data.data.product_detail.cavity)
 				setPlanningId(response.data.data.planning_id)
 				setIPI(response.data.data.product_detail.internal_part_id)
@@ -687,7 +668,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 		}
 		var config = {
 			method: 'put',
-			url: 'https://api.tri-saudara.com/api/v2/qcs/update?',
+			url: 'http://192.168.131.226:3003/api/v2/qcs/update?',
 			params: params,
 			headers: { 
 				'Authorization': token, 
@@ -900,6 +881,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
 										<Picker.Item label="NG" value="NG"/>
+										<Picker.Item label="No Check" value="no_check"/>
 									</Picker>
 								</View>
 							</View>
@@ -958,6 +940,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
 										<Picker.Item label="NG" value="NG"/>
+										<Picker.Item label="No Check" value="no_check"/>
 									</Picker>
 								</View>
 							</View>
@@ -1016,6 +999,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
 										<Picker.Item label="NG" value="NG"/>
+										<Picker.Item label="No Check" value="no_check"/>
 									</Picker>
 								</View>
 							</View>
@@ -1074,6 +1058,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
 										<Picker.Item label="NG" value="NG"/>
+										<Picker.Item label="No Check" value="no_check"/>
 									</Picker>
 								</View>
 							</View>
@@ -1132,6 +1117,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
 										<Picker.Item label="NG" value="NG"/>
+										<Picker.Item label="No Check" value="no_check"/>
 									</Picker>
 								</View>
 							</View>
@@ -1190,6 +1176,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
 										<Picker.Item label="NG" value="NG"/>
+										<Picker.Item label="No Check" value="no_check"/>
 									</Picker>
 								</View>
 							</View>
@@ -1248,6 +1235,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
 										<Picker.Item label="NG" value="NG"/>
+										<Picker.Item label="No Check" value="no_check"/>
 									</Picker>
 								</View>
 							</View>
@@ -1306,6 +1294,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
 										<Picker.Item label="NG" value="NG"/>
+										<Picker.Item label="No Check" value="no_check"/>
 									</Picker>
 								</View>
 							</View>
@@ -1364,6 +1353,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
 										<Picker.Item label="NG" value="NG"/>
+										<Picker.Item label="No Check" value="no_check"/>
 									</Picker>
 								</View>
 							</View>
@@ -1422,6 +1412,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
 										<Picker.Item label="NG" value="NG"/>
+										<Picker.Item label="No Check" value="no_check"/>
 									</Picker>
 								</View>
 							</View>
@@ -1480,6 +1471,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
 										<Picker.Item label="NG" value="NG"/>
+										<Picker.Item label="No Check" value="no_check"/>
 									</Picker>
 								</View>
 							</View>
@@ -1538,6 +1530,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
 										<Picker.Item label="NG" value="NG"/>
+										<Picker.Item label="No Check" value="no_check"/>
 									</Picker>
 								</View>
 							</View>
@@ -1596,6 +1589,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
 										<Picker.Item label="NG" value="NG"/>
+										<Picker.Item label="No Check" value="no_check"/>
 									</Picker>
 								</View>
 							</View>
@@ -1654,6 +1648,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
 										<Picker.Item label="NG" value="NG"/>
+										<Picker.Item label="No Check" value="no_check"/>
 									</Picker>
 								</View>
 							</View>
@@ -1712,6 +1707,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
 										<Picker.Item label="NG" value="NG"/>
+										<Picker.Item label="No Check" value="no_check"/>
 									</Picker>
 								</View>
 							</View>
@@ -1770,6 +1766,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
 										<Picker.Item label="NG" value="NG"/>
+										<Picker.Item label="No Check" value="no_check"/>
 									</Picker>
 								</View>
 							</View>
@@ -1828,6 +1825,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
 										<Picker.Item label="NG" value="NG"/>
+										<Picker.Item label="No Check" value="no_check"/>
 									</Picker>
 								</View>
 							</View>
@@ -1887,6 +1885,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
 										<Picker.Item label="NG" value="NG"/>
+										<Picker.Item label="No Check" value="no_check"/>
 									</Picker>
 								</View>
 							</View>
@@ -2058,13 +2057,20 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 	}
 
 	const updateButton = () => {
-		const updateRF = revisiQc
 		const data = []
+		if(revisiQc.length > 0){
+			data.push(
+				<View key="asd12q" style={{paddingTop: 10}}>
+					<Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => alert("Already Saved!")}><Text>SAVED</Text></Button>
+				</View>
+			)
+		}else{
 			data.push(
 				<View key="asd12q" style={{paddingTop: 10}}>
 					<Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>
 				</View>
 			)
+		}
 		return data
 	}
 

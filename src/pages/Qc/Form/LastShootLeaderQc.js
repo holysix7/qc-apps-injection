@@ -13,43 +13,24 @@ const LastShootLeaderQc = ({route, navigation}) => {
 
 	const {qc_daily_inspection_id, qc_daily_inspection_item_id, qc_daily_inspection_method_id, sys_plant_id, product_name, customer_name, machine_id, machine_name, today, yesterday} = route.params
 
-	const [statusCavity1, setStatusCavity1] 						= useState("")
-	const [statusCavity2, setStatusCavity2] 						= useState("")
-	const [statusCavity3, setStatusCavity3] 						= useState("")
-	const [statusCavity4, setStatusCavity4] 						= useState("")
-	const [statusCavity5, setStatusCavity5] 						= useState("")
-	const [statusCavity6, setStatusCavity6] 						= useState("")
-	const [statusCavity7, setStatusCavity7] 						= useState("")
-	const [statusCavity8, setStatusCavity8] 						= useState("")
-	const [statusCavity9, setStatusCavity9] 						= useState("")
-	const [statusCavity10, setStatusCavity10] 					= useState("")
-	const [statusCavity11, setStatusCavity11] 					= useState("")
-	const [statusCavity12, setStatusCavity12] 					= useState("")
-	const [statusCavity13, setStatusCavity13] 					= useState("")
-	const [statusCavity14, setStatusCavity14] 					= useState("")
-	const [statusCavity15, setStatusCavity15] 					= useState("")
-	const [statusCavity16, setStatusCavity16] 					= useState("")
-	const [statusCavity17, setStatusCavity17] 					= useState("")
-	const [statusCavity18, setStatusCavity18] 					= useState("")
-	
-	const [judgement_first_piece1, setJudgement1] 			= useState("")
-	const [judgement_first_piece2, setJudgement2] 			= useState("")
-	const [judgement_first_piece3, setJudgement3] 			= useState("")
-	const [judgement_first_piece4, setJudgement4] 			= useState("")
-	const [judgement_first_piece5, setJudgement5] 			= useState("")
-	const [judgement_first_piece6, setJudgement6] 			= useState("")
-	const [judgement_first_piece7, setJudgement7] 			= useState("")
-	const [judgement_first_piece8, setJudgement8] 			= useState("")
-	const [judgement_first_piece9, setJudgement9] 			= useState("")
-	const [judgement_first_piece10, setJudgement10] 		= useState("")
-	const [judgement_first_piece11, setJudgement11] 		= useState("")
-	const [judgement_first_piece12, setJudgement12] 		= useState("")
-	const [judgement_first_piece13, setJudgement13] 		= useState("")
-	const [judgement_first_piece14, setJudgement14] 		= useState("")
-	const [judgement_first_piece15, setJudgement15] 		= useState("")
-	const [judgement_first_piece16, setJudgement16] 		= useState("")
-	const [judgement_first_piece17, setJudgement17] 		= useState("")
-	const [judgement_first_piece18, setJudgement18] 		= useState("")
+	const [judgement_first_piece1, setJudgement1] 			= useState(null)
+	const [judgement_first_piece2, setJudgement2] 			= useState(null)
+	const [judgement_first_piece3, setJudgement3] 			= useState(null)
+	const [judgement_first_piece4, setJudgement4] 			= useState(null)
+	const [judgement_first_piece5, setJudgement5] 			= useState(null)
+	const [judgement_first_piece6, setJudgement6] 			= useState(null)
+	const [judgement_first_piece7, setJudgement7] 			= useState(null)
+	const [judgement_first_piece8, setJudgement8] 			= useState(null)
+	const [judgement_first_piece9, setJudgement9] 			= useState(null)
+	const [judgement_first_piece10, setJudgement10] 		= useState(null)
+	const [judgement_first_piece11, setJudgement11] 		= useState(null)
+	const [judgement_first_piece12, setJudgement12] 		= useState(null)
+	const [judgement_first_piece13, setJudgement13] 		= useState(null)
+	const [judgement_first_piece14, setJudgement14] 		= useState(null)
+	const [judgement_first_piece15, setJudgement15] 		= useState(null)
+	const [judgement_first_piece16, setJudgement16] 		= useState(null)
+	const [judgement_first_piece17, setJudgement17] 		= useState(null)
+	const [judgement_first_piece18, setJudgement18] 		= useState(null)
 	
 	const [qc_ng_category_id1, setCategoryNg1] 					= useState("")
 	const [qc_ng_category_id2, setCategoryNg2] 					= useState("")
@@ -131,14 +112,14 @@ const LastShootLeaderQc = ({route, navigation}) => {
 	const [hours, setHours]		  												= useState(0)
 	const [shift, setShift]		  												= useState(0)
 	const [data, setData] 															= useState([])
-	const [dataCavity, setDataCavity] 															= useState([])
+	const [dataCavity, setDataCavity] 									= useState([])
 	const [eng_product_id, setEngProd]									= useState(0)
 	const [copy_sample, setCopySample]	  							= useState("")
 	const [mtr_need, setMtrNeed]				  							= useState("")
 	const [created_by, setCreatedBy]										= useState("")
-	const [cavityShow, setCavityShow]										= useState("")
 
 	const [massproQCL, setMassproQcl]										= useState("")
+	const [last_shoot_qc_items, setlast_shoot_qc_items]	= useState("")
 	const [massproql_items, setMassproQlItems]					= useState([])
 	
 	const [ngCategories, setNGCategories]  							= useState([])
@@ -147,9 +128,6 @@ const LastShootLeaderQc = ({route, navigation}) => {
 	let updated_at 																			= moment().format("YYYY-MM-DD HH:mm:ss")
 	const prod_machine_id = machine_id
 	const date = []
-	const [planningId, setPlanningId] 									= useState("")
-	const planning_id = parseInt(planningId)
-	const [internal_part_id, setIPI] 										= useState("")
 
 	const [loading, setLoading]	= useState(false)
 
@@ -191,10 +169,11 @@ const LastShootLeaderQc = ({route, navigation}) => {
 				hours: nilaiJam,
 				qc_daily_inspection_id: qc_daily_inspection_id
 			}
-			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
+			Axios.get('http://192.168.131.226:3003/api/v2/qcs?', {params: params, headers: headers})
 			.then(response => {
 				setLoading(true)
 				setData(response.data.data.daily_inspection)
+				setlast_shoot_qc_items(response.data.data.last_shoot_qc_items)
 				setDataCavity(response.data.data.daily_inspection.cavity)
 				setEngProd(response.data.data.eng_product_id)
 				setNGCategories(response.data.data.ng_category)
@@ -204,6 +183,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 				console.log("List Data Last Shoot Leader QC: ", response.data.status, "OK")
 			})
 			.catch(error => {
+				setLoading(true)
 				console.log('List Data Last Shoot Leader QC: ', error)
 			})
 		}else if(parseInt(jam) >= 16 && parseInt(jam) <= 23){
@@ -219,10 +199,11 @@ const LastShootLeaderQc = ({route, navigation}) => {
 				hours: nilaiJam,
 				qc_daily_inspection_id: qc_daily_inspection_id
 			}
-			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
+			Axios.get('http://192.168.131.226:3003/api/v2/qcs?', {params: params, headers: headers})
 			.then(response => {
 				setLoading(true)
 				setData(response.data.data.daily_inspection)
+				setlast_shoot_qc_items(response.data.data.last_shoot_qc_items)
 				setDataCavity(response.data.data.daily_inspection.cavity)
 				setEngProd(response.data.data.eng_product_id)
 				setNGCategories(response.data.data.ng_category)
@@ -232,7 +213,8 @@ const LastShootLeaderQc = ({route, navigation}) => {
 				console.log("List Data Last Shoot Leader QC: ", response.data.status, "OK")
 			})
 			.catch(error => {
-					console.log('List Data Last Shoot Leader QC: ', error)
+				setLoading(true)
+				console.log('List Data Last Shoot Leader QC: ', error)
 			})
 		}else{
 			const nilaiJam = parseInt(jam)
@@ -247,10 +229,11 @@ const LastShootLeaderQc = ({route, navigation}) => {
 				hours: nilaiJam,
 				qc_daily_inspection_id: qc_daily_inspection_id
 			}
-			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
+			Axios.get('http://192.168.131.226:3003/api/v2/qcs?', {params: params, headers: headers})
 			.then(response => {
 				setLoading(true)
 				setData(response.data.data.daily_inspection)
+				setlast_shoot_qc_items(response.data.data.last_shoot_qc_items)
 				setDataCavity(response.data.data.daily_inspection.cavity)
 				setEngProd(response.data.data.eng_product_id)
 				setNGCategories(response.data.data.ng_category)
@@ -260,7 +243,8 @@ const LastShootLeaderQc = ({route, navigation}) => {
 				console.log("List Data Last Shoot Leader QC: ", response.data.status, "OK")
 			})
 			.catch(error => {
-					console.log('List Data Last Shoot Leader QC: ', error)
+				setLoading(true)
+				console.log('List Data Last Shoot Leader QC: ', error)
 			})
 		}
 	}
@@ -271,8 +255,8 @@ const LastShootLeaderQc = ({route, navigation}) => {
 
 	const hString = hours.toString()
 	// console.log("qcId: ", qc_daily_inspection_id)
-	const item = {
-		"cav_1": {
+	const item = [
+		{
 			"cavity": 1,
 			"judgement_first_piece": judgement_first_piece1,
 			"qc_ng_category_id": qc_ng_category_id1,
@@ -280,7 +264,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 			"product_weight": product_weight1,
 			"note": note1
 		},
-		"cav_2": {
+		{
 			"cavity": 2,
 			"judgement_first_piece": judgement_first_piece2,
 			"qc_ng_category_id": qc_ng_category_id2,
@@ -288,7 +272,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 			"product_weight": product_weight2,
 			"note": note2
 		},
-		"cav_3": {
+		{
 			"cavity": 3,
 			"judgement_first_piece": judgement_first_piece3,
 			"qc_ng_category_id": qc_ng_category_id3,
@@ -296,7 +280,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 			"product_weight": product_weight3,
 			"note": note3
 		},
-		"cav_4": {
+		{
 			"cavity": 4,
 			"judgement_first_piece": judgement_first_piece4,
 			"qc_ng_category_id": qc_ng_category_id4,
@@ -304,7 +288,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 			"product_weight": product_weight4,
 			"note": note4
 		},
-		"cav_5": {
+		{
 			"cavity": 5,
 			"judgement_first_piece": judgement_first_piece5,
 			"qc_ng_category_id": qc_ng_category_id5,
@@ -312,7 +296,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 			"product_weight": product_weight5,
 			"note": note5
 		},
-		"cav_6": {
+		{
 			"cavity": 6,
 			"judgement_first_piece": judgement_first_piece6,
 			"qc_ng_category_id": qc_ng_category_id6,
@@ -320,7 +304,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 			"product_weight": product_weight6,
 			"note": note6
 		},
-		"cav_7": {
+		{
 			"cavity": 7,
 			"judgement_first_piece": judgement_first_piece7,
 			"qc_ng_category_id": qc_ng_category_id7,
@@ -328,7 +312,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 			"product_weight": product_weight7,
 			"note": note7
 		},
-		"cav_8": {
+		{
 			"cavity": 8,
 			"judgement_first_piece": judgement_first_piece8,
 			"qc_ng_category_id": qc_ng_category_id8,
@@ -336,7 +320,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 			"product_weight": product_weight8,
 			"note": note8
 		},
-		"cav_9": {
+		{
 			"cavity": 9,
 			"judgement_first_piece": judgement_first_piece9,
 			"qc_ng_category_id": qc_ng_category_id9,
@@ -344,7 +328,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 			"product_weight": product_weight9,
 			"note": note9
 		},
-		"cav_10": {
+		{
 			"cavity": 10,
 			"judgement_first_piece": judgement_first_piece10,
 			"qc_ng_category_id": qc_ng_category_id10,
@@ -352,7 +336,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 			"product_weight": product_weight10,
 			"note": note10
 		},
-		"cav_11": {
+		{
 			"cavity": 11,
 			"judgement_first_piece": judgement_first_piece11,
 			"qc_ng_category_id": qc_ng_category_id11,
@@ -360,7 +344,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 			"product_weight": product_weight11,
 			"note": note11
 		},
-		"cav_12": {
+		{
 			"cavity": 12,
 			"judgement_first_piece": judgement_first_piece12,
 			"qc_ng_category_id": qc_ng_category_id12,
@@ -368,7 +352,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 			"product_weight": product_weight12,
 			"note": note12
 		},
-		"cav_13": {
+		{
 			"cavity": 13,
 			"judgement_first_piece": judgement_first_piece13,
 			"qc_ng_category_id": qc_ng_category_id13,
@@ -376,7 +360,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 			"product_weight": product_weight13,
 			"note": note13
 		},
-		"cav_14": {
+		{
 			"cavity": 14,
 			"judgement_first_piece": judgement_first_piece14,
 			"qc_ng_category_id": qc_ng_category_id14,
@@ -384,7 +368,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 			"product_weight": product_weight14,
 			"note": note14
 		},
-		"cav_15": {
+		{
 			"cavity": 15,
 			"judgement_first_piece": judgement_first_piece15,
 			"qc_ng_category_id": qc_ng_category_id15,
@@ -392,7 +376,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 			"product_weight": product_weight15,
 			"note": note15
 		},
-		"cav_16": {
+		{
 			"cavity": 16,
 			"judgement_first_piece": judgement_first_piece16,
 			"qc_ng_category_id": qc_ng_category_id16,
@@ -400,7 +384,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 			"product_weight": product_weight16,
 			"note": note16
 		},
-		"cav_17": {
+		{
 			"cavity": 17,
 			"judgement_first_piece": judgement_first_piece17,
 			"qc_ng_category_id": qc_ng_category_id17,
@@ -408,7 +392,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 			"product_weight": product_weight17,
 			"note": note17
 		},
-		"cav_18": {
+		{
 			"cavity": 18,
 			"judgement_first_piece": judgement_first_piece18,
 			"qc_ng_category_id": qc_ng_category_id18,
@@ -416,178 +400,35 @@ const LastShootLeaderQc = ({route, navigation}) => {
 			"product_weight": product_weight18,
 			"note": note18
 		}
-	}
+	]
 
-const itemNGsLoop = () => {
+	const itemNGsLoop = () => {
 		var dataNGs = []
-		var itemCheckNGs = [
-			{
-				"cavity": statusCavity1,
-				"judgement_first_piece": judgement_first_piece1,
-				"qc_ng_category_id": qc_ng_category_id1,
-				"fitting_test": fitting_test1,
-				"product_weight": product_weight1,
-				"note": note1
-			},
-			{
-				"cavity": statusCavity2,
-				"judgement_first_piece": judgement_first_piece2,
-				"qc_ng_category_id": qc_ng_category_id2,
-				"fitting_test": fitting_test2,
-				"product_weight": product_weight2,
-				"note": note2
-			},
-			{
-				"cavity": statusCavity3,
-				"judgement_first_piece": judgement_first_piece3,
-				"qc_ng_category_id": qc_ng_category_id3,
-				"fitting_test": fitting_test3,
-				"product_weight": product_weight3,
-				"note": note3
-			},
-			{
-				"cavity": statusCavity4,
-				"judgement_first_piece": judgement_first_piece4,
-				"qc_ng_category_id": qc_ng_category_id4,
-				"fitting_test": fitting_test4,
-				"product_weight": product_weight4,
-				"note": note4
-			},
-			{
-				"cavity": statusCavity5,
-				"judgement_first_piece": judgement_first_piece5,
-				"qc_ng_category_id": qc_ng_category_id5,
-				"fitting_test": fitting_test5,
-				"product_weight": product_weight5,
-				"note": note5
-			},
-			{
-				"cavity": statusCavity6,
-				"judgement_first_piece": judgement_first_piece6,
-				"qc_ng_category_id": qc_ng_category_id6,
-				"fitting_test": fitting_test6,
-				"product_weight": product_weight6,
-				"note": note6
-			},
-			{
-				"cavity": statusCavity7,
-				"judgement_first_piece": judgement_first_piece7,
-				"qc_ng_category_id": qc_ng_category_id7,
-				"fitting_test": fitting_test7,
-				"product_weight": product_weight7,
-				"note": note7
-			},
-			{
-				"cavity": statusCavity8,
-				"judgement_first_piece": judgement_first_piece8,
-				"qc_ng_category_id": qc_ng_category_id8,
-				"fitting_test": fitting_test8,
-				"product_weight": product_weight8,
-				"note": note8
-			},
-			{
-				"cavity": statusCavity9,
-				"judgement_first_piece": judgement_first_piece9,
-				"qc_ng_category_id": qc_ng_category_id9,
-				"fitting_test": fitting_test9,
-				"product_weight": product_weight9,
-				"note": note9
-			},
-			{
-				"cavity": statusCavity10,
-				"judgement_first_piece": judgement_first_piece10,
-				"qc_ng_category_id": qc_ng_category_id10,
-				"fitting_test": fitting_test10,
-				"product_weight": product_weight10,
-				"note": note10
-			},
-			{
-				"cavity": statusCavity11,
-				"judgement_first_piece": judgement_first_piece11,
-				"qc_ng_category_id": qc_ng_category_id11,
-				"fitting_test": fitting_test11,
-				"product_weight": product_weight11,
-				"note": note11
-			},
-			{
-				"cavity": statusCavity12,
-				"judgement_first_piece": judgement_first_piece12,
-				"qc_ng_category_id": qc_ng_category_id12,
-				"fitting_test": fitting_test12,
-				"product_weight": product_weight12,
-				"note": note12
-			},
-			{
-				"cavity": statusCavity13,
-				"judgement_first_piece": judgement_first_piece13,
-				"qc_ng_category_id": qc_ng_category_id13,
-				"fitting_test": fitting_test13,
-				"product_weight": product_weight13,
-				"note": note13
-			},
-			{
-				"cavity": statusCavity14,
-				"judgement_first_piece": judgement_first_piece14,
-				"qc_ng_category_id": qc_ng_category_id14,
-				"fitting_test": fitting_test14,
-				"product_weight": product_weight14,
-				"note": note14
-			},
-			{
-				"cavity": statusCavity15,
-				"judgement_first_piece": judgement_first_piece15,
-				"qc_ng_category_id": qc_ng_category_id15,
-				"fitting_test": fitting_test15,
-				"product_weight": product_weight15,
-				"note": note15
-			},
-			{
-				"cavity": statusCavity16,
-				"judgement_first_piece": judgement_first_piece16,
-				"qc_ng_category_id": qc_ng_category_id16,
-				"fitting_test": fitting_test16,
-				"product_weight": product_weight16,
-				"note": note16
-			},
-			{
-				"cavity": statusCavity17,
-				"judgement_first_piece": judgement_first_piece17,
-				"qc_ng_category_id": qc_ng_category_id17,
-				"fitting_test": fitting_test17,
-				"product_weight": product_weight17,
-				"note": note17
-			},
-			{
-				"cavity": statusCavity18,
-				"judgement_first_piece": judgement_first_piece18,
-				"qc_ng_category_id": qc_ng_category_id18,
-				"fitting_test": fitting_test18,
-				"product_weight": product_weight18,
-				"note": note18
-			}
-		]
-		itemCheckNGs.map((element, key) => {
-			// console.log("xcv: ", key)
-		if(element.judgement_first_piece == "NG" || element.fitting_test == "NG" || copy_sample == "NG"){
-			setCopySample("NG")
-			var dataNGItems = []
-			dataNGItems.push(
-				<Picker.Item label="--Pilih--" value={0} key="apsodkmk2" />
-			)
-			ngCategories.map((elementdua, keydua) => {
-				dataNGItems.push(
-					<Picker.Item label={elementdua.name} value={elementdua.id} key={keydua} />
-				)
+		if(ngCategories.length > 0){
+			item.map((element, key) => {
+				if(element.judgement_first_piece == "NG" || element.fitting_test == "NG" || copy_sample == "NG"){
+					var dataNGItems = []
+					dataNGItems.push(
+						<Picker.Item label="--Pilih--" value={0} key={key} />
+					)
+					dataNGItems.push(
+						<Picker.Item label="Others" value={0} key={key} />
+					)
+					ngCategories.map((elementdua, keydua) => {
+						dataNGItems.push(
+							<Picker.Item label={elementdua.name} value={elementdua.id} key={keydua} />
+						)
+					})
+					dataNGs.push(dataNGItems)
+				}else{
+					var dataNGItems = []
+					dataNGItems.push(
+						<Picker.Item label="Tidak NG" value={9999} key={key} />
+					)
+					dataNGs.push(dataNGItems)
+				}
 			})
-			dataNGs.push(dataNGItems)
-		}else{
-			var dataNGItems = []
-			dataNGItems.push(
-				<Picker.Item label="Tidak NG" value={9999} key="swQwdAcxz12" />
-			)
-			dataNGs.push(dataNGItems)
-			}
-		})
+		}
 		return dataNGs
 	}
 
@@ -596,9 +437,7 @@ const itemNGsLoop = () => {
 		const data = {
 			eng_product_id,
 			prod_machine_id,
-			planning_id,
 			sys_plant_id,
-			internal_part_id,
 			qc_daily_inspection_id,
 			qc_daily_inspection_item_id,
 			qc_daily_inspection_method_id,
@@ -618,7 +457,7 @@ const itemNGsLoop = () => {
 		}
 		var config = {
 			method: 'put',
-			url: 'https://api.tri-saudara.com/api/v2/qcs/update?',
+			url: 'http://192.168.131.226:3003/api/v2/qcs/update?',
 			params: params,
 			headers: { 
 				'Authorization': token, 
@@ -627,14 +466,15 @@ const itemNGsLoop = () => {
 			},
 			data : data
 		};
-			Axios(config)
-			.then(function (response){
-				setLoading(true)
-				console.log("Res: ", response.status, " Ok")
-				navigation.navigate('ShowProducts')
-				alert("Success Send Data!")
-			})
+		Axios(config)
+		.then(function (response){
+			setLoading(true)
+			console.log("Res: ", response.status, " Ok")
+			navigation.navigate('ShowProducts')
+			alert("Success Send Data!")
+		})
 		.catch(function (error){
+			setLoading(true)
 			alert("Failed Send Data!")
 			console.log(error)
 		})
@@ -658,7 +498,7 @@ const itemNGsLoop = () => {
 									<Picker 
 									mode="dropdown"
 									selectedValue= {judgement_first_piece1}
-									onValueChange = {(value)=>setJudgement1(value)}
+									onValueChange = {(value)=>updateStatus1(value)}
 									>
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
@@ -687,6 +527,7 @@ const itemNGsLoop = () => {
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
 										<Picker.Item label="NG" value="NG"/>
+										<Picker.Item label="No Check" value="no_check"/>
 									</Picker>
 								</View>
 							</View>
@@ -716,7 +557,7 @@ const itemNGsLoop = () => {
 									<Picker 
 									mode="dropdown"
 									selectedValue= {judgement_first_piece2}
-									onValueChange = {(value)=>setJudgement2(value)}
+									onValueChange = {(value)=>updateStatus2(value)}
 									>
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
@@ -745,6 +586,7 @@ const itemNGsLoop = () => {
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
 										<Picker.Item label="NG" value="NG"/>
+										<Picker.Item label="No Check" value="no_check"/>
 									</Picker>
 								</View>
 							</View>
@@ -774,7 +616,7 @@ const itemNGsLoop = () => {
 									<Picker 
 									mode="dropdown"
 									selectedValue= {judgement_first_piece3}
-									onValueChange = {(value)=>setJudgement3(value)}
+									onValueChange = {(value)=>updateStatus3(value)}
 									>
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
@@ -803,6 +645,7 @@ const itemNGsLoop = () => {
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
 										<Picker.Item label="NG" value="NG"/>
+										<Picker.Item label="No Check" value="no_check"/>
 									</Picker>
 								</View>
 							</View>
@@ -832,7 +675,7 @@ const itemNGsLoop = () => {
 									<Picker 
 									mode="dropdown"
 									selectedValue= {judgement_first_piece4}
-									onValueChange = {(value)=>setJudgement4(value)}
+									onValueChange = {(value)=>updateStatus4(value)}
 									>
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
@@ -861,6 +704,7 @@ const itemNGsLoop = () => {
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
 										<Picker.Item label="NG" value="NG"/>
+										<Picker.Item label="No Check" value="no_check"/>
 									</Picker>
 								</View>
 							</View>
@@ -890,7 +734,7 @@ const itemNGsLoop = () => {
 									<Picker 
 									mode="dropdown"
 									selectedValue= {judgement_first_piece5}
-									onValueChange = {(value)=>setJudgement5(value)}
+									onValueChange = {(value)=>updateStatus5(value)}
 									>
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
@@ -919,6 +763,7 @@ const itemNGsLoop = () => {
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
 										<Picker.Item label="NG" value="NG"/>
+										<Picker.Item label="No Check" value="no_check"/>
 									</Picker>
 								</View>
 							</View>
@@ -948,7 +793,7 @@ const itemNGsLoop = () => {
 									<Picker 
 									mode="dropdown"
 									selectedValue= {judgement_first_piece6}
-									onValueChange = {(value)=>setJudgement6(value)}
+									onValueChange = {(value)=>updateStatus6(value)}
 									>
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
@@ -977,6 +822,7 @@ const itemNGsLoop = () => {
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
 										<Picker.Item label="NG" value="NG"/>
+										<Picker.Item label="No Check" value="no_check"/>
 									</Picker>
 								</View>
 							</View>
@@ -1006,7 +852,7 @@ const itemNGsLoop = () => {
 									<Picker 
 									mode="dropdown"
 									selectedValue= {judgement_first_piece7}
-									onValueChange = {(value)=>setJudgement7(value)}
+									onValueChange = {(value)=>updateStatus7(value)}
 									>
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
@@ -1035,6 +881,7 @@ const itemNGsLoop = () => {
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
 										<Picker.Item label="NG" value="NG"/>
+										<Picker.Item label="No Check" value="no_check"/>
 									</Picker>
 								</View>
 							</View>
@@ -1064,7 +911,7 @@ const itemNGsLoop = () => {
 									<Picker 
 									mode="dropdown"
 									selectedValue= {judgement_first_piece8}
-									onValueChange = {(value)=>setJudgement8(value)}
+									onValueChange = {(value)=>updateStatus8(value)}
 									>
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
@@ -1093,6 +940,7 @@ const itemNGsLoop = () => {
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
 										<Picker.Item label="NG" value="NG"/>
+										<Picker.Item label="No Check" value="no_check"/>
 									</Picker>
 								</View>
 							</View>
@@ -1103,7 +951,7 @@ const itemNGsLoop = () => {
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
 								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={product_weight8} onChangeText={(value) => setProductWeight8(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+									<TextInput value={note8} onChangeText={(value) => setKeterangan8(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
 								</View>
 							</View>
 						</View>
@@ -1122,7 +970,7 @@ const itemNGsLoop = () => {
 									<Picker 
 									mode="dropdown"
 									selectedValue= {judgement_first_piece9}
-									onValueChange = {(value)=>setJudgement9(value)}
+									onValueChange = {(value)=>updateStatus9(value)}
 									>
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
@@ -1151,6 +999,7 @@ const itemNGsLoop = () => {
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
 										<Picker.Item label="NG" value="NG"/>
+										<Picker.Item label="No Check" value="no_check"/>
 									</Picker>
 								</View>
 							</View>
@@ -1180,7 +1029,7 @@ const itemNGsLoop = () => {
 									<Picker 
 									mode="dropdown"
 									selectedValue= {judgement_first_piece10}
-									onValueChange = {(value)=>setJudgement10(value)}
+									onValueChange = {(value)=>updateStatus10(value)}
 									>
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
@@ -1209,6 +1058,7 @@ const itemNGsLoop = () => {
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
 										<Picker.Item label="NG" value="NG"/>
+										<Picker.Item label="No Check" value="no_check"/>
 									</Picker>
 								</View>
 							</View>
@@ -1238,7 +1088,7 @@ const itemNGsLoop = () => {
 									<Picker 
 									mode="dropdown"
 									selectedValue= {judgement_first_piece11}
-									onValueChange = {(value)=>setJudgement11(value)}
+									onValueChange = {(value)=>updateStatus11(value)}
 									>
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
@@ -1267,6 +1117,7 @@ const itemNGsLoop = () => {
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
 										<Picker.Item label="NG" value="NG"/>
+										<Picker.Item label="No Check" value="no_check"/>
 									</Picker>
 								</View>
 							</View>
@@ -1296,7 +1147,7 @@ const itemNGsLoop = () => {
 									<Picker 
 									mode="dropdown"
 									selectedValue= {judgement_first_piece12}
-									onValueChange = {(value)=>setJudgement12(value)}
+									onValueChange = {(value)=>updateStatus12(value)}
 									>
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
@@ -1325,6 +1176,7 @@ const itemNGsLoop = () => {
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
 										<Picker.Item label="NG" value="NG"/>
+										<Picker.Item label="No Check" value="no_check"/>
 									</Picker>
 								</View>
 							</View>
@@ -1354,7 +1206,7 @@ const itemNGsLoop = () => {
 									<Picker 
 									mode="dropdown"
 									selectedValue= {judgement_first_piece13}
-									onValueChange = {(value)=>setJudgement13(value)}
+									onValueChange = {(value)=>updateStatus13(value)}
 									>
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
@@ -1383,6 +1235,7 @@ const itemNGsLoop = () => {
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
 										<Picker.Item label="NG" value="NG"/>
+										<Picker.Item label="No Check" value="no_check"/>
 									</Picker>
 								</View>
 							</View>
@@ -1412,7 +1265,7 @@ const itemNGsLoop = () => {
 									<Picker 
 									mode="dropdown"
 									selectedValue= {judgement_first_piece14}
-									onValueChange = {(value)=>setJudgement14(value)}
+									onValueChange = {(value)=>updateStatus14(value)}
 									>
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
@@ -1441,6 +1294,7 @@ const itemNGsLoop = () => {
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
 										<Picker.Item label="NG" value="NG"/>
+										<Picker.Item label="No Check" value="no_check"/>
 									</Picker>
 								</View>
 							</View>
@@ -1470,7 +1324,7 @@ const itemNGsLoop = () => {
 									<Picker 
 									mode="dropdown"
 									selectedValue= {judgement_first_piece15}
-									onValueChange = {(value)=>setJudgement15(value)}
+									onValueChange = {(value)=>updateStatus15(value)}
 									>
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
@@ -1499,6 +1353,7 @@ const itemNGsLoop = () => {
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
 										<Picker.Item label="NG" value="NG"/>
+										<Picker.Item label="No Check" value="no_check"/>
 									</Picker>
 								</View>
 							</View>
@@ -1528,7 +1383,7 @@ const itemNGsLoop = () => {
 									<Picker 
 									mode="dropdown"
 									selectedValue= {judgement_first_piece16}
-									onValueChange = {(value)=>setJudgement16(value)}
+									onValueChange = {(value)=>updateStatus16(value)}
 									>
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
@@ -1557,6 +1412,7 @@ const itemNGsLoop = () => {
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
 										<Picker.Item label="NG" value="NG"/>
+										<Picker.Item label="No Check" value="no_check"/>
 									</Picker>
 								</View>
 							</View>
@@ -1586,7 +1442,7 @@ const itemNGsLoop = () => {
 									<Picker 
 									mode="dropdown"
 									selectedValue= {judgement_first_piece17}
-									onValueChange = {(value)=>setJudgement17(value)}
+									onValueChange = {(value)=>updateStatus17(value)}
 									>
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
@@ -1615,6 +1471,7 @@ const itemNGsLoop = () => {
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
 										<Picker.Item label="NG" value="NG"/>
+										<Picker.Item label="No Check" value="no_check"/>
 									</Picker>
 								</View>
 							</View>
@@ -1644,7 +1501,7 @@ const itemNGsLoop = () => {
 									<Picker 
 									mode="dropdown"
 									selectedValue= {judgement_first_piece18}
-									onValueChange = {(value)=>setJudgement18(value)}
+									onValueChange = {(value)=>updateStatus18(value)}
 									>
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
@@ -1673,6 +1530,7 @@ const itemNGsLoop = () => {
 										<Picker.Item label="Pilih" value=""/>
 										<Picker.Item label="OK" value="OK"/>
 										<Picker.Item label="NG" value="NG"/>
+										<Picker.Item label="No Check" value="no_check"/>
 									</Picker>
 								</View>
 							</View>
@@ -1720,6 +1578,151 @@ const itemNGsLoop = () => {
 			}
 		}
 		return table1
+	}
+
+	const updateStatus1 = (value) => {
+		setJudgement1(value)
+		if(value != "NG"){
+			setCopySample("OK")
+		}else{
+			setCopySample("NG")
+		}
+	}
+	const updateStatus2 = (value) => {
+		setJudgement2(value)
+		if(value != "NG"){
+			setCopySample("OK")
+		}else{
+			setCopySample("NG")
+		}
+	}
+	const updateStatus3 = (value) => {
+		setJudgement3(value)
+		if(value != "NG"){
+			setCopySample("OK")
+		}else{
+			setCopySample("NG")
+		}
+	}
+	const updateStatus4 = (value) => {
+		setJudgement4(value)
+		if(value != "NG"){
+			setCopySample("OK")
+		}else{
+			setCopySample("NG")
+		}
+	}
+	const updateStatus5 = (value) => {
+		setJudgement5(value)
+		if(value != "NG"){
+			setCopySample("OK")
+		}else{
+			setCopySample("NG")
+		}
+	}
+	const updateStatus6 = (value) => {
+		setJudgement6(value)
+		if(value != "NG"){
+			setCopySample("OK")
+		}else{
+			setCopySample("NG")
+		}
+	}
+	const updateStatus7 = (value) => {
+		setJudgement7(value)
+		if(value != "NG"){
+			setCopySample("OK")
+		}else{
+			setCopySample("NG")
+		}
+	}
+	const updateStatus8 = (value) => {
+		setJudgement8(value)
+		if(value != "NG"){
+			setCopySample("OK")
+		}else{
+			setCopySample("NG")
+		}
+	}
+	const updateStatus9 = (value) => {
+		setJudgement9(value)
+		if(value != "NG"){
+			setCopySample("OK")
+		}else{
+			setCopySample("NG")
+		}
+	}
+	const updateStatus10 = (value) => {
+		setJudgement10(value)
+		if(value != "NG"){
+			setCopySample("OK")
+		}else{
+			setCopySample("NG")
+		}
+	}
+	const updateStatus11 = (value) => {
+		setJudgement11(value)
+		if(value != "NG"){
+			setCopySample("OK")
+		}else{
+			setCopySample("NG")
+		}
+	}
+	const updateStatus12 = (value) => {
+		setJudgement12(value)
+		if(value != "NG"){
+			setCopySample("OK")
+		}else{
+			setCopySample("NG")
+		}
+	}
+	const updateStatus13 = (value) => {
+		setJudgement13(value)
+		if(value != "NG"){
+			setCopySample("OK")
+		}else{
+			setCopySample("NG")
+		}
+	}
+	const updateStatus14 = (value) => {
+		setJudgement14(value)
+		if(value != "NG"){
+			setCopySample("OK")
+		}else{
+			setCopySample("NG")
+		}
+	}
+	const updateStatus15 = (value) => {
+		setJudgement15(value)
+		if(value != "NG"){
+			setCopySample("OK")
+		}else{
+			setCopySample("NG")
+		}
+	}
+	const updateStatus16 = (value) => {
+		setJudgement16(value)
+		if(value != "NG"){
+			setCopySample("OK")
+		}else{
+			setCopySample("NG")
+		}
+	}
+	const updateStatus17 = (value) => {
+		setJudgement17(value)
+		if(value != "NG"){
+			setCopySample("OK")
+		}else{
+			setCopySample("NG")
+		}
+	}
+	const updateStatus18 = (value) => {
+		setJudgement18(value)
+		if(value != "NG"){
+			setCopySample("OK")
+		}else{
+			setCopySample("NG")
+		}
 	}
 
 	const updateCompareCopySampleFunc = () => {
