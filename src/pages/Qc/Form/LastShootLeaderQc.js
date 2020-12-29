@@ -171,6 +171,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 			}
 			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 			.then(response => {
+				console.log(response.data.data.daily_inspection)
 				setLoading(true)
 				setData(response.data.data.daily_inspection)
 				setlast_shoot_qc_items(response.data.data.last_shoot_qc_items)
@@ -1798,128 +1799,138 @@ const LastShootLeaderQc = ({route, navigation}) => {
 	
 	const content = () => {
 		var dataContent = []
-		dataContent.push(
-			<ScrollView key="asjdn2" style={{flex: 1}}>
-				<View style={{paddingTop: 20, flexDirection: 'row'}}>
-					<View style={{padding: 10, width: "44%"}}>
-						<Text>Machines Status</Text>
-					</View>
-					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-						<Text style={{color: 'black'}}>:</Text>
-					</View>
-					<View style={{padding: 4, width: "50%"}}>
-						<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-							<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-								<Text>{data != null ? data.machine_status : "-"}</Text>
-							</View>
+		if(dataCavity != null){
+			dataContent.push(
+				<ScrollView key="asjdn2" style={{flex: 1}}>
+					<View style={{paddingTop: 20, flexDirection: 'row'}}>
+						<View style={{padding: 10, width: "44%"}}>
+							<Text>Machines Status</Text>
 						</View>
-					</View>
-				</View>
-
-				<View style={{paddingTop: 20, flexDirection: 'row'}}>
-					<View style={{padding: 10, width: "44%"}}>
-						<Text>Tooling</Text>
-					</View>
-					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-						<Text style={{color: 'black'}}>:</Text>
-					</View>
-					<View style={{padding: 4, width: "50%"}}>
-						<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-							<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-								<Text>{data != null ? data.tooling_num : "-"}</Text>
-							</View>
+						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+							<Text style={{color: 'black'}}>:</Text>
 						</View>
-					</View>
-				</View>
-					
-				<View style={{paddingTop: 20, flexDirection: 'row'}}>
-					<View style={{padding: 10, width: "44%"}}>
-						<Text>Cavity Amount</Text>
-					</View>
-					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-						<Text style={{color: 'black'}}>:</Text>
-					</View>
-					<View style={{padding: 4, width: "50%"}}>
-						<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-							<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-								<Text>{data != null ? dataCavity : "-"}</Text>
-							</View>
-						</View>
-					</View>
-				</View>
-
-				<View style={{paddingTop: 20, flexDirection: 'row'}}>
-					<View style={{padding: 10, width: "44%"}}>
-						<Text>Compare Copy Sample</Text>
-					</View>
-					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-						<Text style={{color: 'black'}}>:</Text>
-					</View>
-					<View style={{padding: 4, width: "50%"}}>
-						<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-							{updateCompareCopySampleFunc()}
-						</View>
-					</View>
-				</View>
-
-				<View style={{paddingTop: 20, flexDirection: 'row'}}>
-					<View style={{padding: 10, width: "44%"}}>
-						<Text>Need MTR</Text>
-					</View>
-					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-						<Text style={{color: 'black'}}>:</Text>
-					</View>
-					<View style={{padding: 4, width: "50%"}}>
-						<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-							{updateMTRFunc()}
-						</View>
-					</View>
-				</View>
-
-				<ScrollView horizontal>
-					<TouchableOpacity>
-						<View style={{flexDirection: 'row', height: 50, paddingTop: 10}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-								<Text style={{fontWeight: 'bold'}}>Cavity</Text>
-								<View style={{justifyContent: 'center'}}>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-								<Text style={{fontWeight: 'bold', fontSize: 15}}>Judgement Last Shoot</Text>
-								<View style={{justifyContent: 'center'}}>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
-								<Text style={{fontWeight: 'bold'}}>Kategori NG</Text>
-								<View style={{justifyContent: 'center'}}>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
-								<Text style={{fontWeight: 'bold'}}>Fitting Test</Text>
-								<View style={{justifyContent: 'center'}}>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
-								<Text style={{fontWeight: 'bold'}}>Product's Weight</Text>
-								<View style={{justifyContent: 'center'}}>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderRightWidth: 0.5, borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 145}}>
-								<Text style={{fontWeight: 'bold'}}>Keterangan</Text>
-								<View style={{justifyContent: 'center'}}>
+						<View style={{padding: 4, width: "50%"}}>
+							<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+								<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+									<Text>{data.machine_status != null ? data.machine_status : "-"}</Text>
 								</View>
 							</View>
 						</View>
-
-						{dataItem()}
-					</TouchableOpacity>
+					</View>
+	
+					<View style={{paddingTop: 20, flexDirection: 'row'}}>
+						<View style={{padding: 10, width: "44%"}}>
+							<Text>Tooling</Text>
+						</View>
+						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+							<Text style={{color: 'black'}}>:</Text>
+						</View>
+						<View style={{padding: 4, width: "50%"}}>
+							<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+								<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+									<Text>{data.tooling_num != null ? data.tooling_num : "-"}</Text>
+								</View>
+							</View>
+						</View>
+					</View>
+						
+					<View style={{paddingTop: 20, flexDirection: 'row'}}>
+						<View style={{padding: 10, width: "44%"}}>
+							<Text>Cavity Amount</Text>
+						</View>
+						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+							<Text style={{color: 'black'}}>:</Text>
+						</View>
+						<View style={{padding: 4, width: "50%"}}>
+							<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+								<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+									<Text>{dataCavity != null ? dataCavity : "-"}</Text>
+								</View>
+							</View>
+						</View>
+					</View>
+	
+					<View style={{paddingTop: 20, flexDirection: 'row'}}>
+						<View style={{padding: 10, width: "44%"}}>
+							<Text>Compare Copy Sample</Text>
+						</View>
+						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+							<Text style={{color: 'black'}}>:</Text>
+						</View>
+						<View style={{padding: 4, width: "50%"}}>
+							<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+								{updateCompareCopySampleFunc()}
+							</View>
+						</View>
+					</View>
+	
+					<View style={{paddingTop: 20, flexDirection: 'row'}}>
+						<View style={{padding: 10, width: "44%"}}>
+							<Text>Need MTR</Text>
+						</View>
+						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+							<Text style={{color: 'black'}}>:</Text>
+						</View>
+						<View style={{padding: 4, width: "50%"}}>
+							<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+								{updateMTRFunc()}
+							</View>
+						</View>
+					</View>
+	
+					<ScrollView horizontal>
+						<TouchableOpacity>
+							<View style={{flexDirection: 'row', height: 50, paddingTop: 10}}>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
+									<Text style={{fontWeight: 'bold'}}>Cavity</Text>
+									<View style={{justifyContent: 'center'}}>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+									<Text style={{fontWeight: 'bold', fontSize: 15}}>Judgement Last Shoot</Text>
+									<View style={{justifyContent: 'center'}}>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
+									<Text style={{fontWeight: 'bold'}}>Kategori NG</Text>
+									<View style={{justifyContent: 'center'}}>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
+									<Text style={{fontWeight: 'bold'}}>Fitting Test</Text>
+									<View style={{justifyContent: 'center'}}>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
+									<Text style={{fontWeight: 'bold'}}>Product's Weight</Text>
+									<View style={{justifyContent: 'center'}}>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderRightWidth: 0.5, borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 145}}>
+									<Text style={{fontWeight: 'bold'}}>Keterangan</Text>
+									<View style={{justifyContent: 'center'}}>
+									</View>
+								</View>
+							</View>
+	
+							{dataItem()}
+						</TouchableOpacity>
+					</ScrollView>
+					<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
+						{updateButtonFunc()}
+					</View>
 				</ScrollView>
-				<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
-					{updateButtonFunc()}
-				</View>
-			</ScrollView>
-		
-		)
+			
+			)
+		}else{
+			dataContent.push(
+				<ScrollView key="29" style={{flex: 1}}>
+					<View style={{marginVertical: 160, marginHorizontal: 40, padding: 40, backgroundColor: 'red', borderWidth: 1, borderRadius: 25, flexDirection: 'row', alignItems: 'center'}}>
+						<Text style={{fontSize: 12, textAlign: 'center', fontWeight: 'bold'}}>Hubungi Foreman Untuk Segera Isi Form Revisi First Piece Foreman</Text>
+					</View>
+				</ScrollView>
+			)
+		}
 		return dataContent
 	}
 

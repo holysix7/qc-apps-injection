@@ -33,7 +33,7 @@ const MassproBeginMaterialPreparation = ({route, navigation}) => {
 	let created_at 																	= moment().format("YYYY-MM-DD HH:mm:ss")
 	let updated_at 																	= moment().format("YYYY-MM-DD HH:mm:ss")
 	const [remark, setRemark] 											= useState("")
-	const [qc_masspro_main_mold_id, setMaintMoldId]	= useState(0)
+	const [qc_masspro_main_mold_id, setMaintMoldId]	= useState(null)
 	const [hours, setHours]		  										= useState(0)
 	const [shift, setShift]		  										= useState(0)
 	const [planningId, setPlanningId]		 		 				= useState("")
@@ -382,79 +382,89 @@ const MassproBeginMaterialPreparation = ({route, navigation}) => {
 
 	const content = () => {
 		var dataContent = []
-		dataContent.push(
-			<ScrollView key="3" style={{flex: 1}}>
-				<View style={{paddingTop: 20, flexDirection: 'row'}}>
-					<View style={{padding: 10, width: "40%"}}>
-						<Text style={{fontSize: 14}}>Cleaning Hopper</Text>
-					</View>
-					<View style={{padding: 10, width: "6%"}}>
-						<Text>:</Text>
-					</View>
-					<View style={{padding: 4, width: "54%"}}>
-						{updateCleaningHopper()}
-					</View>
-				</View>
-				<View style={{paddingTop: 20, flexDirection: 'row'}}>
-					<View style={{padding: 10, width: "40%"}}>
-						<Text style={{fontSize: 14}}>Material By Standard</Text>
-					</View>
-					<View style={{padding: 10, width: "6%"}}>
-						<Text>:</Text>
-					</View>
-					<View style={{padding: 4, width: "29%"}}>
-						<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-							<Text style={{fontSize: 9.5}}>{dataMaterial.name}</Text>
+		if(qc_masspro_main_mold_id != null){
+			dataContent.push(
+				<ScrollView key="3" style={{flex: 1}}>
+					<View style={{paddingTop: 20, flexDirection: 'row'}}>
+						<View style={{padding: 10, width: "40%"}}>
+							<Text style={{fontSize: 14}}>Cleaning Hopper</Text>
+						</View>
+						<View style={{padding: 10, width: "6%"}}>
+							<Text>:</Text>
+						</View>
+						<View style={{padding: 4, width: "54%"}}>
+							{updateCleaningHopper()}
 						</View>
 					</View>
-					<View style={{padding: 4, width: "25%"}}>
-						{updateMaterialStandard()}
+					<View style={{paddingTop: 20, flexDirection: 'row'}}>
+						<View style={{padding: 10, width: "40%"}}>
+							<Text style={{fontSize: 14}}>Material By Standard</Text>
+						</View>
+						<View style={{padding: 10, width: "6%"}}>
+							<Text>:</Text>
+						</View>
+						<View style={{padding: 4, width: "29%"}}>
+							<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+								<Text style={{fontSize: 9.5}}>{dataMaterial.name}</Text>
+							</View>
+						</View>
+						<View style={{padding: 4, width: "25%"}}>
+							{updateMaterialStandard()}
+						</View>
 					</View>
-				</View>
-				<View style={{paddingTop: 20, flexDirection: 'row'}}>
-					<View style={{padding: 10, width: "40%"}}>
-						<Text style={{fontSize: 14}}>Temperatur Hopper</Text>
+					<View style={{paddingTop: 20, flexDirection: 'row'}}>
+						<View style={{padding: 10, width: "40%"}}>
+							<Text style={{fontSize: 14}}>Temperatur Hopper</Text>
+						</View>
+						<View style={{padding: 10, width: "6%"}}>
+							<Text>:</Text>
+						</View>
+						<View style={{padding: 4, width: "29%"}}>
+							{updateTemperaturHopper()}
+						</View>
+						<View style={{padding: 4, width: "25%"}}>
+							{updateTemperaturHopperSelect()}
+						</View>
 					</View>
-					<View style={{padding: 10, width: "6%"}}>
-						<Text>:</Text>
+					<View style={{paddingTop: 20, flexDirection: 'row'}}>
+						<View style={{padding: 10, width: "40%"}}>
+							<Text style={{fontSize: 14}}>Drying Material</Text>
+						</View>
+						<View style={{padding: 10, width: "6%"}}>
+							<Text>:</Text>
+						</View>
+						<View style={{paddingTop: 14}}>
+							<Text style={{fontSize: 12, fontWeight: 'bold'}}>Start From:</Text>
+						</View>
+						<View style={{paddingTop: 14, paddingLeft: 4}}>
+							<Text style={{fontSize: 12}}>{dying_material}</Text>
+						</View>
 					</View>
-					<View style={{padding: 4, width: "29%"}}>
-						{updateTemperaturHopper()}
+					<View style={{paddingTop: 20, flexDirection: 'row'}}>
+						<View style={{padding: 10, width: "40%"}}>
+							<Text>Remark</Text>
+						</View>
+						<View style={{padding: 10, width: "6%"}}>
+							<Text>:</Text>
+						</View>
+						<View style={{padding: 4, width: "54%"}}>
+							{updateRemark()}
+						</View>
 					</View>
-					<View style={{padding: 4, width: "25%"}}>
-						{updateTemperaturHopperSelect()}
+					<View style={{justifyContent: 'center', alignItems: 'center'}}>
+						{updateButton()}
 					</View>
-				</View>
-				<View style={{paddingTop: 20, flexDirection: 'row'}}>
-					<View style={{padding: 10, width: "40%"}}>
-						<Text style={{fontSize: 14}}>Drying Material</Text>
+				</ScrollView>
+			)
+		}else{
+			dataContent.push(
+				<ScrollView key="3" style={{flex: 1}}>
+					<View style={{marginVertical: 160, marginHorizontal: 40, padding: 40, backgroundColor: 'red', borderWidth: 1, borderRadius: 25, flexDirection: 'row', alignItems: 'center'}}>
+						<Text style={{fontSize: 12, textAlign: 'center', fontWeight: 'bold'}}>Hubungi Masspro Begin Maintenance Mold Untuk Segera Isi Form</Text>
 					</View>
-					<View style={{padding: 10, width: "6%"}}>
-						<Text>:</Text>
-					</View>
-					<View style={{paddingTop: 14}}>
-						<Text style={{fontSize: 12, fontWeight: 'bold'}}>Start From:</Text>
-					</View>
-					<View style={{paddingTop: 14, paddingLeft: 4}}>
-						<Text style={{fontSize: 12}}>{dying_material}</Text>
-					</View>
-				</View>
-				<View style={{paddingTop: 20, flexDirection: 'row'}}>
-					<View style={{padding: 10, width: "40%"}}>
-						<Text>Remark</Text>
-					</View>
-					<View style={{padding: 10, width: "6%"}}>
-						<Text>:</Text>
-					</View>
-					<View style={{padding: 4, width: "54%"}}>
-						{updateRemark()}
-					</View>
-				</View>
-				<View style={{justifyContent: 'center', alignItems: 'center'}}>
-					{updateButton()}
-				</View>
-			</ScrollView>
-		)
+				</ScrollView>
+			)
+		}
 		return dataContent
 	}
 

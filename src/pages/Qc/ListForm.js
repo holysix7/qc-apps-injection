@@ -319,23 +319,25 @@ const ListForm = ({route, navigation}) => {
 						)
 					}
 					if(featureUser[i].qc_last_shoot_foreman.view_permissions == true){
-						<Button key="askdmasqwewkwqw" style={styles.productsButton} onPress={() => navigation.navigate('LastShootForeman', {
-							qc_daily_inspection_id: qc_daily_inspection_id,
-							sys_plant_id: sys_plant_id,
-							product_name: product_name,
-							machine_id: machine_id,
-							cavity: cavity,
-							customer_name: customer_name,
-							internal_part_id: internal_part_id,
-							customer_part_number: customer_part_number,
-							model: model,
-							machine_name: machine_name,
-							machine_status: machine_status,
-							today: today,
-							yesterday: yesterday
-						})} >
-							<Text> Last Shoot Foreman </Text>   
-						</Button>
+						data.push(
+							<Button key="askdmasqwewkwqw" style={styles.productsButton} onPress={() => navigation.navigate('LastShootForeman', {
+								qc_daily_inspection_id: qc_daily_inspection_id,
+								sys_plant_id: sys_plant_id,
+								product_name: product_name,
+								machine_id: machine_id,
+								cavity: cavity,
+								customer_name: customer_name,
+								internal_part_id: internal_part_id,
+								customer_part_number: customer_part_number,
+								model: model,
+								machine_name: machine_name,
+								machine_status: machine_status,
+								today: today,
+								yesterday: yesterday
+							})} >
+								<Text> Last Shoot Foreman </Text>   
+							</Button>
+						)
 					}
 				}
 			}

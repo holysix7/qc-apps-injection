@@ -18,19 +18,19 @@ const Per4Jam = ({route, navigation}) => {
 		}
 
 		function FixInspectionTime() {
-				let initialDate    = moment();
-				var inspection     = setInterval(() => {
-					var currentDate    = moment();    
-					var second         = parseInt((currentDate - initialDate)/1000);
-					var minutes        = parseInt(second/60);
-					var hour           = parseInt(minutes/60);
-					var second_kedua   = second - (minutes*60); 
-					var menit_kedua    = minutes - (hour*60);
-					var second_asli    = (second >= 60 ? second_kedua : second);
-					var menit_asli     = (minutes >= 60 ? menit_kedua : minutes);
-					var CombiningTime  = (hour + ":" + menit_asli + ":" + second_asli);
-					if(isMounted) setInspectionTime(CombiningTime)
-				}, 1000);
+			let initialDate    = moment();
+			var inspection     = setInterval(() => {
+				var currentDate    = moment();    
+				var second         = parseInt((currentDate - initialDate)/1000);
+				var minutes        = parseInt(second/60);
+				var hour           = parseInt(minutes/60);
+				var second_kedua   = second - (minutes*60); 
+				var menit_kedua    = minutes - (hour*60);
+				var second_asli    = (second >= 60 ? second_kedua : second);
+				var menit_asli     = (minutes >= 60 ? menit_kedua : minutes);
+				var CombiningTime  = (hour + ":" + menit_asli + ":" + second_asli);
+				if(isMounted) setInspectionTime(CombiningTime)
+			}, 1000);
 		}
         
         
@@ -38,31 +38,10 @@ const Per4Jam = ({route, navigation}) => {
 
 	const [cavityCheck, setCavityCheck] 			= useState("")
 	const [tooling_num, setTooling] 					= useState("")
-	const [statusCavity, setStatusCavity] 		= useState("")
-	const [fittingTes, setFittingTes] 				= useState("")
 	const [inspectionTime, setInspectionTime] = useState("")
 	const [hours, setHours]		  							= useState(0)
 	const [shift, setShift]		  							= useState(0)
 
-	const [statusCavity1, setStatusCavity1] 														 = useState("")
-	const [statusCavity2, setStatusCavity2] 														 = useState("")
-	const [statusCavity3, setStatusCavity3] 														 = useState("")
-	const [statusCavity4, setStatusCavity4] 														 = useState("")
-	const [statusCavity5, setStatusCavity5] 														 = useState("")
-	const [statusCavity6, setStatusCavity6] 														 = useState("")
-	const [statusCavity7, setStatusCavity7] 														 = useState("")
-	const [statusCavity8, setStatusCavity8] 														 = useState("")
-	const [statusCavity9, setStatusCavity9] 														 = useState("")
-	const [statusCavity10, setStatusCavity10] 													 = useState("")
-	const [statusCavity11, setStatusCavity11] 													 = useState("")
-	const [statusCavity12, setStatusCavity12] 													 = useState("")
-	const [statusCavity13, setStatusCavity13] 													 = useState("")
-	const [statusCavity14, setStatusCavity14] 													 = useState("")
-	const [statusCavity15, setStatusCavity15] 													 = useState("")
-	const [statusCavity16, setStatusCavity16] 													 = useState("")
-	const [statusCavity17, setStatusCavity17] 													 = useState("")
-	const [statusCavity18, setStatusCavity18] 													 = useState("")
-	
 	const [compare1, setCompare1]	  											 = useState("")
 	const [compare2, setCompare2]   											 = useState("")
 	const [compare3, setCompare3]   											 = useState("")
@@ -122,16 +101,15 @@ const Per4Jam = ({route, navigation}) => {
 
 	const [cavityDetail, setCavityDetail] = useState("")
 	const [qc_daily_inspection_item_id, setqc_daily_inpspection_item_id] = useState("")
-	const [internal_part_id, setInternalPartId] 													= useState("")
-	const [customer_part_number, setCustomerPartNumber] 									= useState("")
-	const [model, setModel] 																							= useState("")
-	const [created_by, setCreatedBy]																			= useState("")
-	let created_at 																												= moment().format("YYYY-MM-DD HH:mm:ss")
-	const [updated_by, setUpdatedBy]																			= useState("")
-	let updated_at 																												= moment().format("YYYY-MM-DD HH:mm:ss")
+	const [internal_part_id, setInternalPartId] 												 = useState("")
+	const [customer_part_number, setCustomerPartNumber] 								 = useState("")
+	const [model, setModel] 																						 = useState("")
+	const [created_by, setCreatedBy]																		 = useState("")
+	let created_at 																											 = moment().format("YYYY-MM-DD HH:mm:ss")
+	const [updated_by, setUpdatedBy]																		 = useState("")
+	let updated_at 																											 = moment().format("YYYY-MM-DD HH:mm:ss")
 	
-	const [updateinspection_time, setupdateInspectionTime]																			= useState("")
-	
+	const [updateinspection_time, setupdateInspectionTime]							 = useState("")
 	const [loading, setLoading] = useState(false)
 
 	const [data, setData] = useState("");
@@ -262,6 +240,7 @@ const Per4Jam = ({route, navigation}) => {
 			})
 		}
 	}
+
 	const item = {
 		"cav_1": {
 			"cavity": 1,
@@ -925,7 +904,7 @@ const Per4Jam = ({route, navigation}) => {
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
 								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note8} onChangeText={(value) => setProductWeight8(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+									<TextInput value={note8} onChangeText={(value) => setKeterangan8(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
 								</View>
 							</View>
 						</View>
@@ -1399,105 +1378,115 @@ const Per4Jam = ({route, navigation}) => {
 
 	const content = () => {
 		var dataContent = []
-		dataContent.push(
-			<ScrollView key="asoijkm" style={{flex: 1}}>
-				<View style={{paddingTop: 20, flexDirection: 'row'}}>
-					<View style={{padding: 10, width: "44%"}}>
-						<Text>Machines Status</Text>
-					</View>
-					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-						<Text style={{color: 'black'}}>:</Text>
-					</View>
-					<View style={{padding: 4, width: "50%"}}>
-						<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-							<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-								<Text>{daily_inspection != null ? daily_inspection.machine_status : "-"}</Text>
-							</View>
+		if(cavityCheck != null){
+			dataContent.push(
+				<ScrollView key="asoijkm" style={{flex: 1}}>
+					<View style={{paddingTop: 20, flexDirection: 'row'}}>
+						<View style={{padding: 10, width: "44%"}}>
+							<Text>Machines Status</Text>
 						</View>
-					</View>
-				</View>
-
-				<View style={{paddingTop: 20, flexDirection: 'row'}}>
-					<View style={{padding: 10, width: "44%"}}>
-						<Text>Tooling</Text>
-					</View>
-					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-						<Text style={{color: 'black'}}>:</Text>
-					</View>
-					<View style={{padding: 4, width: "50%"}}>
-						<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-							<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-								<Text>{tooling_num}</Text>
-							</View>
+						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+							<Text style={{color: 'black'}}>:</Text>
 						</View>
-					</View>
-				</View>
-					
-				<View style={{paddingTop: 20, flexDirection: 'row'}}>
-					<View style={{padding: 10, width: "44%"}}>
-						<Text>Cavity Amount</Text>
-					</View>
-					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-						<Text style={{color: 'black'}}>:</Text>
-					</View>
-					<View style={{padding: 4, width: "50%"}}>
-						<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-							<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-								{/* <Text>2</Text> */}
-								<Text>{data.daily_inspection != null ? data.daily_inspection.cavity : "-"}</Text>
-							</View>
-						</View>
-					</View>
-				</View>
-
-				<ScrollView horizontal>
-					<TouchableOpacity>
-						<View style={{flexDirection: 'row', height: 50, paddingTop: 10}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-								<Text style={{fontWeight: 'bold'}}>Cavity</Text>
-								<View style={{justifyContent: 'center'}}>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-								<Text style={{fontWeight: 'bold'}}>Compare</Text>
-								<View style={{justifyContent: 'center'}}>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-								<Text style={{fontWeight: 'bold'}}>Fitting Test</Text>
-								<View style={{justifyContent: 'center'}}>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
-								<Text style={{fontWeight: 'bold'}}>Keterangan</Text>
-								<View style={{justifyContent: 'center'}}>
+						<View style={{padding: 4, width: "50%"}}>
+							<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+								<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+									<Text>{daily_inspection != null ? daily_inspection.machine_status : "-"}</Text>
 								</View>
 							</View>
 						</View>
-						{dataItem()}
-					</TouchableOpacity>
+					</View>
+	
+					<View style={{paddingTop: 20, flexDirection: 'row'}}>
+						<View style={{padding: 10, width: "44%"}}>
+							<Text>Tooling</Text>
+						</View>
+						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+							<Text style={{color: 'black'}}>:</Text>
+						</View>
+						<View style={{padding: 4, width: "50%"}}>
+							<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+								<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+									<Text>{tooling_num}</Text>
+								</View>
+							</View>
+						</View>
+					</View>
+						
+					<View style={{paddingTop: 20, flexDirection: 'row'}}>
+						<View style={{padding: 10, width: "44%"}}>
+							<Text>Cavity Amount</Text>
+						</View>
+						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+							<Text style={{color: 'black'}}>:</Text>
+						</View>
+						<View style={{padding: 4, width: "50%"}}>
+							<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+								<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+									{/* <Text>2</Text> */}
+									<Text>{data.daily_inspection != null ? data.daily_inspection.cavity : "-"}</Text>
+								</View>
+							</View>
+						</View>
+					</View>
+	
+					<ScrollView horizontal>
+						<TouchableOpacity>
+							<View style={{flexDirection: 'row', height: 50, paddingTop: 10}}>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
+									<Text style={{fontWeight: 'bold'}}>Cavity</Text>
+									<View style={{justifyContent: 'center'}}>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+									<Text style={{fontWeight: 'bold'}}>Compare</Text>
+									<View style={{justifyContent: 'center'}}>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+									<Text style={{fontWeight: 'bold'}}>Fitting Test</Text>
+									<View style={{justifyContent: 'center'}}>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
+									<Text style={{fontWeight: 'bold'}}>Keterangan</Text>
+									<View style={{justifyContent: 'center'}}>
+									</View>
+								</View>
+							</View>
+							{dataItem()}
+						</TouchableOpacity>
+					</ScrollView>
+	
+					<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
+						<View>
+							{ updateinspection_time != null ? <Button style={{width: 172, borderRadius: 25, justifyContent: 'center', backgroundColor: '#05c46b'}} onPress={() => alert("Already Saved!")}><Text>SAVE</Text></Button> : <Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>}
+						</View>
+					</View>
+	
+					<View style={{flexDirection: 'column', height: 50}}>
+						<View style={{height: 27, alignItems: 'center'}}>
+							<Text style={{fontWeight: 'bold'}}>
+								Inspection Time
+							</Text>
+						</View>
+						<View style={{height: 23, alignItems: 'center'}}>
+							<Text>
+								{updateinspection_time != null ? updateinspection_time : inspectionTime}
+							</Text>
+						</View>
+					</View>
 				</ScrollView>
-
-				<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
-					<View>
-						{ updateinspection_time != null ? <Button style={{width: 172, borderRadius: 25, justifyContent: 'center', backgroundColor: '#05c46b'}} onPress={() => alert("Already Saved!")}><Text>SAVE</Text></Button> : <Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>}
+			)
+		}else{
+			dataContent.push(
+				<ScrollView key="2" style={{flex: 1}}>
+					<View style={{marginVertical: 160, marginHorizontal: 40, padding: 40, backgroundColor: 'red', borderWidth: 1, borderRadius: 25, flexDirection: 'row', alignItems: 'center'}}>
+						<Text style={{fontSize: 12, textAlign: 'center', fontWeight: 'bold'}}>Hubungi Daily Inspection Per Jam Untuk Segera Isi Form</Text>
 					</View>
-				</View>
-
-				<View style={{flexDirection: 'column', height: 50}}>
-					<View style={{height: 27, alignItems: 'center'}}>
-						<Text style={{fontWeight: 'bold'}}>
-							Inspection Time
-						</Text>
-					</View>
-					<View style={{height: 23, alignItems: 'center'}}>
-						<Text>
-							{updateinspection_time != null ? updateinspection_time : inspectionTime}
-						</Text>
-					</View>
-				</View>
-			</ScrollView>
-		)
+				</ScrollView>
+			)
+		}
 		return dataContent
 	}
 

@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {View, Image, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, ActivityIndicator} from 'react-native';
 import LogoSIP from '../../assets/logo-sip3.png';
-import {Container, Button, Text, Spinner, Icon, Form, Item, Label, Input} from "native-base";
+import {Container, Button, Text, Form, Item, Label, Input} from "native-base";
 import GeneralStatusBarColor from '../../components/GeneralStatusBarColor';
 import Axios from 'axios';
 import DeviceStorage from './DeviceStorage';
@@ -12,7 +12,6 @@ const Login = ({navigation}) => {
 	//Form
 	const [user, setUser] = useState("");
 	const [password, setPassword] = useState("");
-	const [icon, setIcon] = useState("")
 	const [loading, setLoading] = useState(true)
 
 	const submit = async() => {
@@ -32,10 +31,11 @@ const Login = ({navigation}) => {
 				alert("Login Success!")
 			}).catch((err) => {
 				console.log("Login: ", err)
+				setLoading(true)
 				alert("Login Failed!")
 			})
 		} catch (error) {
-			// setLoading(true)
+			setLoading(true)
 			console.log("Login: ", error)
 			alert("Login Failed!")
 		}
@@ -75,7 +75,6 @@ const Login = ({navigation}) => {
 					<View style={{justifyContent: 'center', alignItems: 'center'}}>
 					<Image source={LogoSIP} style={styles.logoSipBesar}/>
 					</View>
-					{/* {loading ? null : <View style={{justifyContent: 'center'}}><ActivityIndicator size="large" color="#0000ff"/></View> } */}
 					{loading ? content() : <View style={{justifyContent: 'center'}}><ActivityIndicator size="large" color="#0000ff"/></View>}
 				</Container>
 			</TouchableWithoutFeedback>

@@ -39,7 +39,7 @@ const MassproBeginProdLeader = ({route, navigation}) => {
 	const [planningId, setPlanningId]		= useState("")
 	const [internal_part_id, setIPI]		= useState("")
 	const [eng_product_id, setEngProd]	= useState(0)
-	const [massproPL, setMassproPL]			= useState("")
+	const [massproPL, setMassproPL]			= useState(null)
 	const [massproPLWiProduct, setUpdateWiProduct]	  	= useState("")
 	const [massproPLPackingStandard, setUpdatePacking] 	= useState("")
 	const [massproPLWorkTools, setUpdateWorkTools]	 		= useState("")
@@ -524,7 +524,7 @@ const MassproBeginProdLeader = ({route, navigation}) => {
 	const updateButton = () => {
 		const updatePL = massproPL
 		const data = []
-		if(updatePL != null){
+		if(updatePL != null || qc_masspro_tech_injection_id == null){
 			data.push(
 				<View key="asd12q" style={{paddingTop: 10}}>
 					<Button style={{width: 172, borderRadius: 25, justifyContent: 'center', backgroundColor: '#05c46b'}} onPress={() => alert("Data Material Preparation Already Saved!")}><Text>SAVED</Text></Button>
@@ -542,113 +542,123 @@ const MassproBeginProdLeader = ({route, navigation}) => {
 
 	const content = () => {
 		var dataContent = []
-		dataContent.push(
-			<ScrollView key="2" style={{flex: 1}}>
-				<TouchableOpacity>							
-					<View style={{paddingTop: 20, flexDirection: 'row'}}>
-						<View style={{padding: 10, width: "44%"}}>
-							<Text>WI Product</Text>
+		if(qc_masspro_tech_injection_id != null){
+			dataContent.push(
+				<ScrollView key="2" style={{flex: 1}}>
+					<TouchableOpacity>							
+						<View style={{paddingTop: 20, flexDirection: 'row'}}>
+							<View style={{padding: 10, width: "44%"}}>
+								<Text>WI Product</Text>
+							</View>
+							<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+								<Text style={{color: 'black'}}>:</Text>
+							</View>
+							<View style={{padding: 4, width: "50%"}}>
+								{updateWiProduct()}
+							</View>
 						</View>
-						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-							<Text style={{color: 'black'}}>:</Text>
-						</View>
-						<View style={{padding: 4, width: "50%"}}>
-							{updateWiProduct()}
-						</View>
-					</View>
 
-					<View style={{paddingTop: 20, flexDirection: 'row'}}>
-						<View style={{padding: 10, width: "44%"}}>
-							<Text>Packing Standard</Text>
+						<View style={{paddingTop: 20, flexDirection: 'row'}}>
+							<View style={{padding: 10, width: "44%"}}>
+								<Text>Packing Standard</Text>
+							</View>
+							<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+								<Text style={{color: 'black'}}>:</Text>
+							</View>
+							<View style={{padding: 4, width: "50%"}}>
+								{updatePackingStandard()}
+							</View>
 						</View>
-						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-							<Text style={{color: 'black'}}>:</Text>
+						
+						<View style={{paddingTop: 20, flexDirection: 'row'}}>
+							<View style={{padding: 10, width: "44%"}}>
+								<Text>Production Work Tools</Text>
+							</View>
+							<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+								<Text style={{color: 'black'}}>:</Text>
+							</View>
+							<View style={{padding: 4, width: "50%"}}>
+								{updateProductionWorkTools()}
+							</View>
 						</View>
-						<View style={{padding: 4, width: "50%"}}>
-							{updatePackingStandard()}
+						
+						<View style={{paddingTop: 20, flexDirection: 'row'}}>
+							<View style={{padding: 10, width: "44%"}}>
+								<Text>Production Report</Text>
+							</View>
+							<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+								<Text style={{color: 'black'}}>:</Text>
+							</View>
+							<View style={{padding: 4, width: "50%"}}>
+								{updateProductionReport()}
+							</View>
 						</View>
-					</View>
-					
-					<View style={{paddingTop: 20, flexDirection: 'row'}}>
-						<View style={{padding: 10, width: "44%"}}>
-							<Text>Production Work Tools</Text>
+						
+						<View style={{paddingTop: 20, flexDirection: 'row'}}>
+							<View style={{padding: 10, width: "44%"}}>
+								<Text>Lable</Text>
+							</View>
+							<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+								<Text style={{color: 'black'}}>:</Text>
+							</View>
+							<View style={{padding: 4, width: "50%"}}>
+								{updateLable()}
+							</View>
 						</View>
-						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-							<Text style={{color: 'black'}}>:</Text>
+						
+						<View style={{paddingTop: 20, flexDirection: 'row'}}>
+							<View style={{padding: 10, width: "44%"}}>
+								<Text>NG Form</Text>
+							</View>
+							<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+								<Text style={{color: 'black'}}>:</Text>
+							</View>
+							<View style={{padding: 4, width: "50%"}}>
+								{updateNGForm()}
+							</View>
 						</View>
-						<View style={{padding: 4, width: "50%"}}>
-							{updateProductionWorkTools()}
-						</View>
-					</View>
-					
-					<View style={{paddingTop: 20, flexDirection: 'row'}}>
-						<View style={{padding: 10, width: "44%"}}>
-							<Text>Production Report</Text>
-						</View>
-						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-							<Text style={{color: 'black'}}>:</Text>
-						</View>
-						<View style={{padding: 4, width: "50%"}}>
-							{updateProductionReport()}
-						</View>
-					</View>
-					
-					<View style={{paddingTop: 20, flexDirection: 'row'}}>
-						<View style={{padding: 10, width: "44%"}}>
-							<Text>Lable</Text>
-						</View>
-						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-							<Text style={{color: 'black'}}>:</Text>
-						</View>
-						<View style={{padding: 4, width: "50%"}}>
-							{updateLable()}
-						</View>
-					</View>
-					
-					<View style={{paddingTop: 20, flexDirection: 'row'}}>
-						<View style={{padding: 10, width: "44%"}}>
-							<Text>NG Form</Text>
-						</View>
-						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-							<Text style={{color: 'black'}}>:</Text>
-						</View>
-						<View style={{padding: 4, width: "50%"}}>
-							{updateNGForm()}
-						</View>
-					</View>
 
-					<View style={{paddingTop: 20, flexDirection: 'row'}}>
-						<View style={{padding: 10, width: "44%"}}>
-							<Text>JIG / Alat Ukur</Text>
+						<View style={{paddingTop: 20, flexDirection: 'row'}}>
+							<View style={{padding: 10, width: "44%"}}>
+								<Text>JIG / Alat Ukur</Text>
+							</View>
+							<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+								<Text style={{color: 'black'}}>:</Text>
+							</View>
+							<View style={{padding: 4, width: "50%"}}>
+								{updateJIG()}
+							</View>
 						</View>
-						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-							<Text style={{color: 'black'}}>:</Text>
-						</View>
-						<View style={{padding: 4, width: "50%"}}>
-							{updateJIG()}
-						</View>
-					</View>
 
-					<View style={{paddingTop: 20, flexDirection: 'row'}}>
-						<View style={{padding: 10, width: "44%"}}>
-							<Text>Remark</Text>
+						<View style={{paddingTop: 20, flexDirection: 'row'}}>
+							<View style={{padding: 10, width: "44%"}}>
+								<Text>Remark</Text>
+							</View>
+							<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+								<Text style={{color: 'black'}}>:</Text>
+							</View>
+							<View style={{padding: 4, width: "50%"}}>
+								{updateRemark()}
+							</View>
 						</View>
-						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-							<Text style={{color: 'black'}}>:</Text>
+					
+						<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
+							<View>
+								{updateButton()}
+							</View>
 						</View>
-						<View style={{padding: 4, width: "50%"}}>
-							{updateRemark()}
-						</View>
+					</TouchableOpacity>
+				</ScrollView>
+			)
+		}else{
+			dataContent.push(
+				<ScrollView key="2" style={{flex: 1}}>
+					<View style={{marginVertical: 160, marginHorizontal: 40, padding: 40, backgroundColor: 'red', borderWidth: 1, borderRadius: 25, flexDirection: 'row', alignItems: 'center'}}>
+						<Text style={{fontSize: 12, textAlign: 'center', fontWeight: 'bold'}}>Hubungi Masspro Begin Tech. Injection Untuk Segera Isi Form</Text>
 					</View>
-				
-					<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
-						<View>
-							{updateButton()}
-						</View>
-					</View>
-				</TouchableOpacity>
-			</ScrollView>
-		)
+				</ScrollView>
+			)
+		}
 		return dataContent
 	}
 

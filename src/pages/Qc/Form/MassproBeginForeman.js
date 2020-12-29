@@ -1,7 +1,8 @@
 import {Image, View, ScrollView, TextInput, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, TouchableOpacity, ActivityIndicator} from 'react-native';
 import React, {useEffect, useState} from 'react';
-import { Container, Text, Button, Input, Picker } from 'native-base';
+import { Container, Text, Button, Icon, Picker } from 'native-base';
 import LogoSIP from '../../../assets/logo-sip370x50.png';
+import checkImage from '../../../assets/check.png';
 import AsyncStorage from "@react-native-community/async-storage";
 import Axios from 'axios';
 import moment from 'moment';
@@ -20,13 +21,13 @@ const MassproBeginForeman = ({route, navigation}) => {
 	const [data1, setData1]					= useState([])
 	const [cavity, setCavityData]		= useState([])
 
-	const [qc_masspro_main_mold_id, setMaintMoldId] 											= useState(0)
-	const [qc_masspro_material_preparation_id, setMaterialPreparationId] 	= useState(0)
-	const [qc_masspro_mold_setter_id, setSetter] 													= useState(0)
-	const [qc_masspro_tech_injection_id, setTechId] 											= useState(0)
-	const [qc_masspro_prod_leader_id, setProdLeaderId] 										= useState(0)
-	const [qc_masspro_qc_leader_id, setQcLeaderId] 												= useState(0)
-	const [eng_product_id, setEngProd] 																		= useState(0)
+	const [qc_masspro_main_mold_id, setMaintMoldId] 											= useState(null)
+	const [qc_masspro_material_preparation_id, setMaterialPreparationId] 	= useState(null)
+	const [qc_masspro_mold_setter_id, setSetter] 													= useState(null)
+	const [qc_masspro_tech_injection_id, setTechId] 											= useState(null)
+	const [qc_masspro_prod_leader_id, setProdLeaderId] 										= useState(null)
+	const [qc_masspro_qc_leader_id, setQcLeaderId] 												= useState(null)
+	const [eng_product_id, setEngProd] 																		= useState(null)
 
 	const [qc_masspro_main_mold_status, setMaintMoldStatus] 		= useState("")
 	const [qc_masspro_material_preparation_status, setMaterial] = useState("")
@@ -51,7 +52,7 @@ const MassproBeginForeman = ({route, navigation}) => {
 	const [updateProdLeader, setUpdateProdLeader] 			= useState("")
 	const [updateQCLeader, setUpdateQCLeader] 					= useState("")
 	const [updateJudgement, seUpdateKeputusan] 					= useState("")
-	const [updateRemark, seUpdateRemark] 								= useState("")
+	const [updateRemark, seUpdateRemark] 								= useState(null)
 	
 	const [machine_status, setMachineStatus] 						= useState("")
 	
@@ -515,7 +516,7 @@ const MassproBeginForeman = ({route, navigation}) => {
 		const updateFR = updateRemark
 		var data = []
 		const frData = massproFR
-		if(frData != null){
+		if(frData != null || qc_masspro_qc_leader_id == null){
 			if(updateFR != null){
 				data.push(
 					<View key="asjkdn2hj" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
@@ -615,8 +616,11 @@ const MassproBeginForeman = ({route, navigation}) => {
 							<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
 								<Text style={{color: 'black'}}>:</Text>
 							</View>
-							<View style={{padding: 4, width: "50%"}}>
-								{updateCheckSheetMassProMaintMold()}
+							<View style={{padding: 4, width: "50%", flexDirection: 'row'}}>
+								<View style={{width: "70%"}}>
+									{updateCheckSheetMassProMaintMold()}
+								</View>
+									{qc_masspro_main_mold_id != null ? <View style={{paddingLeft: 5, paddingTop: 5}}><Image source={checkImage} style={{width: 30, height: 30}} /></View> : null}
 							</View>
 						</View>
 						
@@ -627,8 +631,11 @@ const MassproBeginForeman = ({route, navigation}) => {
 							<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
 								<Text style={{color: 'black'}}>:</Text>
 							</View>
-							<View style={{padding: 4, width: "50%"}}>
-								{updateCheckSheetMassProMaterialPreparation()}
+							<View style={{padding: 4, width: "50%", flexDirection: 'row'}}>
+								<View style={{width: "70%"}}>
+									{updateCheckSheetMassProMaterialPreparation()}
+								</View>
+								{qc_masspro_material_preparation_id != null ? <View style={{paddingLeft: 5, paddingTop: 5}}><Image source={checkImage} style={{width: 30, height: 30}} /></View> : null}
 							</View>
 						</View>
 
@@ -639,8 +646,11 @@ const MassproBeginForeman = ({route, navigation}) => {
 							<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
 								<Text style={{color: 'black'}}>:</Text>
 							</View>
-							<View style={{padding: 4, width: "50%"}}>
-								{updateCheckSheetMoldSetter()}
+							<View style={{padding: 4, width: "50%", flexDirection: 'row'}}>
+								<View style={{width: "70%"}}>
+									{updateCheckSheetMoldSetter()}
+								</View>
+									{qc_masspro_mold_setter_id != null ? <View style={{paddingLeft: 5, paddingTop: 5}}><Image source={checkImage} style={{width: 30, height: 30}} /></View> : null}
 							</View>
 						</View>
 
@@ -651,8 +661,11 @@ const MassproBeginForeman = ({route, navigation}) => {
 							<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
 								<Text style={{color: 'black'}}>:</Text>
 							</View>
-							<View style={{padding: 4, width: "50%"}}>
-								{updateCheckSheetMassProTechInjection()}
+							<View style={{padding: 4, width: "50%", flexDirection: 'row'}}>
+								<View style={{width: "70%"}}>
+									{updateCheckSheetMassProTechInjection()}
+								</View>
+									{qc_masspro_tech_injection_id != null ? <View style={{paddingLeft: 5, paddingTop: 5}}><Image source={checkImage} style={{width: 30, height: 30}} /></View> : null}
 							</View>
 						</View>
 
@@ -663,8 +676,11 @@ const MassproBeginForeman = ({route, navigation}) => {
 							<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
 								<Text style={{color: 'black'}}>:</Text>
 							</View>
-							<View style={{padding: 4, width: "50%"}}>
-								{updateCheckSheetMassProLeaderProd()}
+							<View style={{padding: 4, width: "50%", flexDirection: 'row'}}>
+								<View style={{width: "70%"}}>
+									{updateCheckSheetMassProLeaderProd()}
+								</View>
+									{qc_masspro_prod_leader_id != null ? <View style={{paddingLeft: 5, paddingTop: 5}}><Image source={checkImage} style={{width: 30, height: 30}} /></View> : null}
 							</View>
 						</View>
 
@@ -675,8 +691,11 @@ const MassproBeginForeman = ({route, navigation}) => {
 							<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
 								<Text style={{color: 'black'}}>:</Text>
 							</View>
-							<View style={{padding: 4, width: "50%"}}>
-								{updateCheckSheetMassProLeaderQC()}
+							<View style={{padding: 4, width: "50%", flexDirection: 'row'}}>
+								<View style={{width: "70%"}}>
+									{updateCheckSheetMassProLeaderQC()}
+								</View>
+									{qc_masspro_qc_leader_id != null ? <View style={{paddingLeft: 5, paddingTop: 5}}><Image source={checkImage} style={{width: 30, height: 30}} /></View> : null}
 							</View>
 						</View>
 
@@ -706,7 +725,7 @@ const MassproBeginForeman = ({route, navigation}) => {
 
 						<View style={{justifyContent: 'center', alignItems: 'center'}}>
 							<View style={{paddingTop: 10}}>
-								{updateButton()}
+								{qc_masspro_qc_leader_id != null ? updateButton() : null }
 							</View>
 						</View>
 					</TouchableOpacity>

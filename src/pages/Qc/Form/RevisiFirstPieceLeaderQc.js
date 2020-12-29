@@ -129,8 +129,8 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 
 	const [hours, setHours] 												= useState(0)
 	const [shift, setShift]		  										= useState(0)
-	const [cavityCheck, setCavityCheck] 						= useState("")
-	const [tooling_num, setTooling] 								= useState("")
+	const [cavityCheck, setCavityCheck] 						= useState(null)
+	const [tooling_num, setTooling] 								= useState(null)
 	const [compare_sample, setCopySample]				 			= useState("")
 	const [check_sheet, setCheckSheet] 							= useState("")
 	const [created_by, setCreatedBy]		  					= useState("")
@@ -140,7 +140,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 	let updated_at 																	= moment().format("YYYY-MM-DD HH:mm:ss")
 	const date = []
 	const [data, setData] 													= useState([])
-	const [dataQl, setDataMachineStatus] 						= useState("")
+	const [dataQl, setDataQl] 						= useState("")
 	const [masspro_ql_id, setMassproQlId] 					= useState("")
 	const [ngCategories, setNGsData]								= useState([])
 	const [eng_product_id, setEngProd] 						 	= useState(0)
@@ -151,7 +151,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 	const [revisiQc, setRevisiQc] 		  					= useState([])
 	const [updateCopySample, setUpdateCopySample] = useState("")
 	const [updateCheckSheet, setUpdateCheckSheet] = useState("")
-	const [updateRemark, setUpdateRemark] 	= useState("")
+	const [updateRemark, setUpdateRemark] 				= useState("")
 
 	const [loading, setLoading] = useState(false)
 
@@ -196,9 +196,10 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 			.then(response => {
 				setLoading(true)
+				// console.log(response.data.data.tooling_num)
 				setEngProd(response.data.data.eng_product_id)
 				setData(response.data.data.product_detail)
-				setDataMachineStatus(response.data.data.masspro_ql)
+				setDataQl(response.data.data.masspro_ql)
 				setMassproQlId(response.data.data.masspro_ql.id)
 				setNGsData(response.data.data.ng_category)
 				setTooling(response.data.data.tooling_num)
@@ -235,7 +236,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 				setLoading(true)
 				setEngProd(response.data.data.eng_product_id)
 				setData(response.data.data.product_detail)
-				setDataMachineStatus(response.data.data.masspro_ql)
+				setDataQl(response.data.data.masspro_ql)
 				setMassproQlId(response.data.data.masspro_ql.id)
 				setNGsData(response.data.data.ng_category)
 				setTooling(response.data.data.tooling_num)
@@ -272,7 +273,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 				setLoading(true)
 				setEngProd(response.data.data.eng_product_id)
 				setData(response.data.data.product_detail)
-				setDataMachineStatus(response.data.data.masspro_ql)
+				setDataQl(response.data.data.masspro_ql)
 				setMassproQlId(response.data.data.masspro_ql.id)
 				setNGsData(response.data.data.ng_category)
 				setTooling(response.data.data.tooling_num)
@@ -1305,7 +1306,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9}}>
 								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={product_weight8} onChangeText={(value) => setProductWeight8(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+									<TextInput value={note8} onChangeText={(value) => setKeterangan8(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
 								</View>
 							</View>
 						</View>
@@ -2032,7 +2033,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 		const updateRF = updateRemark
 		var data = []
 		const rfData = revisiQc
-		if(rfData != null){
+		if(rfData > 0){
 			if(updateRF != null){
 				data.push(
 					<View key="Asoidjnj2" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
@@ -2076,140 +2077,150 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 
 	const content = () => {
 		var dataContent = []
-		dataContent.push(
-			<ScrollView key="asoij2" style={{flex: 1}}>
-				<View style={{paddingTop: 20, flexDirection: 'row'}}>
-					<View style={{padding: 10, width: "44%"}}>
-						<Text>Machines Status</Text>
-					</View>
-					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-						<Text style={{color: 'black'}}>:</Text>
-					</View>
-					<View style={{padding: 4, width: "50%"}}>
-						<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-							<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-								<Text>{dataQl != null ? dataQl.machine_status : "-"}</Text>
-							</View>
-						</View>
-					</View>
-				</View>
-
-				<View style={{paddingTop: 20, flexDirection: 'row'}}>
-					<View style={{padding: 10, width: "44%"}}>
-						<Text>Tooling</Text>
-					</View>
-					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-						<Text style={{color: 'black'}}>:</Text>
-					</View>
-					<View style={{padding: 4, width: "50%"}}>
-						<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-							<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-								<Text>{tooling_num}</Text>
-							</View>
-						</View>
-					</View>
-				</View>
-				
-				<View style={{paddingTop: 20, flexDirection: 'row'}}>
-					<View style={{padding: 10, width: "44%"}}>
-						<Text>Cavity Amount</Text>
-					</View>
-					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-						<Text style={{color: 'black'}}>:</Text>
-					</View>
-					<View style={{padding: 4, width: "50%"}}>
-						<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-							<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-								<Text>{cavityCheck != null ? cavityCheck : "-"}</Text>
-							</View>
-						</View>
-					</View>
-				</View>
-
-				<View style={{paddingTop: 20, flexDirection: 'row'}}>		
-					<View style={{padding: 10, width: "44%"}}>
-						<Text>Compare Copy Sample</Text>
-					</View>
-					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-						<Text style={{color: 'black'}}>:</Text>
-					</View>
-					<View style={{padding: 4, width: "50%"}}>
-						<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-							{updateCompareCopyFunc()}
-						</View>
-					</View>
-				</View>
-
-				<View style={{paddingTop: 20, flexDirection: 'row'}}>
+		if(dataQl != null){
+			dataContent.push(
+				<ScrollView key="asoij2" style={{flex: 1}}>
+					<View style={{paddingTop: 20, flexDirection: 'row'}}>
 						<View style={{padding: 10, width: "44%"}}>
-							<Text>Check Sheet QC</Text>
+							<Text>Machines Status</Text>
 						</View>
 						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
 							<Text style={{color: 'black'}}>:</Text>
 						</View>
 						<View style={{padding: 4, width: "50%"}}>
 							<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-								{updateCheckSheetFunc()}
+								<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+									<Text>{dataQl != null ? dataQl.machine_status : "-"}</Text>
+								</View>
 							</View>
 						</View>
 					</View>
-
-				<View style={{paddingTop: 20, flexDirection: 'row'}}>
-					<View style={{padding: 10, width: "44%"}}>
-						<Text>Remark</Text>
-					</View>
-					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-						<Text style={{color: 'black'}}>:</Text>
-					</View>
-					<View style={{padding: 4, width: "50%"}}>
-						{updateRemarkFunc()}
-					</View>
-				</View>
-			<ScrollView horizontal>
-			<TouchableOpacity>
-				<View style={{flexDirection: 'row', justifyContent: 'center', height: 50, paddingTop: 10}}>
-					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-						<Text style={{fontWeight: 'bold'}}>Cavity</Text>
-						<View style={{justifyContent: 'center'}}>
+	
+					<View style={{paddingTop: 20, flexDirection: 'row'}}>
+						<View style={{padding: 10, width: "44%"}}>
+							<Text>Tooling</Text>
+						</View>
+						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+							<Text style={{color: 'black'}}>:</Text>
+						</View>
+						<View style={{padding: 4, width: "50%"}}>
+							<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+								<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+									<Text>{tooling_num != null ? tooling_num : "-"}</Text>
+								</View>
+							</View>
 						</View>
 					</View>
-					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-						<Text style={{fontWeight: 'bold', fontSize: 15}}>Judgement 1st Piece</Text>
-						<View style={{justifyContent: 'center'}}>
+					
+					<View style={{paddingTop: 20, flexDirection: 'row'}}>
+						<View style={{padding: 10, width: "44%"}}>
+							<Text>Cavity Amount</Text>
+						</View>
+						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+							<Text style={{color: 'black'}}>:</Text>
+						</View>
+						<View style={{padding: 4, width: "50%"}}>
+							<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+								<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+									<Text>{cavityCheck != null ? cavityCheck : "-"}</Text>
+								</View>
+							</View>
 						</View>
 					</View>
-					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-						<Text style={{fontWeight: 'bold'}}>Kategori NG</Text>
-						<View style={{justifyContent: 'center'}}>
+	
+					<View style={{paddingTop: 20, flexDirection: 'row'}}>		
+						<View style={{padding: 10, width: "44%"}}>
+							<Text>Compare Copy Sample</Text>
+						</View>
+						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+							<Text style={{color: 'black'}}>:</Text>
+						</View>
+						<View style={{padding: 4, width: "50%"}}>
+							<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+								{updateCompareCopyFunc()}
+							</View>
 						</View>
 					</View>
-					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-						<Text style={{fontWeight: 'bold'}}>Fitting Test</Text>
-						<View style={{justifyContent: 'center'}}>
+	
+					<View style={{paddingTop: 20, flexDirection: 'row'}}>
+							<View style={{padding: 10, width: "44%"}}>
+								<Text>Check Sheet QC</Text>
+							</View>
+							<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+								<Text style={{color: 'black'}}>:</Text>
+							</View>
+							<View style={{padding: 4, width: "50%"}}>
+								<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+									{updateCheckSheetFunc()}
+								</View>
+							</View>
+						</View>
+	
+					<View style={{paddingTop: 20, flexDirection: 'row'}}>
+						<View style={{padding: 10, width: "44%"}}>
+							<Text>Remark</Text>
+						</View>
+						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+							<Text style={{color: 'black'}}>:</Text>
+						</View>
+						<View style={{padding: 4, width: "50%"}}>
+							{updateRemarkFunc()}
 						</View>
 					</View>
-					<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-						<Text style={{fontWeight: 'bold'}}>Product's Weight</Text>
-						<View style={{justifyContent: 'center'}}>
+				<ScrollView horizontal>
+				<TouchableOpacity>
+					<View style={{flexDirection: 'row', justifyContent: 'center', height: 50, paddingTop: 10}}>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
+							<Text style={{fontWeight: 'bold'}}>Cavity</Text>
+							<View style={{justifyContent: 'center'}}>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+							<Text style={{fontWeight: 'bold', fontSize: 15}}>Judgement 1st Piece</Text>
+							<View style={{justifyContent: 'center'}}>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+							<Text style={{fontWeight: 'bold'}}>Kategori NG</Text>
+							<View style={{justifyContent: 'center'}}>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+							<Text style={{fontWeight: 'bold'}}>Fitting Test</Text>
+							<View style={{justifyContent: 'center'}}>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+							<Text style={{fontWeight: 'bold'}}>Product's Weight</Text>
+							<View style={{justifyContent: 'center'}}>
+							</View>
+						</View>
+						<View style={{paddingLeft: 5, alignItems: 'center', borderRightWidth: 0.5, borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 145}}>
+							<Text style={{fontWeight: 'bold'}}>Keterangan</Text>
+							<View style={{justifyContent: 'center'}}>
+							</View>
 						</View>
 					</View>
-					<View style={{paddingLeft: 5, alignItems: 'center', borderRightWidth: 0.5, borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 145}}>
-						<Text style={{fontWeight: 'bold'}}>Keterangan</Text>
-						<View style={{justifyContent: 'center'}}>
+					{dataItem()}
+				</TouchableOpacity>
+				</ScrollView>
+					<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
+						<View>
+							{updateButton()}
 						</View>
 					</View>
-				</View>
-				{dataItem()}
-			</TouchableOpacity>
-			</ScrollView>
-				<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
-					<View>
-						{updateButton()}
+				</ScrollView>
+			
+			)
+		}else{
+			dataContent.push(
+				<ScrollView key="29" style={{flex: 1}}>
+					<View style={{marginVertical: 160, marginHorizontal: 40, padding: 40, backgroundColor: 'red', borderWidth: 1, borderRadius: 25, flexDirection: 'row', alignItems: 'center'}}>
+						<Text style={{fontSize: 12, textAlign: 'center', fontWeight: 'bold'}}>Hubungi Masspro Begin QC. Leader Untuk Segera Isi Form</Text>
 					</View>
-				</View>
-			</ScrollView>
-		
-		)
+				</ScrollView>
+			)
+		}
 		return dataContent
 	}
 
