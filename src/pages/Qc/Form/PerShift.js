@@ -76,12 +76,12 @@ const PerShift = ({route, navigation}) => {
 	const [customer_part_number, setCustomerPartNumber] = useState("")
 	const [model, setModel] = useState("")
 	const [data1, setData1] = useState("")
-	const [dataCavity, setDataCavity] = useState("")
+	const [dataCavity, setDataCavity] = useState(null)
 
 	const [cavityCheck, setCavityCheck] 			= useState("")
 	const [qc_daily_inspection_item_id, setqc_daily_inspection_item_id] 			= useState(0)
 	const [weightStandard, setWeightStandard] = useState(0)
-	const [tooling_num, setTooling] 					= useState("")
+	const [tooling_num, setTooling] 					= useState(null)
 	const [keterangan, setKeterangan] 				= useState([])
 	const [inspectionTime, setInspectionTime] = useState([])
 	const [data, setData] 										= useState([]);
@@ -141,6 +141,7 @@ const PerShift = ({route, navigation}) => {
 			}
 			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 			.then(response => {
+				// console.log(response.data.data.daily_inspection.tooling_num)
 				setLoading(true)
 				setData(response.data.data)
 				setinspection_timeupdate(response.data.data.daily_inspection.inspection_time)
@@ -1017,104 +1018,114 @@ const PerShift = ({route, navigation}) => {
 
 	const content = () => {
 		var dataContent = []
-		dataContent.push(
-			<ScrollView key="asoijm2" style={{flex: 1}}>
-				<View style={{paddingTop: 20, flexDirection: 'row'}}>
-					<View style={{padding: 10, width: "44%"}}>
-						<Text>Machines Status</Text>
-					</View>
-					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-						<Text style={{color: 'black'}}>:</Text>
-					</View>
-					<View style={{padding: 4, width: "50%"}}>
-						<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-							<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-								<Text>{data.daily_inspection != null ? data.daily_inspection.machine_status : "-"}</Text>
-							</View>
+		if(dataCavity != null){
+			dataContent.push(
+				<ScrollView key="asoijm2" style={{flex: 1}}>
+					<View style={{paddingTop: 20, flexDirection: 'row'}}>
+						<View style={{padding: 10, width: "44%"}}>
+							<Text>Machines Status</Text>
 						</View>
-					</View>
-				</View>
-
-				<View style={{paddingTop: 20, flexDirection: 'row'}}>
-					<View style={{padding: 10, width: "44%"}}>
-						<Text>Tooling</Text>
-					</View>
-					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-						<Text style={{color: 'black'}}>:</Text>
-					</View>
-					<View style={{padding: 4, width: "50%"}}>
-						<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-							<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-								<Text>{tooling_num}</Text>
-							</View>
+						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+							<Text style={{color: 'black'}}>:</Text>
 						</View>
-					</View>
-				</View>
-				
-				<View style={{paddingTop: 20, flexDirection: 'row'}}>
-					<View style={{padding: 10, width: "44%"}}>
-						<Text>Cavity Amount</Text>
-					</View>
-					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-						<Text style={{color: 'black'}}>:</Text>
-					</View>
-					<View style={{padding: 4, width: "50%"}}>
-						<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-							<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-								{/* <Text>2</Text> */}
-								<Text>{data.daily_inspection != null ? data.daily_inspection.cavity : "-"}</Text>
-							</View>
-						</View>
-					</View>
-				</View>
-
-				<ScrollView horizontal>
-					<TouchableOpacity>
-						<View style={{flexDirection: 'row', height: 50, paddingTop: 10}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-								<Text style={{fontWeight: 'bold'}}>Cavity</Text>
-								<View style={{justifyContent: 'center'}}>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-								<Text style={{fontWeight: 'bold'}}>Products Weight</Text>
-								<View style={{justifyContent: 'center'}}>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-								<Text style={{fontWeight: 'bold'}}>Weight Standard</Text>
-								<View style={{justifyContent: 'center'}}>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
-								<Text style={{fontWeight: 'bold'}}>Keterangan</Text>
-								<View style={{justifyContent: 'center'}}>
+						<View style={{padding: 4, width: "50%"}}>
+							<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+								<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+									<Text>{data.daily_inspection != null ? data.daily_inspection.machine_status : "-"}</Text>
 								</View>
 							</View>
 						</View>
-						{dataItem()}
-					</TouchableOpacity>
+					</View>
+	
+					<View style={{paddingTop: 20, flexDirection: 'row'}}>
+						<View style={{padding: 10, width: "44%"}}>
+							<Text>Tooling</Text>
+						</View>
+						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+							<Text style={{color: 'black'}}>:</Text>
+						</View>
+						<View style={{padding: 4, width: "50%"}}>
+							<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+								<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+									<Text>{tooling_num != null ? tooling_num : "-"}</Text>
+								</View>
+							</View>
+						</View>
+					</View>
+					
+					<View style={{paddingTop: 20, flexDirection: 'row'}}>
+						<View style={{padding: 10, width: "44%"}}>
+							<Text>Cavity Amount</Text>
+						</View>
+						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+							<Text style={{color: 'black'}}>:</Text>
+						</View>
+						<View style={{padding: 4, width: "50%"}}>
+							<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+								<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+									{/* <Text>2</Text> */}
+									<Text>{dataCavity != null ? dataCavity : "-"}</Text>
+								</View>
+							</View>
+						</View>
+					</View>
+	
+					<ScrollView horizontal>
+						<TouchableOpacity>
+							<View style={{flexDirection: 'row', height: 50, paddingTop: 10}}>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
+									<Text style={{fontWeight: 'bold'}}>Cavity</Text>
+									<View style={{justifyContent: 'center'}}>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+									<Text style={{fontWeight: 'bold'}}>Products Weight</Text>
+									<View style={{justifyContent: 'center'}}>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+									<Text style={{fontWeight: 'bold'}}>Weight Standard</Text>
+									<View style={{justifyContent: 'center'}}>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
+									<Text style={{fontWeight: 'bold'}}>Keterangan</Text>
+									<View style={{justifyContent: 'center'}}>
+									</View>
+								</View>
+							</View>
+							{dataItem()}
+						</TouchableOpacity>
+					</ScrollView>
+	
+					<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
+						{buttonUpdate()}
+					</View>
+	
+					<View style={{flexDirection: 'column', height: 50}}>
+							<View style={{height: 27, alignItems: 'center'}}>
+								<Text style={{fontWeight: 'bold'}}>
+									Inspection Time
+								</Text>
+							</View>
+							<View style={{height: 23, alignItems: 'center'}}>
+								<Text>
+									{updateinspection_time != null ? updateinspection_time : inspectionTime}
+								</Text>
+							</View>
+						</View>
 				</ScrollView>
-
-				<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
-					{buttonUpdate()}
-				</View>
-
-				<View style={{flexDirection: 'column', height: 50}}>
-						<View style={{height: 27, alignItems: 'center'}}>
-							<Text style={{fontWeight: 'bold'}}>
-								Inspection Time
-							</Text>
-						</View>
-						<View style={{height: 23, alignItems: 'center'}}>
-							<Text>
-								{updateinspection_time != null ? updateinspection_time : inspectionTime}
-							</Text>
-						</View>
+			
+			)
+		}else{
+			dataContent.push(
+				<ScrollView key="2" style={{flex: 1}}>
+					<View style={{marginVertical: 160, marginHorizontal: 40, padding: 40, backgroundColor: 'red', borderWidth: 1, borderRadius: 25, flexDirection: 'row', alignItems: 'center'}}>
+						<Text style={{fontSize: 12, textAlign: 'center', fontWeight: 'bold'}}>Hubungi Daily Inspection Per 4 Jam Untuk Segera Isi Form</Text>
 					</View>
-			</ScrollView>
-		
-		)
+				</ScrollView>
+			)
+		}
 		return dataContent
 	}
 

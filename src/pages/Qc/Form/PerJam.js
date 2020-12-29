@@ -4,7 +4,6 @@ import { Container, Text, Button, Picker } from 'native-base';
 import LogoSIP from '../../../assets/logo-sip370x50.png';
 import cameraIcons from '../../../assets/cameraicon.png';
 import ImagePicker from 'react-native-image-picker';
-import ImageResizer from 'react-native-image-resizer';
 import AsyncStorage from "@react-native-community/async-storage";
 import moment from 'moment';
 import Axios from 'axios';
@@ -59,7 +58,6 @@ const PerJam = ({route, navigation}) => {
 				console.log('User tapped custom button: ', response.customButton);
 			} else {
 				const source = { uri: 'data:image/jpeg;base64;,' + response.data }
-				console.log(source)
 				setImage({source})
 			}
 		})
@@ -103,13 +101,13 @@ const PerJam = ({route, navigation}) => {
 	const [updated_by, setUpdatedBy]		  		= useState("")
 	
 	const [updatePNData, setUpdatePN]		  					= useState("")
-	const [updateCheckPackaging, setCheckPackaging]	= useState(null)
+	const [updateCheckPackaging, setCheckPackaging]	= useState(0)
 	const [updateStart, setUpdateStart]		  				= useState("")
 	const [updateEnd, setUpdateEnd]		  						= useState("")
-	const [updateSpecialItem, setUpdateSpItem]		  = useState("")
+	const [updateSpecialItem, setUpdateSpItem]		  = useState(0)
 	const [updateCategoryNG, setUpdateCNG]		  		= useState("")
-	const [updateNote, setUpdateCNT]		  					= useState("")
-	const [updateStatusData, setUpdateStdT]		  		= useState(null)
+	const [updateNote, setUpdateCNT]		  					= useState(0)
+	const [updateStatusData, setUpdateStdT]		  		= useState(0)
 	const [updateinspection_time, setUpdateIT]		  = useState("")
 	
 	const check_appearance_n = appearance_n
@@ -221,6 +219,7 @@ const PerJam = ({route, navigation}) => {
 			.catch(error => {
 				console.log('List Data Per Jam: ', error)
 				alert("Connection Failure!")
+				setLoading(true)
 			})
 		}else if(parseInt(jam) >= 16 && parseInt(jam) <= 23){
 			const nilaiJam = parseInt(jam)
@@ -257,6 +256,7 @@ const PerJam = ({route, navigation}) => {
 			.catch(error => {
 				console.log('List Data Per Jam: ', error)
 				alert("Connection Failure!")
+				setLoading(true)
 			})
 		}else{
 			const nilaiJam = parseInt(jam)
@@ -293,6 +293,7 @@ const PerJam = ({route, navigation}) => {
 			.catch(error => {
 				console.log('List Data Per Jam: ', error)
 				alert("Connection Failure!")
+				setLoading(true)
 			})
 		}
 	}
@@ -324,12 +325,12 @@ const PerJam = ({route, navigation}) => {
 					setUpdatePN(response.data.data.daily_inspection.check_appearance_pn)
 					setCheckPackaging(response.data.data.daily_inspection.check_packaging)
 					setUpdateStart(response.data.data.daily_inspection.label_begin)
-				setUpdateEnd(response.data.data.daily_inspection.label_end)
-				setUpdateSpItem(response.data.data.daily_inspection.special_item)
-				setUpdateCNG(response.data.data.daily_inspection.ng_name)
-				setUpdateCNT(response.data.data.daily_inspection.note)
-				setUpdateStdT(response.data.data.daily_inspection.status)
-				setUpdateIT(response.data.data.daily_inspection.inspection_time)
+					setUpdateEnd(response.data.data.daily_inspection.label_end)
+					setUpdateSpItem(response.data.data.daily_inspection.special_item)
+					setUpdateCNG(response.data.data.daily_inspection.ng_name)
+					setUpdateCNT(response.data.data.daily_inspection.note)
+					setUpdateStdT(response.data.data.daily_inspection.status)
+					setUpdateIT(response.data.data.daily_inspection.inspection_time)
 					setTooling(response.data.data.daily_inspection.tooling_num)
 					setDataProduction(response.data.data.output_production.gross_prod)
 					setLoading(true)
@@ -357,12 +358,12 @@ const PerJam = ({route, navigation}) => {
 					setUpdatePN(response.data.data.daily_inspection.check_appearance_pn)
 					setCheckPackaging(response.data.data.daily_inspection.check_packaging)
 					setUpdateStart(response.data.data.daily_inspection.label_begin)
-				setUpdateEnd(response.data.data.daily_inspection.label_end)
-				setUpdateSpItem(response.data.data.daily_inspection.special_item)
-				setUpdateCNG(response.data.data.daily_inspection.ng_name)
-				setUpdateCNT(response.data.data.daily_inspection.note)
-				setUpdateStdT(response.data.data.daily_inspection.status)
-				setUpdateIT(response.data.data.daily_inspection.inspection_time)
+					setUpdateEnd(response.data.data.daily_inspection.label_end)
+					setUpdateSpItem(response.data.data.daily_inspection.special_item)
+					setUpdateCNG(response.data.data.daily_inspection.ng_name)
+					setUpdateCNT(response.data.data.daily_inspection.note)
+					setUpdateStdT(response.data.data.daily_inspection.status)
+					setUpdateIT(response.data.data.daily_inspection.inspection_time)
 					setTooling(response.data.data.daily_inspection.tooling_num)
 					setDataProduction(response.data.data.output_production.gross_prod)
 					setLoading(true)
@@ -390,12 +391,12 @@ const PerJam = ({route, navigation}) => {
 					setUpdatePN(response.data.data.daily_inspection.check_appearance_pn)
 					setCheckPackaging(response.data.data.daily_inspection.check_packaging)
 					setUpdateStart(response.data.data.daily_inspection.label_begin)
-				setUpdateEnd(response.data.data.daily_inspection.label_end)
-				setUpdateSpItem(response.data.data.daily_inspection.special_item)
-				setUpdateCNG(response.data.data.daily_inspection.ng_name)
-				setUpdateCNT(response.data.data.daily_inspection.note)
-				setUpdateStdT(response.data.data.daily_inspection.status)
-				setUpdateIT(response.data.data.daily_inspection.inspection_time)
+					setUpdateEnd(response.data.data.daily_inspection.label_end)
+					setUpdateSpItem(response.data.data.daily_inspection.special_item)
+					setUpdateCNG(response.data.data.daily_inspection.ng_name)
+					setUpdateCNT(response.data.data.daily_inspection.note)
+					setUpdateStdT(response.data.data.daily_inspection.status)
+					setUpdateIT(response.data.data.daily_inspection.inspection_time)
 					setTooling(response.data.data.daily_inspection.tooling_num)
 					setDataProduction(response.data.data.output_production.gross_prod)
 					setLoading(true)
@@ -492,7 +493,8 @@ const PerJam = ({route, navigation}) => {
 
 	const updateCheckPackagingFunc = () => {
 		var data = []
-		if(updateCheckPackaging != null){
+		// console.log(updateCheckPackaging)
+		if(updateCheckPackaging > 0){
 			data.push(
 				<View key="029ijkas" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
 					<Text>{updateCheckPackaging}</Text>
@@ -554,7 +556,7 @@ const PerJam = ({route, navigation}) => {
 
 	const updateSpecialItemFunc = () => {
 		var data = []
-		if(updateSpecialItem != null){
+		if(updateSpecialItem > 0){
 			data.push(
 				<View key="asiuhj2" style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5, borderWidth: 0.5, borderRadius: 25, backgroundColor: '#b8b8b8', height: 40}}>
 					<Text>{updateSpecialItem}</Text>
@@ -596,7 +598,7 @@ const PerJam = ({route, navigation}) => {
 
 	const updateNoteFunc = () => {
 		var data = []
-		if(updateNote != null){
+		if(updateNote > 0){
 			data.push(
 				<View key="asih2n" style={{height: 40, justifyContent: 'center', paddingLeft: 5, paddingTop: 5, borderWidth: 0.5, borderRadius: 25, backgroundColor: '#b8b8b8'}}>
 					<Text>{updateNote}</Text>
@@ -613,21 +615,11 @@ const PerJam = ({route, navigation}) => {
 	}
 
 	const updateStatusFunc = () => {
-		var data = []
-		if(updateStatusData != null){
-			data.push(
-				<View key="asoihdnj2" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, marginTop: 5, backgroundColor: '#b8b8b8'}}>
-					<Text>{updateStatusData}</Text>
-				</View>
-			)
-		}else{
-			data.push(
-				<View key="asoihdnj2" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, marginTop: 5, backgroundColor: '#b8b8b8'}}>
-					<Text>{status != null ? status : "-"}</Text>
-				</View>
-			)
-		}
-		return data
+		return (
+			<View key="asoihdnj2" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, marginTop: 5, backgroundColor: '#b8b8b8'}}>
+				<Text>{status != null ? status : "-"}</Text>
+			</View>
+		)
 	}
 
 	const content = () => {

@@ -13,26 +13,26 @@ const RevisiFirstPieceForeman = ({route, navigation}) => {
 		formOke()
 	}, [])
 
-	const [masspro_fr_id, setMassproFRId] 			= useState("")
-	const [judgement, setDecision] 							= useState("")
-	const [tooling_num, setTooling] 						= useState("")
-	const [action_foreman, setActionForeman] 		= useState(null)
-	const [hours, setHours]		  								= useState(0)
-	const [shift, setShift]		  								= useState(0)
-	const [data, setData] 											= useState([])
-	let created_at 															= moment().format("YYYY-MM-DD HH:mm:ss")
-	let updated_at 															= moment().format("YYYY-MM-DD HH:mm:ss")
-	const [created_by, setCreatedBy]		  			= useState("")
-	const [updated_by, setUpdatedBy]		  			= useState("")
-	const [eng_product_id, setEngProd] 					= useState(0)
-	const [planningId, setPlanningId] 					= useState("")
-	const planning_id = parseInt(planningId)
-	const [massproFr, setFR] 										= useState("")
+	const [masspro_fr_id, setMassproFRId] 							= useState("")
+	const [judgement, setDecision] 											= useState("")
+	const [tooling_num, setTooling] 										= useState("")
+	const [action_foreman, setActionForeman] 						= useState(null)
+	const [hours, setHours]		  												= useState(0)
+	const [shift, setShift]		  												= useState(0)
+	const [data, setData] 															= useState([])
+	let created_at 																			= moment().format("YYYY-MM-DD HH:mm:ss")
+	let updated_at 																			= moment().format("YYYY-MM-DD HH:mm:ss")
+	const [created_by, setCreatedBy]		  							= useState("")
+	const [updated_by, setUpdatedBy]		  							= useState("")
+	const [eng_product_id, setEngProd] 									= useState(0)
+	const [planningId, setPlanningId] 									= useState("")
+	const planning_id 																	= parseInt(planningId)
+	const [massproFr, setFR] 														= useState("")
 	const [internal_part_id, setIPI] 										= useState("")
-	const [revisiForeman, setRevisiForeman] 						= useState("")
+	const [revisiForeman, setRevisiForeman] 						= useState(null)
 	const [updateActionForeman, setUpdateActionForeman] = useState("")
 	const [updateJudgement, setUpdateDecision] 					= useState("")
-	const [remark, setRemark] 					= useState("")
+	const [remark, setRemark] 													= useState("")
 	const date = []
 	const prod_machine_id = machine_id
 
@@ -298,87 +298,96 @@ const RevisiFirstPieceForeman = ({route, navigation}) => {
 
 	const content = () => {
 		var dataContent = []
-		dataContent.push(
-			<ScrollView key="asij2" style={{flex: 1}}>
-				<View style={{paddingTop: 20, flexDirection: 'row'}}>
-					<View style={{padding: 10, width: "44%"}}>
-						<Text>Machines Status</Text>
-					</View>
-					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-						<Text style={{color: 'black'}}>:</Text>
-					</View>
-					<View style={{padding: 4, width: "50%"}}>
-						<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-							<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-								<Text>{data != null ? data.machine_status : "-"}</Text>
+		if(data.cavity != null){
+			dataContent.push(
+				<ScrollView key="asij2" style={{flex: 1}}>
+					<View style={{paddingTop: 20, flexDirection: 'row'}}>
+						<View style={{padding: 10, width: "44%"}}>
+							<Text>Machines Status</Text>
+						</View>
+						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+							<Text style={{color: 'black'}}>:</Text>
+						</View>
+						<View style={{padding: 4, width: "50%"}}>
+							<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+								<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+									<Text>{data != null ? data.machine_status : "-"}</Text>
+								</View>
 							</View>
 						</View>
 					</View>
-				</View>
-				<View style={{paddingTop: 20, flexDirection: 'row'}}>
-					<View style={{padding: 10, width: "44%"}}>
-						<Text>Tooling</Text>
-					</View>
-					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-						<Text style={{color: 'black'}}>:</Text>
-					</View>
-					<View style={{padding: 4, width: "50%"}}>
-						<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-							<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-								<Text>{massproFr != null ? massproFr.tooling_num : "-"}</Text>
+					<View style={{paddingTop: 20, flexDirection: 'row'}}>
+						<View style={{padding: 10, width: "44%"}}>
+							<Text>Tooling</Text>
+						</View>
+						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+							<Text style={{color: 'black'}}>:</Text>
+						</View>
+						<View style={{padding: 4, width: "50%"}}>
+							<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+								<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+									<Text>{tooling_num != null ? tooling_num : "-"}</Text>
+								</View>
 							</View>
 						</View>
 					</View>
-				</View>
-				<View style={{paddingTop: 20, flexDirection: 'row'}}>
-					<View style={{padding: 10, width: "44%"}}>
-						<Text>Cavity Amount</Text>
-					</View>
-					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-						<Text style={{color: 'black'}}>:</Text>
-					</View>
-					<View style={{padding: 4, width: "50%"}}>
-						<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-							<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-								<Text>{data != null ? data.cavity : "-"}</Text>
+					<View style={{paddingTop: 20, flexDirection: 'row'}}>
+						<View style={{padding: 10, width: "44%"}}>
+							<Text>Cavity Amount</Text>
+						</View>
+						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+							<Text style={{color: 'black'}}>:</Text>
+						</View>
+						<View style={{padding: 4, width: "50%"}}>
+							<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+								<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+									<Text>{data.cavity != null ? data.cavity : "-"}</Text>
+								</View>
 							</View>
 						</View>
 					</View>
-				</View>
-				<View style={{paddingTop: 20, flexDirection: 'row'}}>
-					<View style={{padding: 10, width: "44%"}}>
-						<Text>Action Foreman</Text>
-					</View>
-					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-						<Text style={{color: 'black'}}>:</Text>
-					</View>
-					<View style={{padding: 4, width: "50%"}}>
-						<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-							{updateActionForemanFunc()}
+					<View style={{paddingTop: 20, flexDirection: 'row'}}>
+						<View style={{padding: 10, width: "44%"}}>
+							<Text>Action Foreman</Text>
+						</View>
+						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+							<Text style={{color: 'black'}}>:</Text>
+						</View>
+						<View style={{padding: 4, width: "50%"}}>
+							<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+								{updateActionForemanFunc()}
+							</View>
 						</View>
 					</View>
-				</View>
-				<View style={{paddingTop: 20, flexDirection: 'row'}}>
-					<View style={{padding: 10, width: "44%"}}>
-						<Text>Judgement</Text>
-					</View>
-					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-						<Text style={{color: 'black'}}>:</Text>
-					</View>
-					<View style={{padding: 4, width: "50%"}}>
-						<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-							{updateDecisionFunc()}
+					<View style={{paddingTop: 20, flexDirection: 'row'}}>
+						<View style={{padding: 10, width: "44%"}}>
+							<Text>Judgement</Text>
+						</View>
+						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+							<Text style={{color: 'black'}}>:</Text>
+						</View>
+						<View style={{padding: 4, width: "50%"}}>
+							<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+								{updateDecisionFunc()}
+							</View>
 						</View>
 					</View>
-				</View>
-				<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
-					<View>
-						<Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>
+					<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
+						<View>
+							<Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>
+						</View>
 					</View>
-				</View>
-			</ScrollView>
-		
-		)
+				</ScrollView>
+			)
+		}else{
+			dataContent.push(
+				<ScrollView key="29" style={{flex: 1}}>
+					<View style={{marginVertical: 160, marginHorizontal: 40, padding: 40, backgroundColor: 'red', borderWidth: 1, borderRadius: 25, flexDirection: 'row', alignItems: 'center'}}>
+						<Text style={{fontSize: 12, textAlign: 'center', fontWeight: 'bold'}}>Hubungi QC Leader Untuk Segera Isi Form Revisi First Piece Leader QC</Text>
+					</View>
+				</ScrollView>
+			)
+		}
 		return dataContent
 	}
 

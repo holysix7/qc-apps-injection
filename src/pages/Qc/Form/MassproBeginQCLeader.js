@@ -137,7 +137,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 	const [massproQCLMachineStatus, setMassproQCLMachineStatus]					= useState("")
 	const [massproQCLCompareCopySample, setMassproQCLCompareCopySample]	= useState("")
 	const [massproQCLCheckSheetQC, setMassproQCLCheckSheetQC]						= useState("")
-	const [massproQCLRemark, setMassproQCLRemark]												= useState("")
+	const [massproQCLRemark, setMassproQCLRemark]												= useState(null)
 	const [cavity, setCavity]	= useState("")
 	const prod_machine_id 		= machine_id
 	const status 							= "new"
@@ -597,7 +597,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 		const updateQCL = massproQCLRemark
 		const data = []
 		const qclData = massproQCL
-		if(qclData != null){
+		if(qclData != null || qc_masspro_prod_leader_id == null){
 			if(updateQCL == null){
 				data.push(
 					<View key="sk291skW" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
@@ -642,136 +642,146 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 	
 	const content = () => {
 		var dataContent = []
-		dataContent.push(
-			<ScrollView key="29" style={{flex: 1}}>
-				<View style={{paddingTop: 20, flexDirection: 'row'}}>
-					<View style={{justifyContent: 'center', paddingLeft: 10, width: "44%"}}>
-						<Text>Machines Status</Text>
-					</View>
-					<View style={{padding: 10, width: "6%", justifyContent: 'center', alignItems: 'center'}}>
-						<Text style={{color: 'black'}}>:</Text>
-					</View>
-					<View style={{flexDirection: 'row', width: "50%"}}>
-						<View style={{padding: 4, width: "100%"}}>
-							<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-								<Text>{machine_status}</Text>
+		if(qc_masspro_prod_leader_id != null){
+			dataContent.push(
+				<ScrollView key="29" style={{flex: 1}}>
+					<View style={{paddingTop: 20, flexDirection: 'row'}}>
+						<View style={{justifyContent: 'center', paddingLeft: 10, width: "44%"}}>
+							<Text>Machines Status</Text>
+						</View>
+						<View style={{padding: 10, width: "6%", justifyContent: 'center', alignItems: 'center'}}>
+							<Text style={{color: 'black'}}>:</Text>
+						</View>
+						<View style={{flexDirection: 'row', width: "50%"}}>
+							<View style={{padding: 4, width: "100%"}}>
+								<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+									<Text>{machine_status}</Text>
+								</View>
+								{updateMachineEngineStatus()}
 							</View>
-							{updateMachineEngineStatus()}
 						</View>
 					</View>
-				</View>
 
-				<View style={{paddingTop: 20, flexDirection: 'row'}}>
-					<View style={{padding: 10, width: "44%"}}>
-						<Text>Tooling</Text>
+					<View style={{paddingTop: 20, flexDirection: 'row'}}>
+						<View style={{padding: 10, width: "44%"}}>
+							<Text>Tooling</Text>
+						</View>
+						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+							<Text style={{color: 'black'}}>:</Text>
+						</View>
+						<View style={{padding: 4, width: "50%"}}>
+							<View style={{height: 40, justifyContent: 'center'}}>
+								<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+									<Text>{tooling_num}</Text>
+								</View>
+							</View>
+						</View>
 					</View>
-					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-						<Text style={{color: 'black'}}>:</Text>
-					</View>
-					<View style={{padding: 4, width: "50%"}}>
-						<View style={{height: 40, justifyContent: 'center'}}>
+					
+					<View style={{paddingTop: 20, flexDirection: 'row'}}>
+						<View style={{padding: 10, width: "44%"}}>
+							<Text>Cavity Amount</Text>
+						</View>
+						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+							<Text style={{color: 'black'}}>:</Text>
+						</View>
+						<View style={{padding: 4, width: "50%"}}>
 							<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-								<Text>{tooling_num}</Text>
+								<Text>{cavity}</Text>
 							</View>
 						</View>
 					</View>
-				</View>
-				
-				<View style={{paddingTop: 20, flexDirection: 'row'}}>
-					<View style={{padding: 10, width: "44%"}}>
-						<Text>Cavity Amount</Text>
-					</View>
-					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-						<Text style={{color: 'black'}}>:</Text>
-					</View>
-					<View style={{padding: 4, width: "50%"}}>
-						<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-							<Text>{cavity}</Text>
+					
+					<View style={{paddingTop: 20, flexDirection: 'row'}}>
+						<View style={{padding: 10, width: "44%"}}>
+							<Text>Compare Copy Sample</Text>
+						</View>
+						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+							<Text style={{color: 'black'}}>:</Text>
+						</View>
+						<View style={{padding: 4, width: "50%"}}>
+							{updateCompareCopySample()}
 						</View>
 					</View>
-				</View>
-				
-				<View style={{paddingTop: 20, flexDirection: 'row'}}>
-					<View style={{padding: 10, width: "44%"}}>
-						<Text>Compare Copy Sample</Text>
-					</View>
-					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-						<Text style={{color: 'black'}}>:</Text>
-					</View>
-					<View style={{padding: 4, width: "50%"}}>
-						{updateCompareCopySample()}
-					</View>
-				</View>
-				
-				<View style={{paddingTop: 20, flexDirection: 'row'}}>
-					<View style={{padding: 10, width: "44%"}}>
-						<Text>Check Sheet QC</Text>
-					</View>
-					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-						<Text style={{color: 'black'}}>:</Text>
-					</View>
-					<View style={{padding: 4, width: "50%"}}>
-						{updateCheckSheetQC()}
-					</View>
-				</View>
-				
-				<ScrollView horizontal>
-					<TouchableOpacity>
-						<View style={{flexDirection: 'row', height: 50, paddingTop: 10}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-								<Text style={{fontWeight: 'bold'}}>Cavity</Text>
-								<View style={{justifyContent: 'center'}}>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-								<Text style={{fontWeight: 'bold', fontSize: 15}}>Judgement 1st Piece</Text>
-								<View style={{justifyContent: 'center'}}>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
-								<Text style={{fontWeight: 'bold'}}>Kategori NG</Text>
-								<View style={{justifyContent: 'center'}}>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
-								<Text style={{fontWeight: 'bold'}}>Fitting Test</Text>
-								<View style={{justifyContent: 'center'}}>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
-								<Text style={{fontWeight: 'bold'}}>Product's Weight</Text>
-								<View style={{justifyContent: 'center'}}>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderRightWidth: 0.5, borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 145}}>
-								<Text style={{fontWeight: 'bold'}}>Keterangan</Text>
-								<View style={{justifyContent: 'center'}}>
-								</View>
-							</View>
+					
+					<View style={{paddingTop: 20, flexDirection: 'row'}}>
+						<View style={{padding: 10, width: "44%"}}>
+							<Text>Check Sheet QC</Text>
 						</View>
-						{uye()}
-					</TouchableOpacity>
+						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+							<Text style={{color: 'black'}}>:</Text>
+						</View>
+						<View style={{padding: 4, width: "50%"}}>
+							{updateCheckSheetQC()}
+						</View>
+					</View>
+					
+					<ScrollView horizontal>
+						<TouchableOpacity>
+							<View style={{flexDirection: 'row', height: 50, paddingTop: 10}}>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
+									<Text style={{fontWeight: 'bold'}}>Cavity</Text>
+									<View style={{justifyContent: 'center'}}>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+									<Text style={{fontWeight: 'bold', fontSize: 15}}>Judgement 1st Piece</Text>
+									<View style={{justifyContent: 'center'}}>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
+									<Text style={{fontWeight: 'bold'}}>Kategori NG</Text>
+									<View style={{justifyContent: 'center'}}>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
+									<Text style={{fontWeight: 'bold'}}>Fitting Test</Text>
+									<View style={{justifyContent: 'center'}}>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
+									<Text style={{fontWeight: 'bold'}}>Product's Weight</Text>
+									<View style={{justifyContent: 'center'}}>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderRightWidth: 0.5, borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 145}}>
+									<Text style={{fontWeight: 'bold'}}>Keterangan</Text>
+									<View style={{justifyContent: 'center'}}>
+									</View>
+								</View>
+							</View>
+							{uye()}
+						</TouchableOpacity>
+					</ScrollView>
+
+					<View style={{paddingTop: 5, flexDirection: 'row'}}>
+						<View style={{padding: 10, width: "44%"}}>
+							<Text>Remark</Text>
+						</View>
+						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+							<Text style={{color: 'black'}}>:</Text>
+						</View>
+						<View style={{padding: 4, width: "50%"}}>
+							{updateRemark()}
+						</View>
+					</View>
+				
+					<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
+						<View>
+							{updateButton()}
+						</View>
+					</View>
 				</ScrollView>
-
-				<View style={{paddingTop: 5, flexDirection: 'row'}}>
-					<View style={{padding: 10, width: "44%"}}>
-						<Text>Remark</Text>
+			)
+		}else{
+			dataContent.push(
+				<ScrollView key="29" style={{flex: 1}}>
+					<View style={{marginVertical: 160, marginHorizontal: 40, padding: 40, backgroundColor: 'red', borderWidth: 1, borderRadius: 25, flexDirection: 'row', alignItems: 'center'}}>
+						<Text style={{fontSize: 12, textAlign: 'center', fontWeight: 'bold'}}>Hubungi Masspro Begin Prod. Leader Untuk Segera Isi Form</Text>
 					</View>
-					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-						<Text style={{color: 'black'}}>:</Text>
-					</View>
-					<View style={{padding: 4, width: "50%"}}>
-						{updateRemark()}
-					</View>
-				</View>
-			
-				<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
-					<View>
-						{updateButton()}
-					</View>
-				</View>
-			</ScrollView>
-		)
+				</ScrollView>
+			)
+		}
 		return dataContent
 	}
 

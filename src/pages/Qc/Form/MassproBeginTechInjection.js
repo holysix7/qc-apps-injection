@@ -33,7 +33,7 @@ const MassproBeginTechInjection = ({route, navigation}) => {
 	const [planningId, setPlanningId]		= useState("")
 	const [internal_part_id, setIPI]		= useState("")
 	const [eng_product_id, setEngProd]	= useState(0)
-	const [massproTI, setMassproTI]			= useState("")
+	const [massproTI, setMassproTI]			= useState(null)
 	const [massproTICleanningMold, setCleaningMold]	  = useState("")
 	const [massproTIInputStandard, setInputStandard] 	= useState("")
 	const [massproTIRoboSetting, setRoboSetting] 			= useState("")
@@ -447,6 +447,7 @@ const MassproBeginTechInjection = ({route, navigation}) => {
 		const updateTI = massproTIRemark
 		const data = []
 		const tiData = massproTI
+		console.log(tiData)
 		if(tiData != null){
 			if(updateTI == null){
 				data.push(
@@ -474,7 +475,7 @@ const MassproBeginTechInjection = ({route, navigation}) => {
 	const updateButton = () => {
 		const updateMS = massproTI
 		const data = []
-		if(updateMS != null){
+		if(updateMS != null || qc_masspro_mold_setter_id == null){
 			data.push(
 				<View key="asd12q" style={{paddingTop: 10}}>
 					<Button style={{width: 172, borderRadius: 25, justifyContent: 'center', backgroundColor: '#05c46b'}} onPress={() => alert("Data Material Preparation Already Saved!")}><Text>SAVED</Text></Button>
@@ -492,99 +493,109 @@ const MassproBeginTechInjection = ({route, navigation}) => {
 
 	const content = () => {
 		var dataContent = []
-		dataContent.push(
-			<ScrollView key="31" style={{flex: 1}}>
-				<TouchableOpacity>
-					<View style={{paddingTop: 20, flexDirection: 'row'}}>
-						<View style={{padding: 10, width: "44%"}}>
-							<Text>Cleaning Mold Core / Cavity</Text>
+		if(qc_masspro_mold_setter_id != null){
+			dataContent.push(
+				<ScrollView key="31" style={{flex: 1}}>
+					<TouchableOpacity>
+						<View style={{paddingTop: 20, flexDirection: 'row'}}>
+							<View style={{padding: 10, width: "44%"}}>
+								<Text>Cleaning Mold Core / Cavity</Text>
+							</View>
+							<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+								<Text style={{color: 'black'}}>:</Text>
+							</View>
+							<View style={{padding: 4, width: "50%"}}>
+								{updateCleaningMold()}
+							</View>
 						</View>
-						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-							<Text style={{color: 'black'}}>:</Text>
-						</View>
-						<View style={{padding: 4, width: "50%"}}>
-							{updateCleaningMold()}
-						</View>
-					</View>
 
-					<View style={{paddingTop: 20, flexDirection: 'row'}}>
-						<View style={{padding: 10, width: "44%"}}>
-							<Text>Input Standar Parameter</Text>
+						<View style={{paddingTop: 20, flexDirection: 'row'}}>
+							<View style={{padding: 10, width: "44%"}}>
+								<Text>Input Standar Parameter</Text>
+							</View>
+							<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+								<Text style={{color: 'black'}}>:</Text>
+							</View>
+							<View style={{padding: 4, width: "50%"}}>
+								{updateStandaradParameter()}
+							</View>
 						</View>
-						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-							<Text style={{color: 'black'}}>:</Text>
+						
+						<View style={{paddingTop: 20, flexDirection: 'row'}}>
+							<View style={{padding: 10, width: "44%"}}>
+								<Text>Robot setting</Text>
+							</View>
+							<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+								<Text style={{color: 'black'}}>:</Text>
+							</View>
+							<View style={{padding: 4, width: "50%"}}>
+								{updateRoboSetting()}
+							</View>
 						</View>
-						<View style={{padding: 4, width: "50%"}}>
-							{updateStandaradParameter()}
+						
+						<View style={{paddingTop: 20, flexDirection: 'row'}}>
+							<View style={{padding: 10, width: "44%"}}>
+								<Text>Check cooling Channel</Text>
+							</View>
+							<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+								<Text style={{color: 'black'}}>:</Text>
+							</View>
+							<View style={{padding: 4, width: "50%"}}>
+								{updateCoolingChannel()}
+							</View>
 						</View>
-					</View>
-					
-					<View style={{paddingTop: 20, flexDirection: 'row'}}>
-						<View style={{padding: 10, width: "44%"}}>
-							<Text>Robot setting</Text>
+						
+						<View style={{paddingTop: 20, flexDirection: 'row'}}>
+							<View style={{padding: 10, width: "44%"}}>
+								<Text>4M Check Sheet</Text>
+							</View>
+							<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+								<Text style={{color: 'black'}}>:</Text>
+							</View>
+							<View style={{padding: 4, width: "50%"}}>
+								{update4CheckSheet()}
+							</View>
 						</View>
-						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-							<Text style={{color: 'black'}}>:</Text>
+						
+						<View style={{paddingTop: 20, flexDirection: 'row'}}>
+							<View style={{padding: 10, width: "44%"}}>
+								<Text>Mold Temp ActMold Temp Act</Text>
+							</View>
+							<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+								<Text style={{color: 'black'}}>:</Text>
+							</View>
+							<View style={{padding: 4, width: "50%"}}>
+								{updateActMoldTemp()}
+							</View>
 						</View>
-						<View style={{padding: 4, width: "50%"}}>
-							{updateRoboSetting()}
-						</View>
-					</View>
-					
-					<View style={{paddingTop: 20, flexDirection: 'row'}}>
-						<View style={{padding: 10, width: "44%"}}>
-							<Text>Check cooling Channel</Text>
-						</View>
-						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-							<Text style={{color: 'black'}}>:</Text>
-						</View>
-						<View style={{padding: 4, width: "50%"}}>
-							{updateCoolingChannel()}
-						</View>
-					</View>
-					
-					<View style={{paddingTop: 20, flexDirection: 'row'}}>
-						<View style={{padding: 10, width: "44%"}}>
-							<Text>4M Check Sheet</Text>
-						</View>
-						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-							<Text style={{color: 'black'}}>:</Text>
-						</View>
-						<View style={{padding: 4, width: "50%"}}>
-							{update4CheckSheet()}
-						</View>
-					</View>
-					
-					<View style={{paddingTop: 20, flexDirection: 'row'}}>
-						<View style={{padding: 10, width: "44%"}}>
-							<Text>Mold Temp ActMold Temp Act</Text>
-						</View>
-						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-							<Text style={{color: 'black'}}>:</Text>
-						</View>
-						<View style={{padding: 4, width: "50%"}}>
-							{updateActMoldTemp()}
-						</View>
-					</View>
 
-					<View style={{paddingTop: 20, flexDirection: 'row'}}>
-						<View style={{padding: 10, width: "44%"}}>
-							<Text>Remark</Text>
+						<View style={{paddingTop: 20, flexDirection: 'row'}}>
+							<View style={{padding: 10, width: "44%"}}>
+								<Text>Remark</Text>
+							</View>
+							<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+								<Text style={{color: 'black'}}>:</Text>
+							</View>
+							<View style={{padding: 4, width: "50%"}}>
+								{updateRemark()}
+							</View>
 						</View>
-						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-							<Text style={{color: 'black'}}>:</Text>
+						
+						<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
+							{updateButton()}
 						</View>
-						<View style={{padding: 4, width: "50%"}}>
-							{updateRemark()}
-						</View>
+					</TouchableOpacity>
+				</ScrollView>
+			)
+		}else{
+			dataContent.push(
+				<ScrollView key="3" style={{flex: 1}}>
+					<View style={{marginVertical: 160, marginHorizontal: 40, padding: 40, backgroundColor: 'red', borderWidth: 1, borderRadius: 25, flexDirection: 'row', alignItems: 'center'}}>
+						<Text style={{fontSize: 12, textAlign: 'center', fontWeight: 'bold'}}>Hubungi Masspro Begin Mold Setter Untuk Segera Isi Form</Text>
 					</View>
-					
-					<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
-						{updateButton()}
-					</View>
-				</TouchableOpacity>
-			</ScrollView>
-		)
+				</ScrollView>
+			)
+		}
 		return dataContent
 	}
 
