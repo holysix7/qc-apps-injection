@@ -1482,7 +1482,7 @@ const Per4Jam = ({route, navigation}) => {
 			dataContent.push(
 				<ScrollView key="2" style={{flex: 1}}>
 					<View style={{marginVertical: 160, marginHorizontal: 40, padding: 40, backgroundColor: 'red', borderWidth: 1, borderRadius: 25, flexDirection: 'row', alignItems: 'center'}}>
-						<Text style={{fontSize: 12, textAlign: 'center', fontWeight: 'bold'}}>Hubungi Daily Inspection Per Jam Untuk Segera Isi Form</Text>
+						<Text style={{fontSize: 12, textAlign: 'center', fontWeight: 'bold'}}>Tidak Ada Cavity, Harap Isi Cavity Terlebih Dahulu</Text>
 					</View>
 				</ScrollView>
 			)
