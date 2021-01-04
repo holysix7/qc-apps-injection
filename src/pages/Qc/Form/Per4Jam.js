@@ -36,8 +36,8 @@ const Per4Jam = ({route, navigation}) => {
         
     }, [])
 
-	const [cavityCheck, setCavityCheck] 			= useState("")
-	const [tooling_num, setTooling] 					= useState("")
+	const [cavityCheck, setCavityCheck] 			= useState(null)
+	const [tooling_num, setTooling] 					= useState(null)
 	const [inspectionTime, setInspectionTime] = useState("")
 	const [hours, setHours]		  							= useState(0)
 	const [shift, setShift]		  							= useState(0)
@@ -114,6 +114,7 @@ const Per4Jam = ({route, navigation}) => {
 
 	const [data, setData] = useState("");
 	const [daily_inspection, setDaily] = useState("");
+	// console.log(daily_inspection)
 	const date = []
 	if(today != null)
 	{
@@ -1378,7 +1379,7 @@ const Per4Jam = ({route, navigation}) => {
 
 	const content = () => {
 		var dataContent = []
-		if(cavityCheck != null){
+		// if(cavityCheck != null){
 			dataContent.push(
 				<ScrollView key="asoijkm" style={{flex: 1}}>
 					<View style={{paddingTop: 20, flexDirection: 'row'}}>
@@ -1407,7 +1408,7 @@ const Per4Jam = ({route, navigation}) => {
 						<View style={{padding: 4, width: "50%"}}>
 							<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
 								<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-									<Text>{tooling_num}</Text>
+									<Text>{tooling_num != null ? tooling_num : "-"}</Text>
 								</View>
 							</View>
 						</View>
@@ -1424,7 +1425,7 @@ const Per4Jam = ({route, navigation}) => {
 							<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
 								<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
 									{/* <Text>2</Text> */}
-									<Text>{data.daily_inspection != null ? data.daily_inspection.cavity : "-"}</Text>
+									<Text>{cavityCheck != null ? cavityCheck : "-"}</Text>
 								</View>
 							</View>
 						</View>
@@ -1478,15 +1479,15 @@ const Per4Jam = ({route, navigation}) => {
 					</View>
 				</ScrollView>
 			)
-		}else{
-			dataContent.push(
-				<ScrollView key="2" style={{flex: 1}}>
-					<View style={{marginVertical: 160, marginHorizontal: 40, padding: 40, backgroundColor: 'red', borderWidth: 1, borderRadius: 25, flexDirection: 'row', alignItems: 'center'}}>
-						<Text style={{fontSize: 12, textAlign: 'center', fontWeight: 'bold'}}>Tidak Ada Cavity, Harap Isi Cavity Terlebih Dahulu</Text>
-					</View>
-				</ScrollView>
-			)
-		}
+		// }else{
+		// 	dataContent.push(
+		// 		<ScrollView key="2" style={{flex: 1}}>
+		// 			<View style={{marginVertical: 160, marginHorizontal: 40, padding: 40, backgroundColor: 'red', borderWidth: 1, borderRadius: 25, flexDirection: 'row', alignItems: 'center'}}>
+		// 				<Text style={{fontSize: 12, textAlign: 'center', fontWeight: 'bold'}}>Tidak Ada Cavity, Harap Isi Cavity Terlebih Dahulu</Text>
+		// 			</View>
+		// 		</ScrollView>
+		// 	)
+		// }
 		return dataContent
 	}
 

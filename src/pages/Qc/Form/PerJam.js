@@ -80,7 +80,7 @@ const PerJam = ({route, navigation}) => {
     // form
 	const [data, setData] 										= useState([])
 	const [NGdata, setNGData] 								= useState([])
-	const [gross_prod, setDataProduction] 		= useState(0)
+	const [gross_prod, setDataProduction] 		= useState(null)
 	const [loading, setLoading] 							= useState(false)
 	const [appearance_pn, setPN] 							= useState("")
 	const [start_label, setStartLabel] 				= useState("")
@@ -111,7 +111,6 @@ const PerJam = ({route, navigation}) => {
 	const [updateinspection_time, setUpdateIT]		  = useState("")
 	
 	const check_appearance_n = appearance_n
-
 	const submit = async() => {
 		setLoading(false)
 		const data = {

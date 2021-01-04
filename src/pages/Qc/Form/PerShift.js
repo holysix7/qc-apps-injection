@@ -141,7 +141,7 @@ const PerShift = ({route, navigation}) => {
 			}
 			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 			.then(response => {
-				// console.log(response.data.data.daily_inspection.tooling_num)
+				console.log(response.data.data.daily_inspection.inspection_time)
 				setLoading(true)
 				setData(response.data.data)
 				setinspection_timeupdate(response.data.data.daily_inspection.inspection_time)
@@ -1003,13 +1003,13 @@ const PerShift = ({route, navigation}) => {
 		if(cavityDetail > 0){
 			data.push(
 				<View key="SokemlIj2">
-					<Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => alert("Already Saved!")}><Text>SAVED</Text></Button>
+					<Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>
 				</View>
 			)
 		}else{
 			data.push(
 				<View key="SokemlIj2">
-					<Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>
+					
 				</View>
 			)
 		}
@@ -1018,7 +1018,7 @@ const PerShift = ({route, navigation}) => {
 
 	const content = () => {
 		var dataContent = []
-		if(dataCavity != null){
+		// if(dataCavity != null){
 			dataContent.push(
 				<ScrollView key="asoijm2" style={{flex: 1}}>
 					<View style={{paddingTop: 20, flexDirection: 'row'}}>
@@ -1117,15 +1117,15 @@ const PerShift = ({route, navigation}) => {
 				</ScrollView>
 			
 			)
-		}else{
-			dataContent.push(
-				<ScrollView key="2" style={{flex: 1}}>
-					<View style={{marginVertical: 160, marginHorizontal: 40, padding: 40, backgroundColor: 'red', borderWidth: 1, borderRadius: 25, flexDirection: 'row', alignItems: 'center'}}>
-						<Text style={{fontSize: 12, textAlign: 'center', fontWeight: 'bold'}}>Tidak Ada Cavity, Harap Isi Cavity Terlebih Dahulu</Text>
-					</View>
-				</ScrollView>
-			)
-		}
+		// }else{
+		// 	dataContent.push(
+		// 		<ScrollView key="2" style={{flex: 1}}>
+		// 			<View style={{marginVertical: 160, marginHorizontal: 40, padding: 40, backgroundColor: 'red', borderWidth: 1, borderRadius: 25, flexDirection: 'row', alignItems: 'center'}}>
+		// 				<Text style={{fontSize: 12, textAlign: 'center', fontWeight: 'bold'}}>Tidak Ada Cavity, Harap Isi Cavity Terlebih Dahulu</Text>
+		// 			</View>
+		// 		</ScrollView>
+		// 	)
+		// }
 		return dataContent
 	}
 
