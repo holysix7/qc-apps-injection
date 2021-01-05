@@ -4,6 +4,7 @@ import Login from './Login';
 import Qc from './Qc';
 import ShowProducts from './Qc/ShowProducts';
 import ListForm from './Qc/ListForm';
+import ShowPlanning from './Qc/ShowPlanning';
 import MassproBeginMaintMold from './Qc/Form/MassproBeginMaintMold';
 import MassproBeginMaterialPreparation from './Qc/Form/MassproBeginMaterialPreparation';
 import MassproBeginMoldSetter from './Qc/Form/MassproBeginMoldSetter';
@@ -27,6 +28,7 @@ export {
     BoardingScreen,
     ShowProducts,
     ListForm,
+    ShowPlanning,
     MassproBeginMaintMold,
     MassproBeginMaterialPreparation,
     MassproBeginMoldSetter,
