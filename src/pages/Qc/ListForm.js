@@ -42,13 +42,8 @@ const ListForm = ({route, navigation}) => {
 									qc_daily_inspection_item_id: qc_daily_inspection_item_id,
 									qc_daily_inspection_method_id: qc_daily_inspection_method_id,
 									sys_plant_id: sys_plant_id,
-									product_name: product_name,
 									machine_id: machine_id,
-									cavity: cavity,
 									customer_name: customer_name,
-									internal_part_id: internal_part_id,
-									customer_part_number: customer_part_number,
-									model: model,
 									machine_name: machine_name,
 									machine_status: machine_status,
 									today: today,
@@ -64,24 +59,15 @@ const ListForm = ({route, navigation}) => {
 								<Button style={styles.productsButton} onPress={() => navigation.navigate('Per4Jam', {
 									qc_daily_inspection_id: qc_daily_inspection_id,
 									qc_daily_inspection_method_id: qc_daily_inspection_method_id,
-									qc_daily_inspection_item_id: qc_daily_inspection_item_id,
 									sys_plant_id: sys_plant_id,
 									product_name: product_name,
 									machine_id: machine_id,
-									cavity: cavity,
 									customer_name: customer_name,
-									internal_part_id: internal_part_id,
-									customer_part_number: customer_part_number,
-									model: model,
 									machine_name: machine_name,
-									machine_status: machine_status,
 									today: today,
 									operator_nik: operator_nik, 
 									operator_nik_2: operator_nik_2, 
-									leader_nik: leader_nik, 
-									foreman_nik: foreman_nik,
-									qc_process_nik: qc_process_nik,
-									yesterday: yesterday
+                  yesterday: yesterday
 								})} >
 									<Text> Per 4 Jam </Text>   
 								</Button>
@@ -90,11 +76,7 @@ const ListForm = ({route, navigation}) => {
 									sys_plant_id: sys_plant_id,
 									product_name: product_name,
 									machine_id: machine_id,
-									cavity: cavity,
 									customer_name: customer_name,
-									internal_part_id: internal_part_id,
-									customer_part_number: customer_part_number,
-									model: model,
 									machine_name: machine_name,
 									machine_status: machine_status,
 									today: today,
@@ -117,13 +99,8 @@ const ListForm = ({route, navigation}) => {
 								sys_plant_id: sys_plant_id,
 								product_name: product_name,
 								machine_id: machine_id,
-								cavity: cavity,
 								customer_name: customer_name,
-								internal_part_id: internal_part_id,
-								customer_part_number: customer_part_number,
-								model: model,
 								machine_name: machine_name,
-								machine_status: machine_status,
 								today: today,
 								yesterday: yesterday
 							})} >
@@ -134,17 +111,12 @@ const ListForm = ({route, navigation}) => {
 					if(featureUser[i].qc_masspro_foreman.view_permissions == true){
 						data.push(
 							<Button key="asXascn2jo1ij2njs" style={styles.productsButton} onPress={() => navigation.navigate('RevisiFirstPieceForeman', {
-								qc_daily_inspection_id: qc_daily_inspection_id,
 								sys_plant_id: sys_plant_id,
 								product_name: product_name,
 								machine_id: machine_id,
-								cavity: cavity,
 								customer_name: customer_name,
-								internal_part_id: internal_part_id,
 								customer_part_number: customer_part_number,
-								model: model,
 								machine_name: machine_name,
-								machine_status: machine_status,
 								today: today,
 								yesterday: yesterday
 							})} >
@@ -157,16 +129,13 @@ const ListForm = ({route, navigation}) => {
 						data.push(
 							<Button key="askdmkwqw" style={styles.productsButton} onPress={() => navigation.navigate('LastShootLeaderQc', {
 								qc_daily_inspection_id: qc_daily_inspection_id,
+                qc_daily_inspection_item_id: qc_daily_inspection_item_id,
+                qc_daily_inspection_method_i: qc_daily_inspection_method_id,
 								sys_plant_id: sys_plant_id,
-								product_name: product_name,
+                product_name: product_name,
 								machine_id: machine_id,
-								cavity: cavity,
 								customer_name: customer_name,
-								internal_part_id: internal_part_id,
-								customer_part_number: customer_part_number,
-								model: model,
 								machine_name: machine_name,
-								machine_status: machine_status,
 								today: today,
 								yesterday: yesterday
 							})} >
@@ -181,13 +150,8 @@ const ListForm = ({route, navigation}) => {
 								sys_plant_id: sys_plant_id,
 								product_name: product_name,
 								machine_id: machine_id,
-								cavity: cavity,
 								customer_name: customer_name,
-								internal_part_id: internal_part_id,
-								customer_part_number: customer_part_number,
-								model: model,
 								machine_name: machine_name,
-								machine_status: machine_status,
 								today: today,
 								yesterday: yesterday
 							})} >
