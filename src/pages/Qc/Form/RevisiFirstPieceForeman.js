@@ -382,7 +382,7 @@ const RevisiFirstPieceForeman = ({route, navigation}) => {
 		}else{
 			dataContent.push(
 				<ScrollView key="29" style={{flex: 1}}>
-					<View style={{marginVertical: 160, marginHorizontal: 40, padding: 40, backgroundColor: 'red', borderWidth: 1, borderRadius: 25, flexDirection: 'row', alignItems: 'center'}}>
+					<View style={{marginVertical: 160, marginHorizontal: 40, padding: 40, backgroundColor: '#fff76a', borderWidth: 1, borderRadius: 25, flexDirection: 'row', alignItems: 'center'}}>
 						<Text style={{fontSize: 12, textAlign: 'center', fontWeight: 'bold'}}>Hubungi QC Leader Untuk Segera Isi Form Revisi First Piece Leader QC</Text>
 					</View>
 				</ScrollView>

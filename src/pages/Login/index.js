@@ -37,7 +37,7 @@ const Login = ({navigation}) => {
 		} catch (error) {
 			setLoading(true)
 			console.log("Login: ", error)
-			alert("Login Failed!")
+			alert("Login Failed! Network Error")
 		}
 	}
 

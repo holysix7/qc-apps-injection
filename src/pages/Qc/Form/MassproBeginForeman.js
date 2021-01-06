@@ -57,7 +57,6 @@ const MassproBeginForeman = ({route, navigation}) => {
 	const [machine_status, setMachineStatus] 						= useState("")
 	
 	const planning_id = parseInt(planningId)
-	const date	 			= []
 	const status 			= "approve"
 	
 	const [loading, setLoading] = useState(false)
@@ -191,17 +190,14 @@ const MassproBeginForeman = ({route, navigation}) => {
 
 	const hString = hours.toString()
 
-	if(today != null)
-	{
-		date.push(
-			<Text key={"key"} style={{marginTop: 1, fontWeight: 'bold', fontSize: 17}}>{today}</Text>
-		)
-	}
-	if(yesterday != null)
-	{
-		date.push(
-			<Text key={"key"} style={{marginTop: 1, fontWeight: 'bold', fontSize: 17}}>{yesterday}</Text>
-		)
+	const date = () => {
+		var date = []
+		if(today != null){
+			date.push(
+				<Text key={"key"} style={{marginTop: 1, fontWeight: 'bold', fontSize: 17}}>{today}</Text>
+			)
+		}
+		return date
 	}
 
 	const updateCheckSheetMassProMaintMold = () => {
@@ -747,7 +743,7 @@ const MassproBeginForeman = ({route, navigation}) => {
 
 						<View style={{flexDirection: 'row'}}>
 							<View style={{borderTopWidth: 0.3, borderRightWidth: 0.3, height: 100, justifyContent: 'center', alignItems: 'center', width: "50%", backgroundColor: '#F5F5DC'}}>
-								<Text style={{marginTop: 5, fontWeight: 'bold', fontSize: 17}}>{date}</Text>
+								<Text style={{marginTop: 5, fontWeight: 'bold', fontSize: 17}}>{date()}</Text>
 								<Text style={{marginTop: 1, fontWeight: 'bold', fontSize: 17}}>Edit Daily Inspection</Text>
 								<Text style={{marginTop: 1, fontWeight: 'bold', fontSize: 11}}>Masspro Begin Foreman</Text>
 								<Text style={{marginTop: 1, fontWeight: 'bold', fontSize: 11}}>{customer_name}</Text>

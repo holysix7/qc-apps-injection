@@ -8,11 +8,13 @@ import moment from 'moment';
 import styles from '../../components/styles/Styling';
 
 const ShowPlanning = ({route, navigation}) => {
-	const {machine_id, machine_name, sys_plant_id} = route.params
+	const {machine_id, sys_plant_id} = route.params
   const [data, setData] = useState([])
   const [planning, setDataPlanning] = useState(null)
-  const [featureUser, setFeature] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [customer_name, setCustomerName] = useState(null)
+  const [machine_name, setMachineName] = useState(null)
+  const [featureUser, setFeature] = useState(null)
+  const [loading, setLoading] = useState(false)
 	useEffect(() => {
     session()
 		let isMounted = true;
@@ -23,14 +25,16 @@ const ShowPlanning = ({route, navigation}) => {
 			}
 			const params = {
 				tbl: 'daily_inspection',
-				kind: 'by_machine',
+				kind: 'by_planning',
 				sys_plant_id: sys_plant_id,
 				machine_id: machine_id
 			}
-			// console.log(params)
 			try {
 				axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 				.then(response => {
+          setDataPlanning(response.data.data.product_1)
+          setCustomerName(response.data.data.customer_name)
+          setMachineName(response.data.data.machine_name)
 					setLoading(true)
 					if(isMounted) setData(response.data.data)
 					console.log("Products List Data: ", response.data.status, response.data.message)
@@ -80,7 +84,6 @@ const ShowPlanning = ({route, navigation}) => {
             if(featureUser[i].qc_masspro_material_preparation.view_permissions == true){
               data.push(
                 <Button key="asuiohdn2" style={styles.productsButton} onPress={() => navigation.navigate('MassproBeginMaterialPreparation', {
-                  product_name: product_name,
                   machine_id: machine_id,
                   sys_plant_id: sys_plant_id,
                   customer_name: customer_name,
@@ -109,7 +112,6 @@ const ShowPlanning = ({route, navigation}) => {
             if(featureUser[i].qc_masspro_tech_injection.view_permissions == true){
               data.push(
                 <Button key="askdmasjkd" style={styles.productsButton} onPress={() => navigation.navigate('MassproBeginTechInjection', {
-                  product_name: product_name,
                   machine_id: machine_id,
                   sys_plant_id,
                   customer_name: customer_name,
@@ -124,7 +126,6 @@ const ShowPlanning = ({route, navigation}) => {
             if(featureUser[i].qc_masspro_prod_leader.view_permissions == true){
               data.push(
                 <Button key="askdmaswq12sjkd" style={styles.productsButton} onPress={() => navigation.navigate('MassproBeginProdLeader', {
-                  product_name: product_name,
                   machine_id: machine_id,
                   sys_plant_id,
                   customer_name: customer_name,
@@ -140,7 +141,6 @@ const ShowPlanning = ({route, navigation}) => {
             if(featureUser[i].qc_masspro_qc_leader.view_permissions == true){
               data.push(
                 <Button key="asjnjqjwkn123" style={styles.productsButton} onPress={() => navigation.navigate('MassproBeginQCLeader', {
-                  product_name: product_name,
                   machine_id: machine_id,
                   sys_plant_id,
                   customer_name: customer_name,
@@ -156,7 +156,6 @@ const ShowPlanning = ({route, navigation}) => {
             if(featureUser[i].qc_masspro_foreman.view_permissions == true){
               data.push(
                 <Button key="asjasdq2njqjwkn123" style={styles.productsButton} onPress={() => navigation.navigate('MassproBeginForeman', {
-                  product_name: product_name,
                   machine_id: machine_id,
                   sys_plant_id,
                   customer_name: customer_name,
@@ -172,35 +171,35 @@ const ShowPlanning = ({route, navigation}) => {
           }else{
             if(featureUser[i].qc_masspro_main_mold.view_permissions == true){
               data.push(
-                <Button key="ASoidjk2" style={styles.productsButton} onPress={() => alert("There's No Planning")} >
+                <Button key="ASoidjk2" style={styles.productsButton} onPress={() => alert("Tidak Ada Planning, Harap Hubungi PPIC")} >
                 <Text> Masspro Begin Maint. Mold </Text>   
               </Button>
               )
             }
             if(featureUser[i].qc_masspro_material_preparation.view_permissions == true){
               data.push(
-                <Button key="asuiohdn2" style={styles.productsButton} onPress={() => alert("There's No Planning")} >
+                <Button key="asuiohdn2" style={styles.productsButton} onPress={() => alert("Tidak Ada Planning, Harap Hubungi PPIC")} >
                   <Text> Masspro Begin Material Preparation </Text>   
                 </Button>
               )
             }
             if(featureUser[i].qc_masspro_mold_setter.view_permissions == true){
               data.push(
-                <Button key="asoidjm2kasd" style={styles.productsButton} onPress={() => alert("There's No Planning")} >
+                <Button key="asoidjm2kasd" style={styles.productsButton} onPress={() => alert("Tidak Ada Planning, Harap Hubungi PPIC")} >
                   <Text> Masspro Begin Mold Setter </Text>   
                 </Button>
               )
             }
             if(featureUser[i].qc_masspro_tech_injection.view_permissions == true){
               data.push(
-                <Button key="askdmasjkd" style={styles.productsButton} onPress={() => alert("There's No Planning")} >
+                <Button key="askdmasjkd" style={styles.productsButton} onPress={() => alert("Tidak Ada Planning, Harap Hubungi PPIC")} >
                   <Text> Masspro Begin Tech Injection</Text>   
                 </Button>
               )
             }
             if(featureUser[i].qc_masspro_prod_leader.view_permissions == true){
               data.push(
-                <Button key="askdmaswq12sjkd" style={styles.productsButton} onPress={() => alert("There's No Planning")} >
+                <Button key="askdmaswq12sjkd" style={styles.productsButton} onPress={() => alert("Tidak Ada Planning, Harap Hubungi PPIC")} >
                   <Text> Masspro Begin Prod. Leader </Text>   
                 </Button>
                 
@@ -208,7 +207,7 @@ const ShowPlanning = ({route, navigation}) => {
             }
             if(featureUser[i].qc_masspro_qc_leader.view_permissions == true){
               data.push(
-                <Button key="asjnjqjwkn123" style={styles.productsButton} onPress={() => alert("There's No Planning")} >
+                <Button key="asjnjqjwkn123" style={styles.productsButton} onPress={() => alert("Tidak Ada Planning, Harap Hubungi PPIC")} >
                   <Text> Masspro Begin QC. Leader </Text>   
                 </Button>
                 
@@ -216,7 +215,7 @@ const ShowPlanning = ({route, navigation}) => {
             }
             if(featureUser[i].qc_masspro_foreman.view_permissions == true){
               data.push(
-                <Button key="asjasdq2njqjwkn123" style={styles.productsButton} onPress={() => alert("There's No Planning")} >
+                <Button key="asjasdq2njqjwkn123" style={styles.productsButton} onPress={() => alert("Tidak Ada Planning, Harap Hubungi PPIC")} >
                   <Text> Masspro Begin Foreman </Text>   
                 </Button>
               )
