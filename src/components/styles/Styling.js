@@ -106,6 +106,10 @@ const styles = StyleSheet.create({
     fontProduct: {
         fontSize: 25, 
         fontWeight: 'bold'
+    },
+    fontPlanning: {
+        fontSize: 15, 
+        fontWeight: 'bold'
     }
 })
 

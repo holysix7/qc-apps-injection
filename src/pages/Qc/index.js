@@ -17,7 +17,6 @@ const Qc = ({navigation}) => {
   const [data, setData] = useState([]);
   useEffect(() => {
     session()
-    mesin(cekId)
   }, [])
   
   const mesin = async(value) => {

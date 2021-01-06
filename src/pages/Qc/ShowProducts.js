@@ -1,6 +1,7 @@
-import {Image, View, ScrollView, ActivityIndicator} from 'react-native';
+import {Image, View, ScrollView, ActivityIndicator, TouchableOpacity} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import LogoSIP from '../../assets/logo-sip370x50.png';
+import plusImage from '../../assets/plus.png';
 import AsyncStorage from "@react-native-community/async-storage";
 import axios from 'axios';
 import { Container, Text, Button } from 'native-base';
@@ -24,7 +25,6 @@ const ShowProducts = ({route, navigation}) => {
 				sys_plant_id: sys_plant_id,
 				machine_id: machine_id
 			}
-			// console.log(params)
 			try {
 				axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 				.then(response => {
@@ -157,6 +157,18 @@ const ShowProducts = ({route, navigation}) => {
 					</View>
 				</ScrollView>
 			</View>
+			{loading ? <View style={{height: 70,backgroundColor: '#F5F5DC' }}>
+				<View style={{justifyContent: 'center', alignItems: 'center'}}>
+					<TouchableOpacity onPress={() => navigation.navigate('ShowPlanning', {
+						machine_id: machine_id, 
+						machine_name: machine_name, 
+						sys_plant_id: sys_plant_id
+					})}>
+						<Image source={plusImage} style={{height: 70, width: 70}} />
+					</TouchableOpacity>
+				</View>
+			</View>
+		 : null }
 		</Container>
 	)
 }

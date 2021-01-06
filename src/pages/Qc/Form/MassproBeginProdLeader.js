@@ -27,7 +27,6 @@ const MassproBeginProdLeader = ({route, navigation}) => {
 	const [qc_masspro_tech_injection_id, setTechInjectionId] 						 = useState(0)
 	const [hours, setHours]		  																				 = useState(0)
 	const [shift, setShift]		  																				 = useState(0)
-	const date = []
 	const prod_machine_id = machine_id
 	const status 					= "new"
 	const [tooling_num, setTooling]	= useState("")
@@ -169,17 +168,15 @@ const MassproBeginProdLeader = ({route, navigation}) => {
 
 	const hString = hours.toString()
 
-	if(today != null)
-	{
-		date.push(
-			<Text key={"key"} style={{marginTop: 1, fontWeight: 'bold', fontSize: 17}}>{today}</Text>
-		)
-	}
-	if(yesterday != null)
-	{
-		date.push(
-			<Text key={"key"} style={{marginTop: 1, fontWeight: 'bold', fontSize: 17}}>{yesterday}</Text>
-		)
+	const date = () => {
+		var date = []
+		if(today != null)
+		{
+			date.push(
+				<Text key={"key"} style={{marginTop: 1, fontWeight: 'bold', fontSize: 17}}>{today}</Text>
+			)
+		}
+		return date
 	}
 
 	const updateWiProduct = () => {
@@ -653,7 +650,7 @@ const MassproBeginProdLeader = ({route, navigation}) => {
 		}else{
 			dataContent.push(
 				<ScrollView key="2" style={{flex: 1}}>
-					<View style={{marginVertical: 160, marginHorizontal: 40, padding: 40, backgroundColor: 'red', borderWidth: 1, borderRadius: 25, flexDirection: 'row', alignItems: 'center'}}>
+					<View style={{marginVertical: 160, marginHorizontal: 40, padding: 40, backgroundColor: '#fff76a', borderWidth: 1, borderRadius: 25, flexDirection: 'row', alignItems: 'center'}}>
 						<Text style={{fontSize: 12, textAlign: 'center', fontWeight: 'bold'}}>Hubungi Masspro Begin Tech. Injection Untuk Segera Isi Form</Text>
 					</View>
 				</ScrollView>
@@ -674,7 +671,7 @@ const MassproBeginProdLeader = ({route, navigation}) => {
 
 						<View style={{flexDirection: 'row'}}>
 							<View style={{borderTopWidth: 0.3, borderRightWidth: 0.3, height: 100, justifyContent: 'center', alignItems: 'center', width: "50%", backgroundColor: '#F5F5DC'}}>
-								<Text style={{marginTop: 5, fontWeight: 'bold', fontSize: 17}}>{date}</Text>
+								<Text style={{marginTop: 5, fontWeight: 'bold', fontSize: 17}}>{date()}</Text>
 								<Text style={{marginTop: 1, fontWeight: 'bold', fontSize: 17}}>Edit Daily Inspection</Text>
 								<Text style={{marginTop: 1, fontWeight: 'bold', fontSize: 11}}>Masspro Begin Prod. Leader</Text>
 								<Text style={{marginTop: 1, fontWeight: 'bold', fontSize: 11}}>{customer_name}</Text>

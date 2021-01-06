@@ -141,7 +141,6 @@ const PerShift = ({route, navigation}) => {
 			}
 			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 			.then(response => {
-				console.log(response.data.data.daily_inspection.inspection_time)
 				setLoading(true)
 				setData(response.data.data)
 				setinspection_timeupdate(response.data.data.daily_inspection.inspection_time)
@@ -190,7 +189,7 @@ const PerShift = ({route, navigation}) => {
 				console.log("List Data Per Shift: ", response.data.status, "OK")
 			})
 			.catch(error => {
-					console.log('List Data Per Shift: ', error)
+				console.log('List Data Per Shift: ', error)
 			})
 		}else{
 			const nilaiJam = parseInt(jam)

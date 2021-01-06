@@ -11,7 +11,7 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 		formOke()
 	}, [])
 
-	const {sys_plant_id, machine_id, customer_name, machine_name, today, yesterday} = route.params
+	const {sys_plant_id, machine_id, customer_name, machine_name, today} = route.params
 	const [mold_condition, setCondition] 	= useState("")
 	const [loading, setLoading] 					= useState(false)
 	const [neeple_cooling, setCooling] 		= useState("")
@@ -37,6 +37,7 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 	const [massNeeple, setMassNeeple]		  = useState("")
 	const [massStandard, setMassStandard]	= useState("")
 	const [massRemark, setMassRemark]		  = useState("")
+	const [massTooling, setMassTooling]		= useState("")
 	const [massIPI, setMassIPI]		  = useState("")
 
 	const planning_id = parseInt(planningId)
@@ -135,6 +136,7 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 			setTooling(response.data.data.planning.tooling_1)
 			setPlanningId(response.data.data.planning.id)
 			setMassProMM(response.data.data.masspro_mm)
+			setMassTooling(response.data.data.masspro_mm.tooling_num)
 			setMassMold(response.data.data.masspro_mm.mold_condition)
 			setMassNeeple(response.data.data.masspro_mm.neeple_cooling)
 			setMassStandard(response.data.data.masspro_mm.standard_part)
@@ -157,6 +159,7 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 			<Text key={"key"} style={{marginTop: 1, fontWeight: 'bold', fontSize: 17}}>{today}</Text>
 		)
 	}
+	var yesterday = null
 	if(yesterday != null)
 	{
 		date.push(
@@ -315,6 +318,7 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 		return data
 	}
 	const remarkData = () => {
+		// console.log(tooling)
 		const updateRemark = massRemark
 		const mpmmData = massProMM
 		const data = []
@@ -370,6 +374,25 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 		return data
 	}
 
+	const toolingUpdate = () => {
+		var data = []
+		console.log(massTooling)
+		if(massTooling != null){
+			data.push(
+				<View key="ss12" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, width: 177, backgroundColor: '#b8b8b8'}}>
+					<Text>{massTooling != null ? massTooling : "-"}</Text>
+				</View>
+			)
+		}else{
+			data.push(
+				<View key="ss12" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, width: 177}}>
+					<TextInput value={tooling} onChangeText={(value) => setTooling(value)} style={{paddingLeft: 5, height: 40, width: 177}} placeholder="Type Here..." />
+				</View>
+			)	
+		}
+		return data
+	}
+
 	const content = () => {
 		var dataContent = []
 		dataContent.push(
@@ -382,9 +405,7 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 						<Text style={{color: 'black'}}>:</Text>
 					</View>
 					<View style={{padding: 4, width: "50%"}}>
-						<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8', width: 177}}>
-							<Text>{tooling != null ? tooling : "-"}</Text>
-						</View>
+						{toolingUpdate()}
 					</View>
 				</View>
 				<View style={{flexDirection: 'row'}}>

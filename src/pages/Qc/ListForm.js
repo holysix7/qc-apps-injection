@@ -34,149 +34,6 @@ const ListForm = ({route, navigation}) => {
 		for(i = 0; i < 4; i++){
 			if(featureUser != null){
 				if(sys_plant_id == i+1){
-					if(featureUser[i].qc_masspro_main_mold.view_permissions == true){
-						data.push(
-							<Button key="ASoidjk2" style={styles.productsButton} onPress={() => navigation.navigate('MassproBeginMaintMold', {
-							product_name: product_name,
-							machine_id: machine_id,
-							sys_plant_id: sys_plant_id,
-							cavity: cavity,
-							customer_name: customer_name,
-							internal_part_id: internal_part_id,
-							customer_part_number: customer_part_number,
-							model: model,
-							machine_name: machine_name,
-							machine_status: machine_status,
-							today: today,
-							yesterday: yesterday
-						})} >
-							<Text> Masspro Begin Maint. Mold </Text>   
-						</Button>
-						)
-					}
-					if(featureUser[i].qc_masspro_material_preparation.view_permissions == true){
-						data.push(
-							<Button key="asuiohdn2" style={styles.productsButton} onPress={() => navigation.navigate('MassproBeginMaterialPreparation', {
-								product_name: product_name,
-								machine_id: machine_id,
-								sys_plant_id: sys_plant_id,
-								cavity: cavity,
-								customer_name: customer_name,
-								internal_part_id: internal_part_id,
-								customer_part_number: customer_part_number,
-								model: model,
-								machine_name: machine_name,
-								machine_status: machine_status,
-								today: today,
-								yesterday: yesterday
-							})} >
-								<Text> Masspro Begin Material Preparation </Text>   
-							</Button>
-						)
-					}
-					if(featureUser[i].qc_masspro_mold_setter.view_permissions == true){
-						data.push(
-							<Button key="asoidjm2kasd" style={styles.productsButton} onPress={() => navigation.navigate('MassproBeginMoldSetter', {
-								product_name: product_name,
-								machine_id: machine_id,
-								sys_plant_id: sys_plant_id,
-								cavity: cavity,
-								customer_name: customer_name,
-								internal_part_id: internal_part_id,
-								customer_part_number: customer_part_number,
-								model: model,
-								machine_name: machine_name,
-								machine_status: machine_status,
-								today: today,
-								yesterday: yesterday
-							})} >
-								<Text> Masspro Begin Mold Setter </Text>   
-							</Button>
-						)
-					}
-					if(featureUser[i].qc_masspro_tech_injection.view_permissions == true){
-						data.push(
-							<Button key="askdmasjkd" style={styles.productsButton} onPress={() => navigation.navigate('MassproBeginTechInjection', {
-								product_name: product_name,
-								machine_id: machine_id,
-								sys_plant_id,
-								cavity: cavity,
-								customer_name: customer_name,
-								internal_part_id: internal_part_id,
-								customer_part_number: customer_part_number,
-								model: model,
-								machine_name: machine_name,
-								machine_status: machine_status,
-								today: today,
-								yesterday: yesterday
-							})} >
-								<Text> Masspro Begin Tech Injection</Text>   
-							</Button>
-						)
-					}
-					if(featureUser[i].qc_masspro_prod_leader.view_permissions == true){
-						data.push(
-							<Button key="askdmaswq12sjkd" style={styles.productsButton} onPress={() => navigation.navigate('MassproBeginProdLeader', {
-								product_name: product_name,
-								machine_id: machine_id,
-								sys_plant_id: sys_plant_id,
-								cavity: cavity,
-								customer_name: customer_name,
-								internal_part_id: internal_part_id,
-								customer_part_number: customer_part_number,
-								model: model,
-								machine_name: machine_name,
-								machine_status: machine_status,
-								today: today,
-								yesterday: yesterday
-							})} >
-								<Text> Masspro Begin Prod. Leader </Text>   
-							</Button>
-							
-						)
-					}
-					if(featureUser[i].qc_masspro_qc_leader.view_permissions == true){
-						data.push(
-							<Button key="asjnjqjwkn123" style={styles.productsButton} onPress={() => navigation.navigate('MassproBeginQCLeader', {
-								product_name: product_name,
-								machine_id: machine_id,
-								sys_plant_id: sys_plant_id,
-								cavity: cavity,
-								customer_name: customer_name,
-								internal_part_id: internal_part_id,
-								customer_part_number: customer_part_number,
-								model: model,
-								machine_name: machine_name,
-								machine_status: machine_status,
-								today: today,
-								yesterday: yesterday
-							})} >
-								<Text> Masspro Begin QC. Leader </Text>   
-							</Button>
-							
-						)
-					}
-					if(featureUser[i].qc_masspro_foreman.view_permissions == true){
-						data.push(
-							<Button key="asjasdq2njqjwkn123" style={styles.productsButton} onPress={() => navigation.navigate('MassproBeginForeman', {
-								product_name: product_name,
-								machine_id: machine_id,
-								sys_plant_id: sys_plant_id,
-								cavity: cavity,
-								customer_name: customer_name,
-								internal_part_id: internal_part_id,
-								customer_part_number: customer_part_number,
-								model: model,
-								machine_name: machine_name,
-								machine_status: machine_status,
-								today: today,
-								yesterday: yesterday
-							})} >
-								<Text> Masspro Begin Foreman </Text>   
-							</Button>
-							
-						)
-					}
 					if(featureUser[i].qc_daily_inspection.view_permissions == true){
 						data.push(
 							<View key="aopskdmk21asiun2">
@@ -185,13 +42,8 @@ const ListForm = ({route, navigation}) => {
 									qc_daily_inspection_item_id: qc_daily_inspection_item_id,
 									qc_daily_inspection_method_id: qc_daily_inspection_method_id,
 									sys_plant_id: sys_plant_id,
-									product_name: product_name,
 									machine_id: machine_id,
-									cavity: cavity,
 									customer_name: customer_name,
-									internal_part_id: internal_part_id,
-									customer_part_number: customer_part_number,
-									model: model,
 									machine_name: machine_name,
 									machine_status: machine_status,
 									today: today,
@@ -207,24 +59,15 @@ const ListForm = ({route, navigation}) => {
 								<Button style={styles.productsButton} onPress={() => navigation.navigate('Per4Jam', {
 									qc_daily_inspection_id: qc_daily_inspection_id,
 									qc_daily_inspection_method_id: qc_daily_inspection_method_id,
-									qc_daily_inspection_item_id: qc_daily_inspection_item_id,
 									sys_plant_id: sys_plant_id,
 									product_name: product_name,
 									machine_id: machine_id,
-									cavity: cavity,
 									customer_name: customer_name,
-									internal_part_id: internal_part_id,
-									customer_part_number: customer_part_number,
-									model: model,
 									machine_name: machine_name,
-									machine_status: machine_status,
 									today: today,
 									operator_nik: operator_nik, 
 									operator_nik_2: operator_nik_2, 
-									leader_nik: leader_nik, 
-									foreman_nik: foreman_nik,
-									qc_process_nik: qc_process_nik,
-									yesterday: yesterday
+                  yesterday: yesterday
 								})} >
 									<Text> Per 4 Jam </Text>   
 								</Button>
@@ -233,11 +76,7 @@ const ListForm = ({route, navigation}) => {
 									sys_plant_id: sys_plant_id,
 									product_name: product_name,
 									machine_id: machine_id,
-									cavity: cavity,
 									customer_name: customer_name,
-									internal_part_id: internal_part_id,
-									customer_part_number: customer_part_number,
-									model: model,
 									machine_name: machine_name,
 									machine_status: machine_status,
 									today: today,
@@ -250,7 +89,6 @@ const ListForm = ({route, navigation}) => {
 								})} >
 									<Text> Per Shift </Text>   
 								</Button>
-								
 							</View>
 						)
 					}
@@ -261,13 +99,8 @@ const ListForm = ({route, navigation}) => {
 								sys_plant_id: sys_plant_id,
 								product_name: product_name,
 								machine_id: machine_id,
-								cavity: cavity,
 								customer_name: customer_name,
-								internal_part_id: internal_part_id,
-								customer_part_number: customer_part_number,
-								model: model,
 								machine_name: machine_name,
-								machine_status: machine_status,
 								today: today,
 								yesterday: yesterday
 							})} >
@@ -278,17 +111,12 @@ const ListForm = ({route, navigation}) => {
 					if(featureUser[i].qc_masspro_foreman.view_permissions == true){
 						data.push(
 							<Button key="asXascn2jo1ij2njs" style={styles.productsButton} onPress={() => navigation.navigate('RevisiFirstPieceForeman', {
-								qc_daily_inspection_id: qc_daily_inspection_id,
 								sys_plant_id: sys_plant_id,
 								product_name: product_name,
 								machine_id: machine_id,
-								cavity: cavity,
 								customer_name: customer_name,
-								internal_part_id: internal_part_id,
 								customer_part_number: customer_part_number,
-								model: model,
 								machine_name: machine_name,
-								machine_status: machine_status,
 								today: today,
 								yesterday: yesterday
 							})} >
@@ -301,16 +129,13 @@ const ListForm = ({route, navigation}) => {
 						data.push(
 							<Button key="askdmkwqw" style={styles.productsButton} onPress={() => navigation.navigate('LastShootLeaderQc', {
 								qc_daily_inspection_id: qc_daily_inspection_id,
+                qc_daily_inspection_item_id: qc_daily_inspection_item_id,
+                qc_daily_inspection_method_i: qc_daily_inspection_method_id,
 								sys_plant_id: sys_plant_id,
-								product_name: product_name,
+                product_name: product_name,
 								machine_id: machine_id,
-								cavity: cavity,
 								customer_name: customer_name,
-								internal_part_id: internal_part_id,
-								customer_part_number: customer_part_number,
-								model: model,
 								machine_name: machine_name,
-								machine_status: machine_status,
 								today: today,
 								yesterday: yesterday
 							})} >
@@ -325,13 +150,8 @@ const ListForm = ({route, navigation}) => {
 								sys_plant_id: sys_plant_id,
 								product_name: product_name,
 								machine_id: machine_id,
-								cavity: cavity,
 								customer_name: customer_name,
-								internal_part_id: internal_part_id,
-								customer_part_number: customer_part_number,
-								model: model,
 								machine_name: machine_name,
-								machine_status: machine_status,
 								today: today,
 								yesterday: yesterday
 							})} >
