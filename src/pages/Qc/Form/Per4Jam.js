@@ -510,6 +510,7 @@ const Per4Jam = ({route, navigation}) => {
 
 	const hString = hours.toString()
 	const dataItem = () => {
+		
 		const checkData = daily_inspection
 		var table1 = []
 		if(cavityDetail.length > 0){
@@ -541,832 +542,843 @@ const Per4Jam = ({route, navigation}) => {
 				)
 			}
 		}else{
+			// console.log(checkData)
 			if(checkData != null){
 				const checkingCavity = checkData.cavity
-				if(checkingCavity > 0){
+				if(checkingCavity != null){
+					if(checkingCavity > 0){
+						table1.push(
+							<View key="asdk2123asd" style={{flexDirection: 'row', height: 50}}>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
+									<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
+										<Text>
+											1
+										</Text>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+									<View style={{justifyContent: 'center', width: 168.5}}>
+										<Picker 
+										mode="dropdown"
+										selectedValue= {compare1}
+										onValueChange = {(value)=>setCompare1(value)}
+										>
+											<Picker.Item label="Pilih" value=""/>
+											<Picker.Item label="OK" value="OK"/>
+											<Picker.Item label="NG" value="NG"/>
+										</Picker>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+									<View style={{justifyContent: 'center', width: 168.5}}>
+										<Picker 
+										mode="dropdown"
+										selectedValue= {fitting_test1}
+										onValueChange = {(value)=>setFittingTest1(value)}
+										>
+											<Picker.Item label="Pilih" value=""/>
+											<Picker.Item label="OK" value="OK"/>
+											<Picker.Item label="NG" value="NG"/>
+											<Picker.Item label="No Check" value="no_check"/>
+										</Picker>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
+									<View style={{justifyContent: 'center', width: 145}}>
+										<TextInput value={note1} onChangeText={(value) => setKeterangan1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+									</View>
+								</View>
+							</View>
+						)
+					}
+	
+					if(checkingCavity > 1){
+						table1.push(
+							<View key="assadwdk2" style={{flexDirection: 'row', height: 50}}>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
+									<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
+										<Text>
+											2
+										</Text>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+									<View style={{justifyContent: 'center', width: 168.5}}>
+										<Picker 
+										mode="dropdown"
+										selectedValue= {compare2}
+										onValueChange = {(value)=>setCompare2(value)}
+										>
+											<Picker.Item label="Pilih" value=""/>
+											<Picker.Item label="OK" value="OK"/>
+											<Picker.Item label="NG" value="NG"/>
+										</Picker>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+									<View style={{justifyContent: 'center', width: 168.5}}>
+										<Picker 
+										mode="dropdown"
+										selectedValue= {fitting_test2}
+										onValueChange = {(value)=>setFittingTest2(value)}
+										>
+											<Picker.Item label="Pilih" value=""/>
+											<Picker.Item label="OK" value="OK"/>
+											<Picker.Item label="NG" value="NG"/>
+											<Picker.Item label="No Check" value="no_check"/>
+										</Picker>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
+									<View style={{justifyContent: 'center', width: 145}}>
+										<TextInput value={note2} onChangeText={(value) => setKeterangan2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+									</View>
+								</View>
+							</View>
+						)
+					}
+	
+					if(checkingCavity > 2){
+						table1.push(
+							<View key="asdzxczxk2" style={{flexDirection: 'row', height: 50}}>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
+									<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
+										<Text>
+											3
+										</Text>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+									<View style={{justifyContent: 'center', width: 168.5}}>
+										<Picker 
+										mode="dropdown"
+										selectedValue= {compare3}
+										onValueChange = {(value)=>setCompare3(value)}
+										>
+											<Picker.Item label="Pilih" value=""/>
+											<Picker.Item label="OK" value="OK"/>
+											<Picker.Item label="NG" value="NG"/>
+										</Picker>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+									<View style={{justifyContent: 'center', width: 168.5}}>
+										<Picker 
+										mode="dropdown"
+										selectedValue= {fitting_test3}
+										onValueChange = {(value)=>setFittingTest3(value)}
+										>
+											<Picker.Item label="Pilih" value=""/>
+											<Picker.Item label="OK" value="OK"/>
+											<Picker.Item label="NG" value="NG"/>
+											<Picker.Item label="No Check" value="no_check"/>
+										</Picker>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
+									<View style={{justifyContent: 'center', width: 145}}>
+										<TextInput value={note3} onChangeText={(value) => setKeterangan3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+									</View>
+								</View>
+							</View>
+						)
+					}
+	
+					if(checkingCavity > 3){
+						table1.push(
+							<View key="asqweasdk2" style={{flexDirection: 'row', height: 50}}>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
+									<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
+										<Text>
+											4
+										</Text>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+									<View style={{justifyContent: 'center', width: 168.5}}>
+										<Picker 
+										mode="dropdown"
+										selectedValue= {compare4}
+										onValueChange = {(value)=>setCompare4(value)}
+										>
+											<Picker.Item label="Pilih" value=""/>
+											<Picker.Item label="OK" value="OK"/>
+											<Picker.Item label="NG" value="NG"/>
+										</Picker>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+									<View style={{justifyContent: 'center', width: 168.5}}>
+										<Picker 
+										mode="dropdown"
+										selectedValue= {fitting_test4}
+										onValueChange = {(value)=>setFittingTest4(value)}
+										>
+											<Picker.Item label="Pilih" value=""/>
+											<Picker.Item label="OK" value="OK"/>
+											<Picker.Item label="NG" value="NG"/>
+											<Picker.Item label="No Check" value="no_check"/>
+										</Picker>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
+									<View style={{justifyContent: 'center', width: 145}}>
+										<TextInput value={note4} onChangeText={(value) => setKeterangan4(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+									</View>
+								</View>
+							</View>
+						)
+					}
+	
+					if(checkingCavity > 4){
+						table1.push(
+							<View key="asdzxcqdk2" style={{flexDirection: 'row', height: 50}}>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
+									<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
+										<Text>
+											5
+										</Text>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+									<View style={{justifyContent: 'center', width: 168.5}}>
+										<Picker 
+										mode="dropdown"
+										selectedValue= {compare5}
+										onValueChange = {(value)=>setCompare5(value)}
+										>
+											<Picker.Item label="Pilih" value=""/>
+											<Picker.Item label="OK" value="OK"/>
+											<Picker.Item label="NG" value="NG"/>
+										</Picker>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+									<View style={{justifyContent: 'center', width: 168.5}}>
+										<Picker 
+										mode="dropdown"
+										selectedValue= {fitting_test5}
+										onValueChange = {(value)=>setFittingTest5(value)}
+										>
+											<Picker.Item label="Pilih" value=""/>
+											<Picker.Item label="OK" value="OK"/>
+											<Picker.Item label="NG" value="NG"/>
+											<Picker.Item label="No Check" value="no_check"/>
+										</Picker>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
+									<View style={{justifyContent: 'center', width: 145}}>
+										<TextInput value={note5} onChangeText={(value) => setKeterangan5(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+									</View>
+								</View>
+							</View>
+						)
+					}
+	
+					if(checkingCavity > 5){
+						table1.push(
+							<View key="aasdwqsdk2" style={{flexDirection: 'row', height: 50}}>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
+									<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
+										<Text>
+											6
+										</Text>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+									<View style={{justifyContent: 'center', width: 168.5}}>
+										<Picker 
+										mode="dropdown"
+										selectedValue= {compare6}
+										onValueChange = {(value)=>setCompare6(value)}
+										>
+											<Picker.Item label="Pilih" value=""/>
+											<Picker.Item label="OK" value="OK"/>
+											<Picker.Item label="NG" value="NG"/>
+										</Picker>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+									<View style={{justifyContent: 'center', width: 168.5}}>
+										<Picker 
+										mode="dropdown"
+										selectedValue= {fitting_test6}
+										onValueChange = {(value)=>setFittingTest6(value)}
+										>
+											<Picker.Item label="Pilih" value=""/>
+											<Picker.Item label="OK" value="OK"/>
+											<Picker.Item label="NG" value="NG"/>
+											<Picker.Item label="No Check" value="no_check"/>
+										</Picker>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
+									<View style={{justifyContent: 'center', width: 145}}>
+										<TextInput value={note6} onChangeText={(value) => setKeterangan6(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+									</View>
+								</View>
+							</View>
+						)
+					}
+	
+					if(checkingCavity > 6){
+						table1.push(
+							<View key="zxcwqasdk2" style={{flexDirection: 'row', height: 50}}>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
+									<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
+										<Text>
+											7
+										</Text>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+									<View style={{justifyContent: 'center', width: 168.5}}>
+										<Picker 
+										mode="dropdown"
+										selectedValue= {compare7}
+										onValueChange = {(value)=>setCompare7(value)}
+										>
+											<Picker.Item label="Pilih" value=""/>
+											<Picker.Item label="OK" value="OK"/>
+											<Picker.Item label="NG" value="NG"/>
+										</Picker>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+									<View style={{justifyContent: 'center', width: 168.5}}>
+										<Picker 
+										mode="dropdown"
+										selectedValue= {fitting_test7}
+										onValueChange = {(value)=>setFittingTest7(value)}
+										>
+											<Picker.Item label="Pilih" value=""/>
+											<Picker.Item label="OK" value="OK"/>
+											<Picker.Item label="NG" value="NG"/>
+											<Picker.Item label="No Check" value="no_check"/>
+										</Picker>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
+									<View style={{justifyContent: 'center', width: 145}}>
+										<TextInput value={note7} onChangeText={(value) => setKeterangan7(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+									</View>
+								</View>
+							</View>
+						)
+					}
+	
+					if(checkingCavity > 7){
+						table1.push(
+							<View key="aszxcqfdk2" style={{flexDirection: 'row', height: 50}}>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
+									<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
+										<Text>
+											8
+										</Text>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+									<View style={{justifyContent: 'center', width: 168.5}}>
+										<Picker 
+										mode="dropdown"
+										selectedValue= {compare8}
+										onValueChange = {(value)=>setCompare8(value)}
+										>
+											<Picker.Item label="Pilih" value=""/>
+											<Picker.Item label="OK" value="OK"/>
+											<Picker.Item label="NG" value="NG"/>
+										</Picker>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+									<View style={{justifyContent: 'center', width: 168.5}}>
+										<Picker 
+										mode="dropdown"
+										selectedValue= {fitting_test8}
+										onValueChange = {(value)=>setFittingTest8(value)}
+										>
+											<Picker.Item label="Pilih" value=""/>
+											<Picker.Item label="OK" value="OK"/>
+											<Picker.Item label="NG" value="NG"/>
+											<Picker.Item label="No Check" value="no_check"/>
+										</Picker>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
+									<View style={{justifyContent: 'center', width: 145}}>
+										<TextInput value={note8} onChangeText={(value) => setKeterangan8(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+									</View>
+								</View>
+							</View>
+						)
+					}
+	
+					if(checkingCavity > 8){
+						table1.push(
+							<View key="avfssasdk2" style={{flexDirection: 'row', height: 50}}>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
+									<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
+										<Text>
+											9
+										</Text>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+									<View style={{justifyContent: 'center', width: 168.5}}>
+										<Picker 
+										mode="dropdown"
+										selectedValue= {compare9}
+										onValueChange = {(value)=>setCompare9(value)}
+										>
+											<Picker.Item label="Pilih" value=""/>
+											<Picker.Item label="OK" value="OK"/>
+											<Picker.Item label="NG" value="NG"/>
+										</Picker>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+									<View style={{justifyContent: 'center', width: 168.5}}>
+										<Picker 
+										mode="dropdown"
+										selectedValue= {fitting_test9}
+										onValueChange = {(value)=>setFittingTest9(value)}
+										>
+											<Picker.Item label="Pilih" value=""/>
+											<Picker.Item label="OK" value="OK"/>
+											<Picker.Item label="NG" value="NG"/>
+											<Picker.Item label="No Check" value="no_check"/>
+										</Picker>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
+									<View style={{justifyContent: 'center', width: 145}}>
+										<TextInput value={note9} onChangeText={(value) => setKeterangan9(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+									</View>
+								</View>
+							</View>
+						)
+					}
+	
+					if(checkingCavity > 9){
+						table1.push(
+							<View key="aszxcqeasdk2" style={{flexDirection: 'row', height: 50}}>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
+									<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
+										<Text>
+											10
+										</Text>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+									<View style={{justifyContent: 'center', width: 168.5}}>
+										<Picker 
+										mode="dropdown"
+										selectedValue= {compare10}
+										onValueChange = {(value)=>setCompare10(value)}
+										>
+											<Picker.Item label="Pilih" value=""/>
+											<Picker.Item label="OK" value="OK"/>
+											<Picker.Item label="NG" value="NG"/>
+										</Picker>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+									<View style={{justifyContent: 'center', width: 168.5}}>
+										<Picker 
+										mode="dropdown"
+										selectedValue= {fitting_test10}
+										onValueChange = {(value)=>setFittingTest10(value)}
+										>
+											<Picker.Item label="Pilih" value=""/>
+											<Picker.Item label="OK" value="OK"/>
+											<Picker.Item label="NG" value="NG"/>
+											<Picker.Item label="No Check" value="no_check"/>
+										</Picker>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
+									<View style={{justifyContent: 'center', width: 145}}>
+										<TextInput value={note10} onChangeText={(value) => setKeterangan10(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+									</View>
+								</View>
+							</View>
+						)
+					}
+	
+					if(checkingCavity > 10){
+						table1.push(
+							<View key="avdvwsdk2" style={{flexDirection: 'row', height: 50}}>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
+									<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
+										<Text>
+											11
+										</Text>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+									<View style={{justifyContent: 'center', width: 168.5}}>
+										<Picker 
+										mode="dropdown"
+										selectedValue= {compare11}
+										onValueChange = {(value)=>setCompare11(value)}
+										>
+											<Picker.Item label="Pilih" value=""/>
+											<Picker.Item label="OK" value="OK"/>
+											<Picker.Item label="NG" value="NG"/>
+										</Picker>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+									<View style={{justifyContent: 'center', width: 168.5}}>
+										<Picker 
+										mode="dropdown"
+										selectedValue= {fitting_test11}
+										onValueChange = {(value)=>setFittingTest11(value)}
+										>
+											<Picker.Item label="Pilih" value=""/>
+											<Picker.Item label="OK" value="OK"/>
+											<Picker.Item label="NG" value="NG"/>
+											<Picker.Item label="No Check" value="no_check"/>
+										</Picker>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
+									<View style={{justifyContent: 'center', width: 145}}>
+										<TextInput value={note11} onChangeText={(value) => setKeterangan11(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+									</View>
+								</View>
+							</View>
+						)
+					}
+	
+					if(checkingCavity > 11){
+						table1.push(
+							<View key="asdvfdsdk2" style={{flexDirection: 'row', height: 50}}>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
+									<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
+										<Text>
+											12
+										</Text>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+									<View style={{justifyContent: 'center', width: 168.5}}>
+										<Picker 
+										mode="dropdown"
+										selectedValue= {compare12}
+										onValueChange = {(value)=>setCompare12(value)}
+										>
+											<Picker.Item label="Pilih" value=""/>
+											<Picker.Item label="OK" value="OK"/>
+											<Picker.Item label="NG" value="NG"/>
+										</Picker>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+									<View style={{justifyContent: 'center', width: 168.5}}>
+										<Picker 
+										mode="dropdown"
+										selectedValue= {fitting_test12}
+										onValueChange = {(value)=>setFittingTest12(value)}
+										>
+											<Picker.Item label="Pilih" value=""/>
+											<Picker.Item label="OK" value="OK"/>
+											<Picker.Item label="NG" value="NG"/>
+											<Picker.Item label="No Check" value="no_check"/>
+										</Picker>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
+									<View style={{justifyContent: 'center', width: 145}}>
+										<TextInput value={note12} onChangeText={(value) => setKeterangan12(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+									</View>
+								</View>
+							</View>
+						)
+					}
+	
+					if(checkingCavity > 12){
+						table1.push(
+							<View key="asfewqdk2" style={{flexDirection: 'row', height: 50}}>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
+									<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
+										<Text>
+											13
+										</Text>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+									<View style={{justifyContent: 'center', width: 168.5}}>
+										<Picker 
+										mode="dropdown"
+										selectedValue= {compare13}
+										onValueChange = {(value)=>setCompare13(value)}
+										>
+											<Picker.Item label="Pilih" value=""/>
+											<Picker.Item label="OK" value="OK"/>
+											<Picker.Item label="NG" value="NG"/>
+										</Picker>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+									<View style={{justifyContent: 'center', width: 168.5}}>
+										<Picker 
+										mode="dropdown"
+										selectedValue= {fitting_test13}
+										onValueChange = {(value)=>setFittingTest13(value)}
+										>
+											<Picker.Item label="Pilih" value=""/>
+											<Picker.Item label="OK" value="OK"/>
+											<Picker.Item label="NG" value="NG"/>
+											<Picker.Item label="No Check" value="no_check"/>
+										</Picker>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
+									<View style={{justifyContent: 'center', width: 145}}>
+										<TextInput value={note13} onChangeText={(value) => setKeterangan13(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+									</View>
+								</View>
+							</View>
+						)
+					}
+	
+					if(checkingCavity > 13){
+						table1.push(
+							<View key="asdfeqqfk2" style={{flexDirection: 'row', height: 50}}>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
+									<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
+										<Text>
+											14
+										</Text>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+									<View style={{justifyContent: 'center', width: 168.5}}>
+										<Picker 
+										mode="dropdown"
+										selectedValue= {compare14}
+										onValueChange = {(value)=>setCompare14(value)}
+										>
+											<Picker.Item label="Pilih" value=""/>
+											<Picker.Item label="OK" value="OK"/>
+											<Picker.Item label="NG" value="NG"/>
+										</Picker>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+									<View style={{justifyContent: 'center', width: 168.5}}>
+										<Picker 
+										mode="dropdown"
+										selectedValue= {fitting_test14}
+										onValueChange = {(value)=>setFittingTest14(value)}
+										>
+											<Picker.Item label="Pilih" value=""/>
+											<Picker.Item label="OK" value="OK"/>
+											<Picker.Item label="NG" value="NG"/>
+											<Picker.Item label="No Check" value="no_check"/>
+										</Picker>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
+									<View style={{justifyContent: 'center', width: 145}}>
+										<TextInput value={note14} onChangeText={(value) => setKeterangan14(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+									</View>
+								</View>
+							</View>
+						)
+					}
+	
+					if(checkingCavity > 14){
+						table1.push(
+							<View key="afewfqsdk2" style={{flexDirection: 'row', height: 50}}>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
+									<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
+										<Text>
+											15
+										</Text>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+									<View style={{justifyContent: 'center', width: 168.5}}>
+										<Picker 
+										mode="dropdown"
+										selectedValue= {compare15}
+										onValueChange = {(value)=>setCompare15(value)}
+										>
+											<Picker.Item label="Pilih" value=""/>
+											<Picker.Item label="OK" value="OK"/>
+											<Picker.Item label="NG" value="NG"/>
+										</Picker>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+									<View style={{justifyContent: 'center', width: 168.5}}>
+										<Picker 
+										mode="dropdown"
+										selectedValue= {fitting_test15}
+										onValueChange = {(value)=>setFittingTest15(value)}
+										>
+											<Picker.Item label="Pilih" value=""/>
+											<Picker.Item label="OK" value="OK"/>
+											<Picker.Item label="NG" value="NG"/>
+											<Picker.Item label="No Check" value="no_check"/>
+										</Picker>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
+									<View style={{justifyContent: 'center', width: 145}}>
+										<TextInput value={note15} onChangeText={(value) => setKeterangan15(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+									</View>
+								</View>
+							</View>
+						)
+					}
+	
+					if(checkingCavity > 15){
+						table1.push(
+							<View key="ascasczxdk2" style={{flexDirection: 'row', height: 50}}>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
+									<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
+										<Text>
+											16
+										</Text>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+									<View style={{justifyContent: 'center', width: 168.5}}>
+										<Picker 
+										mode="dropdown"
+										selectedValue= {compare16}
+										onValueChange = {(value)=>setCompare16(value)}
+										>
+											<Picker.Item label="Pilih" value=""/>
+											<Picker.Item label="OK" value="OK"/>
+											<Picker.Item label="NG" value="NG"/>
+										</Picker>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+									<View style={{justifyContent: 'center', width: 168.5}}>
+										<Picker 
+										mode="dropdown"
+										selectedValue= {fitting_test16}
+										onValueChange = {(value)=>setFittingTest16(value)}
+										>
+											<Picker.Item label="Pilih" value=""/>
+											<Picker.Item label="OK" value="OK"/>
+											<Picker.Item label="NG" value="NG"/>
+											<Picker.Item label="No Check" value="no_check"/>
+										</Picker>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
+									<View style={{justifyContent: 'center', width: 145}}>
+										<TextInput value={note16} onChangeText={(value) => setKeterangan16(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+									</View>
+								</View>
+							</View>
+						)
+					}
+	
+					if(checkingCavity > 16){
+						table1.push(
+							<View key="ascqsqwdk2" style={{flexDirection: 'row', height: 50}}>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
+									<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
+										<Text>
+											17
+										</Text>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+									<View style={{justifyContent: 'center', width: 168.5}}>
+										<Picker 
+										mode="dropdown"
+										selectedValue= {compare17}
+										onValueChange = {(value)=>setCompare17(value)}
+										>
+											<Picker.Item label="Pilih" value=""/>
+											<Picker.Item label="OK" value="OK"/>
+											<Picker.Item label="NG" value="NG"/>
+										</Picker>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+									<View style={{justifyContent: 'center', width: 168.5}}>
+										<Picker 
+										mode="dropdown"
+										selectedValue= {fitting_test17}
+										onValueChange = {(value)=>setFittingTest17(value)}
+										>
+											<Picker.Item label="Pilih" value=""/>
+											<Picker.Item label="OK" value="OK"/>
+											<Picker.Item label="NG" value="NG"/>
+											<Picker.Item label="No Check" value="no_check"/>
+										</Picker>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
+									<View style={{justifyContent: 'center', width: 145}}>
+										<TextInput value={note17} onChangeText={(value) => setKeterangan17(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+									</View>
+								</View>
+							</View>
+						)
+					
+					}
+	
+					if(checkingCavity > 17){
+						table1.push(
+							<View key="asasdq2dk2" style={{flexDirection: 'row', height: 50}}>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
+									<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
+										<Text>
+											18
+										</Text>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+									<View style={{justifyContent: 'center', width: 168.5}}>
+										<Picker 
+										mode="dropdown"
+										selectedValue= {compare18}
+										onValueChange = {(value)=>setCompare18(value)}
+										>
+											<Picker.Item label="Pilih" value=""/>
+											<Picker.Item label="OK" value="OK"/>
+											<Picker.Item label="NG" value="NG"/>
+										</Picker>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+									<View style={{justifyContent: 'center', width: 168.5}}>
+										<Picker 
+										mode="dropdown"
+										selectedValue= {fitting_test18}
+										onValueChange = {(value)=>setFittingTest18(value)}
+										>
+											<Picker.Item label="Pilih" value=""/>
+											<Picker.Item label="OK" value="OK"/>
+											<Picker.Item label="NG" value="NG"/>
+											<Picker.Item label="No Check" value="no_check"/>
+										</Picker>
+									</View>
+								</View>
+								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
+									<View style={{justifyContent: 'center', width: 145}}>
+										<TextInput value={note18} onChangeText={(value) => setKeterangan18(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
+									</View>
+								</View>
+							</View>
+						)
+					}
+				}else{
 					table1.push(
 						<View key="asdk2123asd" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-								<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
-									<Text>
-										1
-									</Text>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {compare1}
-									onValueChange = {(value)=>setCompare1(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test1}
-									onValueChange = {(value)=>setFittingTest1(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-										<Picker.Item label="No Check" value="no_check"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note1} onChangeText={(value) => setKeterangan1(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-				}
-
-				if(checkingCavity > 1){
-					table1.push(
-						<View key="assadwdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-								<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
-									<Text>
-										2
-									</Text>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {compare2}
-									onValueChange = {(value)=>setCompare2(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test2}
-									onValueChange = {(value)=>setFittingTest2(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-										<Picker.Item label="No Check" value="no_check"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note2} onChangeText={(value) => setKeterangan2(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-				}
-
-				if(checkingCavity > 2){
-					table1.push(
-						<View key="asdzxczxk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-								<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
-									<Text>
-										3
-									</Text>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {compare3}
-									onValueChange = {(value)=>setCompare3(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test3}
-									onValueChange = {(value)=>setFittingTest3(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-										<Picker.Item label="No Check" value="no_check"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note3} onChangeText={(value) => setKeterangan3(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-				}
-
-				if(checkingCavity > 3){
-					table1.push(
-						<View key="asqweasdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-								<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
-									<Text>
-										4
-									</Text>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {compare4}
-									onValueChange = {(value)=>setCompare4(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test4}
-									onValueChange = {(value)=>setFittingTest4(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-										<Picker.Item label="No Check" value="no_check"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note4} onChangeText={(value) => setKeterangan4(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-				}
-
-				if(checkingCavity > 4){
-					table1.push(
-						<View key="asdzxcqdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-								<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
-									<Text>
-										5
-									</Text>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {compare5}
-									onValueChange = {(value)=>setCompare5(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test5}
-									onValueChange = {(value)=>setFittingTest5(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-										<Picker.Item label="No Check" value="no_check"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note5} onChangeText={(value) => setKeterangan5(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-				}
-
-				if(checkingCavity > 5){
-					table1.push(
-						<View key="aasdwqsdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-								<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
-									<Text>
-										6
-									</Text>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {compare6}
-									onValueChange = {(value)=>setCompare6(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test6}
-									onValueChange = {(value)=>setFittingTest6(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-										<Picker.Item label="No Check" value="no_check"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note6} onChangeText={(value) => setKeterangan6(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-				}
-
-				if(checkingCavity > 6){
-					table1.push(
-						<View key="zxcwqasdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-								<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
-									<Text>
-										7
-									</Text>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {compare7}
-									onValueChange = {(value)=>setCompare7(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test7}
-									onValueChange = {(value)=>setFittingTest7(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-										<Picker.Item label="No Check" value="no_check"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note7} onChangeText={(value) => setKeterangan7(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-				}
-
-				if(checkingCavity > 7){
-					table1.push(
-						<View key="aszxcqfdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-								<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
-									<Text>
-										8
-									</Text>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {compare8}
-									onValueChange = {(value)=>setCompare8(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test8}
-									onValueChange = {(value)=>setFittingTest8(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-										<Picker.Item label="No Check" value="no_check"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note8} onChangeText={(value) => setKeterangan8(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-				}
-
-				if(checkingCavity > 8){
-					table1.push(
-						<View key="avfssasdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-								<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
-									<Text>
-										9
-									</Text>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {compare9}
-									onValueChange = {(value)=>setCompare9(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test9}
-									onValueChange = {(value)=>setFittingTest9(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-										<Picker.Item label="No Check" value="no_check"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note9} onChangeText={(value) => setKeterangan9(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-				}
-
-				if(checkingCavity > 9){
-					table1.push(
-						<View key="aszxcqeasdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-								<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
-									<Text>
-										10
-									</Text>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {compare10}
-									onValueChange = {(value)=>setCompare10(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test10}
-									onValueChange = {(value)=>setFittingTest10(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-										<Picker.Item label="No Check" value="no_check"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note10} onChangeText={(value) => setKeterangan10(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-				}
-
-				if(checkingCavity > 10){
-					table1.push(
-						<View key="avdvwsdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-								<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
-									<Text>
-										11
-									</Text>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {compare11}
-									onValueChange = {(value)=>setCompare11(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test11}
-									onValueChange = {(value)=>setFittingTest11(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-										<Picker.Item label="No Check" value="no_check"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note11} onChangeText={(value) => setKeterangan11(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-				}
-
-				if(checkingCavity > 11){
-					table1.push(
-						<View key="asdvfdsdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-								<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
-									<Text>
-										12
-									</Text>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {compare12}
-									onValueChange = {(value)=>setCompare12(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test12}
-									onValueChange = {(value)=>setFittingTest12(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-										<Picker.Item label="No Check" value="no_check"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note12} onChangeText={(value) => setKeterangan12(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-				}
-
-				if(checkingCavity > 12){
-					table1.push(
-						<View key="asfewqdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-								<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
-									<Text>
-										13
-									</Text>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {compare13}
-									onValueChange = {(value)=>setCompare13(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test13}
-									onValueChange = {(value)=>setFittingTest13(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-										<Picker.Item label="No Check" value="no_check"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note13} onChangeText={(value) => setKeterangan13(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-				}
-
-				if(checkingCavity > 13){
-					table1.push(
-						<View key="asdfeqqfk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-								<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
-									<Text>
-										14
-									</Text>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {compare14}
-									onValueChange = {(value)=>setCompare14(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test14}
-									onValueChange = {(value)=>setFittingTest14(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-										<Picker.Item label="No Check" value="no_check"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note14} onChangeText={(value) => setKeterangan14(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-				}
-
-				if(checkingCavity > 14){
-					table1.push(
-						<View key="afewfqsdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-								<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
-									<Text>
-										15
-									</Text>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {compare15}
-									onValueChange = {(value)=>setCompare15(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test15}
-									onValueChange = {(value)=>setFittingTest15(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-										<Picker.Item label="No Check" value="no_check"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note15} onChangeText={(value) => setKeterangan15(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-				}
-
-				if(checkingCavity > 15){
-					table1.push(
-						<View key="ascasczxdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-								<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
-									<Text>
-										16
-									</Text>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {compare16}
-									onValueChange = {(value)=>setCompare16(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test16}
-									onValueChange = {(value)=>setFittingTest16(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-										<Picker.Item label="No Check" value="no_check"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note16} onChangeText={(value) => setKeterangan16(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-				}
-
-				if(checkingCavity > 16){
-					table1.push(
-						<View key="ascqsqwdk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-								<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
-									<Text>
-										17
-									</Text>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {compare17}
-									onValueChange = {(value)=>setCompare17(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test17}
-									onValueChange = {(value)=>setFittingTest17(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-										<Picker.Item label="No Check" value="no_check"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note17} onChangeText={(value) => setKeterangan17(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
-							</View>
-						</View>
-					)
-				
-				}
-
-				if(checkingCavity > 17){
-					table1.push(
-						<View key="asasdq2dk2" style={{flexDirection: 'row', height: 50}}>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-								<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
-									<Text>
-										18
-									</Text>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {compare18}
-									onValueChange = {(value)=>setCompare18(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-								<View style={{justifyContent: 'center', width: 168.5}}>
-									<Picker 
-									mode="dropdown"
-									selectedValue= {fitting_test18}
-									onValueChange = {(value)=>setFittingTest18(value)}
-									>
-										<Picker.Item label="Pilih" value=""/>
-										<Picker.Item label="OK" value="OK"/>
-										<Picker.Item label="NG" value="NG"/>
-										<Picker.Item label="No Check" value="no_check"/>
-									</Picker>
-								</View>
-							</View>
-							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
-								<View style={{justifyContent: 'center', width: 145}}>
-									<TextInput value={note18} onChangeText={(value) => setKeterangan18(value)} style={{paddingLeft: 5, height: 40, width: 130}} placeholder="Type Here..." />
-								</View>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 582, backgroundColor: '#b8b8b8'}}>
+								<Text>Cavity Kosong! Silahkan Lakukan Update Cavity Di SIP QC Daily Inspection Dengan No: {daily_inspection_number}</Text>
 							</View>
 						</View>
 					)
@@ -1378,7 +1390,6 @@ const Per4Jam = ({route, navigation}) => {
 
 	const content = () => {
 		var dataContent = []
-		// if(cavityCheck != null){
 			dataContent.push(
 				<ScrollView key="asoijkm" style={{flex: 1}}>
 					<View style={{paddingTop: 20, flexDirection: 'row'}}>
