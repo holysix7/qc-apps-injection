@@ -8,7 +8,7 @@ import moment from 'moment';
 import styles from '../../components/styles/Styling';
 
 const ShowPlanning = ({route, navigation}) => {
-	const {machine_id, sys_plant_id} = route.params
+  const {machine_id, sys_plant_id, machine_number} = route.params
   const [data, setData] = useState([])
   const [planning, setDataPlanning] = useState(null)
   const [customer_name, setCustomerName] = useState(null)
@@ -74,6 +74,7 @@ const ShowPlanning = ({route, navigation}) => {
                 sys_plant_id: sys_plant_id,
                 customer_name: customer_name,
                 machine_name: machine_name,
+                machine_number: machine_number,
                 today: today,
                 yesterday: yesterday
               })} >
@@ -88,6 +89,7 @@ const ShowPlanning = ({route, navigation}) => {
                   sys_plant_id: sys_plant_id,
                   customer_name: customer_name,
                   machine_name: machine_name,
+                  machine_number: machine_number,
                   today: today,
                   yesterday: yesterday
                 })} >
@@ -102,6 +104,7 @@ const ShowPlanning = ({route, navigation}) => {
                   sys_plant_id: sys_plant_id,
                   customer_name: customer_name,
                   machine_name: machine_name,
+                  machine_number: machine_number,
                   today: today,
                   yesterday: yesterday
                 })} >
@@ -116,6 +119,7 @@ const ShowPlanning = ({route, navigation}) => {
                   sys_plant_id,
                   customer_name: customer_name,
                   machine_name: machine_name,
+                  machine_number: machine_number,
                   today: today,
                   yesterday: yesterday
                 })} >
@@ -130,6 +134,7 @@ const ShowPlanning = ({route, navigation}) => {
                   sys_plant_id,
                   customer_name: customer_name,
                   machine_name: machine_name,
+                  machine_number: machine_number,
                   today: today,
                   yesterday: yesterday
                 })} >
@@ -145,6 +150,7 @@ const ShowPlanning = ({route, navigation}) => {
                   sys_plant_id,
                   customer_name: customer_name,
                   machine_name: machine_name,
+                  machine_number: machine_number,
                   today: today,
                   yesterday: yesterday
                 })} >
@@ -160,6 +166,7 @@ const ShowPlanning = ({route, navigation}) => {
                   sys_plant_id,
                   customer_name: customer_name,
                   machine_name: machine_name,
+                  machine_number: machine_number,
                   today: today,
                   yesterday: yesterday
                 })} >
@@ -240,7 +247,7 @@ const ShowPlanning = ({route, navigation}) => {
 					<Image source={LogoSIP}/>
 				</View>
 				<View style={styles.contentHeader}>
-					<Text style={styles.fontPlanning}>{machine_name}</Text>
+					<Text style={styles.fontPlanning}>({machine_number}) - {machine_name}</Text>
 					<Text style={styles.fontPlanning}>Create Daily Inspection</Text>
 				</View>
 			</View>

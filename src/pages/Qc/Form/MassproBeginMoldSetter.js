@@ -10,7 +10,7 @@ const MassproBeginMoldSetter = ({route, navigation}) => {
 	useEffect(() => {
 		formOke()
 	}, [])
-	const {customer_name, sys_plant_id, machine_id, machine_name, today} = route.params
+	const {customer_name, sys_plant_id, machine_id, machine_number, machine_name, today} = route.params
 	const [clamping_bolt, setClamping] 																	= useState("")
 	const [cooling_system, setCooling] 																		= useState("")
 	const [limit_switch, setSlider] 																			= useState("")
@@ -265,7 +265,6 @@ const MassproBeginMoldSetter = ({route, navigation}) => {
 		const updateMS = massproMsLimitSwitch
 		const data = []
 		const msData = massproMS
-		// console.log(msData)
 		if(msData != null){
 			if(updateMS != "OK" && updateMS != "NG"){
 				data.push(
@@ -614,7 +613,7 @@ const MassproBeginMoldSetter = ({route, navigation}) => {
 							</View>
 							<View style={{flexDirection: 'column', width: "100%"}}>
 								<View style={{borderTopWidth: 0.3, height: 65, justifyContent: 'center', alignItems: 'center', width: "50%", flex: 1}}>
-									<Text style={{fontWeight: 'bold', fontSize: 17}}>{machine_name}</Text>
+									<Text style={{fontWeight: 'bold', fontSize: 17}}>({machine_number}) - {machine_name}</Text>
 									<View style={{borderWidth: 0.5, width: 150, height: 25, justifyContent: 'center'}}>
 										<Picker 
 										mode="dropdown"

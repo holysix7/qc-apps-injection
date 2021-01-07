@@ -6,7 +6,7 @@ import styles from '../../components/styles/Styling';
 import AsyncStorage from "@react-native-community/async-storage";
 
 const ListForm = ({route, navigation}) => {
-	const {qc_daily_inspection_id, qc_daily_inspection_item_id, qc_daily_inspection_method_id, sys_plant_id, product_name, customer_name, internal_part_id, customer_part_number, model, machine_id, machine_name, machine_status, operator_nik, operator_nik_2, leader_nik, foreman_nik, qc_process_nik, cavity, today, yesterday} = route.params
+	const {qc_daily_inspection_id, qc_daily_inspection_item_id, qc_daily_inspection_method_id, sys_plant_id, product_name, customer_name, internal_part_id, customer_part_number, model, machine_id, machine_name, machine_status, operator_nik, operator_nik_2, leader_nik, foreman_nik, qc_process_nik, machine_number, today, yesterday} = route.params
   const [featureUser, setFeature] = useState(null);
 	const [loading, setLoading] = useState(false)
 	useEffect(() => {
@@ -47,6 +47,7 @@ const ListForm = ({route, navigation}) => {
 									machine_name: machine_name,
 									machine_status: machine_status,
 									today: today,
+									machine_number: machine_number,
 									operator_nik: operator_nik, 
 									operator_nik_2: operator_nik_2, 
 									leader_nik: leader_nik, 
@@ -65,6 +66,7 @@ const ListForm = ({route, navigation}) => {
 									customer_name: customer_name,
 									machine_name: machine_name,
 									today: today,
+									machine_number: machine_number,
 									operator_nik: operator_nik, 
 									operator_nik_2: operator_nik_2, 
                   yesterday: yesterday
@@ -80,6 +82,7 @@ const ListForm = ({route, navigation}) => {
 									machine_name: machine_name,
 									machine_status: machine_status,
 									today: today,
+									machine_number: machine_number,
 									operator_nik: operator_nik, 
 									operator_nik_2: operator_nik_2, 
 									leader_nik: leader_nik, 
@@ -102,6 +105,7 @@ const ListForm = ({route, navigation}) => {
 								customer_name: customer_name,
 								machine_name: machine_name,
 								today: today,
+								machine_number: machine_number,
 								yesterday: yesterday
 							})} >
 								<Text> Revisi First Piece Leader QC </Text>   
@@ -118,6 +122,7 @@ const ListForm = ({route, navigation}) => {
 								customer_part_number: customer_part_number,
 								machine_name: machine_name,
 								today: today,
+								machine_number: machine_number,
 								yesterday: yesterday
 							})} >
 								<Text> Revisi First Piece Foreman </Text>
@@ -137,6 +142,7 @@ const ListForm = ({route, navigation}) => {
 								customer_name: customer_name,
 								machine_name: machine_name,
 								today: today,
+								machine_number: machine_number,
 								yesterday: yesterday
 							})} >
 								<Text> Last Shoot Leader QC </Text>   
@@ -153,6 +159,7 @@ const ListForm = ({route, navigation}) => {
 								customer_name: customer_name,
 								machine_name: machine_name,
 								today: today,
+								machine_number: machine_number,
 								yesterday: yesterday
 							})} >
 								<Text> Last Shoot Foreman </Text>   
@@ -172,7 +179,7 @@ const ListForm = ({route, navigation}) => {
 					<Image source={LogoSIP}/>
 				</View>
 				<View style={{justifyContent: 'center', alignItems: 'center'}}>
-					<Text style={styles.fontButtonHeader}>{machine_name}</Text>
+					<Text style={styles.fontButtonHeader}>({machine_number}) - {machine_name}</Text>
 					<Text style={styles.fontButtonFooter}>{product_name}</Text>
 				</View>
 			</View>

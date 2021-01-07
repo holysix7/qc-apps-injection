@@ -11,7 +11,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 		formOke()
 	}, [])
 
-	const {qc_daily_inspection_id, sys_plant_id, product_name, customer_name, machine_id, machine_name, today, yesterday} = route.params
+	const {qc_daily_inspection_id, sys_plant_id, product_name, customer_name, machine_id, machine_number, machine_name, today, yesterday} = route.params
 
 	const [statusCavity1, setStatusCavity1] 														 = useState("")
 	const [statusCavity2, setStatusCavity2] 														 = useState("")
@@ -196,7 +196,6 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 			.then(response => {
 				setLoading(true)
-				// console.log(response.data.data.tooling_num)
 				setEngProd(response.data.data.eng_product_id)
 				setData(response.data.data.product_detail)
 				setDataQl(response.data.data.masspro_ql)
@@ -467,9 +466,6 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 		)
 	}
 
-	// if(ngCategories.length > 0){
-		// console.log("ngs: ", ngCategories)
-	// }
 	const itemNGsLoop = () => {
 		var dataNGs = []
 		var itemCheckNGs = [
@@ -619,7 +615,6 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 			}
 		]
 		itemCheckNGs.map((element, key) => {
-			// console.log("xcv: ", key)
 		if(element.judgement_first_piece == "NG" || element.fitting_test == "NG" || compare_sample == "NG" || check_sheet == "NG"){
 			var dataNGItems = []
 			dataNGItems.push(
@@ -1908,7 +1903,6 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 			if(revisiQc.length > 0){
 				var i
 				for(i = 0; i < cavityCheck; i++){
-					// console.log("id_cavity: ", revisiQc[i].id)
 					table1.push(
 						<View key={i} style={{flexDirection: 'row', height: 50}}>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, backgroundColor: '#b8b8b8', borderBottomWidth: 0.9, width: 100}}>
@@ -2242,7 +2236,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 							</View>
 							<View style={{flexDirection: 'column', width: "100%"}}>
 								<View style={{borderTopWidth: 0.3, height: 65, justifyContent: 'center', alignItems: 'center', width: "50%", flex: 1}}>
-									<Text style={{fontWeight: 'bold', fontSize: 17}}>{machine_name}</Text>
+									<Text style={{fontWeight: 'bold', fontSize: 17}}>({machine_number}) - {machine_name}</Text>
 									<View style={{borderWidth: 0.5, width: 150, height: 25, justifyContent: 'center'}}>
 										<Picker 
 										mode="dropdown"

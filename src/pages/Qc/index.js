@@ -89,6 +89,7 @@ const Qc = ({navigation}) => {
             navigation.navigate('ShowProducts', {
               machine_id: element.id,
               machine_name: element.name,
+              machine_number: element.number,
               sys_plant_id: element.sys_plant_id,
             })
           }}
@@ -104,6 +105,7 @@ const Qc = ({navigation}) => {
             navigation.navigate('ShowProducts', {
               machine_id: element.id,
               machine_name: element.name,
+              machine_number: element.number,
               sys_plant_id: element.sys_plant_id,
             })
           }}
@@ -119,6 +121,7 @@ const Qc = ({navigation}) => {
             navigation.navigate('ShowProducts', {
               machine_id: element.id,
               machine_name: element.name,
+              machine_number: element.number,
               sys_plant_id: element.sys_plant_id,
             })
           }}
@@ -134,6 +137,7 @@ const Qc = ({navigation}) => {
             navigation.navigate('ShowProducts', {
               machine_id: element.id,
               machine_name: element.name,
+              machine_number: element.number,
               sys_plant_id: element.sys_plant_id,
             })
           }}
@@ -150,6 +154,7 @@ const Qc = ({navigation}) => {
             navigation.navigate('ShowProducts', {
               machine_id: element.id,
               machine_name: element.name,
+              machine_number: element.number,
               sys_plant_id: element.sys_plant_id,
             })
           }}

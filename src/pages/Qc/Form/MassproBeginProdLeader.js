@@ -11,7 +11,7 @@ const MassproBeginProdLeader = ({route, navigation}) => {
 		formOke()
 	}, [])
 
-	const {customer_name, sys_plant_id, machine_id, machine_name, today, yesterday} = route.params
+	const {customer_name, sys_plant_id, machine_id, machine_number, machine_name, today} = route.params
 	const [wi_product, setWiProduct] 																		 = useState("")
 	const [packing_standard, setPackingStandard] 												 = useState("")
 	const [production_working_tool, setWorkTools] 											 = useState("")
@@ -445,7 +445,6 @@ const MassproBeginProdLeader = ({route, navigation}) => {
 
 	const updateJIG = () => {
 		const updatePL = massproPLJig
-		// console.log(updatePL)
 		const data = []
 		const plData = massproPL
 		if(plData != null){
@@ -678,7 +677,7 @@ const MassproBeginProdLeader = ({route, navigation}) => {
 							</View>
 							<View style={{flexDirection: 'column', width: "100%"}}>
 								<View style={{borderTopWidth: 0.3, height: 65, justifyContent: 'center', alignItems: 'center', width: "50%", flex: 1}}>
-									<Text style={{fontWeight: 'bold', fontSize: 17}}>{machine_name}</Text>
+									<Text style={{fontWeight: 'bold', fontSize: 17}}>({machine_number}) - {machine_name}</Text>
 									<View style={{borderWidth: 0.5, width: 150, height: 25, justifyContent: 'center'}}>
 										<Picker 
 										mode="dropdown"
