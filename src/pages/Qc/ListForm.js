@@ -6,7 +6,7 @@ import styles from '../../components/styles/Styling';
 import AsyncStorage from "@react-native-community/async-storage";
 
 const ListForm = ({route, navigation}) => {
-	const {qc_daily_inspection_id, qc_daily_inspection_item_id, qc_daily_inspection_method_id, sys_plant_id, product_name, customer_name, internal_part_id, customer_part_number, model, machine_id, machine_name, machine_status, operator_nik, operator_nik_2, leader_nik, foreman_nik, qc_process_nik, machine_number, today, yesterday} = route.params
+	const {qc_daily_inspection_id, qc_daily_inspection_item_id, qc_daily_inspection_method_id, sys_plant_id, product_name, customer_name, customer_part_number, machine_id, machine_name, machine_status, operator_nik, operator_nik_2, leader_nik, foreman_nik, qc_process_nik, machine_number, today, yesterday, daily_inspection_number} = route.params
   const [featureUser, setFeature] = useState(null);
 	const [loading, setLoading] = useState(false)
 	useEffect(() => {
@@ -42,6 +42,7 @@ const ListForm = ({route, navigation}) => {
 									qc_daily_inspection_item_id: qc_daily_inspection_item_id,
 									qc_daily_inspection_method_id: qc_daily_inspection_method_id,
 									sys_plant_id: sys_plant_id,
+									daily_inspection_number: daily_inspection_number,
 									machine_id: machine_id,
 									customer_name: customer_name,
 									machine_name: machine_name,
@@ -61,6 +62,7 @@ const ListForm = ({route, navigation}) => {
 									qc_daily_inspection_id: qc_daily_inspection_id,
 									qc_daily_inspection_method_id: qc_daily_inspection_method_id,
 									sys_plant_id: sys_plant_id,
+									daily_inspection_number: daily_inspection_number,
 									product_name: product_name,
 									machine_id: machine_id,
 									customer_name: customer_name,
@@ -76,6 +78,7 @@ const ListForm = ({route, navigation}) => {
 								<Button style={styles.productsButton} onPress={() => navigation.navigate('PerShift', {
 									qc_daily_inspection_id: qc_daily_inspection_id,
 									sys_plant_id: sys_plant_id,
+									daily_inspection_number: daily_inspection_number,
 									product_name: product_name,
 									machine_id: machine_id,
 									customer_name: customer_name,
@@ -100,6 +103,7 @@ const ListForm = ({route, navigation}) => {
 							<Button key="asn2jo1ij2njs" style={styles.productsButton} onPress={() => navigation.navigate('RevisiFirstPieceLeaderQc', {
 								qc_daily_inspection_id: qc_daily_inspection_id,
 								sys_plant_id: sys_plant_id,
+								daily_inspection_number: daily_inspection_number,
 								product_name: product_name,
 								machine_id: machine_id,
 								customer_name: customer_name,
@@ -116,6 +120,7 @@ const ListForm = ({route, navigation}) => {
 						data.push(
 							<Button key="asXascn2jo1ij2njs" style={styles.productsButton} onPress={() => navigation.navigate('RevisiFirstPieceForeman', {
 								sys_plant_id: sys_plant_id,
+								daily_inspection_number: daily_inspection_number,
 								product_name: product_name,
 								machine_id: machine_id,
 								customer_name: customer_name,
@@ -137,6 +142,7 @@ const ListForm = ({route, navigation}) => {
                 qc_daily_inspection_item_id: qc_daily_inspection_item_id,
                 qc_daily_inspection_method_i: qc_daily_inspection_method_id,
 								sys_plant_id: sys_plant_id,
+								daily_inspection_number: daily_inspection_number,
                 product_name: product_name,
 								machine_id: machine_id,
 								customer_name: customer_name,
@@ -154,6 +160,7 @@ const ListForm = ({route, navigation}) => {
 							<Button key="askdmasqwewkwqw" style={styles.productsButton} onPress={() => navigation.navigate('LastShootForeman', {
 								qc_daily_inspection_id: qc_daily_inspection_id,
 								sys_plant_id: sys_plant_id,
+								daily_inspection_number: daily_inspection_number,
 								product_name: product_name,
 								machine_id: machine_id,
 								customer_name: customer_name,
@@ -180,6 +187,7 @@ const ListForm = ({route, navigation}) => {
 				</View>
 				<View style={{justifyContent: 'center', alignItems: 'center'}}>
 					<Text style={styles.fontButtonHeader}>({machine_number}) - {machine_name}</Text>
+					<Text style={{fontWeight: 'bold', fontSize: 10}}>{daily_inspection_number}</Text>
 					<Text style={styles.fontButtonFooter}>{product_name}</Text>
 				</View>
 			</View>

@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     headerWithBorder: {
-        height: 100,
+        height: 120,
         borderWidth: 0.3,
         backgroundColor: '#F5F5DC', 
         flexDirection: 'column', 
