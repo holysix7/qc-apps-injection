@@ -7,7 +7,7 @@ import moment from 'moment';
 import Axios from 'axios';
 
 const RevisiFirstPieceForeman = ({route, navigation}) => {
-	const {qc_daily_inspection_id, sys_plant_id, product_name, customer_name, machine_id, machine_name, today, yesterday} = route.params
+	const {qc_daily_inspection_id, sys_plant_id, product_name, customer_name, machine_id, machine_number, machine_name, today, yesterday} = route.params
 
 	useEffect(() => {
 		formOke()
@@ -410,7 +410,7 @@ const RevisiFirstPieceForeman = ({route, navigation}) => {
 							</View>
 							<View style={{flexDirection: 'column', width: "100%"}}>
 								<View style={{borderTopWidth: 0.3, height: 65, justifyContent: 'center', alignItems: 'center', width: "50%", flex: 1}}>
-									<Text style={{fontWeight: 'bold', fontSize: 17}}>{machine_name}</Text>
+									<Text style={{fontWeight: 'bold', fontSize: 17}}>({machine_number}) -{machine_name}</Text>
 									<View style={{borderWidth: 0.5, width: 150, height: 25, justifyContent: 'center'}}>
 										<Picker 
 										mode="dropdown"

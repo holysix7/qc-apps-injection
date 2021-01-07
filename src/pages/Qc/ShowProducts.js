@@ -9,7 +9,7 @@ import moment from 'moment';
 import styles from '../../components/styles/Styling';
 
 const ShowProducts = ({route, navigation}) => {
-	const {machine_id, machine_name, sys_plant_id} = route.params
+	const {machine_id, machine_name, sys_plant_id, machine_number} = route.params
 	const [data, setData] = useState([])
   const [loading, setLoading] = useState(false);
 	useEffect(() => {
@@ -53,8 +53,7 @@ const ShowProducts = ({route, navigation}) => {
 	var yesterday = moment()
 									.subtract(1, 'days')
 									.format('YYYY-MM-DD')
-	if(data.length > 0)
-	{
+	if(data.length > 0){
 		data.map((element, key) => {
 			if(today == element.date)
 			{
@@ -79,6 +78,7 @@ const ShowProducts = ({route, navigation}) => {
 						qc_process_nik: element.qc_process_nik,
 						cavity: element.cavity,
 						foreman_nik: element.foreman_nik,
+						machine_number: machine_number,
 						today: today
 					})} >
 						<Text style={styles.fontButtonHeader}> {element.customer_part_number} </Text>   
@@ -108,6 +108,7 @@ const ShowProducts = ({route, navigation}) => {
 						leader_nik: element.leader_nik,
 						qc_process_nik: element.qc_process_nik,
 						foreman_nik: element.foreman_nik,
+						machine_number: machine_number,
 						cavity: element.cavity,
 						yesterday: yesterday
 					})} >
@@ -137,7 +138,7 @@ const ShowProducts = ({route, navigation}) => {
 					<Image source={LogoSIP}/>
 				</View>
 				<View style={styles.contentHeader}>
-					<Text style={styles.fontProduct}>{machine_name}</Text>
+					<Text style={styles.fontProduct}>({machine_number}) - {machine_name}</Text>
 				</View>
 			</View>
 			
@@ -161,7 +162,8 @@ const ShowProducts = ({route, navigation}) => {
 				<View style={{justifyContent: 'center', alignItems: 'center'}}>
 					<TouchableOpacity onPress={() => navigation.navigate('ShowPlanning', {
 						machine_id: machine_id, 
-						machine_name: machine_name, 
+						machine_name: machine_name,
+						machine_number: machine_number, 
 						sys_plant_id: sys_plant_id
 					})}>
 						<Image source={plusImage} style={{height: 70, width: 70}} />

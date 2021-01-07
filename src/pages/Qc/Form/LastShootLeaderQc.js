@@ -11,7 +11,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 		formOke()
 	}, [])
 
-	const {qc_daily_inspection_id, qc_daily_inspection_item_id, qc_daily_inspection_method_id, sys_plant_id, product_name, customer_name, machine_id, machine_name, today, yesterday} = route.params
+	const {qc_daily_inspection_id, qc_daily_inspection_item_id, qc_daily_inspection_method_id, sys_plant_id, product_name, customer_name, machine_id, machine_number, machine_name, today, yesterday} = route.params
 
 	const [judgement_first_piece1, setJudgement1] 			= useState(null)
 	const [judgement_first_piece2, setJudgement2] 			= useState(null)
@@ -116,6 +116,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 	const [eng_product_id, setEngProd]									= useState(0)
 	const [copy_sample, setCopySample]	  							= useState("")
 	const [mtr_need, setMtrNeed]				  							= useState("")
+	const [remark, setRemark]				  									= useState("")
 	const [created_by, setCreatedBy]										= useState("")
 
 	const [massproQCL, setMassproQcl]										= useState("")
@@ -171,7 +172,6 @@ const LastShootLeaderQc = ({route, navigation}) => {
 			}
 			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 			.then(response => {
-				console.log(response.data.data.daily_inspection)
 				setLoading(true)
 				setData(response.data.data.daily_inspection)
 				setlast_shoot_qc_items(response.data.data.last_shoot_qc_items)
@@ -255,7 +255,6 @@ const LastShootLeaderQc = ({route, navigation}) => {
 	}
 
 	const hString = hours.toString()
-	// console.log("qcId: ", qc_daily_inspection_id)
 	const item = [
 		{
 			"cavity": 1,
@@ -449,7 +448,8 @@ const LastShootLeaderQc = ({route, navigation}) => {
 			created_by,
 			created_at,
 			updated_by,
-			updated_at
+			updated_at,
+			remark
 		}
 		const token = await AsyncStorage.getItem("key")
 		const params = {
@@ -1727,7 +1727,6 @@ const LastShootLeaderQc = ({route, navigation}) => {
 	}
 
 	const updateCompareCopySampleFunc = () => {
-		// console.log("data:", qc_daily_inspection_id)
 		var data = []
 		if(massproQCL != null){
 			data.push(
@@ -1773,6 +1772,24 @@ const LastShootLeaderQc = ({route, navigation}) => {
 						<Picker.Item label="Perlu" value="Perlu" />
 						<Picker.Item label="Tidak" value="Tidak" />
 					</Picker>
+				</View>
+			)
+		}
+		return data
+	}
+
+	const updateRemark = () => {
+		var data = []
+		if(massproQCL != null){
+			data.push(
+				<View key="askdnm2jk" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+					<Text>{massproQCL.remark}</Text>
+				</View>
+			)
+		}else{
+			data.push(
+				<View key="askdnm2jk" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<TextInput value={remark} onChangeText={(value) => setRemark(value)} style={{paddingLeft: 5, height: 40, width: 177}} placeholder="Type Here..." />
 				</View>
 			)
 		}
@@ -1916,9 +1933,24 @@ const LastShootLeaderQc = ({route, navigation}) => {
 							{dataItem()}
 						</TouchableOpacity>
 					</ScrollView>
+					<View style={{paddingTop: 20, flexDirection: 'row'}}>
+						<View style={{padding: 10, width: "44%"}}>
+							<Text>Remark</Text>
+						</View>
+						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+							<Text style={{color: 'black'}}>:</Text>
+						</View>
+						<View style={{padding: 4, width: "50%"}}>
+							<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+								{updateRemark()}
+							</View>
+						</View>
+					</View>
+
 					<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
 						{updateButtonFunc()}
 					</View>
+					
 				</ScrollView>
 			
 			)
@@ -1952,7 +1984,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 							</View>
 							<View style={{flexDirection: 'column', width: "100%"}}>
 								<View style={{borderTopWidth: 0.3, height: 65, justifyContent: 'center', alignItems: 'center', width: "50%", flex: 1}}>
-									<Text style={{fontWeight: 'bold', fontSize: 17}}>{machine_name}</Text>
+									<Text style={{fontWeight: 'bold', fontSize: 17}}>({machine_number}) - {machine_name}</Text>
 									<View style={{borderWidth: 0.5, width: 150, height: 25, justifyContent: 'center'}}>
 										<Picker 
 										mode="dropdown"

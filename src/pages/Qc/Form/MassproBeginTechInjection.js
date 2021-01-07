@@ -11,7 +11,7 @@ const MassproBeginTechInjection = ({route, navigation}) => {
 		formOke()
 	}, [])
 
-	const {customer_name, sys_plant_id, machine_id, machine_name, today} = route.params
+	const {customer_name, sys_plant_id, machine_id, machine_number, machine_name, today} = route.params
 	const [data1, setData1] 																							= useState("")
 	const [cleaning_mold, setCleaning] 																		= useState("")
 	const [standard_parameter, setParam] 																	= useState("")
@@ -444,7 +444,6 @@ const MassproBeginTechInjection = ({route, navigation}) => {
 		const updateTI = massproTIRemark
 		const data = []
 		const tiData = massproTI
-		console.log(tiData)
 		if(tiData != null){
 			if(updateTI == null){
 				data.push(
@@ -615,7 +614,7 @@ const MassproBeginTechInjection = ({route, navigation}) => {
 							</View>
 							<View style={{flexDirection: 'column', width: "100%"}}>
 								<View style={{borderTopWidth: 0.3, height: 65, justifyContent: 'center', alignItems: 'center', width: "50%", flex: 1}}>
-									<Text style={{fontWeight: 'bold', fontSize: 17}}>{machine_name}</Text>
+									<Text style={{fontWeight: 'bold', fontSize: 17}}>({machine_number}) - {machine_name}</Text>
 									<View style={{borderWidth: 0.5, width: 150, height: 25, justifyContent: 'center'}}>
 										<Picker 
 										mode="dropdown"

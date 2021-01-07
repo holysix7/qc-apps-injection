@@ -11,7 +11,7 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 		formOke()
 	}, [])
 
-	const {sys_plant_id, machine_id, customer_name, machine_name, today} = route.params
+	const {sys_plant_id, machine_id, customer_name, machine_name, today, machine_number} = route.params
 	const [mold_condition, setCondition] 	= useState("")
 	const [loading, setLoading] 					= useState(false)
 	const [neeple_cooling, setCooling] 		= useState("")
@@ -61,7 +61,6 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 			updated_by,
 			updated_at
 		}
-		// console.log(data)
 		const token = await AsyncStorage.getItem("key")
 		const params = {
 			tbl: 'daily_inspection',
@@ -318,7 +317,6 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 		return data
 	}
 	const remarkData = () => {
-		// console.log(tooling)
 		const updateRemark = massRemark
 		const mpmmData = massProMM
 		const data = []
@@ -376,7 +374,7 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 
 	const toolingUpdate = () => {
 		var data = []
-		console.log(massTooling)
+
 		if(massTooling != null){
 			data.push(
 				<View key="ss12" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, width: 177, backgroundColor: '#b8b8b8'}}>
@@ -492,7 +490,7 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 							</View>
 							<View style={{flexDirection: 'column', width: "100%"}}>
 								<View style={{borderTopWidth: 0.3, height: 65, justifyContent: 'center', alignItems: 'center', width: "50%", flex: 1}}>
-									<Text style={{fontWeight: 'bold', fontSize: 17}}>{machine_name}</Text>
+									<Text style={{fontWeight: 'bold', fontSize: 17}}>({machine_number}) - {machine_name}</Text>
 									<View style={{borderWidth: 0.5, width: 150, height: 25, justifyContent: 'center'}}>
 										<Picker 
 										mode="dropdown"

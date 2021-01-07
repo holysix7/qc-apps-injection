@@ -12,7 +12,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 	useEffect(() => {
 		formOke()
 	}, [])
-	const {customer_name, sys_plant_id, machine_id, machine_name, today, yesterday} = route.params
+	const {customer_name, sys_plant_id, machine_id, machine_number, machine_name, today} = route.params
 	const [machine_engine_status, setItem] 															 = useState("")
 	const [compare_sample, setCopySample] 															 = useState("")
 	const [check_sheet, setSheetQc] 																		 = useState("")
@@ -2046,7 +2046,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 							<View style={{flexDirection: 'column', width: "100%"}}>
 								<View style={{borderTopWidth: 0.3, height: 65, justifyContent: 'center', alignItems: 'center', width: "50%", flex: 1}}>
-									<Text style={{fontWeight: 'bold', fontSize: 17}}>{machine_name}</Text>
+									<Text style={{fontWeight: 'bold', fontSize: 17}}>{({machine_number}) - machine_name}</Text>
 									<View style={{borderWidth: 0.5, width: 150, height: 25, justifyContent: 'center'}}>
 										<Picker 
 										mode="dropdown"

@@ -12,7 +12,7 @@ const MassproBeginForeman = ({route, navigation}) => {
 		formOke()
 	}, [])
 
-	const {sys_plant_id, machine_id, customer_name, machine_name, today, yesterday} = route.params
+	const {sys_plant_id, machine_id, customer_name, machine_number, machine_name, today} = route.params
 	const [tooling_num, setTooling] = useState("")
 	const [judgement, setKeputusan] = useState("")
 	const [remark, setRemark] 			= useState(null)
@@ -750,7 +750,7 @@ const MassproBeginForeman = ({route, navigation}) => {
 							</View>
 							<View style={{flexDirection: 'column', width: "100%"}}>
 								<View style={{borderTopWidth: 0.3, height: 65, justifyContent: 'center', alignItems: 'center', width: "50%", flex: 1}}>
-									<Text style={{fontWeight: 'bold', fontSize: 17}}>{machine_name}</Text>
+									<Text style={{fontWeight: 'bold', fontSize: 17}}>({machine_number}) - {machine_name}</Text>
 									<View style={{borderWidth: 0.5, width: 150, height: 25, justifyContent: 'center'}}>
 										<Picker 
 										mode="dropdown"

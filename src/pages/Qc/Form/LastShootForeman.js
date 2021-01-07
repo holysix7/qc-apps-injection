@@ -10,7 +10,7 @@ const LastShootForeman = ({route, navigation}) => {
 	useEffect(() => {
 		formOke()
 	}, [])
-	const {qc_daily_inspection_id, sys_plant_id, machine_id, product_name, customer_name, machine_name, today, yesterday} = route.params
+	const {qc_daily_inspection_id, sys_plant_id, machine_id, product_name, customer_name, machine_number, machine_name, today, yesterday} = route.params
 	const [hours, setHours]		  										= useState(0)
 	const [shift, setShift]		  										= useState(0)
 	const [stop_category, setStopCategory]					= useState("")
@@ -316,7 +316,7 @@ const LastShootForeman = ({route, navigation}) => {
 							</View>
 							<View style={{flexDirection: 'column', width: "100%"}}>
 								<View style={{borderTopWidth: 0.3, height: 65, justifyContent: 'center', alignItems: 'center', width: "50%", flex: 1}}>
-									<Text style={{fontWeight: 'bold', fontSize: 17}}>{machine_name}</Text>
+									<Text style={{fontWeight: 'bold', fontSize: 17}}>({machine_number}) - {machine_name}</Text>
 									<View style={{borderWidth: 0.5, width: 150, height: 25, justifyContent: 'center'}}>
 										<Picker 
 										mode="dropdown"
