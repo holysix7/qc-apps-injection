@@ -1,18 +1,51 @@
-import React, {Component, useState} from 'react';
+import React, {Component, useEffect, useState} from 'react';
 import {Container, Button, Text} from "native-base";
 import {Image, View, StyleSheet} from 'react-native';
 import LogoSIP from '../../assets/logo-sip3.png';
 import GeneralStatusBarColor from '../../components/GeneralStatusBarColor';
+import AsyncStorage from "@react-native-community/async-storage";
 
 const BoardingScreen = ({navigation}) => {
+	useEffect(() => {
+		cekLogin()
+	}, [])
+
 	const handleGoTo = (screen) => {
 		navigation.replace(screen)
 	}
+
+	const [token, setToken] = useState(null)
+	
+	const cekLogin = async() => {
+		const isLogin = await AsyncStorage.getItem('key')
+		setToken(isLogin)
+	}
+	
+	const buttonFix = () => {
+		if(token != null){
+			return (
+				<Button rounded info style={{marginTop: 10}} onPress={() => navigation.replace('Qc')}>
+					<Text>
+						✓
+					</Text>
+				</Button>
+			)
+		}else{
+			return(
+				<Button rounded info style={{marginTop: 10}} onPress={() => navigation.replace('Login')}>
+					<Text>
+						✓
+					</Text>
+				</Button>
+			)
+		}
+	}
+
 	return (
 		<Container style={{alignItems: 'center', justifyContent: 'center', backgroundColor: '#54c3f0'}}>
 			<View>
-        		<GeneralStatusBarColor backgroundColor="#772ea2" barStyle="light-content"/>
-      		</View>
+				<GeneralStatusBarColor backgroundColor="#772ea2" barStyle="light-content"/>
+			</View>
 			<View style={{justifyContent: 'center', alignItems: 'center'}}>
 				<Image source={LogoSIP} style={{width: 188, height: 150}}/>
 			</View>
@@ -25,11 +58,7 @@ const BoardingScreen = ({navigation}) => {
 				</Text>
 			</View>
 			<View>
-				<Button rounded info style={{marginTop: 10}} onPress={() => handleGoTo('Login')}>
-					<Text>
-						✓
-					</Text>
-				</Button>
+				{buttonFix()}
 			</View>
 		</Container>
 	)
