@@ -1,12 +1,15 @@
-import {View, TouchableOpacity, ScrollView, FlatList, ActivityIndicator} from 'react-native';
+import {View, TouchableOpacity, ScrollView, FlatList, ActivityIndicator, Image} from 'react-native';
 import React from 'react';
 import { Container, Text, Button} from 'native-base';
 import GeneralStatusBarColor from '../../components/GeneralStatusBarColor';
 import styles from '../../components/styles/Styling';
+import Home from '../../assets/FixHome.png'
+import ImageProfile from '../../assets/FixProfile.png'
+import Cog from '../../assets/FixCog.png'
 import AsyncStorage from "@react-native-community/async-storage";
 
 const Profile = ({route, navigation}) => {
-	const {name, deptName, dutyId} = route.params
+	const {name, deptName, dutyId, userNik} = route.params
 	const buttLogout = async () => {
     try {
 			AsyncStorage.getAllKeys()
@@ -30,7 +33,48 @@ const Profile = ({route, navigation}) => {
     })
   }else{
     console.log("Duty Id = Kosong")
-  }
+	}
+
+	const buttonNavbar = () => {
+    if(userNik == 32008107){
+      return (
+        <View style={styles.bottomNavbar}>
+          <Button style={styles.buttonNavbar} onPress={() => {
+						navigation.navigate('Qc', {
+							name: name,
+							deptName: deptName,
+							dutyId: dutyId,
+						})
+					}}>
+            <Image source={Home} style={{width: 40, height: 40 }}/>
+          </Button>
+      
+          <Button style={styles.buttonNavbar} onPress={() => {
+            navigation.navigate('OQC')
+          }}>
+            <Image source={Cog} style={{width: 40, height: 40 }}/>
+          </Button>
+        
+          <Button style={styles.buttonNavbar}>
+            <Image source={ImageProfile} style={{width: 50, height: 50 }}/>
+          </Button>
+        </View>
+      )
+    }else{
+      return (
+        <View style={styles.bottomNavbar}>
+          <Button style={styles.buttonNavbar}>
+            <Image source={Home} style={{width: 40, height: 40 }}/>
+          </Button>
+        
+          <Button style={styles.buttonNavbar}>
+            <Image source={ImageProfile} style={{width: 50, height: 50 }}/>
+          </Button>
+        </View>
+      )
+    }
+	}
+
   return (
     <Container>
       <View>
@@ -97,20 +141,7 @@ const Profile = ({route, navigation}) => {
 						</View>
 					</View>
       </View>
-      <View style={{height: 60, backgroundColor: '#F5F5DC', flexDirection: 'row', borderWidth: 0.3}}>
-        <Button style={{height: 63, backgroundColor: '#F5F5DC', justifyContent: 'center', alignItems: 'center', flex: 1}} onPress={() => {
-          navigation.navigate('Qc', {
-            name: name,
-            deptName: deptName,
-            dutyId: dutyId,
-          })
-        }}>
-          <Text style={{color: 'black'}}>Machines</Text>
-        </Button>
-        <Button style = {{height: 63, backgroundColor: '#F5F5DC', justifyContent: 'center', alignItems: 'center', flex: 1}}>
-          <Text style={{color: 'black'}}>Profile</Text>
-        </Button>
-      </View>
+			{buttonNavbar()}
     </Container>
   )
 }

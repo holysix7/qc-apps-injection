@@ -67,24 +67,10 @@ const ShowPlanning = ({route, navigation}) => {
 			if(featureUser != null){
 				if(sys_plant_id == i+1){
           if(planning != null){
-            if(featureUser[i].qc_masspro_main_mold.view_permissions == true){
-              data.push(
-                <Button key="ASoidjk2" style={styles.productsButton} onPress={() => navigation.navigate('MassproBeginMaintMold', {
-                machine_id: machine_id,
-                sys_plant_id: sys_plant_id,
-                customer_name: customer_name,
-                machine_name: machine_name,
-                machine_number: machine_number,
-                today: today,
-                yesterday: yesterday
-              })} >
-                <Text> Masspro Begin Maint. Mold </Text>   
-              </Button>
-              )
-            }
-            if(featureUser[i].qc_masspro_material_preparation.view_permissions == true){
-              data.push(
-                <Button key="asuiohdn2" style={styles.productsButton} onPress={() => navigation.navigate('MassproBeginMaterialPreparation', {
+            if(featureUser[i].qc_masspro_main_mold != null){
+              if(featureUser[i].qc_masspro_main_mold.view_permissions == true){
+                data.push(
+                  <Button key="ASoidjk2" style={styles.productsButton} onPress={() => navigation.navigate('MassproBeginMaintMold', {
                   machine_id: machine_id,
                   sys_plant_id: sys_plant_id,
                   customer_name: customer_name,
@@ -93,87 +79,115 @@ const ShowPlanning = ({route, navigation}) => {
                   today: today,
                   yesterday: yesterday
                 })} >
-                  <Text> Masspro Begin Material Preparation </Text>   
+                  <Text> Masspro Begin Maint. Mold </Text>   
                 </Button>
-              )
+                )
+              }
             }
-            if(featureUser[i].qc_masspro_mold_setter.view_permissions == true){
-              data.push(
-                <Button key="asoidjm2kasd" style={styles.productsButton} onPress={() => navigation.navigate('MassproBeginMoldSetter', {
-                  machine_id: machine_id,
-                  sys_plant_id: sys_plant_id,
-                  customer_name: customer_name,
-                  machine_name: machine_name,
-                  machine_number: machine_number,
-                  today: today,
-                  yesterday: yesterday
-                })} >
-                  <Text> Masspro Begin Mold Setter </Text>   
-                </Button>
-              )
+            if(featureUser[i].qc_masspro_material_preparation != null){
+              if(featureUser[i].qc_masspro_material_preparation.view_permissions == true){
+                data.push(
+                  <Button key="asuiohdn2" style={styles.productsButton} onPress={() => navigation.navigate('MassproBeginMaterialPreparation', {
+                    machine_id: machine_id,
+                    sys_plant_id: sys_plant_id,
+                    customer_name: customer_name,
+                    machine_name: machine_name,
+                    machine_number: machine_number,
+                    today: today,
+                    yesterday: yesterday
+                  })} >
+                    <Text> Masspro Begin Material Preparation </Text>   
+                  </Button>
+                )
+              }
             }
-            if(featureUser[i].qc_masspro_tech_injection.view_permissions == true){
-              data.push(
-                <Button key="askdmasjkd" style={styles.productsButton} onPress={() => navigation.navigate('MassproBeginTechInjection', {
-                  machine_id: machine_id,
-                  sys_plant_id,
-                  customer_name: customer_name,
-                  machine_name: machine_name,
-                  machine_number: machine_number,
-                  today: today,
-                  yesterday: yesterday
-                })} >
-                  <Text> Masspro Begin Tech Injection</Text>   
-                </Button>
-              )
+            if(featureUser[i].qc_masspro_mold_setter != null){
+              if(featureUser[i].qc_masspro_mold_setter.view_permissions == true){
+                data.push(
+                  <Button key="asoidjm2kasd" style={styles.productsButton} onPress={() => navigation.navigate('MassproBeginMoldSetter', {
+                    machine_id: machine_id,
+                    sys_plant_id: sys_plant_id,
+                    customer_name: customer_name,
+                    machine_name: machine_name,
+                    machine_number: machine_number,
+                    today: today,
+                    yesterday: yesterday
+                  })} >
+                    <Text> Masspro Begin Mold Setter </Text>   
+                  </Button>
+                )
+              }
             }
-            if(featureUser[i].qc_masspro_prod_leader.view_permissions == true){
-              data.push(
-                <Button key="askdmaswq12sjkd" style={styles.productsButton} onPress={() => navigation.navigate('MassproBeginProdLeader', {
-                  machine_id: machine_id,
-                  sys_plant_id,
-                  customer_name: customer_name,
-                  machine_name: machine_name,
-                  machine_number: machine_number,
-                  today: today,
-                  yesterday: yesterday
-                })} >
-                  <Text> Masspro Begin Prod. Leader </Text>   
-                </Button>
-                
-              )
+            if(featureUser[i].qc_masspro_tech_injection != null){
+              if(featureUser[i].qc_masspro_tech_injection.view_permissions == true){
+                data.push(
+                  <Button key="askdmasjkd" style={styles.productsButton} onPress={() => navigation.navigate('MassproBeginTechInjection', {
+                    machine_id: machine_id,
+                    sys_plant_id,
+                    customer_name: customer_name,
+                    machine_name: machine_name,
+                    machine_number: machine_number,
+                    today: today,
+                    yesterday: yesterday
+                  })} >
+                    <Text> Masspro Begin Tech Injection</Text>   
+                  </Button>
+                )
+              }
             }
-            if(featureUser[i].qc_masspro_qc_leader.view_permissions == true){
-              data.push(
-                <Button key="asjnjqjwkn123" style={styles.productsButton} onPress={() => navigation.navigate('MassproBeginQCLeader', {
-                  machine_id: machine_id,
-                  sys_plant_id,
-                  customer_name: customer_name,
-                  machine_name: machine_name,
-                  machine_number: machine_number,
-                  today: today,
-                  yesterday: yesterday
-                })} >
-                  <Text> Masspro Begin QC. Leader </Text>   
-                </Button>
-                
-              )
+            if(featureUser[i].qc_masspro_prod_leader != null){
+              if(featureUser[i].qc_masspro_prod_leader.view_permissions == true){
+                data.push(
+                  <Button key="askdmaswq12sjkd" style={styles.productsButton} onPress={() => navigation.navigate('MassproBeginProdLeader', {
+                    machine_id: machine_id,
+                    sys_plant_id,
+                    customer_name: customer_name,
+                    machine_name: machine_name,
+                    machine_number: machine_number,
+                    today: today,
+                    yesterday: yesterday
+                  })} >
+                    <Text> Masspro Begin Prod. Leader </Text>   
+                  </Button>
+                  
+                )
+              }
             }
-            if(featureUser[i].qc_masspro_foreman.view_permissions == true){
-              data.push(
-                <Button key="asjasdq2njqjwkn123" style={styles.productsButton} onPress={() => navigation.navigate('MassproBeginForeman', {
-                  machine_id: machine_id,
-                  sys_plant_id,
-                  customer_name: customer_name,
-                  machine_name: machine_name,
-                  machine_number: machine_number,
-                  today: today,
-                  yesterday: yesterday
-                })} >
-                  <Text> Masspro Begin Foreman </Text>   
-                </Button>
-                
-              )
+            if(featureUser[i].qc_masspro_qc_leader != null){
+              if(featureUser[i].qc_masspro_qc_leader.view_permissions == true){
+                data.push(
+                  <Button key="asjnjqjwkn123" style={styles.productsButton} onPress={() => navigation.navigate('MassproBeginQCLeader', {
+                    machine_id: machine_id,
+                    sys_plant_id,
+                    customer_name: customer_name,
+                    machine_name: machine_name,
+                    machine_number: machine_number,
+                    today: today,
+                    yesterday: yesterday
+                  })} >
+                    <Text> Masspro Begin QC. Leader </Text>   
+                  </Button>
+                  
+                )
+              }
+            }
+            if(featureUser[i].qc_masspro_foreman != null){
+              if(featureUser[i].qc_masspro_foreman.view_permissions == true){
+                data.push(
+                  <Button key="asjasdq2njqjwkn123" style={styles.productsButton} onPress={() => navigation.navigate('MassproBeginForeman', {
+                    machine_id: machine_id,
+                    sys_plant_id,
+                    customer_name: customer_name,
+                    machine_name: machine_name,
+                    machine_number: machine_number,
+                    today: today,
+                    yesterday: yesterday
+                  })} >
+                    <Text> Masspro Begin Foreman </Text>   
+                  </Button>
+                  
+                )
+              }
             }
           }else{
             if(featureUser[i].qc_masspro_main_mold.view_permissions == true){

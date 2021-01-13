@@ -1,8 +1,11 @@
-import {View, ScrollView, ActivityIndicator} from 'react-native';
+import {View, ScrollView, ActivityIndicator, Image, TouchableOpacity} from 'react-native';
 import React, {useState, useEffect } from 'react';
 import { Container, Text, Button, Picker} from 'native-base';
 import GeneralStatusBarColor from '../../components/GeneralStatusBarColor';
 import styles from '../../components/styles/Styling'
+import Home from '../../assets/FixHome.png'
+import Profile from '../../assets/FixProfile.png'
+import Cog from '../../assets/FixCog.png'
 import AsyncStorage from "@react-native-community/async-storage";
 import axios from 'axios';
 
@@ -11,6 +14,7 @@ const Qc = ({navigation}) => {
   const [cekId, setCekId] = useState("");
   const [name, setCekName] = useState("");
   const [deptName, setCekDeptName] = useState("");
+  const [userNik, setUserNik] = useState(null);
   const [dutyId, setDutyId] = useState([]);
   const [featureUser, setFeature] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -52,10 +56,12 @@ const Qc = ({navigation}) => {
       const duty = await AsyncStorage.getItem('duty_plant_option_select')
       const deptName    = await AsyncStorage.getItem('department_name')
       const name    = await AsyncStorage.getItem('name')
+      const user    = await AsyncStorage.getItem('user')
       const feature    = await AsyncStorage.getItem('feature')
       setFeature(JSON.parse(feature))
       setDutyId(JSON.parse(duty))
       setCekId(plantId)
+      setUserNik(user)
       setCekDeptName(deptName)
       setCekName(name)
     } catch (error) {
@@ -64,6 +70,7 @@ const Qc = ({navigation}) => {
   }
 
   var plantDuty = []
+
 
   
   if(dutyId != null)
@@ -166,6 +173,55 @@ const Qc = ({navigation}) => {
       }
     });
   }
+
+  const buttonNavbar = () => {
+    if(userNik == 32008107){
+      return (
+        <View style={styles.bottomNavbar}>
+          <Button style={styles.buttonNavbar}>
+            <Image source={Home} style={{width: 40, height: 40 }}/>
+          </Button>
+      
+          <Button style={styles.buttonNavbar} onPress={() => {
+            navigation.navigate('OQC')
+          }}>
+            <Image source={Cog} style={{width: 40, height: 40 }}/>
+          </Button>
+        
+          <Button style={styles.buttonNavbar} onPress={() => {
+            navigation.navigate('Profile', {
+              name: name,
+              deptName: deptName,
+              dutyId: dutyId,
+              userNik: userNik
+            })
+          }}>
+            <Image source={Profile} style={{width: 50, height: 50 }}/>
+          </Button>
+        </View>
+      )
+    }else{
+      return (
+        <View style={styles.bottomNavbar}>
+          <Button style={styles.buttonNavbar}>
+            <Image source={Home} style={{width: 40, height: 40 }}/>
+          </Button>
+        
+          <Button style={styles.buttonNavbar} onPress={() => {
+            navigation.navigate('Profile', {
+              name: name,
+              deptName: deptName,
+              dutyId: dutyId,
+              userNik: userNik
+            })
+          }}>
+            <Image source={Profile} style={{width: 50, height: 50 }}/>
+          </Button>
+        </View>
+      )
+    }
+	}
+
   // if(loading)
   return (
     <Container>
@@ -194,24 +250,11 @@ const Qc = ({navigation}) => {
         <ScrollView style={styles.contentFull}>
           {/* {loading == true ? <View><ActivityIndicator size="large" color='#0000ff'/></View> : null} */}
           <View style={styles.responsiveButtonLoop}>
-        {loading ? machines : <View style={{flex: 1, height: 500, justifyContent: 'center'}}><ActivityIndicator size="large" color="#0000ff"/></View> }
+          {loading ? machines : <View style={{flex: 1, height: 500, justifyContent: 'center'}}><ActivityIndicator size="large" color="#0000ff"/></View> }
           </View>
         </ScrollView>
       </View>
-      <View style={styles.bottomNavbar}>
-        <Button style={styles.buttonNavbar}>
-          <Text style={styles.textStyle}>Machines</Text>
-        </Button>
-        <Button style={styles.buttonNavbar} onPress={() => {
-          navigation.navigate('Profile', {
-            name: name,
-            deptName: deptName,
-            dutyId: dutyId,
-          })
-        }}>
-          <Text style={styles.textStyle}>Profile</Text>
-        </Button>
-      </View>
+      {userNik != null ? buttonNavbar() : <View style={{flex: 1, height: 500, justifyContent: 'center'}}><ActivityIndicator size="large" color="#0000ff"/></View> }
     </Container>
   ) 
 }
