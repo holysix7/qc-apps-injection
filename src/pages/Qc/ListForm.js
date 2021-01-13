@@ -35,7 +35,7 @@ const ListForm = ({route, navigation}) => {
 			if(featureUser != null){
 				if(sys_plant_id == i+1){
 					if(featureUser[i] != null){
-						if(featureUser[i].qc_daily_inspection.view_permissions != null){
+						if(featureUser[i].qc_daily_inspection != null){
 							if(featureUser[i].qc_daily_inspection.view_permissions == true){
 								data.push(
 									<View key="aopskdmk21asiun2">
@@ -101,7 +101,7 @@ const ListForm = ({route, navigation}) => {
 								)
 							}
 						}
-						if(featureUser[i].qc_masspro_qc_leader.view_permissions != null){
+						if(featureUser[i].qc_masspro_qc_leader != null){
 							if(featureUser[i].qc_masspro_qc_leader.view_permissions == true){
 								data.push(
 									<Button key="asn2jo1ij2njs" style={styles.productsButton} onPress={() => navigation.navigate('RevisiFirstPieceLeaderQc', {
@@ -121,7 +121,7 @@ const ListForm = ({route, navigation}) => {
 								)
 							}
 						}
-						if(featureUser[i].qc_masspro_foreman.view_permissions != null){
+						if(featureUser[i].qc_masspro_foreman != null){
 							if(featureUser[i].qc_masspro_foreman.view_permissions == true){
 								data.push(
 									<Button key="asXascn2jo1ij2njs" style={styles.productsButton} onPress={() => navigation.navigate('RevisiFirstPieceForeman', {
@@ -142,7 +142,7 @@ const ListForm = ({route, navigation}) => {
 								)
 							}
 						}
-						if(featureUser[i].qc_last_shoot_qc_leader.view_permissions != null){
+						if(featureUser[i].qc_last_shoot_qc_leader != null){
 							if(featureUser[i].qc_last_shoot_qc_leader.view_permissions == true){
 								data.push(
 									<Button key="askdmkwqw" style={styles.productsButton} onPress={() => navigation.navigate('LastShootLeaderQc', {
@@ -164,7 +164,7 @@ const ListForm = ({route, navigation}) => {
 								)
 							}
 						}
-						if(featureUser[i].qc_last_shoot_foreman.view_permissions != null){
+						if(featureUser[i].qc_last_shoot_foreman != null){
 							if(featureUser[i].qc_last_shoot_foreman.view_permissions == true){
 								data.push(
 									<Button key="askdmasqwewkwqw" style={styles.productsButton} onPress={() => navigation.navigate('LastShootForeman', {

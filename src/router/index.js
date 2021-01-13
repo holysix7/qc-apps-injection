@@ -22,7 +22,8 @@ import {
 	RevisiFirstPieceForeman,
 	LastShootLeaderQc,
 	LastShootForeman,
-	Profile
+	Profile,
+	OQC
 } from '../pages';
 
 const Stack = createStackNavigator();
@@ -60,6 +61,8 @@ const Router = () => {
 			<Stack.Screen name="RevisiFirstPieceForeman" component={RevisiFirstPieceForeman} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
 			<Stack.Screen name="LastShootLeaderQc" component={LastShootLeaderQc} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
 			<Stack.Screen name="LastShootForeman" component={LastShootForeman} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
+			
+			<Stack.Screen name="OQC" component={OQC} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
 		</Stack.Navigator>
 	)
 }

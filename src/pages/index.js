@@ -20,6 +20,7 @@ import RevisiFirstPieceForeman from './Qc/Form/RevisiFirstPieceForeman';
 import LastShootLeaderQc from './Qc/Form/LastShootLeaderQc';
 import LastShootForeman from './Qc/Form/LastShootForeman';
 import Profile from './Qc/Profile';
+import OQC from './Qc/OQC';
 
 export {
     SplashScreen,
@@ -43,5 +44,6 @@ export {
     RevisiFirstPieceForeman,
     LastShootLeaderQc,
     LastShootForeman,
-    Profile
+    Profile,
+    OQC
 }

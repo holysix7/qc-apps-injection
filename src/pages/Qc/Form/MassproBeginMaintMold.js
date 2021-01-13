@@ -20,7 +20,7 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 	const [dataProduct1, setDataProduct1] = useState("")
 	const [created_by, setCreatedBy]		  = useState("")
 	const [updated_by, setUpdatedBy]		  = useState("")
-	const [tooling, setTooling]		  			= useState("")
+	const [tooling, setTooling]		  			= useState(null)
 	const [hours, setHours]		  					= useState(0)
 	const [shift, setShift]		  					= useState(0)
 	const date 														= []
@@ -43,55 +43,59 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 	const planning_id = parseInt(planningId)
 	
 	const submit = async() => {
-		setLoading(false)
-		const data = {
-			eng_product_id,
-			prod_machine_id,
-			sys_plant_id,
-			internal_part_id,
-			mold_condition,
-			neeple_cooling,
-			standard_part,
-			tooling,
-			planning_id,
-			remark,
-			status,
-			created_by,
-			created_at,
-			updated_by,
-			updated_at
-		}
-		const token = await AsyncStorage.getItem("key")
-		const params = {
-			tbl: 'daily_inspection',
-			kind: 'masspro_mm',
-			update_hour: sys_plant_id
-		}
-		var config = {
-			method: 'put',
-			url: 'https://api.tri-saudara.com/api/v2/qcs/update?',
-			params: params,
-			headers: { 
-				'Authorization': token, 
-				'Content-Type': 'application/json', 
-				'Cookie': '_denapi_session=ubcfq3AHCuVeTlxtg%2F1nyEa3Ktylg8nY1lIEPD7pgS3YAWwlKOxwA0S9pw7JhvZ2mNkrYl0j62wAWJWJZd7AbfolGuHCwXgEMeJH6EoLiQ%3D%3D--M%2BjBb0uJeHmOf%2B3o--%2F2Fjw57x0Fyr90Ec9FVibQ%3D%3D'
-			},
-		data : data
-		};
-		try {
-			Axios(config)
-			.then(function (response){
-				console.log("Res: ", response.status, " Ok")
-				setLoading(true)
-				alert("Success Send Data!")
-				navigation.navigate('ListForm')
-			})
-			.catch(function (error){
-				alert("Failed Send Data!")
+		if(tooling != null){
+			setLoading(false)
+			const data = {
+				eng_product_id,
+				prod_machine_id,
+				sys_plant_id,
+				internal_part_id,
+				mold_condition,
+				neeple_cooling,
+				standard_part,
+				tooling,
+				planning_id,
+				remark,
+				status,
+				created_by,
+				created_at,
+				updated_by,
+				updated_at
+			}
+			const token = await AsyncStorage.getItem("key")
+			const params = {
+				tbl: 'daily_inspection',
+				kind: 'masspro_mm',
+				update_hour: sys_plant_id
+			}
+			var config = {
+				method: 'put',
+				url: 'https://api.tri-saudara.com/api/v2/qcs/update?',
+				params: params,
+				headers: { 
+					'Authorization': token, 
+					'Content-Type': 'application/json', 
+					'Cookie': '_denapi_session=ubcfq3AHCuVeTlxtg%2F1nyEa3Ktylg8nY1lIEPD7pgS3YAWwlKOxwA0S9pw7JhvZ2mNkrYl0j62wAWJWJZd7AbfolGuHCwXgEMeJH6EoLiQ%3D%3D--M%2BjBb0uJeHmOf%2B3o--%2F2Fjw57x0Fyr90Ec9FVibQ%3D%3D'
+				},
+			data : data
+			};
+			try {
+				Axios(config)
+				.then(function (response){
+					console.log("Res: ", response.status, " Ok")
+					setLoading(true)
+					alert("Success Send Data!")
+					navigation.navigate('ListForm')
+				})
+				.catch(function (error){
+					alert("Failed Send Data!")
+					console.log(error)
+				})
+			} catch (error) {
 				console.log(error)
-			})
-		} catch (error) {
-			
+			}
+		}else{
+			alert("Harap Periksa Inputan Kembali")
 		}
 	}
 	const formOke = async() => {
@@ -318,7 +322,8 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 	}
 	const remarkData = () => {
 		const updateRemark = massRemark
-		const mpmmData = massProMM
+		const mpmmData = null
+		// console.log(mpmmData)
 		const data = []
 		if(mpmmData != null){
 			if(updateRemark != null){
@@ -374,13 +379,20 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 
 	const toolingUpdate = () => {
 		var data = []
-
-		if(massTooling != null){
-			data.push(
-				<View key="ss12" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, width: 177, backgroundColor: '#b8b8b8'}}>
-					<Text>{massTooling != null ? massTooling : "-"}</Text>
-				</View>
-			)
+		if(massProMM != null){
+			if(massTooling != null){
+				data.push(
+					<View key="ss12" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, width: 177}}>
+						<Text>{massTooling != null ? massTooling : "-"}</Text>
+					</View>
+				)
+			}else{
+				data.push(
+					<View key="ss12" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, width: 177}}>
+						<TextInput value={tooling} onChangeText={(value) => setTooling(value)} style={{paddingLeft: 5, height: 40, width: 177}} placeholder="Type Here..." />
+					</View>
+				)	
+			}
 		}else{
 			data.push(
 				<View key="ss12" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, width: 177}}>

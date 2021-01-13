@@ -5,13 +5,16 @@ import LogoSIP from '../../../assets/logo-sip370x50.png';
 import cameraIcons from '../../../assets/cameraicon.png';
 import ImagePicker from 'react-native-image-picker';
 import AsyncStorage from "@react-native-community/async-storage";
+import Icon from 'react-native-ionicons';
 import moment from 'moment';
 import Axios from 'axios';
 
 const PerJam = ({route, navigation}) => {
 	const {daily_inspection_number, machine_number, machine_id, qc_daily_inspection_id, qc_daily_inspection_item_id, qc_daily_inspection_method_id, sys_plant_id, customer_name, machine_name, machine_status, operator_nik, operator_nik_2, leader_nik, foreman_nik, qc_process_nik, today, yesterday} = route.params
 	useEffect(() => {
-		formOke()
+		setInterval(() => {
+			formOke()
+		}, 5000);
 		let isMounted = true
 		FixInspectionTime()
 		return () => {
@@ -107,7 +110,8 @@ const PerJam = ({route, navigation}) => {
 	const [updateNote, setUpdateCNT]		  					= useState(0)
 	const [updateStatusData, setUpdateStdT]		  		= useState(0)
 	const [updateinspection_time, setUpdateIT]		  = useState("")
-	
+	// console.log(data.daily_inspection.machine_status)
+	// console.log("route: ", machine_status)
 	const check_appearance_n = appearance_n
 	const submit = async() => {
 		setLoading(false)
@@ -180,8 +184,7 @@ const PerJam = ({route, navigation}) => {
 			'Authorization': token
 		}
 		let jam = moment().format("HH:mm:ss")
-		if(parseInt(jam) >= 8 && parseInt(jam) <= 15)
-		{
+		if(parseInt(jam) >= 8 && parseInt(jam) <= 15){
 			const nilaiJam = parseInt(jam)
 			setShift(2)
 			setHours(nilaiJam)
@@ -631,7 +634,7 @@ const PerJam = ({route, navigation}) => {
 					<View style={{padding: 4, width: "50%"}}>
 						<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
 							<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-								<Text>{data.daily_inspection == null ? "-" : data.daily_inspection.machine_status}</Text>
+								<Text>{machine_status == null ? "-" : machine_status}</Text>
 							</View>
 						</View>
 					</View>
