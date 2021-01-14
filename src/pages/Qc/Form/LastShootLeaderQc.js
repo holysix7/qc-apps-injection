@@ -431,7 +431,8 @@ const LastShootLeaderQc = ({route, navigation}) => {
 		}
 		return dataNGs
 	}
-
+	const app_version = "0.8.5"
+	
 	const submit = async() => {
 		setLoading(false)
 		const data = {
@@ -449,7 +450,8 @@ const LastShootLeaderQc = ({route, navigation}) => {
 			created_at,
 			updated_by,
 			updated_at,
-			remark
+			remark,
+			app_version
 		}
 		const token = await AsyncStorage.getItem("key")
 		const params = {

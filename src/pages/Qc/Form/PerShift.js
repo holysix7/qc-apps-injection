@@ -439,7 +439,7 @@ const PerShift = ({route, navigation}) => {
 		},
 
 	}
-
+	const app_version = "0.8.5"
 	const submit = async() => {
 		setLoading(false)
 		const el = {
@@ -454,7 +454,8 @@ const PerShift = ({route, navigation}) => {
 			created_by,
 			created_at,
 			updated_by,
-			updated_at
+			updated_at,
+			app_version
 		}
 		const token = await AsyncStorage.getItem("key")
 		const params = {

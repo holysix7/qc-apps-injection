@@ -112,6 +112,7 @@ const PerJam = ({route, navigation}) => {
 	const [updateinspection_time, setUpdateIT]		  = useState("")
 	// console.log(data.daily_inspection.machine_status)
 	// console.log("route: ", machine_status)
+	const app_version = "0.8.5"
 	const check_appearance_n = appearance_n
 	const submit = async() => {
 		setLoading(false)
@@ -137,7 +138,8 @@ const PerJam = ({route, navigation}) => {
 			created_by,
 			created_at,
 			updated_by,
-			updated_at
+			updated_at,
+			app_version
 		}
 		const token = await AsyncStorage.getItem("key")
 		const params = {
