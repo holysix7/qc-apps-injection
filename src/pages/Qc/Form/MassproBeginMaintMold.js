@@ -41,6 +41,7 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 	const [massIPI, setMassIPI]		  = useState("")
 
 	const planning_id = parseInt(planningId)
+	const app_version = "0.8.5"
 	
 	const submit = async() => {
 		if(tooling != null){
@@ -60,7 +61,8 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 				created_by,
 				created_at,
 				updated_by,
-				updated_at
+				updated_at,
+				app_version
 			}
 			const token = await AsyncStorage.getItem("key")
 			const params = {

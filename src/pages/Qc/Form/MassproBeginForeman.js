@@ -58,67 +58,73 @@ const MassproBeginForeman = ({route, navigation}) => {
 	
 	const planning_id = parseInt(planningId)
 	const status 			= "approve"
+	const app_version = "0.8.5"
 	
 	const [loading, setLoading] = useState(false)
 
 	const submit = async() => {
 		setLoading(false)
-		const data = {
-			sys_plant_id,
-			prod_machine_id,
-			eng_product_id,
-			tooling_num,
-			planning_id,
-			cavity,
-			internal_part_id,
-			qc_masspro_main_mold_id,
-			qc_masspro_material_preparation_id,
-			qc_masspro_mold_setter_id,
-			qc_masspro_tech_injection_id,
-			qc_masspro_prod_leader_id,
-			qc_masspro_qc_leader_id,
-			qc_masspro_main_mold_status,
-			qc_masspro_material_preparation_status,
-			qc_masspro_mold_setter_status,
-			qc_masspro_tech_injection_status,
-			qc_masspro_prod_leader_status,
-			qc_masspro_qc_leader_status,
-			remark,
-			status,
-			judgement,
-			created_by,
-			created_at,
-			updated_by,
-			updated_at
+		if(qc_masspro_main_mold_status != null && qc_masspro_material_preparation_status != null && qc_masspro_mold_setter_status != null && qc_masspro_tech_injection_status != null && qc_masspro_prod_leader_status != null && qc_masspro_qc_leader_status){
+			const data = {
+				app_version,
+				sys_plant_id,
+				prod_machine_id,
+				eng_product_id,
+				tooling_num,
+				planning_id,
+				cavity,
+				internal_part_id,
+				qc_masspro_main_mold_id,
+				qc_masspro_material_preparation_id,
+				qc_masspro_mold_setter_id,
+				qc_masspro_tech_injection_id,
+				qc_masspro_prod_leader_id,
+				qc_masspro_qc_leader_id,
+				qc_masspro_main_mold_status,
+				qc_masspro_material_preparation_status,
+				qc_masspro_mold_setter_status,
+				qc_masspro_tech_injection_status,
+				qc_masspro_prod_leader_status,
+				qc_masspro_qc_leader_status,
+				remark,
+				status,
+				judgement,
+				created_by,
+				created_at,
+				updated_by,
+				updated_at
+			}
+			const token = await AsyncStorage.getItem("key")
+			const params = {
+				tbl: 'daily_inspection',
+				kind: 'masspro_fr'
+			}
+			var config = {
+				method: 'put',
+				url: 'https://api.tri-saudara.com/api/v2/qcs/update?',
+				params: params,
+				headers: { 
+					'Authorization': token, 
+					'Content-Type': 'application/json', 
+					'Cookie': '_denapi_session=ubcfq3AHCuVeTlxtg%2F1nyEa3Ktylg8nY1lIEPD7pgS3YAWwlKOxwA0S9pw7JhvZ2mNkrYl0j62wAWJWJZd7AbfolGuHCwXgEMeJH6EoLiQ%3D%3D--M%2BjBb0uJeHmOf%2B3o--%2F2Fjw57x0Fyr90Ec9FVibQ%3D%3D'
+				},
+				data : data
+			};
+			Axios(config)
+			.then(function (response){
+				setLoading(true)
+				console.log("Res: ", response.status, " Ok")
+				navigation.navigate('Qc')
+				alert("Success Send Data!")
+			})
+			.catch(function (error){
+				setLoading(true)
+				console.log(error)
+				alert("Failed Send Data!")
+			})
+		}else{
+			alert("Harap Perhatikan Form Input")
 		}
-		const token = await AsyncStorage.getItem("key")
-		const params = {
-			tbl: 'daily_inspection',
-			kind: 'masspro_fr'
-		}
-		var config = {
-			method: 'put',
-			url: 'https://api.tri-saudara.com/api/v2/qcs/update?',
-			params: params,
-			headers: { 
-				'Authorization': token, 
-				'Content-Type': 'application/json', 
-				'Cookie': '_denapi_session=ubcfq3AHCuVeTlxtg%2F1nyEa3Ktylg8nY1lIEPD7pgS3YAWwlKOxwA0S9pw7JhvZ2mNkrYl0j62wAWJWJZd7AbfolGuHCwXgEMeJH6EoLiQ%3D%3D--M%2BjBb0uJeHmOf%2B3o--%2F2Fjw57x0Fyr90Ec9FVibQ%3D%3D'
-			},
-			data : data
-		};
-		Axios(config)
-		.then(function (response){
-			setLoading(true)
-			console.log("Res: ", response.status, " Ok")
-			navigation.navigate('Qc')
-			alert("Success Send Data!")
-		})
-		.catch(function (error){
-			setLoading(true)
-			console.log(error)
-			alert("Failed Send Data!")
-		})
 	}
 
 	const formOke = async() => {
