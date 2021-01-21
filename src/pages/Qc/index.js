@@ -175,7 +175,7 @@ const Qc = ({navigation}) => {
   }
 
   const buttonNavbar = () => {
-    if(userNik == 32008107){
+    if(userNik == 21410012){
       return (
         <View style={styles.bottomNavbar}>
           <Button style={styles.buttonNavbar}>
