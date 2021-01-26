@@ -5,13 +5,14 @@ import LogoSIP from '../../../assets/logo-sip370x50.png';
 import AsyncStorage from "@react-native-community/async-storage";
 import Axios from 'axios';
 import moment from 'moment';
+import app_version from '../../app_version/index';
 
 const MassproBeginTechInjection = ({route, navigation}) => {
 	useEffect(() => {
 		formOke()
 	}, [])
 
-	const {customer_name, sys_plant_id, machine_id, machine_number, machine_name, today} = route.params
+	const {customer_name, sys_plant_id, machine_id, machine_number, machine_name, today, eng_product_id} = route.params
 	const [data1, setData1] 																							= useState("")
 	const [cleaning_mold, setCleaning] 																		= useState("")
 	const [standard_parameter, setParam] 																	= useState("")
@@ -32,7 +33,6 @@ const MassproBeginTechInjection = ({route, navigation}) => {
 
 	const [planningId, setPlanningId]		= useState("")
 	const [internal_part_id, setIPI]		= useState("")
-	const [eng_product_id, setEngProd]	= useState(0)
 	const [massproTI, setMassproTI]			= useState(null)
 	const [massproTICleanningMold, setCleaningMold]	  = useState("")
 	const [massproTIInputStandard, setInputStandard] 	= useState("")
@@ -47,7 +47,6 @@ const MassproBeginTechInjection = ({route, navigation}) => {
 	const planning_id = parseInt(planningId)
 
 	const [loading, setLoading] = useState(false)
-	const app_version = "0.8.5"
 
 	const submit = async() => {
 		setLoading(false)
@@ -72,13 +71,13 @@ const MassproBeginTechInjection = ({route, navigation}) => {
 			created_by,
 			created_at,
 			updated_by,
-			updated_at,
-			app_version
+			updated_at
 		}
 		const token = await AsyncStorage.getItem("key")
 		const params = {
 			tbl: 'daily_inspection',
-			kind: 'masspro_ti'
+			kind: 'masspro_ti',
+			app_version: app_version
 		}
 		var config = {
 			method: 'put',
@@ -95,7 +94,7 @@ const MassproBeginTechInjection = ({route, navigation}) => {
 		.then(function (response){
 			setLoading(true)
 			console.log("Res: ", response.status, " Ok")
-			navigation.navigate('ListForm')
+			navigation.navigate('ShowPlanning')
 			alert("Success Send Data!")
 		})
 		.catch(function (error){
@@ -132,7 +131,9 @@ const MassproBeginTechInjection = ({route, navigation}) => {
 			tbl: 'daily_inspection',
 			kind: 'masspro_ti',
 			sys_plant_id: sys_plant_id,
-			machine_id: machine_id
+			machine_id: machine_id,
+			app_version: app_version,
+			eng_product_id: eng_product_id
 		}
 
 		Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
@@ -143,7 +144,6 @@ const MassproBeginTechInjection = ({route, navigation}) => {
 			setMoldSetterId(response.data.data.qc_masspro_mold_setter_id)
 			setData1(response.data.data.product_detail)
 			setTooling(response.data.data.tooling_num)
-			setEngProd(response.data.data.eng_product_id)
 			setPlanningId(response.data.data.planning_id)
 			setIPI(response.data.data.product_detail.internal_part_id)
 			setMassproTI(response.data.data.masspro_ti)

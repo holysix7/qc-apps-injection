@@ -5,6 +5,7 @@ import LogoSIP from '../../../assets/logo-sip370x50.png';
 import AsyncStorage from "@react-native-community/async-storage";
 import moment from 'moment';
 import Axios from 'axios';
+import app_version from '../../app_version/index';
 
 const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 	useEffect(() => {
@@ -191,7 +192,8 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 				machine_id: machine_id,
 				hrd_work_shift_id: 2,
 				hours: nilaiJam,
-				qc_daily_inspection_id: qc_daily_inspection_id
+				qc_daily_inspection_id: qc_daily_inspection_id,
+				app_version: app_version
 			}
 			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 			.then(response => {
@@ -228,7 +230,8 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 				machine_id: machine_id,
 				hrd_work_shift_id: 3,
 				hours: nilaiJam,
-				qc_daily_inspection_id: qc_daily_inspection_id
+				qc_daily_inspection_id: qc_daily_inspection_id,
+				app_version: app_version
 			}
 			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 			.then(response => {
@@ -265,7 +268,8 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 				machine_id: machine_id,
 				hrd_work_shift_id: 4,
 				hours: nilaiJam,
-				qc_daily_inspection_id: qc_daily_inspection_id
+				qc_daily_inspection_id: qc_daily_inspection_id,
+				app_version: app_version
 			}
 			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 			.then(response => {
@@ -636,7 +640,6 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 		})
 		return dataNGs
 	}
-	const app_version = "0.8.5"
 
 	const submit = async() => {
 		setLoading(false)
@@ -656,13 +659,13 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 			created_by,
 			created_at,
 			updated_by,
-			updated_at,
-			app_version
+			updated_at
 		}
 		const token = await AsyncStorage.getItem("key")
 		const params = {
 			tbl: 'daily_inspection',
-			kind: 'rev_first_piece_qc'
+			kind: 'rev_first_piece_qc',
+			app_version: app_version
 		}
 		var config = {
 			method: 'put',

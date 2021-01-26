@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     headerWithBorder: {
-        height: 120,
+        height: 140,
         borderWidth: 0.3,
         backgroundColor: '#F5F5DC', 
         flexDirection: 'column', 
@@ -81,6 +81,25 @@ const styles = StyleSheet.create({
         borderRadius: 15, 
         flexDirection: 'column'
     },
+    massProButton: {
+        marginTop: 5,
+        width: "100%", 
+        borderRadius: 15, 
+        // flexDirection: 'row'
+    },
+    dailyInspectionButton: {
+        marginTop: 5,
+        width: "100%", 
+        borderRadius: 15, 
+        // flexDirection: 'row'
+    },
+    productsNotAccessButton: {
+        marginTop: 5,
+        backgroundColor: '#726a95',
+        width: "100%", 
+        borderRadius: 15, 
+        // flexDirection: 'row'
+    },
     fontButtonHeader: {
         fontSize: 20, 
         fontWeight: 'bold'
@@ -110,6 +129,18 @@ const styles = StyleSheet.create({
     fontPlanning: {
         fontSize: 15, 
         fontWeight: 'bold'
+    },
+    fontNoPlanning: {
+        fontSize: 15, 
+        fontWeight: 'bold',
+        backgroundColor: 'yellow',
+        width: 250,
+        borderWidth: 1,
+        padding: 2,
+        textAlign: 'center'
+    },
+    viewNoPlanning: {
+        padding: 5
     }
 })
 

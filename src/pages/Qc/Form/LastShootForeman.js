@@ -5,6 +5,7 @@ import LogoSIP from '../../../assets/logo-sip370x50.png';
 import moment from 'moment';
 import AsyncStorage from "@react-native-community/async-storage";
 import Axios from 'axios';
+import app_version from '../../app_version/index';
 
 const LastShootForeman = ({route, navigation}) => {
 	useEffect(() => {
@@ -25,7 +26,6 @@ const LastShootForeman = ({route, navigation}) => {
 	const prod_machine_id = machine_id
 	const date = []
 	const [loading, setLoading] = useState(false)
-	const app_version = "0.8.5"
 	const submit = async() => {
 		setLoading(false)
 		const data = {
@@ -38,13 +38,13 @@ const LastShootForeman = ({route, navigation}) => {
 			created_by,
 			created_at,
 			updated_by,
-			updated_at,
-			app_version
+			updated_at
 		}
 		const token = await AsyncStorage.getItem("key")
 		const params = {
 			tbl: 'daily_inspection',
-			kind: 'last_shoot_fr'
+			kind: 'last_shoot_fr',
+			app_version: app_version
 		}
 		var config = {
 			method: 'put',
@@ -94,7 +94,8 @@ const LastShootForeman = ({route, navigation}) => {
 				machine_id: machine_id,
 				hrd_work_shift_id: 2,
 				hours: nilaiJam,
-				qc_daily_inspection_id: qc_daily_inspection_id
+				qc_daily_inspection_id: qc_daily_inspection_id,
+				app_version: app_version
 			}
 			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 			.then(response => {

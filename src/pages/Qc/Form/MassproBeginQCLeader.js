@@ -5,6 +5,7 @@ import LogoSIP from '../../../assets/logo-sip370x50.png';
 import AsyncStorage from "@react-native-community/async-storage";
 import Axios from 'axios';
 import moment from 'moment';
+import app_version from '../../app_version/index';
 
 const fixCavity = []
 
@@ -12,7 +13,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 	useEffect(() => {
 		formOke()
 	}, [])
-	const {customer_name, sys_plant_id, machine_id, machine_number, machine_name, today} = route.params
+	const {customer_name, sys_plant_id, machine_id, machine_number, machine_name, today, eng_product_id} = route.params
 	const [machine_engine_status, setItem] 															 = useState("")
 	const [compare_sample, setCopySample] 															 = useState("")
 	const [check_sheet, setSheetQc] 																		 = useState("")
@@ -118,7 +119,6 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 	const [remark, setRemark] 																					 = useState("")
 	const [data1, setData1]  																					   = useState("")
 	const [ngCategories, setNGCategories]  															 = useState([])
-	const [eng_product_id, setEngProd] 						 											 = useState(0)
 	const [qc_masspro_main_mold_id, setMaintMoldId] 										 = useState(0)
 	const [qc_masspro_material_preparation_id, setMaterialPreparationId] = useState(0)
 	const [qc_masspro_mold_setter_id, setMoldSetterId] 									 = useState(0)
@@ -321,9 +321,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 		}
 		return dataNGs
 	}
-
 	const machine_status = "start-mp"
-	const app_version = "0.8.5"
 	const submit = async() => {
 		setLoading(false)
 		const data = {
@@ -351,13 +349,13 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 			created_by,
 			created_at,
 			updated_by,
-			updated_at,
-			app_version
+			updated_at
 		}
 		const token = await AsyncStorage.getItem("key")
 		const params = {
 			tbl: 'daily_inspection',
-			kind: 'masspro_ql'
+			kind: 'masspro_ql',
+			app_version: app_version
 		}
 		var config = {
 			method: 'put',
@@ -374,7 +372,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 		.then(function (response){
 			setLoading(true)
 			console.log("Res: ", response.status, " Ok")
-			navigation.navigate('ListForm')
+			navigation.navigate('ShowPlanning')
 			alert("Success Send Data!")
 		})
 		.catch(function (error){
@@ -412,7 +410,9 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 			tbl: 'daily_inspection',
 			kind: 'masspro_ql',
 			sys_plant_id: sys_plant_id,
-			machine_id: machine_id
+			machine_id: machine_id,
+			eng_product_id: eng_product_id,
+			app_version: app_version
 		}
 		Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 		.then(response => {
@@ -422,7 +422,6 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 			setMoldSetterId(response.data.data.qc_masspro_mold_setter_id)
 			setTechInjectionId(response.data.data.qc_masspro_tech_injection_id)
 			setProdLeaderId(response.data.data.qc_masspro_prod_leader_id)
-			setEngProd(response.data.data.eng_product_id)
 			setData1(response.data.data.product_detail)
 			setCavity(response.data.data.product_detail.cavity)
 			setNGCategories(response.data.data.ng_category)
@@ -1999,7 +1998,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 		}else{
 			if(updateMassproQlItem.length > 0){
 				var i
-				for (i = 0; i < cavity; i++) {
+				for (i = 1; i <= cavity; i++) {
 					table1.push(
 						<View key={i} style={{flexDirection: 'row', height: 50}}>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, backgroundColor: '#b8b8b8', width: 100}}>
@@ -2042,7 +2041,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							<View style={{borderTopWidth: 0.3, borderRightWidth: 0.3, height: 100, justifyContent: 'center', alignItems: 'center', width: "50%", backgroundColor: '#F5F5DC'}}>
 								<Text style={{marginTop: 5, fontWeight: 'bold', fontSize: 17}}>{date()}</Text>
 								<Text style={{marginTop: 1, fontWeight: 'bold', fontSize: 17}}>Edit Daily Inspection</Text>
-								<Text style={{marginTop: 1, fontWeight: 'bold', fontSize: 11}}>Masspro Begin QC Leader</Text>
+								<Text style={{marginTop: 1, fontWeight: 'bold', fontSize: 11}}>{eng_product_id}</Text>
 								<Text style={{marginTop: 1, fontWeight: 'bold', fontSize: 11}}>{customer_name}</Text>
 							</View>
 							<View style={{flexDirection: 'column', width: "100%"}}>

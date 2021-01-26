@@ -23,7 +23,10 @@ import {
 	LastShootLeaderQc,
 	LastShootForeman,
 	Profile,
-	OQC
+	OQC,
+	Scanner,
+	UpdateQCLeader,
+	UpdateForemanLeader
 } from '../pages';
 
 const Stack = createStackNavigator();
@@ -62,7 +65,10 @@ const Router = () => {
 			<Stack.Screen name="LastShootLeaderQc" component={LastShootLeaderQc} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
 			<Stack.Screen name="LastShootForeman" component={LastShootForeman} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
 			
+			<Stack.Screen name="Scanner" component={Scanner} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
 			<Stack.Screen name="OQC" component={OQC} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
+			<Stack.Screen name="UpdateQCLeader" component={UpdateQCLeader} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
+			<Stack.Screen name="UpdateForemanLeader" component={UpdateForemanLeader} options={{headerShown: false}} />
 		</Stack.Navigator>
 	)
 }

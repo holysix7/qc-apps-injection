@@ -5,18 +5,16 @@ import LogoSIP from '../../../assets/logo-sip370x50.png';
 import cameraIcons from '../../../assets/cameraicon.png';
 import ImagePicker from 'react-native-image-picker';
 import AsyncStorage from "@react-native-community/async-storage";
-import Icon from 'react-native-ionicons';
 import moment from 'moment';
 import Axios from 'axios';
+import app_version from '../../app_version/index';
 
 const PerJam = ({route, navigation}) => {
-	const {daily_inspection_number, machine_number, machine_id, qc_daily_inspection_id, qc_daily_inspection_item_id, qc_daily_inspection_method_id, sys_plant_id, customer_name, machine_name, machine_status, operator_nik, operator_nik_2, leader_nik, foreman_nik, qc_process_nik, today, yesterday} = route.params
+	const {daily_inspection_number, machine_number, machine_id, qc_daily_inspection_id, qc_daily_inspection_item_id, qc_daily_inspection_method_id, sys_plant_id, customer_name, machine_name, machine_status, today, yesterday} = route.params
 	useEffect(() => {
-		setInterval(() => {
-			formOke()
-		}, 5000);
-		let isMounted = true
+		formOke()
 		FixInspectionTime()
+		let isMounted = true
 		return () => {
 			isMounted = false
 		}
@@ -36,7 +34,6 @@ const PerJam = ({route, navigation}) => {
 			}, 1000);
 		}
 	}, [])
-	
 	//images
 	const [uploadedImage, setImage] = useState(null)
 	const chooseImage = () => {
@@ -77,7 +74,6 @@ const PerJam = ({route, navigation}) => {
 		}
 	}
 
-	
     // form
 	const [data, setData] 										= useState([])
 	const [NGdata, setNGData] 								= useState([])
@@ -110,10 +106,16 @@ const PerJam = ({route, navigation}) => {
 	const [updateNote, setUpdateCNT]		  					= useState(0)
 	const [updateStatusData, setUpdateStdT]		  		= useState(0)
 	const [updateinspection_time, setUpdateIT]		  = useState("")
-	// console.log(data.daily_inspection.machine_status)
-	// console.log("route: ", machine_status)
-	const app_version = "0.8.5"
+
+	const [operatorNik1, setOperatorNik1]		  = useState("")
+	const [operatorNik2, setOperatorNik2]		  = useState("")
+
+	const [leader_nik, setLeaderNik]					= useState("")
+	const [foreman_nik, setForemanNik]				= useState("")
+	const [qc_process_nik, setQcProcessNik]		= useState("")
+
 	const check_appearance_n = appearance_n
+
 	const submit = async() => {
 		setLoading(false)
 		const data = {
@@ -145,7 +147,8 @@ const PerJam = ({route, navigation}) => {
 		const params = {
 			tbl: 'daily_inspection',
 			kind: 'update_hour',
-			update_hour: sys_plant_id
+			update_hour: sys_plant_id,
+			app_version: app_version
 		}
 		var config = {
 			method: 'put',
@@ -175,8 +178,7 @@ const PerJam = ({route, navigation}) => {
 			console.log(error);
 		}
 	}
-		//end Form
-		
+	//end Form
 	const formOke = async() => {
 		const token = await AsyncStorage.getItem("key")
 		const id = await AsyncStorage.getItem('id')
@@ -186,7 +188,9 @@ const PerJam = ({route, navigation}) => {
 			'Authorization': token
 		}
 		let jam = moment().format("HH:mm:ss")
+		// let jam = "11:59:55"
 		if(parseInt(jam) >= 8 && parseInt(jam) <= 15){
+			console.log(jam)
 			const nilaiJam = parseInt(jam)
 			setShift(2)
 			setHours(nilaiJam)
@@ -197,7 +201,8 @@ const PerJam = ({route, navigation}) => {
 				machine_id: machine_id,
 				hrd_work_shift_id: 2,
 				hours: nilaiJam,
-				qc_daily_inspection_id: qc_daily_inspection_id
+				qc_daily_inspection_id: qc_daily_inspection_id,
+				app_version: app_version
 			}
 			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 			.then(response => {
@@ -215,12 +220,16 @@ const PerJam = ({route, navigation}) => {
 				setLoading(true)
 				setTooling(response.data.data.daily_inspection.tooling_num)
 				setDataProduction(response.data.data.output_production.gross_prod)
+				setLeaderNik(response.data.data.daily_inspection.leader_nik)
+				setQcProcessNik(response.data.data.daily_inspection.qc_process_nik)
+				setForemanNik(response.data.data.daily_inspection.foreman_nik)
+				setOperatorNik1(response.data.data.output_production.nik_operator_1)
+				setOperatorNik2(response.data.data.output_production.nik_operator_2)
 				setAppearance(response.data.data.output_production.appearance_n)
 				console.log("List Data Per Jam: ", response.data.status, "OK")
 			})
 			.catch(error => {
 				console.log('List Data Per Jam: ', error)
-				alert("Connection Failure!")
 				setLoading(true)
 			})
 		}else if(parseInt(jam) >= 16 && parseInt(jam) <= 23){
@@ -234,7 +243,8 @@ const PerJam = ({route, navigation}) => {
 				machine_id: machine_id,
 				hrd_work_shift_id: 3,
 				hours: nilaiJam,
-				qc_daily_inspection_id: qc_daily_inspection_id
+				qc_daily_inspection_id: qc_daily_inspection_id,
+				app_version: app_version
 			}
 			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 			.then(response => {
@@ -252,12 +262,16 @@ const PerJam = ({route, navigation}) => {
 				setLoading(true)
 				setTooling(response.data.data.daily_inspection.tooling_num)
 				setDataProduction(response.data.data.output_production.gross_prod)
+				setLeaderNik(response.data.data.daily_inspection.leader_nik)
+				setQcProcessNik(response.data.data.daily_inspection.qc_process_nik)
+				setForemanNik(response.data.data.daily_inspection.foreman_nik)
+				setOperatorNik1(response.data.data.output_production.nik_operator_1)
+				setOperatorNik2(response.data.data.output_production.nik_operator_2)
 				setAppearance(response.data.data.output_production.appearance_n)
 				console.log("List Data Per Jam: ", response.data.status, "OK")
 			})
 			.catch(error => {
 				console.log('List Data Per Jam: ', error)
-				alert("Connection Failure!")
 				setLoading(true)
 			})
 		}else{
@@ -271,7 +285,8 @@ const PerJam = ({route, navigation}) => {
 				machine_id: machine_id,
 				hrd_work_shift_id: 5,
 				hours: nilaiJam,
-				qc_daily_inspection_id: qc_daily_inspection_id
+				qc_daily_inspection_id: qc_daily_inspection_id,
+				app_version: app_version
 			}
 			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 			.then(response => { 
@@ -289,16 +304,21 @@ const PerJam = ({route, navigation}) => {
 				setLoading(true)
 				setTooling(response.data.data.daily_inspection.tooling_num)
 				setDataProduction(response.data.data.output_production.gross_prod)
+				setLeaderNik(response.data.data.daily_inspection.leader_nik)
+				setQcProcessNik(response.data.data.daily_inspection.qc_process_nik)
+				setForemanNik(response.data.data.daily_inspection.foreman_nik)
+				setOperatorNik1(response.data.data.output_production.nik_operator_1)
+				setOperatorNik2(response.data.data.output_production.nik_operator_2)
 				setAppearance(response.data.data.output_production.appearance_n)
 				console.log("List Data Per Jam: ", response.data.status, "OK")
 			})
 			.catch(error => {
 				console.log('List Data Per Jam: ', error)
-				alert("Connection Failure!")
 				setLoading(true)
 			})
 		}
 	}
+	
 	//getdata berdasarkan jam
 	const shiftFix = async(value) => {
 		setLoading(false)
@@ -318,7 +338,8 @@ const PerJam = ({route, navigation}) => {
 					machine_id: machine_id,
 					hrd_work_shift_id: 2,
 					hours: parseInt(value),
-					qc_daily_inspection_id: qc_daily_inspection_id
+					qc_daily_inspection_id: qc_daily_inspection_id,
+					app_version: app_version
 				}
 				Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 				.then(response => {
@@ -336,12 +357,12 @@ const PerJam = ({route, navigation}) => {
 					setTooling(response.data.data.daily_inspection.tooling_num)
 					setDataProduction(response.data.data.output_production.gross_prod)
 					setLoading(true)
+					setQcProcessNik(true)
 					console.log("List Data By Shift 1: ", response.data.status, "OK")
 				})
 				.catch(error => {
 					setLoading(true)
 					console.log('List Data Per Jam: ', error)
-					alert("Connection Failure!")
 				})
 			}else if(value >= 16 && value <= 23){
 				const params = {
@@ -351,7 +372,8 @@ const PerJam = ({route, navigation}) => {
 					machine_id: machine_id,
 					hrd_work_shift_id: 3,
 					hours: parseInt(value),
-					qc_daily_inspection_id: qc_daily_inspection_id
+					qc_daily_inspection_id: qc_daily_inspection_id,
+					app_version: app_version
 				}
 				Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 				.then(response => {
@@ -369,12 +391,12 @@ const PerJam = ({route, navigation}) => {
 					setTooling(response.data.data.daily_inspection.tooling_num)
 					setDataProduction(response.data.data.output_production.gross_prod)
 					setLoading(true)
+					setQcProcessNik(true)
 					console.log("List Data By Shift 2: ", response.data.status, "OK")
 				})
 				.catch(error => {
 					setLoading(true)
 					console.log('List Data Per Jam: ', error)
-					alert("Connection Failure!")
 				})
 			}else{
 				const params = {
@@ -384,7 +406,8 @@ const PerJam = ({route, navigation}) => {
 					machine_id: machine_id,
 					hrd_work_shift_id: 4,
 					hours: parseInt(value),
-					qc_daily_inspection_id: qc_daily_inspection_id
+					qc_daily_inspection_id: qc_daily_inspection_id,
+					app_version: app_version
 				}
 				Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 				.then(response => {
@@ -402,12 +425,12 @@ const PerJam = ({route, navigation}) => {
 					setTooling(response.data.data.daily_inspection.tooling_num)
 					setDataProduction(response.data.data.output_production.gross_prod)
 					setLoading(true)
+					setQcProcessNik(true)
 					console.log("List Data By Shift 3: ", response.data.status, "OK")
 				})
 				.catch(error => {
 					setLoading(true)
 					console.log('List Data Per Jam: ', error)
-					alert("Connection Failure!")
 				})
 			}
 			setLoading(true)
@@ -418,7 +441,6 @@ const PerJam = ({route, navigation}) => {
 			alert("Access Denied")
 		}
 	}
-
 
 	const hString = hours.toString()
 
@@ -622,10 +644,20 @@ const PerJam = ({route, navigation}) => {
 		)
 	}
 
+	const buttonUpdateGet = () => {
+
+	}
+
 	const content = () => {
 		var bodatData = []
 		bodatData.push(
 			<TouchableOpacity key="12">
+				<View style={{paddingTop: 20, flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
+					<View style={{padding: 10}}>
+						<Button style={{borderRadius: 25}} onPress={() => formOke()}><Text>Refresh Data</Text></Button>
+					</View>
+				</View>
+
 				<View style={{paddingTop: 20, flexDirection: 'row'}}>
 					<View style={{padding: 10, width: "44%"}}>
 						<Text>Machines Status</Text>
@@ -785,8 +817,8 @@ const PerJam = ({route, navigation}) => {
 				<View style={{flexDirection: 'row', height: 75, paddingTop: 10}}>
 						<View style={{alignItems: 'center', width: "25%"}}>
 								<Text style={{fontWeight: 'bold', fontSize: 12}}>NIK Operator</Text>
-								<Text>{operator_nik}</Text>
-								<Text>{operator_nik_2}</Text>
+								<Text>{operatorNik1}</Text>
+								<Text>{operatorNik2}</Text>
 						</View>
 						<View style={{alignItems: 'center', width: "25%"}}>
 								<Text style={{fontWeight: 'bold', fontSize: 12}}>NIK QC</Text>

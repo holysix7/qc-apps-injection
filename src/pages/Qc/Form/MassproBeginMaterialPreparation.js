@@ -5,13 +5,14 @@ import AsyncStorage from "@react-native-community/async-storage";
 import LogoSIP from '../../../assets/logo-sip370x50.png';
 import Axios from 'axios';
 import moment from 'moment';
+import app_version from '../../app_version/index';
 
 const MassproBeginMaterialPreparation = ({route, navigation}) => {
 	useEffect(() => {
 		formOke()
 	}, [])
 
-	const {sys_plant_id, machine_id, customer_name, machine_name, today, machine_number} = route.params
+	const {sys_plant_id, machine_id, customer_name, machine_name, today, machine_number, eng_product_id} = route.params
 	const [material_standard, setConditionMaterial] = useState("")
 	const [cleaning_hopper, setHopper] 							= useState("")
 	const [hopper_temp, setConditionHopper] 				= useState("")
@@ -26,7 +27,6 @@ const MassproBeginMaterialPreparation = ({route, navigation}) => {
 	const [massproMPTemperatureHopperNote, setMassporMPTemperaturHopperNote]	= useState("")
 	const [massproMPRemark, setMassporMPRemark]																= useState("")
 	const [massproMPInternalPartId, setMassporMPIPI]													= useState("")
-	const [eng_product_id, setEngProdId] 						= useState("")
 	const [cavityAmount, setCavityAmount]						= useState("")
 	const prod_machine_id 													= machine_id
 	let dying_material 														  = moment().format("YYYY-MM-DD hh:mm:ss A")
@@ -45,7 +45,6 @@ const MassproBeginMaterialPreparation = ({route, navigation}) => {
 	const planning_id = parseInt(planningId)
 
 	const [loading, setLoading] = useState(false)
-	const app_version = "0.8.5"
 
 	const submit = async() => {
 		setLoading(false)
@@ -66,13 +65,13 @@ const MassproBeginMaterialPreparation = ({route, navigation}) => {
 			created_by,
 			created_at,
 			updated_by,
-			updated_at,
-			app_version
+			updated_at
 		}
 		const token = await AsyncStorage.getItem("key")
 		const params = {
 			tbl: 'daily_inspection',
-			kind: 'masspro_mp'
+			kind: 'masspro_mp',
+			app_version: app_version
 		}
 		var config = {
 			method: 'put',
@@ -89,7 +88,7 @@ const MassproBeginMaterialPreparation = ({route, navigation}) => {
 		.then(function (response){
 			setLoading(true)
 			console.log("Res: ", response.status, " Ok")
-			navigation.navigate('ListForm')
+			navigation.navigate('ShowPlanning')
 			alert("Success Send Data!")
 		})
 		.catch(function (error){
@@ -109,8 +108,7 @@ const MassproBeginMaterialPreparation = ({route, navigation}) => {
 		setUpdatedBy(id)
 
 		let jam = moment().format("HH:mm:ss")
-		if(parseInt(jam) >= 8 && parseInt(jam) <= 15)
-		{
+		if(parseInt(jam) >= 8 && parseInt(jam) <= 15){
 			const nilaiJam = parseInt(jam)
 			setShift(2)
 			setHours(nilaiJam)
@@ -127,14 +125,15 @@ const MassproBeginMaterialPreparation = ({route, navigation}) => {
 			tbl: 'daily_inspection',
 			kind: 'masspro_mp',
 			sys_plant_id: sys_plant_id,
-			machine_id: machine_id
+			machine_id: machine_id,
+			app_version: app_version,
+			eng_product_id: eng_product_id
 		}
 		Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 		.then(response => {
 			setLoading(true)
 			setDataProduct1(response.data.data.product_detail)
 			setIPI(response.data.data.product_detail.internal_part_id)
-			setEngProdId(response.data.data.product_detail.id)
 			setCavityAmount(response.data.data.product_detail.cavity)
 			setMaintMoldId(response.data.data.qc_masspro_main_mold_id)
 			setTooling(response.data.data.tooling_num)

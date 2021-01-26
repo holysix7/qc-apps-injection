@@ -1,5 +1,5 @@
 import {Image, View, TextInput, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, ScrollView, TouchableOpacity, ActivityIndicator, Dimensions} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import { Container, Text, Button, Picker } from 'native-base';
 import LogoSIP from '../../../assets/logo-sip370x50.png';
 import cameraIcons from '../../../assets/cameraicon.png';
@@ -7,6 +7,7 @@ import ImagePicker from 'react-native-image-picker';
 import AsyncStorage from "@react-native-community/async-storage";
 import Axios from 'axios';
 import moment from 'moment';
+import { RNCamera, FaceDetector } from 'react-native-camera';
 
 const OQC = ({route, navigation}) => {
 	useEffect(() => {
@@ -45,8 +46,10 @@ const OQC = ({route, navigation}) => {
 	const [item_khusus, setItemKhusu]         = useState(null)
 	const [ng_category, setNGCategory]        = useState(null)
 	const [note_unnormal, setNoteUnnormal]    = useState(null)
-	const [uploadedImage, setImage]           = useState(null)
-	let date_now   												    = moment().format("YYYY-MM-DD")
+  
+  const [uploadedImage, setImage]           = useState(null)
+
+  let date_now   												    = moment().format("YYYY-MM-DD")
 	let created_at 												    = moment().format("YYYY-MM-DD HH:mm:ss")
 	let updated_at 												    = moment().format("YYYY-MM-DD HH:mm:ss")
 	
@@ -349,7 +352,31 @@ const OQC = ({route, navigation}) => {
 								<View style={{borderTopWidth: 0.3, height: 65, justifyContent: 'center', alignItems: 'center', width: "50%", flex: 1, flexDirection: 'column'}}>
                   <View style={{width: "100%", height: "100%"}}>
                     <View style={{height: "50%", borderBottomWidth: 0.3, justifyContent: 'center', alignItems: 'center'}}>
-                      <Text style={{fontWeight: 'bold', fontSize: 13}}>SCAN LABEL</Text>
+                      <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                        {/* <RNCamera 
+                        ref={cameraRef}
+                        type={RNCamera.Constants.Type.back}
+                        flashMode={RNCamera.Constants.FlashMode.off}
+                        androidCameraPermissionOptions={{
+                          title: 'Permission to use camera',
+                          message: 'We need your permission to use your camera',
+                          buttonPositive: 'Ok',
+                          buttonNegative: 'Cancel',
+                        }}
+                        androidRecordAudioPermissionOptions={{
+                          title: 'Permission to use audio recording',
+                          message: 'We need your permission to use your audio',
+                          buttonPositive: 'Ok',
+                          buttonNegative: 'Cancel',
+                        }}
+                        onGoogleVisionBarcodesDetected={({ barcodes }) => {
+                          console.log(barcodes);
+                        }}> */}
+                          <Button style={{height: 30, width: 150, alignItems: 'center', justifyContent: 'center'}} onPress={() => navigation.navigate('Scanner')}>
+                            <Text style={{fontWeight: 'bold', fontSize: 11}}>SCAN LABEL</Text>
+                          </Button>
+                        {/* </RNCamera> */}
+                      </View>
                     </View>
                     <View style={{height: "50%", justifyContent: 'center', alignItems: 'center'}}>
                       <Text style={{marginTop: 1, fontWeight: 'bold', fontSize: 13}}>{date_now}</Text>

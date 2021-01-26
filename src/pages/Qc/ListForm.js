@@ -8,6 +8,7 @@ import AsyncStorage from "@react-native-community/async-storage";
 const ListForm = ({route, navigation}) => {
 	const {qc_daily_inspection_id, qc_daily_inspection_item_id, qc_daily_inspection_method_id, sys_plant_id, product_name, customer_name, customer_part_number, machine_id, machine_name, machine_status, operator_nik, operator_nik_2, leader_nik, foreman_nik, qc_process_nik, machine_number, today, yesterday, daily_inspection_number} = route.params
   const [featureUser, setFeature] = useState(null);
+  const [user, setUser] = useState(null);
 	const [loading, setLoading] = useState(false)
 	useEffect(() => {
 		session()
@@ -16,13 +17,13 @@ const ListForm = ({route, navigation}) => {
 		}, 2000);
 	}, [])
 
-
-
 	const session = async () => {
     try {
       const UserSession = await AsyncStorage.multiGet(['user', 'name', 'department_name', 'sys_plant_id', 'duty_plant_option_select', 'feature'])
       const feature    = await AsyncStorage.getItem('feature')
+      const user    = await AsyncStorage.getItem('user')
 			setFeature(JSON.parse(feature))
+			setUser(user)
     } catch (error) {
       console.log('Multi Get Error: ', error.message)
     }
@@ -39,7 +40,7 @@ const ListForm = ({route, navigation}) => {
 							if(featureUser[i].qc_daily_inspection.view_permissions == true){
 								data.push(
 									<View key="aopskdmk21asiun2">
-										<Button style={styles.productsButton} onPress={() => navigation.navigate('PerJam', {
+										<Button style={styles.dailyInspectionButton} onPress={() => navigation.navigate('PerJam', {
 											qc_daily_inspection_id: qc_daily_inspection_id,
 											qc_daily_inspection_item_id: qc_daily_inspection_item_id,
 											qc_daily_inspection_method_id: qc_daily_inspection_method_id,
@@ -60,7 +61,7 @@ const ListForm = ({route, navigation}) => {
 										})} >
 											<Text> Per Jam </Text>   
 										</Button>
-										<Button style={styles.productsButton} onPress={() => navigation.navigate('Per4Jam', {
+										<Button style={styles.dailyInspectionButton} onPress={() => navigation.navigate('Per4Jam', {
 											qc_daily_inspection_id: qc_daily_inspection_id,
 											qc_daily_inspection_method_id: qc_daily_inspection_method_id,
 											sys_plant_id: sys_plant_id,
@@ -77,7 +78,7 @@ const ListForm = ({route, navigation}) => {
 										})} >
 											<Text> Per 4 Jam </Text>   
 										</Button>
-										<Button style={styles.productsButton} onPress={() => navigation.navigate('PerShift', {
+										<Button style={styles.dailyInspectionButton} onPress={() => navigation.navigate('PerShift', {
 											qc_daily_inspection_id: qc_daily_inspection_id,
 											sys_plant_id: sys_plant_id,
 											daily_inspection_number: daily_inspection_number,
@@ -99,12 +100,27 @@ const ListForm = ({route, navigation}) => {
 										</Button>
 									</View>
 								)
+							}else{
+								data.push(
+									<View key="aopskdmk21asiun2">
+										<Button style={styles.productsNotAccessButton} onPress={() => alert("Maaf Anda Tidak Memiliki Hak Akses Per Jam")} >
+											<Text> Per Jam </Text>   
+										</Button>
+										<Button style={styles.productsNotAccessButton} onPress={() => alert("Maaf Anda Tidak Memiliki Hak Akses Per 4 Jam")} >
+											<Text> Per 4 Jam </Text>   
+										</Button>
+										<Button style={styles.productsNotAccessButton} onPress={() => alert("Maaf Anda Tidak Memiliki Hak Akses Per Shift")} >
+											<Text> Per Shift </Text>   
+										</Button>
+									</View>
+								)
+
 							}
 						}
 						if(featureUser[i].qc_masspro_qc_leader != null){
 							if(featureUser[i].qc_masspro_qc_leader.view_permissions == true){
 								data.push(
-									<Button key="asn2jo1ij2njs" style={styles.productsButton} onPress={() => navigation.navigate('RevisiFirstPieceLeaderQc', {
+									<Button key="asn2jo1ij2njs" style={styles.dailyInspectionButton} onPress={() => navigation.navigate('RevisiFirstPieceLeaderQc', {
 										qc_daily_inspection_id: qc_daily_inspection_id,
 										sys_plant_id: sys_plant_id,
 										daily_inspection_number: daily_inspection_number,
@@ -119,12 +135,18 @@ const ListForm = ({route, navigation}) => {
 										<Text> Revisi First Piece Leader QC </Text>   
 									</Button>	
 								)
+							}else{
+								data.push(
+									<Button key="asn2jo1ij2njs" style={styles.productsNotAccessButton} onPress={() => alert("Maaf Anda Tidak Memiliki Hak Akses Revisi First Piece Leader QC")} >
+										<Text> Revisi First Piece Leader QC </Text>   
+									</Button>	
+								)
 							}
 						}
 						if(featureUser[i].qc_masspro_foreman != null){
 							if(featureUser[i].qc_masspro_foreman.view_permissions == true){
 								data.push(
-									<Button key="asXascn2jo1ij2njs" style={styles.productsButton} onPress={() => navigation.navigate('RevisiFirstPieceForeman', {
+									<Button key="asXascn2jo1ij2njs" style={styles.dailyInspectionButton} onPress={() => navigation.navigate('RevisiFirstPieceForeman', {
 										sys_plant_id: sys_plant_id,
 										daily_inspection_number: daily_inspection_number,
 										product_name: product_name,
@@ -138,14 +160,19 @@ const ListForm = ({route, navigation}) => {
 									})} >
 										<Text> Revisi First Piece Foreman </Text>
 									</Button>
-									
+								)
+							}else{
+								data.push(
+									<Button key="asXascn2jo1ij2njs" style={styles.productsNotAccessButton} onPress={() => alert("Maaf Anda Tidak Memiliki Hak Akses Revisi First Piece Foreman")} >
+										<Text> Revisi First Piece Foreman </Text>
+									</Button>
 								)
 							}
 						}
 						if(featureUser[i].qc_last_shoot_qc_leader != null){
 							if(featureUser[i].qc_last_shoot_qc_leader.view_permissions == true){
 								data.push(
-									<Button key="askdmkwqw" style={styles.productsButton} onPress={() => navigation.navigate('LastShootLeaderQc', {
+									<Button key="askdmkwqw" style={styles.dailyInspectionButton} onPress={() => navigation.navigate('LastShootLeaderQc', {
 										qc_daily_inspection_id: qc_daily_inspection_id,
 										qc_daily_inspection_item_id: qc_daily_inspection_item_id,
 										qc_daily_inspection_method_i: qc_daily_inspection_method_id,
@@ -162,12 +189,18 @@ const ListForm = ({route, navigation}) => {
 										<Text> Last Shoot Leader QC </Text>   
 									</Button>
 								)
+							}else{
+								data.push(
+									<Button key="askdmkwqw" style={styles.productsNotAccessButton} onPress={() => alert("Maaf Anda Tidak Memiliki Hak Akses Last Shoot Leader QC")} >
+										<Text> Last Shoot Leader QC </Text>   
+									</Button>
+								)
 							}
 						}
 						if(featureUser[i].qc_last_shoot_foreman != null){
 							if(featureUser[i].qc_last_shoot_foreman.view_permissions == true){
 								data.push(
-									<Button key="askdmasqwewkwqw" style={styles.productsButton} onPress={() => navigation.navigate('LastShootForeman', {
+									<Button key="askdmasqwewkwqw" style={styles.dailyInspectionButton} onPress={() => navigation.navigate('LastShootForeman', {
 										qc_daily_inspection_id: qc_daily_inspection_id,
 										sys_plant_id: sys_plant_id,
 										daily_inspection_number: daily_inspection_number,
@@ -180,6 +213,64 @@ const ListForm = ({route, navigation}) => {
 										yesterday: yesterday
 									})} >
 										<Text> Last Shoot Foreman </Text>   
+									</Button>
+								)
+							}else{
+								data.push(
+									<Button key="askdmasqwewkwqw" style={styles.productsNotAccessButton} onPress={() => alert("Maaf Anda Tidak Memiliki Hak Akses Last Shoot Leader Foreman")} >
+										<Text> Last Shoot Foreman </Text>   
+									</Button>
+								)
+							}
+						}
+						if(featureUser[i].qc_masspro_qc_leader != null){
+							if(featureUser[i].qc_masspro_qc_leader.view_permissions == true && user == 32008107 || user == 21410012){
+								data.push(
+									<Button key="AscvSacx" style={styles.dailyInspectionButton} onPress={() => navigation.navigate('UpdateQCLeader', {
+										qc_daily_inspection_id: qc_daily_inspection_id,
+										sys_plant_id: sys_plant_id,
+										daily_inspection_number: daily_inspection_number,
+										product_name: product_name,
+										machine_id: machine_id,
+										customer_name: customer_name,
+										machine_name: machine_name,
+										today: today,
+										machine_number: machine_number,
+										yesterday: yesterday
+									})} >
+										<Text> Update QC Leader </Text>   
+									</Button>	
+								)
+							}else{
+								data.push(
+									<Button key="AscvSacx" style={styles.productsNotAccessButton} onPress={() => alert("Maaf Anda Tidak Memiliki Hak Akses Update QC Leader")} >
+										<Text> Update QC Leader </Text>   
+									</Button>	
+								)
+							}
+						}
+						if(featureUser[i].qc_masspro_foreman != null){
+							if(featureUser[i].qc_masspro_foreman.view_permissions == true && user == 32008107 || user == 21410012){
+								data.push(
+									<Button key="XcxzAsd" style={styles.dailyInspectionButton} onPress={() => navigation.navigate('UpdateForemanLeader', {
+										sys_plant_id: sys_plant_id,
+										daily_inspection_number: daily_inspection_number,
+										product_name: product_name,
+										machine_id: machine_id,
+										customer_name: customer_name,
+										customer_part_number: customer_part_number,
+										machine_name: machine_name,
+										today: today,
+										machine_number: machine_number,
+										yesterday: yesterday
+									})} >
+										<Text> Update Foreman Leader </Text>
+									</Button>
+								)
+							}else{
+								data.push(
+									<Button key="XcxzAsd" style={styles.productsNotAccessButton} onPress={() => alert("Maaf Anda Tidak Memiliki Hak Akses Foreman Leader")} >
+										<Text> Update Foreman Leader </Text>
 									</Button>
 								)
 							}
