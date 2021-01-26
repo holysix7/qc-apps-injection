@@ -21,6 +21,9 @@ import LastShootLeaderQc from './Qc/Form/LastShootLeaderQc';
 import LastShootForeman from './Qc/Form/LastShootForeman';
 import Profile from './Qc/Profile';
 import OQC from './Qc/OQC';
+import Scanner from './Qc/OQC/Scanner';
+import UpdateQCLeader from './Qc/Update/UpdateQCLeader';
+import UpdateForemanLeader from './Qc/Update/UpdateForemanLeader';
 
 export {
     SplashScreen,
@@ -45,5 +48,8 @@ export {
     LastShootLeaderQc,
     LastShootForeman,
     Profile,
-    OQC
+    OQC,
+    UpdateQCLeader,
+    UpdateForemanLeader,
+    Scanner
 }

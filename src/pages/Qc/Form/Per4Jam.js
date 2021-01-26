@@ -5,6 +5,7 @@ import LogoSIP from '../../../assets/logo-sip370x50.png';
 import AsyncStorage from "@react-native-community/async-storage";
 import moment from 'moment';
 import Axios from 'axios';
+import app_version from '../../app_version/index';
 
 const Per4Jam = ({route, navigation}) => {
 	const {qc_daily_inspection_id, qc_daily_inspection_method_id, sys_plant_id, product_name, customer_name, machine_id, machine_number, machine_name, today, yesterday, daily_inspection_number} = route.params
@@ -100,10 +101,7 @@ const Per4Jam = ({route, navigation}) => {
 	const [note18, setKeterangan18] 																	 	 = useState("")
 
 	const [cavityDetail, setCavityDetail] = useState("")
-	const [qc_daily_inspection_item_id, setqc_daily_inpspection_item_id] = useState("")
-	const [internal_part_id, setInternalPartId] 												 = useState("")
-	const [customer_part_number, setCustomerPartNumber] 								 = useState("")
-	const [model, setModel] 																						 = useState("")
+	const [qc_daily_inspection_item_id, setqc_daily_inspection_item_id]  = useState("")
 	const [created_by, setCreatedBy]																		 = useState("")
 	let created_at 																											 = moment().format("YYYY-MM-DD HH:mm:ss")
 	const [updated_by, setUpdatedBy]																		 = useState("")
@@ -115,14 +113,12 @@ const Per4Jam = ({route, navigation}) => {
 	const [data, setData] = useState("");
 	const [daily_inspection, setDaily] = useState("");
 	const date = []
-	if(today != null)
-	{
+	if(today != null){
 		date.push(
 			<Text key={"key"} style={{marginTop: 1, fontWeight: 'bold', fontSize: 17}}>{today}</Text>
 		)
 	}
-	if(yesterday != null)
-	{
+	if(yesterday != null){
 		date.push(
 			<Text key={"key"} style={{marginTop: 1, fontWeight: 'bold', fontSize: 17}}>{yesterday}</Text>
 		)
@@ -139,8 +135,7 @@ const Per4Jam = ({route, navigation}) => {
 		setUpdatedBy(id)
 
 		let jam = moment().format("HH:mm:ss")
-		if(parseInt(jam) >= 8 && parseInt(jam) <= 15)
-		{
+		if(parseInt(jam) >= 8 && parseInt(jam) <= 15){
 			const nilaiJam = parseInt(jam)
 			setShift(2)
 			setHours(nilaiJam)
@@ -152,7 +147,8 @@ const Per4Jam = ({route, navigation}) => {
 				machine_id: machine_id,
 				hrd_work_shift_id: fixShift,
 				hours: parseInt(jam),
-				qc_daily_inspection_id: qc_daily_inspection_id
+				qc_daily_inspection_id: qc_daily_inspection_id,
+				app_version: app_version
 			}
 			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 			.then(response => {
@@ -161,10 +157,7 @@ const Per4Jam = ({route, navigation}) => {
 				setupdateInspectionTime(response.data.data.daily_inspection.inspection_time)
 				setCavityCheck(response.data.data.daily_inspection.cavity)
 				setCavityDetail(response.data.data.cavity_detail)
-				setqc_daily_inpspection_item_id(response.data.data.daily_inspection.qc_daily_inpspection_item_id)
-				setInternalPartId(response.data.data.daily_inspection.internal_part_id)
-				setCustomerPartNumber(response.data.data.daily_inspection.customer_part_number)
-				setModel(response.data.data.daily_inspection.model)
+				setqc_daily_inspection_item_id(response.data.data.daily_inspection.qc_daily_inspection_item_id)
 				setTooling(response.data.data.daily_inspection.tooling_num)
 				setDaily(response.data.data.daily_inspection)
 				console.log("List Data Per 4 Jam: ", response.data.status, "OK")
@@ -184,7 +177,8 @@ const Per4Jam = ({route, navigation}) => {
 				machine_id: machine_id,
 				hrd_work_shift_id: fixShift,
 				hours: parseInt(jam),
-				qc_daily_inspection_id: qc_daily_inspection_id
+				qc_daily_inspection_id: qc_daily_inspection_id,
+				app_version: app_version
 			}
 			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 			.then(response => {
@@ -193,11 +187,8 @@ const Per4Jam = ({route, navigation}) => {
 				setupdateInspectionTime(response.data.data.daily_inspection.inspection_time)
 				setCavityCheck(response.data.data.daily_inspection.cavity)
 				setCavityDetail(response.data.data.cavity_detail)
-				setqc_daily_inpspection_item_id(response.data.data.daily_inspection.qc_daily_inpspection_item_id)
-				setqc_daily_inpspection_item_id(response.data.data.daily_inspection.qc_daily_inpspection_item_id)
-				setInternalPartId(response.data.data.daily_inspection.internal_part_id)
-				setCustomerPartNumber(response.data.data.daily_inspection.customer_part_number)
-				setModel(response.data.data.daily_inspection.model)
+				setqc_daily_inspection_item_id(response.data.data.daily_inspection.qc_daily_inspection_item_id)
+				setqc_daily_inspection_item_id(response.data.data.daily_inspection.qc_daily_inspection_item_id)
 				setTooling(response.data.data.daily_inspection.tooling_num)
 				setDaily(response.data.data.daily_inspection)
 				console.log("List Data Per 4 Jam: ", response.data.status, "OK")
@@ -217,7 +208,8 @@ const Per4Jam = ({route, navigation}) => {
 				machine_id: machine_id,
 				hrd_work_shift_id: fixShift,
 				hours: parseInt(jam),
-				qc_daily_inspection_id: qc_daily_inspection_id
+				qc_daily_inspection_id: qc_daily_inspection_id,
+				app_version: app_version
 			}
 			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 			.then(response => {
@@ -226,11 +218,8 @@ const Per4Jam = ({route, navigation}) => {
 				setupdateInspectionTime(response.data.data.daily_inspection.inspection_time)
 				setCavityCheck(response.data.data.daily_inspection.cavity)
 				setCavityDetail(response.data.data.cavity_detail)
-				setqc_daily_inpspection_item_id(response.data.data.daily_inspection.qc_daily_inpspection_item_id)
-				setqc_daily_inpspection_item_id(response.data.data.daily_inspection.qc_daily_inpspection_item_id)
-				setInternalPartId(response.data.data.daily_inspection.internal_part_id)
-				setCustomerPartNumber(response.data.data.daily_inspection.customer_part_number)
-				setModel(response.data.data.daily_inspection.model)
+				setqc_daily_inspection_item_id(response.data.data.daily_inspection.qc_daily_inspection_item_id)
+				setqc_daily_inspection_item_id(response.data.data.daily_inspection.qc_daily_inspection_item_id)
 				setTooling(response.data.data.daily_inspection.tooling_num)
 				setDaily(response.data.data.daily_inspection)
 				console.log("List Data Per 4 Jam: ", response.data.status, "OK")
@@ -351,8 +340,6 @@ const Per4Jam = ({route, navigation}) => {
 			"note": note18
 		},
 	}
-
-	const app_version = "0.8.5"
 	const submit = async() => {
 		setLoading(false)
 		const el = {
@@ -367,13 +354,13 @@ const Per4Jam = ({route, navigation}) => {
 			created_at,
 			updated_by,
 			updated_at,
-			app_version
 		}
 		const token = await AsyncStorage.getItem("key")
 		const params = {
 			tbl: 'daily_inspection',
 			kind: 'update_4hour',
-			update_hour: sys_plant_id
+			update_hour: sys_plant_id,
+			app_version: app_version
 		}
 		var config = {
 			method: 'put',
@@ -419,7 +406,8 @@ const Per4Jam = ({route, navigation}) => {
 					machine_id: machine_id,
 					hrd_work_shift_id: fixShift,
 					hours: parseInt(value),
-					qc_daily_inspection_id: qc_daily_inspection_id
+					qc_daily_inspection_id: qc_daily_inspection_id,
+					app_version: app_version
 				}
 				Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 				.then(response => {
@@ -428,10 +416,7 @@ const Per4Jam = ({route, navigation}) => {
 					setupdateInspectionTime(response.data.data.daily_inspection.inspection_time)
 					setCavityCheck(response.data.data.daily_inspection.cavity)
 					setCavityDetail(response.data.data.cavity_detail)
-					setqc_daily_inpspection_item_id(response.data.data.daily_inspection.qc_daily_inpspection_item_id)
-					setInternalPartId(response.data.data.daily_inspection.internal_part_id)
-					setCustomerPartNumber(response.data.data.daily_inspection.customer_part_number)
-					setModel(response.data.data.daily_inspection.model)
+					setqc_daily_inspection_item_id(response.data.data.daily_inspection.qc_daily_inspection_item_id)
 					setTooling(response.data.data.daily_inspection.tooling_num)
 					setDaily(response.data.data.daily_inspection)
 					console.log("List Data Per 4 Jam: ", response.data.status, "OK")
@@ -449,7 +434,8 @@ const Per4Jam = ({route, navigation}) => {
 					machine_id: machine_id,
 					hrd_work_shift_id: fixShift,
 					hours: parseInt(value),
-					qc_daily_inspection_id: qc_daily_inspection_id
+					qc_daily_inspection_id: qc_daily_inspection_id,
+					app_version: app_version
 				}
 				Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 				.then(response => {
@@ -458,10 +444,7 @@ const Per4Jam = ({route, navigation}) => {
 					setupdateInspectionTime(response.data.data.daily_inspection.inspection_time)
 					setCavityCheck(response.data.data.daily_inspection.cavity)
 					setCavityDetail(response.data.data.cavity_detail)
-					setqc_daily_inpspection_item_id(response.data.data.daily_inspection.qc_daily_inpspection_item_id)
-					setInternalPartId(response.data.data.daily_inspection.internal_part_id)
-					setCustomerPartNumber(response.data.data.daily_inspection.customer_part_number)
-					setModel(response.data.data.daily_inspection.model)
+					setqc_daily_inspection_item_id(response.data.data.daily_inspection.qc_daily_inspection_item_id)
 					setTooling(response.data.data.daily_inspection.tooling_num)
 					setDaily(response.data.data.daily_inspection)
 					console.log("List Data Per 4 Jam: ", response.data.status, "OK")
@@ -479,7 +462,8 @@ const Per4Jam = ({route, navigation}) => {
 					machine_id: machine_id,
 					hrd_work_shift_id: fixShift,
 					hours: parseInt(value),
-					qc_daily_inspection_id: qc_daily_inspection_id
+					qc_daily_inspection_id: qc_daily_inspection_id,
+					app_version: app_version
 				}
 				Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 				.then(response => {
@@ -488,10 +472,7 @@ const Per4Jam = ({route, navigation}) => {
 					setupdateInspectionTime(response.data.data.daily_inspection.inspection_time)
 					setCavityCheck(response.data.data.daily_inspection.cavity)
 					setCavityDetail(response.data.data.cavity_detail)
-					setqc_daily_inpspection_item_id(response.data.data.daily_inspection.qc_daily_inpspection_item_id)
-					setInternalPartId(response.data.data.daily_inspection.internal_part_id)
-					setCustomerPartNumber(response.data.data.daily_inspection.customer_part_number)
-					setModel(response.data.data.daily_inspection.model)
+					setqc_daily_inspection_item_id(response.data.data.daily_inspection.qc_daily_inspection_item_id)
 					setTooling(response.data.data.daily_inspection.tooling_num)
 					setDaily(response.data.data.daily_inspection)
 					console.log("List Data Per 4 Jam: ", response.data.status, "OK")

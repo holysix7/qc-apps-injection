@@ -1,15 +1,16 @@
-import React, {useState} from 'react';
-import {View, Image, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, ActivityIndicator} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {View, Image, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, ActivityIndicator, BackHandler, Alert} from 'react-native';
 import LogoSIP from '../../assets/logo-sip3.png';
 import {Container, Button, Text, Form, Item, Label, Input} from "native-base";
 import GeneralStatusBarColor from '../../components/GeneralStatusBarColor';
-import Axios from 'axios';
-import DeviceStorage from './DeviceStorage';
-import Session from './Session';
+import Auth from '../API/Auth';
 import styles from "../../components/styles/Styling";
+import Axios from 'axios';
+import DeviceStorage from '../Login/DeviceStorage';
+import Session from '../Login/Session';
+import app_version from '../app_version/index';
 
 const Login = ({navigation}) => {
-	//Form
 	const [user, setUser] = useState("");
 	const [password, setPassword] = useState("");
 	const [loading, setLoading] = useState(true)
@@ -18,28 +19,36 @@ const Login = ({navigation}) => {
 		setLoading(false)
 		const data = {
 			user,
-			password
+			password,
+			app_version,
 		}
-		try {
-			Axios.post('https://api.tri-saudara.com/signin', data)
-			.then(res => {
+		Axios.post('https://api.tri-saudara.com/signin', data)
+		.then(res => {
+			if (res.data.data.current_version == app_version) {
 				setLoading(true)
 				DeviceStorage(res.data.data.token)
 				Session(res.data.data)
 				console.log("Login Success!")
 				navigation.replace('Qc')
 				alert("Login Success!")
-			}).catch((err) => {
-				console.log("Login: ", err)
+			}else{
 				setLoading(true)
-				alert("Login Failed!")
-			})
-		} catch (error) {
+				Alert.alert(
+					"Info",
+					"Tolong Segera Perbarui App",
+					[
+						{ text: "OK", onPress: () => BackHandler.exitApp() }
+					],
+					{ cancelable: false }
+				);
+			}
+		}).catch((err) => {
 			setLoading(true)
-			console.log("Login: ", error)
-			alert("Login Failed! Network Error")
-		}
+			alert(err)
+			console.log("Login: ", err)
+		})
 	}
+
 
 	const content = () => {
 		var data = []

@@ -5,6 +5,7 @@ import LogoSIP from '../../../assets/logo-sip370x50.png';
 import AsyncStorage from "@react-native-community/async-storage";
 import moment from 'moment';
 import Axios from 'axios';
+import app_version from '../../app_version/index';
 
 const PerShift = ({route, navigation}) => {
 	const {qc_daily_inspection_id, qc_daily_inspection_method_id, sys_plant_id, product_name, customer_name, machine_id, machine_number, machine_name, today, yesterday, daily_inspection_number} = route.params
@@ -75,10 +76,8 @@ const PerShift = ({route, navigation}) => {
 	const [internal_part_id, setInternalPartId] = useState("")
 	const [customer_part_number, setCustomerPartNumber] = useState("")
 	const [model, setModel] = useState("")
-	const [data1, setData1] = useState("")
 	const [dataCavity, setDataCavity] = useState(null)
 
-	const [cavityCheck, setCavityCheck] 			= useState("")
 	const [qc_daily_inspection_item_id, setqc_daily_inspection_item_id] 			= useState(0)
 	const [weightStandard, setWeightStandard] = useState(0)
 	const [tooling_num, setTooling] 					= useState(null)
@@ -87,7 +86,6 @@ const PerShift = ({route, navigation}) => {
 	const [data, setData] 										= useState([]);
 	const [hours, setHours]		  							= useState(0)
 	const [shift, setShift]		  							= useState(1)
-	const [checkCavityIF, setCheckCavity]		  = useState(null)
 	let created_at 														= moment().format("YYYY-MM-DD HH:mm:ss")
 	let updated_at 														= moment().format("YYYY-MM-DD HH:mm:ss")
 	const [created_by, setCreatedBy]		  		= useState("")
@@ -137,7 +135,8 @@ const PerShift = ({route, navigation}) => {
 				machine_id: machine_id,
 				hrd_work_shift_id: fixShift,
 				hours: parseInt(jam),
-				qc_daily_inspection_id: qc_daily_inspection_id
+				qc_daily_inspection_id: qc_daily_inspection_id,
+				app_version: app_version
 			}
 			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 			.then(response => {
@@ -145,11 +144,10 @@ const PerShift = ({route, navigation}) => {
 				setData(response.data.data)
 				setinspection_timeupdate(response.data.data.daily_inspection.inspection_time)
 				setCavityDetail(response.data.data.cavity_detail)
-				setqc_daily_inspection_item_id(response.data.data.daily_inspection.qc_daily_inpspection_item_id)
+				setqc_daily_inspection_item_id(response.data.data.daily_inspection.qc_daily_inspection_item_id)
 				setInternalPartId(response.data.data.daily_inspection.internal_part_id)
 				setCustomerPartNumber(response.data.data.daily_inspection.customer_part_number)
 				setModel(response.data.data.daily_inspection.model)
-				setData1(response.data.data.daily_inspection)
 				setTooling(response.data.data.daily_inspection.tooling_num)
 				setDataCavity(response.data.data.daily_inspection.cavity)
 				setWeightStandard(response.data.data.product_weight)
@@ -170,7 +168,8 @@ const PerShift = ({route, navigation}) => {
 				machine_id: machine_id,
 				hrd_work_shift_id: fixShift,
 				hours: parseInt(jam),
-				qc_daily_inspection_id: qc_daily_inspection_id
+				qc_daily_inspection_id: qc_daily_inspection_id,
+				app_version: app_version
 			}
 			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 			.then(response => {
@@ -178,11 +177,10 @@ const PerShift = ({route, navigation}) => {
 				setData(response.data.data)
 				setinspection_timeupdate(response.data.data.daily_inspection.inspection_time)
 				setCavityDetail(response.data.data.cavity_detail)
-				setqc_daily_inspection_item_id(response.data.data.daily_inspection.qc_daily_inpspection_item_id)
+				setqc_daily_inspection_item_id(response.data.data.daily_inspection.qc_daily_inspection_item_id)
 				setInternalPartId(response.data.data.daily_inspection.internal_part_id)
 				setCustomerPartNumber(response.data.data.daily_inspection.customer_part_number)
 				setModel(response.data.data.daily_inspection.model)
-				setData1(response.data.data.daily_inspection)
 				setTooling(response.data.data.daily_inspection.tooling_num)
 				setDataCavity(response.data.data.daily_inspection.cavity)
 				setWeightStandard(response.data.data.product_weight)
@@ -203,7 +201,8 @@ const PerShift = ({route, navigation}) => {
 				machine_id: machine_id,
 				hrd_work_shift_id: fixShift,
 				hours: parseInt(jam),
-				qc_daily_inspection_id: qc_daily_inspection_id
+				qc_daily_inspection_id: qc_daily_inspection_id,
+				app_version: app_version
 			}
 			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 			.then(response => {
@@ -211,12 +210,10 @@ const PerShift = ({route, navigation}) => {
 				setData(response.data.data)
 				setinspection_timeupdate(response.data.data.daily_inspection.inspection_time)
 				setCavityDetail(response.data.data.cavity_detail)
-				setqc_daily_inspection_item_id(response.data.data.daily_inspection.qc_daily_inpspection_item_id)
+				setqc_daily_inspection_item_id(response.data.data.daily_inspection.qc_daily_inspection_item_id)
 				setInternalPartId(response.data.data.daily_inspection.internal_part_id)
 				setCustomerPartNumber(response.data.data.daily_inspection.customer_part_number)
 				setModel(response.data.data.daily_inspection.model)
-				setData1(response.data.data.daily_inspection)
-				setCheckCavity(response.data.data.daily_inspection.cavity)
 				setTooling(response.data.data.daily_inspection.tooling_num)
 				setDataCavity(response.data.data.daily_inspection.cavity)
 				setWeightStandard(response.data.data.product_weight)
@@ -246,7 +243,8 @@ const PerShift = ({route, navigation}) => {
 					machine_id: machine_id,
 					hrd_work_shift_id: 2,
 					hours: parseInt(value),
-					qc_daily_inspection_id: qc_daily_inspection_id
+					qc_daily_inspection_id: qc_daily_inspection_id,
+					app_version: app_version
 				}
 				Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 				.then(response => {
@@ -254,8 +252,7 @@ const PerShift = ({route, navigation}) => {
 					setData(response.data.data)
 					setinspection_timeupdate(response.data.data.daily_inspection.inspection_time)
 					setCavityDetail(response.data.data.cavity_detail)
-					setqc_daily_inspection_item_id(response.data.data.daily_inspection.qc_daily_inpspection_item_id)
-					setCavityCheck(response.data.data.daily_inspection.cavity)
+					setqc_daily_inspection_item_id(response.data.data.daily_inspection.qc_daily_inspection_item_id)
 					setTooling(response.data.data.daily_inspection.tooling_num)
 					setDataCavity(response.data.data.daily_inspection.cavity)
 					setWeightStandard(response.data.data.product_weight)
@@ -272,7 +269,8 @@ const PerShift = ({route, navigation}) => {
 					machine_id: machine_id,
 					hrd_work_shift_id: 3,
 					hours: parseInt(value),
-					qc_daily_inspection_id: qc_daily_inspection_id
+					qc_daily_inspection_id: qc_daily_inspection_id,
+					app_version: app_version
 				}
 				Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 				.then(response => {
@@ -280,8 +278,7 @@ const PerShift = ({route, navigation}) => {
 					setData(response.data.data)
 					setinspection_timeupdate(response.data.data.daily_inspection.inspection_time)
 					setCavityDetail(response.data.data.cavity_detail)
-					setqc_daily_inspection_item_id(response.data.data.daily_inspection.qc_daily_inpspection_item_id)
-					setCavityCheck(response.data.data.daily_inspection.cavity)
+					setqc_daily_inspection_item_id(response.data.data.daily_inspection.qc_daily_inspection_item_id)
 					setTooling(response.data.data.daily_inspection.tooling_num)
 					setDataCavity(response.data.data.daily_inspection.cavity)
 					setWeightStandard(response.data.data.product_weight)
@@ -298,7 +295,8 @@ const PerShift = ({route, navigation}) => {
 					machine_id: machine_id,
 					hrd_work_shift_id: 4,
 					hours: parseInt(value),
-					qc_daily_inspection_id: qc_daily_inspection_id
+					qc_daily_inspection_id: qc_daily_inspection_id,
+					app_version: app_version
 				}
 				Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 				.then(response => {
@@ -306,8 +304,7 @@ const PerShift = ({route, navigation}) => {
 					setData(response.data.data)
 					setinspection_timeupdate(response.data.data.daily_inspection.inspection_time)
 					setCavityDetail(response.data.data.cavity_detail)
-					setqc_daily_inspection_item_id(response.data.data.daily_inspection.qc_daily_inpspection_item_id)
-					setCavityCheck(response.data.data.daily_inspection.cavity)
+					setqc_daily_inspection_item_id(response.data.data.daily_inspection.qc_daily_inspection_item_id)
 					setTooling(response.data.data.daily_inspection.tooling_num)
 					setDataCavity(response.data.data.daily_inspection.cavity)
 					setWeightStandard(response.data.data.product_weight)
@@ -439,7 +436,6 @@ const PerShift = ({route, navigation}) => {
 		},
 
 	}
-	const app_version = "0.8.5"
 	const submit = async() => {
 		setLoading(false)
 		const el = {
@@ -454,14 +450,14 @@ const PerShift = ({route, navigation}) => {
 			created_by,
 			created_at,
 			updated_by,
-			updated_at,
-			app_version
+			updated_at
 		}
 		const token = await AsyncStorage.getItem("key")
 		const params = {
 			tbl: 'daily_inspection',
 			kind: 'update_shift',
-			update_hour: sys_plant_id
+			update_hour: sys_plant_id,
+			app_version: app_version
 		}
 		var config = {
 			method: 'put',

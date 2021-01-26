@@ -5,13 +5,14 @@ import LogoSIP from '../../../assets/logo-sip370x50.png';
 import AsyncStorage from "@react-native-community/async-storage";
 import Axios from 'axios';
 import moment from 'moment';
+import app_version from	'../../app_version/index';
 
 const MassproBeginMaintMold = ({route, navigation}) => {
 	useEffect(() => {
 		formOke()
 	}, [])
 
-	const {sys_plant_id, machine_id, customer_name, machine_name, today, machine_number} = route.params
+	const {sys_plant_id, machine_id, customer_name, machine_name, today, machine_number, eng_product_id} = route.params
 	const [mold_condition, setCondition] 	= useState("")
 	const [loading, setLoading] 					= useState(false)
 	const [neeple_cooling, setCooling] 		= useState("")
@@ -25,23 +26,21 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 	const [shift, setShift]		  					= useState(0)
 	const date 														= []
 	const [planningId, setPlanningId]		  = useState("")
-	const [eng_product_id, setEngId] 			= useState("")
 	const [internal_part_id, setDataIPI] 	= useState("")
 	const [cavityAmount, setCavMount] 		= useState("")
 	const prod_machine_id 								= machine_id
 	const status 													= "new"
 	let created_at 												= moment().format("YYYY-MM-DD HH:mm:ss")
 	let updated_at 												= moment().format("YYYY-MM-DD HH:mm:ss")
-	const [massProMM, setMassProMM]		  	= useState("")
+	const [massProMM, setMassProMM]		  	= useState(null)
 	const [massMold, setMassMold]		  		= useState("")
 	const [massNeeple, setMassNeeple]		  = useState("")
 	const [massStandard, setMassStandard]	= useState("")
 	const [massRemark, setMassRemark]		  = useState("")
 	const [massTooling, setMassTooling]		= useState("")
-	const [massIPI, setMassIPI]		  = useState("")
+	const [massIPI, setMassIPI]		  			= useState("")
 
 	const planning_id = parseInt(planningId)
-	const app_version = "0.8.5"
 	
 	const submit = async() => {
 		if(tooling != null){
@@ -61,14 +60,14 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 				created_by,
 				created_at,
 				updated_by,
-				updated_at,
-				app_version
+				updated_at
 			}
 			const token = await AsyncStorage.getItem("key")
 			const params = {
 				tbl: 'daily_inspection',
 				kind: 'masspro_mm',
-				update_hour: sys_plant_id
+				update_hour: sys_plant_id,
+				app_version: app_version
 			}
 			var config = {
 				method: 'put',
@@ -87,7 +86,7 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 					console.log("Res: ", response.status, " Ok")
 					setLoading(true)
 					alert("Success Send Data!")
-					navigation.navigate('ListForm')
+					navigation.navigate('ShowPlanning')
 				})
 				.catch(function (error){
 					alert("Failed Send Data!")
@@ -129,13 +128,14 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 			tbl: 'daily_inspection',
 			kind: 'masspro_mm',
 			sys_plant_id: sys_plant_id,
-			machine_id: machine_id
+			machine_id: machine_id,
+			eng_product_id: eng_product_id,
+			app_version: app_version
 		}
 		Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 		.then(response => {
 			setLoading(true)
 			setDataProduct1(response.data.data.product_1_detail)
-			setEngId(response.data.data.product_1_detail.id)
 			setDataIPI(response.data.data.product_1_detail.internal_part_id)
 			setCavMount(response.data.data.product_1_detail.cavity)
 			setTooling(response.data.data.planning.tooling_1)
@@ -157,7 +157,6 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 		setHours(value)
 	}
 	const hString = hours.toString()
-
 	if(today != null)
 	{
 		date.push(
@@ -324,8 +323,7 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 	}
 	const remarkData = () => {
 		const updateRemark = massRemark
-		const mpmmData = null
-		// console.log(mpmmData)
+		const mpmmData = massProMM
 		const data = []
 		if(mpmmData != null){
 			if(updateRemark != null){
@@ -384,7 +382,7 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 		if(massProMM != null){
 			if(massTooling != null){
 				data.push(
-					<View key="ss12" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, width: 177}}>
+					<View key="ss12" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, width: 177, backgroundColor: '#b8b8b8'}}>
 						<Text>{massTooling != null ? massTooling : "-"}</Text>
 					</View>
 				)

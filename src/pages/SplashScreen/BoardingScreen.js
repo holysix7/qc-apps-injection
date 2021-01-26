@@ -6,15 +6,10 @@ import GeneralStatusBarColor from '../../components/GeneralStatusBarColor';
 import AsyncStorage from "@react-native-community/async-storage";
 
 const BoardingScreen = ({navigation}) => {
+	const [token, setToken] = useState(null)
 	useEffect(() => {
 		cekLogin()
 	}, [])
-
-	const handleGoTo = (screen) => {
-		navigation.replace(screen)
-	}
-
-	const [token, setToken] = useState(null)
 	
 	const cekLogin = async() => {
 		const isLogin = await AsyncStorage.getItem('key')
@@ -22,6 +17,7 @@ const BoardingScreen = ({navigation}) => {
 	}
 	
 	const buttonFix = () => {
+		// console.log(token)
 		if(token != null){
 			return (
 				<Button rounded info style={{marginTop: 10}} onPress={() => navigation.replace('Qc')}>

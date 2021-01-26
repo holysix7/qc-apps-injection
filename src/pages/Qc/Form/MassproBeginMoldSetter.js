@@ -5,12 +5,13 @@ import AsyncStorage from "@react-native-community/async-storage";
 import LogoSIP from '../../../assets/logo-sip370x50.png';
 import Axios from 'axios';
 import moment from 'moment';
+import app_version from	'../../app_version/index';
 
 const MassproBeginMoldSetter = ({route, navigation}) => {
 	useEffect(() => {
 		formOke()
 	}, [])
-	const {customer_name, sys_plant_id, machine_id, machine_number, machine_name, today} = route.params
+	const {customer_name, sys_plant_id, machine_id, machine_number, machine_name, today, eng_product_id} = route.params
 	const [clamping_bolt, setClamping] 																	= useState("")
 	const [cooling_system, setCooling] 																		= useState("")
 	const [limit_switch, setSlider] 																			= useState("")
@@ -21,7 +22,6 @@ const MassproBeginMoldSetter = ({route, navigation}) => {
 	const [created_by, setCreatedBy]																			= useState("")
 	const [updated_by, setUpdatedBy]																			= useState("")
 	const [data1, setData1]																								= useState("")
-	const [eng_product_id, setEngProd]																		= useState(0)
 	const [qc_masspro_main_mold_id, setMaintMoldId]												= useState(0)
 	const [qc_masspro_material_preparation_id, setMaterialPreparationId]	= useState(0)
 	const [hours, setHours]		  																					= useState(0)
@@ -44,7 +44,6 @@ const MassproBeginMoldSetter = ({route, navigation}) => {
 	const planning_id = parseInt(planningId)
 
 	const [loading, setLoading] = useState(false)
-	const app_version = "0.8.5"
 
 	const submit = async() => {
 		setLoading(false)
@@ -69,13 +68,13 @@ const MassproBeginMoldSetter = ({route, navigation}) => {
 			created_by,
 			created_at,
 			updated_by,
-			updated_at,
-			app_version
+			updated_at
 		}
 		const token = await AsyncStorage.getItem("key")
 		const params = {
 			tbl: 'daily_inspection',
-			kind: 'masspro_ms'
+			kind: 'masspro_ms',
+			app_version: app_version
 		}
 		var config = {
 			method: 'put',
@@ -92,11 +91,11 @@ const MassproBeginMoldSetter = ({route, navigation}) => {
 		.then(function (response){
 			setLoading(true)
 			console.log("Res: ", response.status, " Ok")
-			navigation.navigate('ListForm')
+			navigation.navigate('ShowPlanning')
 			alert("Success Send Data!")
 		})
 		.catch(function (error){
-			alert("Failed Send Data!")
+			alert("Failed Send Data! ", error)
 			console.log(error)
 		})
 	}
@@ -130,14 +129,15 @@ const MassproBeginMoldSetter = ({route, navigation}) => {
 			tbl: 'daily_inspection',
 			kind: 'masspro_ms',
 			sys_plant_id: sys_plant_id,
-			machine_id: machine_id
+			machine_id: machine_id,
+			app_version: app_version,
+			eng_product_id: eng_product_id
 		}
 		Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 		.then(response => {
 			setLoading(true)
 			setMaintMoldId(response.data.data.qc_masspro_main_mold_id)
 			setMaterialPreparationId(response.data.data.qc_masspro_material_preparation_id)
-			setEngProd(response.data.data.eng_product_id)
 			setData1(response.data.data.product_detail)
 			setIPI(response.data.data.product_detail.internal_part_id)
 			setTooling(response.data.data.tooling_num)

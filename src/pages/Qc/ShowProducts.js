@@ -7,6 +7,7 @@ import axios from 'axios';
 import { Container, Text, Button } from 'native-base';
 import moment from 'moment';
 import styles from '../../components/styles/Styling';
+import app_version from '../app_version/index';
 
 const ShowProducts = ({route, navigation}) => {
 	const {machine_id, machine_name, sys_plant_id, machine_number} = route.params
@@ -23,7 +24,8 @@ const ShowProducts = ({route, navigation}) => {
 				tbl: 'daily_inspection',
 				kind: 'by_machine',
 				sys_plant_id: sys_plant_id,
-				machine_id: machine_id
+				machine_id: machine_id,
+				app_version: app_version
 			}
 			try {
 				axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
@@ -161,15 +163,15 @@ const ShowProducts = ({route, navigation}) => {
 				</ScrollView>
 			</View>
 			{loading ? <View style={{height: 70,backgroundColor: '#F5F5DC' }}>
-				<View style={{justifyContent: 'center', alignItems: 'center'}}>
-					<TouchableOpacity onPress={() => navigation.navigate('ShowPlanning', {
+				<View style={{paddingHorizontal: 50, justifyContent: 'center', alignItems: 'center'}}>
+					<Button style={styles.productsButton} onPress={() => navigation.navigate('ShowPlanning', {
 						machine_id: machine_id, 
 						machine_name: machine_name,
 						machine_number: machine_number, 
 						sys_plant_id: sys_plant_id
 					})}>
-						<Image source={plusImage} style={{height: 70, width: 70}} />
-					</TouchableOpacity>
+						<Text>Masspro </Text>
+					</Button>
 				</View>
 			</View>
 		 : null }

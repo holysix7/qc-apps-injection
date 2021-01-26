@@ -1,18 +1,19 @@
 import {Image, View, ScrollView, TextInput, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, TouchableOpacity, ActivityIndicator} from 'react-native';
 import React, {useEffect, useState} from 'react';
-import { Container, Text, Button, Icon, Picker } from 'native-base';
+import { Container, Text, Button, Picker } from 'native-base';
 import LogoSIP from '../../../assets/logo-sip370x50.png';
 import checkImage from '../../../assets/check.png';
 import AsyncStorage from "@react-native-community/async-storage";
 import Axios from 'axios';
 import moment from 'moment';
+import app_version from '../../app_version/index';
 
 const MassproBeginForeman = ({route, navigation}) => {
 	useEffect(() => {
 		formOke()
 	}, [])
 
-	const {sys_plant_id, machine_id, customer_name, machine_number, machine_name, today} = route.params
+	const {sys_plant_id, machine_id, customer_name, machine_number, machine_name, today, eng_product_id} = route.params
 	const [tooling_num, setTooling] = useState("")
 	const [judgement, setKeputusan] = useState("")
 	const [remark, setRemark] 			= useState(null)
@@ -27,7 +28,6 @@ const MassproBeginForeman = ({route, navigation}) => {
 	const [qc_masspro_tech_injection_id, setTechId] 											= useState(null)
 	const [qc_masspro_prod_leader_id, setProdLeaderId] 										= useState(null)
 	const [qc_masspro_qc_leader_id, setQcLeaderId] 												= useState(null)
-	const [eng_product_id, setEngProd] 																		= useState(null)
 
 	const [qc_masspro_main_mold_status, setMaintMoldStatus] 		= useState("")
 	const [qc_masspro_material_preparation_status, setMaterial] = useState("")
@@ -58,7 +58,6 @@ const MassproBeginForeman = ({route, navigation}) => {
 	
 	const planning_id = parseInt(planningId)
 	const status 			= "approve"
-	const app_version = "0.8.5"
 	
 	const [loading, setLoading] = useState(false)
 
@@ -66,7 +65,6 @@ const MassproBeginForeman = ({route, navigation}) => {
 		setLoading(false)
 		if(qc_masspro_main_mold_status != null && qc_masspro_material_preparation_status != null && qc_masspro_mold_setter_status != null && qc_masspro_tech_injection_status != null && qc_masspro_prod_leader_status != null && qc_masspro_qc_leader_status){
 			const data = {
-				app_version,
 				sys_plant_id,
 				prod_machine_id,
 				eng_product_id,
@@ -97,7 +95,8 @@ const MassproBeginForeman = ({route, navigation}) => {
 			const token = await AsyncStorage.getItem("key")
 			const params = {
 				tbl: 'daily_inspection',
-				kind: 'masspro_fr'
+				kind: 'masspro_fr',
+				app_version: app_version
 			}
 			var config = {
 				method: 'put',
@@ -156,7 +155,9 @@ const MassproBeginForeman = ({route, navigation}) => {
 			tbl: 'daily_inspection',
 			kind: 'masspro_fr',
 			sys_plant_id: sys_plant_id,
-			machine_id: machine_id
+			machine_id: machine_id,
+			app_version: app_version,
+			eng_product_id: eng_product_id
 		}
 		Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 		.then(response => {
@@ -168,7 +169,6 @@ const MassproBeginForeman = ({route, navigation}) => {
 			setProdLeaderId(response.data.data.qc_masspro_prod_leader_id)
 			setQcLeaderId(response.data.data.qc_masspro_qc_leader_id)
 			setMachineStatus(response.data.data.machine_status)
-			setEngProd(response.data.data.eng_product_id)
 			setData1(response.data.data.product_detail)
 			setCavityData(response.data.data.product_detail.cavity)
 			setTooling(response.data.data.tooling_num)

@@ -5,6 +5,7 @@ import LogoSIP from '../../../assets/logo-sip370x50.png';
 import AsyncStorage from "@react-native-community/async-storage";
 import moment from 'moment';
 import Axios from 'axios';
+import app_version from '../../app_version/index';
 
 const LastShootLeaderQc = ({route, navigation}) => {
 	useEffect(() => {
@@ -168,7 +169,8 @@ const LastShootLeaderQc = ({route, navigation}) => {
 				machine_id: machine_id,
 				hrd_work_shift_id: 2,
 				hours: nilaiJam,
-				qc_daily_inspection_id: qc_daily_inspection_id
+				qc_daily_inspection_id: qc_daily_inspection_id,
+				app_version: app_version
 			}
 			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 			.then(response => {
@@ -198,7 +200,8 @@ const LastShootLeaderQc = ({route, navigation}) => {
 				machine_id: machine_id,
 				hrd_work_shift_id: 2,
 				hours: nilaiJam,
-				qc_daily_inspection_id: qc_daily_inspection_id
+				qc_daily_inspection_id: qc_daily_inspection_id,
+				app_version: app_version
 			}
 			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 			.then(response => {
@@ -228,7 +231,8 @@ const LastShootLeaderQc = ({route, navigation}) => {
 				machine_id: machine_id,
 				hrd_work_shift_id: 2,
 				hours: nilaiJam,
-				qc_daily_inspection_id: qc_daily_inspection_id
+				qc_daily_inspection_id: qc_daily_inspection_id,
+				app_version: app_version
 			}
 			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 			.then(response => {
@@ -431,7 +435,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 		}
 		return dataNGs
 	}
-	const app_version = "0.8.5"
+	const app_version = "0.8.9"
 	
 	const submit = async() => {
 		setLoading(false)
@@ -450,13 +454,13 @@ const LastShootLeaderQc = ({route, navigation}) => {
 			created_at,
 			updated_by,
 			updated_at,
-			remark,
-			app_version
+			remark
 		}
 		const token = await AsyncStorage.getItem("key")
 		const params = {
 			tbl: 'daily_inspection',
-			kind: 'last_shoot_qc'
+			kind: 'last_shoot_qc',
+			app_version: app_version
 		}
 		var config = {
 			method: 'put',

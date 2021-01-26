@@ -1,16 +1,26 @@
 import {Image, View, ScrollView, ActivityIndicator} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import LogoSIP from '../../assets/logo-sip370x50.png';
+import checklist from '../../assets/check.png';
 import AsyncStorage from "@react-native-community/async-storage";
 import axios from 'axios';
 import { Container, Text, Button } from 'native-base';
 import moment from 'moment';
 import styles from '../../components/styles/Styling';
+import app_version from '../app_version/index';
 
 const ShowPlanning = ({route, navigation}) => {
   const {machine_id, sys_plant_id, machine_number} = route.params
   const [data, setData] = useState([])
   const [planning, setDataPlanning] = useState(null)
+  const [productName, setProductName] = useState(null)
+  const [maintMoldId, setMaintMoldId] = useState(null)
+  const [materialId, setMaterialId] = useState(null)
+  const [moldSetterId, setMoldSetterId] = useState(null)
+  const [techInjecionId, setTechInjectionId] = useState(null)
+  const [prodLeader, setProdLeaderId] = useState(null)
+  const [qcLeaderId, setQcLeaderId] = useState(null)
+  const [foremandId, setForemanId] = useState(null)
   const [customer_name, setCustomerName] = useState(null)
   const [machine_name, setMachineName] = useState(null)
   const [featureUser, setFeature] = useState(null)
@@ -27,12 +37,21 @@ const ShowPlanning = ({route, navigation}) => {
 				tbl: 'daily_inspection',
 				kind: 'by_planning',
 				sys_plant_id: sys_plant_id,
-				machine_id: machine_id
+        machine_id: machine_id,
+        app_version: app_version
 			}
 			try {
 				axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 				.then(response => {
           setDataPlanning(response.data.data.product_1)
+          setProductName(response.data.data.product1_name)
+          setMaintMoldId(response.data.data.qc_masspro_main_mold_id)
+          setMaterialId(response.data.data.qc_masspro_material_preparation_id)
+          setMoldSetterId(response.data.data.qc_masspro_mold_setter_id)
+          setTechInjectionId(response.data.data.qc_masspro_tech_injection_id)
+          setProdLeaderId(response.data.data.qc_masspro_prod_leader_id)
+          setQcLeaderId(response.data.data.qc_masspro_qc_leader_id)
+          setForemanId(response.data.data.qc_masspro_foreman_id)
           setCustomerName(response.data.data.customer_name)
           setMachineName(response.data.data.machine_name)
 					setLoading(true)
@@ -70,33 +89,51 @@ const ShowPlanning = ({route, navigation}) => {
             if(featureUser[i].qc_masspro_main_mold != null){
               if(featureUser[i].qc_masspro_main_mold.view_permissions == true){
                 data.push(
-                  <Button key="ASoidjk2" style={styles.productsButton} onPress={() => navigation.navigate('MassproBeginMaintMold', {
-                  machine_id: machine_id,
-                  sys_plant_id: sys_plant_id,
-                  customer_name: customer_name,
-                  machine_name: machine_name,
-                  machine_number: machine_number,
-                  today: today,
-                  yesterday: yesterday
-                })} >
-                  <Text> Masspro Begin Maint. Mold </Text>   
-                </Button>
+                  <Button key="ASoidjk2" style={styles.massProButton} onPress={() => navigation.navigate('MassproBeginMaintMold', {
+                    machine_id: machine_id,
+                    sys_plant_id: sys_plant_id,
+                    customer_name: customer_name,
+                    machine_name: machine_name,
+                    machine_number: machine_number,
+                    eng_product_id: planning,
+                    today: today,
+                    yesterday: yesterday
+                  })}>
+                    <Text> Maint. Mold </Text>
+                    {maintMoldId ?  <Image source={checklist} style={{width: 30, height: 30, marginRight: 10}}/> : null}  
+                  </Button>
+                )
+              }else{
+                data.push(
+                  <Button key="ASoidjk2" style={styles.productsNotAccessButton} onPress={() => alert("Maaf Anda Tidak Memiliki Akses Ke Form Maint. Mold")}>
+                    <Text> Maint. Mold </Text>
+                    {maintMoldId ?  <Image source={checklist} style={{width: 30, height: 30, marginRight: 10}}/> : null}  
+                  </Button>
                 )
               }
             }
             if(featureUser[i].qc_masspro_material_preparation != null){
               if(featureUser[i].qc_masspro_material_preparation.view_permissions == true){
                 data.push(
-                  <Button key="asuiohdn2" style={styles.productsButton} onPress={() => navigation.navigate('MassproBeginMaterialPreparation', {
+                  <Button key="asuiohdn2" style={styles.massProButton} onPress={() => navigation.navigate('MassproBeginMaterialPreparation', {
                     machine_id: machine_id,
                     sys_plant_id: sys_plant_id,
                     customer_name: customer_name,
                     machine_name: machine_name,
                     machine_number: machine_number,
+                    eng_product_id: planning,
                     today: today,
                     yesterday: yesterday
                   })} >
-                    <Text> Masspro Begin Material Preparation </Text>   
+                    <Text> Material Preparation </Text>
+                    {materialId ?  <Image source={checklist} style={{width: 30, height: 30, marginRight: 10}}/> : null}  
+                  </Button>
+                )
+              }else{
+                data.push(
+                  <Button key="asuiohdn2" style={styles.productsNotAccessButton} onPress={() => alert("Maaf Anda Tidak Memiliki Akses Ke Form Tech. Injection")} >
+                    <Text> Material Preparation </Text>
+                    {materialId ?  <Image source={checklist} style={{width: 30, height: 30, marginRight: 10}}/> : null}  
                   </Button>
                 )
               }
@@ -104,16 +141,25 @@ const ShowPlanning = ({route, navigation}) => {
             if(featureUser[i].qc_masspro_mold_setter != null){
               if(featureUser[i].qc_masspro_mold_setter.view_permissions == true){
                 data.push(
-                  <Button key="asoidjm2kasd" style={styles.productsButton} onPress={() => navigation.navigate('MassproBeginMoldSetter', {
+                  <Button key="asoidjm2kasd" style={styles.massProButton} onPress={() => navigation.navigate('MassproBeginMoldSetter', {
                     machine_id: machine_id,
                     sys_plant_id: sys_plant_id,
                     customer_name: customer_name,
                     machine_name: machine_name,
                     machine_number: machine_number,
+                    eng_product_id: planning,
                     today: today,
                     yesterday: yesterday
-                  })} >
-                    <Text> Masspro Begin Mold Setter </Text>   
+                  })}>
+                    <Text> Mold Setter </Text>
+                    {moldSetterId != null ? <Image source={checklist} style={{width: 30, height: 30, marginRight: 10}}/> : null}
+                  </Button>
+                )
+              }else{
+                data.push(
+                  <Button key="asoidjm2kasd" style={styles.productsNotAccessButton} onPress={() => alert("Maaf Anda Tidak Memiliki Akses Ke Form Mold Setter")} >
+                    <Text> Mold Setter </Text> 
+                    {moldSetterId != null ? <Image source={checklist} style={{width: 30, height: 30, marginRight: 10}}/> : null}
                   </Button>
                 )
               }
@@ -121,16 +167,25 @@ const ShowPlanning = ({route, navigation}) => {
             if(featureUser[i].qc_masspro_tech_injection != null){
               if(featureUser[i].qc_masspro_tech_injection.view_permissions == true){
                 data.push(
-                  <Button key="askdmasjkd" style={styles.productsButton} onPress={() => navigation.navigate('MassproBeginTechInjection', {
+                  <Button key="askdmasjkd" style={styles.massProButton} onPress={() => navigation.navigate('MassproBeginTechInjection', {
                     machine_id: machine_id,
                     sys_plant_id,
                     customer_name: customer_name,
                     machine_name: machine_name,
                     machine_number: machine_number,
+                    eng_product_id: planning,
                     today: today,
                     yesterday: yesterday
                   })} >
-                    <Text> Masspro Begin Tech Injection</Text>   
+                    <Text> Tech Injection</Text> 
+                    {techInjecionId != null ? <Image source={checklist} style={{width: 30, height: 30, marginRight: 10}}/>    : null }
+                  </Button>
+                )
+              }else{
+                data.push(
+                  <Button key="askdmasjkd" style={styles.productsNotAccessButton} onPress={() => alert("Maaf Anda Tidak Memiliki Akses Ke Form Tech. Injection")} >
+                    <Text> Tech Injection</Text> 
+                    {techInjecionId != null ? <Image source={checklist} style={{width: 30, height: 30, marginRight: 10}}/> : null }
                   </Button>
                 )
               }
@@ -138,108 +193,186 @@ const ShowPlanning = ({route, navigation}) => {
             if(featureUser[i].qc_masspro_prod_leader != null){
               if(featureUser[i].qc_masspro_prod_leader.view_permissions == true){
                 data.push(
-                  <Button key="askdmaswq12sjkd" style={styles.productsButton} onPress={() => navigation.navigate('MassproBeginProdLeader', {
+                  <Button key="askdmaswq12sjkd" style={styles.massProButton} onPress={() => navigation.navigate('MassproBeginProdLeader', {
                     machine_id: machine_id,
                     sys_plant_id,
                     customer_name: customer_name,
                     machine_name: machine_name,
                     machine_number: machine_number,
+                    eng_product_id: planning,
                     today: today,
                     yesterday: yesterday
                   })} >
-                    <Text> Masspro Begin Prod. Leader </Text>   
+                    <Text> Prod. Leader </Text> 
+                    {prodLeader != null ? <Image source={checklist} style={{width: 30, height: 30, marginRight: 10}}/> : null}
                   </Button>
-                  
+                )
+              }else{
+                data.push(
+                  <Button key="askdmaswq12sjkd" style={styles.productsNotAccessButton} onPress={() => alert("Maaf Anda Tidak Memiliki Akses Ke Form Prod. Leader")} >
+                    <Text> Prod. Leader </Text> 
+                    {prodLeader != null ? <Image source={checklist} style={{width: 30, height: 30, marginRight: 10}}/> : null}
+                  </Button>
                 )
               }
             }
             if(featureUser[i].qc_masspro_qc_leader != null){
               if(featureUser[i].qc_masspro_qc_leader.view_permissions == true){
                 data.push(
-                  <Button key="asjnjqjwkn123" style={styles.productsButton} onPress={() => navigation.navigate('MassproBeginQCLeader', {
+                  <Button key="asjnjqjwkn123" style={styles.massProButton} onPress={() => navigation.navigate('MassproBeginQCLeader', {
                     machine_id: machine_id,
                     sys_plant_id,
                     customer_name: customer_name,
                     machine_name: machine_name,
                     machine_number: machine_number,
+                    eng_product_id: planning,
                     today: today,
                     yesterday: yesterday
                   })} >
-                    <Text> Masspro Begin QC. Leader </Text>   
+                    <Text> QC. Leader </Text> 
+                    {qcLeaderId != null ? <Image source={checklist} style={{width: 30, height: 30, marginRight: 10}}/> : null }
                   </Button>
-                  
+                )
+              }else{
+                data.push(
+                  <Button key="asjnjqjwkn123" style={styles.productsNotAccessButton} onPress={() => alert("Maaf Anda Tidak Memiliki Akses Ke Form QC. Leader")} >
+                    <Text> QC. Leader </Text> 
+                    {qcLeaderId != null ? <Image source={checklist} style={{width: 30, height: 30, marginRight: 10}}/> : null }
+                  </Button>
                 )
               }
             }
             if(featureUser[i].qc_masspro_foreman != null){
               if(featureUser[i].qc_masspro_foreman.view_permissions == true){
                 data.push(
-                  <Button key="asjasdq2njqjwkn123" style={styles.productsButton} onPress={() => navigation.navigate('MassproBeginForeman', {
+                  <Button key="asjasdq2njqjwkn123" style={styles.massProButton} onPress={() => navigation.navigate('MassproBeginForeman', {
                     machine_id: machine_id,
                     sys_plant_id,
                     customer_name: customer_name,
                     machine_name: machine_name,
                     machine_number: machine_number,
+                    eng_product_id: planning,
                     today: today,
                     yesterday: yesterday
                   })} >
-                    <Text> Masspro Begin Foreman </Text>   
-                  </Button>
-                  
+                    <Text> Foreman </Text> 
+                    {foremandId != null ? <Image source={checklist} style={{width: 30, height: 30, marginRight: 10}}/> : null}
+                  </Button> 
+                )
+              }else{
+                data.push(
+                  <Button key="asjasdq2njqjwkn123" style={styles.productsNotAccessButton} onPress={() => alert("Maaf Anda Tidak Memiliki Akses Ke Form Foreman")} >
+                    <Text> Foreman </Text> 
+                    {foremandId != null ? <Image source={checklist} style={{width: 30, height: 30, marginRight: 10}}/> : null}
+                  </Button> 
                 )
               }
             }
           }else{
-            if(featureUser[i].qc_masspro_main_mold.view_permissions == true){
-              data.push(
-                <Button key="ASoidjk2" style={styles.productsButton} onPress={() => alert("Tidak Ada Planning, Harap Hubungi PPIC")} >
-                <Text> Masspro Begin Maint. Mold </Text>   
-              </Button>
-              )
+            if(featureUser[i].qc_masspro_main_mold != null){
+              if(featureUser[i].qc_masspro_main_mold.view_permissions == true){
+                data.push(
+                  <Button key="ASoidjk2" style={styles.massProButton} onPress={() => alert("Tidak Ada Planning, Harap Hubungi PPIC")} >
+                    <Text> Maint. Mold </Text> 
+                  </Button>
+                )
+              }else{
+                data.push(
+                  <Button key="ASoidjk2" style={styles.productsNotAccessButton} onPress={() => alert("Tidak Ada Planning, Harap Hubungi PPIC")} >
+                    <Text> Maint. Mold </Text>   
+                  </Button>
+                )
+              }
             }
-            if(featureUser[i].qc_masspro_material_preparation.view_permissions == true){
-              data.push(
-                <Button key="asuiohdn2" style={styles.productsButton} onPress={() => alert("Tidak Ada Planning, Harap Hubungi PPIC")} >
-                  <Text> Masspro Begin Material Preparation </Text>   
-                </Button>
-              )
+            if(featureUser[i].qc_masspro_material_preparation != null){
+              if(featureUser[i].qc_masspro_material_preparation.view_permissions == true){
+                data.push(
+                  <Button key="asuiohdn2" style={styles.massProButton} onPress={() => alert("Tidak Ada Planning, Harap Hubungi PPIC")} >
+                    <Text> Material Preparation </Text>   
+                  </Button>
+                )
+              }else{
+                data.push(
+                  <Button key="asuiohdn2" style={styles.productsNotAccessButton} onPress={() => alert("Tidak Ada Planning, Harap Hubungi PPIC")} >
+                    <Text> Material Preparation </Text>   
+                  </Button>
+                )
+              }
             }
-            if(featureUser[i].qc_masspro_mold_setter.view_permissions == true){
-              data.push(
-                <Button key="asoidjm2kasd" style={styles.productsButton} onPress={() => alert("Tidak Ada Planning, Harap Hubungi PPIC")} >
-                  <Text> Masspro Begin Mold Setter </Text>   
-                </Button>
-              )
+            if(featureUser[i].qc_masspro_mold_setter != null){
+              if(featureUser[i].qc_masspro_mold_setter.view_permissions == true){
+                data.push(
+                  <Button key="asoidjm2kasd" style={styles.massProButton} onPress={() => alert("Tidak Ada Planning, Harap Hubungi PPIC")} >
+                    <Text> Mold Setter </Text>   
+                  </Button>
+                )
+              }else{
+                data.push(
+                  <Button key="asoidjm2kasd" style={styles.productsNotAccessButton} onPress={() => alert("Tidak Ada Planning, Harap Hubungi PPIC")} >
+                    <Text> Mold Setter </Text>   
+                  </Button>
+                )
+              }
             }
-            if(featureUser[i].qc_masspro_tech_injection.view_permissions == true){
-              data.push(
-                <Button key="askdmasjkd" style={styles.productsButton} onPress={() => alert("Tidak Ada Planning, Harap Hubungi PPIC")} >
-                  <Text> Masspro Begin Tech Injection</Text>   
-                </Button>
-              )
+            if(featureUser[i].qc_masspro_tech_injection != null){
+              if(featureUser[i].qc_masspro_tech_injection.view_permissions == true){
+                data.push(
+                  <Button key="askdmasjkd" style={styles.massProButton} onPress={() => alert("Tidak Ada Planning, Harap Hubungi PPIC")} >
+                    <Text> Tech Injection</Text>   
+                  </Button>
+                )
+              }else{
+                data.push(
+                  <Button key="askdmasjkd" style={styles.productsNotAccessButton} onPress={() => alert("Tidak Ada Planning, Harap Hubungi PPIC")} >
+                    <Text> Tech Injection</Text>   
+                  </Button>
+                )
+              }
             }
-            if(featureUser[i].qc_masspro_prod_leader.view_permissions == true){
-              data.push(
-                <Button key="askdmaswq12sjkd" style={styles.productsButton} onPress={() => alert("Tidak Ada Planning, Harap Hubungi PPIC")} >
-                  <Text> Masspro Begin Prod. Leader </Text>   
-                </Button>
-                
-              )
+            if(featureUser[i].qc_masspro_prod_leader != null){
+              if(featureUser[i].qc_masspro_prod_leader.view_permissions == true){
+                data.push(
+                  <Button key="askdmaswq12sjkd" style={styles.massProButton} onPress={() => alert("Tidak Ada Planning, Harap Hubungi PPIC")} >
+                    <Text> Prod. Leader </Text>   
+                  </Button>
+                )
+              }else{
+                data.push(
+                  <Button key="askdmaswq12sjkd" style={styles.productsNotAccessButton} onPress={() => alert("Tidak Ada Planning, Harap Hubungi PPIC")} >
+                    <Text> Prod. Leader </Text>   
+                  </Button>
+                )
+              }
             }
-            if(featureUser[i].qc_masspro_qc_leader.view_permissions == true){
-              data.push(
-                <Button key="asjnjqjwkn123" style={styles.productsButton} onPress={() => alert("Tidak Ada Planning, Harap Hubungi PPIC")} >
-                  <Text> Masspro Begin QC. Leader </Text>   
-                </Button>
-                
-              )
+            if(featureUser[i].qc_masspro_qc_leader != null){
+              if(featureUser[i].qc_masspro_qc_leader.view_permissions == true){
+                data.push(
+                  <Button key="asjnjqjwkn123" style={styles.massProButton} onPress={() => alert("Tidak Ada Planning, Harap Hubungi PPIC")} >
+                    <Text> QC. Leader </Text>   
+                  </Button>
+                )
+              }else{
+                data.push(
+                  <Button key="asjnjqjwkn123" style={styles.productsNotAccessButton} onPress={() => alert("Tidak Ada Planning, Harap Hubungi PPIC")} >
+                    <Text> QC. Leader </Text>   
+                  </Button> 
+                )
+              }
             }
-            if(featureUser[i].qc_masspro_foreman.view_permissions == true){
-              data.push(
-                <Button key="asjasdq2njqjwkn123" style={styles.productsButton} onPress={() => alert("Tidak Ada Planning, Harap Hubungi PPIC")} >
-                  <Text> Masspro Begin Foreman </Text>   
-                </Button>
-              )
+            if(featureUser[i].qc_masspro_foreman != null){
+              if(featureUser[i].qc_masspro_foreman.view_permissions == true){
+                data.push(
+                  <Button key="asjasdq2njqjwkn123" style={styles.massProButton} onPress={() => alert("Tidak Ada Planning, Harap Hubungi PPIC")} >
+                    <Text> Foreman </Text>   
+                  </Button>
+                )
+              }else{
+                data.push(
+                  <Button key="asjasdq2njqjwkn123" style={styles.productsNotAccessButton} onPress={() => alert("Tidak Ada Planning, Harap Hubungi PPIC")} >
+                    <Text> Foreman </Text>   
+                  </Button>
+                )
+              }
             }
           }
 				}
@@ -254,16 +387,23 @@ const ShowPlanning = ({route, navigation}) => {
 									.subtract(1, 'days')
 									.format('YYYY-MM-DD')
 
+  const headerContent = () => {
+    return (
+      <View style={styles.contentHeader}>
+        <Text style={styles.fontPlanning}>({machine_number}) - {machine_name}</Text>
+        {productName != null ? <Text style={styles.fontPlanning}>{productName}</Text> : <View style={styles.viewNoPlanning}><Text style={styles.fontNoPlanning}> - TIDAK ADA PLANNING - </Text></View>}
+        <Text style={styles.fontPlanning}>Create Daily Inspection By Masspro Begin </Text>
+      </View>
+    )
+  }
+
 	return(
 		<Container>
 			<View style={styles.headerWithBorder}>
 				<View style={styles.contentHeader}>
 					<Image source={LogoSIP}/>
 				</View>
-				<View style={styles.contentHeader}>
-					<Text style={styles.fontPlanning}>({machine_number}) - {machine_name}</Text>
-					<Text style={styles.fontPlanning}>Create Daily Inspection</Text>
-				</View>
+        {loading ? headerContent() : <View style={{justifyContent: 'center'}}><ActivityIndicator size="large" color="#0000ff"/></View>}
 			</View>
 			
 			<View style={styles.contentFullWithPadding}>

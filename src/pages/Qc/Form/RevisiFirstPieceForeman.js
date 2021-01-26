@@ -5,6 +5,7 @@ import LogoSIP from '../../../assets/logo-sip370x50.png';
 import AsyncStorage from "@react-native-community/async-storage";
 import moment from 'moment';
 import Axios from 'axios';
+import app_version from '../../app_version/index';
 
 const RevisiFirstPieceForeman = ({route, navigation}) => {
 	const {qc_daily_inspection_id, sys_plant_id, product_name, customer_name, machine_id, machine_number, machine_name, daily_inspection_number, today, yesterday} = route.params
@@ -73,7 +74,8 @@ const RevisiFirstPieceForeman = ({route, navigation}) => {
 				machine_id: machine_id,
 				hrd_work_shift_id: 2,
 				hours: nilaiJam,
-				qc_daily_inspection_id: qc_daily_inspection_id
+				qc_daily_inspection_id: qc_daily_inspection_id,
+				app_version: app_version
 			}
 			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 			.then(response => {
@@ -108,7 +110,8 @@ const RevisiFirstPieceForeman = ({route, navigation}) => {
 				machine_id: machine_id,
 				hrd_work_shift_id: 3,
 				hours: nilaiJam,
-				qc_daily_inspection_id: qc_daily_inspection_id
+				qc_daily_inspection_id: qc_daily_inspection_id,
+				app_version: app_version
 			}
 			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 			.then(response => {
@@ -143,7 +146,8 @@ const RevisiFirstPieceForeman = ({route, navigation}) => {
 				machine_id: machine_id,
 				hrd_work_shift_id: 4,
 				hours: nilaiJam,
-				qc_daily_inspection_id: qc_daily_inspection_id
+				qc_daily_inspection_id: qc_daily_inspection_id,
+				app_version: app_version
 			}
 			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 			.then(response => {
@@ -173,7 +177,6 @@ const RevisiFirstPieceForeman = ({route, navigation}) => {
 	const shiftFix = async(value) => {
 		setHours(value)
 	}
-	const app_version = "0.8.5"
 	
 	const submit = async() => {
 		setLoading(false)
@@ -192,13 +195,13 @@ const RevisiFirstPieceForeman = ({route, navigation}) => {
 			created_by,
 			created_at,
 			updated_by,
-			updated_at,
-			app_version
+			updated_at
 		}
 		const token = await AsyncStorage.getItem("key")
 		const params = {
 			tbl: 'daily_inspection',
-			kind: 'rev_first_piece_fr'
+			kind: 'rev_first_piece_fr',
+			app_version: app_version
 		}
 		// setLoading(true)
 		var config = {
