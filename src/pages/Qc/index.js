@@ -1,4 +1,4 @@
-import {View, ScrollView, ActivityIndicator, Image, TouchableOpacity} from 'react-native';
+import {View, ScrollView, ActivityIndicator, Image, Alert, BackHandler} from 'react-native';
 import React, {useState, useEffect } from 'react';
 import { Container, Text, Button, Picker} from 'native-base';
 import GeneralStatusBarColor from '../../components/GeneralStatusBarColor';
@@ -45,10 +45,28 @@ const Qc = ({navigation}) => {
         setData(response.data.data)
         console.log("Machines List Data: ", response.data.status, "OK")
       })
-      .catch(error => console.log('err: ', error))
+      .catch(error => {
+				Alert.alert(
+					"Info",
+					"Silahkan Login Kembali",
+					[
+						{ text: "OK", onPress: () => logout() }
+					],
+					{ cancelable: false }
+				);
+      })
     } catch (error) {
       console.log("Machines Lisst Data: ", error)
     }
+  }
+
+  const logout = async() => {
+    AsyncStorage.getAllKeys()
+    .then(keys => AsyncStorage.multiRemove(keys))
+    .then(() => {
+      navigation.replace('Login')
+      alert("Successfully Logout!")
+    })
   }
 
   const session = async () => {
