@@ -78,7 +78,7 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 					'Content-Type': 'application/json', 
 					'Cookie': '_denapi_session=ubcfq3AHCuVeTlxtg%2F1nyEa3Ktylg8nY1lIEPD7pgS3YAWwlKOxwA0S9pw7JhvZ2mNkrYl0j62wAWJWJZd7AbfolGuHCwXgEMeJH6EoLiQ%3D%3D--M%2BjBb0uJeHmOf%2B3o--%2F2Fjw57x0Fyr90Ec9FVibQ%3D%3D'
 				},
-			data : data
+				data : data
 			};
 			try {
 				Axios(config)
