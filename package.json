@@ -33,6 +33,7 @@
     "react-native-safe-area-context": "^3.1.8",
     "react-native-screens": "^2.11.0",
     "react-native-vector-icons": "^7.1.0",
+    "react-navigation-side-tabs": "0.0.7",
     "validate.js": "^0.13.1"
   },
   "devDependencies": {

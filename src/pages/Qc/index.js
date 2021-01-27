@@ -241,8 +241,6 @@ const Qc = ({navigation}) => {
       )
     }
 	}
-// asdasdasasdakdjailwjdailwjdlajdlasjdali
-  // if(loading)
   return (
     <Container>
       <View>

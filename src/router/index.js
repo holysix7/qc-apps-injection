@@ -35,12 +35,8 @@ const Router = () => {
 	return (
 		<Stack.Navigator initialRouteName="Home" screenOptions={({ route, navigation }) => ({
 			gestureEnabled: true,
-			cardOverlayEnabled: true,
 			headerStatusBarHeight:
-			navigation.dangerouslyGetState().routes.indexOf(route) > 0
-			? 0
-			: undefined,
-			
+			navigation.dangerouslyGetState().routes.indexOf(route) > 0 ? 0 : undefined,
 		})}>
 			<Stack.Screen name="SplashScreen" component={SplashScreen} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
 			<Stack.Screen name="BoardingScreen" component={BoardingScreen} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
@@ -64,11 +60,10 @@ const Router = () => {
 			<Stack.Screen name="RevisiFirstPieceForeman" component={RevisiFirstPieceForeman} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
 			<Stack.Screen name="LastShootLeaderQc" component={LastShootLeaderQc} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
 			<Stack.Screen name="LastShootForeman" component={LastShootForeman} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
-			
 			<Stack.Screen name="Scanner" component={Scanner} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
 			<Stack.Screen name="OQC" component={OQC} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
 			<Stack.Screen name="UpdateQCLeader" component={UpdateQCLeader} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
-			<Stack.Screen name="UpdateForemanLeader" component={UpdateForemanLeader} options={{headerShown: false}} />
+			<Stack.Screen name="UpdateForemanLeader" component={UpdateForemanLeader} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
 		</Stack.Navigator>
 	)
 }

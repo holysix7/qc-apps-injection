@@ -6,7 +6,7 @@ import styles from '../../components/styles/Styling';
 import AsyncStorage from "@react-native-community/async-storage";
 
 const ListForm = ({route, navigation}) => {
-	const {qc_daily_inspection_id, qc_daily_inspection_item_id, qc_daily_inspection_method_id, sys_plant_id, product_name, customer_name, customer_part_number, machine_id, machine_name, machine_status, operator_nik, operator_nik_2, leader_nik, foreman_nik, qc_process_nik, machine_number, today, yesterday, daily_inspection_number} = route.params
+	const {qc_daily_inspection_id, qc_daily_inspection_item_id, qc_daily_inspection_method_id, sys_plant_id, product_name, customer_name, customer_part_number, machine_id, machine_name, machine_status, operator_nik, operator_nik_2, leader_nik, foreman_nik, qc_process_nik, machine_number, today, yesterday, daily_inspection_number, doc_number} = route.params
   const [featureUser, setFeature] = useState(null);
   const [user, setUser] = useState(null);
 	const [loading, setLoading] = useState(false)
@@ -57,7 +57,8 @@ const ListForm = ({route, navigation}) => {
 											leader_nik: leader_nik, 
 											foreman_nik: foreman_nik,
 											qc_process_nik: qc_process_nik,
-											yesterday: yesterday
+											yesterday: yesterday,
+											doc_number: doc_number
 										})} >
 											<Text> Per Jam </Text>   
 										</Button>
@@ -74,7 +75,8 @@ const ListForm = ({route, navigation}) => {
 											machine_number: machine_number,
 											operator_nik: operator_nik, 
 											operator_nik_2: operator_nik_2, 
-											yesterday: yesterday
+											yesterday: yesterday,
+											doc_number: doc_number
 										})} >
 											<Text> Per 4 Jam </Text>   
 										</Button>
@@ -94,7 +96,8 @@ const ListForm = ({route, navigation}) => {
 											leader_nik: leader_nik, 
 											foreman_nik: foreman_nik,
 											qc_process_nik: qc_process_nik,
-											yesterday: yesterday
+											yesterday: yesterday,
+											doc_number: doc_number
 										})} >
 											<Text> Per Shift </Text>   
 										</Button>
@@ -130,7 +133,8 @@ const ListForm = ({route, navigation}) => {
 										machine_name: machine_name,
 										today: today,
 										machine_number: machine_number,
-										yesterday: yesterday
+										yesterday: yesterday,
+										doc_number: doc_number
 									})} >
 										<Text> Revisi First Piece Leader QC </Text>   
 									</Button>	
@@ -156,7 +160,8 @@ const ListForm = ({route, navigation}) => {
 										machine_name: machine_name,
 										today: today,
 										machine_number: machine_number,
-										yesterday: yesterday
+										yesterday: yesterday,
+										doc_number: doc_number
 									})} >
 										<Text> Revisi First Piece Foreman </Text>
 									</Button>
@@ -184,7 +189,8 @@ const ListForm = ({route, navigation}) => {
 										machine_name: machine_name,
 										today: today,
 										machine_number: machine_number,
-										yesterday: yesterday
+										yesterday: yesterday,
+										doc_number: doc_number
 									})} >
 										<Text> Last Shoot Leader QC </Text>   
 									</Button>
@@ -210,7 +216,8 @@ const ListForm = ({route, navigation}) => {
 										machine_name: machine_name,
 										today: today,
 										machine_number: machine_number,
-										yesterday: yesterday
+										yesterday: yesterday,
+										doc_number: doc_number
 									})} >
 										<Text> Last Shoot Foreman </Text>   
 									</Button>
@@ -236,7 +243,8 @@ const ListForm = ({route, navigation}) => {
 										machine_name: machine_name,
 										today: today,
 										machine_number: machine_number,
-										yesterday: yesterday
+										yesterday: yesterday,
+										doc_number: doc_number
 									})} >
 										<Text> Update QC Leader </Text>   
 									</Button>	
@@ -262,7 +270,8 @@ const ListForm = ({route, navigation}) => {
 										machine_name: machine_name,
 										today: today,
 										machine_number: machine_number,
-										yesterday: yesterday
+										yesterday: yesterday,
+										doc_number: doc_number
 									})} >
 										<Text> Update Foreman Leader </Text>
 									</Button>
@@ -290,7 +299,7 @@ const ListForm = ({route, navigation}) => {
 				</View>
 				<View style={{justifyContent: 'center', alignItems: 'center'}}>
 					<Text style={styles.fontButtonHeader}>({machine_number}) - {machine_name}</Text>
-					<Text style={{fontWeight: 'bold', fontSize: 10}}>{daily_inspection_number}</Text>
+					{doc_number != null ? <Text style={{fontWeight: 'bold', fontSize: 10}}>{doc_number}</Text> : <View style={styles.viewNoDailyInspection}><Text style={styles.fontNoDailyInspection}> - TIDAK ADA DAILY INSPECTION NUMBER - </Text></View>}
 					<Text style={styles.fontButtonFooter}>{product_name}</Text>
 				</View>
 			</View>
