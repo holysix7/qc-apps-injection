@@ -10,7 +10,7 @@ import Axios from 'axios';
 import app_version from '../../app_version/index';
 
 const PerJam = ({route, navigation}) => {
-	const {daily_inspection_number, machine_number, machine_id, qc_daily_inspection_id, qc_daily_inspection_item_id, qc_daily_inspection_method_id, sys_plant_id, customer_name, machine_name, machine_status, today, yesterday} = route.params
+	const {daily_inspection_number, machine_number, machine_id, qc_daily_inspection_id, qc_daily_inspection_item_id, qc_daily_inspection_method_id, sys_plant_id, customer_name, machine_name, machine_status, today, yesterday, doc_number} = route.params
 	useEffect(() => {
 		formOke()
 		FixInspectionTime()
@@ -108,12 +108,18 @@ const PerJam = ({route, navigation}) => {
 	const [updateinspection_time, setUpdateIT]		  = useState("")
 
 	const [operatorNik1, setOperatorNik1]		  = useState("")
+	const [operatorName1, setOperatorName1]		= useState("")
 	const [operatorNik2, setOperatorNik2]		  = useState("")
+	const [operatorName2, setOperatorName2]		= useState("")
 
 	const [leader_nik, setLeaderNik]					= useState("")
+	const [leader_name, setLeaderName]				= useState("")
 	const [foreman_nik, setForemanNik]				= useState("")
+	const [foreman_name, setForemanName]			= useState("")
 	const [qc_process_nik, setQcProcessNik]		= useState("")
-
+	const [qc_process_name, setQcProcessName]	= useState("")
+	
+	const [idButton, setIdButton]	= useState(true)
 	const check_appearance_n = appearance_n
 
 	const submit = async() => {
@@ -188,9 +194,7 @@ const PerJam = ({route, navigation}) => {
 			'Authorization': token
 		}
 		let jam = moment().format("HH:mm:ss")
-		// let jam = "11:59:55"
 		if(parseInt(jam) >= 8 && parseInt(jam) <= 15){
-			console.log(jam)
 			const nilaiJam = parseInt(jam)
 			setShift(2)
 			setHours(nilaiJam)
@@ -217,14 +221,20 @@ const PerJam = ({route, navigation}) => {
 				setUpdateCNT(response.data.data.daily_inspection.note)
 				setUpdateStdT(response.data.data.daily_inspection.status)
 				setUpdateIT(response.data.data.daily_inspection.inspection_time)
+				setIdButton(true)
 				setLoading(true)
 				setTooling(response.data.data.daily_inspection.tooling_num)
 				setDataProduction(response.data.data.output_production.gross_prod)
 				setLeaderNik(response.data.data.daily_inspection.leader_nik)
+				setLeaderName(response.data.data.daily_inspection.leader_name)
 				setQcProcessNik(response.data.data.daily_inspection.qc_process_nik)
+				setQcProcessName(response.data.data.daily_inspection.qc_process_name)
 				setForemanNik(response.data.data.daily_inspection.foreman_nik)
+				setForemanName(response.data.data.daily_inspection.foreman_name)
 				setOperatorNik1(response.data.data.output_production.nik_operator_1)
+				setOperatorName1(response.data.data.output_production.name_operator_1)
 				setOperatorNik2(response.data.data.output_production.nik_operator_2)
+				setOperatorName2(response.data.data.output_production.name_operator_2)
 				setAppearance(response.data.data.output_production.appearance_n)
 				console.log("List Data Per Jam: ", response.data.status, "OK")
 			})
@@ -259,14 +269,20 @@ const PerJam = ({route, navigation}) => {
 				setUpdateCNT(response.data.data.daily_inspection.note)
 				setUpdateStdT(response.data.data.daily_inspection.status)
 				setUpdateIT(response.data.data.daily_inspection.inspection_time)
+				setIdButton(true)
 				setLoading(true)
 				setTooling(response.data.data.daily_inspection.tooling_num)
 				setDataProduction(response.data.data.output_production.gross_prod)
 				setLeaderNik(response.data.data.daily_inspection.leader_nik)
+				setLeaderName(response.data.data.daily_inspection.leader_name)
 				setQcProcessNik(response.data.data.daily_inspection.qc_process_nik)
+				setQcProcessName(response.data.data.daily_inspection.qc_process_name)
 				setForemanNik(response.data.data.daily_inspection.foreman_nik)
+				setForemanName(response.data.data.daily_inspection.foreman_name)
 				setOperatorNik1(response.data.data.output_production.nik_operator_1)
+				setOperatorName1(response.data.data.output_production.operator_name)
 				setOperatorNik2(response.data.data.output_production.nik_operator_2)
+				setOperatorName2(response.data.data.output_production.operator_name_2)
 				setAppearance(response.data.data.output_production.appearance_n)
 				console.log("List Data Per Jam: ", response.data.status, "OK")
 			})
@@ -301,14 +317,20 @@ const PerJam = ({route, navigation}) => {
 				setUpdateCNT(response.data.data.daily_inspection.note)
 				setUpdateStdT(response.data.data.daily_inspection.status)
 				setUpdateIT(response.data.data.daily_inspection.inspection_time)
+				setIdButton(true)
 				setLoading(true)
 				setTooling(response.data.data.daily_inspection.tooling_num)
 				setDataProduction(response.data.data.output_production.gross_prod)
 				setLeaderNik(response.data.data.daily_inspection.leader_nik)
+				setLeaderName(response.data.data.daily_inspection.leader_name)
 				setQcProcessNik(response.data.data.daily_inspection.qc_process_nik)
+				setQcProcessName(response.data.data.daily_inspection.qc_process_name)
 				setForemanNik(response.data.data.daily_inspection.foreman_nik)
+				setForemanName(response.data.data.daily_inspection.foreman_name)
 				setOperatorNik1(response.data.data.output_production.nik_operator_1)
+				setOperatorName1(response.data.data.output_production.name_operator_1)
 				setOperatorNik2(response.data.data.output_production.nik_operator_2)
+				setOperatorName2(response.data.data.output_production.name_operator_2)
 				setAppearance(response.data.data.output_production.appearance_n)
 				console.log("List Data Per Jam: ", response.data.status, "OK")
 			})
@@ -327,8 +349,12 @@ const PerJam = ({route, navigation}) => {
 		const headers = {
 			'Authorization': token
 		}
-		let hoursNow = moment().format("HH")
-		const minHours = parseInt(hoursNow) - 1
+		let timeNow 	= moment()
+		let hoursNow 	= moment(timeNow).format("H")
+		let minTime 	= moment(timeNow).add(-1,'hours')
+		let minHours 	= moment(minTime).format("H")
+		console.log("saat ini: ", hoursNow)
+		console.log("1 Jam Sebelum ini: ", minHours)
 		if(value <= minHours || value == hoursNow){
 			if(value >= 8 && value <= 15){
 				const params = {
@@ -356,8 +382,8 @@ const PerJam = ({route, navigation}) => {
 					setUpdateIT(response.data.data.daily_inspection.inspection_time)
 					setTooling(response.data.data.daily_inspection.tooling_num)
 					setDataProduction(response.data.data.output_production.gross_prod)
+					setIdButton(true)
 					setLoading(true)
-					setQcProcessNik(true)
 					console.log("List Data By Shift 1: ", response.data.status, "OK")
 				})
 				.catch(error => {
@@ -390,8 +416,8 @@ const PerJam = ({route, navigation}) => {
 					setUpdateIT(response.data.data.daily_inspection.inspection_time)
 					setTooling(response.data.data.daily_inspection.tooling_num)
 					setDataProduction(response.data.data.output_production.gross_prod)
+					setIdButton(true)
 					setLoading(true)
-					setQcProcessNik(true)
 					console.log("List Data By Shift 2: ", response.data.status, "OK")
 				})
 				.catch(error => {
@@ -424,8 +450,8 @@ const PerJam = ({route, navigation}) => {
 					setUpdateIT(response.data.data.daily_inspection.inspection_time)
 					setTooling(response.data.data.daily_inspection.tooling_num)
 					setDataProduction(response.data.data.output_production.gross_prod)
+					setIdButton(true)
 					setLoading(true)
-					setQcProcessNik(true)
 					console.log("List Data By Shift 3: ", response.data.status, "OK")
 				})
 				.catch(error => {
@@ -437,8 +463,7 @@ const PerJam = ({route, navigation}) => {
 			console.log("Berhasil!")
 		}else{
 			setLoading(true)
-			setHours(parseInt(hoursNow))
-			alert("Access Denied")
+			setIdButton(false)
 		}
 	}
 
@@ -645,18 +670,122 @@ const PerJam = ({route, navigation}) => {
 	}
 
 	const buttonUpdateGet = () => {
+		if(idButton == true){
+			return(
+				<View>
+					<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
+						<View>
+							{updateinspection_time != null ? <Button onPress={() => alert("Already Saved!")} style={{width: 172, borderRadius: 25, justifyContent: 'center', backgroundColor: '#05c46b'}}><Text>SAVE</Text></Button> : <Button onPress={() => submit()} style={{width: 172, borderRadius: 25, justifyContent: 'center'}}><Text>SAVE</Text></Button>}
+						</View>
+					</View>
 
+					<View style={{flexDirection: 'column', height: 50}}>
+						<View style={{height: 27, alignItems: 'center'}}>
+							<Text style={{fontWeight: 'bold'}}>
+								Inspection Time
+							</Text>
+						</View>
+						<View style={{height: 23, alignItems: 'center'}}>
+							<Text>
+								{updateinspection_time != null ? updateinspection_time : inspectionTime}
+							</Text>
+						</View>
+					</View>
+				</View>
+			)
+		}
+	}
+
+	const isiManusia = () => {
+		var data = []
+			if(leader_nik != null){
+				data.push(
+					<View key="1" style={{flexDirection: 'row', height: 50}}>
+						<View style={{alignItems: 'center', justifyContent: 'center', width: "30%", borderBottomWidth: 1, borderRightWidth: 1}}>
+								{leader_nik != null ? <Text style={{fontWeight: 'bold', fontSize: 10}}>{leader_nik}</Text> : <Text style={{fontWeight: 'bold', fontSize: 10}}> - </Text>}
+						</View>
+						<View style={{alignItems: 'center', justifyContent: 'center', width: "40%", borderBottomWidth: 1, borderRightWidth: 1}}>
+								{leader_nik != null ? <Text style={{fontWeight: 'bold', fontSize: 10}}>{leader_name}</Text> : <Text style={{fontWeight: 'bold', fontSize: 10}}> - </Text>}
+						</View>
+						<View style={{alignItems: 'center', justifyContent: 'center', width: "30%", borderBottomWidth: 1, borderRightWidth: 1}}>
+								{leader_nik != null ? <Text style={{fontWeight: 'bold', fontSize: 10}}>Leader</Text> : <Text style={{fontWeight: 'bold', fontSize: 10}}> - </Text>}
+						</View>
+					</View>
+				)
+			}
+			if(qc_process_nik != null){
+				data.push(
+					<View key="2" style={{flexDirection: 'row', height: 50}}>
+						<View style={{alignItems: 'center', justifyContent: 'center', width: "30%", borderBottomWidth: 1, borderRightWidth: 1}}>
+								{qc_process_nik != null ? <Text style={{fontWeight: 'bold', fontSize: 10}}>{qc_process_nik}</Text> : <Text style={{fontWeight: 'bold', fontSize: 10}}> - </Text>}
+						</View>
+						<View style={{alignItems: 'center', justifyContent: 'center', width: "40%", borderBottomWidth: 1, borderRightWidth: 1}}>
+								{qc_process_nik != null ? <Text style={{fontWeight: 'bold', fontSize: 10}}>{qc_process_name}</Text> : <Text style={{fontWeight: 'bold', fontSize: 10}}> - </Text>}
+						</View>
+						<View style={{alignItems: 'center', justifyContent: 'center', width: "30%", borderBottomWidth: 1, borderRightWidth: 1}}>
+								{qc_process_nik != null ? <Text style={{fontWeight: 'bold', fontSize: 10}}>QC</Text> : <Text style={{fontWeight: 'bold', fontSize: 10}}> - </Text>}
+						</View>
+					</View>
+				)
+			}
+			if(foreman_nik != null){
+				data.push(
+					<View key="3" style={{flexDirection: 'row', height: 50}}>
+						<View style={{alignItems: 'center', justifyContent: 'center', width: "30%", borderBottomWidth: 1, borderRightWidth: 1}}>
+							{foreman_nik != null ? <Text style={{fontWeight: 'bold', fontSize: 10}}>{foreman_nik}</Text> : <Text style={{fontWeight: 'bold', fontSize: 10}}> - </Text>}
+						</View>
+						<View style={{alignItems: 'center', justifyContent: 'center', width: "40%", borderBottomWidth: 1, borderRightWidth: 1}}>
+							{foreman_nik != null ? <Text style={{fontWeight: 'bold', fontSize: 10}}>{foreman_name}</Text> : <Text style={{fontWeight: 'bold', fontSize: 10}}> - </Text>}
+						</View>
+						<View style={{alignItems: 'center', justifyContent: 'center', width: "30%", borderBottomWidth: 1, borderRightWidth: 1}}>
+							{foreman_nik != null ? <Text style={{fontWeight: 'bold', fontSize: 10}}>Foreman</Text> : <Text style={{fontWeight: 'bold', fontSize: 10}}> - </Text>}
+						</View>
+					</View>
+				)
+			}
+			if(operatorNik1 != null){
+				data.push(
+					<View key="4" style={{flexDirection: 'row', height: 50}}>
+						<View style={{alignItems: 'center', justifyContent: 'center', width: "30%", borderBottomWidth: 1, borderRightWidth: 1}}>
+								{operatorNik1 != null ? <Text style={{fontWeight: 'bold', fontSize: 10}}>{operatorNik1}</Text> : <Text style={{fontWeight: 'bold', fontSize: 10}}> - </Text>}
+						</View>
+						<View style={{alignItems: 'center', justifyContent: 'center', width: "40%", borderBottomWidth: 1, borderRightWidth: 1}}>
+								{operatorNik1 != null ? <Text style={{fontWeight: 'bold', fontSize: 10}}>{operatorName1}</Text> : <Text style={{fontWeight: 'bold', fontSize: 10}}> - </Text>}
+						</View>
+						<View style={{alignItems: 'center', justifyContent: 'center', width: "30%", borderBottomWidth: 1, borderRightWidth: 1}}>
+								{operatorNik1 != null ? <Text style={{fontWeight: 'bold', fontSize: 10}}>Operator 1</Text> : <Text style={{fontWeight: 'bold', fontSize: 10}}> - </Text>}
+						</View>
+					</View>
+				)
+			}
+			if(operatorNik2 != null){
+				data.push(
+					<View key="5" style={{flexDirection: 'row', height: 50}}>
+						<View style={{alignItems: 'center', justifyContent: 'center', width: "30%", borderBottomWidth: 1, borderRightWidth: 1}}>
+							{operatorNik2 != null ? <Text style={{fontWeight: 'bold', fontSize: 10}}>{operatorNik2}</Text> : <Text style={{fontWeight: 'bold', fontSize: 10}}> - </Text>}
+						</View>
+						<View style={{alignItems: 'center', justifyContent: 'center', width: "40%", borderBottomWidth: 1, borderRightWidth: 1}}>
+							{operatorNik2 != null ? <Text style={{fontWeight: 'bold', fontSize: 10}}>{operatorName2}</Text> : <Text style={{fontWeight: 'bold', fontSize: 10}}> - </Text>}
+						</View>
+						<View style={{alignItems: 'center', justifyContent: 'center', width: "30%", borderBottomWidth: 1, borderRightWidth: 1}}>
+							{operatorNik2 != null ? <Text style={{fontWeight: 'bold', fontSize: 10}}>Operator 2</Text> : <Text style={{fontWeight: 'bold', fontSize: 10}}> - </Text>}
+						</View>
+					</View>
+				)
+			}
+		return data
 	}
 
 	const content = () => {
 		var bodatData = []
 		bodatData.push(
 			<TouchableOpacity key="12">
+				{idButton == true ? 
 				<View style={{paddingTop: 20, flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
 					<View style={{padding: 10}}>
 						<Button style={{borderRadius: 25}} onPress={() => formOke()}><Text>Refresh Data</Text></Button>
 					</View>
-				</View>
+				</View> : null}
 
 				<View style={{paddingTop: 20, flexDirection: 'row'}}>
 					<View style={{padding: 10, width: "44%"}}>
@@ -814,48 +943,22 @@ const PerJam = ({route, navigation}) => {
 						</View>
 				</View>
 
-				<View style={{flexDirection: 'row', height: 75, paddingTop: 10}}>
-						<View style={{alignItems: 'center', width: "25%"}}>
-								<Text style={{fontWeight: 'bold', fontSize: 12}}>NIK Operator</Text>
-								<Text>{operatorNik1}</Text>
-								<Text>{operatorNik2}</Text>
+				<View style={{flexDirection: 'row', height: 60, paddingTop: 10}}>
+						<View style={{alignItems: 'center', justifyContent: 'center', width: "30%", borderTopWidth: 1, borderBottomWidth: 1, borderRightWidth: 1}}>
+								<Text style={{fontWeight: 'bold', fontSize: 10}}>NIK</Text>
 						</View>
-						<View style={{alignItems: 'center', width: "25%"}}>
-								<Text style={{fontWeight: 'bold', fontSize: 12}}>NIK QC</Text>
-								<Text>{qc_process_nik}</Text>
+						<View style={{alignItems: 'center', justifyContent: 'center', width: "40%", borderTopWidth: 1, borderBottomWidth: 1, borderRightWidth: 1}}>
+								<Text style={{fontWeight: 'bold', fontSize: 10}}>NAMA</Text>
 						</View>
-						<View style={{alignItems: 'center', width: "25%"}}>
-								<Text style={{fontWeight: 'bold', fontSize: 12}}>NIK Leader</Text>
-								<Text>{leader_nik}</Text>
-						</View>
-						<View style={{alignItems: 'center', width: "25%"}}>
-								<Text style={{fontWeight: 'bold', fontSize: 12}}>NIK Foreman</Text>
-								<Text>{foreman_nik}</Text>
+						<View style={{alignItems: 'center', justifyContent: 'center', width: "30%", borderTopWidth: 1, borderBottomWidth: 1, borderRightWidth: 1}}>
+								<Text style={{fontWeight: 'bold', fontSize: 10}}>JABATAN</Text>
 						</View>
 				</View>
-				
-				<View style={{width: "100%", justifyContent: 'center', alignItems: 'center'}}>
+				{isiManusia()}
+				<View style={{width: "100%", justifyContent: 'center', alignItems: 'center', paddingTop: 30}}>
 					{updateinspection_time == null ? resultImage() : null}
 				</View>
-
-				<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
-					<View>
-						{updateinspection_time != null ? <Button onPress={() => alert("Already Saved!")} style={{width: 172, borderRadius: 25, justifyContent: 'center', backgroundColor: '#05c46b'}}><Text>SAVE</Text></Button> : <Button onPress={() => submit()} style={{width: 172, borderRadius: 25, justifyContent: 'center'}}><Text>SAVE</Text></Button>}
-					</View>
-				</View>
-
-				<View style={{flexDirection: 'column', height: 50}}>
-					<View style={{height: 27, alignItems: 'center'}}>
-						<Text style={{fontWeight: 'bold'}}>
-							Inspection Time
-						</Text>
-					</View>
-					<View style={{height: 23, alignItems: 'center'}}>
-						<Text>
-							{updateinspection_time != null ? updateinspection_time : inspectionTime}
-						</Text>
-					</View>
-				</View>
+				{buttonUpdateGet()}
 			</TouchableOpacity>
 		)
 		return bodatData

@@ -139,7 +139,19 @@ const styles = StyleSheet.create({
         padding: 2,
         textAlign: 'center'
     },
+    fontNoDailyInspection: {
+        fontSize: 10, 
+        fontWeight: 'bold',
+        backgroundColor: 'yellow',
+        width: 250,
+        borderWidth: 1,
+        padding: 2,
+        textAlign: 'center'
+    },
     viewNoPlanning: {
+        padding: 5
+    },
+    viewNoDailyInspection: {
         padding: 5
     }
 })

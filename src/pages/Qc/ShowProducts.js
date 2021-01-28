@@ -81,6 +81,7 @@ const ShowProducts = ({route, navigation}) => {
 						qc_process_nik: element.qc_process_nik,
 						cavity: element.cavity,
 						foreman_nik: element.foreman_nik,
+						doc_number: element.code,
 						machine_number: machine_number,
 						today: today
 					})} >
@@ -112,6 +113,7 @@ const ShowProducts = ({route, navigation}) => {
 						leader_nik: element.leader_nik,
 						qc_process_nik: element.qc_process_nik,
 						foreman_nik: element.foreman_nik,
+						doc_number: element.code,
 						machine_number: machine_number,
 						cavity: element.cavity,
 						yesterday: yesterday

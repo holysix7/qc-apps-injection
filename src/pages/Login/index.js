@@ -15,6 +15,25 @@ const Login = ({navigation}) => {
 	const [password, setPassword] = useState("");
 	const [loading, setLoading] = useState(true)
 
+	const backAction = () => {
+    Alert.alert("Alert", "Apakah Anda Yakin Ingin Keluar?", [
+      {
+        text: "Cancel",
+        onPress: () => null,
+        style: "cancel"
+      },
+      { text: "YES", onPress: () => BackHandler.exitApp() }
+    ]);
+    return true;
+	};
+
+  useEffect(() => {
+    BackHandler.addEventListener("hardwareBackPress", backAction);
+
+    return () =>
+      BackHandler.removeEventListener("hardwareBackPress", backAction);
+  }, []);
+
 	const submit = async() => {
 		setLoading(false)
 		const data = {
@@ -48,6 +67,7 @@ const Login = ({navigation}) => {
 			console.log("Login: ", err)
 		})
 	}
+
 
 
 	const content = () => {
