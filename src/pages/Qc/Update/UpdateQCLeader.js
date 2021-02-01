@@ -22,7 +22,6 @@ const UpdateQCLeader = ({route, navigation}) => {
 	const [updated_by, setUpdatedBy]      = useState(null)
 	let created_at 								        = moment().format("YYYY-MM-DD HH:mm:ss")
 	let updated_at 								        = moment().format("YYYY-MM-DD HH:mm:ss")
-  
   //CONSUME API SHIFT
 	const [shift1, setShift1] 	          = useState(null)
 	const [shift2, setShift2] 	          = useState(null)
@@ -133,7 +132,7 @@ const UpdateQCLeader = ({route, navigation}) => {
         headers: headers,
         data: data
       };
-      axios(config)
+      Axios(config)
       .then(function (response) {
         console.log("Res: ", response.status, " Ok")
         setLoading(true)
@@ -174,7 +173,7 @@ const UpdateQCLeader = ({route, navigation}) => {
     setUpdatedBy(id)
     var config = {
       method: 'get',
-      url: 'http://192.168.131.121:3000/api/v2/qcs?&tbl=daily_inspection&kind=get_qcl&qc_daily_inspection_id=58989&app_version=0.9.1.1&sys_plant_id=2',
+      url: 'https://api.tri-saudara.com/api/v2/qcs?&tbl=daily_inspection&kind=get_qcl&qc_daily_inspection_id=58989&app_version=0.9.1.1&sys_plant_id=2',
       headers: headers
     };
     Axios(config)
@@ -183,6 +182,7 @@ const UpdateQCLeader = ({route, navigation}) => {
       setShift2(response.data.data.shift2)
       setShift3(response.data.data.shift3)
       setListQCs(response.data.data.qc_process)
+      console.log(response.data.data.qc_process)
       setLoading(true)
       console.log("Successfully Get Data QCs")
     })

@@ -353,8 +353,6 @@ const PerJam = ({route, navigation}) => {
 		let hoursNow 	= moment(timeNow).format("H")
 		let minTime 	= moment(timeNow).add(-1,'hours')
 		let minHours 	= moment(minTime).format("H")
-		console.log("saat ini: ", hoursNow)
-		console.log("1 Jam Sebelum ini: ", minHours)
 		if(value <= minHours || value == hoursNow){
 			if(value >= 8 && value <= 15){
 				const params = {
@@ -708,7 +706,7 @@ const PerJam = ({route, navigation}) => {
 								{leader_nik != null ? <Text style={{fontWeight: 'bold', fontSize: 10}}>{leader_name}</Text> : <Text style={{fontWeight: 'bold', fontSize: 10}}> - </Text>}
 						</View>
 						<View style={{alignItems: 'center', justifyContent: 'center', width: "30%", borderBottomWidth: 1, borderRightWidth: 1}}>
-								{leader_nik != null ? <Text style={{fontWeight: 'bold', fontSize: 10}}>Leader</Text> : <Text style={{fontWeight: 'bold', fontSize: 10}}> - </Text>}
+								{leader_nik != null ? <Text style={{fontWeight: 'bold', fontSize: 10}}>Leader Produksi</Text> : <Text style={{fontWeight: 'bold', fontSize: 10}}> - </Text>}
 						</View>
 					</View>
 				)
@@ -723,7 +721,7 @@ const PerJam = ({route, navigation}) => {
 								{qc_process_nik != null ? <Text style={{fontWeight: 'bold', fontSize: 10}}>{qc_process_name}</Text> : <Text style={{fontWeight: 'bold', fontSize: 10}}> - </Text>}
 						</View>
 						<View style={{alignItems: 'center', justifyContent: 'center', width: "30%", borderBottomWidth: 1, borderRightWidth: 1}}>
-								{qc_process_nik != null ? <Text style={{fontWeight: 'bold', fontSize: 10}}>QC</Text> : <Text style={{fontWeight: 'bold', fontSize: 10}}> - </Text>}
+								{qc_process_nik != null ? <Text style={{fontWeight: 'bold', fontSize: 10}}>IPQC</Text> : <Text style={{fontWeight: 'bold', fontSize: 10}}> - </Text>}
 						</View>
 					</View>
 				)
