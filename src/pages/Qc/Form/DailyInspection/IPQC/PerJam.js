@@ -353,6 +353,7 @@ const PerJam = ({route, navigation}) => {
 		let hoursNow 	= moment(timeNow).format("H")
 		let minTime 	= moment(timeNow).add(-1,'hours')
 		let minHours 	= moment(minTime).format("H")
+		
 		// if(value <= minHours || value == hoursNow){
 		if(value == hoursNow){
 			if(value >= 8 && value <= 15){

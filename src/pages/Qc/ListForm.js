@@ -219,7 +219,7 @@ const ListForm = ({route, navigation}) => {
 										yesterday: yesterday,
 										doc_number: doc_number
 									})} >
-										<Text style={styles.fontDailyInspectionContinueButton}> CONTINUE MP </Text>   
+										<Text style={styles.fontDailyInspectionContinueButton}> CONTINUE MP </Text>
 									</Button>	
 								)
 							}else{
@@ -230,6 +230,7 @@ const ListForm = ({route, navigation}) => {
 								)
 							}
 						}
+
 					}
 				}
 			}
