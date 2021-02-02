@@ -1,13 +1,13 @@
 import {Image, View, TextInput, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, ScrollView, TouchableOpacity, Animated, ActivityIndicator} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import { Container, Text, Button, Picker } from 'native-base';
-import LogoSIP from '../../../assets/logo-sip370x50.png';
+import LogoSIP from '../../../../assets/logo-sip370x50.png';
 import AsyncStorage from "@react-native-community/async-storage";
 import Axios from 'axios';
 import moment from 'moment';
-import app_version from '../../app_version';
+import app_version from '../../../app_version/index';
 
-const UpdateQCLeader = ({route, navigation}) => {
+const UpdateProductionLeader = ({route, navigation}) => {
 	const {product_name, today, yesterday, doc_number} = route.params
 	useEffect(() => {
     formOke()
@@ -567,4 +567,4 @@ const UpdateQCLeader = ({route, navigation}) => {
 	)
 }
 
-export default UpdateQCLeader;
+export default UpdateProductionLeader;

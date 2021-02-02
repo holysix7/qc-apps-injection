@@ -30,6 +30,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#F5F5DC'
     },
+    contenDateProduct: { 
+        justifyContent: 'center', 
+        alignItems: 'flex-start',
+        backgroundColor: '#F5F5DC'
+    },
     contentHeaderChild: {
         flex: 1, 
         justifyContent: 'center', 
@@ -93,6 +98,31 @@ const styles = StyleSheet.create({
         borderRadius: 15, 
         // flexDirection: 'row'
     },
+
+    dailyInspectionStopButton: {
+        marginTop: 170
+        ,
+        width: "100%", 
+        borderRadius: 15, 
+        backgroundColor: 'red'
+    },
+
+    dailyInspectionContinueButton: {
+        marginTop: 5,
+        width: "100%", 
+        borderRadius: 15, 
+        backgroundColor: '#75cfb8'
+    },
+
+    fontDailyInspectionContinueButton: {
+        color: 'black', 
+        fontWeight: 'bold'
+    },
+
+    fontDailyInspectionStopButton: {
+        color: 'black', 
+        fontWeight: 'bold'
+    },
     productsNotAccessButton: {
         marginTop: 5,
         backgroundColor: '#726a95',
@@ -104,9 +134,13 @@ const styles = StyleSheet.create({
         fontSize: 20, 
         fontWeight: 'bold'
     },
+    fontButtonHeaderChild: {
+        fontSize: 15, 
+        fontWeight: 'bold'
+    },
     fontButtonFooter: {
         fontSize: 9, 
-        textAlign: 'center'
+        fontWeight: 'bold'
     },
     notifNoProducts: {
         borderWidth: 1, 
@@ -124,6 +158,15 @@ const styles = StyleSheet.create({
     },
     fontProduct: {
         fontSize: 25, 
+        fontWeight: 'bold'
+    },
+    fontDateProduct: {
+        fontSize: 25,
+        alignItems: 'flex-start',
+        fontWeight: 'bold'
+    },
+    fontListProducts: {
+        fontSize: 15, 
         fontWeight: 'bold'
     },
     fontPlanning: {

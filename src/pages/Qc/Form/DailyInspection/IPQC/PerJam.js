@@ -1,13 +1,13 @@
 import {Image, View, ScrollView, TextInput, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, TouchableOpacity, Dimensions, ActivityIndicator} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import { Container, Text, Button, Picker } from 'native-base';
-import LogoSIP from '../../../assets/logo-sip370x50.png';
-import cameraIcons from '../../../assets/cameraicon.png';
+import LogoSIP from '../../../../../assets/logo-sip370x50.png';
+import cameraIcons from '../../../../../assets/cameraicon.png';
 import ImagePicker from 'react-native-image-picker';
 import AsyncStorage from "@react-native-community/async-storage";
 import moment from 'moment';
 import Axios from 'axios';
-import app_version from '../../app_version/index';
+import app_version from '../../../../app_version/index';
 
 const PerJam = ({route, navigation}) => {
 	const {daily_inspection_number, machine_number, machine_id, qc_daily_inspection_id, qc_daily_inspection_item_id, qc_daily_inspection_method_id, sys_plant_id, customer_name, machine_name, machine_status, today, yesterday, doc_number} = route.params
@@ -79,7 +79,7 @@ const PerJam = ({route, navigation}) => {
 	const [NGdata, setNGData] 								= useState([])
 	const [gross_prod, setDataProduction] 		= useState(null)
 	const [loading, setLoading] 							= useState(false)
-	const [appearance_pn, setPN] 							= useState("")
+	const [appearance_pn, setPN] 							= useState(null)
 	const [start_label, setStartLabel] 				= useState("")
 	const [end_label, setEndLabel] 						= useState("")
 	const [appearance_n, setAppearance] 			= useState("")
@@ -87,9 +87,9 @@ const PerJam = ({route, navigation}) => {
 	const [checkPackaging, setCheckPacking] 	= useState("")
 	const [status, setStatus] 								= useState("")
 	const [categoryNG, setCategoryNG] 				= useState(0)
-	const [specialItem, setSpecialItem] 			= useState("")
-	const [noteUnnormal, setNoteUnnormal] 		= useState("")
-	const [inspectionTime, setInspectionTime] = useState("")
+	const [specialItem, setSpecialItem] 			= useState(null)
+	const [noteUnnormal, setNoteUnnormal] 		= useState(null)
+	const [inspectionTime, setInspectionTime] = useState(null)
 	const [hours, setHours]		  							= useState(0)
 	const [shift, setShift]		  							= useState(0)
 	let created_at 														= moment().format("YYYY-MM-DD HH:mm:ss")
@@ -97,15 +97,15 @@ const PerJam = ({route, navigation}) => {
 	const [created_by, setCreatedBy]		  		= useState("")
 	const [updated_by, setUpdatedBy]		  		= useState("")
 	
-	const [updatePNData, setUpdatePN]		  					= useState("")
-	const [updateCheckPackaging, setCheckPackaging]	= useState(0)
-	const [updateStart, setUpdateStart]		  				= useState("")
-	const [updateEnd, setUpdateEnd]		  						= useState("")
-	const [updateSpecialItem, setUpdateSpItem]		  = useState(0)
-	const [updateCategoryNG, setUpdateCNG]		  		= useState("")
-	const [updateNote, setUpdateCNT]		  					= useState(0)
-	const [updateStatusData, setUpdateStdT]		  		= useState(0)
-	const [updateinspection_time, setUpdateIT]		  = useState("")
+	const [updateCheckPackaging, setCheckPackaging]	= useState(null)
+	const [updateStart, setUpdateStart]		  				= useState(null)
+	const [updatePNData, setUpdatePN]		  					= useState(null)
+	const [updateEnd, setUpdateEnd]		  						= useState(null)
+	const [updateSpecialItem, setUpdateSpItem]		  = useState(null)
+	const [updateCategoryNG, setUpdateCNG]		  		= useState(null)
+	const [updateNote, setUpdateCNT]		  					= useState(null)
+	const [updateStatusData, setUpdateStdT]		  		= useState(null)
+	const [updateinspection_time, setUpdateIT]		  = useState(null)
 
 	const [operatorNik1, setOperatorNik1]		  = useState("")
 	const [operatorName1, setOperatorName1]		= useState("")
@@ -353,7 +353,8 @@ const PerJam = ({route, navigation}) => {
 		let hoursNow 	= moment(timeNow).format("H")
 		let minTime 	= moment(timeNow).add(-1,'hours')
 		let minHours 	= moment(minTime).format("H")
-		if(value <= minHours || value == hoursNow){
+		// if(value <= minHours || value == hoursNow){
+		if(value == hoursNow){
 			if(value >= 8 && value <= 15){
 				const params = {
 					tbl: 'daily_inspection',
@@ -521,7 +522,7 @@ const PerJam = ({route, navigation}) => {
 
 	const updatePN = () => {
 		var data = []
-		if(updatePNData != null){
+		if(updatePNData > 0 || updatePNData != null){
 			data.push(
 				<View key="sok2" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
 					<Text>{updatePNData}</Text>
@@ -539,7 +540,7 @@ const PerJam = ({route, navigation}) => {
 
 	const updateCheckPackagingFunc = () => {
 		var data = []
-		if(updateCheckPackaging > 0){
+		if(updateCheckPackaging != null){
 			data.push(
 				<View key="029ijkas" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
 					<Text>{updateCheckPackaging}</Text>
@@ -601,7 +602,7 @@ const PerJam = ({route, navigation}) => {
 
 	const updateSpecialItemFunc = () => {
 		var data = []
-		if(updateSpecialItem > 0){
+		if(updateSpecialItem > 0 || updateSpecialItem != null){
 			data.push(
 				<View key="asiuhj2" style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5, borderWidth: 0.5, borderRadius: 25, backgroundColor: '#b8b8b8', height: 40}}>
 					<Text>{updateSpecialItem}</Text>
@@ -619,7 +620,7 @@ const PerJam = ({route, navigation}) => {
 
 	const updateCategoryNGFunc = () => {
 		var data = []
-		if(updateCategoryNG != null){
+		if(updateCategoryNG != null || updateCategoryNG > 0){
 			data.push(
 				<View key="asoijdi2" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
 					<Text>{updateCategoryNG}</Text>
@@ -643,7 +644,7 @@ const PerJam = ({route, navigation}) => {
 
 	const updateNoteFunc = () => {
 		var data = []
-		if(updateNote > 0){
+		if(updateNote > 0 || updateNote != null){
 			data.push(
 				<View key="asih2n" style={{height: 40, justifyContent: 'center', paddingLeft: 5, paddingTop: 5, borderWidth: 0.5, borderRadius: 25, backgroundColor: '#b8b8b8'}}>
 					<Text>{updateNote}</Text>
@@ -673,7 +674,7 @@ const PerJam = ({route, navigation}) => {
 				<View>
 					<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
 						<View>
-							{updateinspection_time != null ? <Button onPress={() => alert("Already Saved!")} style={{width: 172, borderRadius: 25, justifyContent: 'center', backgroundColor: '#05c46b'}}><Text>SAVE</Text></Button> : <Button onPress={() => submit()} style={{width: 172, borderRadius: 25, justifyContent: 'center'}}><Text>SAVE</Text></Button>}
+							{updateinspection_time != null || updateinspection_time > 0 ? <Button onPress={() => alert("Already Saved!")} style={{width: 172, borderRadius: 25, justifyContent: 'center', backgroundColor: '#05c46b'}}><Text>SAVE</Text></Button> : <Button onPress={() => submit()} style={{width: 172, borderRadius: 25, justifyContent: 'center'}}><Text>SAVE</Text></Button>}
 						</View>
 					</View>
 
@@ -685,7 +686,7 @@ const PerJam = ({route, navigation}) => {
 						</View>
 						<View style={{height: 23, alignItems: 'center'}}>
 							<Text>
-								{updateinspection_time != null ? updateinspection_time : inspectionTime}
+								{updateinspection_time != null || updateinspection_time > 0 ? updateinspection_time : inspectionTime}
 							</Text>
 						</View>
 					</View>

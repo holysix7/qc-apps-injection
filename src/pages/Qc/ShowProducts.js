@@ -1,13 +1,13 @@
-import {Image, View, ScrollView, ActivityIndicator, TouchableOpacity} from 'react-native';
+import {Image, View, ScrollView, ActivityIndicator} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import LogoSIP from '../../assets/logo-sip370x50.png';
-import plusImage from '../../assets/plus.png';
 import AsyncStorage from "@react-native-community/async-storage";
 import axios from 'axios';
 import { Container, Text, Button } from 'native-base';
 import moment from 'moment';
 import styles from '../../components/styles/Styling';
 import app_version from '../app_version/index';
+import checklist from '../../assets/check.png';
 
 const ShowProducts = ({route, navigation}) => {
 	const {machine_id, machine_name, sys_plant_id, machine_number} = route.params
@@ -57,8 +57,8 @@ const ShowProducts = ({route, navigation}) => {
 									.format('YYYY-MM-DD')
 	if(data.length > 0){
 		data.map((element, key) => {
-			if(today == element.date)
-			{
+			// console.log(element.ppic_planning_product_id)
+			if(today == element.date){
 				allProductsToday.push(
 					<Button key={key} style={styles.productsButton} onPress={() => navigation.navigate('ListForm',
 					{
@@ -85,13 +85,19 @@ const ShowProducts = ({route, navigation}) => {
 						machine_number: machine_number,
 						today: today
 					})} >
-						<Text style={styles.fontButtonHeader}> {element.customer_part_number} </Text>   
-						<Text style={styles.fontButtonFooter}> {element.product_name} </Text>   
+						<View style={{flexDirection: 'row', width: 300, justifyContent: 'center'}}>
+							<View style={{flexDirection: 'column', width: 300, justifyContent: 'center', alignItems: 'flex-start'}}>
+								<Text style={styles.fontButtonHeader}> {element.customer_part_number} </Text>   
+								<Text style={styles.fontButtonFooter}> {element.product_name} </Text>   
+							</View>
+							<View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
+								{element.ppic_planning_product_id != null ? <View style={{width: 60, paddingLeft: 10}}><Image source={checklist} style={{width: 30, height: 30, marginRight: 10}}/></View> : <View style={{width: 60, paddingLeft: 10}}></View>}		
+							</View>
+						</View>
 					</Button>
 				);
 			}
-			if(yesterday == element.date)
-			{
+			if(yesterday == element.date){
 				allProductsYesterday.push(
 					<Button key={key} style={styles.productsButton} onPress={() => navigation.navigate('ListForm',
 					{
@@ -118,8 +124,15 @@ const ShowProducts = ({route, navigation}) => {
 						cavity: element.cavity,
 						yesterday: yesterday
 					})} >
-						<Text style={styles.fontButtonHeader}> {element.customer_part_number} </Text>   
-						<Text style={styles.fontButtonFooter}> {element.product_name} </Text>   
+						<View style={{flexDirection: 'row', width: 300, justifyContent: 'center'}}>
+							<View style={{flexDirection: 'column', width: 300, justifyContent: 'center', alignItems: 'flex-start'}}>
+								<Text style={styles.fontButtonHeader}> {element.customer_part_number} </Text>   
+								<Text style={styles.fontButtonFooter}> {element.product_name} </Text>   
+							</View>
+							<View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
+								{element.ppic_planning_product_id != null ? <View style={{width: 60, paddingLeft: 10}}><Image source={checklist} style={{width: 30, height: 30, marginRight: 10}}/></View> : <View style={{width: 60, paddingLeft: 10}}></View>}
+							</View>
+						</View>
 					</Button>
 				);
 			}
@@ -136,6 +149,7 @@ const ShowProducts = ({route, navigation}) => {
 			</Button>
 		)
 	}
+	// console.log(machine_id)
 
 	return(
 		<Container>
@@ -145,16 +159,17 @@ const ShowProducts = ({route, navigation}) => {
 				</View>
 				<View style={styles.contentHeader}>
 					<Text style={styles.fontProduct}>({machine_number}) - {machine_name}</Text>
+					<Text style={styles.fontListProducts}>List Products</Text>
 				</View>
 			</View>
 			
 			<View style={styles.contentFullWithPadding}>
 				<ScrollView>
-					<View style={styles.contentHeader}>
-						<Text style={styles.fontProduct}>{today}</Text>
+					<View style={styles.contenDateProduct}>
+						<Text style={styles.fontDateProduct}>{today}</Text>
 						{loading ? allProductsToday : <View style={{justifyContent: 'center'}}><ActivityIndicator size="large" color="#0000ff"/></View>}
 					</View>
-					<View style={styles.contentHeader}>
+					<View style={styles.contenDateProduct}>
 						<Text style={styles.fontProduct}>{yesterday}</Text>
 						{loading ? allProductsYesterday : <View style={{justifyContent: 'center'}}><ActivityIndicator size="large" color="#0000ff"/></View>}
 					</View>

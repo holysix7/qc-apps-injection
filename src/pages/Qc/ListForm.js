@@ -174,10 +174,10 @@ const ListForm = ({route, navigation}) => {
 								)
 							}
 						}
-						if(featureUser[i].qc_last_shoot_qc_leader != null){
-							if(featureUser[i].qc_last_shoot_qc_leader.view_permissions == true){
+						if(featureUser[i].qc_last_shoot_qc_leader != null || featureUser[i].qc_last_shoot_foreman != null){
+							if(featureUser[i].qc_last_shoot_qc_leader.view_permissions == true || featureUser[i].qc_last_shoot_foreman.view_permissions == truefeatureUser[i].qc_last_shoot_foreman.view_permissions == true){
 								data.push(
-									<Button key="askdmkwqw" style={styles.dailyInspectionButton} onPress={() => navigation.navigate('LastShootLeaderQc', {
+									<Button key="askdmkwqw" style={styles.dailyInspectionStopButton} onPress={() => navigation.navigate('StopMP', {
 										qc_daily_inspection_id: qc_daily_inspection_id,
 										qc_daily_inspection_item_id: qc_daily_inspection_item_id,
 										qc_daily_inspection_method_i: qc_daily_inspection_method_id,
@@ -192,21 +192,21 @@ const ListForm = ({route, navigation}) => {
 										yesterday: yesterday,
 										doc_number: doc_number
 									})} >
-										<Text> Last Shoot Leader QC </Text>   
+										<Text style={styles.fontDailyInspectionStopButton}> STOP MP </Text>   
 									</Button>
 								)
 							}else{
 								data.push(
 									<Button key="askdmkwqw" style={styles.productsNotAccessButton} onPress={() => alert("Maaf Anda Tidak Memiliki Hak Akses Last Shoot Leader QC")} >
-										<Text> Last Shoot Leader QC </Text>   
+										<Text style={styles.fontDailyInspectionStopButton}> STOP MP </Text>   
 									</Button>
 								)
 							}
 						}
-						if(featureUser[i].qc_last_shoot_foreman != null){
-							if(featureUser[i].qc_last_shoot_foreman.view_permissions == true){
+						if(featureUser[i].qc_masspro_qc_leader != null || featureUser[i].qc_masspro_foreman != null){
+							if(featureUser[i].qc_masspro_qc_leader.view_permissions == true && user == 32008107 || user == 21410012 || featureUser[i].qc_masspro_foreman.view_permissions == true && user == 32008107 || user == 21410012){
 								data.push(
-									<Button key="askdmasqwewkwqw" style={styles.dailyInspectionButton} onPress={() => navigation.navigate('LastShootForeman', {
+									<Button key="AscvSacx" style={styles.dailyInspectionContinueButton} onPress={() => navigation.navigate('ContinueMP', {
 										qc_daily_inspection_id: qc_daily_inspection_id,
 										sys_plant_id: sys_plant_id,
 										daily_inspection_number: daily_inspection_number,
@@ -219,68 +219,14 @@ const ListForm = ({route, navigation}) => {
 										yesterday: yesterday,
 										doc_number: doc_number
 									})} >
-										<Text> Last Shoot Foreman </Text>   
-									</Button>
-								)
-							}else{
-								data.push(
-									<Button key="askdmasqwewkwqw" style={styles.productsNotAccessButton} onPress={() => alert("Maaf Anda Tidak Memiliki Hak Akses Last Shoot Leader Foreman")} >
-										<Text> Last Shoot Foreman </Text>   
-									</Button>
-								)
-							}
-						}
-						if(featureUser[i].qc_masspro_qc_leader != null){
-							if(featureUser[i].qc_masspro_qc_leader.view_permissions == true && user == 32008107 || user == 21410012){
-								data.push(
-									<Button key="AscvSacx" style={styles.dailyInspectionButton} onPress={() => navigation.navigate('UpdateQCLeader', {
-										qc_daily_inspection_id: qc_daily_inspection_id,
-										sys_plant_id: sys_plant_id,
-										daily_inspection_number: daily_inspection_number,
-										product_name: product_name,
-										machine_id: machine_id,
-										customer_name: customer_name,
-										machine_name: machine_name,
-										today: today,
-										machine_number: machine_number,
-										yesterday: yesterday,
-										doc_number: doc_number
-									})} >
-										<Text> Update QC Leader </Text>   
+										<Text style={styles.fontDailyInspectionContinueButton}> CONTINUE MP </Text>   
 									</Button>	
 								)
 							}else{
 								data.push(
 									<Button key="AscvSacx" style={styles.productsNotAccessButton} onPress={() => alert("Maaf Anda Tidak Memiliki Hak Akses Update QC Leader")} >
-										<Text> Update QC Leader </Text>   
+										<Text style={styles.fontDailyInspectionContinueButton}> CONTINUE MP </Text>   
 									</Button>	
-								)
-							}
-						}
-						if(featureUser[i].qc_masspro_foreman != null){
-							if(featureUser[i].qc_masspro_foreman.view_permissions == true && user == 32008107 || user == 21410012){
-								data.push(
-									<Button key="XcxzAsd" style={styles.dailyInspectionButton} onPress={() => navigation.navigate('UpdateForemanLeader', {
-										sys_plant_id: sys_plant_id,
-										daily_inspection_number: daily_inspection_number,
-										product_name: product_name,
-										machine_id: machine_id,
-										customer_name: customer_name,
-										customer_part_number: customer_part_number,
-										machine_name: machine_name,
-										today: today,
-										machine_number: machine_number,
-										yesterday: yesterday,
-										doc_number: doc_number
-									})} >
-										<Text> Update Foreman Leader </Text>
-									</Button>
-								)
-							}else{
-								data.push(
-									<Button key="XcxzAsd" style={styles.productsNotAccessButton} onPress={() => alert("Maaf Anda Tidak Memiliki Hak Akses Foreman Leader")} >
-										<Text> Update Foreman Leader </Text>
-									</Button>
 								)
 							}
 						}
@@ -299,6 +245,7 @@ const ListForm = ({route, navigation}) => {
 				</View>
 				<View style={{justifyContent: 'center', alignItems: 'center'}}>
 					<Text style={styles.fontButtonHeader}>({machine_number}) - {machine_name}</Text>
+					<Text style={styles.fontButtonHeaderChild}>DAILY INSPECTION</Text>
 					{doc_number != null ? <Text style={{fontWeight: 'bold', fontSize: 10}}>{doc_number}</Text> : <View style={styles.viewNoDailyInspection}><Text style={styles.fontNoDailyInspection}> - TIDAK ADA DAILY INSPECTION NUMBER - </Text></View>}
 					<Text style={styles.fontButtonFooter}>{product_name}</Text>
 				</View>

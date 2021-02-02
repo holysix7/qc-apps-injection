@@ -1,11 +1,11 @@
 import {Image, View, ScrollView, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, ActivityIndicator} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import { Container, Text, Button, Picker } from 'native-base';
-import LogoSIP from '../../../assets/logo-sip370x50.png';
+import LogoSIP from '../../../../assets/logo-sip370x50.png';
 import moment from 'moment';
 import AsyncStorage from "@react-native-community/async-storage";
 import Axios from 'axios';
-import app_version from '../../app_version/index';
+import app_version from '../../../app_version/index';
 
 const LastShootForeman = ({route, navigation}) => {
 	useEffect(() => {

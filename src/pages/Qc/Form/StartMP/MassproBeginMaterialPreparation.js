@@ -2,10 +2,10 @@ import {Image, View, TextInput, KeyboardAvoidingView, Platform, TouchableWithout
 import React, {useState, useEffect} from 'react';
 import { Container, Text, Button, Picker} from 'native-base';
 import AsyncStorage from "@react-native-community/async-storage";
-import LogoSIP from '../../../assets/logo-sip370x50.png';
+import LogoSIP from '../../../../assets/logo-sip370x50.png';
 import Axios from 'axios';
 import moment from 'moment';
-import app_version from '../../app_version/index';
+import app_version from '../../../app_version/index';
 
 const MassproBeginMaterialPreparation = ({route, navigation}) => {
 	useEffect(() => {
