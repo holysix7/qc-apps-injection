@@ -1,12 +1,12 @@
 import {Image, View, ScrollView, TextInput, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, TouchableOpacity, ActivityIndicator} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import { Container, Text, Button, Picker } from 'native-base';
-import LogoSIP from '../../../assets/logo-sip370x50.png';
-import checkImage from '../../../assets/check.png';
+import LogoSIP from '../../../../assets/logo-sip370x50.png';
+import checkImage from '../../../../assets/check.png';
 import AsyncStorage from "@react-native-community/async-storage";
 import Axios from 'axios';
 import moment from 'moment';
-import app_version from '../../app_version/index';
+import app_version from '../../../app_version/index';
 
 const MassproBeginForeman = ({route, navigation}) => {
 	useEffect(() => {

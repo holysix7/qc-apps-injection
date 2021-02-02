@@ -1,47 +1,44 @@
-import {Image, View, ScrollView, TextInput, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, TouchableOpacity, ActivityIndicator} from 'react-native';
+import {Image, View, ScrollView, TextInput, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, ActivityIndicator} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import { Container, Text, Button, Picker} from 'native-base';
-import LogoSIP from '../../../assets/logo-sip370x50.png';
 import AsyncStorage from "@react-native-community/async-storage";
+import LogoSIP from '../../../../assets/logo-sip370x50.png';
 import Axios from 'axios';
 import moment from 'moment';
-import app_version from '../../app_version/index';
+import app_version from	'../../../app_version/index';
 
-const MassproBeginTechInjection = ({route, navigation}) => {
+const MassproBeginMoldSetter = ({route, navigation}) => {
 	useEffect(() => {
 		formOke()
 	}, [])
-
 	const {customer_name, sys_plant_id, machine_id, machine_number, machine_name, today, eng_product_id} = route.params
-	const [data1, setData1] 																							= useState("")
-	const [cleaning_mold, setCleaning] 																		= useState("")
-	const [standard_parameter, setParam] 																	= useState("")
-	const [robot_setting, setRobot] 																			= useState("")
-	const [check_cooling, setChannel] 																		= useState("")
-	const [four_m_check, setSheet] 																				= useState("")
-	const [mold_temp_act, setActMold] 																		= useState("")
+	const [clamping_bolt, setClamping] 																	= useState("")
+	const [cooling_system, setCooling] 																		= useState("")
+	const [limit_switch, setSlider] 																			= useState("")
+	const [eject_stroke, setStroke] 																			= useState("")
+	const [touching_nozzle, setTouching] 																	= useState("")
+	const [hydraulic_core, setHydraulic] 																	= useState("")
 	const [remark, setRemark] 																						= useState("")
 	const [created_by, setCreatedBy]																			= useState("")
-	let created_at 																												= moment().format("YYYY-MM-DD HH:mm:ss")
 	const [updated_by, setUpdatedBy]																			= useState("")
-	let updated_at 																												= moment().format("YYYY-MM-DD HH:mm:ss")
+	const [data1, setData1]																								= useState("")
 	const [qc_masspro_main_mold_id, setMaintMoldId]												= useState(0)
 	const [qc_masspro_material_preparation_id, setMaterialPreparationId]	= useState(0)
-	const [qc_masspro_mold_setter_id, setMoldSetterId]										= useState(0)
-	const [hours, setHours]																								= useState(0)
-	const [shift, setShift]																								= useState(0)
-
-	const [planningId, setPlanningId]		= useState("")
-	const [internal_part_id, setIPI]		= useState("")
-	const [massproTI, setMassproTI]			= useState(null)
-	const [massproTICleanningMold, setCleaningMold]	  = useState("")
-	const [massproTIInputStandard, setInputStandard] 	= useState("")
-	const [massproTIRoboSetting, setRoboSetting] 			= useState("")
-	const [massproTICoolingChannel, setCooling] 			= useState("")
-	const [massproTI4mCheckSheet, set4mCheck]   			= useState("")
-	const [massproTIActMoldTemp, setActMoldTemp]   		= useState("")
-	const [massproTIRemark, setTIRemark]   						= useState("")
-	const prod_machine_id = machine_id
+	const [hours, setHours]		  																					= useState(0)
+	const [shift, setShift]		  																					= useState(0)
+	let created_at 																												= moment().format("YYYY-MM-DD HH:mm:ss")
+	let updated_at 																												= moment().format("YYYY-MM-DD HH:mm:ss")
+	const [massproMS, setMassproMS]																				= useState("")
+	const [massproMSClampingBolt, setMassproMSClampingBolt]								= useState("")
+	const [massproMsCoolingSystem, setMassproMSCoolingSystem]							= useState("")
+	const [massproMsLimitSwitch, setLimitSwitch] 													= useState("")
+	const [massproMsEjectStroke, setEjectStroke] 													= useState("")
+	const [massproMsTouchingNozzle, setTouchingNozzle] 										= useState("")
+	const [massproMSHydraulicCore, setHydraulicCore]	 										= useState("")
+	const [massproMSRemark, setMsRemark]							 										= useState("")
+	const prod_machine_id 								= machine_id
+	const [planningId, setPlanningId]		 		 				= useState("")
+	const [internal_part_id, setIPI] 							  = useState("")
 	const status = "new"
 	const [tooling_num, setTooling]	= useState("")
 	const planning_id = parseInt(planningId)
@@ -52,20 +49,20 @@ const MassproBeginTechInjection = ({route, navigation}) => {
 		setLoading(false)
 		const data = {
 			eng_product_id,
-			prod_machine_id,
-			sys_plant_id,
-			tooling_num,
-			mold_temp_act,
-			internal_part_id,
 			qc_masspro_main_mold_id,
 			qc_masspro_material_preparation_id,
-			qc_masspro_mold_setter_id,
-			cleaning_mold,
+			tooling_num,
+			sys_plant_id,
+			prod_machine_id,
 			planning_id,
-			standard_parameter,
-			robot_setting,
-			check_cooling,
-			four_m_check,
+			clamping_bolt,
+			cooling_system,
+			internal_part_id,
+			planningId,
+			limit_switch,
+			eject_stroke,
+			touching_nozzle,
+			hydraulic_core,
 			remark,
 			status,
 			created_by,
@@ -76,7 +73,7 @@ const MassproBeginTechInjection = ({route, navigation}) => {
 		const token = await AsyncStorage.getItem("key")
 		const params = {
 			tbl: 'daily_inspection',
-			kind: 'masspro_ti',
+			kind: 'masspro_ms',
 			app_version: app_version
 		}
 		var config = {
@@ -98,10 +95,11 @@ const MassproBeginTechInjection = ({route, navigation}) => {
 			alert("Success Send Data!")
 		})
 		.catch(function (error){
-			alert("Failed Send Data!")
+			alert("Failed Send Data! ", error)
 			console.log(error)
 		})
 	}
+
 	const formOke = async() => {
 		const token = await AsyncStorage.getItem("key")
 		const headers = {
@@ -129,36 +127,35 @@ const MassproBeginTechInjection = ({route, navigation}) => {
 		}
 		const params = {
 			tbl: 'daily_inspection',
-			kind: 'masspro_ti',
+			kind: 'masspro_ms',
 			sys_plant_id: sys_plant_id,
 			machine_id: machine_id,
 			app_version: app_version,
 			eng_product_id: eng_product_id
 		}
-
 		Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 		.then(response => {
 			setLoading(true)
 			setMaintMoldId(response.data.data.qc_masspro_main_mold_id)
 			setMaterialPreparationId(response.data.data.qc_masspro_material_preparation_id)
-			setMoldSetterId(response.data.data.qc_masspro_mold_setter_id)
 			setData1(response.data.data.product_detail)
+			setIPI(response.data.data.product_detail.internal_part_id)
 			setTooling(response.data.data.tooling_num)
 			setPlanningId(response.data.data.planning_id)
-			setIPI(response.data.data.product_detail.internal_part_id)
-			setMassproTI(response.data.data.masspro_ti)
-			setCleaningMold(response.data.data.masspro_ti.cleaning_mold)
-			setInputStandard(response.data.data.masspro_ti.standard_parameter)
-			setRoboSetting(response.data.data.masspro_ti.robot_setting)
-			setCooling(response.data.data.masspro_ti.check_cooling)
-			set4mCheck(response.data.data.masspro_ti.four_m_check_sheet)
-			setActMoldTemp(response.data.data.masspro_ti.mold_temp)
-			setTIRemark(response.data.data.masspro_ti.remark)
-			console.log("List Data Tech. Injection: ", response.data.status, "OK")
+			setMassproMS(response.data.data.masspro_ms)
+			setMassproMSClampingBolt(response.data.data.masspro_ms.clamping_bolt)
+			setMassproMSCoolingSystem(response.data.data.masspro_ms.cooling_system)
+			setLimitSwitch(response.data.data.masspro_ms.cooling_system)
+			setEjectStroke(response.data.data.masspro_ms.eject_stroke)
+			setTouchingNozzle(response.data.data.masspro_ms.touching_nozzle)
+			setHydraulicCore(response.data.data.masspro_ms.hydraulic_core_pack)
+			setMsRemark(response.data.data.masspro_ms.remark)
+			console.log("List Data Mold Setter: ", response.data.status, "OK")
 		})
 		.catch(error => {
-			console.log('List Data Tech. Injection: ', error)
+			console.log('List Data Mold Setter: ', error)
 		})
+		
 	}
 
 	const shiftFix = (value) => {
@@ -178,18 +175,18 @@ const MassproBeginTechInjection = ({route, navigation}) => {
 		return date
 	}
 
-	const updateCleaningMold = () => {
-		const updateTI = massproTICleanningMold
+	const updateClampingBolt = () => {
+		const clampping_bolt = massproMSClampingBolt
 		const data = []
-		const tiData = massproTI
-		if(tiData != null){
-			if(updateTI != "OK" && updateTI != "NG"){
+		const msData = massproMS
+		if(msData != null){
+			if(clampping_bolt != "OK" && clampping_bolt != "NG"){
 				data.push(
-					<View key="skwiu21odj" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<View key="1231" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 						<Picker 
 						mode="dropdown"
-						selectedValue={cleaning_mold}
-						onValueChange={(value) => setCleaning(value)}
+						selectedValue={clamping_bolt}
+						onValueChange={(value) => setClamping(value)}
 						>
 							<Picker.Item label="Pilih" value="" />
 							<Picker.Item label="OK" value="OK" />
@@ -199,18 +196,18 @@ const MassproBeginTechInjection = ({route, navigation}) => {
 				)
 			}else{
 				data.push(
-					<View key="skwiu21odj" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-						<Text>{updateTI}</Text>
+					<View key="1231" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor:'#b8b8b8'}}>
+						<Text>{clampping_bolt}</Text>
 					</View>
 				)
 			}
 		}else{
 			data.push(
-				<View key="skwiu21odj" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+				<View key="1231" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 					<Picker 
 					mode="dropdown"
-					selectedValue={cleaning_mold}
-					onValueChange={(value) => setCleaning(value)}
+					selectedValue={clamping_bolt}
+					onValueChange={(value) => setClamping(value)}
 					>
 						<Picker.Item label="Pilih" value="" />
 						<Picker.Item label="OK" value="OK" />
@@ -222,18 +219,18 @@ const MassproBeginTechInjection = ({route, navigation}) => {
 		return data
 	}
 
-	const updateStandaradParameter = () => {
-		const updateTI = massproTIInputStandard
+	const updateCoolingSystem = () => {
+		const updateMS = massproMsCoolingSystem
 		const data = []
-		const tiData = massproTI
-		if(tiData != null){
-			if(updateTI != "OK" && updateTI != "NG"){
+		const msData = massproMS
+		if(msData != null){
+			if(updateMS != "OK" && updateMS != "NG"){
 				data.push(
-					<View key="oasiSIj12" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<View key="asd231s" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 						<Picker 
 						mode="dropdown"
-						selectedValue={standard_parameter}
-						onValueChange={(value) => setParam(value)}
+						selectedValue={cooling_system}
+						onValueChange={(value) => setCooling(value)}
 						>
 							<Picker.Item label="Pilih" value="" />
 							<Picker.Item label="OK" value="OK" />
@@ -243,18 +240,18 @@ const MassproBeginTechInjection = ({route, navigation}) => {
 				)
 			}else{
 				data.push(
-					<View key="oasiSIj12" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-						<Text>{updateTI}</Text>
+					<View key="asd231s" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor:'#b8b8b8'}}>
+						<Text>{updateMS}</Text>
 					</View>
 				)
 			}
 		}else{
 			data.push(
-				<View key="oasiSIj12" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+				<View key="asd231s" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 					<Picker 
 					mode="dropdown"
-					selectedValue={standard_parameter}
-					onValueChange={(value) => setParam(value)}
+					selectedValue={cooling_system}
+					onValueChange={(value) => setCooling(value)}
 					>
 						<Picker.Item label="Pilih" value="" />
 						<Picker.Item label="OK" value="OK" />
@@ -266,18 +263,18 @@ const MassproBeginTechInjection = ({route, navigation}) => {
 		return data
 	}
 
-	const updateRoboSetting = () => {
-		const updateTI = massproTIRoboSetting
+	const updateLimitSwitch = () => {
+		const updateMS = massproMsLimitSwitch
 		const data = []
-		const tiData = massproTI
-		if(tiData != null){
-			if(updateTI != "OK" && updateTI != "NG"){
+		const msData = massproMS
+		if(msData != null){
+			if(updateMS != "OK" && updateMS != "NG"){
 				data.push(
-					<View key="kaOPAIU2" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<View key="asd231s" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 						<Picker 
 						mode="dropdown"
-						selectedValue={robot_setting}
-						onValueChange={(value) => setRobot(value)}
+						selectedValue={limit_switch}
+						onValueChange={(value) => setSlider(value)}
 						>
 							<Picker.Item label="Pilih" value="" />
 							<Picker.Item label="OK" value="OK" />
@@ -287,18 +284,18 @@ const MassproBeginTechInjection = ({route, navigation}) => {
 				)
 			}else{
 				data.push(
-					<View key="kaOPAIU2" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-						<Text>{updateTI}</Text>
+					<View key="asd231s" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+						<Text>{updateMS}</Text>
 					</View>
 				)
 			}
 		}else{
 			data.push(
-				<View key="kaOPAIU2" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+				<View key="asd231s" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 					<Picker 
 					mode="dropdown"
-					selectedValue={robot_setting}
-					onValueChange={(value) => setRobot(value)}
+					selectedValue={limit_switch}
+					onValueChange={(value) => setSlider(value)}
 					>
 						<Picker.Item label="Pilih" value="" />
 						<Picker.Item label="OK" value="OK" />
@@ -310,18 +307,18 @@ const MassproBeginTechInjection = ({route, navigation}) => {
 		return data
 	}
 
-	const updateCoolingChannel = () => {
-		const updateTI = massproTICoolingChannel
+	const updateEjectStroke = () => {
+		const updateMS = massproMsEjectStroke
 		const data = []
-		const tiData = massproTI
-		if(tiData != null){
-			if(updateTI != "OK" && updateTI != "NG"){
+		const msData = massproMS
+		if(msData != null){
+			if(updateMS != "OK" && "NG"){
 				data.push(
-					<View key="SOKwkjasu@13sa" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<View key="asdw231" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 						<Picker 
 						mode="dropdown"
-						selectedValue={check_cooling}
-						onValueChange={(value) => setChannel(value)}
+						selectedValue={eject_stroke}
+						onValueChange={(value) => setStroke(value)}
 						>
 							<Picker.Item label="Pilih" value="" />
 							<Picker.Item label="OK" value="OK" />
@@ -331,18 +328,18 @@ const MassproBeginTechInjection = ({route, navigation}) => {
 				)
 			}else{
 				data.push(
-					<View key="SOKwkjasu@13sa" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-						<Text>{updateTI}</Text>
+					<View key="asdw231" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+						<Text>{updateMS}</Text>
 					</View>
 				)
 			}
 		}else{
 			data.push(
-				<View key="SOKwkjasu@13sa" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+				<View key="asdw231" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 					<Picker 
 					mode="dropdown"
-					selectedValue={check_cooling}
-					onValueChange={(value) => setChannel(value)}
+					selectedValue={eject_stroke}
+					onValueChange={(value) => setStroke(value)}
 					>
 						<Picker.Item label="Pilih" value="" />
 						<Picker.Item label="OK" value="OK" />
@@ -354,18 +351,18 @@ const MassproBeginTechInjection = ({route, navigation}) => {
 		return data
 	}
 
-	const update4CheckSheet = () => {
-		const updateTI = massproTI4mCheckSheet
+	const updateTouchingNozzle = () => {
+		const updateMS = massproMsTouchingNozzle
 		const data = []
-		const tiData = massproTI
-		if(tiData != null){
-			if(updateTI != "OK" && updateTI != "NG"){
+		const msData = massproMS
+		if(msData != null){
+			if(updateMS != "OK" && updateMS != "NG"){
 				data.push(
-					<View key="sadw123as" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<View key="23ase1" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 						<Picker 
 						mode="dropdown"
-						selectedValue={four_m_check}
-						onValueChange={(value) => setSheet(value)}
+						selectedValue={touching_nozzle}
+						onValueChange={(value) => setTouching(value)}
 						>
 							<Picker.Item label="Pilih" value="" />
 							<Picker.Item label="OK" value="OK" />
@@ -375,18 +372,18 @@ const MassproBeginTechInjection = ({route, navigation}) => {
 				)
 			}else{
 				data.push(
-					<View key="sadw123as" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-						<Text>{updateTI}</Text>
+					<View key="23ase1" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+						<Text>{updateMS}</Text>
 					</View>
 				)
 			}
 		}else{
 			data.push(
-				<View key="sadw123as" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+				<View key="soiko2" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 					<Picker 
 					mode="dropdown"
-					selectedValue={four_m_check}
-					onValueChange={(value) => setSheet(value)}
+					selectedValue={touching_nozzle}
+					onValueChange={(value) => setTouching(value)}
 					>
 						<Picker.Item label="Pilih" value="" />
 						<Picker.Item label="OK" value="OK" />
@@ -398,43 +395,45 @@ const MassproBeginTechInjection = ({route, navigation}) => {
 		return data
 	}
 
-	const updateActMoldTemp = () => {
-		const updateTI = massproTIActMoldTemp
+	const updateHydraulicCore = () => {
+		const updateMS = massproMSHydraulicCore
 		const data = []
-		const tiData = massproTI
-		if(tiData != null){
-			if(updateTI != "OK" && updateTI != "NG"){
+		const msData = massproMS
+		if(msData != null){
+			if(updateMS != "OK" && updateMS != "NG" && updateMS != "no_check"){
 				data.push(
-					<View key="sdk@isajdl1" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<View key="skp21" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 						<Picker 
 						mode="dropdown"
-						selectedValue={mold_temp_act}
-						onValueChange={(value) => setActMold(value)}
+						selectedValue={hydraulic_core}
+						onValueChange={(value) => setHydraulic(value)}
 						>
 							<Picker.Item label="Pilih" value="" />
 							<Picker.Item label="OK" value="OK" />
 							<Picker.Item label="NG" value="NG" />
+							<Picker.Item label="No Check" value="no_check" />
 						</Picker>
 					</View>
 				)
 			}else{
 				data.push(
-					<View key="sdk@isajdl1" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-						<Text>{updateTI}</Text>
+					<View key="skp21" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+						<Text>{updateMS}</Text>
 					</View>
 				)
 			}
 		}else{
 			data.push(
-				<View key="sdk@isajdl1" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+				<View key="skp21" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 					<Picker 
 					mode="dropdown"
-					selectedValue={mold_temp_act}
-					onValueChange={(value) => setActMold(value)}
+					selectedValue={hydraulic_core}
+					onValueChange={(value) => setHydraulic(value)}
 					>
 						<Picker.Item label="Pilih" value="" />
 						<Picker.Item label="OK" value="OK" />
 						<Picker.Item label="NG" value="NG" />
+						<Picker.Item label="No Check" value="no_check" />
 					</Picker>
 				</View>
 			)
@@ -443,27 +442,27 @@ const MassproBeginTechInjection = ({route, navigation}) => {
 	}
 
 	const updateRemark = () => {
-		const updateTI = massproTIRemark
+		const updateMS = massproMSRemark
 		const data = []
-		const tiData = massproTI
-		if(tiData != null){
-			if(updateTI == null){
+		const msData = massproMS
+		if(msData != null){
+			if(updateMS != null){
 				data.push(
-					<View key="sdk@isajdl1" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-						<TextInput onChangeText={(value) => setRemark(value)}  style={{paddingLeft: 5, height: 40}} placeholder="Type Here..." />
-					</View>
+					<View key="skp21" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor:'#b8b8b8'}}>
+						<Text>{updateMS}</Text>
+					</View>				
 				)
 			}else{
 				data.push(
-					<View key="sdk@isajdl1" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-						<Text>{updateTI}</Text>
+					<View key="skp21" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+						<TextInput value={remark} onChangeText={(value) => setRemark(value)} style={{paddingLeft: 5, height: 40}} placeholder="Type Here..." />
 					</View>
 				)
 			}
 		}else{
 			data.push(
-				<View key="sdk@isajdl1" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-					<TextInput onChangeText={(value) => setRemark(value)}  style={{paddingLeft: 5, height: 40}} placeholder="Type Here..." />
+				<View key="skp21" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<TextInput value={remark} onChangeText={(value) => setRemark(value)} style={{paddingLeft: 5, height: 40}} placeholder="Type Here..." />
 				</View>
 			)
 		}
@@ -471,9 +470,9 @@ const MassproBeginTechInjection = ({route, navigation}) => {
 	}
 
 	const updateButton = () => {
-		const updateMS = massproTI
+		const updateMS = massproMS
 		const data = []
-		if(updateMS != null || qc_masspro_mold_setter_id == null){
+		if(updateMS != null){
 			data.push(
 				<View key="asd12q" style={{paddingTop: 10}}>
 					<Button style={{width: 172, borderRadius: 25, justifyContent: 'center', backgroundColor: '#05c46b'}} onPress={() => alert("Data Material Preparation Already Saved!")}><Text>SAVED</Text></Button>
@@ -491,109 +490,109 @@ const MassproBeginTechInjection = ({route, navigation}) => {
 
 	const content = () => {
 		var dataContent = []
-		if(qc_masspro_mold_setter_id != null){
+		if(qc_masspro_material_preparation_id != null){
 			dataContent.push(
-				<ScrollView key="31" style={{flex: 1}}>
-					<TouchableOpacity>
-						<View style={{paddingTop: 20, flexDirection: 'row'}}>
-							<View style={{padding: 10, width: "44%"}}>
-								<Text>Cleaning Mold Core / Cavity</Text>
-							</View>
-							<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-								<Text style={{color: 'black'}}>:</Text>
-							</View>
-							<View style={{padding: 4, width: "50%"}}>
-								{updateCleaningMold()}
-							</View>
+				<ScrollView key="23" style={{flex: 1}}>
+					<View style={{paddingTop: 20, flexDirection: 'row'}}>
+						<View style={{padding: 10, width: "44%"}}>
+							<Text>Clamping Bolt</Text>
 						</View>
+						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+							<Text style={{color: 'black'}}>:</Text>
+						</View>
+						<View style={{padding: 4, width: "50%"}}>
+							{updateClampingBolt()}
+						</View>
+					</View>
 
-						<View style={{paddingTop: 20, flexDirection: 'row'}}>
-							<View style={{padding: 10, width: "44%"}}>
-								<Text>Input Standar Parameter</Text>
-							</View>
-							<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-								<Text style={{color: 'black'}}>:</Text>
-							</View>
-							<View style={{padding: 4, width: "50%"}}>
-								{updateStandaradParameter()}
-							</View>
+					<View style={{paddingTop: 20, flexDirection: 'row'}}>
+						<View style={{padding: 10, width: "44%"}}>
+							<Text>Cooling System</Text>
 						</View>
-						
-						<View style={{paddingTop: 20, flexDirection: 'row'}}>
-							<View style={{padding: 10, width: "44%"}}>
-								<Text>Robot setting</Text>
-							</View>
-							<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-								<Text style={{color: 'black'}}>:</Text>
-							</View>
-							<View style={{padding: 4, width: "50%"}}>
-								{updateRoboSetting()}
-							</View>
+						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+							<Text style={{color: 'black'}}>:</Text>
 						</View>
-						
-						<View style={{paddingTop: 20, flexDirection: 'row'}}>
-							<View style={{padding: 10, width: "44%"}}>
-								<Text>Check cooling Channel</Text>
-							</View>
-							<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-								<Text style={{color: 'black'}}>:</Text>
-							</View>
-							<View style={{padding: 4, width: "50%"}}>
-								{updateCoolingChannel()}
-							</View>
+						<View style={{padding: 4, width: "50%"}}>
+							{updateCoolingSystem()}
 						</View>
-						
-						<View style={{paddingTop: 20, flexDirection: 'row'}}>
-							<View style={{padding: 10, width: "44%"}}>
-								<Text>4M Check Sheet</Text>
-							</View>
-							<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-								<Text style={{color: 'black'}}>:</Text>
-							</View>
-							<View style={{padding: 4, width: "50%"}}>
-								{update4CheckSheet()}
-							</View>
+					</View>
+					
+					<View style={{paddingTop: 20, flexDirection: 'row'}}>
+						<View style={{padding: 10, width: "44%"}}>
+							<Text>Limit Switch Ejector / Slider</Text>
 						</View>
-						
-						<View style={{paddingTop: 20, flexDirection: 'row'}}>
-							<View style={{padding: 10, width: "44%"}}>
-								<Text>Mold Temp ActMold Temp Act</Text>
-							</View>
-							<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-								<Text style={{color: 'black'}}>:</Text>
-							</View>
-							<View style={{padding: 4, width: "50%"}}>
-								{updateActMoldTemp()}
-							</View>
+						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+							<Text style={{color: 'black'}}>:</Text>
 						</View>
+						<View style={{padding: 4, width: "50%"}}>
+							{updateLimitSwitch()}
+						</View>
+					</View>
+					
+					<View style={{paddingTop: 20, flexDirection: 'row'}}>
+						<View style={{padding: 10, width: "44%"}}>
+							<Text>Eject Stroke</Text>
+						</View>
+						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+							<Text style={{color: 'black'}}>:</Text>
+						</View>
+						<View style={{padding: 4, width: "50%"}}>
+							{updateEjectStroke()}
+						</View>
+					</View>
+					
+					<View style={{paddingTop: 20, flexDirection: 'row'}}>
+						<View style={{padding: 10, width: "44%"}}>
+							<Text>Touching Nozzle With SprueBush</Text>
+						</View>
+						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+							<Text style={{color: 'black'}}>:</Text>
+						</View>
+						<View style={{padding: 4, width: "50%"}}>
+							{updateTouchingNozzle()}
+						</View>
+					</View>
+					
+					<View style={{paddingTop: 20, flexDirection: 'row'}}>
+						<View style={{padding: 10, width: "44%"}}>
+							<Text>Hydraulic Core Pack</Text>
+						</View>
+						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+							<Text style={{color: 'black'}}>:</Text>
+						</View>
+						<View style={{padding: 4, width: "50%"}}>
+							{updateHydraulicCore()}
+						</View>
+					</View>
 
-						<View style={{paddingTop: 20, flexDirection: 'row'}}>
-							<View style={{padding: 10, width: "44%"}}>
-								<Text>Remark</Text>
-							</View>
-							<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-								<Text style={{color: 'black'}}>:</Text>
-							</View>
-							<View style={{padding: 4, width: "50%"}}>
-								{updateRemark()}
-							</View>
+					<View style={{paddingTop: 20, flexDirection: 'row'}}>
+						<View style={{padding: 10, width: "44%"}}>
+							<Text>Remark</Text>
 						</View>
-						
-						<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
-							{updateButton()}
+						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+							<Text style={{color: 'black'}}>:</Text>
 						</View>
-					</TouchableOpacity>
+						<View style={{padding: 4, width: "50%"}}>
+							{updateRemark()}
+						</View>
+					</View>
+				
+					<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
+					{updateButton()}
+					</View>
+					
 				</ScrollView>
 			)
 		}else{
 			dataContent.push(
 				<ScrollView key="3" style={{flex: 1}}>
 					<View style={{marginVertical: 160, marginHorizontal: 40, padding: 40, backgroundColor: '#fff76a', borderWidth: 1, borderRadius: 25, flexDirection: 'row', alignItems: 'center'}}>
-						<Text style={{fontSize: 12, textAlign: 'center', fontWeight: 'bold'}}>Hubungi Masspro Begin Mold Setter Untuk Segera Isi Form</Text>
+						<Text style={{fontSize: 12, textAlign: 'center', fontWeight: 'bold'}}>Hubungi Masspro Begin Material Preparation Untuk Segera Isi Form</Text>
 					</View>
 				</ScrollView>
 			)
 		}
+
 		return dataContent
 	}
 
@@ -611,7 +610,7 @@ const MassproBeginTechInjection = ({route, navigation}) => {
 							<View style={{borderTopWidth: 0.3, borderRightWidth: 0.3, height: 100, justifyContent: 'center', alignItems: 'center', width: "50%", backgroundColor: '#F5F5DC'}}>
 								<Text style={{marginTop: 5, fontWeight: 'bold', fontSize: 17}}>{date()}</Text>
 								<Text style={{marginTop: 1, fontWeight: 'bold', fontSize: 17}}>Edit Daily Inspection</Text>
-								<Text style={{marginTop: 1, fontWeight: 'bold', fontSize: 11}}>Masspro Begin Tech. Injection</Text>
+								<Text style={{marginTop: 1, fontWeight: 'bold', fontSize: 11}}>Masspro Begin Mold Setter</Text>
 								<Text style={{marginTop: 1, fontWeight: 'bold', fontSize: 11}}>{customer_name}</Text>
 							</View>
 							<View style={{flexDirection: 'column', width: "100%"}}>
@@ -660,14 +659,13 @@ const MassproBeginTechInjection = ({route, navigation}) => {
 							<View style={{justifyContent: 'center', paddingLeft: 5, height: 25, width: "36%", backgroundColor: '#F5F5DC'}}>
 								<Text style={{fontSize: 12}}>{data1 != null ? data1.internal_part_id : "-"}</Text>
 							</View>
-							<View style={{justifyContent: 'center', alignItems: 'center', height: 25, width: "30%", backgroundColor: '#F5F5DC'}}>
+							<View style={{justifyContent: 'center', alignItems: 'center', height: 25, width: "40%", backgroundColor: '#F5F5DC'}}>
 								<Text style={{fontSize: 12}}>{data1 != null ? data1.customer_part_number : "-"}</Text>
 							</View>
 							<View style={{flex: 1, justifyContent: 'center', alignItems: 'center', height: 25, backgroundColor: '#F5F5DC'}}>
 								<Text style={{fontSize: 12}}>{data1 != null ? data1.model : "-"}</Text>
 							</View>
 						</View>
-
 						{loading ? content() : <View style={{justifyContent: 'center'}}><ActivityIndicator size="large" color="#0000ff"/></View>}
 					</View>
 				</Container>
@@ -676,4 +674,4 @@ const MassproBeginTechInjection = ({route, navigation}) => {
 	)
 }
 
-export default MassproBeginTechInjection;
+export default MassproBeginMoldSetter;

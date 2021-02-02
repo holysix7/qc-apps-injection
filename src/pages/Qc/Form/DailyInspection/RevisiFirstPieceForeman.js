@@ -1,11 +1,11 @@
 import {Image, View, ScrollView, TextInput, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, TouchableOpacity, ActivityIndicator} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import { Container, Text, Button, Picker } from 'native-base';
-import LogoSIP from '../../../assets/logo-sip370x50.png';
+import LogoSIP from '../../../../assets/logo-sip370x50.png';
 import AsyncStorage from "@react-native-community/async-storage";
 import moment from 'moment';
 import Axios from 'axios';
-import app_version from '../../app_version/index';
+import app_version from '../../../app_version/index';
 
 const RevisiFirstPieceForeman = ({route, navigation}) => {
 	const {qc_daily_inspection_id, sys_plant_id, product_name, customer_name, machine_id, machine_number, machine_name, daily_inspection_number, today, yesterday} = route.params

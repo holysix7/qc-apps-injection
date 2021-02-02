@@ -1,52 +1,49 @@
 import {Image, View, ScrollView, TextInput, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, TouchableOpacity, ActivityIndicator} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import { Container, Text, Button, Picker} from 'native-base';
-import LogoSIP from '../../../assets/logo-sip370x50.png';
+import LogoSIP from '../../../../assets/logo-sip370x50.png';
 import AsyncStorage from "@react-native-community/async-storage";
 import Axios from 'axios';
 import moment from 'moment';
-import app_version from '../../app_version/index';
+import app_version from '../../../app_version/index';
 
-const MassproBeginProdLeader = ({route, navigation}) => {
+const MassproBeginTechInjection = ({route, navigation}) => {
 	useEffect(() => {
 		formOke()
 	}, [])
 
 	const {customer_name, sys_plant_id, machine_id, machine_number, machine_name, today, eng_product_id} = route.params
-	const [wi_product, setWiProduct] 																		 = useState("")
-	const [packing_standard, setPackingStandard] 												 = useState("")
-	const [production_working_tool, setWorkTools] 											 = useState("")
-	const [production_report, setProdReport] 														 = useState("")
-	const [lable, setLable] 																						 = useState("")
-	const [ng_form, setNgForm] 																					 = useState("")
-	const [jig, setJig] 																								 = useState("")
-	const [remark, setRemark] 																					 = useState("")
-	const [data1, setData1]  																					   = useState("")
-	const [qc_masspro_main_mold_id, setMaintMoldId] 										 = useState(0)
-	const [qc_masspro_material_preparation_id, setMaterialPreparationId] = useState(0)
-	const [qc_masspro_mold_setter_id, setMoldSetterId] 									 = useState(0)
-	const [qc_masspro_tech_injection_id, setTechInjectionId] 						 = useState(0)
-	const [hours, setHours]		  																				 = useState(0)
-	const [shift, setShift]		  																				 = useState(0)
-	const prod_machine_id = machine_id
-	const status 					= "new"
-	const [tooling_num, setTooling]	= useState("")
-	const [created_by, setCreatedBy]																		 = useState("")
-	let created_at 																											 = moment().format("YYYY-MM-DD HH:mm:ss")
-	const [updated_by, setUpdatedBy]																		 = useState("")
-	let updated_at 																											 = moment().format("YYYY-MM-DD HH:mm:ss")
+	const [data1, setData1] 																							= useState("")
+	const [cleaning_mold, setCleaning] 																		= useState("")
+	const [standard_parameter, setParam] 																	= useState("")
+	const [robot_setting, setRobot] 																			= useState("")
+	const [check_cooling, setChannel] 																		= useState("")
+	const [four_m_check, setSheet] 																				= useState("")
+	const [mold_temp_act, setActMold] 																		= useState("")
+	const [remark, setRemark] 																						= useState("")
+	const [created_by, setCreatedBy]																			= useState("")
+	let created_at 																												= moment().format("YYYY-MM-DD HH:mm:ss")
+	const [updated_by, setUpdatedBy]																			= useState("")
+	let updated_at 																												= moment().format("YYYY-MM-DD HH:mm:ss")
+	const [qc_masspro_main_mold_id, setMaintMoldId]												= useState(0)
+	const [qc_masspro_material_preparation_id, setMaterialPreparationId]	= useState(0)
+	const [qc_masspro_mold_setter_id, setMoldSetterId]										= useState(0)
+	const [hours, setHours]																								= useState(0)
+	const [shift, setShift]																								= useState(0)
 
 	const [planningId, setPlanningId]		= useState("")
 	const [internal_part_id, setIPI]		= useState("")
-	const [massproPL, setMassproPL]			= useState(null)
-	const [massproPLWiProduct, setUpdateWiProduct]	  	= useState("")
-	const [massproPLPackingStandard, setUpdatePacking] 	= useState("")
-	const [massproPLWorkTools, setUpdateWorkTools]	 		= useState("")
-	const [massproPLProdReport, setUpdateProdReport]		= useState("")
-	const [massproPLLable, setUpdateLable]   						= useState("")
-	const [massproPLNGForm, setUpdateNgForm]		   			= useState("")
-	const [massproPLJig, setUpdateJig]   								= useState("")
-	const [massproPLRemark, setUpdateRemark]   						= useState("")
+	const [massproTI, setMassproTI]			= useState(null)
+	const [massproTICleanningMold, setCleaningMold]	  = useState("")
+	const [massproTIInputStandard, setInputStandard] 	= useState("")
+	const [massproTIRoboSetting, setRoboSetting] 			= useState("")
+	const [massproTICoolingChannel, setCooling] 			= useState("")
+	const [massproTI4mCheckSheet, set4mCheck]   			= useState("")
+	const [massproTIActMoldTemp, setActMoldTemp]   		= useState("")
+	const [massproTIRemark, setTIRemark]   						= useState("")
+	const prod_machine_id = machine_id
+	const status = "new"
+	const [tooling_num, setTooling]	= useState("")
 	const planning_id = parseInt(planningId)
 
 	const [loading, setLoading] = useState(false)
@@ -55,22 +52,20 @@ const MassproBeginProdLeader = ({route, navigation}) => {
 		setLoading(false)
 		const data = {
 			eng_product_id,
-			internal_part_id,
-			planning_id,
 			prod_machine_id,
 			sys_plant_id,
 			tooling_num,
+			mold_temp_act,
+			internal_part_id,
 			qc_masspro_main_mold_id,
 			qc_masspro_material_preparation_id,
 			qc_masspro_mold_setter_id,
-			qc_masspro_tech_injection_id,
-			wi_product,
-			packing_standard,
-			production_working_tool,
-			production_report,
-			lable,
-			ng_form,
-			jig,
+			cleaning_mold,
+			planning_id,
+			standard_parameter,
+			robot_setting,
+			check_cooling,
+			four_m_check,
 			remark,
 			status,
 			created_by,
@@ -81,7 +76,7 @@ const MassproBeginProdLeader = ({route, navigation}) => {
 		const token = await AsyncStorage.getItem("key")
 		const params = {
 			tbl: 'daily_inspection',
-			kind: 'masspro_pl',
+			kind: 'masspro_ti',
 			app_version: app_version
 		}
 		var config = {
@@ -103,12 +98,10 @@ const MassproBeginProdLeader = ({route, navigation}) => {
 			alert("Success Send Data!")
 		})
 		.catch(function (error){
-			setLoading(true)
 			alert("Failed Send Data!")
 			console.log(error)
 		})
 	}
-
 	const formOke = async() => {
 		const token = await AsyncStorage.getItem("key")
 		const headers = {
@@ -136,39 +129,38 @@ const MassproBeginProdLeader = ({route, navigation}) => {
 		}
 		const params = {
 			tbl: 'daily_inspection',
-			kind: 'masspro_pl',
+			kind: 'masspro_ti',
 			sys_plant_id: sys_plant_id,
 			machine_id: machine_id,
 			app_version: app_version,
 			eng_product_id: eng_product_id
 		}
+
 		Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 		.then(response => {
 			setLoading(true)
 			setMaintMoldId(response.data.data.qc_masspro_main_mold_id)
 			setMaterialPreparationId(response.data.data.qc_masspro_material_preparation_id)
 			setMoldSetterId(response.data.data.qc_masspro_mold_setter_id)
-			setTechInjectionId(response.data.data.qc_masspro_tech_injection_id)
 			setData1(response.data.data.product_detail)
 			setTooling(response.data.data.tooling_num)
 			setPlanningId(response.data.data.planning_id)
 			setIPI(response.data.data.product_detail.internal_part_id)
-			setMassproPL(response.data.data.masspro_pl)
-			setUpdateWiProduct(response.data.data.masspro_pl.wi_product)
-			setUpdatePacking(response.data.data.masspro_pl.packing_standard)
-			setUpdateWorkTools(response.data.data.masspro_pl.work_tool)
-			setUpdateProdReport(response.data.data.masspro_pl.work_report)
-			setUpdateLable(response.data.data.masspro_pl.lable)
-			setUpdateNgForm(response.data.data.masspro_pl.ng_form)
-			setUpdateJig(response.data.data.masspro_pl.jig)
-			setUpdateRemark(response.data.data.masspro_pl.remark)
-			console.log("List Data Prod. Leader: ", response.data.status, "OK")
+			setMassproTI(response.data.data.masspro_ti)
+			setCleaningMold(response.data.data.masspro_ti.cleaning_mold)
+			setInputStandard(response.data.data.masspro_ti.standard_parameter)
+			setRoboSetting(response.data.data.masspro_ti.robot_setting)
+			setCooling(response.data.data.masspro_ti.check_cooling)
+			set4mCheck(response.data.data.masspro_ti.four_m_check_sheet)
+			setActMoldTemp(response.data.data.masspro_ti.mold_temp)
+			setTIRemark(response.data.data.masspro_ti.remark)
+			console.log("List Data Tech. Injection: ", response.data.status, "OK")
 		})
 		.catch(error => {
-			console.log('List Data Prod. Leader: ', error)
-		})		
+			console.log('List Data Tech. Injection: ', error)
+		})
 	}
-		
+
 	const shiftFix = (value) => {
 		setHours(value)
 	}
@@ -186,18 +178,18 @@ const MassproBeginProdLeader = ({route, navigation}) => {
 		return date
 	}
 
-	const updateWiProduct = () => {
-		const updatePL = massproPLWiProduct
+	const updateCleaningMold = () => {
+		const updateTI = massproTICleanningMold
 		const data = []
-		const plData = massproPL
-		if(plData != null){
-			if(updatePL != "OK" && updatePL != "NG"){
+		const tiData = massproTI
+		if(tiData != null){
+			if(updateTI != "OK" && updateTI != "NG"){
 				data.push(
-					<View key="asokWoqk" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<View key="skwiu21odj" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 						<Picker 
 						mode="dropdown"
-						selectedValue={wi_product}
-						onValueChange={(value) => setWiProduct(value)}
+						selectedValue={cleaning_mold}
+						onValueChange={(value) => setCleaning(value)}
 						>
 							<Picker.Item label="Pilih" value="" />
 							<Picker.Item label="OK" value="OK" />
@@ -207,18 +199,18 @@ const MassproBeginProdLeader = ({route, navigation}) => {
 				)
 			}else{
 				data.push(
-					<View key="asokWoqk" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-						<Text>{updatePL}</Text>
+					<View key="skwiu21odj" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+						<Text>{updateTI}</Text>
 					</View>
 				)
 			}
 		}else{
 			data.push(
-				<View key="asokWoqk" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+				<View key="skwiu21odj" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 					<Picker 
 					mode="dropdown"
-					selectedValue={wi_product}
-					onValueChange={(value) => setWiProduct(value)}
+					selectedValue={cleaning_mold}
+					onValueChange={(value) => setCleaning(value)}
 					>
 						<Picker.Item label="Pilih" value="" />
 						<Picker.Item label="OK" value="OK" />
@@ -230,18 +222,18 @@ const MassproBeginProdLeader = ({route, navigation}) => {
 		return data
 	}
 
-	const updatePackingStandard = () => {
-		const updatePL = massproPLPackingStandard
+	const updateStandaradParameter = () => {
+		const updateTI = massproTIInputStandard
 		const data = []
-		const plData = massproPL
-		if(plData != null){
-			if(updatePL != "NG" && updatePL != "OK"){
+		const tiData = massproTI
+		if(tiData != null){
+			if(updateTI != "OK" && updateTI != "NG"){
 				data.push(
-					<View key="asdjwi2" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<View key="oasiSIj12" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 						<Picker 
 						mode="dropdown"
-						selectedValue={packing_standard}
-						onValueChange={(value) => setPackingStandard(value)}
+						selectedValue={standard_parameter}
+						onValueChange={(value) => setParam(value)}
 						>
 							<Picker.Item label="Pilih" value="" />
 							<Picker.Item label="OK" value="OK" />
@@ -251,18 +243,18 @@ const MassproBeginProdLeader = ({route, navigation}) => {
 				)
 			}else{
 				data.push(
-					<View key="asdjwi2" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-						<Text>{updatePL}</Text>
+					<View key="oasiSIj12" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+						<Text>{updateTI}</Text>
 					</View>
 				)
 			}
 		}else{
 			data.push(
-				<View key="asdjwi2" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+				<View key="oasiSIj12" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 					<Picker 
 					mode="dropdown"
-					selectedValue={packing_standard}
-					onValueChange={(value) => setPackingStandard(value)}
+					selectedValue={standard_parameter}
+					onValueChange={(value) => setParam(value)}
 					>
 						<Picker.Item label="Pilih" value="" />
 						<Picker.Item label="OK" value="OK" />
@@ -274,18 +266,18 @@ const MassproBeginProdLeader = ({route, navigation}) => {
 		return data
 	}
 
-	const updateProductionWorkTools = () => {
-		const updatePL = massproPLWorkTools
+	const updateRoboSetting = () => {
+		const updateTI = massproTIRoboSetting
 		const data = []
-		const plData = massproPL
-		if(plData != null){
-			if(updatePL != "OK" && updatePL != "NG"){
+		const tiData = massproTI
+		if(tiData != null){
+			if(updateTI != "OK" && updateTI != "NG"){
 				data.push(
-					<View key="asoiu2" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<View key="kaOPAIU2" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 						<Picker 
 						mode="dropdown"
-						selectedValue={production_working_tool}
-						onValueChange={(value) => setWorkTools(value)}
+						selectedValue={robot_setting}
+						onValueChange={(value) => setRobot(value)}
 						>
 							<Picker.Item label="Pilih" value="" />
 							<Picker.Item label="OK" value="OK" />
@@ -295,18 +287,18 @@ const MassproBeginProdLeader = ({route, navigation}) => {
 				)
 			}else{
 				data.push(
-					<View key="asoiu2" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-						<Text>{updatePL}</Text>
+					<View key="kaOPAIU2" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+						<Text>{updateTI}</Text>
 					</View>
 				)
 			}
 		}else{
 			data.push(
-				<View key="asoiu2" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+				<View key="kaOPAIU2" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 					<Picker 
 					mode="dropdown"
-					selectedValue={production_working_tool}
-					onValueChange={(value) => setWorkTools(value)}
+					selectedValue={robot_setting}
+					onValueChange={(value) => setRobot(value)}
 					>
 						<Picker.Item label="Pilih" value="" />
 						<Picker.Item label="OK" value="OK" />
@@ -318,18 +310,18 @@ const MassproBeginProdLeader = ({route, navigation}) => {
 		return data
 	}
 
-	const updateProductionReport = () => {
-		const updatePL = massproPLProdReport
+	const updateCoolingChannel = () => {
+		const updateTI = massproTICoolingChannel
 		const data = []
-		const plData = massproPL
-		if(plData != null){
-			if(updatePL != "OK" && updatePL != "NG"){
+		const tiData = massproTI
+		if(tiData != null){
+			if(updateTI != "OK" && updateTI != "NG"){
 				data.push(
-					<View key="aosdkwi2" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<View key="SOKwkjasu@13sa" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 						<Picker 
 						mode="dropdown"
-						selectedValue={production_report}
-						onValueChange={(value) => setProdReport(value)}
+						selectedValue={check_cooling}
+						onValueChange={(value) => setChannel(value)}
 						>
 							<Picker.Item label="Pilih" value="" />
 							<Picker.Item label="OK" value="OK" />
@@ -339,18 +331,18 @@ const MassproBeginProdLeader = ({route, navigation}) => {
 				)
 			}else{
 				data.push(
-					<View key="aosdkwi2" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-						<Text>{updatePL}</Text>
+					<View key="SOKwkjasu@13sa" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+						<Text>{updateTI}</Text>
 					</View>
 				)
 			}
 		}else{
 			data.push(
-				<View key="aosdkwi2" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+				<View key="SOKwkjasu@13sa" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 					<Picker 
 					mode="dropdown"
-					selectedValue={production_report}
-					onValueChange={(value) => setProdReport(value)}
+					selectedValue={check_cooling}
+					onValueChange={(value) => setChannel(value)}
 					>
 						<Picker.Item label="Pilih" value="" />
 						<Picker.Item label="OK" value="OK" />
@@ -362,18 +354,18 @@ const MassproBeginProdLeader = ({route, navigation}) => {
 		return data
 	}
 
-	const updateLable = () => {
-		const updatePL = massproPLLable
+	const update4CheckSheet = () => {
+		const updateTI = massproTI4mCheckSheet
 		const data = []
-		const plData = massproPL
-		if(plData != null){
-			if(updatePL != "OK" && updatePL != "NG"){
+		const tiData = massproTI
+		if(tiData != null){
+			if(updateTI != "OK" && updateTI != "NG"){
 				data.push(
-					<View key="asoij2k" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<View key="sadw123as" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 						<Picker 
 						mode="dropdown"
-						selectedValue={lable}
-						onValueChange={(value) => setLable(value)}
+						selectedValue={four_m_check}
+						onValueChange={(value) => setSheet(value)}
 						>
 							<Picker.Item label="Pilih" value="" />
 							<Picker.Item label="OK" value="OK" />
@@ -383,18 +375,18 @@ const MassproBeginProdLeader = ({route, navigation}) => {
 				)
 			}else{
 				data.push(
-					<View key="asoij2k" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-						<Text>{updatePL}</Text>
+					<View key="sadw123as" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+						<Text>{updateTI}</Text>
 					</View>
 				)
 			}
 		}else{
 			data.push(
-				<View key="asoij2k" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+				<View key="sadw123as" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 					<Picker 
 					mode="dropdown"
-					selectedValue={lable}
-					onValueChange={(value) => setLable(value)}
+					selectedValue={four_m_check}
+					onValueChange={(value) => setSheet(value)}
 					>
 						<Picker.Item label="Pilih" value="" />
 						<Picker.Item label="OK" value="OK" />
@@ -406,18 +398,18 @@ const MassproBeginProdLeader = ({route, navigation}) => {
 		return data
 	}
 
-	const updateNGForm = () => {
-		const updatePL = massproPLNGForm
+	const updateActMoldTemp = () => {
+		const updateTI = massproTIActMoldTemp
 		const data = []
-		const plData = massproPL
-		if(plData != null){
-			if(updatePL != "OK" && updatePL != "NG"){
+		const tiData = massproTI
+		if(tiData != null){
+			if(updateTI != "OK" && updateTI != "NG"){
 				data.push(
-					<View key="askuh2jk" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<View key="sdk@isajdl1" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 						<Picker 
 						mode="dropdown"
-						selectedValue={ng_form}
-						onValueChange={(value) => setNgForm(value)}
+						selectedValue={mold_temp_act}
+						onValueChange={(value) => setActMold(value)}
 						>
 							<Picker.Item label="Pilih" value="" />
 							<Picker.Item label="OK" value="OK" />
@@ -427,68 +419,22 @@ const MassproBeginProdLeader = ({route, navigation}) => {
 				)
 			}else{
 				data.push(
-					<View key="askuh2jk" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-						<Text>{updatePL}</Text>
+					<View key="sdk@isajdl1" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+						<Text>{updateTI}</Text>
 					</View>
 				)
 			}
 		}else{
 			data.push(
-				<View key="askuh2jk" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+				<View key="sdk@isajdl1" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 					<Picker 
 					mode="dropdown"
-					selectedValue={ng_form}
-					onValueChange={(value) => setNgForm(value)}
+					selectedValue={mold_temp_act}
+					onValueChange={(value) => setActMold(value)}
 					>
 						<Picker.Item label="Pilih" value="" />
 						<Picker.Item label="OK" value="OK" />
 						<Picker.Item label="NG" value="NG" />
-					</Picker>
-				</View>
-			)
-		}
-		return data
-	}
-
-	const updateJIG = () => {
-		const updatePL = massproPLJig
-		const data = []
-		const plData = massproPL
-		if(plData != null){
-			if(updatePL != "OK" && updatePL != "NG" && updatePL != "no_check"){
-				data.push(
-					<View key="aoij2o" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-						<Picker 
-						mode="dropdown"
-						selectedValue={jig}
-						onValueChange={(value) => setJig(value)}
-						>
-							<Picker.Item label="Pilih" value="" />
-							<Picker.Item label="OK" value="OK" />
-							<Picker.Item label="NG" value="NG" />
-							<Picker.Item label="No Check" value="no_check" />
-						</Picker>
-					</View>
-				)
-			}else{
-				data.push(
-					<View key="aoij2o" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-						<Text>{updatePL}</Text>
-					</View>
-				)
-			}
-		}else{
-			data.push(
-				<View key="aoij2o" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-					<Picker 
-					mode="dropdown"
-					selectedValue={jig}
-					onValueChange={(value) => setJig(value)}
-					>
-						<Picker.Item label="Pilih" value="" />
-						<Picker.Item label="OK" value="OK" />
-						<Picker.Item label="NG" value="NG" />
-						<Picker.Item label="No Check" value="no_check" />
 					</Picker>
 				</View>
 			)
@@ -497,27 +443,27 @@ const MassproBeginProdLeader = ({route, navigation}) => {
 	}
 
 	const updateRemark = () => {
-		const updatePL = massproPLRemark
+		const updateTI = massproTIRemark
 		const data = []
-		const plData = massproPL
-		if(plData != null){
-			if(updatePL != null){
+		const tiData = massproTI
+		if(tiData != null){
+			if(updateTI == null){
 				data.push(
-					<View key="aoij2o" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-						<Text>{updatePL}</Text>
+					<View key="sdk@isajdl1" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+						<TextInput onChangeText={(value) => setRemark(value)}  style={{paddingLeft: 5, height: 40}} placeholder="Type Here..." />
 					</View>
 				)
 			}else{
 				data.push(
-					<View key="aoij2o" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-						<TextInput onChangeText={(value) => setRemark(value)} style={{paddingLeft: 5, height: 40}} placeholder="Type Here..." />
+					<View key="sdk@isajdl1" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+						<Text>{updateTI}</Text>
 					</View>
 				)
 			}
 		}else{
 			data.push(
-				<View key="aoij2o" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-					<TextInput onChangeText={(value) => setRemark(value)} style={{paddingLeft: 5, height: 40}} placeholder="Type Here..." />
+				<View key="sdk@isajdl1" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<TextInput onChangeText={(value) => setRemark(value)}  style={{paddingLeft: 5, height: 40}} placeholder="Type Here..." />
 				</View>
 			)
 		}
@@ -525,9 +471,9 @@ const MassproBeginProdLeader = ({route, navigation}) => {
 	}
 
 	const updateButton = () => {
-		const updatePL = massproPL
+		const updateMS = massproTI
 		const data = []
-		if(updatePL != null || qc_masspro_tech_injection_id == null){
+		if(updateMS != null || qc_masspro_mold_setter_id == null){
 			data.push(
 				<View key="asd12q" style={{paddingTop: 10}}>
 					<Button style={{width: 172, borderRadius: 25, justifyContent: 'center', backgroundColor: '#05c46b'}} onPress={() => alert("Data Material Preparation Already Saved!")}><Text>SAVED</Text></Button>
@@ -545,91 +491,79 @@ const MassproBeginProdLeader = ({route, navigation}) => {
 
 	const content = () => {
 		var dataContent = []
-		if(qc_masspro_tech_injection_id != null){
+		if(qc_masspro_mold_setter_id != null){
 			dataContent.push(
-				<ScrollView key="2" style={{flex: 1}}>
-					<TouchableOpacity>							
+				<ScrollView key="31" style={{flex: 1}}>
+					<TouchableOpacity>
 						<View style={{paddingTop: 20, flexDirection: 'row'}}>
 							<View style={{padding: 10, width: "44%"}}>
-								<Text>WI Product</Text>
+								<Text>Cleaning Mold Core / Cavity</Text>
 							</View>
 							<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
 								<Text style={{color: 'black'}}>:</Text>
 							</View>
 							<View style={{padding: 4, width: "50%"}}>
-								{updateWiProduct()}
+								{updateCleaningMold()}
 							</View>
 						</View>
 
 						<View style={{paddingTop: 20, flexDirection: 'row'}}>
 							<View style={{padding: 10, width: "44%"}}>
-								<Text>Packing Standard</Text>
+								<Text>Input Standar Parameter</Text>
 							</View>
 							<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
 								<Text style={{color: 'black'}}>:</Text>
 							</View>
 							<View style={{padding: 4, width: "50%"}}>
-								{updatePackingStandard()}
+								{updateStandaradParameter()}
 							</View>
 						</View>
 						
 						<View style={{paddingTop: 20, flexDirection: 'row'}}>
 							<View style={{padding: 10, width: "44%"}}>
-								<Text>Production Work Tools</Text>
+								<Text>Robot setting</Text>
 							</View>
 							<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
 								<Text style={{color: 'black'}}>:</Text>
 							</View>
 							<View style={{padding: 4, width: "50%"}}>
-								{updateProductionWorkTools()}
+								{updateRoboSetting()}
 							</View>
 						</View>
 						
 						<View style={{paddingTop: 20, flexDirection: 'row'}}>
 							<View style={{padding: 10, width: "44%"}}>
-								<Text>Production Report</Text>
+								<Text>Check cooling Channel</Text>
 							</View>
 							<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
 								<Text style={{color: 'black'}}>:</Text>
 							</View>
 							<View style={{padding: 4, width: "50%"}}>
-								{updateProductionReport()}
+								{updateCoolingChannel()}
 							</View>
 						</View>
 						
 						<View style={{paddingTop: 20, flexDirection: 'row'}}>
 							<View style={{padding: 10, width: "44%"}}>
-								<Text>Lable</Text>
+								<Text>4M Check Sheet</Text>
 							</View>
 							<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
 								<Text style={{color: 'black'}}>:</Text>
 							</View>
 							<View style={{padding: 4, width: "50%"}}>
-								{updateLable()}
+								{update4CheckSheet()}
 							</View>
 						</View>
 						
 						<View style={{paddingTop: 20, flexDirection: 'row'}}>
 							<View style={{padding: 10, width: "44%"}}>
-								<Text>NG Form</Text>
+								<Text>Mold Temp ActMold Temp Act</Text>
 							</View>
 							<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
 								<Text style={{color: 'black'}}>:</Text>
 							</View>
 							<View style={{padding: 4, width: "50%"}}>
-								{updateNGForm()}
-							</View>
-						</View>
-
-						<View style={{paddingTop: 20, flexDirection: 'row'}}>
-							<View style={{padding: 10, width: "44%"}}>
-								<Text>JIG / Alat Ukur</Text>
-							</View>
-							<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-								<Text style={{color: 'black'}}>:</Text>
-							</View>
-							<View style={{padding: 4, width: "50%"}}>
-								{updateJIG()}
+								{updateActMoldTemp()}
 							</View>
 						</View>
 
@@ -644,20 +578,18 @@ const MassproBeginProdLeader = ({route, navigation}) => {
 								{updateRemark()}
 							</View>
 						</View>
-					
+						
 						<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
-							<View>
-								{updateButton()}
-							</View>
+							{updateButton()}
 						</View>
 					</TouchableOpacity>
 				</ScrollView>
 			)
 		}else{
 			dataContent.push(
-				<ScrollView key="2" style={{flex: 1}}>
+				<ScrollView key="3" style={{flex: 1}}>
 					<View style={{marginVertical: 160, marginHorizontal: 40, padding: 40, backgroundColor: '#fff76a', borderWidth: 1, borderRadius: 25, flexDirection: 'row', alignItems: 'center'}}>
-						<Text style={{fontSize: 12, textAlign: 'center', fontWeight: 'bold'}}>Hubungi Masspro Begin Tech. Injection Untuk Segera Isi Form</Text>
+						<Text style={{fontSize: 12, textAlign: 'center', fontWeight: 'bold'}}>Hubungi Masspro Begin Mold Setter Untuk Segera Isi Form</Text>
 					</View>
 				</ScrollView>
 			)
@@ -665,7 +597,7 @@ const MassproBeginProdLeader = ({route, navigation}) => {
 		return dataContent
 	}
 
-    return(
+	return(
 		<KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={{flex:1}}>
 			<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
 				<Container>
@@ -679,7 +611,7 @@ const MassproBeginProdLeader = ({route, navigation}) => {
 							<View style={{borderTopWidth: 0.3, borderRightWidth: 0.3, height: 100, justifyContent: 'center', alignItems: 'center', width: "50%", backgroundColor: '#F5F5DC'}}>
 								<Text style={{marginTop: 5, fontWeight: 'bold', fontSize: 17}}>{date()}</Text>
 								<Text style={{marginTop: 1, fontWeight: 'bold', fontSize: 17}}>Edit Daily Inspection</Text>
-								<Text style={{marginTop: 1, fontWeight: 'bold', fontSize: 11}}>Masspro Begin Prod. Leader</Text>
+								<Text style={{marginTop: 1, fontWeight: 'bold', fontSize: 11}}>Masspro Begin Tech. Injection</Text>
 								<Text style={{marginTop: 1, fontWeight: 'bold', fontSize: 11}}>{customer_name}</Text>
 							</View>
 							<View style={{flexDirection: 'column', width: "100%"}}>
@@ -741,7 +673,7 @@ const MassproBeginProdLeader = ({route, navigation}) => {
 				</Container>
 			</TouchableWithoutFeedback>
 		</KeyboardAvoidingView>
-    )
+	)
 }
 
-export default MassproBeginProdLeader;
+export default MassproBeginTechInjection;
