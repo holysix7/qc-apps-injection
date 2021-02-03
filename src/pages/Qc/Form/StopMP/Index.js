@@ -4,17 +4,23 @@ import LogoSIP from '../../../../assets/logo-sip370x50.png';
 import { Container, Text, Button } from 'native-base';
 import styles from '../../../../components/styles/Styling';
 import AsyncStorage from "@react-native-community/async-storage";
+import app_version from '../../../app_version';
+import Axios from 'axios';
+import checklist from '../../assets/check.png';
 
 const StopMP = ({route, navigation}) => {
 	const {qc_daily_inspection_id, qc_daily_inspection_item_id, qc_daily_inspection_method_id, sys_plant_id, product_name, customer_name, machine_id, machine_name, machine_number, today, yesterday, daily_inspection_number, doc_number} = route.params
   const [featureUser, setFeature] = useState(null);
   const [user, setUser] = useState(null);
+  const [lastShootQC, setLastShootQC] = useState(null);
+  const [lastShootFR, setLastShootFR] = useState(null);
 	const [loading, setLoading] = useState(false)
 	useEffect(() => {
 		session()
+		getIdLastShootQC()
 		setTimeout(() => {
 			setLoading(true)
-		}, 2000);
+		}, 1000);
 	}, [])
 
 	const session = async () => {
@@ -28,6 +34,29 @@ const StopMP = ({route, navigation}) => {
       console.log('Multi Get Error: ', error.message)
     }
 	}
+
+	const getIdLastShootQC = async() => {
+		const token = await AsyncStorage.getItem("key")
+		console.log(token)
+		var headers = {
+			'Authorization': token
+		}
+		var params = {
+			tbl: 'daily_inspection',
+			kind: 'last_shoot',
+			app_version: app_version,
+			qc_daily_inspection_id: qc_daily_inspection_id,
+		}
+		Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
+		.then(response =>{
+			setLastShootQC(response.data.data.last_shoot_qc)
+			setLastShootFR(response.data.data.last_shoot_fr)
+			console.log(response.data.data)
+		})
+		.catch(error => {
+			console.log(error)
+		})
+	}
 	
 	const loopFeature = () => {
 		var data = []
@@ -37,7 +66,7 @@ const StopMP = ({route, navigation}) => {
 				if(sys_plant_id == i+1){
 					if(featureUser[i] != null){
 						if(featureUser[i].qc_last_shoot_qc_leader != null || featureUser[i].qc_last_shoot_foreman != null){
-							if(featureUser[i].qc_last_shoot_qc_leader.view_permissions == true || featureUser[i].qc_last_shoot_foreman.view_permissions == truefeatureUser[i].qc_last_shoot_foreman.view_permissions == true){
+							if(featureUser[i].qc_last_shoot_qc_leader.view_permissions == true || featureUser[i].qc_last_shoot_foreman.view_permissions == true || featureUser[i].qc_last_shoot_foreman.view_permissions == true){
 								data.push(
 									<Button key="askdmkwqw" style={styles.dailyInspectionButton} onPress={() => navigation.navigate('LastShootLeaderQc', {
 										qc_daily_inspection_id: qc_daily_inspection_id,
@@ -54,13 +83,15 @@ const StopMP = ({route, navigation}) => {
 										yesterday: yesterday,
 										doc_number: doc_number
 									})} >
-										<Text> Last Shjoot Leader QC </Text>   
+										<Text> Last Shoot Leader QC </Text>
+                    {lastShootQC != null ? <Image source={checklist} style={{width: 30, height: 30, marginRight: 10}}/> : null}
 									</Button>
 								)
 							}else{
 								data.push(
 									<Button key="askdmkwqw" style={styles.productsNotAccessButton} onPress={() => alert("Maaf Anda Tidak Memiliki Hak Akses Last Shoot Leader QC")} >
-										<Text> Last Shjoot Leader QC </Text>   
+										<Text> Last Shoot Leader QC </Text>   
+                    {lastShootQC != null ? <Image source={checklist} style={{width: 30, height: 30, marginRight: 10}}/> : null}
 									</Button>
 								)
 							}
@@ -82,12 +113,14 @@ const StopMP = ({route, navigation}) => {
 										doc_number: doc_number
 									})} >
 										<Text> Last Shoot Foreman </Text>   
+                    {lastShootFR != null ? <Image source={checklist} style={{width: 30, height: 30, marginRight: 10}}/> : null}
 									</Button>
 								)
 							}else{
 								data.push(
 									<Button key="askdmasqwewkwqw" style={styles.productsNotAccessButton} onPress={() => alert("Maaf Anda Tidak Memiliki Hak Akses Last Shoot Leader Foreman")} >
 										<Text> Last Shoot Foreman </Text>   
+                    {lastShootFR != null ? <Image source={checklist} style={{width: 30, height: 30, marginRight: 10}}/> : null}
 									</Button>
 								)
 							}

@@ -92,20 +92,19 @@ const PerShift = ({route, navigation}) => {
 	const [updated_by, setUpdatedBy]		  		= useState("")
 	
 	const [updateinspection_time, setinspection_timeupdate]		  		= useState("")
-	
-	
+	const [idButton, setIdButton]	= useState(true)
+	const [loading, setLoading]		= useState(false)
 	const date = []
 
-	const [loading, setLoading]		= useState(false)
+	var timeNow 	= moment()
+	var hoursNow	= parseInt(moment(timeNow).format("H"))
 
-	if(today != null)
-	{
+	if(today != null){
 		date.push(
 			<Text key={"key"} style={{marginTop: 1, fontWeight: 'bold', fontSize: 17}}>{today}</Text>
 		)
 	}
-	if(yesterday != null)
-	{
+	if(yesterday != null){
 		date.push(
 			<Text key={"key"} style={{marginTop: 1, fontWeight: 'bold', fontSize: 17}}>{yesterday}</Text>
 		)
@@ -116,113 +115,50 @@ const PerShift = ({route, navigation}) => {
 		const headers = {
 			'Authorization': token
 		}
-		const name = await AsyncStorage.getItem('name')
 		const id = await AsyncStorage.getItem('id')
 		setCreatedBy(id)
 		setUpdatedBy(id)
-		
-		let jam = moment().format("HH:mm:ss")
-		if(parseInt(jam) >= 8 && parseInt(jam) <= 15)
-		{
-			const nilaiJam = parseInt(jam)
+		if(hoursNow >= 8 && hoursNow <= 15){
 			setShift(2)
-			setHours(nilaiJam)
-			const fixShift = 2
-			const params = {
-				tbl: 'daily_inspection',
-				kind: 'get_4hour',
-				sys_plant_id: sys_plant_id,
-				machine_id: machine_id,
-				hrd_work_shift_id: fixShift,
-				hours: parseInt(jam),
-				qc_daily_inspection_id: qc_daily_inspection_id,
-				app_version: app_version
-			}
-			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
-			.then(response => {
-				setLoading(true)
-				setData(response.data.data)
-				setinspection_timeupdate(response.data.data.daily_inspection.inspection_time)
-				setCavityDetail(response.data.data.cavity_detail)
-				setqc_daily_inspection_item_id(response.data.data.daily_inspection.qc_daily_inspection_item_id)
-				setInternalPartId(response.data.data.daily_inspection.internal_part_id)
-				setCustomerPartNumber(response.data.data.daily_inspection.customer_part_number)
-				setModel(response.data.data.daily_inspection.model)
-				setTooling(response.data.data.daily_inspection.tooling_num)
-				setDataCavity(response.data.data.daily_inspection.cavity)
-				setWeightStandard(response.data.data.product_weight)
-				console.log("List Data Per Shift: ", response.data.status, "OK")
-			})
-			.catch(error => {
-				console.log('List Data Per Shift: ', error)
-			})
-		}else if(parseInt(jam) >= 16 && parseInt(jam) <= 23){
-			const nilaiJam = parseInt(jam)
+			setHours(hoursNow)
+			var shift_id = 2
+		}else if(hoursNow >= 16 && hoursNow <= 23){
 			setShift(3)
-			setHours(nilaiJam)
-			const fixShift = 3
-			const params = {
-				tbl: 'daily_inspection',
-				kind: 'get_4hour',
-				sys_plant_id: sys_plant_id,
-				machine_id: machine_id,
-				hrd_work_shift_id: fixShift,
-				hours: parseInt(jam),
-				qc_daily_inspection_id: qc_daily_inspection_id,
-				app_version: app_version
-			}
-			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
-			.then(response => {
-				setLoading(true)
-				setData(response.data.data)
-				setinspection_timeupdate(response.data.data.daily_inspection.inspection_time)
-				setCavityDetail(response.data.data.cavity_detail)
-				setqc_daily_inspection_item_id(response.data.data.daily_inspection.qc_daily_inspection_item_id)
-				setInternalPartId(response.data.data.daily_inspection.internal_part_id)
-				setCustomerPartNumber(response.data.data.daily_inspection.customer_part_number)
-				setModel(response.data.data.daily_inspection.model)
-				setTooling(response.data.data.daily_inspection.tooling_num)
-				setDataCavity(response.data.data.daily_inspection.cavity)
-				setWeightStandard(response.data.data.product_weight)
-				console.log("List Data Per Shift: ", response.data.status, "OK")
-			})
-			.catch(error => {
-				console.log('List Data Per Shift: ', error)
-			})
+			setHours(hoursNow)
+			var shift_id = 3
 		}else{
-			const nilaiJam = parseInt(jam)
 			setShift(4)
-			setHours(nilaiJam)
-			const fixShift = 4
-			const params = {
-				tbl: 'daily_inspection',
-				kind: 'get_4hour',
-				sys_plant_id: sys_plant_id,
-				machine_id: machine_id,
-				hrd_work_shift_id: fixShift,
-				hours: parseInt(jam),
-				qc_daily_inspection_id: qc_daily_inspection_id,
-				app_version: app_version
-			}
-			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
-			.then(response => {
-				setLoading(true)
-				setData(response.data.data)
-				setinspection_timeupdate(response.data.data.daily_inspection.inspection_time)
-				setCavityDetail(response.data.data.cavity_detail)
-				setqc_daily_inspection_item_id(response.data.data.daily_inspection.qc_daily_inspection_item_id)
-				setInternalPartId(response.data.data.daily_inspection.internal_part_id)
-				setCustomerPartNumber(response.data.data.daily_inspection.customer_part_number)
-				setModel(response.data.data.daily_inspection.model)
-				setTooling(response.data.data.daily_inspection.tooling_num)
-				setDataCavity(response.data.data.daily_inspection.cavity)
-				setWeightStandard(response.data.data.product_weight)
-				console.log("List Data Per Shift: ", response.data.status, "OK")
-			})
-			.catch(error => {
-				console.log('List Data Per Shift: ', error)
-			})
+			setHours(hoursNow)
+			var shift_id = 4
 		}
+		const params = {
+			tbl: 'daily_inspection',
+			kind: 'get_4hour',
+			sys_plant_id: sys_plant_id,
+			machine_id: machine_id,
+			hrd_work_shift_id: shift_id,
+			hours: hoursNow,
+			qc_daily_inspection_id: qc_daily_inspection_id,
+			app_version: app_version
+		}
+		Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
+		.then(response => {
+			setLoading(true)
+			setData(response.data.data)
+			setinspection_timeupdate(response.data.data.daily_inspection.inspection_time)
+			setCavityDetail(response.data.data.cavity_detail)
+			setqc_daily_inspection_item_id(response.data.data.daily_inspection.qc_daily_inspection_item_id)
+			setInternalPartId(response.data.data.daily_inspection.internal_part_id)
+			setCustomerPartNumber(response.data.data.daily_inspection.customer_part_number)
+			setModel(response.data.data.daily_inspection.model)
+			setTooling(response.data.data.daily_inspection.tooling_num)
+			setDataCavity(response.data.data.daily_inspection.cavity)
+			setWeightStandard(response.data.data.product_weight)
+			console.log("List Data Per Shift: ", response.data.status, "OK")
+		})
+		.catch(error => {
+			console.log('List Data Per Shift: ', error)
+		})
 	}
 
 	const shiftFix = async(value) => {
@@ -232,95 +168,56 @@ const PerShift = ({route, navigation}) => {
 		const headers = {
 			'Authorization': token
 		}
-		let hoursNow = moment().format("HH")
-		const minHours = parseInt(hoursNow) - 1
-		if(value == minHours || value == hoursNow){
-			if(value >= 8 && value <= 15){
-				const params = {
-					tbl: 'daily_inspection',
-					kind: 'get_shift',
-					sys_plant_id: sys_plant_id,
-					machine_id: machine_id,
-					hrd_work_shift_id: 2,
-					hours: parseInt(value),
-					qc_daily_inspection_id: qc_daily_inspection_id,
-					app_version: app_version
-				}
-				Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
-				.then(response => {
-					setLoading(true)
-					setData(response.data.data)
-					setinspection_timeupdate(response.data.data.daily_inspection.inspection_time)
-					setCavityDetail(response.data.data.cavity_detail)
-					setqc_daily_inspection_item_id(response.data.data.daily_inspection.qc_daily_inspection_item_id)
-					setTooling(response.data.data.daily_inspection.tooling_num)
-					setDataCavity(response.data.data.daily_inspection.cavity)
-					setWeightStandard(response.data.data.product_weight)
-					console.log("List Data Per Shift Berdasarkan Shift 1: ", response.data.status, "OK")
-				})
-				.catch(error => {
-					console.log('List Data Per Shift: ', error)
-				})
-			}else if(value >= 16 && value <= 23){
-				const params = {
-					tbl: 'daily_inspection',
-					kind: 'get_shift',
-					sys_plant_id: sys_plant_id,
-					machine_id: machine_id,
-					hrd_work_shift_id: 3,
-					hours: parseInt(value),
-					qc_daily_inspection_id: qc_daily_inspection_id,
-					app_version: app_version
-				}
-				Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
-				.then(response => {
-					setLoading(true)
-					setData(response.data.data)
-					setinspection_timeupdate(response.data.data.daily_inspection.inspection_time)
-					setCavityDetail(response.data.data.cavity_detail)
-					setqc_daily_inspection_item_id(response.data.data.daily_inspection.qc_daily_inspection_item_id)
-					setTooling(response.data.data.daily_inspection.tooling_num)
-					setDataCavity(response.data.data.daily_inspection.cavity)
-					setWeightStandard(response.data.data.product_weight)
-					console.log("List Data Per Shift Berdasarkan Shift 2: ", response.data.status, "OK")
-				})
-				.catch(error => {
-					console.log('List Data Per Shift: ', error)
-				})
+		var select_hour = parseInt(value)
+		if(value >= 8 && value <= 15){
+			var shift_id = 2
+		}else if(value >= 16 && value <= 23){
+			var shift_id = 3
+		}else{
+			var shift_id = 4
+		}
+		if(shift_id <= shift){
+			if(select_hour == hoursNow){
+				setLoading(true)
+				setIdButton(true)
+			}else if(select_hour > hoursNow){
+				setLoading(true)
+				setHours(hoursNow)
+				alert("Access Denied")
 			}else{
-				const params = {
-					tbl: 'daily_inspection',
-					kind: 'get_shift',
-					sys_plant_id: sys_plant_id,
-					machine_id: machine_id,
-					hrd_work_shift_id: 4,
-					hours: parseInt(value),
-					qc_daily_inspection_id: qc_daily_inspection_id,
-					app_version: app_version
-				}
-				Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
-				.then(response => {
-					setLoading(true)
-					setData(response.data.data)
-					setinspection_timeupdate(response.data.data.daily_inspection.inspection_time)
-					setCavityDetail(response.data.data.cavity_detail)
-					setqc_daily_inspection_item_id(response.data.data.daily_inspection.qc_daily_inspection_item_id)
-					setTooling(response.data.data.daily_inspection.tooling_num)
-					setDataCavity(response.data.data.daily_inspection.cavity)
-					setWeightStandard(response.data.data.product_weight)
-					console.log("List Data Per Shift Berdasarkan Shift 3: ", response.data.status, "OK")
-				})
-				.catch(error => {
-					console.log('List Data Per Shift: ', error)
-				})
+				setLoading(true)
+				setIdButton(false)
 			}
-			setLoading(true)
-			console.log("Berhasil!")
 		}else{
 			setLoading(true)
-			setHours(parseInt(hoursNow))
 			alert("Access Denied")
+			setHours(hoursNow)
 		}
+		const params = {
+			tbl: 'daily_inspection',
+			kind: 'get_shift',
+			sys_plant_id: sys_plant_id,
+			machine_id: machine_id,
+			hrd_work_shift_id: shift_id,
+			hours: select_hour,
+			qc_daily_inspection_id: qc_daily_inspection_id,
+			app_version: app_version
+		}
+		Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
+		.then(response => {
+			setLoading(true)
+			setData(response.data.data)
+			setinspection_timeupdate(response.data.data.daily_inspection.inspection_time)
+			setCavityDetail(response.data.data.cavity_detail)
+			setqc_daily_inspection_item_id(response.data.data.daily_inspection.qc_daily_inspection_item_id)
+			setTooling(response.data.data.daily_inspection.tooling_num)
+			setDataCavity(response.data.data.daily_inspection.cavity)
+			setWeightStandard(response.data.data.product_weight)
+			console.log("List Data Per Shift Berdasarkan Shift 3: ", response.data.status, "OK")
+		})
+		.catch(error => {
+			console.log('List Data Per Shift: ', error)
+		})
 	}
 	
 	const hString = hours.toString()
@@ -1002,22 +899,31 @@ const PerShift = ({route, navigation}) => {
 		return table1
 	}
 
-	const buttonUpdate = () => {
-		var data = []
-		if(cavityDetail > 0){
-			data.push(
-				<View key="SokemlIj2">
-					<Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>
-				</View>
-			)
-		}else{
-			data.push(
-				<View key="SokemlIj2">
-					
+	const idButtonFix = () => {
+		if(idButton == true){
+			return(
+				<View>
+					<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
+						<View key="SokemlIj2">
+							<Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>
+						</View>
+					</View>
+	
+					<View style={{flexDirection: 'column', height: 50}}>
+						<View style={{height: 27, alignItems: 'center'}}>
+							<Text style={{fontWeight: 'bold'}}>
+								Inspection Time
+							</Text>
+						</View>
+						<View style={{height: 23, alignItems: 'center'}}>
+							<Text>
+								{updateinspection_time != null ? updateinspection_time : inspectionTime}
+							</Text>
+						</View>
+					</View>
 				</View>
 			)
 		}
-		return data
 	}
 
 	const content = () => {
@@ -1101,23 +1007,7 @@ const PerShift = ({route, navigation}) => {
 							{dataItem()}
 						</TouchableOpacity>
 					</ScrollView>
-	
-					<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
-						{buttonUpdate()}
-					</View>
-	
-					<View style={{flexDirection: 'column', height: 50}}>
-							<View style={{height: 27, alignItems: 'center'}}>
-								<Text style={{fontWeight: 'bold'}}>
-									Inspection Time
-								</Text>
-							</View>
-							<View style={{height: 23, alignItems: 'center'}}>
-								<Text>
-									{updateinspection_time != null ? updateinspection_time : inspectionTime}
-								</Text>
-							</View>
-						</View>
+					{idButtonFix()}
 				</ScrollView>
 			
 			)

@@ -178,11 +178,6 @@ const UpdateProductionLeader = ({route, navigation}) => {
     };
     Axios(config)
     .then(response => {
-      setShift1(response.data.data.shift1)
-      setShift2(response.data.data.shift2)
-      setShift3(response.data.data.shift3)
-      setListQCs(response.data.data.qc_process)
-      console.log(response.data.data.qc_process)
       setLoading(true)
       console.log("Successfully Get Data QCs")
     })
@@ -221,7 +216,7 @@ const UpdateProductionLeader = ({route, navigation}) => {
     var data = []
     if(shiftId == 1){
       data.push(
-        <View key="aksosk" style={{marginTop: 10, backgroundColor: '#e1bc91', height: "100%", marginRight: 10, borderWidth: 1}}>
+        <View key="aksosk" style={{marginTop: 10, height: "100%", marginRight: 10, borderWidth: 1}}>
           <View style={{justifyContent: 'center', alignItems: 'center', paddingTop: 10}}>
             <View style={{alignItems: 'center', justifyContent: 'center', flexDirection: 'row', borderWidth: 1, borderRadius: 10, width: "80%"}}>
               <Text>Shift 1</Text>
@@ -287,7 +282,7 @@ const UpdateProductionLeader = ({route, navigation}) => {
       )
     }else if(shiftId == 2){
       data.push(
-        <View key="aksosk" style={{marginTop: 10, backgroundColor: '#e1bc91', height: "100%", marginRight: 10, borderWidth: 1}}>
+        <View key="aksosk" style={{marginTop: 10, height: "100%", marginRight: 10, borderWidth: 1}}>
           <View style={{justifyContent: 'center', alignItems: 'center', paddingTop: 10}}>
             <View style={{alignItems: 'center', justifyContent: 'center', flexDirection: 'row', borderWidth: 1, borderRadius: 10, width: "80%"}}>
               <Text>Shift 2</Text>
@@ -353,7 +348,7 @@ const UpdateProductionLeader = ({route, navigation}) => {
       )
     }else{
       data.push(
-        <View key="aksosk" style={{marginTop: 10, backgroundColor: '#e1bc91', height: "100%", marginRight: 10, borderWidth: 1}}>
+        <View key="aksosk" style={{marginTop: 10, height: "100%", marginRight: 10, borderWidth: 1}}>
           <View style={{justifyContent: 'center', alignItems: 'center', paddingTop: 10}}>
             <View style={{alignItems: 'center', justifyContent: 'center', flexDirection: 'row', borderWidth: 1, borderRadius: 10, width: "80%"}}>
               <Text>Shift 3</Text>
@@ -426,7 +421,7 @@ const UpdateProductionLeader = ({route, navigation}) => {
     if(shiftId == 1){
       data.push(
         <View key="XlsksmS" style={{flexDirection: 'column', paddingTop: 10, paddingLeft: 10}}>
-          <Button style={{backgroundColor: '#e1bc91', borderTopLeftRadius: 15, borderWidth: 1, borderBottomLeftRadius: 15}} onPress={() => changeShift(1)}>
+          <Button style={{borderTopLeftRadius: 15, borderWidth: 1, borderBottomLeftRadius: 15}} onPress={() => changeShift(1)}>
             <View style={{margin: 5, paddingRight: 10, paddingTop: 10}}>
               <Text style={{margin: 5}}>1</Text>
             </View>
@@ -456,7 +451,7 @@ const UpdateProductionLeader = ({route, navigation}) => {
             </View>
           </Button>
           <View style={{paddingVertical: 10}}>
-            <Button style={{backgroundColor: '#e1bc91', borderTopLeftRadius: 15, borderWidth: 1, borderBottomLeftRadius: 15}} onPress={() => setShiftId(2)}>
+            <Button style={{borderTopLeftRadius: 15, borderWidth: 1, borderBottomLeftRadius: 15}} onPress={() => setShiftId(2)}>
               <View style={{margin: 5, paddingRight: 10, paddingTop: 10}}>
                 <Text style={{margin: 5}}>2</Text>
               </View>
@@ -485,7 +480,7 @@ const UpdateProductionLeader = ({route, navigation}) => {
               </View>
             </Button>
           </View>
-          <Button style={{backgroundColor: '#e1bc91', borderTopLeftRadius: 15, borderWidth: 1, borderBottomLeftRadius: 15}} onPress={() => setShiftId(3)}>
+          <Button style={{borderTopLeftRadius: 15, borderWidth: 1, borderBottomLeftRadius: 15}} onPress={() => setShiftId(3)}>
             <View style={{margin: 5, paddingRight: 10, paddingTop: 10}}>
               <Text style={{margin: 5}}>3</Text>
             </View>

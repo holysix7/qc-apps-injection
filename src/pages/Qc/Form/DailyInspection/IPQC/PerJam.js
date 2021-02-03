@@ -118,8 +118,6 @@ const PerJam = ({route, navigation}) => {
 	const [foreman_name, setForemanName]			= useState("")
 	const [qc_process_nik, setQcProcessNik]		= useState("")
 	const [qc_process_name, setQcProcessName]	= useState("")
-
-	
 	const [idButton, setIdButton]	= useState(true)
 	const check_appearance_n = appearance_n
 
@@ -269,7 +267,6 @@ const PerJam = ({route, navigation}) => {
 		var select_hour = parseInt(value)
 		var minTime 	= moment(timeNow).add(-1,'hours')
 		var minHours 	= moment(minTime).format("H")
-		
 		if(hoursNow >= 8 && hoursNow <= 15){
 			var shiftNow = 2
 		}else if(hoursNow >= 16 && hoursNow <= 23){
@@ -284,7 +281,6 @@ const PerJam = ({route, navigation}) => {
 		}else{
 			var select_shift_id = 4
 		}
-
 		const params = {
 			tbl: 'daily_inspection',
 			kind: 'get_hour',
@@ -323,7 +319,6 @@ const PerJam = ({route, navigation}) => {
 			}
 
 			console.log("List Data By Shift: ", response.data.status, "OK")
-			console.log(select_shift_id)
 		})
 		.catch(error => {
 			setLoading(true)
@@ -332,6 +327,7 @@ const PerJam = ({route, navigation}) => {
 
 		if (select_shift_id <= shiftNow) {
 			if(select_hour == hoursNow){
+				setLoading(true)
 				setIdButton(true)
 				console.log("Berhasil!")
 			} else if (select_hour > hoursNow) {
@@ -346,9 +342,7 @@ const PerJam = ({route, navigation}) => {
 			setLoading(true)
 			alert("Access Denied!")
 			setHours(hoursNow)
-
 		}
-
 	}
 
 	const hString = hours.toString()

@@ -1,4 +1,4 @@
-import {Image, View, ScrollView, ActivityIndicator} from 'react-native';
+import {Image, View, ScrollView, ActivityIndicator, BackHandler, Alert} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import LogoSIP from '../../assets/logo-sip370x50.png';
 import AsyncStorage from "@react-native-community/async-storage";
@@ -12,9 +12,12 @@ import checklist from '../../assets/check.png';
 const ShowProducts = ({route, navigation}) => {
 	const {machine_id, machine_name, sys_plant_id, machine_number} = route.params
 	const [data, setData] = useState([])
-  const [loading, setLoading] = useState(false);
+	const [feature, setFeature] = useState(null)
+	const [loading, setLoading] = useState(false);
+	
 	useEffect(() => {
 		let isMounted = true;
+		session();
 		const products = async () => {
 			const token = await AsyncStorage.getItem("key")
 			const headers = {
@@ -45,6 +48,26 @@ const ShowProducts = ({route, navigation}) => {
 		}
 	}, [])
 
+	const session = async () => {
+    try {
+      const feature    = await AsyncStorage.getItem('feature')
+			setFeature(JSON.parse(feature))
+    } catch (error) {
+      console.log('Multi Get Error: ', error.message)
+    }
+	}
+
+	const alertStopMP = (value) => {
+		Alert.alert(
+			"Info",
+			value + " Stop MP",
+			[
+				{ text: "OK", onPress: () => console.log("OK"), style: "cancel" },
+			],
+			{ cancelable: false }
+		);
+	}
+
 	const allProductsToday = []
 	const allProductsYesterday = []
 	const noData = []
@@ -57,84 +80,117 @@ const ShowProducts = ({route, navigation}) => {
 									.format('YYYY-MM-DD')
 	if(data.length > 0){
 		data.map((element, key) => {
-			// console.log(element.ppic_planning_product_id)
-			if(today == element.date){
-				allProductsToday.push(
-					<Button key={key} style={styles.productsButton} onPress={() => navigation.navigate('ListForm',
-					{
-						qc_daily_inspection_id: element.qc_daily_inspections_id,
-						qc_daily_inspection_item_id: element.qc_daily_inspection_item_id,
-						qc_daily_inspection_method_id: element.qc_daily_inspection_method_id,
-						sys_plant_id: element.sys_plant_id,
-						daily_inspection_number: element.daily_inspection_number,
-						product_name: element.product_name,
-						customer_name: element.customer_name,
-						internal_part_id: element.internal_part_id,
-						customer_part_number: element.customer_part_number,
-						model: element.model,
-						machine_id: machine_id,
-						machine_name: element.machine_name,
-						machine_status: element.machine_status,
-						operator_nik: element.operator_nik,
-						operator_nik_2: element.operator_nik_2,
-						leader_nik: element.leader_nik,
-						qc_process_nik: element.qc_process_nik,
-						cavity: element.cavity,
-						foreman_nik: element.foreman_nik,
-						doc_number: element.code,
-						machine_number: machine_number,
-						today: today
-					})} >
-						<View style={{flexDirection: 'row', width: 300, justifyContent: 'center'}}>
-							<View style={{flexDirection: 'column', width: 300, justifyContent: 'center', alignItems: 'flex-start'}}>
-								<Text style={styles.fontButtonHeader}> {element.customer_part_number} </Text>   
-								<Text style={styles.fontButtonFooter}> {element.product_name} </Text>   
+			if(element.masspro_status == 'Running'){
+				if(today == element.date){
+					allProductsToday.push(
+						<Button key={key} style={styles.productsButtonRunning} onPress={() => navigation.navigate('ListForm',
+						{
+							qc_daily_inspection_id: element.qc_daily_inspections_id,
+							qc_daily_inspection_item_id: element.qc_daily_inspection_item_id,
+							qc_daily_inspection_method_id: element.qc_daily_inspection_method_id,
+							sys_plant_id: element.sys_plant_id,
+							daily_inspection_number: element.daily_inspection_number,
+							product_name: element.product_name,
+							customer_name: element.customer_name,
+							internal_part_id: element.internal_part_id,
+							customer_part_number: element.customer_part_number,
+							model: element.model,
+							machine_id: machine_id,
+							machine_name: element.machine_name,
+							machine_status: element.machine_status,
+							operator_nik: element.operator_nik,
+							operator_nik_2: element.operator_nik_2,
+							leader_nik: element.leader_nik,
+							qc_process_nik: element.qc_process_nik,
+							cavity: element.cavity,
+							foreman_nik: element.foreman_nik,
+							doc_number: element.code,
+							machine_number: machine_number,
+							today: today
+						})} >
+							<View style={{flexDirection: 'row', width: 300, justifyContent: 'center'}}>
+								<View style={{flexDirection: 'column', width: 300, justifyContent: 'center', alignItems: 'flex-start'}}>
+									<Text style={styles.fontButtonHeader}> {element.customer_part_number} </Text>   
+									<Text style={styles.fontButtonFooter}> {element.product_name} </Text>   
+								</View>
+								<View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
+									{element.ppic_planning_product_id != null ? <View style={{width: 60, paddingLeft: 10}}><Image source={checklist} style={{width: 30, height: 30, marginRight: 10}}/></View> : <View style={{width: 60, paddingLeft: 10}}></View>}		
+								</View>
 							</View>
-							<View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
-								{element.ppic_planning_product_id != null ? <View style={{width: 60, paddingLeft: 10}}><Image source={checklist} style={{width: 30, height: 30, marginRight: 10}}/></View> : <View style={{width: 60, paddingLeft: 10}}></View>}		
+						</Button>
+					);
+				}
+				if(yesterday == element.date){
+					allProductsYesterday.push(
+						<Button key={key} style={styles.productsButtonRunning} onPress={() => navigation.navigate('ListForm',
+						{
+							qc_daily_inspection_id: element.qc_daily_inspections_id,
+							qc_daily_inspection_item_id: element.qc_daily_inspection_item_id,
+							qc_daily_inspection_method_id: element.qc_daily_inspection_method_id,
+							sys_plant_id: element.sys_plant_id,
+							daily_inspection_number: element.daily_inspection_number,
+							product_name: element.product_name,
+							customer_name: element.customer_name,
+							internal_part_id: element.internal_part_id,
+							customer_part_number: element.customer_part_number,
+							model: element.model,
+							machine_id: machine_id,
+							machine_name: element.machine_name,
+							machine_status: element.machine_status,
+							operator_nik: element.operator_nik,
+							operator_nik_2: element.operator_nik_2,
+							leader_nik: element.leader_nik,
+							qc_process_nik: element.qc_process_nik,
+							foreman_nik: element.foreman_nik,
+							doc_number: element.code,
+							machine_number: machine_number,
+							cavity: element.cavity,
+							yesterday: yesterday
+						})} >
+							<View style={{flexDirection: 'row', width: 300, justifyContent: 'center'}}>
+								<View style={{flexDirection: 'column', width: 300, justifyContent: 'center', alignItems: 'flex-start'}}>
+									<Text style={styles.fontButtonHeader}> {element.customer_part_number} </Text>   
+									<Text style={styles.fontButtonFooter}> {element.product_name} </Text>   
+								</View>
+								<View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
+									{element.ppic_planning_product_id != null ? <View style={{width: 60, paddingLeft: 10}}><Image source={checklist} style={{width: 30, height: 30, marginRight: 10}}/></View> : <View style={{width: 60, paddingLeft: 10}}></View>}
+								</View>
 							</View>
-						</View>
-					</Button>
-				);
-			}
-			if(yesterday == element.date){
-				allProductsYesterday.push(
-					<Button key={key} style={styles.productsButton} onPress={() => navigation.navigate('ListForm',
-					{
-						qc_daily_inspection_id: element.qc_daily_inspections_id,
-						qc_daily_inspection_item_id: element.qc_daily_inspection_item_id,
-						qc_daily_inspection_method_id: element.qc_daily_inspection_method_id,
-						sys_plant_id: element.sys_plant_id,
-						daily_inspection_number: element.daily_inspection_number,
-						product_name: element.product_name,
-						customer_name: element.customer_name,
-						internal_part_id: element.internal_part_id,
-						customer_part_number: element.customer_part_number,
-						model: element.model,
-						machine_id: machine_id,
-						machine_name: element.machine_name,
-						machine_status: element.machine_status,
-						operator_nik: element.operator_nik,
-						operator_nik_2: element.operator_nik_2,
-						leader_nik: element.leader_nik,
-						qc_process_nik: element.qc_process_nik,
-						foreman_nik: element.foreman_nik,
-						doc_number: element.code,
-						machine_number: machine_number,
-						cavity: element.cavity,
-						yesterday: yesterday
-					})} >
-						<View style={{flexDirection: 'row', width: 300, justifyContent: 'center'}}>
-							<View style={{flexDirection: 'column', width: 300, justifyContent: 'center', alignItems: 'flex-start'}}>
-								<Text style={styles.fontButtonHeader}> {element.customer_part_number} </Text>   
-								<Text style={styles.fontButtonFooter}> {element.product_name} </Text>   
+						</Button>
+					);
+				}
+			}else{
+				if(today == element.date){
+					allProductsToday.push(
+						<Button key={key} style={styles.productsButtonStop} onPress={() => alertStopMP(element.product_name)} >
+							<View style={{flexDirection: 'row', width: 300, justifyContent: 'center'}}>
+								<View style={{flexDirection: 'column', width: 300, justifyContent: 'center', alignItems: 'flex-start'}}>
+									<Text style={styles.fontButtonHeader}> {element.customer_part_number} </Text>   
+									<Text style={styles.fontButtonFooter}> {element.product_name} </Text>   
+								</View>
+								<View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
+									{element.ppic_planning_product_id != null ? <View style={{width: 60, paddingLeft: 10}}><Image source={checklist} style={{width: 30, height: 30, marginRight: 10}}/></View> : <View style={{width: 60, paddingLeft: 10}}></View>}		
+								</View>
 							</View>
-							<View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
-								{element.ppic_planning_product_id != null ? <View style={{width: 60, paddingLeft: 10}}><Image source={checklist} style={{width: 30, height: 30, marginRight: 10}}/></View> : <View style={{width: 60, paddingLeft: 10}}></View>}
+						</Button>
+					);
+				}
+				if(yesterday == element.date){
+					allProductsYesterday.push(
+						<Button key={key} style={styles.productsButtonStop} onPress={() => alertStopMP(element.product_name)} >
+							<View style={{flexDirection: 'row', width: 300, justifyContent: 'center'}}>
+								<View style={{flexDirection: 'column', width: 300, justifyContent: 'center', alignItems: 'flex-start'}}>
+									<Text style={styles.fontButtonHeader}> {element.customer_part_number} </Text>   
+									<Text style={styles.fontButtonFooter}> {element.product_name} </Text>   
+								</View>
+								<View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
+									{element.ppic_planning_product_id != null ? <View style={{width: 60, paddingLeft: 10}}><Image source={checklist} style={{width: 30, height: 30, marginRight: 10}}/></View> : <View style={{width: 60, paddingLeft: 10}}></View>}
+								</View>
 							</View>
-						</View>
-					</Button>
-				);
+						</Button>
+					);
+				}
+
 			}
 		});
 	}else{
@@ -144,12 +200,11 @@ const ShowProducts = ({route, navigation}) => {
 			</View>
 		)
 		noData.push(
-			<Button key={key.toString()} style={styles.productsButton} onPress={() => navigation.navigate('Qc')}>
+			<Button key={key.toString()} style={styles.productsButtonRunning} onPress={() => navigation.navigate('Qc')}>
 				<Text style={styles.fontButtonFooter}> Back </Text>   
 			</Button>
 		)
 	}
-	// console.log(machine_id)
 
 	return(
 		<Container>
@@ -181,7 +236,7 @@ const ShowProducts = ({route, navigation}) => {
 			</View>
 			{loading ? <View style={{height: 70,backgroundColor: '#F5F5DC' }}>
 				<View style={{paddingHorizontal: 50, justifyContent: 'center', alignItems: 'center'}}>
-					<Button style={styles.productsButton} onPress={() => navigation.navigate('ShowPlanning', {
+					<Button style={styles.productsButtonRunning} onPress={() => navigation.navigate('ShowPlanning', {
 						machine_id: machine_id, 
 						machine_name: machine_name,
 						machine_number: machine_number, 

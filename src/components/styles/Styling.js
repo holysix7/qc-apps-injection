@@ -78,7 +78,16 @@ const styles = StyleSheet.create({
     textStyle: {
         color: 'black'
     },
-    productsButton: {
+    productsButtonRunning: {
+        marginTop: 5, 
+        alignItems: 'center', 
+        justifyContent: 'center', 
+        width: "100%", 
+        borderRadius: 15, 
+        flexDirection: 'column'
+    },
+    productsButtonStop: {
+        backgroundColor: '#663f3f',
         marginTop: 5, 
         alignItems: 'center', 
         justifyContent: 'center', 

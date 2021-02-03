@@ -38,7 +38,8 @@ const LastShootForeman = ({route, navigation}) => {
 			created_by,
 			created_at,
 			updated_by,
-			updated_at
+			updated_at,
+			app_version
 		}
 		const token = await AsyncStorage.getItem("key")
 		const params = {

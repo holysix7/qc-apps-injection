@@ -110,6 +110,8 @@ const Per4Jam = ({route, navigation}) => {
 	const [updateinspection_time, setupdateInspectionTime]							 = useState("")
 	const [loading, setLoading] = useState(false)
 
+	const [idButton, setIdButton] = useState(true);
+
 	const [data, setData] = useState("");
 	const [daily_inspection, setDaily] = useState("");
 	const date = []
@@ -123,111 +125,55 @@ const Per4Jam = ({route, navigation}) => {
 			<Text key={"key"} style={{marginTop: 1, fontWeight: 'bold', fontSize: 17}}>{yesterday}</Text>
 		)
 	}
-
+	var timeNow = moment()
+	var jam 		= parseInt(moment(timeNow).format("H"))
 	const formOke = async() => {
 		const token = await AsyncStorage.getItem("key")
 		const headers = {
 			'Authorization': token
 		}		
 		const id = await AsyncStorage.getItem('id')
-		const name = await AsyncStorage.getItem('name')
 		setCreatedBy(id)
 		setUpdatedBy(id)
 
-		let jam = moment().format("HH:mm:ss")
 		if(parseInt(jam) >= 8 && parseInt(jam) <= 15){
-			const nilaiJam = parseInt(jam)
 			setShift(2)
-			setHours(nilaiJam)
-			const fixShift = 2
-			const params = {
-				tbl: 'daily_inspection',
-				kind: 'get_4hour',
-				sys_plant_id: sys_plant_id,
-				machine_id: machine_id,
-				hrd_work_shift_id: fixShift,
-				hours: parseInt(jam),
-				qc_daily_inspection_id: qc_daily_inspection_id,
-				app_version: app_version
-			}
-			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
-			.then(response => {
-				setLoading(true)
-				setData(response.data.data)
-				setupdateInspectionTime(response.data.data.daily_inspection.inspection_time)
-				setCavityCheck(response.data.data.daily_inspection.cavity)
-				setCavityDetail(response.data.data.cavity_detail)
-				setqc_daily_inspection_item_id(response.data.data.daily_inspection.qc_daily_inspection_item_id)
-				setTooling(response.data.data.daily_inspection.tooling_num)
-				setDaily(response.data.data.daily_inspection)
-				console.log("List Data Per 4 Jam: ", response.data.status, "OK")
-			})
-			.catch(error => {
-				console.log('List Data Per 4 Jam: ', error)
-			})
+			setHours(jam)
+			var select_shift_id = 2
 		}else if(parseInt(jam) >= 16 && parseInt(jam) <= 23){
-			const nilaiJam = parseInt(jam)
 			setShift(3)
-			setHours(nilaiJam)
-			const fixShift = 3
-			const params = {
-				tbl: 'daily_inspection',
-				kind: 'get_4hour',
-				sys_plant_id: sys_plant_id,
-				machine_id: machine_id,
-				hrd_work_shift_id: fixShift,
-				hours: parseInt(jam),
-				qc_daily_inspection_id: qc_daily_inspection_id,
-				app_version: app_version
-			}
-			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
-			.then(response => {
-				setLoading(true)
-				setData(response.data.data)
-				setupdateInspectionTime(response.data.data.daily_inspection.inspection_time)
-				setCavityCheck(response.data.data.daily_inspection.cavity)
-				setCavityDetail(response.data.data.cavity_detail)
-				setqc_daily_inspection_item_id(response.data.data.daily_inspection.qc_daily_inspection_item_id)
-				setqc_daily_inspection_item_id(response.data.data.daily_inspection.qc_daily_inspection_item_id)
-				setTooling(response.data.data.daily_inspection.tooling_num)
-				setDaily(response.data.data.daily_inspection)
-				console.log("List Data Per 4 Jam: ", response.data.status, "OK")
-			})
-			.catch(error => {
-				console.log('List Data Per 4 Jam: ', error)
-			})
+			setHours(jam)
+			var select_shift_id = 3
 		}else{
-			const nilaiJam = parseInt(jam)
 			setShift(4)
-			setHours(nilaiJam)
-			const fixShift = 4
-			const params = {
-				tbl: 'daily_inspection',
-				kind: 'get_4hour',
-				sys_plant_id: sys_plant_id,
-				machine_id: machine_id,
-				hrd_work_shift_id: fixShift,
-				hours: parseInt(jam),
-				qc_daily_inspection_id: qc_daily_inspection_id,
-				app_version: app_version
-			}
-			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
-			.then(response => {
-				setLoading(true)
-				setData(response.data.data)
-				setupdateInspectionTime(response.data.data.daily_inspection.inspection_time)
-				setCavityCheck(response.data.data.daily_inspection.cavity)
-				setCavityDetail(response.data.data.cavity_detail)
-				setqc_daily_inspection_item_id(response.data.data.daily_inspection.qc_daily_inspection_item_id)
-				setqc_daily_inspection_item_id(response.data.data.daily_inspection.qc_daily_inspection_item_id)
-				setTooling(response.data.data.daily_inspection.tooling_num)
-				setDaily(response.data.data.daily_inspection)
-				console.log("List Data Per 4 Jam: ", response.data.status, "OK")
-			})
-			.catch(error => {
-				console.log('List Data Per 4 Jam: ', error)
-			})
+			setHours(jam)
+			var select_shift_id = 4
 		}
+		const params = {
+			tbl: 'daily_inspection',
+			kind: 'get_4hour',
+			sys_plant_id: sys_plant_id,
+			machine_id: machine_id,
+			hrd_work_shift_id: select_shift_id,
+			hours: parseInt(jam),
+			qc_daily_inspection_id: qc_daily_inspection_id,
+			app_version: app_version
+		}
+		Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
+		.then(response => {
+			setLoading(true)
+			setData(response.data.data)
+			setupdateInspectionTime(response.data.data.daily_inspection.inspection_time)
+			setCavityCheck(response.data.data.daily_inspection.cavity)
+			setCavityDetail(response.data.data.cavity_detail)
+			setqc_daily_inspection_item_id(response.data.data.daily_inspection.qc_daily_inspection_item_id)
+			setTooling(response.data.data.daily_inspection.tooling_num)
+			setDaily(response.data.data.daily_inspection)
+			console.log("List Data Per 4 Jam: ", response.data.status, "OK")
+		})
+		.catch(error => {
+			console.log('List Data Per 4 Jam: ', error)
+		})
 	}
 
 	const item = {
@@ -394,100 +340,65 @@ const Per4Jam = ({route, navigation}) => {
 		const headers = {
 			'Authorization': token
 		}
-		let hoursNow = moment().format("HH")
+		var hoursNow = moment().format("HH")
+		var select_hour = parseInt(value)
 		const minHours = parseInt(hoursNow) - 1
-		if(value == minHours || value == hoursNow){
-			if(value >= 8 && value <= 15){
-				const fixShift = 2
-				const params = {
-					tbl: 'daily_inspection',
-					kind: 'get_4hour',
-					sys_plant_id: sys_plant_id,
-					machine_id: machine_id,
-					hrd_work_shift_id: fixShift,
-					hours: parseInt(value),
-					qc_daily_inspection_id: qc_daily_inspection_id,
-					app_version: app_version
-				}
-				Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
-				.then(response => {
-					setLoading(true)
-					setData(response.data.data)
-					setupdateInspectionTime(response.data.data.daily_inspection.inspection_time)
-					setCavityCheck(response.data.data.daily_inspection.cavity)
-					setCavityDetail(response.data.data.cavity_detail)
-					setqc_daily_inspection_item_id(response.data.data.daily_inspection.qc_daily_inspection_item_id)
-					setTooling(response.data.data.daily_inspection.tooling_num)
-					setDaily(response.data.data.daily_inspection)
-					console.log("List Data Per 4 Jam: ", response.data.status, "OK")
-				})
-				.catch(error => {
-					setLoading(true)
-					console.log('List Data Per 4 Jam: ', error)
-				})
-			}else if(value >= 16 && value <= 23){
-				const fixShift = 3
-				const params = {
-					tbl: 'daily_inspection',
-					kind: 'get_4hour',
-					sys_plant_id: sys_plant_id,
-					machine_id: machine_id,
-					hrd_work_shift_id: fixShift,
-					hours: parseInt(value),
-					qc_daily_inspection_id: qc_daily_inspection_id,
-					app_version: app_version
-				}
-				Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
-				.then(response => {
-					setLoading(true)
-					setData(response.data.data)
-					setupdateInspectionTime(response.data.data.daily_inspection.inspection_time)
-					setCavityCheck(response.data.data.daily_inspection.cavity)
-					setCavityDetail(response.data.data.cavity_detail)
-					setqc_daily_inspection_item_id(response.data.data.daily_inspection.qc_daily_inspection_item_id)
-					setTooling(response.data.data.daily_inspection.tooling_num)
-					setDaily(response.data.data.daily_inspection)
-					console.log("List Data Per 4 Jam: ", response.data.status, "OK")
-				})
-				.catch(error => {
-					setLoading(true)
-					console.log('List Data Per 4 Jam: ', error)
-				})
-			}else{
-				const fixShift = 4
-				const params = {
-					tbl: 'daily_inspection',
-					kind: 'get_4hour',
-					sys_plant_id: sys_plant_id,
-					machine_id: machine_id,
-					hrd_work_shift_id: fixShift,
-					hours: parseInt(value),
-					qc_daily_inspection_id: qc_daily_inspection_id,
-					app_version: app_version
-				}
-				Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
-				.then(response => {
-					setLoading(true)
-					setData(response.data.data)
-					setupdateInspectionTime(response.data.data.daily_inspection.inspection_time)
-					setCavityCheck(response.data.data.daily_inspection.cavity)
-					setCavityDetail(response.data.data.cavity_detail)
-					setqc_daily_inspection_item_id(response.data.data.daily_inspection.qc_daily_inspection_item_id)
-					setTooling(response.data.data.daily_inspection.tooling_num)
-					setDaily(response.data.data.daily_inspection)
-					console.log("List Data Per 4 Jam: ", response.data.status, "OK")
-				})
-				.catch(error => {
-					setLoading(true)
-					console.log('List Data Per 4 Jam: ', error)
-				})
-			}
-			setLoading(true)
-			console.log("Berhasil!")
+		if(hoursNow >= 8 && hoursNow <= 15){
+			var shiftNow = 2
+		}else if(hoursNow >= 16 && hoursNow <= 23){
+			var shiftNow = 3
 		}else{
-			alert("Access Denied")
+			var shiftNow = 4
+		}
+		if(value >= 8 && value <= 15){
+			var select_shift_id = 2
+		}else if(value >= 16 && value <= 23){
+			var select_shift_id = 3
+		}else{
+			var select_shift_id = 4
+		}
+		const params = {	
+			tbl: 'daily_inspection',
+			kind: 'get_4hour',
+			sys_plant_id: sys_plant_id,
+			machine_id: machine_id,
+			hrd_work_shift_id: select_shift_id,
+			hours: select_hour,
+			qc_daily_inspection_id: qc_daily_inspection_id,
+			app_version: app_version
+		}
+		Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
+		.then(response => {
 			setLoading(true)
-			setHours(parseInt(hoursNow))
+			setData(response.data.data)
+			setupdateInspectionTime(response.data.data.daily_inspection.inspection_time)
+			setCavityCheck(response.data.data.daily_inspection.cavity)
+			setCavityDetail(response.data.data.cavity_detail)
+			setqc_daily_inspection_item_id(response.data.data.daily_inspection.qc_daily_inspection_item_id)
+			setTooling(response.data.data.daily_inspection.tooling_num)
+			setDaily(response.data.data.daily_inspection)
+			console.log("List Data Per 4 Jam: ", response.data.status, "OK")
+		})
+		.catch(error => {
+			setLoading(true)
+			console.log('List Data Per 4 Jam: ', error)
+		})
+		if(select_shift_id <= shiftNow){
+			if(select_hour == hoursNow){
+				setLoading(true)
+				setIdButton(true)
+			}else if(select_hour > hoursNow){
+				setLoading(true)
+				setHours(hoursNow)
+				alert("Access Denied!")
+			}else{
+				setLoading(true)
+				setIdButton(false)
+			}
+		}else{
+			setLoading(true)
+			alert("Access Denied!")
+			setHours(hoursNow)
 		}
 	}
 
@@ -1371,93 +1282,16 @@ const Per4Jam = ({route, navigation}) => {
 		return table1
 	}
 
-	const content = () => {
-		var dataContent = []
-			dataContent.push(
-				<ScrollView key="asoijkm" style={{flex: 1}}>
-					<View style={{paddingTop: 20, flexDirection: 'row'}}>
-						<View style={{padding: 10, width: "44%"}}>
-							<Text>Machines Status</Text>
-						</View>
-						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-							<Text style={{color: 'black'}}>:</Text>
-						</View>
-						<View style={{padding: 4, width: "50%"}}>
-							<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-								<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-									<Text>{daily_inspection != null ? daily_inspection.machine_status : "-"}</Text>
-								</View>
-							</View>
-						</View>
-					</View>
-	
-					<View style={{paddingTop: 20, flexDirection: 'row'}}>
-						<View style={{padding: 10, width: "44%"}}>
-							<Text>Tooling</Text>
-						</View>
-						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-							<Text style={{color: 'black'}}>:</Text>
-						</View>
-						<View style={{padding: 4, width: "50%"}}>
-							<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-								<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-									<Text>{tooling_num != null ? tooling_num : "-"}</Text>
-								</View>
-							</View>
-						</View>
-					</View>
-						
-					<View style={{paddingTop: 20, flexDirection: 'row'}}>
-						<View style={{padding: 10, width: "44%"}}>
-							<Text>Cavity Amount</Text>
-						</View>
-						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-							<Text style={{color: 'black'}}>:</Text>
-						</View>
-						<View style={{padding: 4, width: "50%"}}>
-							<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-								<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-									{/* <Text>2</Text> */}
-									<Text>{cavityCheck != null ? cavityCheck : "-"}</Text>
-								</View>
-							</View>
-						</View>
-					</View>
-	
-					<ScrollView horizontal>
-						<TouchableOpacity>
-							<View style={{flexDirection: 'row', height: 50, paddingTop: 10}}>
-								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-									<Text style={{fontWeight: 'bold'}}>Cavity</Text>
-									<View style={{justifyContent: 'center'}}>
-									</View>
-								</View>
-								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-									<Text style={{fontWeight: 'bold'}}>Compare</Text>
-									<View style={{justifyContent: 'center'}}>
-									</View>
-								</View>
-								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-									<Text style={{fontWeight: 'bold'}}>Fitting Test</Text>
-									<View style={{justifyContent: 'center'}}>
-									</View>
-								</View>
-								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
-									<Text style={{fontWeight: 'bold'}}>Keterangan</Text>
-									<View style={{justifyContent: 'center'}}>
-									</View>
-								</View>
-							</View>
-							{dataItem()}
-						</TouchableOpacity>
-					</ScrollView>
-	
+	const updateButton = () => {
+		if(idButton){
+			return (
+				<View>
 					<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
 						<View>
 							{ updateinspection_time != null ? <Button style={{width: 172, borderRadius: 25, justifyContent: 'center', backgroundColor: '#05c46b'}} onPress={() => alert("Already Saved!")}><Text>SAVE</Text></Button> : <Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>}
 						</View>
 					</View>
-	
+
 					<View style={{flexDirection: 'column', height: 50}}>
 						<View style={{height: 27, alignItems: 'center'}}>
 							<Text style={{fontWeight: 'bold'}}>
@@ -1470,18 +1304,93 @@ const Per4Jam = ({route, navigation}) => {
 							</Text>
 						</View>
 					</View>
-				</ScrollView>
+				</View>
 			)
-		// }else{
-		// 	dataContent.push(
-		// 		<ScrollView key="2" style={{flex: 1}}>
-		// 			<View style={{marginVertical: 160, marginHorizontal: 40, padding: 40, backgroundColor: 'red', borderWidth: 1, borderRadius: 25, flexDirection: 'row', alignItems: 'center'}}>
-		// 				<Text style={{fontSize: 12, textAlign: 'center', fontWeight: 'bold'}}>Tidak Ada Cavity, Harap Isi Cavity Terlebih Dahulu</Text>
-		// 			</View>
-		// 		</ScrollView>
-		// 	)
-		// }
-		return dataContent
+		}
+	}
+
+	const content = () => {
+		return (
+			<ScrollView key="asoijkm" style={{flex: 1}}>
+				<View style={{paddingTop: 20, flexDirection: 'row'}}>
+					<View style={{padding: 10, width: "44%"}}>
+						<Text>Machines Status</Text>
+					</View>
+					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+						<Text style={{color: 'black'}}>:</Text>
+					</View>
+					<View style={{padding: 4, width: "50%"}}>
+						<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+							<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+								<Text>{daily_inspection != null ? daily_inspection.machine_status : "-"}</Text>
+							</View>
+						</View>
+					</View>
+				</View>
+
+				<View style={{paddingTop: 20, flexDirection: 'row'}}>
+					<View style={{padding: 10, width: "44%"}}>
+						<Text>Tooling</Text>
+					</View>
+					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+						<Text style={{color: 'black'}}>:</Text>
+					</View>
+					<View style={{padding: 4, width: "50%"}}>
+						<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+							<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+								<Text>{tooling_num != null ? tooling_num : "-"}</Text>
+							</View>
+						</View>
+					</View>
+				</View>
+					
+				<View style={{paddingTop: 20, flexDirection: 'row'}}>
+					<View style={{padding: 10, width: "44%"}}>
+						<Text>Cavity Amount</Text>
+					</View>
+					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+						<Text style={{color: 'black'}}>:</Text>
+					</View>
+					<View style={{padding: 4, width: "50%"}}>
+						<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+							<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+								{/* <Text>2</Text> */}
+								<Text>{cavityCheck != null ? cavityCheck : "-"}</Text>
+							</View>
+						</View>
+					</View>
+				</View>
+
+				<ScrollView horizontal>
+					<TouchableOpacity>
+						<View style={{flexDirection: 'row', height: 50, paddingTop: 10}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
+								<Text style={{fontWeight: 'bold'}}>Cavity</Text>
+								<View style={{justifyContent: 'center'}}>
+								</View>
+							</View>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+								<Text style={{fontWeight: 'bold'}}>Compare</Text>
+								<View style={{justifyContent: 'center'}}>
+								</View>
+							</View>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+								<Text style={{fontWeight: 'bold'}}>Fitting Test</Text>
+								<View style={{justifyContent: 'center'}}>
+								</View>
+							</View>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
+								<Text style={{fontWeight: 'bold'}}>Keterangan</Text>
+								<View style={{justifyContent: 'center'}}>
+								</View>
+							</View>
+						</View>
+						{dataItem()}
+					</TouchableOpacity>
+				</ScrollView>
+				{updateButton()}
+			</ScrollView>
+		)
 	}
 
 	return(

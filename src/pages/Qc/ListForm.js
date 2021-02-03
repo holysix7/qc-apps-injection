@@ -14,7 +14,7 @@ const ListForm = ({route, navigation}) => {
 		session()
 		setTimeout(() => {
 			setLoading(true)
-		}, 2000);
+		}, 1000);
 	}, [])
 
 	const session = async () => {
@@ -175,7 +175,7 @@ const ListForm = ({route, navigation}) => {
 							}
 						}
 						if(featureUser[i].qc_last_shoot_qc_leader != null || featureUser[i].qc_last_shoot_foreman != null){
-							if(featureUser[i].qc_last_shoot_qc_leader.view_permissions == true || featureUser[i].qc_last_shoot_foreman.view_permissions == truefeatureUser[i].qc_last_shoot_foreman.view_permissions == true){
+							if(featureUser[i].qc_last_shoot_qc_leader.view_permissions == true || featureUser[i].qc_last_shoot_foreman.view_permissions == true || featureUser[i].qc_last_shoot_foreman.view_permissions == true){
 								data.push(
 									<Button key="askdmkwqw" style={styles.dailyInspectionStopButton} onPress={() => navigation.navigate('StopMP', {
 										qc_daily_inspection_id: qc_daily_inspection_id,
@@ -217,7 +217,8 @@ const ListForm = ({route, navigation}) => {
 										today: today,
 										machine_number: machine_number,
 										yesterday: yesterday,
-										doc_number: doc_number
+										doc_number: doc_number,
+										customer_part_number: customer_part_number
 									})} >
 										<Text style={styles.fontDailyInspectionContinueButton}> CONTINUE MP </Text>
 									</Button>	

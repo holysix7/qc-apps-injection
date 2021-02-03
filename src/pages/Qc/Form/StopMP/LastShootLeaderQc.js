@@ -132,15 +132,15 @@ const LastShootLeaderQc = ({route, navigation}) => {
 	const date = []
 
 	const [loading, setLoading]	= useState(false)
+	var timeNow 	= moment()
+	var hoursNow	= parseInt(moment(timeNow).format('H'))
 
-	if(today != null)
-	{
+	if(today != null){
 	date.push(
 		<Text key={"key"} style={{marginTop: 1, fontWeight: 'bold', fontSize: 17}}>{today}</Text>
 	)
 	}
-	if(yesterday != null)
-	{
+	if(yesterday != null){
 		date.push(
 			<Text key={"key"} style={{marginTop: 1, fontWeight: 'bold', fontSize: 17}}>{yesterday}</Text>
 		)
@@ -151,107 +151,49 @@ const LastShootLeaderQc = ({route, navigation}) => {
 		const headers = {
 			'Authorization': token
 		}
-		const name = await AsyncStorage.getItem('name')
 		const id = await AsyncStorage.getItem('id')
 		setCreatedBy(id)
 		setUpdatedBy(id)
-
-		let jam = moment().format("HH:mm:ss")
-		if(parseInt(jam) >= 8 && parseInt(jam) <= 15)
-		{
-			const nilaiJam = parseInt(jam)
+		if(hoursNow >= 8 && hoursNow <= 15){
 			setShift(2)
-			setHours(nilaiJam)
-			const params = {
-				tbl: 'daily_inspection',
-				kind: 'last_shoot_qc',
-				sys_plant_id: sys_plant_id,
-				machine_id: machine_id,
-				hrd_work_shift_id: 2,
-				hours: nilaiJam,
-				qc_daily_inspection_id: qc_daily_inspection_id,
-				app_version: app_version
-			}
-			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
-			.then(response => {
-				setLoading(true)
-				setData(response.data.data.daily_inspection)
-				setlast_shoot_qc_items(response.data.data.last_shoot_qc_items)
-				setDataCavity(response.data.data.daily_inspection.cavity)
-				setEngProd(response.data.data.eng_product_id)
-				setNGCategories(response.data.data.ng_category)
-				setTooling(response.data.data.daily_inspection.tooling_num)
-				setMassproQcl(response.data.data.last_shoot_qc)
-				setMassproQlItems(response.data.data.last_shoot_qc_items)
-				console.log("List Data Last Shoot Leader QC: ", response.data.status, "OK")
-			})
-			.catch(error => {
-				setLoading(true)
-				console.log('List Data Last Shoot Leader QC: ', error)
-			})
-		}else if(parseInt(jam) >= 16 && parseInt(jam) <= 23){
-			const nilaiJam = parseInt(jam)
+			setHours(hoursNow)
+			var shift_id	= 2
+		}else if(hoursNow >= 16 && hoursNow <= 23){
 			setShift(3)
-			setHours(nilaiJam)
-			const params = {
-				tbl: 'daily_inspection',
-				kind: 'last_shoot_qc',
-				sys_plant_id: sys_plant_id,
-				machine_id: machine_id,
-				hrd_work_shift_id: 2,
-				hours: nilaiJam,
-				qc_daily_inspection_id: qc_daily_inspection_id,
-				app_version: app_version
-			}
-			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
-			.then(response => {
-				setLoading(true)
-				setData(response.data.data.daily_inspection)
-				setlast_shoot_qc_items(response.data.data.last_shoot_qc_items)
-				setDataCavity(response.data.data.daily_inspection.cavity)
-				setEngProd(response.data.data.eng_product_id)
-				setNGCategories(response.data.data.ng_category)
-				setTooling(response.data.data.daily_inspection.tooling_num)
-				setMassproQcl(response.data.data.last_shoot_qc)
-				setMassproQlItems(response.data.data.last_shoot_qc_items)
-				console.log("List Data Last Shoot Leader QC: ", response.data.status, "OK")
-			})
-			.catch(error => {
-				setLoading(true)
-				console.log('List Data Last Shoot Leader QC: ', error)
-			})
+			setHours(hoursNow)
+			var shift_id	= 3
 		}else{
-			const nilaiJam = parseInt(jam)
 			setShift(4)
-			setHours(nilaiJam)
-			const params = {
-				tbl: 'daily_inspection',
-				kind: 'last_shoot_qc',
-				sys_plant_id: sys_plant_id,
-				machine_id: machine_id,
-				hrd_work_shift_id: 2,
-				hours: nilaiJam,
-				qc_daily_inspection_id: qc_daily_inspection_id,
-				app_version: app_version
-			}
-			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
-			.then(response => {
-				setLoading(true)
-				setData(response.data.data.daily_inspection)
-				setlast_shoot_qc_items(response.data.data.last_shoot_qc_items)
-				setDataCavity(response.data.data.daily_inspection.cavity)
-				setEngProd(response.data.data.eng_product_id)
-				setNGCategories(response.data.data.ng_category)
-				setTooling(response.data.data.daily_inspection.tooling_num)
-				setMassproQcl(response.data.data.last_shoot_qc)
-				setMassproQlItems(response.data.data.last_shoot_qc_items)
-				console.log("List Data Last Shoot Leader QC: ", response.data.status, "OK")
-			})
-			.catch(error => {
-				setLoading(true)
-				console.log('List Data Last Shoot Leader QC: ', error)
-			})
+			setHours(hoursNow)
+			var shift_id	= 4
 		}
+		const params = {
+			tbl: 'daily_inspection',
+			kind: 'last_shoot_qc',
+			sys_plant_id: sys_plant_id,
+			machine_id: machine_id,
+			hrd_work_shift_id: shift_id,
+			hours: hoursNow,
+			qc_daily_inspection_id: qc_daily_inspection_id,
+			app_version: app_version
+		}
+		Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
+		.then(response => {
+			setLoading(true)
+			setData(response.data.data.daily_inspection)
+			setlast_shoot_qc_items(response.data.data.last_shoot_qc_items)
+			setDataCavity(response.data.data.daily_inspection.cavity)
+			setEngProd(response.data.data.eng_product_id)
+			setNGCategories(response.data.data.ng_category)
+			setTooling(response.data.data.daily_inspection.tooling_num)
+			setMassproQcl(response.data.data.last_shoot_qc)
+			setMassproQlItems(response.data.data.last_shoot_qc_items)
+			console.log("List Data Last Shoot Leader QC: ", response.data.status, "OK")
+		})
+		.catch(error => {
+			setLoading(true)
+			console.log('List Data Last Shoot Leader QC: ', error)
+		})
 	}
 
 	const shiftFix = (value) => {
@@ -435,7 +377,6 @@ const LastShootLeaderQc = ({route, navigation}) => {
 		}
 		return dataNGs
 	}
-	const app_version = "0.8.9"
 	
 	const submit = async() => {
 		setLoading(false)
@@ -454,7 +395,8 @@ const LastShootLeaderQc = ({route, navigation}) => {
 			created_at,
 			updated_by,
 			updated_at,
-			remark
+			remark,
+			app_version
 		}
 		const token = await AsyncStorage.getItem("key")
 		const params = {

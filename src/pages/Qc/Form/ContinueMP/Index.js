@@ -6,7 +6,7 @@ import styles from '../../../../components/styles/Styling';
 import AsyncStorage from "@react-native-community/async-storage";
 
 const ContinueMP = ({route, navigation}) => {
-	const {qc_daily_inspection_id, qc_daily_inspection_item_id, qc_daily_inspection_method_id, sys_plant_id, product_name, customer_name, machine_id, machine_name, machine_number, today, yesterday, daily_inspection_number, doc_number} = route.params
+	const {qc_daily_inspection_id, customer_part_number, sys_plant_id, product_name, customer_name, machine_id, machine_name, machine_number, today, yesterday, daily_inspection_number, doc_number} = route.params
   const [featureUser, setFeature] = useState(null);
   const [user, setUser] = useState(null);
 	const [loading, setLoading] = useState(false)
@@ -14,7 +14,7 @@ const ContinueMP = ({route, navigation}) => {
 		session()
 		setTimeout(() => {
 			setLoading(true)
-		}, 2000);
+		}, 1000);
 	}, [])
 
 	const session = async () => {
@@ -37,7 +37,7 @@ const ContinueMP = ({route, navigation}) => {
 				if(sys_plant_id == i+1){
 					if(featureUser[i] != null){
 						if(featureUser[i].qc_masspro_qc_leader != null || featureUser[i].qc_masspro_foreman != null){
-							if(featureUser[i].qc_masspro_qc_leader.view_permissions == true && user == 32008107 || user == 21410012 || featureUser[i].qc_masspro_foreman.view_permissions == true && user == 32008107 || user == 21410012){
+							if(featureUser[i].qc_masspro_qc_leader.view_permissions == true && user == 32008107 || featureUser[i].qc_masspro_foreman.view_permissions == true || user == 21410012){
 								data.push(
 									<Button key="AscvSacx" style={styles.dailyInspectionButton} onPress={() => navigation.navigate('UpdateProductionLeader', {
 										qc_daily_inspection_id: qc_daily_inspection_id,
