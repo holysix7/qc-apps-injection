@@ -310,11 +310,18 @@ const PerJam = ({route, navigation}) => {
 			setUpdateIT(response.data.data.daily_inspection.inspection_time)
 			setTooling(response.data.data.daily_inspection.tooling_num)
 
-			if(select_hour == hoursNow){
-				setDataProduction(response.data.data.output_production.gross_prod)
+			if (select_shift_id <= shiftNow) {
+				if(select_hour == hoursNow){
+					setDataProduction(response.data.data.output_production.gross_prod)
+				} else if (select_hour > hoursNow) {
+					setDataProduction(0)
+				} else {
+					setDataProduction(response.data.data.daily_inspection.output_production)
+				}
 			} else {
-				setDataProduction(response.data.data.daily_inspection.output_production)
+				setDataProduction(0)
 			}
+
 			console.log("List Data By Shift: ", response.data.status, "OK")
 			console.log(select_shift_id)
 		})
@@ -323,7 +330,7 @@ const PerJam = ({route, navigation}) => {
 			console.log('List Data Per Jam: ', error)
 		})
 
-		if (select_shift_id >= shiftNow) {
+		if (select_shift_id <= shiftNow) {
 			if(select_hour == hoursNow){
 				setIdButton(true)
 				console.log("Berhasil!")
@@ -339,7 +346,7 @@ const PerJam = ({route, navigation}) => {
 			setLoading(true)
 			alert("Access Denied!")
 			setHours(hoursNow)
-			
+
 		}
 
 	}
