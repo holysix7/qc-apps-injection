@@ -118,9 +118,13 @@ const PerJam = ({route, navigation}) => {
 	const [foreman_name, setForemanName]			= useState("")
 	const [qc_process_nik, setQcProcessNik]		= useState("")
 	const [qc_process_name, setQcProcessName]	= useState("")
+
 	
 	const [idButton, setIdButton]	= useState(true)
 	const check_appearance_n = appearance_n
+
+	var timeNow 	= moment()
+	var hoursNow 	= parseInt(moment(timeNow).format("H"))
 
 	const submit = async() => {
 		setLoading(false)
@@ -193,152 +197,65 @@ const PerJam = ({route, navigation}) => {
 		const headers = {
 			'Authorization': token
 		}
-		let jam = moment().format("HH:mm:ss")
-		if(parseInt(jam) >= 8 && parseInt(jam) <= 15){
-			const nilaiJam = parseInt(jam)
+
+		if(hoursNow >= 8 && hoursNow <= 15){
 			setShift(2)
-			setHours(nilaiJam)
-			const params = {
-				tbl: 'daily_inspection',
-				kind: 'get_hour',
-				sys_plant_id: sys_plant_id,
-				machine_id: machine_id,
-				hrd_work_shift_id: 2,
-				hours: nilaiJam,
-				qc_daily_inspection_id: qc_daily_inspection_id,
-				app_version: app_version
-			}
-			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
-			.then(response => {
-				setNGData(response.data.data.ng_category)
-				setData(response.data.data)
-				setUpdatePN(response.data.data.daily_inspection.check_appearance_pn)
-				setCheckPackaging(response.data.data.daily_inspection.check_packaging)
-				setUpdateStart(response.data.data.daily_inspection.label_begin)
-				setUpdateEnd(response.data.data.daily_inspection.label_end)
-				setUpdateSpItem(response.data.data.daily_inspection.special_item)
-				setUpdateCNG(response.data.data.daily_inspection.ng_name)
-				setUpdateCNT(response.data.data.daily_inspection.note)
-				setUpdateStdT(response.data.data.daily_inspection.status)
-				setUpdateIT(response.data.data.daily_inspection.inspection_time)
-				setIdButton(true)
-				setLoading(true)
-				setTooling(response.data.data.daily_inspection.tooling_num)
-				setDataProduction(response.data.data.output_production.gross_prod)
-				setLeaderNik(response.data.data.daily_inspection.leader_nik)
-				setLeaderName(response.data.data.daily_inspection.leader_name)
-				setQcProcessNik(response.data.data.daily_inspection.qc_process_nik)
-				setQcProcessName(response.data.data.daily_inspection.qc_process_name)
-				setForemanNik(response.data.data.daily_inspection.foreman_nik)
-				setForemanName(response.data.data.daily_inspection.foreman_name)
-				setOperatorNik1(response.data.data.output_production.nik_operator_1)
-				setOperatorName1(response.data.data.output_production.name_operator_1)
-				setOperatorNik2(response.data.data.output_production.nik_operator_2)
-				setOperatorName2(response.data.data.output_production.name_operator_2)
-				setAppearance(response.data.data.output_production.appearance_n)
-				console.log("List Data Per Jam: ", response.data.status, "OK")
-			})
-			.catch(error => {
-				console.log('List Data Per Jam: ', error)
-				setLoading(true)
-			})
-		}else if(parseInt(jam) >= 16 && parseInt(jam) <= 23){
-			const nilaiJam = parseInt(jam)
+			setHours(hoursNow)
+			var select_shift_id = 2
+		}else if(hoursNow >= 16 && hoursNow <= 23){
 			setShift(3)
-			setHours(nilaiJam)
-			const params = {
-				tbl: 'daily_inspection',
-				kind: 'get_hour',
-				sys_plant_id: sys_plant_id,
-				machine_id: machine_id,
-				hrd_work_shift_id: 3,
-				hours: nilaiJam,
-				qc_daily_inspection_id: qc_daily_inspection_id,
-				app_version: app_version
-			}
-			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
-			.then(response => {
-				setNGData(response.data.data.ng_category)
-				setData(response.data.data)
-				setUpdatePN(response.data.data.daily_inspection.check_appearance_pn)
-				setCheckPackaging(response.data.data.daily_inspection.check_packaging)
-				setUpdateStart(response.data.data.daily_inspection.label_begin)
-				setUpdateEnd(response.data.data.daily_inspection.label_end)
-				setUpdateSpItem(response.data.data.daily_inspection.special_item)
-				setUpdateCNG(response.data.data.daily_inspection.ng_name)
-				setUpdateCNT(response.data.data.daily_inspection.note)
-				setUpdateStdT(response.data.data.daily_inspection.status)
-				setUpdateIT(response.data.data.daily_inspection.inspection_time)
-				setIdButton(true)
-				setLoading(true)
-				setTooling(response.data.data.daily_inspection.tooling_num)
-				setDataProduction(response.data.data.output_production.gross_prod)
-				setLeaderNik(response.data.data.daily_inspection.leader_nik)
-				setLeaderName(response.data.data.daily_inspection.leader_name)
-				setQcProcessNik(response.data.data.daily_inspection.qc_process_nik)
-				setQcProcessName(response.data.data.daily_inspection.qc_process_name)
-				setForemanNik(response.data.data.daily_inspection.foreman_nik)
-				setForemanName(response.data.data.daily_inspection.foreman_name)
-				setOperatorNik1(response.data.data.output_production.nik_operator_1)
-				setOperatorName1(response.data.data.output_production.operator_name)
-				setOperatorNik2(response.data.data.output_production.nik_operator_2)
-				setOperatorName2(response.data.data.output_production.operator_name_2)
-				setAppearance(response.data.data.output_production.appearance_n)
-				console.log("List Data Per Jam: ", response.data.status, "OK")
-			})
-			.catch(error => {
-				console.log('List Data Per Jam: ', error)
-				setLoading(true)
-			})
+			setHours(hoursNow)
+			var select_shift_id = 3
 		}else{
-			const nilaiJam = parseInt(jam)
 			setShift(4)
-			setHours(nilaiJam)
-			const params = {
-				tbl: 'daily_inspection',
-				kind: 'get_hour',
-				sys_plant_id: sys_plant_id,
-				machine_id: machine_id,
-				hrd_work_shift_id: 5,
-				hours: nilaiJam,
-				qc_daily_inspection_id: qc_daily_inspection_id,
-				app_version: app_version
-			}
-			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
-			.then(response => { 
-				setNGData(response.data.data.ng_category)
-				setData(response.data.data)
-				setUpdatePN(response.data.data.daily_inspection.check_appearance_pn)
-				setCheckPackaging(response.data.data.daily_inspection.check_packaging)
-				setUpdateStart(response.data.data.daily_inspection.label_begin)
-				setUpdateEnd(response.data.data.daily_inspection.label_end)
-				setUpdateSpItem(response.data.data.daily_inspection.special_item)
-				setUpdateCNG(response.data.data.daily_inspection.ng_name)
-				setUpdateCNT(response.data.data.daily_inspection.note)
-				setUpdateStdT(response.data.data.daily_inspection.status)
-				setUpdateIT(response.data.data.daily_inspection.inspection_time)
-				setIdButton(true)
-				setLoading(true)
-				setTooling(response.data.data.daily_inspection.tooling_num)
-				setDataProduction(response.data.data.output_production.gross_prod)
-				setLeaderNik(response.data.data.daily_inspection.leader_nik)
-				setLeaderName(response.data.data.daily_inspection.leader_name)
-				setQcProcessNik(response.data.data.daily_inspection.qc_process_nik)
-				setQcProcessName(response.data.data.daily_inspection.qc_process_name)
-				setForemanNik(response.data.data.daily_inspection.foreman_nik)
-				setForemanName(response.data.data.daily_inspection.foreman_name)
-				setOperatorNik1(response.data.data.output_production.nik_operator_1)
-				setOperatorName1(response.data.data.output_production.name_operator_1)
-				setOperatorNik2(response.data.data.output_production.nik_operator_2)
-				setOperatorName2(response.data.data.output_production.name_operator_2)
-				setAppearance(response.data.data.output_production.appearance_n)
-				console.log("List Data Per Jam: ", response.data.status, "OK")
-			})
-			.catch(error => {
-				console.log('List Data Per Jam: ', error)
-				setLoading(true)
-			})
+			setHours(hoursNow)
+			var select_shift_id = 4
 		}
+		console.log("hoursNow: ", hoursNow);
+		const params = {
+			tbl: 'daily_inspection',
+			kind: 'get_hour',
+			sys_plant_id: sys_plant_id,
+			machine_id: machine_id,
+			hrd_work_shift_id: select_shift_id,
+			hours: hoursNow,
+			qc_daily_inspection_id: qc_daily_inspection_id,
+			app_version: app_version
+		}
+		Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
+		.then(response => {
+			setNGData(response.data.data.ng_category)
+			setData(response.data.data)
+			setUpdatePN(response.data.data.daily_inspection.check_appearance_pn)
+			setCheckPackaging(response.data.data.daily_inspection.check_packaging)
+			setUpdateStart(response.data.data.daily_inspection.label_begin)
+			setUpdateEnd(response.data.data.daily_inspection.label_end)
+			setUpdateSpItem(response.data.data.daily_inspection.special_item)
+			setUpdateCNG(response.data.data.daily_inspection.ng_name)
+			setUpdateCNT(response.data.data.daily_inspection.note)
+			setUpdateStdT(response.data.data.daily_inspection.status)
+			setUpdateIT(response.data.data.daily_inspection.inspection_time)
+			setIdButton(true)
+			setLoading(true)
+			setTooling(response.data.data.daily_inspection.tooling_num)
+			setDataProduction(response.data.data.output_production.gross_prod)
+			setLeaderNik(response.data.data.daily_inspection.leader_nik)
+			setLeaderName(response.data.data.daily_inspection.leader_name)
+			setQcProcessNik(response.data.data.daily_inspection.qc_process_nik)
+			setQcProcessName(response.data.data.daily_inspection.qc_process_name)
+			setForemanNik(response.data.data.daily_inspection.foreman_nik)
+			setForemanName(response.data.data.daily_inspection.foreman_name)
+			setOperatorNik1(response.data.data.output_production.nik_operator_1)
+			setOperatorName1(response.data.data.output_production.name_operator_1)
+			setOperatorNik2(response.data.data.output_production.nik_operator_2)
+			setOperatorName2(response.data.data.output_production.name_operator_2)
+			setAppearance(response.data.data.output_production.appearance_n)
+			console.log("List Data Per Jam: ", response.data.status, "OK")
+		})
+		.catch(error => {
+			console.log('List Data Per Jam: ', error)
+			setLoading(true)
+		})
 	}
 	
 	//getdata berdasarkan jam
@@ -349,119 +266,64 @@ const PerJam = ({route, navigation}) => {
 		const headers = {
 			'Authorization': token
 		}
-		let timeNow 	= moment()
-		let hoursNow 	= moment(timeNow).format("H")
-		let minTime 	= moment(timeNow).add(-1,'hours')
-		let minHours 	= moment(minTime).format("H")
+		var select_hour = parseInt(value)
+		var minTime 	= moment(timeNow).add(-1,'hours')
+		var minHours 	= moment(minTime).format("H")
 		
-		// if(value <= minHours || value == hoursNow){
-		if(value == hoursNow){
-			if(value >= 8 && value <= 15){
-				const params = {
-					tbl: 'daily_inspection',
-					kind: 'get_hour',
-					sys_plant_id: sys_plant_id,
-					machine_id: machine_id,
-					hrd_work_shift_id: 2,
-					hours: parseInt(value),
-					qc_daily_inspection_id: qc_daily_inspection_id,
-					app_version: app_version
-				}
-				Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
-				.then(response => {
-					setNGData(response.data.data.ng_category)
-					setData(response.data.data)
-					setUpdatePN(response.data.data.daily_inspection.check_appearance_pn)
-					setCheckPackaging(response.data.data.daily_inspection.check_packaging)
-					setUpdateStart(response.data.data.daily_inspection.label_begin)
-					setUpdateEnd(response.data.data.daily_inspection.label_end)
-					setUpdateSpItem(response.data.data.daily_inspection.special_item)
-					setUpdateCNG(response.data.data.daily_inspection.ng_name)
-					setUpdateCNT(response.data.data.daily_inspection.note)
-					setUpdateStdT(response.data.data.daily_inspection.status)
-					setUpdateIT(response.data.data.daily_inspection.inspection_time)
-					setTooling(response.data.data.daily_inspection.tooling_num)
-					setDataProduction(response.data.data.output_production.gross_prod)
-					setIdButton(true)
-					setLoading(true)
-					console.log("List Data By Shift 1: ", response.data.status, "OK")
-				})
-				.catch(error => {
-					setLoading(true)
-					console.log('List Data Per Jam: ', error)
-				})
-			}else if(value >= 16 && value <= 23){
-				const params = {
-					tbl: 'daily_inspection',
-					kind: 'get_hour',
-					sys_plant_id: sys_plant_id,
-					machine_id: machine_id,
-					hrd_work_shift_id: 3,
-					hours: parseInt(value),
-					qc_daily_inspection_id: qc_daily_inspection_id,
-					app_version: app_version
-				}
-				Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
-				.then(response => {
-					setNGData(response.data.data.ng_category)
-					setData(response.data.data)
-					setUpdatePN(response.data.data.daily_inspection.check_appearance_pn)
-					setCheckPackaging(response.data.data.daily_inspection.check_packaging)
-					setUpdateStart(response.data.data.daily_inspection.label_begin)
-					setUpdateEnd(response.data.data.daily_inspection.label_end)
-					setUpdateSpItem(response.data.data.daily_inspection.special_item)
-					setUpdateCNG(response.data.data.daily_inspection.ng_name)
-					setUpdateCNT(response.data.data.daily_inspection.note)
-					setUpdateStdT(response.data.data.daily_inspection.status)
-					setUpdateIT(response.data.data.daily_inspection.inspection_time)
-					setTooling(response.data.data.daily_inspection.tooling_num)
-					setDataProduction(response.data.data.output_production.gross_prod)
-					setIdButton(true)
-					setLoading(true)
-					console.log("List Data By Shift 2: ", response.data.status, "OK")
-				})
-				.catch(error => {
-					setLoading(true)
-					console.log('List Data Per Jam: ', error)
-				})
-			}else{
-				const params = {
-					tbl: 'daily_inspection',
-					kind: 'get_hour',
-					sys_plant_id: sys_plant_id,
-					machine_id: machine_id,
-					hrd_work_shift_id: 4,
-					hours: parseInt(value),
-					qc_daily_inspection_id: qc_daily_inspection_id,
-					app_version: app_version
-				}
-				Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
-				.then(response => {
-					setNGData(response.data.data.ng_category)
-					setData(response.data.data)
-					setUpdatePN(response.data.data.daily_inspection.check_appearance_pn)
-					setCheckPackaging(response.data.data.daily_inspection.check_packaging)
-					setUpdateStart(response.data.data.daily_inspection.label_begin)
-					setUpdateEnd(response.data.data.daily_inspection.label_end)
-					setUpdateSpItem(response.data.data.daily_inspection.special_item)
-					setUpdateCNG(response.data.data.daily_inspection.ng_name)
-					setUpdateCNT(response.data.data.daily_inspection.note)
-					setUpdateStdT(response.data.data.daily_inspection.status)
-					setUpdateIT(response.data.data.daily_inspection.inspection_time)
-					setTooling(response.data.data.daily_inspection.tooling_num)
-					setDataProduction(response.data.data.output_production.gross_prod)
-					setIdButton(true)
-					setLoading(true)
-					console.log("List Data By Shift 3: ", response.data.status, "OK")
-				})
-				.catch(error => {
-					setLoading(true)
-					console.log('List Data Per Jam: ', error)
-				})
-			}
-			setLoading(true)
-			console.log("Berhasil!")
+		if(select_hour >= 8 && select_hour <= 15){
+			var select_shift_id = 2
+		}else if(select_hour >= 16 && select_hour <= 23){
+			var select_shift_id = 3
 		}else{
+			var select_shift_id = 4
+		}
+
+		const params = {
+			tbl: 'daily_inspection',
+			kind: 'get_hour',
+			sys_plant_id: sys_plant_id,
+			machine_id: machine_id,
+			hrd_work_shift_id: select_shift_id,
+			hours: select_hour,
+			qc_daily_inspection_id: qc_daily_inspection_id,
+			app_version: app_version
+		}
+		Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
+		.then(response => {
+			setNGData(response.data.data.ng_category)
+			setData(response.data.data)
+			setUpdatePN(response.data.data.daily_inspection.check_appearance_pn)
+			setCheckPackaging(response.data.data.daily_inspection.check_packaging)
+			setUpdateStart(response.data.data.daily_inspection.label_begin)
+			setUpdateEnd(response.data.data.daily_inspection.label_end)
+			setUpdateSpItem(response.data.data.daily_inspection.special_item)
+			setUpdateCNG(response.data.data.daily_inspection.ng_name)
+			setUpdateCNT(response.data.data.daily_inspection.note)
+			setUpdateStdT(response.data.data.daily_inspection.status)
+			setUpdateIT(response.data.data.daily_inspection.inspection_time)
+			setTooling(response.data.data.daily_inspection.tooling_num)
+
+			if(select_hour == hoursNow){
+				setDataProduction(response.data.data.output_production.gross_prod)
+			} else {
+				setDataProduction(response.data.data.daily_inspection.output_production)
+			}
+			console.log("List Data By Shift: ", response.data.status, "OK")
+			console.log(select_shift_id)
+		})
+		.catch(error => {
+			setLoading(true)
+			console.log('List Data Per Jam: ', error)
+		})
+
+		if(select_hour == hoursNow){
+			setIdButton(true)
+			console.log("Berhasil!")
+		} else if (select_hour > hoursNow) {
+			setLoading(true)
+			alert("Access Denied!")
+			setHours(hoursNow)
+		} else {
 			setLoading(true)
 			setIdButton(false)
 		}
