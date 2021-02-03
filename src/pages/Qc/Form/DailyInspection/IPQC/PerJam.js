@@ -270,6 +270,13 @@ const PerJam = ({route, navigation}) => {
 		var minTime 	= moment(timeNow).add(-1,'hours')
 		var minHours 	= moment(minTime).format("H")
 		
+		if(hoursNow >= 8 && hoursNow <= 15){
+			var shiftNow = 2
+		}else if(hoursNow >= 16 && hoursNow <= 23){
+			var shiftNow = 3
+		}else{
+			var shiftNow = 4
+		}
 		if(select_hour >= 8 && select_hour <= 15){
 			var select_shift_id = 2
 		}else if(select_hour >= 16 && select_hour <= 23){
@@ -316,17 +323,25 @@ const PerJam = ({route, navigation}) => {
 			console.log('List Data Per Jam: ', error)
 		})
 
-		if(select_hour == hoursNow){
-			setIdButton(true)
-			console.log("Berhasil!")
-		} else if (select_hour > hoursNow) {
+		if (select_shift_id >= shiftNow) {
+			if(select_hour == hoursNow){
+				setIdButton(true)
+				console.log("Berhasil!")
+			} else if (select_hour > hoursNow) {
+				setLoading(true)
+				alert("Access Denied!")
+				setHours(hoursNow)
+			} else {
+				setLoading(true)
+				setIdButton(false)
+			}
+		} else {
 			setLoading(true)
 			alert("Access Denied!")
 			setHours(hoursNow)
-		} else {
-			setLoading(true)
-			setIdButton(false)
+			
 		}
+
 	}
 
 	const hString = hours.toString()
