@@ -174,6 +174,21 @@ const ListForm = ({route, navigation}) => {
 								)
 							}
 						}
+
+					}
+				}
+			}
+		}
+		return data
+	}	
+	const loopMP = () => {
+		var data = []
+		var i
+		for(i = 0; i < 4; i++){
+			if(featureUser != null){
+				if(sys_plant_id == i+1){
+					if(featureUser[i] != null){
+
 						if(featureUser[i].qc_last_shoot_qc_leader != null || featureUser[i].qc_last_shoot_foreman != null){
 							if(featureUser[i].qc_last_shoot_qc_leader.view_permissions == true || featureUser[i].qc_last_shoot_foreman.view_permissions == true || featureUser[i].qc_last_shoot_foreman.view_permissions == true){
 								data.push(
@@ -241,6 +256,7 @@ const ListForm = ({route, navigation}) => {
 
 	return(
 		<Container>
+		
 			<View style={styles.headerWithBorder}>
 				<View style={styles.contentHeader}>
 					<Image source={LogoSIP}/>
@@ -252,9 +268,12 @@ const ListForm = ({route, navigation}) => {
 					<Text style={styles.fontButtonFooter}>{product_name}</Text>
 				</View>
 			</View>
-			<ScrollView style={{backgroundColor: '#F5F5DC'}}>
-				<View style={{backgroundColor: '#F5F5DC', padding: 30}}>
+			<ScrollView style={{backgroundColor: '#dfe0df'}}>
+				<View style={{padding: 30}}>
 					{loading ? loopFeature() : <View style={{justifyContent: 'center'}}><ActivityIndicator size="large" color="#0000ff"/></View>}
+				</View>
+				<View style={{padding: 30, flexDirection: 'row' }}>
+					{loading ? loopMP() : <View style={{justifyContent: 'center'}}><ActivityIndicator size="large" color="#0000ff"/></View>}
 				</View>
 			</ScrollView>
 		</Container>

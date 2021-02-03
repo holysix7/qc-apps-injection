@@ -1777,7 +1777,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 						<View style={{padding: 4, width: "50%"}}>
 							<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
 								<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-									<Text>{data.machine_status != null ? data.machine_status : "-"}</Text>
+									<Text>{data != null ? data.machine_status : "-"}</Text>
 								</View>
 							</View>
 						</View>
@@ -1793,7 +1793,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 						<View style={{padding: 4, width: "50%"}}>
 							<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
 								<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-									<Text>{data.tooling_num != null ? data.tooling_num : "-"}</Text>
+									<Text>{data != null ? data.tooling_num : "-"}</Text>
 								</View>
 							</View>
 						</View>

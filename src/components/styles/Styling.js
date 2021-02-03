@@ -104,32 +104,35 @@ const styles = StyleSheet.create({
     dailyInspectionButton: {
         marginTop: 5,
         width: "100%", 
-        borderRadius: 15, 
+        borderRadius: 15,         
+        backgroundColor: '#1a508b'
         // flexDirection: 'row'
     },
 
     dailyInspectionStopButton: {
-        marginTop: 170
-        ,
-        width: "100%", 
+        marginTop: 170,
+        width: "45%", 
         borderRadius: 15, 
-        backgroundColor: 'red'
+        justifyContent: 'center', 
+        backgroundColor: '#ec4646'
     },
 
     dailyInspectionContinueButton: {
-        marginTop: 5,
-        width: "100%", 
+        marginTop: 170,
+        marginLeft: 30,
+        width: "45%", 
         borderRadius: 15, 
-        backgroundColor: '#75cfb8'
+        justifyContent: 'center', 
+        backgroundColor: '#00af91'
     },
 
     fontDailyInspectionContinueButton: {
-        color: 'black', 
+        color: 'white', 
         fontWeight: 'bold'
     },
 
     fontDailyInspectionStopButton: {
-        color: 'black', 
+        color: 'white', 
         fontWeight: 'bold'
     },
     productsNotAccessButton: {

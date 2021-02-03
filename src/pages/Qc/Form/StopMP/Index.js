@@ -6,7 +6,7 @@ import styles from '../../../../components/styles/Styling';
 import AsyncStorage from "@react-native-community/async-storage";
 import app_version from '../../../app_version';
 import Axios from 'axios';
-import checklist from '../../assets/check.png';
+import checklist from '../../../../assets/check.png';
 
 const StopMP = ({route, navigation}) => {
 	const {qc_daily_inspection_id, qc_daily_inspection_item_id, qc_daily_inspection_method_id, sys_plant_id, product_name, customer_name, machine_id, machine_name, machine_number, today, yesterday, daily_inspection_number, doc_number} = route.params
