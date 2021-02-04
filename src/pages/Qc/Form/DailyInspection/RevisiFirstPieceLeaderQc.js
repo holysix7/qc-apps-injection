@@ -155,15 +155,16 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 	const [updateRemark, setUpdateRemark] 				= useState("")
 
 	const [loading, setLoading] = useState(false)
+	var timeNow 	= moment()
+	var hoursNow 	= parseInt(moment(timeNow).format("H"))
+	const [idButton, setIdButton]	= useState(true)
 
-	if(today != null)
-	{
+	if(today != null)	{
 		date.push(
 			<Text key={"key"} style={{marginTop: 1, fontWeight: 'bold', fontSize: 17}}>{today}</Text>
 		)
 	}
-	if(yesterday != null)
-	{
+	if(yesterday != null){
 		date.push(
 			<Text key={"key"} style={{marginTop: 1, fontWeight: 'bold', fontSize: 17}}>{yesterday}</Text>
 		)
@@ -179,122 +180,54 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 		setCreatedBy(id)
 		setUpdatedBy(id)
 
-		let jam = moment().format("HH:mm:ss")
-		if(parseInt(jam) >= 8 && parseInt(jam) <= 15){
-			const nilaiJam = parseInt(jam)
+		if(hoursNow >= 8 && hoursNow <= 15){
 			setShift(2)
-			setHours(nilaiJam)
-			const params = {
-				tbl: 'daily_inspection',
-				kind: 'rev_first_piece_qc',
-				sys_plant_id: sys_plant_id,
-				machine_id: machine_id,
-				hrd_work_shift_id: 2,
-				hours: nilaiJam,
-				qc_daily_inspection_id: qc_daily_inspection_id,
-				app_version: app_version
-			}
-			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
-			.then(response => {
-				setLoading(true)
-				setEngProd(response.data.data.eng_product_id)
-				setData(response.data.data.product_detail)
-				setDataQl(response.data.data.masspro_ql)
-				setMassproQlId(response.data.data.masspro_ql.id)
-				setNGsData(response.data.data.ng_category)
-				setTooling(response.data.data.tooling_num)
-				setCavityCheck(response.data.data.product_detail.cavity)
-				setPlanningId(response.data.data.planning_id)
-				setIPI(response.data.data.product_detail.internal_part_id)
-				setRevisiQc(response.data.data.masspro_ql_items)
-				setUpdateCopySample(response.data.data.masspro_ql_items.copy_sample)
-				setUpdateCheckSheet(response.data.data.masspro_ql_items.check_sheet)
-				setCopySample(response.data.data.masspro_ql.compare_sample)
-				setCheckSheet(response.data.data.masspro_ql.check_sheet)
-				setRemark(response.data.data.masspro_ql.remark)
-				setUpdateRemark(response.data.data.masspro_ql_items.remark)
-				console.log("List Data Revisi First Piece Leader QC: ", response.data.status, "OK")
-			})
-			.catch(error => {
-				console.log('List Data Revisi First Piece Leader QC: ', error)
-			})
-		}else if(parseInt(jam) >= 16 && parseInt(jam) <= 23){
-			const nilaiJam = parseInt(jam)
+			setHours(hoursNow)
+			var select_shift_id = 2
+		}else if(hoursNow >= 16 && hoursNow <= 23){
 			setShift(3)
-			setHours(nilaiJam)
-			const params = {
-				tbl: 'daily_inspection',
-				kind: 'rev_first_piece_qc',
-				sys_plant_id: sys_plant_id,
-				machine_id: machine_id,
-				hrd_work_shift_id: 3,
-				hours: nilaiJam,
-				qc_daily_inspection_id: qc_daily_inspection_id,
-				app_version: app_version
-			}
-			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
-			.then(response => {
-				setLoading(true)
-				setEngProd(response.data.data.eng_product_id)
-				setData(response.data.data.product_detail)
-				setDataQl(response.data.data.masspro_ql)
-				setMassproQlId(response.data.data.masspro_ql.id)
-				setNGsData(response.data.data.ng_category)
-				setTooling(response.data.data.tooling_num)
-				setCavityCheck(response.data.data.product_detail.cavity)
-				setPlanningId(response.data.data.planning_id)
-				setIPI(response.data.data.product_detail.internal_part_id)
-				setRevisiQc(response.data.data.masspro_ql_items)
-				setUpdateCopySample(response.data.data.masspro_ql_items.copy_sample)
-				setUpdateCheckSheet(response.data.data.masspro_ql_items.check_sheet)
-				setCopySample(response.data.data.masspro_ql.compare_sample)
-				setCheckSheet(response.data.data.masspro_ql.check_sheet)
-				setRemark(response.data.data.masspro_ql.remark)
-				setUpdateRemark(response.data.data.masspro_ql_items.remark)
-				console.log("List Data Revisi First Piece Leader QC: ", response.data.status, "OK")
-			})
-			.catch(error => {
-				console.log('List Data Revisi First Piece Leader QC: ', error)
-			})
+			setHours(hoursNow)
+			var select_shift_id = 3
 		}else{
-			const nilaiJam = parseInt(jam)
 			setShift(4)
-			setHours(nilaiJam)
-			const params = {
-				tbl: 'daily_inspection',
-				kind: 'rev_first_piece_qc',
-				sys_plant_id: sys_plant_id,
-				machine_id: machine_id,
-				hrd_work_shift_id: 4,
-				hours: nilaiJam,
-				qc_daily_inspection_id: qc_daily_inspection_id,
-				app_version: app_version
-			}
-			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
-			.then(response => {
-				setLoading(true)
-				setEngProd(response.data.data.eng_product_id)
-				setData(response.data.data.product_detail)
-				setDataQl(response.data.data.masspro_ql)
-				setMassproQlId(response.data.data.masspro_ql.id)
-				setNGsData(response.data.data.ng_category)
-				setTooling(response.data.data.tooling_num)
-				setCavityCheck(response.data.data.product_detail.cavity)
-				setPlanningId(response.data.data.planning_id)
-				setIPI(response.data.data.product_detail.internal_part_id)
-				setRevisiQc(response.data.data.masspro_ql_items)
-				setUpdateCopySample(response.data.data.masspro_ql_items.copy_sample)
-				setUpdateCheckSheet(response.data.data.masspro_ql_items.check_sheet)
-				setCopySample(response.data.data.masspro_ql.compare_sample)
-				setCheckSheet(response.data.data.masspro_ql.check_sheet)
-				setRemark(response.data.data.masspro_ql.remark)
-				setUpdateRemark(response.data.data.masspro_ql_items.remark)
-				console.log("List Data Revisi First Piece Leader QC: ", response.data.status, "OK")
-			})
-			.catch(error => {
-				console.log('List Data Revisi First Piece Leader QC: ', error)
-			})
+			setHours(hoursNow)
+			var select_shift_id = 4
 		}
+		const params = {
+			tbl: 'daily_inspection',
+			kind: 'rev_first_piece_qc',
+			sys_plant_id: sys_plant_id,
+			machine_id: machine_id,
+			hrd_work_shift_id: select_shift_id,
+			hours: hoursNow,
+			qc_daily_inspection_id: qc_daily_inspection_id,
+			app_version: app_version
+		}
+		Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
+		.then(response => {
+			setLoading(true)
+			setIdButton(false)
+			setEngProd(response.data.data.eng_product_id)
+			setData(response.data.data.product_detail)
+			setDataQl(response.data.data.masspro_ql)
+			setMassproQlId(response.data.data.masspro_ql.id)
+			setNGsData(response.data.data.ng_category)
+			setTooling(response.data.data.tooling_num)
+			setCavityCheck(response.data.data.product_detail.cavity)
+			setPlanningId(response.data.data.planning_id)
+			setIPI(response.data.data.product_detail.internal_part_id)
+			setRevisiQc(response.data.data.masspro_ql_items)
+			setUpdateCopySample(response.data.data.masspro_ql_items.copy_sample)
+			setUpdateCheckSheet(response.data.data.masspro_ql_items.check_sheet)
+			setCopySample(response.data.data.masspro_ql.compare_sample)
+			setCheckSheet(response.data.data.masspro_ql.check_sheet)
+			setRemark(response.data.data.masspro_ql.remark)
+			setUpdateRemark(response.data.data.masspro_ql_items.remark)
+			console.log("List Data Revisi First Piece Leader QC: ", response.data.status, "OK")
+		})
+		.catch(error => {
+			console.log('List Data Revisi First Piece Leader QC: ', error)
+		})
 	}
 
 	const shiftFix = (value) => {
@@ -642,6 +575,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 
 	const submit = async() => {
 		setLoading(false)
+		console.log("aowkoawkoawk")
 		const data = {
 			eng_product_id,
 			prod_machine_id,
@@ -962,7 +896,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 						<View key="azxczcsdk2" style={{flexDirection: 'row', height: 50}}>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
 								<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
-								<Text></Text>
+								<Text>3</Text>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
@@ -1021,7 +955,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 						<View key="Vcsdfq" style={{flexDirection: 'row', height: 50}}>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
 								<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
-								<Text></Text>
+								<Text>4</Text>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
@@ -1080,7 +1014,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 						<View key="Vsacxzc" style={{flexDirection: 'row', height: 50}}>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
 								<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
-								<Text></Text>
+								<Text>5</Text>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
@@ -1139,7 +1073,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 						<View key="Csawqeq" style={{flexDirection: 'row', height: 50}}>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
 								<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
-								<Text></Text>
+								<Text>6</Text>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
@@ -1198,7 +1132,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 						<View key="Bcaweq" style={{flexDirection: 'row', height: 50}}>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
 								<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
-								<Text></Text>
+								<Text>7</Text>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
@@ -1257,7 +1191,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 						<View key="Vxzkmcow" style={{flexDirection: 'row', height: 50}}>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
 								<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
-								<Text></Text>
+								<Text>8</Text>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
@@ -1316,7 +1250,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 						<View key="Popxkcmmww2" style={{flexDirection: 'row', height: 50}}>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
 								<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
-								<Text></Text>
+								<Text>9</Text>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
@@ -1375,7 +1309,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 						<View key="asdk2" style={{flexDirection: 'row', height: 50}}>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
 								<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
-								<Text></Text>
+								<Text>10</Text>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
@@ -1434,7 +1368,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 						<View key="Vkcmoqw" style={{flexDirection: 'row', height: 50}}>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
 								<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
-								<Text></Text>
+								<Text>11</Text>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
@@ -1493,7 +1427,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 						<View key="KMslaiwje" style={{flexDirection: 'row', height: 50}}>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
 								<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
-								<Text></Text>
+								<Text>12</Text>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
@@ -1552,7 +1486,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 						<View key="Vkamsliwj213" style={{flexDirection: 'row', height: 50}}>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
 								<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
-								<Text></Text>
+								<Text>13</Text>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
@@ -1611,7 +1545,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 						<View key="Klasomqo2135" style={{flexDirection: 'row', height: 50}}>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
 								<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
-								<Text></Text>
+								<Text>14</Text>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
@@ -1670,7 +1604,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 						<View key="Pkasolw12kjn1" style={{flexDirection: 'row', height: 50}}>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
 								<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
-								<Text></Text>
+								<Text>15</Text>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
@@ -1729,7 +1663,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 						<View key="Bmaskjdnw" style={{flexDirection: 'row', height: 50}}>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
 								<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
-								<Text></Text>
+								<Text>16</Text>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
@@ -1788,7 +1722,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 						<View key="BzxPokskajnKJn" style={{flexDirection: 'row', height: 50}}>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
 								<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
-								<Text></Text>
+								<Text>17</Text>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
@@ -1848,7 +1782,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 						<View key="VPaokskw" style={{flexDirection: 'row', height: 50}}>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
 								<View style={{justifyContent: 'center', width: 100, alignItems: 'center'}}>
-								<Text></Text>
+								<Text>18</Text>
 								</View>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
@@ -2057,10 +1991,11 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 
 	const updateButton = () => {
 		const data = []
-		if(revisiQc.length > 0){
+		console.log(revisiQc)
+		if(idButton == true){
 			data.push(
 				<View key="asd12q" style={{paddingTop: 10}}>
-					<Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => alert("Already Saved!")}><Text>SAVED</Text></Button>
+					<Button style={{width: 172, borderRadius: 25, justifyContent: 'center', backgroundColor: 'green'}} onPress={() => alert("Already Saved!")}><Text>SAVED</Text></Button>
 				</View>
 			)
 		}else{
@@ -2167,33 +2102,33 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 					</View>
 				<ScrollView horizontal>
 				<TouchableOpacity>
-					<View style={{flexDirection: 'row', justifyContent: 'center', height: 50, paddingTop: 10}}>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
+					<View style={{flexDirection: 'row', height: 50, paddingTop: 10}}>
+						<View style={{alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
 							<Text style={{fontWeight: 'bold'}}>Cavity</Text>
 							<View style={{justifyContent: 'center'}}>
 							</View>
 						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+						<View style={{alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
 							<Text style={{fontWeight: 'bold', fontSize: 15}}>Judgement 1st Piece</Text>
 							<View style={{justifyContent: 'center'}}>
 							</View>
 						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+						<View style={{alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
 							<Text style={{fontWeight: 'bold'}}>Kategori NG</Text>
 							<View style={{justifyContent: 'center'}}>
 							</View>
 						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+						<View style={{alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
 							<Text style={{fontWeight: 'bold'}}>Fitting Test</Text>
 							<View style={{justifyContent: 'center'}}>
 							</View>
 						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+						<View style={{alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
 							<Text style={{fontWeight: 'bold'}}>Product's Weight</Text>
 							<View style={{justifyContent: 'center'}}>
 							</View>
 						</View>
-						<View style={{paddingLeft: 5, alignItems: 'center', borderRightWidth: 0.5, borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 145}}>
+						<View style={{alignItems: 'center', borderRightWidth: 0.5, borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 145}}>
 							<Text style={{fontWeight: 'bold'}}>Keterangan</Text>
 							<View style={{justifyContent: 'center'}}>
 							</View>

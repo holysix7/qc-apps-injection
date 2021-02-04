@@ -147,10 +147,12 @@ const ListForm = ({route, navigation}) => {
 								)
 							}
 						}
+						//asdasd
 						if(featureUser[i].qc_masspro_foreman != null){
 							if(featureUser[i].qc_masspro_foreman.view_permissions == true){
 								data.push(
 									<Button key="asXascn2jo1ij2njs" style={styles.dailyInspectionButton} onPress={() => navigation.navigate('RevisiFirstPieceForeman', {
+										qc_daily_inspection_id: qc_daily_inspection_id,
 										sys_plant_id: sys_plant_id,
 										daily_inspection_number: daily_inspection_number,
 										product_name: product_name,

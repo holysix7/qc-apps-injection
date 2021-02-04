@@ -36,8 +36,11 @@ const RevisiFirstPieceForeman = ({route, navigation}) => {
 	const [remark, setRemark] 													= useState("")
 	const date = []
 	const prod_machine_id = machine_id
+	const [idButton, setIdButton]	= useState(true)
 
 	const [loading, setLoading] = useState(false)
+	var timeNow 	= moment()
+	var hoursNow 	= parseInt(moment(timeNow).format("H"))
 
 	if(today != null)
 	{
@@ -51,127 +54,63 @@ const RevisiFirstPieceForeman = ({route, navigation}) => {
 			<Text key={"key"} style={{marginTop: 1, fontWeight: 'bold', fontSize: 17}}>{yesterday}</Text>
 		)
 	}
+	var timeNow 	= moment()
+	var hoursNow 	= parseInt(moment(timeNow).format("H"))
 
 	const formOke = async() => {
 		const token = await AsyncStorage.getItem("key")
 		const headers = {
 			'Authorization': token
 		}
-		const name = await AsyncStorage.getItem('name')
 		const id = await AsyncStorage.getItem('id')
 		setCreatedBy(id)
 		setUpdatedBy(id)
-		let jam = moment().format("HH:mm:ss")
-		if(parseInt(jam) >= 8 && parseInt(jam) <= 15)
-		{
-			const nilaiJam = parseInt(jam)
+		if(hoursNow >= 8 && hoursNow <= 15){
 			setShift(2)
-			setHours(nilaiJam)
-			const params = {
-				tbl: 'daily_inspection',
-				kind: 'rev_first_piece_fr',
-				sys_plant_id: sys_plant_id,
-				machine_id: machine_id,
-				hrd_work_shift_id: 2,
-				hours: nilaiJam,
-				qc_daily_inspection_id: qc_daily_inspection_id,
-				app_version: app_version
-			}
-			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
-			.then(response => {
-				setLoading(true)
-				setEngProd(response.data.data.eng_product_id)
-				setData(response.data.data.daily_inspection)
-				setTooling(response.data.data.daily_inspection.tooling_num)
-				setPlanningId(response.data.data.planning_id)
-				setIPI(response.data.data.daily_inspection.internal_part_id)
-				setFR(response.data.data.masspro_fr)
-				setActionForeman(response.data.data.masspro_fr.action_foreman)
-				setMassproFRId(response.data.data.masspro_fr.id)
-				setDecision(response.data.data.masspro_fr.judgement)
-				setRemark(response.data.data.masspro_fr.remark)
-				setRevisiForeman(response.data.data.revisi_foreman)
-				setUpdateActionForeman(response.data.data.revisi_foreman.action_foreman)
-				setUpdateDecision(response.data.data.revisi_foreman.judgement)
-				console.log("List Data Revisi First Piece Foreman: ", response.data.status, "OK")
-			})
-			.catch(error => {
-				setLoading(true)
-				console.log('List Data Revisi First Piece Foreman: ', error)
-			})
-		}else if(parseInt(jam) >= 16 && parseInt(jam) <= 23){
-			const nilaiJam = parseInt(jam)
+			setHours(hoursNow)
+			var select_shift_id = 2
+		}else if(hoursNow >= 16 && hoursNow <= 23){
 			setShift(3)
-			setHours(nilaiJam)
-			const params = {
-				tbl: 'daily_inspection',
-				kind: 'rev_first_piece_fr',
-				sys_plant_id: sys_plant_id,
-				machine_id: machine_id,
-				hrd_work_shift_id: 3,
-				hours: nilaiJam,
-				qc_daily_inspection_id: qc_daily_inspection_id,
-				app_version: app_version
-			}
-			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
-			.then(response => {
-				setLoading(true)
-				setEngProd(response.data.data.eng_product_id)
-				setData(response.data.data.daily_inspection)
-				setTooling(response.data.data.daily_inspection.tooling_num)
-				setPlanningId(response.data.data.planning_id)
-				setIPI(response.data.data.daily_inspection.internal_part_id)
-				setFR(response.data.data.masspro_fr)
-				setActionForeman(response.data.data.masspro_fr.action_foreman)
-				setMassproFRId(response.data.data.masspro_fr.id)
-				setDecision(response.data.data.masspro_fr.judgement)
-				setRemark(response.data.data.masspro_fr.remark)
-				setRevisiForeman(response.data.data.revisi_foreman)
-				setUpdateActionForeman(response.data.data.revisi_foreman.action_foreman)
-				setUpdateDecision(response.data.data.revisi_foreman.judgement)
-				console.log("List Data Revisi First Piece Foreman: ", response.data.status, "OK")
-			})
-			.catch(error => {
-				setLoading(true)
-				console.log('List Data Revisi First Piece Foreman: ', error)
-			})
+			setHours(hoursNow)
+			var select_shift_id = 3
 		}else{
-			const nilaiJam = parseInt(jam)
 			setShift(4)
-			setHours(nilaiJam)
-			const params = {
-				tbl: 'daily_inspection',
-				kind: 'rev_first_piece_fr',
-				sys_plant_id: sys_plant_id,
-				machine_id: machine_id,
-				hrd_work_shift_id: 4,
-				hours: nilaiJam,
-				qc_daily_inspection_id: qc_daily_inspection_id,
-				app_version: app_version
-			}
-			Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
-			.then(response => {
-				setLoading(true)
-				setEngProd(response.data.data.eng_product_id)
-				setData(response.data.data.daily_inspection)
-				setTooling(response.data.data.daily_inspection.tooling_num)
-				setPlanningId(response.data.data.planning_id)
-				setIPI(response.data.data.daily_inspection.internal_part_id)
-				setFR(response.data.data.masspro_fr)
-				setActionForeman(response.data.data.masspro_fr.action_foreman)
-				setMassproFRId(response.data.data.masspro_fr.id)
-				setDecision(response.data.data.masspro_fr.judgement)
-				setRemark(response.data.data.masspro_fr.remark)
-				setRevisiForeman(response.data.data.revisi_foreman)
-				setUpdateActionForeman(response.data.data.revisi_foreman.action_foreman)
-				setUpdateDecision(response.data.data.revisi_foreman.judgement)
-				console.log("List Data Revisi First Piece Foreman: ", response.data.status, "OK")
-			})
-			.catch(error => {
-				setLoading(true)
-				console.log('List Data Revisi First Piece Foreman: ', error)
-			})
+			setHours(hoursNow)
+			var select_shift_id = 4
 		}
+		const params = {
+			tbl: 'daily_inspection',
+			kind: 'rev_first_piece_fr',
+			sys_plant_id: sys_plant_id,
+			machine_id: machine_id,
+			hrd_work_shift_id: select_shift_id,
+			hours: hoursNow,
+			qc_daily_inspection_id: qc_daily_inspection_id,
+			app_version: app_version
+		}
+		console.log(qc_daily_inspection_id)
+		Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
+		.then(response => {
+			setLoading(true)
+			setEngProd(response.data.data.eng_product_id)
+			setData(response.data.data.daily_inspection)
+			setTooling(response.data.data.daily_inspection.tooling_num)
+			setPlanningId(response.data.data.planning_id)
+			setIPI(response.data.data.daily_inspection.internal_part_id)
+			setFR(response.data.data.masspro_fr)
+			setActionForeman(response.data.data.masspro_fr.action_foreman)
+			setMassproFRId(response.data.data.masspro_fr.id)
+			setDecision(response.data.data.masspro_fr.judgement)
+			setRemark(response.data.data.masspro_fr.remark)
+			setRevisiForeman(response.data.data.revisi_foreman)
+			setUpdateActionForeman(response.data.data.revisi_foreman.action_foreman)
+			setUpdateDecision(response.data.data.revisi_foreman.judgement)
+			console.log("List Data Revisi First Piece Foreman: ", response.data.status, "OK")
+		})
+		.catch(error => {
+			setLoading(true)
+			console.log('List Data Revisi First Piece Foreman: ', error)
+		})
 	}
 
 	const shiftFix = async(value) => {
@@ -303,87 +242,97 @@ const RevisiFirstPieceForeman = ({route, navigation}) => {
 
 	const content = () => {
 		var dataContent = []
-		if(data.cavity != null){
-			dataContent.push(
-				<ScrollView key="asij2" style={{flex: 1}}>
-					<View style={{paddingTop: 20, flexDirection: 'row'}}>
-						<View style={{padding: 10, width: "44%"}}>
-							<Text>Machines Status</Text>
-						</View>
-						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-							<Text style={{color: 'black'}}>:</Text>
-						</View>
-						<View style={{padding: 4, width: "50%"}}>
-							<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-								<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-									<Text>{data != null ? data.machine_status : "-"}</Text>
+		if(data != null){
+			if(data.cavity != null){
+				dataContent.push(
+					<ScrollView key="asij2" style={{flex: 1}}>
+						<View style={{paddingTop: 20, flexDirection: 'row'}}>
+							<View style={{padding: 10, width: "44%"}}>
+								<Text>Machines Status</Text>
+							</View>
+							<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+								<Text style={{color: 'black'}}>:</Text>
+							</View>
+							<View style={{padding: 4, width: "50%"}}>
+								<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+									<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+										<Text>{data != null ? data.machine_status : "-"}</Text>
+									</View>
 								</View>
 							</View>
 						</View>
-					</View>
-					<View style={{paddingTop: 20, flexDirection: 'row'}}>
-						<View style={{padding: 10, width: "44%"}}>
-							<Text>Tooling</Text>
-						</View>
-						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-							<Text style={{color: 'black'}}>:</Text>
-						</View>
-						<View style={{padding: 4, width: "50%"}}>
-							<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-								<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-									<Text>{tooling_num != null ? tooling_num : "-"}</Text>
+						<View style={{paddingTop: 20, flexDirection: 'row'}}>
+							<View style={{padding: 10, width: "44%"}}>
+								<Text>Tooling</Text>
+							</View>
+							<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+								<Text style={{color: 'black'}}>:</Text>
+							</View>
+							<View style={{padding: 4, width: "50%"}}>
+								<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+									<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+										<Text>{tooling_num != null ? tooling_num : "-"}</Text>
+									</View>
 								</View>
 							</View>
 						</View>
-					</View>
-					<View style={{paddingTop: 20, flexDirection: 'row'}}>
-						<View style={{padding: 10, width: "44%"}}>
-							<Text>Cavity Amount</Text>
-						</View>
-						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-							<Text style={{color: 'black'}}>:</Text>
-						</View>
-						<View style={{padding: 4, width: "50%"}}>
-							<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-								<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-									<Text>{data.cavity != null ? data.cavity : "-"}</Text>
+						<View style={{paddingTop: 20, flexDirection: 'row'}}>
+							<View style={{padding: 10, width: "44%"}}>
+								<Text>Cavity Amount</Text>
+							</View>
+							<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+								<Text style={{color: 'black'}}>:</Text>
+							</View>
+							<View style={{padding: 4, width: "50%"}}>
+								<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+									<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+										<Text>{data.cavity != null ? data.cavity : "-"}</Text>
+									</View>
 								</View>
 							</View>
 						</View>
-					</View>
-					<View style={{paddingTop: 20, flexDirection: 'row'}}>
-						<View style={{padding: 10, width: "44%"}}>
-							<Text>Action Foreman</Text>
-						</View>
-						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-							<Text style={{color: 'black'}}>:</Text>
-						</View>
-						<View style={{padding: 4, width: "50%"}}>
-							<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-								{updateActionForemanFunc()}
+						<View style={{paddingTop: 20, flexDirection: 'row'}}>
+							<View style={{padding: 10, width: "44%"}}>
+								<Text>Action Foreman</Text>
+							</View>
+							<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+								<Text style={{color: 'black'}}>:</Text>
+							</View>
+							<View style={{padding: 4, width: "50%"}}>
+								<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+									{updateActionForemanFunc()}
+								</View>
 							</View>
 						</View>
-					</View>
-					<View style={{paddingTop: 20, flexDirection: 'row'}}>
-						<View style={{padding: 10, width: "44%"}}>
-							<Text>Judgement</Text>
-						</View>
-						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-							<Text style={{color: 'black'}}>:</Text>
-						</View>
-						<View style={{padding: 4, width: "50%"}}>
-							<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-								{updateDecisionFunc()}
+						<View style={{paddingTop: 20, flexDirection: 'row'}}>
+							<View style={{padding: 10, width: "44%"}}>
+								<Text>Judgement</Text>
+							</View>
+							<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+								<Text style={{color: 'black'}}>:</Text>
+							</View>
+							<View style={{padding: 4, width: "50%"}}>
+								<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+									{updateDecisionFunc()}
+								</View>
 							</View>
 						</View>
-					</View>
-					<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
-						<View>
-							<Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>
+						<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
+							<View>
+								<Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>
+							</View>
 						</View>
-					</View>
-				</ScrollView>
-			)
+					</ScrollView>
+				)
+			}else{
+				dataContent.push(
+					<ScrollView key="29" style={{flex: 1}}>
+						<View style={{marginVertical: 160, marginHorizontal: 40, padding: 40, backgroundColor: '#fff76a', borderWidth: 1, borderRadius: 25, flexDirection: 'row', alignItems: 'center'}}>
+							<Text style={{fontSize: 12, textAlign: 'center', fontWeight: 'bold'}}>Hubungi QC Leader Untuk Segera Isi Form Revisi First Piece Leader QC</Text>
+						</View>
+					</ScrollView>
+				)
+			}
 		}else{
 			dataContent.push(
 				<ScrollView key="29" style={{flex: 1}}>
