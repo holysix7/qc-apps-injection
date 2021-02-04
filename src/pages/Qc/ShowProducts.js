@@ -206,35 +206,41 @@ const ShowProducts = ({route, navigation}) => {
 		)
 	}
 
+	const contentHeader = () => {
+		return (
+			<View style={styles.contentHeader}>
+				<Text style={styles.fontProduct}>({machine_number}) - {machine_name}</Text>
+				<Text style={styles.fontListProducts}>List Products</Text>
+			</View>
+		)
+	}
+
 	return(
 		<Container>
 			<View style={styles.headerWithBorder}>
 				<View style={styles.contentHeader}>
 					<Image source={LogoSIP}/>
 				</View>
-				<View style={styles.contentHeader}>
-					<Text style={styles.fontProduct}>({machine_number}) - {machine_name}</Text>
-					<Text style={styles.fontListProducts}>List Products</Text>
-				</View>
+				{loading ? contentHeader() : null}
 			</View>
-			
+			{loading ? null : <View style={{backgroundColor: '#dfe0df', alignItems: 'center', justifyContent: 'center'}}><ActivityIndicator size="large" color="#0000ff"/></View>}
 			<View style={styles.contentFullWithPadding}>
 				<ScrollView>
 					<View style={styles.contenDateProduct}>
-						<Text style={styles.fontDateProduct}>{today}</Text>
-						{loading ? allProductsToday : <View style={{justifyContent: 'center'}}><ActivityIndicator size="large" color="#0000ff"/></View>}
+						{loading ? <Text style={styles.fontProduct}>{today}</Text> : null}
+						{loading ? allProductsToday : null}
 					</View>
 					<View style={styles.contenDateProduct}>
-						<Text style={styles.fontProduct}>{yesterday}</Text>
-						{loading ? allProductsYesterday : <View style={{justifyContent: 'center'}}><ActivityIndicator size="large" color="#0000ff"/></View>}
+						{loading ? <Text style={styles.fontProduct}>{yesterday}</Text> : null}
+						{loading ? allProductsYesterday : null}
 					</View>
 					<View style={{paddingTop: 100}}>
-						{loading ? noData : <View style={{justifyContent: 'center'}}><ActivityIndicator size="large" color="#0000ff"/></View>}
-						{loading ? noDataText : <View style={{justifyContent: 'center'}}><ActivityIndicator size="large" color="#0000ff"/></View>}
+						{loading ? noData : null}
+						{loading ? noDataText : null}
 					</View>
 				</ScrollView>
 			</View>
-			{loading ? <View style={{height: 70,backgroundColor: '#F5F5DC' }}>
+			{loading ? <View style={{height: 70,backgroundColor: '#dfe0df' }}>
 				<View style={{paddingHorizontal: 50, justifyContent: 'center', alignItems: 'center'}}>
 					<Button style={styles.productsButtonRunning} onPress={() => navigation.navigate('ShowPlanning', {
 						machine_id: machine_id, 

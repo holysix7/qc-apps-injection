@@ -37,7 +37,6 @@ const StopMP = ({route, navigation}) => {
 
 	const getIdLastShootQC = async() => {
 		const token = await AsyncStorage.getItem("key")
-		console.log(token)
 		var headers = {
 			'Authorization': token
 		}
@@ -51,7 +50,6 @@ const StopMP = ({route, navigation}) => {
 		.then(response =>{
 			setLastShootQC(response.data.data.last_shoot_qc)
 			setLastShootFR(response.data.data.last_shoot_fr)
-			console.log(response.data.data)
 		})
 		.catch(error => {
 			console.log(error)
@@ -66,7 +64,7 @@ const StopMP = ({route, navigation}) => {
 				if(sys_plant_id == i+1){
 					if(featureUser[i] != null){
 						if(featureUser[i].qc_last_shoot_qc_leader != null || featureUser[i].qc_last_shoot_foreman != null){
-							if(featureUser[i].qc_last_shoot_qc_leader.view_permissions == true || featureUser[i].qc_last_shoot_foreman.view_permissions == true || featureUser[i].qc_last_shoot_foreman.view_permissions == true){
+							if(featureUser[i].qc_last_shoot_qc_leader.view_permissions == true){
 								data.push(
 									<Button key="askdmkwqw" style={styles.dailyInspectionButton} onPress={() => navigation.navigate('LastShootLeaderQc', {
 										qc_daily_inspection_id: qc_daily_inspection_id,
@@ -145,8 +143,8 @@ const StopMP = ({route, navigation}) => {
 					<Text style={styles.fontButtonFooter}>{product_name}</Text>
 				</View>
 			</View>
-			<ScrollView style={{backgroundColor: '#F5F5DC'}}>
-				<View style={{backgroundColor: '#F5F5DC', padding: 30}}>
+			<ScrollView style={{backgroundColor: '#dfe0df'}}>
+				<View style={{backgroundColor: '#dfe0df', padding: 30}}>
 					{loading ? loopFeature() : <View style={{justifyContent: 'center'}}><ActivityIndicator size="large" color="#0000ff"/></View>}
 				</View>
 			</ScrollView>

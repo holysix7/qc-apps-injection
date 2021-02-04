@@ -188,7 +188,6 @@ const ListForm = ({route, navigation}) => {
 			if(featureUser != null){
 				if(sys_plant_id == i+1){
 					if(featureUser[i] != null){
-
 						if(featureUser[i].qc_last_shoot_qc_leader != null || featureUser[i].qc_last_shoot_foreman != null){
 							if(featureUser[i].qc_last_shoot_qc_leader.view_permissions == true || featureUser[i].qc_last_shoot_foreman.view_permissions == true || featureUser[i].qc_last_shoot_foreman.view_permissions == true){
 								data.push(
@@ -212,7 +211,7 @@ const ListForm = ({route, navigation}) => {
 								)
 							}else{
 								data.push(
-									<Button key="askdmkwqw" style={styles.productsNotAccessButton} onPress={() => alert("Maaf Anda Tidak Memiliki Hak Akses Last Shoot Leader QC")} >
+									<Button key="askdmkwqw" style={styles.dailyInspectionStopButtonNotAccess} onPress={() => alert("Maaf Anda Tidak Memiliki Hak Akses Last Shoot Leader QC")} >
 										<Text style={styles.fontDailyInspectionStopButton}> STOP MP </Text>   
 									</Button>
 								)
@@ -240,7 +239,7 @@ const ListForm = ({route, navigation}) => {
 								)
 							}else{
 								data.push(
-									<Button key="AscvSacx" style={styles.productsNotAccessButton} onPress={() => alert("Maaf Anda Tidak Memiliki Hak Akses Update QC Leader")} >
+									<Button key="AscvSacx" style={styles.dailyInspectionContinueNotAccessButton} onPress={() => alert("Maaf Untuk Saat Ini Fitur Continue MP Sedang Ditahap Pengembangan")} >
 										<Text style={styles.fontDailyInspectionContinueButton}> CONTINUE MP </Text>   
 									</Button>	
 								)
@@ -254,6 +253,17 @@ const ListForm = ({route, navigation}) => {
 		return data
 	}	
 
+	const contentHeader = () => {
+		return (
+			<View style={{justifyContent: 'center', alignItems: 'center'}}>
+				<Text style={styles.fontButtonHeader}>({machine_number}) - {machine_name}</Text>
+				<Text style={styles.fontButtonHeaderChild}>DAILY INSPECTION</Text>
+				{doc_number != null ? <Text style={{fontWeight: 'bold', fontSize: 10}}>{doc_number}</Text> : <View style={styles.viewNoDailyInspection}><Text style={styles.fontNoDailyInspection}> - TIDAK ADA DAILY INSPECTION NUMBER - </Text></View>}
+				<Text style={styles.fontButtonFooter}>{product_name}</Text>
+			</View>
+		)
+	}
+
 	return(
 		<Container>
 		
@@ -261,19 +271,14 @@ const ListForm = ({route, navigation}) => {
 				<View style={styles.contentHeader}>
 					<Image source={LogoSIP}/>
 				</View>
-				<View style={{justifyContent: 'center', alignItems: 'center'}}>
-					<Text style={styles.fontButtonHeader}>({machine_number}) - {machine_name}</Text>
-					<Text style={styles.fontButtonHeaderChild}>DAILY INSPECTION</Text>
-					{doc_number != null ? <Text style={{fontWeight: 'bold', fontSize: 10}}>{doc_number}</Text> : <View style={styles.viewNoDailyInspection}><Text style={styles.fontNoDailyInspection}> - TIDAK ADA DAILY INSPECTION NUMBER - </Text></View>}
-					<Text style={styles.fontButtonFooter}>{product_name}</Text>
-				</View>
+					{loading ? contentHeader() : null}
 			</View>
 			<ScrollView style={{backgroundColor: '#dfe0df'}}>
 				<View style={{padding: 30}}>
 					{loading ? loopFeature() : <View style={{justifyContent: 'center'}}><ActivityIndicator size="large" color="#0000ff"/></View>}
 				</View>
 				<View style={{padding: 30, flexDirection: 'row' }}>
-					{loading ? loopMP() : <View style={{justifyContent: 'center'}}><ActivityIndicator size="large" color="#0000ff"/></View>}
+					{loading ? loopMP() : null}
 				</View>
 			</ScrollView>
 		</Container>

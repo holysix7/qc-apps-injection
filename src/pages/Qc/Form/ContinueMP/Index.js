@@ -110,8 +110,8 @@ const ContinueMP = ({route, navigation}) => {
 					<Text style={styles.fontButtonFooter}>{product_name}</Text>
 				</View>
 			</View>
-			<ScrollView style={{backgroundColor: '#F5F5DC'}}>
-				<View style={{backgroundColor: '#F5F5DC', padding: 30}}>
+			<ScrollView style={{backgroundColor: '#dfe0df'}}>
+				<View style={{backgroundColor: '#dfe0df', padding: 30}}>
 					{loading ? loopFeature() : <View style={{justifyContent: 'center'}}><ActivityIndicator size="large" color="#0000ff"/></View>}
 				</View>
 			</ScrollView>

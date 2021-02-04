@@ -109,7 +109,7 @@ const Qc = ({navigation}) => {
       data.forEach(element => {
         if(element.status  == 'loaded'){
           machines.push(
-            <Button key={element.id} style={{marginTop: 5, marginVertical: 2, marginHorizontal: 3, height: 45, width: "23%", borderRadius: 5, flexDirection: 'column'}}
+            <Button key={element.id} style={styles.machineLoaded}
             onPress={() => {
               navigation.navigate('ShowProducts', {
                 machine_id: element.id,
@@ -119,13 +119,13 @@ const Qc = ({navigation}) => {
               })
             }}
             >
-              <Text style={{fontSize: 12, fontWeight: 'bold'}}>{element.number}</Text>
+              <Text style={styles.putihBold}>{element.number}</Text>
               <Text style={{fontSize: 6}}>{element.name}</Text>
             </Button>
           )
         }else if(element.status == 'no_load'){
           machines.push(
-            <Button key={element.id} style={{backgroundColor: 'yellow', marginTop: 5, marginVertical: 2, marginHorizontal: 3, height: 45, width: "23%", borderRadius: 5, flexDirection: 'column'}}
+            <Button key={element.id} style={styles.machineNoLoad}
             onPress={() => {
               navigation.navigate('ShowProducts', {
                 machine_id: element.id,
@@ -135,13 +135,13 @@ const Qc = ({navigation}) => {
               })
             }}
             >
-              <Text style={{color: 'black', fontSize: 12, fontWeight: 'bold'}}>{element.number}</Text>
+              <Text style={styles.hitamBold}>{element.number}</Text>
               <Text style={{color: 'black', fontSize: 6}}>{element.name}</Text>
             </Button>
           )
         }else if(element.status == 'broken'){
           machines.push(
-            <Button key={element.id} style={{backgroundColor: 'red', marginTop: 5, marginVertical: 2, marginHorizontal: 3, height: 45, width: "23%", borderRadius: 5, flexDirection: 'column'}}
+            <Button key={element.id} style={styles.machineBroken}
             onPress={() => {
               navigation.navigate('ShowProducts', {
                 machine_id: element.id,
@@ -151,13 +151,13 @@ const Qc = ({navigation}) => {
               })
             }}
             >
-              <Text style={{color: 'black', fontSize: 12, fontWeight: 'bold'}}>{element.number}</Text>
+              <Text style={styles.hitamBold}>{element.number}</Text>
               <Text style={{color: 'black', fontSize: 6}}>{element.name}</Text>
             </Button>
           )
         }else if(element.status == 'maintenance'){
           machines.push(
-            <Button key={element.id} style={{backgroundColor: '#ebae34', marginTop: 5, marginVertical: 2, marginHorizontal: 3, height: 45, width: "23%", borderRadius: 5, flexDirection: 'column'}}
+            <Button key={element.id} style={styles.machineMaintenance}
             onPress={() => {
               navigation.navigate('ShowProducts', {
                 machine_id: element.id,
@@ -167,14 +167,14 @@ const Qc = ({navigation}) => {
               })
             }}
             >
-              <Text style={{color: 'black', fontSize: 12, fontWeight: 'bold'}}>{element.number}</Text>
+              <Text style={styles.hitamBold}>{element.number}</Text>
               <Text style={{color: 'black', fontSize: 6}}>{element.name}</Text>
             </Button>
           )
   
         }else{
           machines.push(
-            <Button key={element.id} style={{backgroundColor: 'green', marginTop: 5, marginVertical: 2, marginHorizontal: 3, height: 45, width: "23%", borderRadius: 5, flexDirection: 'column'}}
+            <Button key={element.id} style={styles.machineElse}
             onPress={() => {
               navigation.navigate('ShowProducts', {
                 machine_id: element.id,
@@ -184,7 +184,7 @@ const Qc = ({navigation}) => {
               })
             }}
             >
-              <Text style={{fontSize: 12, fontWeight: 'bold'}}>{element.number}</Text>
+              <Text style={styles.putihBold}>{element.number}</Text>
               <Text style={{fontSize: 6}}>{element.name}</Text>
             </Button>
           )
@@ -264,7 +264,7 @@ const Qc = ({navigation}) => {
           </View>
         </View>
       </View>
-      <View style={{flex: 1, backgroundColor: '#F5F5DC'}}>
+      <View style={{flex: 1, backgroundColor: '#dfe0df'}}>
         <ScrollView style={styles.contentFull}>
           {/* {loading == true ? <View><ActivityIndicator size="large" color='#0000ff'/></View> : null} */}
           <View style={styles.responsiveButtonLoop}>

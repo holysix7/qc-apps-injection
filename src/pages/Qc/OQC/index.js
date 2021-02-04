@@ -337,14 +337,14 @@ const OQC = ({route, navigation}) => {
 		<KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={{flex:1}}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
 				<Container>
-					<View style={{flex: 1, height: 100, backgroundColor: '#F5F5DC', borderWidth: 0.3, flexDirection: 'column'}}>
+					<View style={{flex: 1, height: 100, backgroundColor: '#dfe0df', borderWidth: 0.3, flexDirection: 'column'}}>
 						
-						<View style={{justifyContent: 'center', alignItems: 'center', backgroundColor: '#F5F5DC'}}>
+						<View style={{justifyContent: 'center', alignItems: 'center', backgroundColor: '#dfe0df'}}>
 							<Image source={LogoSIP}/>
 						</View>
 
 						<View style={{flexDirection: 'row'}}>
-							<View style={{borderTopWidth: 0.3, borderRightWidth: 0.3, height: 70, justifyContent: 'center', alignItems: 'center', width: "50%", backgroundColor: '#F5F5DC'}}>
+							<View style={{borderTopWidth: 0.3, borderRightWidth: 0.3, height: 70, justifyContent: 'center', alignItems: 'center', width: "50%", backgroundColor: '#dfe0df'}}>
 								<Text style={{marginTop: 1, fontWeight: 'bold', fontSize: 17}}>Daily Inspection</Text>
 								<Text style={{marginTop: 1, fontWeight: 'bold', fontSize: 17}}>OQC</Text>
 							</View>
@@ -387,22 +387,22 @@ const OQC = ({route, navigation}) => {
 						</View>
 
 						<View style={{borderWidth: 0.5, flexDirection: 'row'}}>
-							<View style={{justifyContent: 'center', alignItems: 'center', paddingLeft: 5, height: 25, width: "50%", backgroundColor: '#F5F5DC', borderBottomWidth: 0.3, borderRightWidth: 0.9}}>
+							<View style={{justifyContent: 'center', alignItems: 'center', paddingLeft: 5, height: 25, width: "50%", backgroundColor: '#dfe0df', borderBottomWidth: 0.3, borderRightWidth: 0.9}}>
 								<Text style={{fontWeight: 'bold', fontSize: 12}}>Customer Name</Text>
 							</View>
-							<View style={{flex: 1, justifyContent: 'center', alignItems: 'center', height: 25, backgroundColor: '#F5F5DC', borderBottomWidth: 0.3}}>
+							<View style={{flex: 1, justifyContent: 'center', alignItems: 'center', height: 25, backgroundColor: '#dfe0df', borderBottomWidth: 0.3}}>
 								<Text style={{fontWeight: 'bold', fontSize: 12}}>Part Name</Text>
 							</View>
 						</View>
 
 						<View style={{flexDirection: 'row'}}>
-							<View style={{justifyContent: 'center', alignItems: 'center', paddingLeft: 5, height: 25, width: "33.3%", backgroundColor: '#F5F5DC', borderBottomWidth: 0.3, borderRightWidth: 0.3}}>
+							<View style={{justifyContent: 'center', alignItems: 'center', paddingLeft: 5, height: 25, width: "33.3%", backgroundColor: '#dfe0df', borderBottomWidth: 0.3, borderRightWidth: 0.3}}>
 								<Text style={{fontWeight: 'bold', fontSize: 12}}>Part No Internal</Text>
 							</View>
-							<View style={{flex: 1, justifyContent: 'center', alignItems: 'center', height: 25, backgroundColor: '#F5F5DC', borderBottomWidth: 0.3, borderRightWidth: 0.3}}>
+							<View style={{flex: 1, justifyContent: 'center', alignItems: 'center', height: 25, backgroundColor: '#dfe0df', borderBottomWidth: 0.3, borderRightWidth: 0.3}}>
 								<Text style={{fontWeight: 'bold', fontSize: 12}}>Part No Customer</Text>
 							</View>
-							<View style={{flex: 1, justifyContent: 'center', alignItems: 'center', height: 25, backgroundColor: '#F5F5DC', borderBottomWidth: 0.3}}>
+							<View style={{flex: 1, justifyContent: 'center', alignItems: 'center', height: 25, backgroundColor: '#dfe0df', borderBottomWidth: 0.3}}>
 								<Text style={{fontWeight: 'bold', fontSize: 12}}>Model</Text>
 							</View>
 						</View>

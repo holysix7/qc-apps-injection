@@ -526,14 +526,14 @@ const UpdateForemanLeader = ({route, navigation}) => {
 		<KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={{flex:1}}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
 				<Container>
-					<View style={{flex: 1, height: 100, backgroundColor: '#F5F5DC', borderWidth: 0.3, flexDirection: 'column'}}>
+					<View style={{flex: 1, height: 100, backgroundColor: '#dfe0df', borderWidth: 0.3, flexDirection: 'column'}}>
 						
-						<View style={{justifyContent: 'center', alignItems: 'center', backgroundColor: '#F5F5DC'}}>
+						<View style={{justifyContent: 'center', alignItems: 'center', backgroundColor: '#dfe0df'}}>
 							<Image source={LogoSIP}/>
 						</View>
 
 						<View style={{borderBottomWidth: 0.3, flexDirection: 'row'}}>
-							<View style={{borderTopWidth: 0.3, borderBottomWidth: 0.3, borderRightWidth: 0.3, height: 70, justifyContent: 'center', alignItems: 'center', width: "50%", backgroundColor: '#F5F5DC'}}>
+							<View style={{borderTopWidth: 0.3, borderBottomWidth: 0.3, borderRightWidth: 0.3, height: 70, justifyContent: 'center', alignItems: 'center', width: "50%", backgroundColor: '#dfe0df'}}>
 								<Text style={{marginTop: 1, fontWeight: 'bold', fontSize: 17}}>Daily Inspection</Text>
 								<Text style={{marginTop: 1, fontWeight: 'bold', fontSize: 17}}>Update Foreman</Text>
 							</View>

@@ -403,7 +403,7 @@ const ShowPlanning = ({route, navigation}) => {
 				<View style={styles.contentHeader}>
 					<Image source={LogoSIP}/>
 				</View>
-        {loading ? headerContent() : <View style={{justifyContent: 'center'}}><ActivityIndicator size="large" color="#0000ff"/></View>}
+        {loading ? headerContent() : null}
 			</View>
 			
 			<View style={styles.contentFullWithPadding}>

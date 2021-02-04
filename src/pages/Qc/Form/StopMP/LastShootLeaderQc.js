@@ -1918,14 +1918,14 @@ const LastShootLeaderQc = ({route, navigation}) => {
 		<KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={{flex: 1}} >
 			<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
 				<Container>
-					<View style={{flex: 1, height: 120, backgroundColor: '#F5F5DC', borderWidth: 0.3, flexDirection: 'column'}}>
-						<View style={{justifyContent: 'center', alignItems: 'center', backgroundColor: '#F5F5DC'}}>
+					<View style={{flex: 1, height: 120, backgroundColor: '#dfe0df', borderWidth: 0.3, flexDirection: 'column'}}>
+						<View style={{justifyContent: 'center', alignItems: 'center', backgroundColor: '#dfe0df'}}>
 							<Image source={LogoSIP}/>
 							<Text style={{fontSize: 10, fontWeight: 'bold', paddingBottom: 5}}>{daily_inspection_number}</Text>
 						</View>
 
 						<View style={{flexDirection: 'row'}}>
-							<View style={{borderTopWidth: 0.3, borderRightWidth: 0.3, height: 100, justifyContent: 'center', alignItems: 'center', width: "50%", backgroundColor: '#F5F5DC'}}>
+							<View style={{borderTopWidth: 0.3, borderRightWidth: 0.3, height: 100, justifyContent: 'center', alignItems: 'center', width: "50%", backgroundColor: '#dfe0df'}}>
 								<Text style={{marginTop: 5, fontWeight: 'bold', fontSize: 17}}>{date}</Text>
 								<Text style={{marginTop: 1, fontWeight: 'bold', fontSize: 17}}>Edit Daily Inspection</Text>
 								<Text style={{marginTop: 1, fontWeight: 'bold', fontSize: 11}}>Last Shoot Leader QC</Text>
@@ -1974,13 +1974,13 @@ const LastShootLeaderQc = ({route, navigation}) => {
 						</View>
 
 						<View style={{borderWidth: 0.5, flexDirection: 'row'}}>
-							<View style={{justifyContent: 'center', paddingLeft: 5, height: 25, width: "36%", backgroundColor: '#F5F5DC'}}>
+							<View style={{justifyContent: 'center', paddingLeft: 5, height: 25, width: "36%", backgroundColor: '#dfe0df'}}>
 								<Text style={{fontSize: 12}}>{data != null ? data.internal_part_id : "-"}</Text>
 							</View>
-							<View style={{justifyContent: 'center', alignItems: 'center', height: 25, width: "30%", backgroundColor: '#F5F5DC'}}>
+							<View style={{justifyContent: 'center', alignItems: 'center', height: 25, width: "30%", backgroundColor: '#dfe0df'}}>
 								<Text style={{fontSize: 12}}>{data != null ? data.customer_part_number : "-"}</Text>
 							</View>
-							<View style={{flex: 1, justifyContent: 'center', alignItems: 'center', height: 25, backgroundColor: '#F5F5DC'}}>
+							<View style={{flex: 1, justifyContent: 'center', alignItems: 'center', height: 25, backgroundColor: '#dfe0df'}}>
 								<Text style={{fontSize: 12}}>{data != null ? data.model : "-"}</Text>
 							</View>
 						</View>

@@ -1,6 +1,65 @@
 import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
+    putihBold: {
+        fontSize: 12, 
+        fontWeight: 'bold'
+    },
+    hitamBold: {
+        color: 'black', 
+        fontSize: 12, 
+        fontWeight: 'bold'
+    },
+    machineLoaded: {
+        backgroundColor: '#1a508b', 
+        marginTop: 5, 
+        marginVertical: 2, 
+        marginHorizontal: 3, 
+        height: 45, 
+        width: "23%",
+        borderRadius: 5, 
+        flexDirection: 'column'
+    },
+    machineNoLoad: {
+        backgroundColor: 'yellow', 
+        marginTop: 5, 
+        marginVertical: 2, 
+        marginHorizontal: 3, 
+        height: 45, 
+        width: "23%", 
+        borderRadius: 5, 
+        flexDirection: 'column'
+    },
+    machineBroken: {
+        backgroundColor: 'red', 
+        marginTop: 5,
+        marginVertical: 2, 
+        marginHorizontal: 3, 
+        height: 45, 
+        width: "23%", 
+        borderRadius: 5, 
+        flexDirection: 'column'
+    },
+    machineMaintenance: {
+        backgroundColor: '#ebae34', 
+        marginTop: 5,
+        marginVertical: 2,
+        marginHorizontal: 3,
+        height: 45, 
+        width: "23%", 
+        borderRadius: 5, 
+        flexDirection: 'column'
+    },
+    machineElse: {
+        backgroundColor: 'green',
+        marginTop: 5, 
+        marginVertical: 2, 
+        marginHorizontal: 3,
+        height: 45, 
+        width: "23%", 
+        borderRadius: 5, 
+        flexDirection: 'column'
+    },
     logoSipBesar: {
         width: 188, 
         height: 150
@@ -14,26 +73,26 @@ const styles = StyleSheet.create({
     },
     header: {
         height: 100, 
-        backgroundColor: '#F5F5DC', 
+        backgroundColor: '#dfe0df', 
         flexDirection: 'column', 
         justifyContent: 'center'
     },
     headerWithBorder: {
         height: 140,
         borderWidth: 0.3,
-        backgroundColor: '#F5F5DC', 
+        backgroundColor: '#dfe0df', 
         flexDirection: 'column', 
         justifyContent: 'center'
     },
     contentHeader: { 
         justifyContent: 'center', 
         alignItems: 'center',
-        backgroundColor: '#F5F5DC'
+        backgroundColor: '#dfe0df'
     },
     contenDateProduct: { 
         justifyContent: 'center', 
         alignItems: 'flex-start',
-        backgroundColor: '#F5F5DC'
+        backgroundColor: '#dfe0df'
     },
     contentHeaderChild: {
         flex: 1, 
@@ -50,11 +109,11 @@ const styles = StyleSheet.create({
     },
     contentFull: {
         flex: 1, 
-        backgroundColor: '#F5F5DC'
+        backgroundColor: '#dfe0df'
     },
     contentFullWithPadding: {
         flex: 1, 
-        backgroundColor: '#F5F5DC',
+        backgroundColor: '#dfe0df',
         padding: 20
     },
     responsiveButtonLoop: {
@@ -64,13 +123,13 @@ const styles = StyleSheet.create({
     },
     bottomNavbar: {
         height: 60, 
-        backgroundColor: '#F5F5DC', 
+        backgroundColor: '#dfe0df', 
         flexDirection: 'row', 
         borderWidth: 0.3
     },
     buttonNavbar: {
         height: 63, 
-        backgroundColor: '#F5F5DC', 
+        backgroundColor: '#dfe0df', 
         justifyContent: 'center', 
         alignItems: 'center', 
         flex: 1
@@ -80,10 +139,11 @@ const styles = StyleSheet.create({
     },
     productsButtonRunning: {
         marginTop: 5, 
-        alignItems: 'center', 
+        alignItems: 'center',
         justifyContent: 'center', 
         width: "100%", 
-        borderRadius: 15, 
+        borderRadius: 15,
+        backgroundColor: '#1a508b',
         flexDirection: 'column'
     },
     productsButtonStop: {
@@ -99,6 +159,7 @@ const styles = StyleSheet.create({
         marginTop: 5,
         width: "100%", 
         borderRadius: 15, 
+        backgroundColor: '#1a508b'
         // flexDirection: 'row'
     },
     dailyInspectionButton: {
@@ -116,6 +177,14 @@ const styles = StyleSheet.create({
         justifyContent: 'center', 
         backgroundColor: '#ec4646'
     },
+    
+    dailyInspectionStopButtonNotAccess: {
+        marginTop: 170,
+        width: "45%", 
+        borderRadius: 15, 
+        justifyContent: 'center', 
+        backgroundColor: '#726a95'
+    },
 
     dailyInspectionContinueButton: {
         marginTop: 170,
@@ -124,6 +193,14 @@ const styles = StyleSheet.create({
         borderRadius: 15, 
         justifyContent: 'center', 
         backgroundColor: '#00af91'
+    },
+    dailyInspectionContinueNotAccessButton: {
+        marginTop: 170,
+        marginLeft: 30,
+        width: "45%", 
+        borderRadius: 15, 
+        justifyContent: 'center', 
+        backgroundColor: '#726a95'
     },
 
     fontDailyInspectionContinueButton: {

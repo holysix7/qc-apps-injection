@@ -80,14 +80,14 @@ const Profile = ({route, navigation}) => {
       <View>
         <GeneralStatusBarColor backgroundColor="#54c3f0" barStyle="light-content"/>
       </View>
-      <View style={{height: 100, backgroundColor: '#F5F5DC'}}>
+      <View style={{height: 100, backgroundColor: '#dfe0df'}}>
         <View style={{flexDirection: 'row', justifyContent: 'center'}}>
           <View style={{paddingTop: 10, justifyContent: 'center', alignItems: 'center'}}>
             <Text>Profile</Text>
           </View>
         </View>
       </View>
-      <View style={{flex: 1, backgroundColor: '#F5F5DC'}}>
+      <View style={{flex: 1, backgroundColor: '#dfe0df'}}>
 					<View style={{height: 500, margin: 15}}>
 						<View style={{paddingTop: 10, flexDirection: 'row', paddingLeft: 12}}>
 							<View style={{width: "20%"}}>
