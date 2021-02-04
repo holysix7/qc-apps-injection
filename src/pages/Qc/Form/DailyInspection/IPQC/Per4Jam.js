@@ -162,6 +162,7 @@ const Per4Jam = ({route, navigation}) => {
 		Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 		.then(response => {
 			setLoading(true)
+			setIdButton(true)
 			setData(response.data.data)
 			setupdateInspectionTime(response.data.data.daily_inspection.inspection_time)
 			setCavityCheck(response.data.data.daily_inspection.cavity)
@@ -1283,7 +1284,7 @@ const Per4Jam = ({route, navigation}) => {
 	}
 
 	const updateButton = () => {
-		if(idButton){
+		if(idButton == true){
 			return (
 				<View>
 					<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
@@ -1291,7 +1292,6 @@ const Per4Jam = ({route, navigation}) => {
 							{ updateinspection_time != null ? <Button style={{width: 172, borderRadius: 25, justifyContent: 'center', backgroundColor: '#05c46b'}} onPress={() => alert("Already Saved!")}><Text>SAVE</Text></Button> : <Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>}
 						</View>
 					</View>
-
 					<View style={{flexDirection: 'column', height: 50}}>
 						<View style={{height: 27, alignItems: 'center'}}>
 							<Text style={{fontWeight: 'bold'}}>

@@ -133,10 +133,10 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 	const [tooling_num, setTooling]																			= useState("")
 	const [planningId, setPlanningId]																		= useState("")
 	const [internal_part_id, setIPI]																		= useState("")
-	const [massproQCL, setMassproQCL]																		= useState("")
-	const [massproQCLMachineStatus, setMassproQCLMachineStatus]					= useState("")
-	const [massproQCLCompareCopySample, setMassproQCLCompareCopySample]	= useState("")
-	const [massproQCLCheckSheetQC, setMassproQCLCheckSheetQC]						= useState("")
+	const [massproQCL, setMassproQCL]																		= useState(null)
+	const [massproQCLMachineStatus, setMassproQCLMachineStatus]					= useState(null)
+	const [massproQCLCompareCopySample, setMassproQCLCompareCopySample]	= useState(null)
+	const [massproQCLCheckSheetQC, setMassproQCLCheckSheetQC]						= useState(null)
 	const [massproQCLRemark, setMassproQCLRemark]												= useState(null)
 	const [cavity, setCavity]	= useState("")
 	const prod_machine_id 		= machine_id
@@ -622,11 +622,19 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 		const updateQCL = massproQCL
 		const data = []
 		if(updateQCL != null){
-			data.push(
-				<View key="asd12q" style={{paddingTop: 10}}>
-					<Button style={{width: 172, borderRadius: 25, justifyContent: 'center', backgroundColor: '#05c46b'}} onPress={() => alert("Data QC Leader Already Saved!")}><Text>SAVED</Text></Button>
-				</View>
-			)
+			if(massproQCLMachineStatus != null){
+				data.push(
+					<View key="asd12q" style={{paddingTop: 10}}>
+						<Button style={{width: 172, borderRadius: 25, justifyContent: 'center', backgroundColor: '#05c46b'}} onPress={() => alert("Data QC Leader Already Saved!")}><Text>SAVED</Text></Button>
+					</View>
+				)
+			}else{
+				data.push(
+					<View key="asd12q" style={{paddingTop: 10}}>
+						<Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>
+					</View>
+				)
+			}
 		}else{
 			data.push(
 				<View key="asd12q" style={{paddingTop: 10}}>
@@ -639,7 +647,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 	
 	const content = () => {
 		var dataContent = []
-		if(qc_masspro_prod_leader_id != null){
+		// if(qc_masspro_prod_leader_id != null){
 			dataContent.push(
 				<ScrollView key="29" style={{flex: 1}}>
 					<View style={{paddingTop: 20, flexDirection: 'row'}}>
@@ -770,15 +778,15 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 					</View>
 				</ScrollView>
 			)
-		}else{
-			dataContent.push(
-				<ScrollView key="29" style={{flex: 1}}>
-					<View style={{marginVertical: 160, marginHorizontal: 40, padding: 40, backgroundColor: '#fff76a', borderWidth: 1, borderRadius: 25, flexDirection: 'row', alignItems: 'center'}}>
-						<Text style={{fontSize: 12, textAlign: 'center', fontWeight: 'bold'}}>Hubungi Masspro Begin Prod. Leader Untuk Segera Isi Form</Text>
-					</View>
-				</ScrollView>
-			)
-		}
+		// }else{
+		// 	dataContent.push(
+		// 		<ScrollView key="29" style={{flex: 1}}>
+		// 			<View style={{marginVertical: 160, marginHorizontal: 40, padding: 40, backgroundColor: '#fff76a', borderWidth: 1, borderRadius: 25, flexDirection: 'row', alignItems: 'center'}}>
+		// 				<Text style={{fontSize: 12, textAlign: 'center', fontWeight: 'bold'}}>Hubungi Masspro Begin Prod. Leader Untuk Segera Isi Form</Text>
+		// 			</View>
+		// 		</ScrollView>
+		// 	)
+		// }
 		return dataContent
 	}
 
@@ -2046,7 +2054,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							</View>
 							<View style={{flexDirection: 'column', width: "100%"}}>
 								<View style={{borderTopWidth: 0.3, height: 65, justifyContent: 'center', alignItems: 'center', width: "50%", flex: 1}}>
-									<Text style={{fontWeight: 'bold', fontSize: 17}}>{({machine_number}) - machine_name}</Text>
+									<Text style={{fontWeight: 'bold', fontSize: 17}}>({machine_number}) - {machine_name}</Text>
 									<View style={{borderWidth: 0.5, width: 150, height: 25, justifyContent: 'center'}}>
 										<Picker 
 										mode="dropdown"

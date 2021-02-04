@@ -33,12 +33,12 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 	let created_at 												= moment().format("YYYY-MM-DD HH:mm:ss")
 	let updated_at 												= moment().format("YYYY-MM-DD HH:mm:ss")
 	const [massProMM, setMassProMM]		  	= useState(null)
-	const [massMold, setMassMold]		  		= useState("")
-	const [massNeeple, setMassNeeple]		  = useState("")
-	const [massStandard, setMassStandard]	= useState("")
-	const [massRemark, setMassRemark]		  = useState("")
-	const [massTooling, setMassTooling]		= useState("")
-	const [massIPI, setMassIPI]		  			= useState("")
+	const [massMold, setMassMold]		  		= useState(null)
+	const [massNeeple, setMassNeeple]		  = useState(null)
+	const [massStandard, setMassStandard]	= useState(null)
+	const [massRemark, setMassRemark]		  = useState(null)
+	const [massTooling, setMassTooling]		= useState(null)
+	const [massIPI, setMassIPI]		  			= useState(null)
 
 	const planning_id = parseInt(planningId)
 	
@@ -349,7 +349,7 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 		return data
 	}
 	const updateButton = () => {
-		const updateMS = massProMM
+		const updateMS = massIPI
 		const mpmmData = massProMM
 		const data = []
 		if(mpmmData != null)

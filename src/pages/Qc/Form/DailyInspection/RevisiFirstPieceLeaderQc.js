@@ -149,7 +149,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 	const [planningId, setPlanningId] 							= useState("")
 	const planning_id = parseInt(planningId)
 	const [internal_part_id, setIPI] 							= useState("")
-	const [revisiQc, setRevisiQc] 		  					= useState([])
+	const [revisiQc, setRevisiQc] 		  					= useState("")
 	const [updateCopySample, setUpdateCopySample] = useState("")
 	const [updateCheckSheet, setUpdateCheckSheet] = useState("")
 	const [updateRemark, setUpdateRemark] 				= useState("")
@@ -180,8 +180,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 		setUpdatedBy(id)
 
 		let jam = moment().format("HH:mm:ss")
-		if(parseInt(jam) >= 8 && parseInt(jam) <= 15)
-		{
+		if(parseInt(jam) >= 8 && parseInt(jam) <= 15){
 			const nilaiJam = parseInt(jam)
 			setShift(2)
 			setHours(nilaiJam)

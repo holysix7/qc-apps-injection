@@ -546,11 +546,19 @@ const MassproBeginForeman = ({route, navigation}) => {
 		const updateFR = massproFR
 		const data = []
 		if(updateFR != null){
-			data.push(
-				<View key="asd12q" style={{paddingTop: 10}}>
-					<Button style={{width: 172, borderRadius: 25, justifyContent: 'center', backgroundColor: '#05c46b'}} onPress={() => alert("Data QC Leader Already Saved!")}><Text>SAVED</Text></Button>
-				</View>
-			)
+			if(updateMaint != null){
+				data.push(
+					<View key="asd12q" style={{paddingTop: 10}}>
+						<Button style={{width: 172, borderRadius: 25, justifyContent: 'center', backgroundColor: '#05c46b'}} onPress={() => alert("Data QC Leader Already Saved!")}><Text>SAVED</Text></Button>
+					</View>
+				)
+			}else{
+				data.push(
+					<View key="asd12q" style={{paddingTop: 10}}>
+						<Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>
+					</View>
+				)
+			}
 		}else{
 			data.push(
 				<View key="asd12q" style={{paddingTop: 10}}>

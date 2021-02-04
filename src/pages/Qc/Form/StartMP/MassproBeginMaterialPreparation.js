@@ -20,13 +20,13 @@ const MassproBeginMaterialPreparation = ({route, navigation}) => {
 	const [dataProduct1, setDataProduct1] 					= useState("")
 	const [created_by, setCreatedBy]								= useState("")
 	const [updated_by, setUpdatedBy]								= useState("")
-	const [massproMP, setMassporMP]																						= useState("")
-	const [massproMPCleaningHopper, setMassporMPCleanningHopper]							= useState("")
-	const [massproMPMaterialStandard, setMassporMPMaterialStandard]						= useState("")
-	const [massproMPTemperatureHopper, setMassporMPTemperaturHopper]					= useState("")
-	const [massproMPTemperatureHopperNote, setMassporMPTemperaturHopperNote]	= useState("")
-	const [massproMPRemark, setMassporMPRemark]																= useState("")
-	const [massproMPInternalPartId, setMassporMPIPI]													= useState("")
+	const [massproMP, setMassporMP]																						= useState(null)
+	const [massproMPCleaningHopper, setMassporMPCleanningHopper]							= useState(null)
+	const [massproMPMaterialStandard, setMassporMPMaterialStandard]						= useState(null)
+	const [massproMPTemperatureHopper, setMassporMPTemperaturHopper]					= useState(null)
+	const [massproMPTemperatureHopperNote, setMassporMPTemperaturHopperNote]	= useState(null)
+	const [massproMPRemark, setMassporMPRemark]																= useState(null)
+	const [massproMPInternalPartId, setMassporMPIPI]													= useState(null)
 	const [cavityAmount, setCavityAmount]						= useState("")
 	const prod_machine_id 													= machine_id
 	let dying_material 														  = moment().format("YYYY-MM-DD hh:mm:ss A")
@@ -363,11 +363,19 @@ const MassproBeginMaterialPreparation = ({route, navigation}) => {
 		const updateMS = massproMP
 		const data = []
 		if(updateMS != null){
-			data.push(
-				<View key="asd12q" style={{paddingTop: 10}}>
-					<Button style={{width: 172, borderRadius: 25, justifyContent: 'center', backgroundColor: '#05c46b'}} onPress={() => alert("Data Material Preparation Already Saved!")}><Text>SAVED</Text></Button>
-				</View>
-			)
+			if(massproMPCleaningHopper != null){
+				data.push(
+					<View key="asd12q" style={{paddingTop: 10}}>
+						<Button style={{width: 172, borderRadius: 25, justifyContent: 'center', backgroundColor: '#05c46b'}} onPress={() => alert("Data Material Preparation Already Saved!")}><Text>SAVED</Text></Button>
+					</View>
+				)
+			}else{
+				data.push(
+					<View key="asd12q" style={{paddingTop: 10}}>
+						<Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>
+					</View>
+				)
+			}
 		}else{
 			data.push(
 				<View key="asd12q" style={{paddingTop: 10}}>

@@ -34,13 +34,13 @@ const MassproBeginTechInjection = ({route, navigation}) => {
 	const [planningId, setPlanningId]		= useState("")
 	const [internal_part_id, setIPI]		= useState("")
 	const [massproTI, setMassproTI]			= useState(null)
-	const [massproTICleanningMold, setCleaningMold]	  = useState("")
-	const [massproTIInputStandard, setInputStandard] 	= useState("")
-	const [massproTIRoboSetting, setRoboSetting] 			= useState("")
-	const [massproTICoolingChannel, setCooling] 			= useState("")
-	const [massproTI4mCheckSheet, set4mCheck]   			= useState("")
-	const [massproTIActMoldTemp, setActMoldTemp]   		= useState("")
-	const [massproTIRemark, setTIRemark]   						= useState("")
+	const [massproTICleanningMold, setCleaningMold]	  = useState(null)
+	const [massproTIInputStandard, setInputStandard] 	= useState(null)
+	const [massproTIRoboSetting, setRoboSetting] 			= useState(null)
+	const [massproTICoolingChannel, setCooling] 			= useState(null)
+	const [massproTI4mCheckSheet, set4mCheck]   			= useState(null)
+	const [massproTIActMoldTemp, setActMoldTemp]   		= useState(null)
+	const [massproTIRemark, setTIRemark]   						= useState(null)
 	const prod_machine_id = machine_id
 	const status = "new"
 	const [tooling_num, setTooling]	= useState("")
@@ -474,11 +474,19 @@ const MassproBeginTechInjection = ({route, navigation}) => {
 		const updateMS = massproTI
 		const data = []
 		if(updateMS != null || qc_masspro_mold_setter_id == null){
-			data.push(
-				<View key="asd12q" style={{paddingTop: 10}}>
-					<Button style={{width: 172, borderRadius: 25, justifyContent: 'center', backgroundColor: '#05c46b'}} onPress={() => alert("Data Material Preparation Already Saved!")}><Text>SAVED</Text></Button>
-				</View>
-			)
+			if(massproTICleanningMold != null){
+				data.push(
+					<View key="asd12q" style={{paddingTop: 10}}>
+						<Button style={{width: 172, borderRadius: 25, justifyContent: 'center', backgroundColor: '#05c46b'}} onPress={() => alert("Data Material Preparation Already Saved!")}><Text>SAVED</Text></Button>
+					</View>
+				)
+			}else{
+				data.push(
+					<View key="asd12q" style={{paddingTop: 10}}>
+						<Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>
+					</View>
+				)
+			}
 		}else{
 			data.push(
 				<View key="asd12q" style={{paddingTop: 10}}>
@@ -491,7 +499,7 @@ const MassproBeginTechInjection = ({route, navigation}) => {
 
 	const content = () => {
 		var dataContent = []
-		if(qc_masspro_mold_setter_id != null){
+		// if(qc_masspro_mold_setter_id != null){
 			dataContent.push(
 				<ScrollView key="31" style={{flex: 1}}>
 					<TouchableOpacity>
@@ -585,15 +593,15 @@ const MassproBeginTechInjection = ({route, navigation}) => {
 					</TouchableOpacity>
 				</ScrollView>
 			)
-		}else{
-			dataContent.push(
-				<ScrollView key="3" style={{flex: 1}}>
-					<View style={{marginVertical: 160, marginHorizontal: 40, padding: 40, backgroundColor: '#fff76a', borderWidth: 1, borderRadius: 25, flexDirection: 'row', alignItems: 'center'}}>
-						<Text style={{fontSize: 12, textAlign: 'center', fontWeight: 'bold'}}>Hubungi Masspro Begin Mold Setter Untuk Segera Isi Form</Text>
-					</View>
-				</ScrollView>
-			)
-		}
+		// }else{
+		// 	dataContent.push(
+		// 		<ScrollView key="3" style={{flex: 1}}>
+		// 			<View style={{marginVertical: 160, marginHorizontal: 40, padding: 40, backgroundColor: '#fff76a', borderWidth: 1, borderRadius: 25, flexDirection: 'row', alignItems: 'center'}}>
+		// 				<Text style={{fontSize: 12, textAlign: 'center', fontWeight: 'bold'}}>Hubungi Masspro Begin Mold Setter Untuk Segera Isi Form</Text>
+		// 			</View>
+		// 		</ScrollView>
+		// 	)
+		// }
 		return dataContent
 	}
 

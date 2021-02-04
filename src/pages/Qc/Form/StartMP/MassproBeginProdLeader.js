@@ -39,14 +39,14 @@ const MassproBeginProdLeader = ({route, navigation}) => {
 	const [planningId, setPlanningId]		= useState("")
 	const [internal_part_id, setIPI]		= useState("")
 	const [massproPL, setMassproPL]			= useState(null)
-	const [massproPLWiProduct, setUpdateWiProduct]	  	= useState("")
-	const [massproPLPackingStandard, setUpdatePacking] 	= useState("")
-	const [massproPLWorkTools, setUpdateWorkTools]	 		= useState("")
-	const [massproPLProdReport, setUpdateProdReport]		= useState("")
-	const [massproPLLable, setUpdateLable]   						= useState("")
-	const [massproPLNGForm, setUpdateNgForm]		   			= useState("")
-	const [massproPLJig, setUpdateJig]   								= useState("")
-	const [massproPLRemark, setUpdateRemark]   						= useState("")
+	const [massproPLWiProduct, setUpdateWiProduct]	  	= useState(null)
+	const [massproPLPackingStandard, setUpdatePacking] 	= useState(null)
+	const [massproPLWorkTools, setUpdateWorkTools]	 		= useState(null)
+	const [massproPLProdReport, setUpdateProdReport]		= useState(null)
+	const [massproPLLable, setUpdateLable]   						= useState(null)
+	const [massproPLNGForm, setUpdateNgForm]		   			= useState(null)
+	const [massproPLJig, setUpdateJig]   								= useState(null)
+	const [massproPLRemark, setUpdateRemark]   						= useState(null)
 	const planning_id = parseInt(planningId)
 
 	const [loading, setLoading] = useState(false)
@@ -528,11 +528,19 @@ const MassproBeginProdLeader = ({route, navigation}) => {
 		const updatePL = massproPL
 		const data = []
 		if(updatePL != null || qc_masspro_tech_injection_id == null){
-			data.push(
-				<View key="asd12q" style={{paddingTop: 10}}>
-					<Button style={{width: 172, borderRadius: 25, justifyContent: 'center', backgroundColor: '#05c46b'}} onPress={() => alert("Data Material Preparation Already Saved!")}><Text>SAVED</Text></Button>
-				</View>
-			)
+			if(massproPLWiProduct != null){
+				data.push(
+					<View key="asd12q" style={{paddingTop: 10}}>
+						<Button style={{width: 172, borderRadius: 25, justifyContent: 'center', backgroundColor: '#05c46b'}} onPress={() => alert("Data Material Preparation Already Saved!")}><Text>SAVED</Text></Button>
+					</View>
+				)
+			}else{
+				data.push(
+					<View key="asd12q" style={{paddingTop: 10}}>
+						<Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>
+					</View>
+				)
+			}
 		}else{
 			data.push(
 				<View key="asd12q" style={{paddingTop: 10}}>
@@ -545,7 +553,7 @@ const MassproBeginProdLeader = ({route, navigation}) => {
 
 	const content = () => {
 		var dataContent = []
-		if(qc_masspro_tech_injection_id != null){
+		// if(qc_masspro_tech_injection_id != null){
 			dataContent.push(
 				<ScrollView key="2" style={{flex: 1}}>
 					<TouchableOpacity>							
@@ -653,15 +661,15 @@ const MassproBeginProdLeader = ({route, navigation}) => {
 					</TouchableOpacity>
 				</ScrollView>
 			)
-		}else{
-			dataContent.push(
-				<ScrollView key="2" style={{flex: 1}}>
-					<View style={{marginVertical: 160, marginHorizontal: 40, padding: 40, backgroundColor: '#fff76a', borderWidth: 1, borderRadius: 25, flexDirection: 'row', alignItems: 'center'}}>
-						<Text style={{fontSize: 12, textAlign: 'center', fontWeight: 'bold'}}>Hubungi Masspro Begin Tech. Injection Untuk Segera Isi Form</Text>
-					</View>
-				</ScrollView>
-			)
-		}
+		// }else{
+		// 	dataContent.push(
+		// 		<ScrollView key="2" style={{flex: 1}}>
+		// 			<View style={{marginVertical: 160, marginHorizontal: 40, padding: 40, backgroundColor: '#fff76a', borderWidth: 1, borderRadius: 25, flexDirection: 'row', alignItems: 'center'}}>
+		// 				<Text style={{fontSize: 12, textAlign: 'center', fontWeight: 'bold'}}>Hubungi Masspro Begin Tech. Injection Untuk Segera Isi Form</Text>
+		// 			</View>
+		// 		</ScrollView>
+		// 	)
+		// }
 		return dataContent
 	}
 

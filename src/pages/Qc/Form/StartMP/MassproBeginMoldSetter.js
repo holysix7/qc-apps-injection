@@ -28,14 +28,14 @@ const MassproBeginMoldSetter = ({route, navigation}) => {
 	const [shift, setShift]		  																					= useState(0)
 	let created_at 																												= moment().format("YYYY-MM-DD HH:mm:ss")
 	let updated_at 																												= moment().format("YYYY-MM-DD HH:mm:ss")
-	const [massproMS, setMassproMS]																				= useState("")
-	const [massproMSClampingBolt, setMassproMSClampingBolt]								= useState("")
-	const [massproMsCoolingSystem, setMassproMSCoolingSystem]							= useState("")
-	const [massproMsLimitSwitch, setLimitSwitch] 													= useState("")
-	const [massproMsEjectStroke, setEjectStroke] 													= useState("")
-	const [massproMsTouchingNozzle, setTouchingNozzle] 										= useState("")
-	const [massproMSHydraulicCore, setHydraulicCore]	 										= useState("")
-	const [massproMSRemark, setMsRemark]							 										= useState("")
+	const [massproMS, setMassproMS]																				= useState(null)
+	const [massproMSClampingBolt, setMassproMSClampingBolt]								= useState(null)
+	const [massproMsCoolingSystem, setMassproMSCoolingSystem]							= useState(null)
+	const [massproMsLimitSwitch, setLimitSwitch] 													= useState(null)
+	const [massproMsEjectStroke, setEjectStroke] 													= useState(null)
+	const [massproMsTouchingNozzle, setTouchingNozzle] 										= useState(null)
+	const [massproMSHydraulicCore, setHydraulicCore]	 										= useState(null)
+	const [massproMSRemark, setMsRemark]							 										= useState(null)
 	const prod_machine_id 								= machine_id
 	const [planningId, setPlanningId]		 		 				= useState("")
 	const [internal_part_id, setIPI] 							  = useState("")
@@ -473,11 +473,19 @@ const MassproBeginMoldSetter = ({route, navigation}) => {
 		const updateMS = massproMS
 		const data = []
 		if(updateMS != null){
-			data.push(
-				<View key="asd12q" style={{paddingTop: 10}}>
-					<Button style={{width: 172, borderRadius: 25, justifyContent: 'center', backgroundColor: '#05c46b'}} onPress={() => alert("Data Material Preparation Already Saved!")}><Text>SAVED</Text></Button>
-				</View>
-			)
+			if(massproMSClampingBolt != null){
+				data.push(
+					<View key="asd12q" style={{paddingTop: 10}}>
+						<Button style={{width: 172, borderRadius: 25, justifyContent: 'center', backgroundColor: '#05c46b'}} onPress={() => alert("Data Material Preparation Already Saved!")}><Text>SAVED</Text></Button>
+					</View>
+				)
+			}else{
+				data.push(
+					<View key="asd12q" style={{paddingTop: 10}}>
+						<Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>
+					</View>
+				)
+			}
 		}else{
 			data.push(
 				<View key="asd12q" style={{paddingTop: 10}}>
@@ -490,7 +498,7 @@ const MassproBeginMoldSetter = ({route, navigation}) => {
 
 	const content = () => {
 		var dataContent = []
-		if(qc_masspro_material_preparation_id != null){
+		// if(qc_masspro_material_preparation_id != null){
 			dataContent.push(
 				<ScrollView key="23" style={{flex: 1}}>
 					<View style={{paddingTop: 20, flexDirection: 'row'}}>
@@ -583,15 +591,15 @@ const MassproBeginMoldSetter = ({route, navigation}) => {
 					
 				</ScrollView>
 			)
-		}else{
-			dataContent.push(
-				<ScrollView key="3" style={{flex: 1}}>
-					<View style={{marginVertical: 160, marginHorizontal: 40, padding: 40, backgroundColor: '#fff76a', borderWidth: 1, borderRadius: 25, flexDirection: 'row', alignItems: 'center'}}>
-						<Text style={{fontSize: 12, textAlign: 'center', fontWeight: 'bold'}}>Hubungi Masspro Begin Material Preparation Untuk Segera Isi Form</Text>
-					</View>
-				</ScrollView>
-			)
-		}
+		// }else{
+		// 	dataContent.push(
+		// 		<ScrollView key="3" style={{flex: 1}}>
+		// 			<View style={{marginVertical: 160, marginHorizontal: 40, padding: 40, backgroundColor: '#fff76a', borderWidth: 1, borderRadius: 25, flexDirection: 'row', alignItems: 'center'}}>
+		// 				<Text style={{fontSize: 12, textAlign: 'center', fontWeight: 'bold'}}>Hubungi Masspro Begin Material Preparation Untuk Segera Isi Form</Text>
+		// 			</View>
+		// 		</ScrollView>
+		// 	)
+		// }
 
 		return dataContent
 	}

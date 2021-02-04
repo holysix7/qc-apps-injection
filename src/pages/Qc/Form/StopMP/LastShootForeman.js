@@ -22,10 +22,12 @@ const LastShootForeman = ({route, navigation}) => {
 	let created_at 																	= moment().format("YYYY-MM-DD HH:mm:ss")
 	let updated_at 																	= moment().format("YYYY-MM-DD HH:mm:ss")
 	const [eng_product_id, setEngProdId]		  			= useState(0)
-	const [data, setData]	=	useState("")
+	const [data, setData]	=	useState(null)
 	const prod_machine_id = machine_id
 	const date = []
 	const [loading, setLoading] = useState(false)
+	var timeNow 	= moment()
+	var hoursNow	= parseInt(moment(timeNow).format('H'))
 	const submit = async() => {
 		setLoading(false)
 		const data = {
@@ -80,13 +82,27 @@ const LastShootForeman = ({route, navigation}) => {
 		const name = await AsyncStorage.getItem('name')
 		const id = await AsyncStorage.getItem('id')
 		setCreatedBy(id)
-		setUpdatedBy(id)
-
-		let jam = moment().format("HH:mm:ss")
-
+		setUpdatedBy(id)		
+		if(hoursNow >= 8 && hoursNow <= 15){
+			setShift(2)
+			setHours(hoursNow)
+			var shift_id	= 2
+		}else if(hoursNow >= 16 && hoursNow <= 23){
+			setShift(3)
+			setHours(hoursNow)
+			var shift_id	= 3
+		}else{
+			setShift(4)
+			setHours(hoursNow)
+			var shift_id	= 4
+		}
 		const params = {
 			tbl: 'daily_inspection',
 			kind: 'last_shoot_fr',
+			sys_plant_id: sys_plant_id,
+			machine_id: machine_id,
+			hrd_work_shift_id: shift_id,
+			hours: hoursNow,
 			qc_daily_inspection_id: qc_daily_inspection_id,
 			app_version: app_version
 		}
@@ -127,7 +143,6 @@ const LastShootForeman = ({route, navigation}) => {
 
 	const updateStopCategory = () => {
 		var data = []
-		// console.log(lastShootFR)
 		if(lastShootFR != null){
 			if(lastShootFR.stop_category != null){
 				data.push(
@@ -179,56 +194,66 @@ const LastShootForeman = ({route, navigation}) => {
 
 	const content = () => {
 		var dataContent = []
-		if(data.cavity != null){
-			dataContent.push(
-				<ScrollView key="askjdn2" style={{flex: 1}}>
-					<View style={{paddingTop: 20, flexDirection: 'row'}}>
-						<View style={{padding: 10, width: "44%"}}>
-							<Text>Tooling</Text>
-						</View>
-						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-							<Text style={{color: 'black'}}>:</Text>
-						</View>
-						<View style={{padding: 4, width: "50%"}}>
-							<View style={{height: 40, justifyContent: 'center'}}>
-								<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-									<Text>{tooling_num != null ? tooling_num : "-"}</Text>
+		if(data != null){
+			if(data.cavity != null){
+				dataContent.push(
+					<ScrollView key="askjdn2" style={{flex: 1}}>
+						<View style={{paddingTop: 20, flexDirection: 'row'}}>
+							<View style={{padding: 10, width: "44%"}}>
+								<Text>Tooling</Text>
+							</View>
+							<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+								<Text style={{color: 'black'}}>:</Text>
+							</View>
+							<View style={{padding: 4, width: "50%"}}>
+								<View style={{height: 40, justifyContent: 'center'}}>
+									<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+										<Text>{tooling_num != null ? tooling_num : "-"}</Text>
+									</View>
 								</View>
 							</View>
 						</View>
-					</View>
-					
-					<View style={{paddingTop: 20, flexDirection: 'row'}}>
-						<View style={{padding: 10, width: "44%"}}>
-							<Text>Cavity Amount</Text>
-						</View>
-						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-							<Text style={{color: 'black'}}>:</Text>
-						</View>
-						<View style={{padding: 4, width: "50%"}}>
-							<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-								<Text>{data.cavity != null ? data.cavity : "-"}</Text>
+						
+						<View style={{paddingTop: 20, flexDirection: 'row'}}>
+							<View style={{padding: 10, width: "44%"}}>
+								<Text>Cavity Amount</Text>
+							</View>
+							<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+								<Text style={{color: 'black'}}>:</Text>
+							</View>
+							<View style={{padding: 4, width: "50%"}}>
+								<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+									<Text>{data.cavity != null ? data.cavity : "-"}</Text>
+								</View>
 							</View>
 						</View>
-					</View>
-	
-					<View style={{paddingTop: 20, flexDirection: 'row'}}>
-						<View style={{padding: 10, width: "44%"}}>
-							<Text>Stop Category</Text>
+		
+						<View style={{paddingTop: 20, flexDirection: 'row'}}>
+							<View style={{padding: 10, width: "44%"}}>
+								<Text>Stop Category</Text>
+							</View>
+							<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+								<Text style={{color: 'black'}}>:</Text>
+							</View>
+							<View style={{padding: 4, width: "50%"}}>
+								{updateStopCategory()}
+							</View>
 						</View>
-						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-							<Text style={{color: 'black'}}>:</Text>
+		
+						<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
+							{updateButton()}
 						</View>
-						<View style={{padding: 4, width: "50%"}}>
-							{updateStopCategory()}
+					</ScrollView>
+				)
+			}else{
+				dataContent.push(
+					<ScrollView key="29" style={{flex: 1}}>
+						<View style={{marginVertical: 160, marginHorizontal: 40, padding: 40, backgroundColor: '#fff76a', borderWidth: 1, borderRadius: 25, flexDirection: 'row', alignItems: 'center'}}>
+							<Text style={{fontSize: 12, textAlign: 'center', fontWeight: 'bold'}}>Hubungi Leader QC Untuk Segera Isi Form Last Shoot Leader QC</Text>
 						</View>
-					</View>
-	
-					<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
-						{updateButton()}
-					</View>
-				</ScrollView>
-			)
+					</ScrollView>
+				)
+			}
 		}else{
 			dataContent.push(
 				<ScrollView key="29" style={{flex: 1}}>
@@ -302,13 +327,13 @@ const LastShootForeman = ({route, navigation}) => {
 
 						<View style={{borderWidth: 0.5, flexDirection: 'row'}}>
 							<View style={{justifyContent: 'center', paddingLeft: 5, height: 25, width: "36%", backgroundColor: '#dfe0df'}}>
-								<Text style={{fontSize: 12}}>{data.internal_part_id != null ? data.internal_part_id : "-"}</Text>
+								<Text style={{fontSize: 12}}>{data != null ? data.internal_part_id : "-"}</Text>
 							</View>
 							<View style={{justifyContent: 'center', alignItems: 'center', height: 25, width: "30%", backgroundColor: '#dfe0df'}}>
-								<Text style={{fontSize: 12}}>{data.customer_part_number != null ? data.customer_part_number : "-"}</Text>
+								<Text style={{fontSize: 12}}>{data != null ? data.customer_part_number : "-"}</Text>
 							</View>
 							<View style={{flex: 1, justifyContent: 'center', alignItems: 'center', height: 25, backgroundColor: '#dfe0df'}}>
-								<Text style={{fontSize: 12}}>{data.model != null ? data.model : "-"}</Text>
+								<Text style={{fontSize: 12}}>{data != null ? data.model : "-"}</Text>
 							</View>
 						</View>
 						{loading ? content() : <View style={{justifyContent: 'center'}}><ActivityIndicator size="large" color="#0000ff"/></View>}

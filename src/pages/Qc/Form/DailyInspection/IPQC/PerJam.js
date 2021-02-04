@@ -87,7 +87,7 @@ const PerJam = ({route, navigation}) => {
 	const [checkPackaging, setCheckPacking] 	= useState("")
 	const [status, setStatus] 								= useState("")
 	const [categoryNG, setCategoryNG] 				= useState(0)
-	const [specialItem, setSpecialItem] 			= useState(null)
+	const [specialItem, setSpecialItem] 			= useState("")
 	const [noteUnnormal, setNoteUnnormal] 		= useState(null)
 	const [inspectionTime, setInspectionTime] = useState(null)
 	const [hours, setHours]		  							= useState(0)
@@ -97,13 +97,13 @@ const PerJam = ({route, navigation}) => {
 	const [created_by, setCreatedBy]		  		= useState("")
 	const [updated_by, setUpdatedBy]		  		= useState("")
 	
-	const [updateCheckPackaging, setCheckPackaging]	= useState(null)
+	const [updateCheckPackaging, setCheckPackaging]	= useState("")
 	const [updateStart, setUpdateStart]		  				= useState(null)
 	const [updatePNData, setUpdatePN]		  					= useState(null)
 	const [updateEnd, setUpdateEnd]		  						= useState(null)
-	const [updateSpecialItem, setUpdateSpItem]		  = useState(null)
-	const [updateCategoryNG, setUpdateCNG]		  		= useState(null)
-	const [updateNote, setUpdateCNT]		  					= useState(null)
+	const [updateSpecialItem, setUpdateSpItem]		  = useState("")
+	const [updateCategoryNG, setUpdateCNG]		  		= useState("")
+	const [updateNote, setUpdateCNT]		  					= useState("")
 	const [updateStatusData, setUpdateStdT]		  		= useState(null)
 	const [updateinspection_time, setUpdateIT]		  = useState(null)
 
@@ -169,22 +169,18 @@ const PerJam = ({route, navigation}) => {
 			},
 		data : data
 		};
-		try {
-			Axios(config)
-			.then(function (response){
-				console.log("Res: ", response.status, " Ok")
-				setLoading(true)
-				alert("Success Send Data!")
-				navigation.navigate('ListForm')
-			})
-			.catch(function (error){
-				setLoading(true)
-				alert("Failed Send Data!")
-				console.log(error)
-			})
-		} catch (error) {
-			console.log(error);
-		}
+		Axios(config)
+		.then(function (response){
+			console.log("Res: ", response.status, " Ok")
+			setLoading(true)
+			alert("Success Send Data!")
+			navigation.navigate('ListForm')
+		})
+		.catch(function (error){
+			setLoading(true)
+			alert("Failed Send Data!")
+			console.log(error)
+		})
 	}
 	//end Form
 	const formOke = async() => {
@@ -195,7 +191,6 @@ const PerJam = ({route, navigation}) => {
 		const headers = {
 			'Authorization': token
 		}
-
 		if(hoursNow >= 8 && hoursNow <= 15){
 			setShift(2)
 			setHours(hoursNow)
@@ -209,7 +204,6 @@ const PerJam = ({route, navigation}) => {
 			setHours(hoursNow)
 			var select_shift_id = 4
 		}
-		console.log("hoursNow: ", hoursNow);
 		const params = {
 			tbl: 'daily_inspection',
 			kind: 'get_hour',
@@ -233,16 +227,16 @@ const PerJam = ({route, navigation}) => {
 			setUpdateCNT(response.data.data.daily_inspection.note)
 			setUpdateStdT(response.data.data.daily_inspection.status)
 			setUpdateIT(response.data.data.daily_inspection.inspection_time)
-			setIdButton(true)
-			setLoading(true)
 			setTooling(response.data.data.daily_inspection.tooling_num)
-			setDataProduction(response.data.data.output_production.gross_prod)
 			setLeaderNik(response.data.data.daily_inspection.leader_nik)
 			setLeaderName(response.data.data.daily_inspection.leader_name)
 			setQcProcessNik(response.data.data.daily_inspection.qc_process_nik)
 			setQcProcessName(response.data.data.daily_inspection.qc_process_name)
 			setForemanNik(response.data.data.daily_inspection.foreman_nik)
 			setForemanName(response.data.data.daily_inspection.foreman_name)
+			setIdButton(true)
+			setLoading(true)
+			setDataProduction(response.data.data.output_production.gross_prod)
 			setOperatorNik1(response.data.data.output_production.nik_operator_1)
 			setOperatorName1(response.data.data.output_production.name_operator_1)
 			setOperatorNik2(response.data.data.output_production.nik_operator_2)
@@ -368,8 +362,7 @@ const PerJam = ({route, navigation}) => {
 		if(NGdata.length > 0)
 		{
 			var dataNGs = []
-			if(checkPackaging == "NG" || status == "NG")
-			{
+			if(checkPackaging == "NG" || status == "NG"){
 			dataNGs.push(
 				<Picker.Item label="--Pilih--" value={0} key="key1" />
 			)
@@ -419,7 +412,12 @@ const PerJam = ({route, navigation}) => {
 
 	const updateCheckPackagingFunc = () => {
 		var data = []
-		if(updateCheckPackaging != null){
+		// if(updateCheckPackaging != ""){
+		// 	console.log("aowkoawk ")
+		// }else{
+		// 	console.log("askzlxclzxclzlc")
+		// }
+		if(updateCheckPackaging != ""){
 			data.push(
 				<View key="029ijkas" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
 					<Text>{updateCheckPackaging}</Text>
@@ -481,7 +479,7 @@ const PerJam = ({route, navigation}) => {
 
 	const updateSpecialItemFunc = () => {
 		var data = []
-		if(updateSpecialItem > 0 || updateSpecialItem != null){
+		if(updateSpecialItem != ""){
 			data.push(
 				<View key="asiuhj2" style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5, borderWidth: 0.5, borderRadius: 25, backgroundColor: '#b8b8b8', height: 40}}>
 					<Text>{updateSpecialItem}</Text>
@@ -522,8 +520,9 @@ const PerJam = ({route, navigation}) => {
 	}
 
 	const updateNoteFunc = () => {
+		// console.log(updateCheckPackaging)
 		var data = []
-		if(updateNote > 0 || updateNote != null){
+		if(updateNote != ""){
 			data.push(
 				<View key="asih2n" style={{height: 40, justifyContent: 'center', paddingLeft: 5, paddingTop: 5, borderWidth: 0.5, borderRadius: 25, backgroundColor: '#b8b8b8'}}>
 					<Text>{updateNote}</Text>
