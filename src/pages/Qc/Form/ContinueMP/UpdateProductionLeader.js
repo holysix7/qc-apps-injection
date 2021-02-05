@@ -67,9 +67,10 @@ const UpdateProductionLeader = ({route, navigation}) => {
         url: 'https://api.tri-saudara.com/api/v2/qcs/update?',
         params: params,
         headers: { 
-            'Authorization': token, 
-            'Content-Type': 'application/json', 
-            'Cookie': '_denapi_session=ubcfq3AHCuVeTlxtg%2F1nyEa3Ktylg8nY1lIEPD7pgS3YAWwlKOxwA0S9pw7JhvZ2mNkrYl0j62wAWJWJZd7AbfolGuHCwXgEMeJH6EoLiQ%3D%3D--M%2BjBb0uJeHmOf%2B3o--%2F2Fjw57x0Fyr90Ec9FVibQ%3D%3D'
+          'Authorization': token, 
+          'Content-Type': 'application/json', 
+          'Cookie': '_denapi_session=ubcfq3AHCuVeTlxtg%2F1nyEa3Ktylg8nY1lIEPD7pgS3YAWwlKOxwA0S9pw7JhvZ2mNkrYl0j62wAWJWJZd7AbfolGuHCwXgEMeJH6EoLiQ%3D%3D--M%2BjBb0uJeHmOf%2B3o--%2F2Fjw57x0Fyr90Ec9FVibQ%3D%3D'
+
         },
         data : data
       };
@@ -88,26 +89,23 @@ const UpdateProductionLeader = ({route, navigation}) => {
     }else if(value == 2){
       //SUBMIT KE DATA SHIFT 2
       const qc_daily_inspection_item_id = shift2 != null ? shift2.qc_daily_inspection_item_id : null
-      const qc_process_id = shift2 != null ? shift2.qc_process_id : null
       const data = {
-        name,
-        idUser,
-        shiftId,
-        created_by,
-        updated_by,
-        created_at,
         qc_daily_inspection_item_id,
-        qc_process_id,
-        updated_at
+        known_by
       }
       var config = {
         method: 'put',
         params: params,
-        url: 'http://192.168.131.121:3000/api/v2/qcs/update?&tbl=daily_inspection&kind=update_qcl',
-        headers: headers,
-        data: data
+        url: 'https://api.tri-saudara.com/api/v2/qcs/update?',
+        params: params,
+        headers: { 
+          'Authorization': token, 
+          'Content-Type': 'application/json', 
+          'Cookie': '_denapi_session=ubcfq3AHCuVeTlxtg%2F1nyEa3Ktylg8nY1lIEPD7pgS3YAWwlKOxwA0S9pw7JhvZ2mNkrYl0j62wAWJWJZd7AbfolGuHCwXgEMeJH6EoLiQ%3D%3D--M%2BjBb0uJeHmOf%2B3o--%2F2Fjw57x0Fyr90Ec9FVibQ%3D%3D'
+        },
+        data : data
       };
-      axios(config)
+      Axios(config)
       .then(function (response) {
         console.log("Res: ", response.status, " Ok")
         setLoading(true)
@@ -122,24 +120,21 @@ const UpdateProductionLeader = ({route, navigation}) => {
     }else{
       //SUBMIT KE DATA SHIFT 3
       const qc_daily_inspection_item_id = shift3 != null ? shift3.qc_daily_inspection_item_id : null
-      const qc_process_id = shift3 != null ? shift3.qc_process_id : null
       const data = {
-        name,
-        idUser,
-        shiftId,
-        created_by,
-        updated_by,
-        created_at,
         qc_daily_inspection_item_id,
-        qc_process_id,
-        updated_at
+        known_by
       }
       var config = {
         method: 'put',
         params: params,
-        url: 'http://192.168.131.121:3000/api/v2/qcs/update?&tbl=daily_inspection&kind=update_qcl',
-        headers: headers,
-        data: data
+        url: 'https://api.tri-saudara.com/api/v2/qcs/update?',
+        params: params,
+        headers: { 
+          'Authorization': token, 
+          'Content-Type': 'application/json', 
+          'Cookie': '_denapi_session=ubcfq3AHCuVeTlxtg%2F1nyEa3Ktylg8nY1lIEPD7pgS3YAWwlKOxwA0S9pw7JhvZ2mNkrYl0j62wAWJWJZd7AbfolGuHCwXgEMeJH6EoLiQ%3D%3D--M%2BjBb0uJeHmOf%2B3o--%2F2Fjw57x0Fyr90Ec9FVibQ%3D%3D'
+        },
+        data : data
       };
       Axios(config)
       .then(function (response) {

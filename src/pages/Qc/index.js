@@ -1,4 +1,4 @@
-import {View, ScrollView, ActivityIndicator, Image, Alert, BackHandler} from 'react-native';
+import {View, ScrollView, ActivityIndicator, Image, Alert, RefreshControl} from 'react-native';
 import React, {useState, useEffect } from 'react';
 import { Container, Text, Button, Picker} from 'native-base';
 import GeneralStatusBarColor from '../../components/GeneralStatusBarColor';
@@ -13,13 +13,14 @@ import app_version from '../app_version/index';
 
 const Qc = ({navigation}) => {
   
-  const [cekId, setCekId] = useState("");
-  const [name, setCekName] = useState("");
-  const [deptName, setCekDeptName] = useState("");
-  const [userNik, setUserNik] = useState(null);
-  const [dutyId, setDutyId] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [data, setData] = useState([]);
+  const [cekId, setCekId]           = useState("");
+  const [name, setCekName]          = useState("");
+  const [deptName, setCekDeptName]  = useState("");
+  const [userNik, setUserNik]       = useState(null);
+  const [dutyId, setDutyId]         = useState([]);
+  const [loading, setLoading]       = useState(false);
+  const [data, setData]             = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
   useEffect(() => {
     session()
   }, [])
@@ -37,26 +38,23 @@ const Qc = ({navigation}) => {
       sys_plant_id: value,
       app_version: app_version
     }
-    try {
-      axios.get('https://api.tri-saudara.com/api/v2/qcs', {params: params, headers: headers})
-      .then(response => {
-        setLoading(true)
-        setData(response.data.data)
-        console.log("Machines List Data: ", response.data.status, "OK")
-      })
-      .catch(error => {
-				Alert.alert(
-					"Info",
-					"Silahkan Login Kembali",
-					[
-						{ text: "OK", onPress: () => logout() }
-					],
-					{ cancelable: false }
-				);
-      })
-    } catch (error) {
-      console.log("Machines Lisst Data: ", error)
-    }
+    axios.get('https://api.tri-saudara.com/api/v2/qcs', {params: params, headers: headers})
+    .then(response => {
+      setLoading(true)
+      setData(response.data.data)
+      setRefreshing(false)
+      console.log("Machines List Data: ", response.data.status, "OK")
+    })
+    .catch(error => {
+      Alert.alert(
+        "Info",
+        "Silahkan Login Kembali",
+        [
+          { text: "OK", onPress: () => logout() }
+        ],
+        { cancelable: false }
+      );
+    })
   }
 
   const logout = async() => {
@@ -93,7 +91,7 @@ const Qc = ({navigation}) => {
     if(dutyId != null){
       dutyId.map((element, key) => {
       plantDuty.push(
-        <Picker.Item label={element.plant_name} value={element.plant_id} key={key} />
+          <Picker.Item label={element.plant_name} value={element.plant_id} key={key} />
         )
       })
     }else{
@@ -198,13 +196,13 @@ const Qc = ({navigation}) => {
       return (
         <View style={styles.bottomNavbar}>
           <Button style={styles.buttonNavbar}>
-            <Image source={Home} style={{width: 40, height: 40 }}/>
+            <Image source={Home} style={styles.homeButton}/>
           </Button>
       
           <Button style={styles.buttonNavbar} onPress={() => {
             navigation.navigate('OQC')
           }}>
-            <Image source={Cog} style={{width: 40, height: 40 }}/>
+            <Image source={Cog} style={styles.cogButton}/>
           </Button>
         
           <Button style={styles.buttonNavbar} onPress={() => {
@@ -215,7 +213,7 @@ const Qc = ({navigation}) => {
               userNik: userNik
             })
           }}>
-            <Image source={Profile} style={{width: 50, height: 50 }}/>
+            <Image source={Profile} style={styles.profileButton}/>
           </Button>
         </View>
       )
@@ -223,7 +221,7 @@ const Qc = ({navigation}) => {
       return (
         <View style={styles.bottomNavbar}>
           <Button style={styles.buttonNavbar}>
-            <Image source={Home} style={{width: 40, height: 40 }}/>
+            <Image source={Home} style={{width: 25, height: 25 }}/>
           </Button>
         
           <Button style={styles.buttonNavbar} onPress={() => {
@@ -234,21 +232,24 @@ const Qc = ({navigation}) => {
               userNik: userNik
             })
           }}>
-            <Image source={Profile} style={{width: 50, height: 50 }}/>
+            <Image source={Profile} style={{width: 30, height: 30 }}/>
           </Button>
         </View>
       )
     }
-	}
+  }
+  console.log("plant id: ", cekId)
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    mesin(cekId);
+  }, []);
+
   return (
     <Container>
       <View>
         <GeneralStatusBarColor backgroundColor="#54c3f0" barStyle="light-content"/>
       </View>
       <View style={styles.header}>
-        <View style={styles.contentHeader}>
-          <Text>PLANT</Text>
-        </View>
         <View style={styles.contentHeaderChild}>
           <View style={styles.itemHeader2}>
             <Picker 
@@ -264,7 +265,9 @@ const Qc = ({navigation}) => {
         </View>
       </View>
       <View style={{flex: 1, backgroundColor: '#dfe0df'}}>
-        <ScrollView style={styles.contentFull}>
+        <ScrollView style={styles.contentFull}
+          refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
+        >
           {/* {loading == true ? <View><ActivityIndicator size="large" color='#0000ff'/></View> : null} */}
           <View style={styles.responsiveButtonLoop}>
           {loading ? listMachines() : <View style={{flex: 1, height: 500, justifyContent: 'center'}}><ActivityIndicator size="large" color="#0000ff"/></View> }

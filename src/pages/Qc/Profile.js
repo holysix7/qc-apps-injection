@@ -40,23 +40,19 @@ const Profile = ({route, navigation}) => {
       return (
         <View style={styles.bottomNavbar}>
           <Button style={styles.buttonNavbar} onPress={() => {
-						navigation.navigate('Qc', {
-							name: name,
-							deptName: deptName,
-							dutyId: dutyId,
-						})
+						navigation.goBack()
 					}}>
-            <Image source={Home} style={{width: 40, height: 40 }}/>
+            <Image source={Home} style={styles.homeButton}/>
           </Button>
       
           <Button style={styles.buttonNavbar} onPress={() => {
             navigation.navigate('OQC')
           }}>
-            <Image source={Cog} style={{width: 40, height: 40 }}/>
+            <Image source={Cog} style={styles.cogButton}/>
           </Button>
         
           <Button style={styles.buttonNavbar}>
-            <Image source={ImageProfile} style={{width: 50, height: 50 }}/>
+            <Image source={ImageProfile} style={styles.profileButton}/>
           </Button>
         </View>
       )

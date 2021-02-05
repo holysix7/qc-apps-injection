@@ -1,6 +1,18 @@
 import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
+    homeButton: {
+        width: 25, 
+        height: 25 
+    },
+    cogButton: {
+        width: 25,
+        height: 25 
+    },
+    profileButton: {
+        width: 30, 
+        height: 30
+    },
     putihBold: {
         fontSize: 12, 
         fontWeight: 'bold'

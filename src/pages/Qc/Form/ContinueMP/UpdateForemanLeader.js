@@ -8,7 +8,7 @@ import moment from 'moment';
 import app_version from '../../../app_version/index';
 
 const UpdateForemanLeader = ({route, navigation}) => {
-	const {product_name, today, yesterday, doc_number} = route.params
+	const {sys_plant_id, qc_daily_inspection_id, product_name, today, yesterday, doc_number} = route.params
 	useEffect(() => {
     formOke()
   }, [])
@@ -26,45 +26,55 @@ const UpdateForemanLeader = ({route, navigation}) => {
 	const [shift1, setShift1] 	          = useState(null)
 	const [shift2, setShift2] 	          = useState(null)
 	const [shift3, setShift3] 	          = useState(null)
-  const [listQCs, setListQCs]           = useState([])
+  const [listFr, setListFr]             = useState([])
   
   //CHECKING SHIFT
 	const [shift1Done, setShift1Done] 	  = useState(false)
-	const [shift2Done, setShift2Done] 	  = useState(false)
+  const [shift2Done, setShift2Done] 	  = useState(false)
+  
+  var name1 = shift1 != null ? shift1.foreman_name : null
+  var name2 = shift2 != null ? shift2.foreman_name : null
+  var name3 = shift3 != null ? shift3.foreman_name : null
+	var timeNow 	= moment()
+	var hoursNow 	= parseInt(moment(timeNow).format("H"))
+  if(hoursNow >= 8 && hoursNow <= 15){
+    var shiftNow = 1
+  }else if(hoursNow >= 16 && hoursNow <= 23){
+    var shiftNow = 2
+  }else{
+    var shiftNow = 3
+  }
 
 	const submit = async(value) => {
-		const token = await AsyncStorage.getItem("key") 
-		const headers = {
+		var token = await AsyncStorage.getItem("key") 
+		var headers = {
 			'Authorization': token
     }
-    const params = {
+    var params = {
       tbl: "daily_inspection",
-      kind: "update_qcl",
+      kind: "update_fr",
       app_version: app_version
     }
+    var foreman_id = name
     if(value == 1){
       //SUBMIT KE DATA SHIFT 1
       const qc_daily_inspection_item_id = shift1 != null ? shift1.qc_daily_inspection_item_id : null  
-      const qc_process_id = shift1 != null ? shift1.qc_process_id : null
       const data = {
-        name,
-        idUser,
-        shiftId,
-        created_by,
-        updated_by,
-        created_at,
         qc_daily_inspection_item_id,
-        qc_process_id,
-        updated_at
+        foreman_id
       }
       var config = {
         method: 'put',
+        url: 'https://api.tri-saudara.com/api/v2/qcs/update?',
         params: params,
-        url: 'http://192.168.131.121:3000/api/v2/qcs/update?&tbl=daily_inspection&kind=update_qcl',
-        headers: headers,
-        data: data
+        headers: { 
+          'Authorization': token, 
+          'Content-Type': 'application/json', 
+          'Cookie': '_denapi_session=ubcfq3AHCuVeTlxtg%2F1nyEa3Ktylg8nY1lIEPD7pgS3YAWwlKOxwA0S9pw7JhvZ2mNkrYl0j62wAWJWJZd7AbfolGuHCwXgEMeJH6EoLiQ%3D%3D--M%2BjBb0uJeHmOf%2B3o--%2F2Fjw57x0Fyr90Ec9FVibQ%3D%3D'
+        },
+        data : data
       };
-      axios(config)
+      Axios(config)
       .then(function (response) {
         console.log("Res: ", response.status, " Ok")
         setLoading(true)
@@ -79,26 +89,23 @@ const UpdateForemanLeader = ({route, navigation}) => {
     }else if(value == 2){
       //SUBMIT KE DATA SHIFT 2
       const qc_daily_inspection_item_id = shift2 != null ? shift2.qc_daily_inspection_item_id : null
-      const qc_process_id = shift2 != null ? shift2.qc_process_id : null
       const data = {
-        name,
-        idUser,
-        shiftId,
-        created_by,
-        updated_by,
-        created_at,
         qc_daily_inspection_item_id,
-        qc_process_id,
-        updated_at
+        foreman_id
       }
       var config = {
         method: 'put',
         params: params,
-        url: 'http://192.168.131.121:3000/api/v2/qcs/update?&tbl=daily_inspection&kind=update_qcl',
-        headers: headers,
-        data: data
+        url: 'https://api.tri-saudara.com/api/v2/qcs/update?',
+        params: params,
+        headers: { 
+          'Authorization': token, 
+          'Content-Type': 'application/json', 
+          'Cookie': '_denapi_session=ubcfq3AHCuVeTlxtg%2F1nyEa3Ktylg8nY1lIEPD7pgS3YAWwlKOxwA0S9pw7JhvZ2mNkrYl0j62wAWJWJZd7AbfolGuHCwXgEMeJH6EoLiQ%3D%3D--M%2BjBb0uJeHmOf%2B3o--%2F2Fjw57x0Fyr90Ec9FVibQ%3D%3D'
+        },
+        data : data
       };
-      axios(config)
+      Axios(config)
       .then(function (response) {
         console.log("Res: ", response.status, " Ok")
         setLoading(true)
@@ -113,24 +120,21 @@ const UpdateForemanLeader = ({route, navigation}) => {
     }else{
       //SUBMIT KE DATA SHIFT 3
       const qc_daily_inspection_item_id = shift3 != null ? shift3.qc_daily_inspection_item_id : null
-      const qc_process_id = shift3 != null ? shift3.qc_process_id : null
       const data = {
-        name,
-        idUser,
-        shiftId,
-        created_by,
-        updated_by,
-        created_at,
         qc_daily_inspection_item_id,
-        qc_process_id,
-        updated_at
+        foreman_id
       }
       var config = {
         method: 'put',
         params: params,
-        url: 'http://192.168.131.121:3000/api/v2/qcs/update?&tbl=daily_inspection&kind=update_qcl',
-        headers: headers,
-        data: data
+        url: 'https://api.tri-saudara.com/api/v2/qcs/update?',
+        params: params,
+        headers: { 
+          'Authorization': token, 
+          'Content-Type': 'application/json', 
+          'Cookie': '_denapi_session=ubcfq3AHCuVeTlxtg%2F1nyEa3Ktylg8nY1lIEPD7pgS3YAWwlKOxwA0S9pw7JhvZ2mNkrYl0j62wAWJWJZd7AbfolGuHCwXgEMeJH6EoLiQ%3D%3D--M%2BjBb0uJeHmOf%2B3o--%2F2Fjw57x0Fyr90Ec9FVibQ%3D%3D'
+        },
+        data : data
       };
       Axios(config)
       .then(function (response) {
@@ -171,28 +175,40 @@ const UpdateForemanLeader = ({route, navigation}) => {
 		}
 		setCreatedBy(id)
     setUpdatedBy(id)
+    const params = {
+			tbl: 'daily_inspection',
+			kind: 'get_fr',
+      sys_plant_id: sys_plant_id,
+      qc_daily_inspection_id: qc_daily_inspection_id,
+      app_version: app_version,
+    }
     var config = {
       method: 'get',
-      url: 'https://api.tri-saudara.com/api/v2/qcs?&tbl=daily_inspection&kind=get_qcl&qc_daily_inspection_id=58989&app_version=0.9.1.1&sys_plant_id=2',
+      url: 'https://api.tri-saudara.com/api/v2/qcs?',
+      params: params,
       headers: headers
     };
     Axios(config)
     .then(response => {
       setLoading(true)
-      console.log("Successfully Get Data QCs")
+      console.log(response.data.data.shift1)
+      setShift1(response.data.data.shift1)
+      setShift2(response.data.data.shift2)
+      setShift3(response.data.data.shift3)
+      setListFr(response.data.data.foreman)
+      console.log("Successfully Get Data Foremans")
     })
     .catch(error => {
       setLoading(true)
       console.log(error)
     });
-
   }
 
   const listUsers = () => {
     var data = []
-    listQCs.map(el => {
+    listFr.map(el => {
       data.push(
-        <Picker.Item key={el.qc_leader_id} label={el.qc_process_name} value={el.qc_leader_id} />
+        <Picker.Item key={el.foreman_id} label={el.foreman_name} value={el.foreman_id} />
       )
     })
     return data
@@ -206,10 +222,108 @@ const UpdateForemanLeader = ({route, navigation}) => {
     )
   }
 
+  
+  const shift1Condition = () => {
+    var data = []
+    console.log(shift1)
+    if(shift1 == null || shiftNow == 1){
+      data.push(
+        <View key="aoszxckdaowkwe" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+          <Picker
+          mode="dropdown"
+          selectedValue={name}
+          onValueChange={(value) => setName(value)}
+          >
+            <Picker.Item label={name1}/>
+            {listUsers()}
+          </Picker>
+        </View>
+      )
+    }else{
+      if(shift1.foreman_id != null){
+        data.push(
+          <View key="aoskdaowkwe" style={{backgroundColor: '#b8b8b8', borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+            <Text>{shift1.foreman_name != null ? shift1.foreman_name : "-"}</Text>
+          </View>
+        )
+      }else{
+        data.push(
+          <View key="aoskdaowkwe" style={{backgroundColor: '#b8b8b8', borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+            <Text>{shift1 != null ? shift1.foreman_name : "-"}</Text>
+          </View>
+        )
+      }
+    }
+    return data
+  }
+
+  const shift2Condition = () => {
+    var data = []
+    if(shift2 == null || shiftNow == 2){
+      data.push(
+        <View key="aoszxckdaowkwe" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+          <Picker 
+          mode="dropdown"
+          selectedValue={name}
+          onValueChange={(value) => setName(value)}
+          >
+            <Picker.Item label={name2} value={0} />
+            {listUsers()}
+          </Picker>
+        </View>
+        )
+    }else{
+      if(shift2.foreman_id != null){
+        data.push(
+          <View key="aoszxckdaowkwe" style={{backgroundColor: '#b8b8b8', borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+            <Text>{shift2.foreman_name}</Text>
+          </View>
+        )
+      }else{
+        data.push(
+          <View key="aoszxckdaowkwe" style={{backgroundColor: '#b8b8b8', borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+            <Text>{shift2 != null ? shift2.foreman_name : "-"}</Text>
+          </View>
+        )
+      }
+    }
+    return data
+  }
+
+  const shift3Condition = () => {
+    var data = []
+    if(shift3 == null || shiftNow == 3){
+      data.push(
+        <View key="aoszxckdaowkwe" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+          <Picker 
+          mode="dropdown"
+          selectedValue={name}
+          onValueChange={(value) => setName(value)}
+          >
+            <Picker.Item label={name3} value={0} />
+            {listUsers()}
+          </Picker>
+        </View>
+        )
+    }else{
+      if(shift3.foreman_id != null){
+        data.push(
+          <View key="aoszxckdaowkwe" style={{backgroundColor: '#b8b8b8', borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+            <Text>{shift3.foreman_name}</Text>
+          </View>
+        )
+      }else{
+        data.push(
+          <View key="aosksadaowkwe" style={{backgroundColor: '#b8b8b8', borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+            <Text>{shift3 != null ? shift3.foreman_name : "-"}</Text>
+          </View>
+        )
+      }
+    }
+    return data
+  }
+
   const contentShift = () => {
-    const name1 = shift1 != null ? shift1.qc_process_name : null
-    const name2 = shift2 != null ? shift2.qc_process_name : null
-    const name3 = shift3 != null ? shift3.qc_process_name : null
     var data = []
     if(shiftId == 1){
       data.push(
@@ -244,16 +358,7 @@ const UpdateForemanLeader = ({route, navigation}) => {
             </View>
             <View style={{padding: 4, width: "50%"}}>
               <View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-                <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-                  <Picker 
-                  mode="dropdown"
-                  selectedValue={name}
-                  onValueChange={(value) => setName(value)}
-                  >
-                    <Picker.Item label={name1} value={0} />
-                    {listUsers()}
-                  </Picker>
-                </View>
+                {shift1Condition()}
               </View>
             </View>
           </View>
@@ -310,16 +415,7 @@ const UpdateForemanLeader = ({route, navigation}) => {
             </View>
             <View style={{padding: 4, width: "50%"}}>
               <View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-                <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-                  <Picker 
-                  mode="dropdown"
-                  selectedValue={name}
-                  onValueChange={(value) => setName(value)}
-                  >
-                    <Picker.Item label={name2} value={0} />
-                    {listUsers()}
-                  </Picker>
-                </View>
+                {shift2Condition()}
               </View>
             </View>
           </View>
@@ -376,16 +472,7 @@ const UpdateForemanLeader = ({route, navigation}) => {
             </View>
             <View style={{padding: 4, width: "50%"}}>
               <View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-                <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-                  <Picker 
-                  mode="dropdown"
-                  selectedValue={name}
-                  onValueChange={(value) => setName(value)}
-                  >
-                    <Picker.Item label={name3} value={0} />
-                    {listUsers()}
-                  </Picker>
-                </View>
+                {shift3Condition()}
               </View>
             </View>
           </View>

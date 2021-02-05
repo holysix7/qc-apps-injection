@@ -69,6 +69,7 @@ const ContinueMP = ({route, navigation}) => {
 								data.push(
 									<Button key="XcxzAsd" style={styles.dailyInspectionButton} onPress={() => navigation.navigate('UpdateForemanLeader', {
 										sys_plant_id: sys_plant_id,
+										qc_daily_inspection_id: qc_daily_inspection_id,
 										daily_inspection_number: daily_inspection_number,
 										product_name: product_name,
 										machine_id: machine_id,
