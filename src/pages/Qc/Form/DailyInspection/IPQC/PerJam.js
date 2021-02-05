@@ -104,7 +104,7 @@ const PerJam = ({route, navigation}) => {
 	const [updateSpecialItem, setUpdateSpItem]		  = useState("")
 	const [updateCategoryNG, setUpdateCNG]		  		= useState("")
 	const [updateNote, setUpdateCNT]		  					= useState("")
-	const [updateStatusData, setUpdateStdT]		  		= useState(null)
+	const [updateStatusData, setUpdateStdT]		  		= useState("")
 	const [updateinspection_time, setUpdateIT]		  = useState(null)
 
 	const [operatorNik1, setOperatorNik1]		  = useState("")
@@ -384,10 +384,10 @@ const PerJam = ({route, navigation}) => {
 		setPN(value)
 		const tVal = parseInt(value)
 		if(tVal > 0){
-			const stVal = "NG"
+			const stVal = "ng"
 			setStatus(stVal)
 		}else{
-			const stVal = "OK"
+			const stVal = "ok"
 			setStatus(stVal)
 		}
 	}
@@ -412,11 +412,6 @@ const PerJam = ({route, navigation}) => {
 
 	const updateCheckPackagingFunc = () => {
 		var data = []
-		// if(updateCheckPackaging != ""){
-		// 	console.log("aowkoawk ")
-		// }else{
-		// 	console.log("askzlxclzxclzlc")
-		// }
 		if(updateCheckPackaging != ""){
 			data.push(
 				<View key="029ijkas" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
@@ -520,7 +515,6 @@ const PerJam = ({route, navigation}) => {
 	}
 
 	const updateNoteFunc = () => {
-		// console.log(updateCheckPackaging)
 		var data = []
 		if(updateNote != ""){
 			data.push(
@@ -539,20 +533,29 @@ const PerJam = ({route, navigation}) => {
 	}
 
 	const updateStatusFunc = () => {
-		return (
-			<View key="asoihdnj2" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, marginTop: 5, backgroundColor: '#b8b8b8'}}>
-				<Text>{status != null ? status : "-"}</Text>
-			</View>
-		)
+		if(updateStatusData != ""){
+			return (
+				<View key="asoihdnj2" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, marginTop: 5, backgroundColor: '#b8b8b8'}}>
+					<Text>{updateStatusData != null ? updateStatusData : "-"}</Text>
+				</View>
+			)
+		}else{
+			return (
+				<View key="asoihdnj2" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, marginTop: 5, backgroundColor: '#b8b8b8'}}>
+					<Text>{status != null ? status : "-"}</Text>
+				</View>
+			)
+
+		}
 	}
 
 	const buttonUpdateGet = () => {
-		if(idButton == true){
+		// if(idButton == true){
 			return(
 				<View>
 					<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
 						<View>
-							{updateinspection_time != null || updateinspection_time > 0 ? <Button onPress={() => alert("Already Saved!")} style={{width: 172, borderRadius: 25, justifyContent: 'center', backgroundColor: '#05c46b'}}><Text>SAVE</Text></Button> : <Button onPress={() => submit()} style={{width: 172, borderRadius: 25, justifyContent: 'center'}}><Text>SAVE</Text></Button>}
+							{updateinspection_time != null || updateinspection_time > 0 ? <Button onPress={() => alert("Already Saved!")} style={{width: 172, borderRadius: 25, justifyContent: 'center', backgroundColor: '#05c46b'}}><Text>SAVED</Text></Button> : <Button onPress={() => submit()} style={{width: 172, borderRadius: 25, justifyContent: 'center'}}><Text>SAVE</Text></Button>}
 						</View>
 					</View>
 
@@ -570,7 +573,7 @@ const PerJam = ({route, navigation}) => {
 					</View>
 				</View>
 			)
-		}
+		// }
 	}
 
 	const isiManusia = () => {

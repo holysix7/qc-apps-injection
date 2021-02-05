@@ -80,21 +80,17 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 				},
 				data : data
 			};
-			try {
-				Axios(config)
-				.then(function (response){
-					console.log("Res: ", response.status, " Ok")
-					setLoading(true)
-					alert("Success Send Data!")
-					navigation.navigate('ShowPlanning')
-				})
-				.catch(function (error){
-					alert("Failed Send Data!")
-					console.log(error)
-				})
-			} catch (error) {
+			Axios(config)
+			.then(function (response){
+				console.log("Res: ", response.status, " Ok")
+				setLoading(true)
+				alert("Success Send Data!")
+				navigation.navigate('ShowPlanning')
+			})
+			.catch(function (error){
+				alert("Failed Send Data!")
 				console.log(error)
-			}
+			})
 		}else{
 			alert("Harap Periksa Inputan Kembali")
 		}

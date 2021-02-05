@@ -79,7 +79,6 @@ const LastShootForeman = ({route, navigation}) => {
 		const headers = {
 			'Authorization': token
 		}
-		const name = await AsyncStorage.getItem('name')
 		const id = await AsyncStorage.getItem('id')
 		setCreatedBy(id)
 		setUpdatedBy(id)		

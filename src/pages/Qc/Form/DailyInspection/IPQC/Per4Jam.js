@@ -164,7 +164,7 @@ const Per4Jam = ({route, navigation}) => {
 			setLoading(true)
 			setIdButton(true)
 			setData(response.data.data)
-			setupdateInspectionTime(response.data.data.daily_inspection.inspection_time)
+			setupdateInspectionTime(response.data.data.daily_inspection.inspection_time_4hours)
 			setCavityCheck(response.data.data.daily_inspection.cavity)
 			setCavityDetail(response.data.data.cavity_detail)
 			setqc_daily_inspection_item_id(response.data.data.daily_inspection.qc_daily_inspection_item_id)
@@ -372,7 +372,7 @@ const Per4Jam = ({route, navigation}) => {
 		.then(response => {
 			setLoading(true)
 			setData(response.data.data)
-			setupdateInspectionTime(response.data.data.daily_inspection.inspection_time)
+			setupdateInspectionTime(response.data.data.daily_inspection.inspection_time_4hours)
 			setCavityCheck(response.data.data.daily_inspection.cavity)
 			setCavityDetail(response.data.data.cavity_detail)
 			setqc_daily_inspection_item_id(response.data.data.daily_inspection.qc_daily_inspection_item_id)
@@ -405,7 +405,6 @@ const Per4Jam = ({route, navigation}) => {
 
 	const hString = hours.toString()
 	const dataItem = () => {
-		
 		const checkData = daily_inspection
 		var table1 = []
 		if(cavityDetail.length > 0){
@@ -430,14 +429,13 @@ const Per4Jam = ({route, navigation}) => {
 						</View>
 						<View style={{backgroundColor: '#b8b8b8', paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, width: 145}}>
 							<View style={{ alignItems: 'center', justifyContent: 'center', width: 145}}>
-								<Text>{cavityDetail[i].note_shift}</Text>
+								<Text>{cavityDetail[i].note_four}</Text>
 							</View>
 						</View>
 					</View>
 				)
 			}
 		}else{
-			// console.log(checkData)
 			if(checkData != null){
 				const checkingCavity = checkData.cavity
 				if(checkingCavity != null){
@@ -1284,12 +1282,34 @@ const Per4Jam = ({route, navigation}) => {
 	}
 
 	const updateButton = () => {
-		if(idButton == true){
+		if(cavityDetail.length > 0){
 			return (
 				<View>
 					<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
 						<View>
-							{ updateinspection_time != null ? <Button style={{width: 172, borderRadius: 25, justifyContent: 'center', backgroundColor: '#05c46b'}} onPress={() => alert("Already Saved!")}><Text>SAVE</Text></Button> : <Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>}
+							<Button style={{width: 172, borderRadius: 25, justifyContent: 'center', backgroundColor: 'green'}} onPress={() => alert("Already Saved!")}><Text>SAVED</Text></Button>
+						</View>
+					</View>
+					<View style={{flexDirection: 'column', height: 50}}>
+						<View style={{height: 27, alignItems: 'center'}}>
+							<Text style={{fontWeight: 'bold'}}>
+								Inspection Time
+							</Text>
+						</View>
+						<View style={{height: 23, alignItems: 'center'}}>
+							<Text>
+								{updateinspection_time != null ? updateinspection_time : inspectionTime}
+							</Text>
+						</View>
+					</View>
+				</View>
+			)
+		}else{
+			return (
+				<View>
+					<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
+						<View>
+							<Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>
 						</View>
 					</View>
 					<View style={{flexDirection: 'column', height: 50}}>

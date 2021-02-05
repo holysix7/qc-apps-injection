@@ -25,7 +25,6 @@ const Qc = ({navigation}) => {
   }, [])
   
   const mesin = async(value) => {
-    console.log(Header)
     setCekId(value)
     setLoading(false)
     const abs = await AsyncStorage.getItem("key")

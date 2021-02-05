@@ -1991,7 +1991,6 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 
 	const updateButton = () => {
 		const data = []
-		console.log(revisiQc)
 		if(idButton == true){
 			data.push(
 				<View key="asd12q" style={{paddingTop: 10}}>

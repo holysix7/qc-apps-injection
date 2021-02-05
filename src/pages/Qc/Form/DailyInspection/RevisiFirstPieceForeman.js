@@ -88,7 +88,6 @@ const RevisiFirstPieceForeman = ({route, navigation}) => {
 			qc_daily_inspection_id: qc_daily_inspection_id,
 			app_version: app_version
 		}
-		console.log(qc_daily_inspection_id)
 		Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 		.then(response => {
 			setLoading(true)
