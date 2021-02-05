@@ -36,8 +36,9 @@ const ContinueMP = ({route, navigation}) => {
 			if(featureUser != null){
 				if(sys_plant_id == i+1){
 					if(featureUser[i] != null){
-						if(featureUser[i].qc_masspro_qc_leader != null || featureUser[i].qc_masspro_foreman != null){
-							if(featureUser[i].qc_masspro_qc_leader.view_permissions == true && user == 32008107 || featureUser[i].qc_masspro_foreman.view_permissions == true || user == 21410012){
+						if(featureUser[i].qc_masspro_prod_leader != null || featureUser[i].qc_masspro_foreman != null){
+							if(featureUser[i].qc_masspro_prod_leader.view_permissions == true){
+							// if(featureUser[i].qc_masspro_prod_leader.view_permissions == true && user == 32008107 || featureUser[i].qc_masspro_foreman.view_permissions == true || user == 21410012){
 								data.push(
 									<Button key="AscvSacx" style={styles.dailyInspectionButton} onPress={() => navigation.navigate('UpdateProductionLeader', {
 										qc_daily_inspection_id: qc_daily_inspection_id,
@@ -64,7 +65,7 @@ const ContinueMP = ({route, navigation}) => {
 							}
             }
 						if(featureUser[i].qc_masspro_foreman != null){
-							if(featureUser[i].qc_masspro_foreman.view_permissions == true && user == 32008107 || user == 21410012){
+							if(featureUser[i].qc_masspro_foreman.view_permissions == true){
 								data.push(
 									<Button key="XcxzAsd" style={styles.dailyInspectionButton} onPress={() => navigation.navigate('UpdateForemanLeader', {
 										sys_plant_id: sys_plant_id,

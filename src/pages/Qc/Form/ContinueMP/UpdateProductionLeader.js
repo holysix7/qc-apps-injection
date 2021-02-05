@@ -8,63 +8,72 @@ import moment from 'moment';
 import app_version from '../../../app_version/index';
 
 const UpdateProductionLeader = ({route, navigation}) => {
-	const {product_name, today, yesterday, doc_number} = route.params
+	const {qc_daily_inspection_id, sys_plant_id, product_name, today, yesterday, doc_number} = route.params
 	useEffect(() => {
     formOke()
   }, [])
 
-  const [loading, setLoading] 	        = useState(true)
+  const [loading, setLoading] 	            = useState(true)
   //PARAMETER YANG AKAN DIKIRIM
-	const [name, setName]                 = useState(null)
-	const [idUser, setIdUser]             = useState(null)
-	const [shiftId, setShiftId] 	        = useState(null)
-	const [created_by, setCreatedBy]      = useState(null)
-	const [updated_by, setUpdatedBy]      = useState(null)
-	let created_at 								        = moment().format("YYYY-MM-DD HH:mm:ss")
-	let updated_at 								        = moment().format("YYYY-MM-DD HH:mm:ss")
+	const [name, setName]                     = useState(null)
+	const [idUser, setIdUser]                 = useState(null)
+	const [shiftId, setShiftId] 	            = useState(null)
+	const [created_by, setCreatedBy]          = useState(null)
+	const [updated_by, setUpdatedBy]          = useState(null)
+	let created_at 								            = moment().format("YYYY-MM-DD HH:mm:ss")
+	let updated_at 								            = moment().format("YYYY-MM-DD HH:mm:ss")
   //CONSUME API SHIFT
-	const [shift1, setShift1] 	          = useState(null)
-	const [shift2, setShift2] 	          = useState(null)
-	const [shift3, setShift3] 	          = useState(null)
-  const [listQCs, setListQCs]           = useState([])
+	const [shift1, setShift1] 	              = useState(null)
+	const [shift2, setShift2] 	              = useState(null)
+	const [shift3, setShift3] 	              = useState(null)
+  const [listProdLeader, setListProdLeader] = useState([])
   
   //CHECKING SHIFT
-	const [shift1Done, setShift1Done] 	  = useState(false)
-	const [shift2Done, setShift2Done] 	  = useState(false)
+	const [shift1Done, setShift1Done] 	      = useState(false)
+	const [shift2Done, setShift2Done] 	      = useState(false)
 
+  var name1 = shift1 != null ? shift1.leader_name : null
+  var name2 = shift2 != null ? shift2.leader_name : null
+  var name3 = shift3 != null ? shift3.leader_name : null
+	var timeNow 	= moment()
+	var hoursNow 	= parseInt(moment(timeNow).format("H"))
+  if(hoursNow >= 8 && hoursNow <= 15){
+    var shiftNow = 1
+  }else if(hoursNow >= 16 && hoursNow <= 23){
+    var shiftNow = 2
+  }else{
+    var shiftNow = 3
+  }
 	const submit = async(value) => {
-		const token = await AsyncStorage.getItem("key") 
-		const headers = {
+		var token = await AsyncStorage.getItem("key") 
+		var headers = {
 			'Authorization': token
     }
-    const params = {
+    var params = {
       tbl: "daily_inspection",
-      kind: "update_qcl",
+      kind: "update_production_leader",
       app_version: app_version
     }
+    var known_by = name
     if(value == 1){
       //SUBMIT KE DATA SHIFT 1
       const qc_daily_inspection_item_id = shift1 != null ? shift1.qc_daily_inspection_item_id : null  
-      const qc_process_id = shift1 != null ? shift1.qc_process_id : null
       const data = {
-        name,
-        idUser,
-        shiftId,
-        created_by,
-        updated_by,
-        created_at,
         qc_daily_inspection_item_id,
-        qc_process_id,
-        updated_at
+        known_by
       }
       var config = {
         method: 'put',
+        url: 'https://api.tri-saudara.com/api/v2/qcs/update?',
         params: params,
-        url: 'http://192.168.131.121:3000/api/v2/qcs/update?&tbl=daily_inspection&kind=update_qcl',
-        headers: headers,
-        data: data
+        headers: { 
+            'Authorization': token, 
+            'Content-Type': 'application/json', 
+            'Cookie': '_denapi_session=ubcfq3AHCuVeTlxtg%2F1nyEa3Ktylg8nY1lIEPD7pgS3YAWwlKOxwA0S9pw7JhvZ2mNkrYl0j62wAWJWJZd7AbfolGuHCwXgEMeJH6EoLiQ%3D%3D--M%2BjBb0uJeHmOf%2B3o--%2F2Fjw57x0Fyr90Ec9FVibQ%3D%3D'
+        },
+        data : data
       };
-      axios(config)
+      Axios(config)
       .then(function (response) {
         console.log("Res: ", response.status, " Ok")
         setLoading(true)
@@ -156,10 +165,11 @@ const UpdateProductionLeader = ({route, navigation}) => {
 		const token = await AsyncStorage.getItem("key")
     const id = await AsyncStorage.getItem('id')
     setIdUser(id)
-    let jam = moment().format("HH:mm:ss")
-		if(parseInt(jam) >= 8 && parseInt(jam) <= 15){
+    var timeNow 	= moment()
+    var hoursNow 	= parseInt(moment(timeNow).format("H"))
+		if(hoursNow >= 8 && hoursNow <= 15){
       setShiftId(1)
-    }else if(parseInt(jam) >= 16 && parseInt(jam) <= 23){
+    }else if(hoursNow >= 16 && hoursNow <= 23){
       setShiftId(2)
       setShift1Done(true)
     }else{
@@ -171,28 +181,39 @@ const UpdateProductionLeader = ({route, navigation}) => {
 		}
 		setCreatedBy(id)
     setUpdatedBy(id)
+    const params = {
+			tbl: 'daily_inspection',
+			kind: 'get_production_leader',
+      sys_plant_id: sys_plant_id,
+      qc_daily_inspection_id: qc_daily_inspection_id,
+      app_version: app_version,
+    }
     var config = {
       method: 'get',
-      url: 'https://api.tri-saudara.com/api/v2/qcs?&tbl=daily_inspection&kind=get_qcl&qc_daily_inspection_id=58989&app_version=0.9.1.1&sys_plant_id=2',
-      headers: headers
+      url: 'https://api.tri-saudara.com/api/v2/qcs?',
+      headers: headers,
+      params: params
     };
     Axios(config)
     .then(response => {
       setLoading(true)
-      console.log("Successfully Get Data QCs")
+      setShift1(response.data.data.shift1)
+      setShift2(response.data.data.shift2)
+      setShift3(response.data.data.shift3)
+      setListProdLeader(response.data.data.production_leader)
+      console.log("Successfully Get Data Productions Leader")
     })
     .catch(error => {
       setLoading(true)
       console.log(error)
     });
-
   }
 
   const listUsers = () => {
     var data = []
-    listQCs.map(el => {
+    listProdLeader.map(el => {
       data.push(
-        <Picker.Item key={el.qc_leader_id} label={el.qc_process_name} value={el.qc_leader_id} />
+        <Picker.Item key={el.leader_nik} label={el.leader_name} value={el.known_by} />
       )
     })
     return data
@@ -205,14 +226,80 @@ const UpdateProductionLeader = ({route, navigation}) => {
       </View>
     )
   }
+  
+  const shift1Condition = () => {
+    var data = []
+    if(shift1 == null || shiftNow == 1){
+      data.push(
+        <Picker
+        key="asoKWm2"
+        mode="dropdown"
+        selectedValue={name}
+        onValueChange={(value) => setName(value)}
+        >
+          <Picker.Item label={name1}/>
+          {listUsers()}
+        </Picker>
+        )
+    }else{
+      if(shift1.known_by != null){
+        data.push(
+          <Text>{shift1.leader_name}</Text>
+        )
+      }
+    }
+    return data
+  }
+
+  const shift2Condition = () => {
+    var data = []
+    if(shift2 == null || shiftNow == 2){
+      data.push(
+        <Picker 
+        key="PSkAsmkwOs"
+        mode="dropdown"
+        selectedValue={name}
+        onValueChange={(value) => setName(value)}
+        >
+          <Picker.Item label={name2} value={0} />
+          {listUsers()}
+        </Picker>
+        )
+    }else{
+      if(shift2.known_by != null){
+        data.push(
+          <Text>{shift2.leader_name}</Text>
+        )
+      }
+    }
+    return data
+  }
+
+  const shift3Condition = () => {
+    var data = []
+    if(shift3 == null || shiftNow == 3){
+      data.push(
+        <Picker 
+        key="VAsdZCAsdw"
+        mode="dropdown"
+        selectedValue={name}
+        onValueChange={(value) => setName(value)}
+        >
+          <Picker.Item label={name3} value={0} />
+          {listUsers()}
+        </Picker>
+        )
+    }else{
+      if(shift3.known_by != null){
+        data.push(
+          <Text>{shift3.leader_name}</Text>
+        )
+      }
+    }
+    return data
+  }
 
   const contentShift = () => {
-    const name1 = shift1 != null ? shift1.qc_process_name : null
-    console.log("shift 1: ", name1)
-    const name2 = shift2 != null ? shift2.qc_process_name : null
-    console.log("shift 2: ", name2)
-    const name3 = shift3 != null ? shift3.qc_process_name : null
-    console.log("shift 3: ", name3)
     var data = []
     if(shiftId == 1){
       data.push(
@@ -232,7 +319,7 @@ const UpdateProductionLeader = ({route, navigation}) => {
             <View style={{padding: 4, width: "50%"}}>
               <View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
                 <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-                  <Text>QC Leader</Text>
+                  <Text style={{fontSize: 15}}>Production Leader</Text>
                 </View>
               </View>
             </View>
@@ -248,14 +335,7 @@ const UpdateProductionLeader = ({route, navigation}) => {
             <View style={{padding: 4, width: "50%"}}>
               <View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
                 <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-                  <Picker 
-                  mode="dropdown"
-                  selectedValue={name}
-                  onValueChange={(value) => setName(value)}
-                  >
-                    <Picker.Item label={name1} value={0} />
-                    {listUsers()}
-                  </Picker>
+                  {shift1Condition()}
                 </View>
               </View>
             </View>
@@ -298,7 +378,7 @@ const UpdateProductionLeader = ({route, navigation}) => {
             <View style={{padding: 4, width: "50%"}}>
               <View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
                 <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-                  <Text>QC Leader</Text>
+                  <Text style={{fontSize: 15}}>Production Leader</Text>
                 </View>
               </View>
             </View>
@@ -314,14 +394,7 @@ const UpdateProductionLeader = ({route, navigation}) => {
             <View style={{padding: 4, width: "50%"}}>
               <View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
                 <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-                  <Picker 
-                  mode="dropdown"
-                  selectedValue={name}
-                  onValueChange={(value) => setName(value)}
-                  >
-                    <Picker.Item label={name2} value={0} />
-                    {listUsers()}
-                  </Picker>
+                  {shift2Condition()}
                 </View>
               </View>
             </View>
@@ -364,7 +437,7 @@ const UpdateProductionLeader = ({route, navigation}) => {
             <View style={{padding: 4, width: "50%"}}>
               <View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
                 <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-                  <Text>QC Leader</Text>
+                  <Text style={{fontSize: 15}}>Production Leader</Text>
                 </View>
               </View>
             </View>
@@ -380,14 +453,7 @@ const UpdateProductionLeader = ({route, navigation}) => {
             <View style={{padding: 4, width: "50%"}}>
               <View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
                 <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-                  <Picker 
-                  mode="dropdown"
-                  selectedValue={name}
-                  onValueChange={(value) => setName(value)}
-                  >
-                    <Picker.Item label={name1} value={0} />
-                    {listUsers()}
-                  </Picker>
+                  {shift3Condition()}
                 </View>
               </View>
             </View>
@@ -538,7 +604,7 @@ const UpdateProductionLeader = ({route, navigation}) => {
 						<View style={{borderBottomWidth: 0.3, flexDirection: 'row'}}>
 							<View style={{borderTopWidth: 0.3, borderBottomWidth: 0.3, borderRightWidth: 0.3, height: 70, justifyContent: 'center', alignItems: 'center', width: "50%", backgroundColor: '#dfe0df'}}>
 								<Text style={{marginTop: 1, fontWeight: 'bold', fontSize: 17}}>Daily Inspection</Text>
-								<Text style={{marginTop: 1, fontWeight: 'bold', fontSize: 17}}>Update QC Leader</Text>
+								<Text style={{marginTop: 1, fontWeight: 'bold', fontSize: 15}}>Update Production Leader</Text>
 							</View>
 							<View style={{flexDirection: 'column', width: "100%"}}>
 								<View style={{borderTopWidth: 0.3, height: 65, justifyContent: 'center', alignItems: 'center', width: "50%", flex: 1, flexDirection: 'column'}}>
