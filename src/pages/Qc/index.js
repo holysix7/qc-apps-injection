@@ -191,6 +191,7 @@ const Qc = ({navigation}) => {
     return machines
   }
 
+  
   const buttonNavbar = () => {
     if(userNik == 32008107 || userNik == 21410012){
       return (

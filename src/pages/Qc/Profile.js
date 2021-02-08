@@ -111,7 +111,6 @@ const Profile = ({route, navigation}) => {
 							</TouchableOpacity>
 						</View>
 					</View>
-
 					<View style={{paddingTop: 10, paddingBottom: 10, flexDirection: 'row', paddingLeft: 12}}>
 						<View style={{width: "25%"}}>
 							<Text style={{fontSize: 15}}>Access</Text>
