@@ -273,34 +273,60 @@ const Qc = ({navigation}) => {
           <View style={styles.responsiveButtonLoop}>
             {loading ? listMachines() : <View style={{flex: 1, height: 500, justifyContent: 'center'}}><ActivityIndicator size="large" color="#0000ff"/></View> }
           </View>
-          {loading ? <View style={{alignItems: 'center', borderTopWidth: 1}}><Text style={{fontSize: 15, fontWeight: 'bold'}}>STATUS MESIN</Text></View> : null}
+          {loading ? <View style={{alignItems: 'center', borderTopWidth: 1, borderTopColor: 'gray', paddingVertical: 10}}></View> : null}
           {loading ? <View style={{flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-            <View style={{width: 200, flexWrap: 'wrap', paddingVertical: 10}}>
-              <View style={{width: '50%', flexDirection: 'row'}}>
-                <View style={{backgroundColor: '#1a508b', padding: 8, margin: 5}}></View>
-                <View style={{justifyContent: 'center'}}>
-                  <Text style={{fontWeight: 'bold', fontSize: 8}}>: Loaded</Text>
+
+            <View style={{width: "97%", flexDirection: 'row', paddingVertical: 0}}>
+              <View style={{width: '25%', flexDirection: 'column'}}>
+                {/* Column A */}
+                <View style={{flexDirection: 'row', paddingVertical: 1}}>
+                  <View style={{backgroundColor: '#1a508b', padding: 8, margin: 5}}></View>
+                  <View style={{justifyContent: 'center'}}>
+                    <Text style={{fontWeight: 'bold', fontSize: 8}}>: Loaded</Text>
+                  </View>
                 </View>
-                <View style={{backgroundColor: 'yellow', padding: 8, margin: 5}}></View>
-                <View style={{justifyContent: 'center'}}>
-                  <Text style={{fontWeight: 'bold', fontSize: 8}}>: No Load</Text>
-                </View>
-                <View style={{backgroundColor: 'red', padding: 8, margin: 5}}></View>
-                <View style={{justifyContent: 'center'}}>
-                  <Text style={{fontWeight: 'bold', fontSize: 8}}>: Broken</Text>
+                <View style={{flexDirection: 'row', paddingVertical: 1}}>
+                  <View style={{backgroundColor: 'yellow', padding: 8, margin: 5}}></View>
+                  <View style={{justifyContent: 'center'}}>
+                    <Text style={{fontWeight: 'bold', fontSize: 8}}>: No Load</Text>
+                  </View>
                 </View>
               </View>
-              <View style={{width: '50%', flexDirection: 'row'}}>
-                <View style={{backgroundColor: '#ebae34', padding: 8, margin: 5}}></View>
-                <View style={{justifyContent: 'center'}}>
-                  <Text style={{fontWeight: 'bold', fontSize: 8}}>: Maintenance</Text>
+              <View style={{width: '25%', flexDirection: 'column'}}>
+                {/* Column B */}
+                <View style={{flexDirection: 'row', paddingVertical: 1}}>
+                  <View style={{backgroundColor: 'red', padding: 8, margin: 5}}></View>
+                  <View style={{justifyContent: 'center'}}>
+                    <Text style={{fontWeight: 'bold', fontSize: 8}}>: Broken</Text>
+                  </View>
                 </View>
-                <View style={{backgroundColor: 'green', padding: 8, margin: 5}}></View>
-                <View style={{justifyContent: 'center'}}>
-                  <Text style={{fontWeight: 'bold', fontSize: 8}}>: Trial</Text>
+                <View style={{flexDirection: 'row', paddingVertical: 1}}>
+                </View>
+              </View>
+              <View style={{width: '25%', flexDirection: 'column'}}>
+                {/* Column C */}
+                <View style={{flexDirection: 'row', paddingVertical: 1}}>
+                  <View style={{backgroundColor: '#ebae34', padding: 8, margin: 5}}></View>
+                  <View style={{justifyContent: 'center'}}>
+                    <Text style={{fontWeight: 'bold', fontSize: 8}}>: Maintenance</Text>
+                  </View>
+                </View>
+                <View style={{flexDirection: 'row', paddingVertical: 1}}>
+                </View>
+              </View>
+              <View style={{width: '25%', flexDirection: 'column'}}>
+                {/* Column D */}
+                <View style={{flexDirection: 'row', paddingVertical: 1}}>
+                  <View style={{backgroundColor: 'green', padding: 8, margin: 5}}></View>
+                  <View style={{justifyContent: 'center'}}>
+                    <Text style={{fontWeight: 'bold', fontSize: 8}}>: Trial</Text>
+                  </View>
+                </View>
+                <View style={{flexDirection: 'row', paddingVertical: 1}}>
                 </View>
               </View>
             </View>
+
           </View> : null }
         </ScrollView>
       </View>
