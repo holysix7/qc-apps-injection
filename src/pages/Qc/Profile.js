@@ -27,7 +27,7 @@ const Profile = ({route, navigation}) => {
   {
     dutyId.map((element, key) => {
       dataDuty.push(
-			<Text key={key} style={{fontSize: 20}}>{element.plant_name}</Text>
+				<Text key={key} style={{fontSize: 15}}>{element.plant_name}</Text>
       )
     })
   }else{
@@ -35,7 +35,7 @@ const Profile = ({route, navigation}) => {
 	}
 
 	const buttonNavbar = () => {
-    if(userNik == 32008107){
+    if(userNik == 32008107 || userNik == 21410012){
       return (
         <View style={styles.bottomNavbar}>
           <Button style={styles.buttonNavbar} onPress={() => {
@@ -58,12 +58,12 @@ const Profile = ({route, navigation}) => {
     }else{
       return (
         <View style={styles.bottomNavbar}>
-          <Button style={styles.buttonNavbar}>
-            <Image source={Home} style={{width: 40, height: 40 }}/>
+          <Button style={styles.buttonNavbar} onPress={() => navigation.goBack()}>
+            <Image source={Home} style={{width: 25, height: 25 }}/>
           </Button>
         
           <Button style={styles.buttonNavbar}>
-            <Image source={ImageProfile} style={{width: 50, height: 50 }}/>
+            <Image source={ImageProfile} style={{width: 35, height: 35 }}/>
           </Button>
         </View>
       )
@@ -75,66 +75,64 @@ const Profile = ({route, navigation}) => {
       <View>
         <GeneralStatusBarColor backgroundColor="#54c3f0" barStyle="light-content"/>
       </View>
-      <View style={{height: 100, backgroundColor: '#dfe0df'}}>
+      <View style={{height: 50, backgroundColor: '#dfe0df', alignContent: 'center'}}>
         <View style={{flexDirection: 'row', justifyContent: 'center'}}>
           <View style={{paddingTop: 10, justifyContent: 'center', alignItems: 'center'}}>
             <Text>Profile</Text>
           </View>
         </View>
       </View>
-      <View style={{flex: 1, backgroundColor: '#dfe0df'}}>
-					<View style={{height: 500, margin: 15}}>
-						<View style={{paddingTop: 10, flexDirection: 'row', paddingLeft: 12}}>
-							<View style={{width: "20%"}}>
-								<Text style={{fontSize: 20}}>User</Text>
-							</View>
-							<View style={{width: "6%"}}>
-								<Text style={{fontSize: 20}}>:</Text>
-							</View>
-							<View style={{width: "60%"}}>
-								<TouchableOpacity>
-									<Text style={{fontSize: 20}}>{name}</Text>
-								</TouchableOpacity>
-							</View>
+      <View style={{flex: 1, backgroundColor: '#f0f0f0'}}>
+				<View style={{height: 100, margin: 15}}>
+					<View style={{paddingTop: 10, flexDirection: 'row', paddingLeft: 12}}>
+						<View style={{width: "25%"}}>
+							<Text style={{fontSize: 15}}>User</Text>
 						</View>
-						
-						<View style={{paddingTop: 10, flexDirection: 'row', paddingLeft: 12}}>
-							<View style={{width: "20%"}}>
-								<Text style={{fontSize: 20}}>Dept.</Text>
-							</View>
-							<View style={{width: "6%"}}>
-								<Text style={{fontSize: 20}}>:</Text>
-							</View>
-							<View>
-								<TouchableOpacity>
-									<Text style={{fontSize: 20}}>{deptName}</Text>
-								</TouchableOpacity>
-							</View>
+						<View style={{width: "6%"}}>
+							<Text style={{fontSize: 15}}>:</Text>
 						</View>
-
-						<View style={{paddingTop: 10, flexDirection: 'row', paddingLeft: 12}}>
-							<View style={{width: "20%"}}>
-								<Text style={{fontSize: 20}}>Access</Text>
-							</View>
-							<View style={{width: "6%"}}>
-								<Text style={{fontSize: 20}}>:</Text>
-							</View>
-							<View style={{width: "56%"}}>
-								<TouchableOpacity>
-									<Text style={{fontSize: 20}}>{dataDuty}</Text>
-								</TouchableOpacity>
-							</View>
-						</View>
-						<View style={{paddingTop: 10, flexDirection: 'row', paddingLeft: 12}}>
-							<View style={styles.buttonLogin}>
-								<View>
-									<TouchableOpacity onPress={() => buttLogout()}>
-										<Text style={{fontSize: 20}}>Logout</Text>
-									</TouchableOpacity>
-								</View>
-							</View>
+						<View style={{width: "60%"}}>
+							<TouchableOpacity>
+								<Text style={{fontSize: 15}}>{name}</Text>
+							</TouchableOpacity>
 						</View>
 					</View>
+					
+					<View style={{paddingTop: 10, flexDirection: 'row', paddingLeft: 12}}>
+						<View style={{width: "25%"}}>
+							<Text style={{fontSize: 15}}>Department</Text>
+						</View>
+						<View style={{width: "6%"}}>
+							<Text style={{fontSize: 15}}>:</Text>
+						</View>
+						<View>
+							<TouchableOpacity>
+								<Text style={{fontSize: 15}}>{deptName}</Text>
+							</TouchableOpacity>
+						</View>
+					</View>
+
+					<View style={{paddingTop: 10, paddingBottom: 10, flexDirection: 'row', paddingLeft: 12}}>
+						<View style={{width: "25%"}}>
+							<Text style={{fontSize: 15}}>Access</Text>
+						</View>
+						<View style={{width: "6%"}}>
+							<Text style={{fontSize: 15}}>:</Text>
+						</View>
+						<View style={{width: "56%"}}>
+							<TouchableOpacity>
+								{dataDuty}
+							</TouchableOpacity>
+						</View>
+					</View>
+					<View style={{paddingTop: 10, flexDirection: 'row', paddingLeft: 12, width: "100%", borderTopWidth: 1, borderTopColor: 'gray', justifyContent: 'center'}}>
+						<View>
+								<Button style={{backgroundColor: 'red'}} onPress={() => buttLogout()}>
+									<Text style={{fontSize: 15}}>Logout</Text>
+								</Button>
+						</View>
+					</View>
+				</View>
       </View>
 			{buttonNavbar()}
     </Container>
