@@ -13,6 +13,8 @@ const StopMP = ({route, navigation}) => {
   const [featureUser, setFeature] = useState(null);
   const [user, setUser] = useState(null);
   const [lastShootQC, setLastShootQC] = useState(null);
+  const [idQc, setIdLastShootQC] = useState(null);
+  const [idFr, setIdLastShootFR] = useState(null);
   const [lastShootFR, setLastShootFR] = useState(null);
 	const [loading, setLoading] = useState(false)
 	useEffect(() => {
@@ -49,11 +51,33 @@ const StopMP = ({route, navigation}) => {
 		Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 		.then(response =>{
 			setLastShootQC(response.data.data.last_shoot_qc)
+			setIdLastShootQC(response.data.data.last_shoot_qc.id)
 			setLastShootFR(response.data.data.last_shoot_fr)
+			setIdLastShootFR(response.data.data.last_shoot_fr.id)
 		})
 		.catch(error => {
 			console.log(error)
 		})
+	}
+
+	const alertQCLastShoot = () => {
+		if(idQc != null){
+			navigation.navigate('LastShootForeman', {
+				qc_daily_inspection_id: qc_daily_inspection_id,
+				sys_plant_id: sys_plant_id,
+				daily_inspection_number: daily_inspection_number,
+				product_name: product_name,
+				machine_id: machine_id,
+				customer_name: customer_name,
+				machine_name: machine_name,
+				today: today,
+				machine_number: machine_number,
+				yesterday: yesterday,
+				doc_number: doc_number
+			})
+		}else{
+			alert("Harap Isi Last Shoot Leader QC")
+		}
 	}
 	
 	const loopFeature = () => {
@@ -63,7 +87,7 @@ const StopMP = ({route, navigation}) => {
 			if(featureUser != null){
 				if(sys_plant_id == i+1){
 					if(featureUser[i] != null){
-						if(featureUser[i].qc_last_shoot_qc_leader != null || featureUser[i].qc_last_shoot_foreman != null){
+						if(featureUser[i].qc_last_shoot_qc_leader != null){
 							if(featureUser[i].qc_last_shoot_qc_leader.view_permissions == true){
 								data.push(
 									<Button key="askdmkwqw" style={styles.dailyInspectionButton} onPress={() => navigation.navigate('LastShootLeaderQc', {
@@ -82,14 +106,14 @@ const StopMP = ({route, navigation}) => {
 										doc_number: doc_number
 									})} >
 										<Text> Last Shoot Leader QC </Text>
-                    {lastShootQC != null ? <Image source={checklist} style={{width: 30, height: 30, marginRight: 10}}/> : null}
+                    {idQc != null ? <Image source={checklist} style={{width: 30, height: 30, marginRight: 10}}/> : null}
 									</Button>
 								)
 							}else{
 								data.push(
 									<Button key="askdmkwqw" style={styles.productsNotAccessButton} onPress={() => alert("Maaf Anda Tidak Memiliki Hak Akses Last Shoot Leader QC")} >
 										<Text> Last Shoot Leader QC </Text>   
-                    {lastShootQC != null ? <Image source={checklist} style={{width: 30, height: 30, marginRight: 10}}/> : null}
+                    {idQc != null ? <Image source={checklist} style={{width: 30, height: 30, marginRight: 10}}/> : null}
 									</Button>
 								)
 							}
@@ -97,28 +121,16 @@ const StopMP = ({route, navigation}) => {
 						if(featureUser[i].qc_last_shoot_foreman != null){
 							if(featureUser[i].qc_last_shoot_foreman.view_permissions == true){
 								data.push(
-									<Button key="askdmasqwewkwqw" style={styles.dailyInspectionButton} onPress={() => navigation.navigate('LastShootForeman', {
-										qc_daily_inspection_id: qc_daily_inspection_id,
-										sys_plant_id: sys_plant_id,
-										daily_inspection_number: daily_inspection_number,
-										product_name: product_name,
-										machine_id: machine_id,
-										customer_name: customer_name,
-										machine_name: machine_name,
-										today: today,
-										machine_number: machine_number,
-										yesterday: yesterday,
-										doc_number: doc_number
-									})} >
+									<Button key="askdmasqwewkwqw" style={styles.dailyInspectionButton} onPress={() => alertQCLastShoot()} >
 										<Text> Last Shoot Foreman </Text>   
-                    {lastShootFR != null ? <Image source={checklist} style={{width: 30, height: 30, marginRight: 10}}/> : null}
+                    {idFr != null ? <Image source={checklist} style={{width: 30, height: 30, marginRight: 10}}/> : null}
 									</Button>
 								)
 							}else{
 								data.push(
 									<Button key="askdmasqwewkwqw" style={styles.productsNotAccessButton} onPress={() => alert("Maaf Anda Tidak Memiliki Hak Akses Last Shoot Leader Foreman")} >
 										<Text> Last Shoot Foreman </Text>   
-                    {lastShootFR != null ? <Image source={checklist} style={{width: 30, height: 30, marginRight: 10}}/> : null}
+                    {idFr != null ? <Image source={checklist} style={{width: 30, height: 30, marginRight: 10}}/> : null}
 									</Button>
 								)
 							}

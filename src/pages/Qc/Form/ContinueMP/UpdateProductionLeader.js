@@ -15,7 +15,7 @@ const UpdateProductionLeader = ({route, navigation}) => {
 
   const [loading, setLoading] 	            = useState(true)
   //PARAMETER YANG AKAN DIKIRIM
-	const [name, setName]                     = useState(null)
+	const [userName, setUserName]             = useState(null)
 	const [idUser, setIdUser]                 = useState(null)
 	const [shiftId, setShiftId] 	            = useState(null)
 	const [created_by, setCreatedBy]          = useState(null)
@@ -26,15 +26,10 @@ const UpdateProductionLeader = ({route, navigation}) => {
 	const [shift1, setShift1] 	              = useState(null)
 	const [shift2, setShift2] 	              = useState(null)
 	const [shift3, setShift3] 	              = useState(null)
-  const [listProdLeader, setListProdLeader] = useState([])
-  
   //CHECKING SHIFT
 	const [shift1Done, setShift1Done] 	      = useState(false)
 	const [shift2Done, setShift2Done] 	      = useState(false)
 
-  var name1 = shift1 != null ? shift1.leader_name : null
-  var name2 = shift2 != null ? shift2.leader_name : null
-  var name3 = shift3 != null ? shift3.leader_name : null
 	var timeNow 	= moment()
 	var hoursNow 	= parseInt(moment(timeNow).format("H"))
   if(hoursNow >= 8 && hoursNow <= 15){
@@ -54,7 +49,7 @@ const UpdateProductionLeader = ({route, navigation}) => {
       kind: "update_production_leader",
       app_version: app_version
     }
-    var known_by = name
+    var known_by = userName
     if(value == 1){
       //SUBMIT KE DATA SHIFT 1
       const qc_daily_inspection_item_id = shift1 != null ? shift1.qc_daily_inspection_item_id : null  
@@ -159,7 +154,9 @@ const UpdateProductionLeader = ({route, navigation}) => {
     setLoading(false)
 		const token = await AsyncStorage.getItem("key")
     const id = await AsyncStorage.getItem('id')
+    const name = await AsyncStorage.getItem('name')
     setIdUser(id)
+    setUserName(name)
     var timeNow 	= moment()
     var hoursNow 	= parseInt(moment(timeNow).format("H"))
 		if(hoursNow >= 8 && hoursNow <= 15){
@@ -195,7 +192,6 @@ const UpdateProductionLeader = ({route, navigation}) => {
       setShift1(response.data.data.shift1)
       setShift2(response.data.data.shift2)
       setShift3(response.data.data.shift3)
-      setListProdLeader(response.data.data.production_leader)
       console.log("Successfully Get Data Productions Leader")
     })
     .catch(error => {
@@ -204,94 +200,12 @@ const UpdateProductionLeader = ({route, navigation}) => {
     });
   }
 
-  const listUsers = () => {
-    var data = []
-    listProdLeader.map(el => {
-      data.push(
-        <Picker.Item key={el.leader_nik} label={el.leader_name} value={el.known_by} />
-      )
-    })
-    return data
-  }
-
   const buttonSubmit = () => {
     return (
       <View key="1button" style={{paddingTop: 20, flexDirection: 'row', justifyContent: 'center'}}>
-        <Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit(shiftId)}><Text>SAVE</Text></Button>
+        <Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit(shiftId)}><Text>Continue MP</Text></Button>
       </View>
     )
-  }
-  
-  const shift1Condition = () => {
-    var data = []
-    if(shift1 == null || shiftNow == 1){
-      data.push(
-        <Picker
-        key="asoKWm2"
-        mode="dropdown"
-        selectedValue={name}
-        onValueChange={(value) => setName(value)}
-        >
-          <Picker.Item label={name1}/>
-          {listUsers()}
-        </Picker>
-        )
-    }else{
-      if(shift1.known_by != null){
-        data.push(
-          <Text>{shift1.leader_name}</Text>
-        )
-      }
-    }
-    return data
-  }
-
-  const shift2Condition = () => {
-    var data = []
-    if(shift2 == null || shiftNow == 2){
-      data.push(
-        <Picker 
-        key="PSkAsmkwOs"
-        mode="dropdown"
-        selectedValue={name}
-        onValueChange={(value) => setName(value)}
-        >
-          <Picker.Item label={name2} value={0} />
-          {listUsers()}
-        </Picker>
-        )
-    }else{
-      if(shift2.known_by != null){
-        data.push(
-          <Text>{shift2.leader_name}</Text>
-        )
-      }
-    }
-    return data
-  }
-
-  const shift3Condition = () => {
-    var data = []
-    if(shift3 == null || shiftNow == 3){
-      data.push(
-        <Picker 
-        key="VAsdZCAsdw"
-        mode="dropdown"
-        selectedValue={name}
-        onValueChange={(value) => setName(value)}
-        >
-          <Picker.Item label={name3} value={0} />
-          {listUsers()}
-        </Picker>
-        )
-    }else{
-      if(shift3.known_by != null){
-        data.push(
-          <Text>{shift3.leader_name}</Text>
-        )
-      }
-    }
-    return data
   }
 
   const contentShift = () => {
@@ -329,24 +243,8 @@ const UpdateProductionLeader = ({route, navigation}) => {
             </View>
             <View style={{padding: 4, width: "50%"}}>
               <View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-                <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-                  {shift1Condition()}
-                </View>
-              </View>
-            </View>
-          </View>
-          
-          <View style={{paddingTop: 20, flexDirection: 'row'}}>
-            <View style={{padding: 10, width: "44%"}}>
-              <Text>Shift</Text>
-            </View>
-            <View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-              <Text style={{color: 'black'}}>:</Text>
-            </View>
-            <View style={{padding: 4, width: "50%"}}>
-              <View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
                 <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-                  <Text>{shiftId}</Text>
+                  <Text style={{fontSize: 13}}>{userName}</Text>
                 </View>
               </View>
             </View>
@@ -388,24 +286,8 @@ const UpdateProductionLeader = ({route, navigation}) => {
             </View>
             <View style={{padding: 4, width: "50%"}}>
               <View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-                <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-                  {shift2Condition()}
-                </View>
-              </View>
-            </View>
-          </View>
-          
-          <View style={{paddingTop: 20, flexDirection: 'row'}}>
-            <View style={{padding: 10, width: "44%"}}>
-              <Text>Shift</Text>
-            </View>
-            <View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-              <Text style={{color: 'black'}}>:</Text>
-            </View>
-            <View style={{padding: 4, width: "50%"}}>
-              <View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
                 <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-                  <Text>{shiftId}</Text>
+                  <Text style={{fontSize: 13}}>{userName}</Text>
                 </View>
               </View>
             </View>
@@ -447,24 +329,8 @@ const UpdateProductionLeader = ({route, navigation}) => {
             </View>
             <View style={{padding: 4, width: "50%"}}>
               <View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-                <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-                  {shift3Condition()}
-                </View>
-              </View>
-            </View>
-          </View>
-          
-          <View style={{paddingTop: 20, flexDirection: 'row'}}>
-            <View style={{padding: 10, width: "44%"}}>
-              <Text>Shift</Text>
-            </View>
-            <View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-              <Text style={{color: 'black'}}>:</Text>
-            </View>
-            <View style={{padding: 4, width: "50%"}}>
-              <View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
                 <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-                  <Text>{shiftId}</Text>
+                  <Text style={{fontSize: 13}}>{userName}</Text>
                 </View>
               </View>
             </View>

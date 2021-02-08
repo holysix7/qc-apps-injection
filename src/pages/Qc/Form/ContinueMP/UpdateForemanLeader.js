@@ -15,7 +15,7 @@ const UpdateForemanLeader = ({route, navigation}) => {
 
   const [loading, setLoading] 	        = useState(true)
   //PARAMETER YANG AKAN DIKIRIM
-	const [name, setName]                 = useState(null)
+	const [userName, setUserName]                 = useState(null)
 	const [idUser, setIdUser]             = useState(null)
 	const [shiftId, setShiftId] 	        = useState(null)
 	const [created_by, setCreatedBy]      = useState(null)
@@ -26,7 +26,6 @@ const UpdateForemanLeader = ({route, navigation}) => {
 	const [shift1, setShift1] 	          = useState(null)
 	const [shift2, setShift2] 	          = useState(null)
 	const [shift3, setShift3] 	          = useState(null)
-  const [listFr, setListFr]             = useState([])
   
   //CHECKING SHIFT
 	const [shift1Done, setShift1Done] 	  = useState(false)
@@ -55,7 +54,7 @@ const UpdateForemanLeader = ({route, navigation}) => {
       kind: "update_fr",
       app_version: app_version
     }
-    var foreman_id = name
+    var foreman_id = userName
     if(value == 1){
       //SUBMIT KE DATA SHIFT 1
       const qc_daily_inspection_item_id = shift1 != null ? shift1.qc_daily_inspection_item_id : null  
@@ -159,6 +158,8 @@ const UpdateForemanLeader = ({route, navigation}) => {
     setLoading(false)
 		const token = await AsyncStorage.getItem("key")
     const id = await AsyncStorage.getItem('id')
+    const name = await AsyncStorage.getItem('name')
+    setUserName(name)
     setIdUser(id)
     let jam = moment().format("HH:mm:ss")
 		if(parseInt(jam) >= 8 && parseInt(jam) <= 15){
@@ -194,7 +195,6 @@ const UpdateForemanLeader = ({route, navigation}) => {
       setShift1(response.data.data.shift1)
       setShift2(response.data.data.shift2)
       setShift3(response.data.data.shift3)
-      setListFr(response.data.data.foreman)
       console.log("Successfully Get Data Foremans")
     })
     .catch(error => {
@@ -203,122 +203,12 @@ const UpdateForemanLeader = ({route, navigation}) => {
     });
   }
 
-  const listUsers = () => {
-    var data = []
-    listFr.map(el => {
-      data.push(
-        <Picker.Item key={el.foreman_id} label={el.foreman_name} value={el.foreman_id} />
-      )
-    })
-    return data
-  }
-
   const buttonSubmit = () => {
     return (
       <View key="1button" style={{paddingTop: 20, flexDirection: 'row', justifyContent: 'center'}}>
-        <Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit(shiftId)}><Text>SAVE</Text></Button>
+        <Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit(shiftId)}><Text>Continue MP</Text></Button>
       </View>
     )
-  }
-
-  
-  const shift1Condition = () => {
-    var data = []
-    if(shift1 == null || shiftNow == 1){
-      data.push(
-        <View key="aoszxckdaowkwe" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-          <Picker
-          mode="dropdown"
-          selectedValue={name}
-          onValueChange={(value) => setName(value)}
-          >
-            <Picker.Item label={name1}/>
-            {listUsers()}
-          </Picker>
-        </View>
-      )
-    }else{
-      if(shift1.foreman_id != null){
-        data.push(
-          <View key="aoskdaowkwe" style={{backgroundColor: '#b8b8b8', borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-            <Text>{shift1.foreman_name != null ? shift1.foreman_name : "-"}</Text>
-          </View>
-        )
-      }else{
-        data.push(
-          <View key="aoskdaowkwe" style={{backgroundColor: '#b8b8b8', borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-            <Text>{shift1 != null ? shift1.foreman_name : "-"}</Text>
-          </View>
-        )
-      }
-    }
-    return data
-  }
-
-  const shift2Condition = () => {
-    var data = []
-    if(shift2 == null || shiftNow == 2){
-      data.push(
-        <View key="aoszxckdaowkwe" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-          <Picker 
-          mode="dropdown"
-          selectedValue={name}
-          onValueChange={(value) => setName(value)}
-          >
-            <Picker.Item label={name2} value={0} />
-            {listUsers()}
-          </Picker>
-        </View>
-        )
-    }else{
-      if(shift2.foreman_id != null){
-        data.push(
-          <View key="aoszxckdaowkwe" style={{backgroundColor: '#b8b8b8', borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-            <Text>{shift2.foreman_name}</Text>
-          </View>
-        )
-      }else{
-        data.push(
-          <View key="aoszxckdaowkwe" style={{backgroundColor: '#b8b8b8', borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-            <Text>{shift2 != null ? shift2.foreman_name : "-"}</Text>
-          </View>
-        )
-      }
-    }
-    return data
-  }
-
-  const shift3Condition = () => {
-    var data = []
-    if(shift3 == null || shiftNow == 3){
-      data.push(
-        <View key="aoszxckdaowkwe" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-          <Picker 
-          mode="dropdown"
-          selectedValue={name}
-          onValueChange={(value) => setName(value)}
-          >
-            <Picker.Item label={name3} value={0} />
-            {listUsers()}
-          </Picker>
-        </View>
-        )
-    }else{
-      if(shift3.foreman_id != null){
-        data.push(
-          <View key="aoszxckdaowkwe" style={{backgroundColor: '#b8b8b8', borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-            <Text>{shift3.foreman_name}</Text>
-          </View>
-        )
-      }else{
-        data.push(
-          <View key="aosksadaowkwe" style={{backgroundColor: '#b8b8b8', borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-            <Text>{shift3 != null ? shift3.foreman_name : "-"}</Text>
-          </View>
-        )
-      }
-    }
-    return data
   }
 
   const contentShift = () => {
@@ -356,22 +246,8 @@ const UpdateForemanLeader = ({route, navigation}) => {
             </View>
             <View style={{padding: 4, width: "50%"}}>
               <View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-                {shift1Condition()}
-              </View>
-            </View>
-          </View>
-          
-          <View style={{paddingTop: 20, flexDirection: 'row'}}>
-            <View style={{padding: 10, width: "44%"}}>
-              <Text>Shift</Text>
-            </View>
-            <View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-              <Text style={{color: 'black'}}>:</Text>
-            </View>
-            <View style={{padding: 4, width: "50%"}}>
-              <View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
                 <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-                  <Text>{shiftId}</Text>
+                  <Text style={{fontSize: 13}}>{userName}</Text>
                 </View>
               </View>
             </View>
@@ -413,27 +289,12 @@ const UpdateForemanLeader = ({route, navigation}) => {
             </View>
             <View style={{padding: 4, width: "50%"}}>
               <View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-                {shift2Condition()}
-              </View>
-            </View>
-          </View>
-          
-          <View style={{paddingTop: 20, flexDirection: 'row'}}>
-            <View style={{padding: 10, width: "44%"}}>
-              <Text>Shift</Text>
-            </View>
-            <View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-              <Text style={{color: 'black'}}>:</Text>
-            </View>
-            <View style={{padding: 4, width: "50%"}}>
-              <View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
                 <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-                  <Text>{shiftId}</Text>
+                  <Text style={{fontSize: 13}}>{userName}</Text>
                 </View>
               </View>
             </View>
           </View>
-
           {buttonSubmit()}
         </View>
       )
@@ -470,22 +331,8 @@ const UpdateForemanLeader = ({route, navigation}) => {
             </View>
             <View style={{padding: 4, width: "50%"}}>
               <View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-                {shift3Condition()}
-              </View>
-            </View>
-          </View>
-          
-          <View style={{paddingTop: 20, flexDirection: 'row'}}>
-            <View style={{padding: 10, width: "44%"}}>
-              <Text>Shift</Text>
-            </View>
-            <View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-              <Text style={{color: 'black'}}>:</Text>
-            </View>
-            <View style={{padding: 4, width: "50%"}}>
-              <View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
                 <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-                  <Text>{shiftId}</Text>
+                  <Text style={{fontSize: 13}}>{userName}</Text>
                 </View>
               </View>
             </View>
