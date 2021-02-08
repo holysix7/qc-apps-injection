@@ -191,7 +191,6 @@ const UpdateForemanLeader = ({route, navigation}) => {
     Axios(config)
     .then(response => {
       setLoading(true)
-      console.log(response.data.data.shift1)
       setShift1(response.data.data.shift1)
       setShift2(response.data.data.shift2)
       setShift3(response.data.data.shift3)
@@ -225,7 +224,6 @@ const UpdateForemanLeader = ({route, navigation}) => {
   
   const shift1Condition = () => {
     var data = []
-    console.log(shift1)
     if(shift1 == null || shiftNow == 1){
       data.push(
         <View key="aoszxckdaowkwe" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>

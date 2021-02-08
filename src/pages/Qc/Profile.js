@@ -16,7 +16,6 @@ const Profile = ({route, navigation}) => {
 			.then(keys => AsyncStorage.multiRemove(keys))
 			.then(() => {
 				navigation.replace('Login')
-				console.log("Berhasil Logout")
 				alert("Successfully Logout!")
 			})
     } catch (error) {

@@ -1367,6 +1367,7 @@ const PerShift = ({route, navigation}) => {
 
 	const idButtonFix = () => {
 		if(cavityDetail.length > 0){
+			console.log(cavityDetail[0].weight_product)
 			if(cavityDetail[0].weight_product != null){
 				return(
 					<View>
@@ -1375,6 +1376,29 @@ const PerShift = ({route, navigation}) => {
 								<Button style={{backgroundColor: 'green', width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => alert("Already Saved!")}><Text>SAVED</Text></Button>
 							</View>
 						</View>
+						<View style={{flexDirection: 'column', height: 50}}>
+							<View style={{height: 27, alignItems: 'center'}}>
+								<Text style={{fontWeight: 'bold'}}>
+									Inspection Time
+								</Text>
+							</View>
+							<View style={{height: 23, alignItems: 'center'}}>
+								<Text>
+									{updateinspection_time != null ? updateinspection_time : inspectionTime}
+								</Text>
+							</View>
+						</View>
+					</View>
+				)
+			}else{
+				return(
+					<View>
+						<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
+							<View key="SokemlIj2">
+								<Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>
+							</View>
+						</View>
+		
 						<View style={{flexDirection: 'column', height: 50}}>
 							<View style={{height: 27, alignItems: 'center'}}>
 								<Text style={{fontWeight: 'bold'}}>

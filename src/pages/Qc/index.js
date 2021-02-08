@@ -1,5 +1,5 @@
 import {View, ScrollView, ActivityIndicator, Image, Alert, RefreshControl} from 'react-native';
-import React, {useState, useEffect } from 'react';
+import React, {useState, useEffect, useCallback } from 'react';
 import { Container, Text, Button, Picker} from 'native-base';
 import GeneralStatusBarColor from '../../components/GeneralStatusBarColor';
 import styles from '../../components/styles/Styling'
@@ -238,8 +238,8 @@ const Qc = ({navigation}) => {
       )
     }
   }
-  console.log("plant id: ", cekId)
-  const onRefresh = React.useCallback(() => {
+
+  const onRefresh = useCallback(() => {
     setRefreshing(true);
     mesin(cekId);
   }, []);
@@ -270,8 +270,37 @@ const Qc = ({navigation}) => {
         >
           {/* {loading == true ? <View><ActivityIndicator size="large" color='#0000ff'/></View> : null} */}
           <View style={styles.responsiveButtonLoop}>
-          {loading ? listMachines() : <View style={{flex: 1, height: 500, justifyContent: 'center'}}><ActivityIndicator size="large" color="#0000ff"/></View> }
+            {loading ? listMachines() : <View style={{flex: 1, height: 500, justifyContent: 'center'}}><ActivityIndicator size="large" color="#0000ff"/></View> }
           </View>
+          {loading ? <View style={{alignItems: 'center', borderTopWidth: 1}}><Text style={{fontSize: 15, fontWeight: 'bold'}}>STATUS MESIN</Text></View> : null}
+          {loading ? <View style={{flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
+            <View style={{width: 200, flexWrap: 'wrap', paddingVertical: 10}}>
+              <View style={{width: '50%', flexDirection: 'row'}}>
+                <View style={{backgroundColor: '#1a508b', padding: 8, margin: 5}}></View>
+                <View style={{justifyContent: 'center'}}>
+                  <Text style={{fontWeight: 'bold', fontSize: 8}}>: Loaded</Text>
+                </View>
+                <View style={{backgroundColor: 'yellow', padding: 8, margin: 5}}></View>
+                <View style={{justifyContent: 'center'}}>
+                  <Text style={{fontWeight: 'bold', fontSize: 8}}>: No Load</Text>
+                </View>
+                <View style={{backgroundColor: 'red', padding: 8, margin: 5}}></View>
+                <View style={{justifyContent: 'center'}}>
+                  <Text style={{fontWeight: 'bold', fontSize: 8}}>: Broken</Text>
+                </View>
+              </View>
+              <View style={{width: '50%', flexDirection: 'row'}}>
+                <View style={{backgroundColor: '#ebae34', padding: 8, margin: 5}}></View>
+                <View style={{justifyContent: 'center'}}>
+                  <Text style={{fontWeight: 'bold', fontSize: 8}}>: Maintenance</Text>
+                </View>
+                <View style={{backgroundColor: 'green', padding: 8, margin: 5}}></View>
+                <View style={{justifyContent: 'center'}}>
+                  <Text style={{fontWeight: 'bold', fontSize: 8}}>: Trial</Text>
+                </View>
+              </View>
+            </View>
+          </View> : null }
         </ScrollView>
       </View>
       {userNik != null ? buttonNavbar() : <View style={{flex: 1, height: 500, justifyContent: 'center'}}><ActivityIndicator size="large" color="#0000ff"/></View> }

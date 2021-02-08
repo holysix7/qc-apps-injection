@@ -108,6 +108,7 @@ const LastShootForeman = ({route, navigation}) => {
 		Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 		.then(response => {
 			setLoading(true)
+			console.log(response.data.data.daily_inspection)
 			setData(response.data.data.daily_inspection)
 			setEngProdId(response.data.data.eng_product_id)
 			setTooling(response.data.data.daily_inspection.tooling_num)

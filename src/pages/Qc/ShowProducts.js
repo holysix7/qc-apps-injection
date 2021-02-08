@@ -1,5 +1,5 @@
-import {Image, View, ScrollView, ActivityIndicator, BackHandler, Alert} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import {Image, View, ScrollView, ActivityIndicator, RefreshControl, Alert} from 'react-native';
+import React, {useEffect, useState, useCallback} from 'react';
 import LogoSIP from '../../assets/logo-sip370x50.png';
 import AsyncStorage from "@react-native-community/async-storage";
 import axios from 'axios';
@@ -14,38 +14,11 @@ const ShowProducts = ({route, navigation}) => {
 	const [data, setData] = useState([])
 	const [feature, setFeature] = useState(null)
 	const [loading, setLoading] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
 	
 	useEffect(() => {
-		let isMounted = true;
 		session();
-		const products = async () => {
-			const token = await AsyncStorage.getItem("key")
-			const headers = {
-				'Authorization': token
-			}
-			const params = {
-				tbl: 'daily_inspection',
-				kind: 'by_machine',
-				sys_plant_id: sys_plant_id,
-				machine_id: machine_id,
-				app_version: app_version
-			}
-			try {
-				axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
-				.then(response => {
-					setLoading(true)
-					if(isMounted) setData(response.data.data)
-					console.log("Products List Data: ", response.data.status, response.data.message)
-				})
-				.catch(error => console.log(error))
-			} catch (error) {
-				console.log(error)
-			}
-		}
-		products()
-		return () => {
-			isMounted = false
-		}
+		products();
 	}, [])
 
 	const session = async () => {
@@ -56,6 +29,34 @@ const ShowProducts = ({route, navigation}) => {
       console.log('Multi Get Error: ', error.message)
     }
 	}
+
+	
+	const products = async () => {
+		const token = await AsyncStorage.getItem("key")
+		const headers = {
+			'Authorization': token
+		}
+		const params = {
+			tbl: 'daily_inspection',
+			kind: 'by_machine',
+			sys_plant_id: sys_plant_id,
+			machine_id: machine_id,
+			app_version: app_version
+		}
+		axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
+		.then(response => {
+			setLoading(true)
+      setRefreshing(false)
+			setData(response.data.data)
+			console.log("Products List Data: ", response.data.status, response.data.message)
+		})
+		.catch(error => console.log(error))
+	}
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    products();
+  }, []);
 
 	const alertStopMP = (value) => {
 		Alert.alert(
@@ -225,7 +226,7 @@ const ShowProducts = ({route, navigation}) => {
 			</View>
 			{loading ? null : <View style={{backgroundColor: '#dfe0df', alignItems: 'center', justifyContent: 'center'}}><ActivityIndicator size="large" color="#0000ff"/></View>}
 			<View style={styles.contentFullWithPadding}>
-				<ScrollView>
+				<ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
 					<View style={styles.contenDateProduct}>
 						{loading ? <Text style={styles.fontProduct}>{today}</Text> : null}
 						{loading ? allProductsToday : null}

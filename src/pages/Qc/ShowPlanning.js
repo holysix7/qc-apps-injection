@@ -1,5 +1,5 @@
-import {Image, View, ScrollView, ActivityIndicator} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import {Image, View, ScrollView, ActivityIndicator, RefreshControl} from 'react-native';
+import React, {useEffect, useState, useCallback} from 'react';
 import LogoSIP from '../../assets/logo-sip370x50.png';
 import checklist from '../../assets/check.png';
 import AsyncStorage from "@react-native-community/async-storage";
@@ -25,49 +25,53 @@ const ShowPlanning = ({route, navigation}) => {
   const [machine_name, setMachineName] = useState(null)
   const [featureUser, setFeature] = useState(null)
   const [loading, setLoading] = useState(false)
+  const [refreshing, setRefreshing] = useState(false);
 	useEffect(() => {
     session()
 		let isMounted = true;
-		const products = async () => {
-			const token = await AsyncStorage.getItem("key")
-			const headers = {
-				'Authorization': token
-			}
-			const params = {
-				tbl: 'daily_inspection',
-				kind: 'by_planning',
-				sys_plant_id: sys_plant_id,
-        machine_id: machine_id,
-        app_version: app_version
-			}
-			try {
-				axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
-				.then(response => {
-          setDataPlanning(response.data.data.product_1)
-          setProductName(response.data.data.product1_name)
-          setMaintMoldId(response.data.data.qc_masspro_main_mold_id)
-          setMaterialId(response.data.data.qc_masspro_material_preparation_id)
-          setMoldSetterId(response.data.data.qc_masspro_mold_setter_id)
-          setTechInjectionId(response.data.data.qc_masspro_tech_injection_id)
-          setProdLeaderId(response.data.data.qc_masspro_prod_leader_id)
-          setQcLeaderId(response.data.data.qc_masspro_qc_leader_id)
-          setForemanId(response.data.data.qc_masspro_foreman_id)
-          setCustomerName(response.data.data.customer_name)
-          setMachineName(response.data.data.machine_name)
-					setLoading(true)
-					if(isMounted) setData(response.data.data)
-					console.log("Products List Data: ", response.data.status, response.data.message)
-				})
-				.catch(error => console.log(error))
-			} catch (error) {
-				console.log(error)
-			}
-		}
 		products()
-		return () => {
-			isMounted = false
-		}
+		// return () => {
+		// 	isMounted = false
+		// }
 	}, [])
+  
+  const products = async () => {
+    const token = await AsyncStorage.getItem("key")
+    const headers = {
+      'Authorization': token
+    }
+    const params = {
+      tbl: 'daily_inspection',
+      kind: 'by_planning',
+      sys_plant_id: sys_plant_id,
+      machine_id: machine_id,
+      app_version: app_version
+    }
+    axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
+    .then(response => {
+      setData(response.data.data)
+      setDataPlanning(response.data.data.product_1)
+      setProductName(response.data.data.product1_name)
+      setMaintMoldId(response.data.data.qc_masspro_main_mold_id)
+      setMaterialId(response.data.data.qc_masspro_material_preparation_id)
+      setMoldSetterId(response.data.data.qc_masspro_mold_setter_id)
+      setTechInjectionId(response.data.data.qc_masspro_tech_injection_id)
+      setProdLeaderId(response.data.data.qc_masspro_prod_leader_id)
+      setQcLeaderId(response.data.data.qc_masspro_qc_leader_id)
+      setForemanId(response.data.data.qc_masspro_foreman_id)
+      setCustomerName(response.data.data.customer_name)
+      setMachineName(response.data.data.machine_name)
+      setRefreshing(false)
+      setLoading(true)
+      console.log("Products List Data: ", response.data.status, response.data.message)
+    })
+    .catch(error => console.log(error))
+  }
+  
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    products();
+  }, []);
 
   const session = async () => {
     try {
@@ -407,7 +411,7 @@ const ShowPlanning = ({route, navigation}) => {
 			</View>
 			
 			<View style={styles.contentFullWithPadding}>
-				<ScrollView>
+				<ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />} >
 					<View style={styles.contentHeader}>
 						{loading ? loopFeature() : <View style={{justifyContent: 'center'}}><ActivityIndicator size="large" color="#0000ff"/></View>}
 					</View>

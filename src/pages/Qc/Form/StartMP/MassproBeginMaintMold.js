@@ -385,14 +385,41 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 			}else{
 				data.push(
 					<View key="ss12" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, width: 177}}>
-						<TextInput value={tooling} onChangeText={(value) => setTooling(value)} style={{paddingLeft: 5, height: 40, width: 177}} placeholder="Type Here..." />
+						<Picker 
+						mode="dropdown"
+						selectedValue={tooling}
+						onValueChange={(value) => setTooling(value)}
+						itemStyle={{marginLeft: 0}}
+						itemTextStyle={{fontSize: 9}}
+						key="asdweq"
+						>
+							<Picker.Item label="1" value="1" />
+							<Picker.Item label="2" value="2" />
+							<Picker.Item label="3" value="3" />
+							<Picker.Item label="4" value="4" />
+							<Picker.Item label="5" value="5" />
+						</Picker>
+						{/* <TextInput value={tooling} onChangeText={(value) => setTooling(value)} style={{paddingLeft: 5, height: 40, width: 177}} placeholder="Type Here..." /> */}
 					</View>
 				)	
 			}
 		}else{
 			data.push(
 				<View key="ss12" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, width: 177}}>
-					<TextInput value={tooling} onChangeText={(value) => setTooling(value)} style={{paddingLeft: 5, height: 40, width: 177}} placeholder="Type Here..." />
+					<Picker 
+						mode="dropdown"
+						selectedValue={tooling}
+						onValueChange={(value) => setTooling(value)}
+						itemStyle={{marginLeft: 0}}
+						itemTextStyle={{fontSize: 9}}
+						key="asdweq"
+						>
+							<Picker.Item label="1" value="1" />
+							<Picker.Item label="2" value="2" />
+							<Picker.Item label="3" value="3" />
+							<Picker.Item label="4" value="4" />
+							<Picker.Item label="5" value="5" />
+						</Picker>
 				</View>
 			)	
 		}
