@@ -152,6 +152,7 @@ const UpdateForemanLeader = ({route, navigation}) => {
   }
   
 	const formOke = async() => {
+    //getting data
     setLoading(false)
 		const token = await AsyncStorage.getItem("key")
     const id = await AsyncStorage.getItem('id')
