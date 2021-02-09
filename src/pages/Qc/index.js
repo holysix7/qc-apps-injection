@@ -205,6 +205,12 @@ const Qc = ({navigation}) => {
           }}>
             <Image source={Cog} style={styles.cogButton}/>
           </Button>
+
+          <Button style={styles.buttonNavbar} onPress={() => {
+            navigation.navigate('IQC')
+          }}>
+            <Image source={Cog} style={styles.cogButton}/>
+          </Button>
         
           <Button style={styles.buttonNavbar} onPress={() => {
             navigation.navigate('Profile', {

@@ -68,8 +68,6 @@ const Login = ({navigation}) => {
 		})
 	}
 
-
-
 	const content = () => {
 		var data = []
 		data.push(

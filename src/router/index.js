@@ -23,12 +23,14 @@ import {
 	LastShootLeaderQc,
 	LastShootForeman,
 	Profile,
-	OQC,
 	Scanner,
 	UpdateProductionLeader,
 	UpdateForemanLeader,
 	ContinueMP,
-	StopMP
+	StopMP,
+	OQC,
+	IQC,
+	NextDay
 } from '../pages';
 
 const Stack = createStackNavigator();
@@ -63,11 +65,13 @@ const Router = () => {
 			<Stack.Screen name="LastShootLeaderQc" component={LastShootLeaderQc} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
 			<Stack.Screen name="LastShootForeman" component={LastShootForeman} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
 			<Stack.Screen name="Scanner" component={Scanner} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
-			<Stack.Screen name="OQC" component={OQC} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
 			<Stack.Screen name="UpdateProductionLeader" component={UpdateProductionLeader} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
 			<Stack.Screen name="UpdateForemanLeader" component={UpdateForemanLeader} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
 			<Stack.Screen name="ContinueMP" component={ContinueMP} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
 			<Stack.Screen name="StopMP" component={StopMP} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
+			<Stack.Screen name="OQC" component={OQC} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
+			<Stack.Screen name="IQC" component={IQC} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
+			<Stack.Screen name="NextDay" component={NextDay} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
 		</Stack.Navigator>
 	)
 }

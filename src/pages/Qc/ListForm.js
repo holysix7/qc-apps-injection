@@ -6,7 +6,7 @@ import styles from '../../components/styles/Styling';
 import AsyncStorage from "@react-native-community/async-storage";
 
 const ListForm = ({route, navigation}) => {
-	const {qc_daily_inspection_id, qc_daily_inspection_item_id, qc_daily_inspection_method_id, sys_plant_id, product_name, customer_name, customer_part_number, machine_id, machine_name, machine_status, operator_nik, operator_nik_2, leader_nik, foreman_nik, qc_process_nik, machine_number, today, yesterday, daily_inspection_number, doc_number} = route.params
+	const {internal_part_id, model, qc_daily_inspection_id, qc_daily_inspection_item_id, qc_daily_inspection_method_id, sys_plant_id, product_name, customer_name, customer_part_number, machine_id, machine_name, machine_status, operator_nik, operator_nik_2, leader_nik, foreman_nik, qc_process_nik, machine_number, today, yesterday, daily_inspection_number, doc_number} = route.params
   const [featureUser, setFeature] = useState(null);
   const [user, setUser] = useState(null);
 	const [loading, setLoading] = useState(false)
@@ -16,6 +16,8 @@ const ListForm = ({route, navigation}) => {
 			setLoading(true)
 		}, 1000);
 	}, [])
+	console.log("model :", model)
+	console.log("customer_part_number :", customer_part_number)
 
 	const session = async () => {
     try {
@@ -41,6 +43,7 @@ const ListForm = ({route, navigation}) => {
 								data.push(
 									<View key="aopskdmk21asiun2">
 										<Button style={styles.dailyInspectionButton} onPress={() => navigation.navigate('PerJam', {
+											internal_part_id: internal_part_id,
 											qc_daily_inspection_id: qc_daily_inspection_id,
 											qc_daily_inspection_item_id: qc_daily_inspection_item_id,
 											qc_daily_inspection_method_id: qc_daily_inspection_method_id,
@@ -50,6 +53,7 @@ const ListForm = ({route, navigation}) => {
 											customer_name: customer_name,
 											machine_name: machine_name,
 											machine_status: machine_status,
+											model: model,
 											today: today,
 											machine_number: machine_number,
 											operator_nik: operator_nik, 
@@ -63,6 +67,7 @@ const ListForm = ({route, navigation}) => {
 											<Text> Per Jam </Text>   
 										</Button>
 										<Button style={styles.dailyInspectionButton} onPress={() => navigation.navigate('Per4Jam', {
+											internal_part_id: internal_part_id,
 											qc_daily_inspection_id: qc_daily_inspection_id,
 											qc_daily_inspection_method_id: qc_daily_inspection_method_id,
 											sys_plant_id: sys_plant_id,
@@ -71,6 +76,7 @@ const ListForm = ({route, navigation}) => {
 											machine_id: machine_id,
 											customer_name: customer_name,
 											machine_name: machine_name,
+											model: model,
 											today: today,
 											machine_number: machine_number,
 											operator_nik: operator_nik, 
@@ -81,6 +87,7 @@ const ListForm = ({route, navigation}) => {
 											<Text> Per 4 Jam </Text>   
 										</Button>
 										<Button style={styles.dailyInspectionButton} onPress={() => navigation.navigate('PerShift', {
+											internal_part_id: internal_part_id,
 											qc_daily_inspection_id: qc_daily_inspection_id,
 											sys_plant_id: sys_plant_id,
 											daily_inspection_number: daily_inspection_number,
@@ -89,6 +96,7 @@ const ListForm = ({route, navigation}) => {
 											customer_name: customer_name,
 											machine_name: machine_name,
 											machine_status: machine_status,
+											model: model,
 											today: today,
 											machine_number: machine_number,
 											operator_nik: operator_nik, 
@@ -124,6 +132,7 @@ const ListForm = ({route, navigation}) => {
 							if(featureUser[i].qc_masspro_qc_leader.view_permissions == true){
 								data.push(
 									<Button key="asn2jo1ij2njs" style={styles.dailyInspectionButton} onPress={() => navigation.navigate('RevisiFirstPieceLeaderQc', {
+										internal_part_id: internal_part_id,
 										qc_daily_inspection_id: qc_daily_inspection_id,
 										sys_plant_id: sys_plant_id,
 										daily_inspection_number: daily_inspection_number,
@@ -131,6 +140,7 @@ const ListForm = ({route, navigation}) => {
 										machine_id: machine_id,
 										customer_name: customer_name,
 										machine_name: machine_name,
+										model: model,
 										today: today,
 										machine_number: machine_number,
 										yesterday: yesterday,
@@ -152,6 +162,7 @@ const ListForm = ({route, navigation}) => {
 							if(featureUser[i].qc_masspro_foreman.view_permissions == true){
 								data.push(
 									<Button key="asXascn2jo1ij2njs" style={styles.dailyInspectionButton} onPress={() => navigation.navigate('RevisiFirstPieceForeman', {
+										internal_part_id: internal_part_id,
 										qc_daily_inspection_id: qc_daily_inspection_id,
 										sys_plant_id: sys_plant_id,
 										daily_inspection_number: daily_inspection_number,
@@ -160,6 +171,7 @@ const ListForm = ({route, navigation}) => {
 										customer_name: customer_name,
 										customer_part_number: customer_part_number,
 										machine_name: machine_name,
+										model: model,
 										today: today,
 										machine_number: machine_number,
 										yesterday: yesterday,
@@ -194,6 +206,7 @@ const ListForm = ({route, navigation}) => {
 							if(featureUser[i].qc_last_shoot_qc_leader.view_permissions == true || featureUser[i].qc_last_shoot_foreman.view_permissions == true || featureUser[i].qc_last_shoot_foreman.view_permissions == true){
 								data.push(
 									<Button key="askdmkwqw" style={styles.dailyInspectionStopButton} onPress={() => navigation.navigate('StopMP', {
+										internal_part_id: internal_part_id,
 										qc_daily_inspection_id: qc_daily_inspection_id,
 										qc_daily_inspection_item_id: qc_daily_inspection_item_id,
 										qc_daily_inspection_method_i: qc_daily_inspection_method_id,
@@ -203,10 +216,12 @@ const ListForm = ({route, navigation}) => {
 										machine_id: machine_id,
 										customer_name: customer_name,
 										machine_name: machine_name,
+										model: model,
 										today: today,
 										machine_number: machine_number,
 										yesterday: yesterday,
-										doc_number: doc_number
+										doc_number: doc_number,
+										customer_part_number: customer_part_number
 									})} >
 										<Text style={styles.fontDailyInspectionStopButton}> STOP MP </Text>   
 									</Button>
@@ -223,6 +238,7 @@ const ListForm = ({route, navigation}) => {
 							if(featureUser[i].qc_masspro_qc_leader.view_permissions == true && user == 32008107 || user == 21410012 || featureUser[i].qc_masspro_foreman.view_permissions == true && user == 32008107 || user == 21410012 || featureUser[i].qc_masspro_prod_leader.view_permissions){
 								data.push(
 									<Button key="AscvSacx" style={styles.dailyInspectionContinueButton} onPress={() => navigation.navigate('ContinueMP', {
+										internal_part_id: internal_part_id,
 										qc_daily_inspection_id: qc_daily_inspection_id,
 										sys_plant_id: sys_plant_id,
 										daily_inspection_number: daily_inspection_number,
@@ -230,6 +246,7 @@ const ListForm = ({route, navigation}) => {
 										machine_id: machine_id,
 										customer_name: customer_name,
 										machine_name: machine_name,
+										model: model,
 										today: today,
 										machine_number: machine_number,
 										yesterday: yesterday,
