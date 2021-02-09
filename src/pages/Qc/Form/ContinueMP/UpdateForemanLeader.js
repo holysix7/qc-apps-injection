@@ -15,7 +15,8 @@ const UpdateForemanLeader = ({route, navigation}) => {
 
   const [loading, setLoading] 	        = useState(true)
   //PARAMETER YANG AKAN DIKIRIM
-	const [userName, setUserName]                 = useState(null)
+	const [namaUser, setNama]             = useState(null)
+	const [userName, setUserName]         = useState(null)
 	const [idUser, setIdUser]             = useState(null)
 	const [shiftId, setShiftId] 	        = useState(null)
 	const [created_by, setCreatedBy]      = useState(null)
@@ -30,10 +31,6 @@ const UpdateForemanLeader = ({route, navigation}) => {
   //CHECKING SHIFT
 	const [shift1Done, setShift1Done] 	  = useState(false)
   const [shift2Done, setShift2Done] 	  = useState(false)
-  
-  var name1 = shift1 != null ? shift1.foreman_name : null
-  var name2 = shift2 != null ? shift2.foreman_name : null
-  var name3 = shift3 != null ? shift3.foreman_name : null
 	var timeNow 	= moment()
 	var hoursNow 	= parseInt(moment(timeNow).format("H"))
   if(hoursNow >= 8 && hoursNow <= 15){
@@ -155,11 +152,13 @@ const UpdateForemanLeader = ({route, navigation}) => {
   }
   
 	const formOke = async() => {
+    //getting data
     setLoading(false)
 		const token = await AsyncStorage.getItem("key")
     const id = await AsyncStorage.getItem('id')
     const name = await AsyncStorage.getItem('name')
-    setUserName(name)
+    setNama(name)
+    setUserName(id)
     setIdUser(id)
     let jam = moment().format("HH:mm:ss")
 		if(parseInt(jam) >= 8 && parseInt(jam) <= 15){
@@ -247,7 +246,7 @@ const UpdateForemanLeader = ({route, navigation}) => {
             <View style={{padding: 4, width: "50%"}}>
               <View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
                 <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-                  <Text style={{fontSize: 13}}>{userName}</Text>
+                  <Text style={{fontSize: 13}}>{namaUser}</Text>
                 </View>
               </View>
             </View>
@@ -290,7 +289,7 @@ const UpdateForemanLeader = ({route, navigation}) => {
             <View style={{padding: 4, width: "50%"}}>
               <View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
                 <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-                  <Text style={{fontSize: 13}}>{userName}</Text>
+                  <Text style={{fontSize: 13}}>{namaUser}</Text>
                 </View>
               </View>
             </View>
@@ -332,7 +331,7 @@ const UpdateForemanLeader = ({route, navigation}) => {
             <View style={{padding: 4, width: "50%"}}>
               <View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
                 <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-                  <Text style={{fontSize: 13}}>{userName}</Text>
+                  <Text style={{fontSize: 13}}>{namaUser}</Text>
                 </View>
               </View>
             </View>
