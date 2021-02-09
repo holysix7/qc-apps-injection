@@ -4,9 +4,10 @@ import LogoSIP from '../../../../assets/logo-sip370x50.png';
 import { Container, Text, Button } from 'native-base';
 import styles from '../../../../components/styles/Styling';
 import AsyncStorage from "@react-native-community/async-storage";
+import moment from 'moment';
 
 const ContinueMP = ({route, navigation}) => {
-	const {qc_daily_inspection_id, customer_part_number, sys_plant_id, product_name, customer_name, machine_id, machine_name, machine_number, today, yesterday, daily_inspection_number, doc_number} = route.params
+	const {qc_daily_inspection_id, sys_plant_id, product_name, customer_name, machine_id, machine_name, machine_number, today, yesterday, daily_inspection_number, doc_number, customer_part_number, model, internal_part_id} = route.params
   const [featureUser, setFeature] = useState(null);
   const [user, setUser] = useState(null);
 	const [loading, setLoading] = useState(false)
@@ -16,6 +17,9 @@ const ContinueMP = ({route, navigation}) => {
 			setLoading(true)
 		}, 1000);
 	}, [])
+	var hariNow = moment()
+	var fixTomorrow = moment(hariNow, "Y-M-D").add(1, 'days')
+	var tomorrow = moment(fixTomorrow).format("Y - MMM - D")
 
 	const session = async () => {
     try {
@@ -41,6 +45,7 @@ const ContinueMP = ({route, navigation}) => {
 							// if(featureUser[i].qc_masspro_prod_leader.view_permissions == true && user == 32008107 || featureUser[i].qc_masspro_foreman.view_permissions == true || user == 21410012){
 								data.push(
 									<Button key="AscvSacx" style={styles.dailyInspectionButton} onPress={() => navigation.navigate('UpdateProductionLeader', {
+										internal_part_id: internal_part_id,
 										qc_daily_inspection_id: qc_daily_inspection_id,
 										sys_plant_id: sys_plant_id,
 										daily_inspection_number: daily_inspection_number,
@@ -51,7 +56,9 @@ const ContinueMP = ({route, navigation}) => {
 										today: today,
 										machine_number: machine_number,
 										yesterday: yesterday,
-										doc_number: doc_number
+										doc_number: doc_number,
+										customer_part_number: customer_part_number,
+										model: model
 									})} >
 										<Text> Update Production Leader </Text>   
 									</Button>	
@@ -69,17 +76,19 @@ const ContinueMP = ({route, navigation}) => {
 								data.push(
 									<Button key="XcxzAsd" style={styles.dailyInspectionButton} onPress={() => navigation.navigate('UpdateForemanLeader', {
 										sys_plant_id: sys_plant_id,
+										internal_part_id: internal_part_id,
 										qc_daily_inspection_id: qc_daily_inspection_id,
 										daily_inspection_number: daily_inspection_number,
 										product_name: product_name,
 										machine_id: machine_id,
 										customer_name: customer_name,
-										customer_part_number: customer_part_number,
 										machine_name: machine_name,
 										today: today,
 										machine_number: machine_number,
 										yesterday: yesterday,
-										doc_number: doc_number
+										doc_number: doc_number,
+										customer_part_number: customer_part_number,
+										model: model
 									})} >
 										<Text> Update Foreman Leader </Text>
 									</Button>
@@ -117,6 +126,28 @@ const ContinueMP = ({route, navigation}) => {
 					{loading ? loopFeature() : <View style={{justifyContent: 'center'}}><ActivityIndicator size="large" color="#0000ff"/></View>}
 				</View>
 			</ScrollView>
+			<View style={{backgroundColor: '#dfe0df', justifyContent: 'center', alignItems: 'center', padding: 50}}>
+				{loading ? <Button style={styles.dailyInspectionButton} onPress={() => navigation.navigate('NextDay', {
+					internal_part_id: internal_part_id,
+					qc_daily_inspection_id: qc_daily_inspection_id,
+					sys_plant_id: sys_plant_id,
+					daily_inspection_number: daily_inspection_number,
+					product_name: product_name,
+					machine_id: machine_id,
+					customer_name: customer_name,
+					machine_name: machine_name,
+					today: today,
+					machine_number: machine_number,
+					yesterday: yesterday,
+					doc_number: doc_number,
+					tomorrow: tomorrow,
+					customer_part_number: customer_part_number,
+					model: model,
+					internal_part_id: internal_part_id
+				})} >
+					<Text> Continue MP | {tomorrow}</Text>   
+				</Button>	: null}
+			</View>
 		</Container>
 	)
 }
