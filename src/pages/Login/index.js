@@ -63,7 +63,7 @@ const Login = ({navigation}) => {
 			}
 		}).catch((err) => {
 			setLoading(true)
-			alert(err)
+			alert("Username dan Password Tidak Cocok")
 			console.log("Login: ", err)
 		})
 	}

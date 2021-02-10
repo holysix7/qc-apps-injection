@@ -233,7 +233,7 @@ const ListForm = ({route, navigation}) => {
 							}
 						}
 						if(featureUser[i].qc_masspro_qc_leader != null || featureUser[i].qc_masspro_foreman != null){
-							if(featureUser[i].qc_masspro_qc_leader.view_permissions == true && user == 32008107 || user == 21410012 || featureUser[i].qc_masspro_foreman.view_permissions == true && user == 32008107 || user == 21410012 || featureUser[i].qc_masspro_prod_leader.view_permissions){
+							if(featureUser[i].qc_masspro_qc_leader.view_permissions == true || featureUser[i].qc_masspro_foreman.view_permissions == true || featureUser[i].qc_masspro_prod_leader.view_permissions == true){
 								data.push(
 									<Button key="AscvSacx" style={styles.dailyInspectionContinueButton} onPress={() => navigation.navigate('ContinueMP', {
 										internal_part_id: internal_part_id,

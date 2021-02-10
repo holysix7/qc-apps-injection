@@ -103,7 +103,7 @@ const PerJam = ({route, navigation}) => {
 	const [updateEnd, setUpdateEnd]		  						= useState(null)
 	const [updateSpecialItem, setUpdateSpItem]		  = useState("")
 	const [updateCategoryNG, setUpdateCNG]		  		= useState("")
-	const [updateNote, setUpdateCNT]		  					= useState("")
+	const [updateNote, setUpdateCNT]		  					= useState(null)
 	const [updateStatusData, setUpdateStdT]		  		= useState("")
 	const [updateinspection_time, setUpdateIT]		  = useState(null)
 
@@ -515,7 +515,7 @@ const PerJam = ({route, navigation}) => {
 
 	const updateNoteFunc = () => {
 		var data = []
-		if(updateNote != ""){
+		if(updateNote != null){
 			data.push(
 				<View key="asih2n" style={{height: 40, justifyContent: 'center', paddingLeft: 5, paddingTop: 5, borderWidth: 0.5, borderRadius: 25, backgroundColor: '#b8b8b8'}}>
 					<Text>{updateNote}</Text>
