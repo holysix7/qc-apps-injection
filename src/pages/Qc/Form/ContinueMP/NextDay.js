@@ -8,35 +8,27 @@ import AsyncStorage from "@react-native-community/async-storage";
 import Axios from 'axios';
 import moment from 'moment';
 import { RNCamera, FaceDetector } from 'react-native-camera';
+import app_version from '../../../app_version/index';
 
 const NextDay = ({route, navigation}) => {
-	const {qc_daily_inspection_id, internal_part_id, customer_part_number, sys_plant_id, product_name, customer_name, machine_id, machine_name, machine_number, tomorrow, today, yesterday, daily_inspection_number, doc_number, model} = route.params
+	const {qc_daily_inspection_id, internal_part_id, customer_part_number, sys_plant_id, product_name, customer_name, machine_id, machine_name, machine_number, tomorrow, today, yesterday, daily_inspection_number, doc_number, model, next_date} = route.params
 	useEffect(() => {
     formOke()
   }, [])
-	const [inspectionTime, setInspectionTime]       = useState("")
 	const [loading, setLoading] 					          = useState(true)
 	const [created_by, setCreatedBy]		            = useState("")
 	const [updated_by, setUpdatedBy]		            = useState("")
 	const [hours, setHours]		                      = useState(null)
 	const [shift, setShift]		                      = useState(null)
 
-	const [spg_supplier, setSpgSupplier]		        = useState(null)
-	const [part_number_supplier, setPartNoSupplier]	= useState(null)
-  
-	const [lot_produksi, setLotProduksi]		        = useState(null)
-	const [pn_value, setPNValue]		  		          = useState(null)
-	const [rohs_compliance, setRohsCompliance]      = useState(null)
-	const [dimension, setDimension]                 = useState(null)
-	const [fitting_test, setFittingTest]            = useState(null)
-	const [packing, setPacking]                     = useState(null)
-
-	const [bqics, setBqics]                         = useState(null)
-	const [item_khusus, setItemKhusu]               = useState(null)
-	const [ng_category, setNGCategory]              = useState(null)
-	const [note_unnormal, setNoteUnnormal]          = useState(null)
-  
-  const [uploadedImage, setImage]                 = useState(null)
+	//get data
+	const [data, setData]								= useState(null)
+	
+	const [known_by, setKnownBy]				= useState(null)
+	const [leader_name, setLeaderName]	= useState(null)
+	const [leader_nik, setLeaderNik]		= useState(null)
+	const [foreman_id, setForemanId]		= useState(null)
+	const [foreman_nik, setForemanNik]	= useState(null)
 
   let date_now   												          = moment().format("YYYY-MM-DD")
 	let created_at 												          = moment().format("YYYY-MM-DD HH:mm:ss")
@@ -46,13 +38,43 @@ const NextDay = ({route, navigation}) => {
 	var timeNow 	= moment(dateTime).format("HH:MM")
 	
 	const submit = async() => {
-    alert("Telah Disubmit")
+		const data = {
+			qc_daily_inspection_id,
+			created_by,
+			app_version
+		}
+		const token = await AsyncStorage.getItem("key")
+		const params = {
+			tbl: 'daily_inspection',
+			kind: 'continue_mp_next_day',
+			app_version: app_version
+		}
+		var config = {
+			method: 'put',
+			url: 'https://api.tri-saudara.com/api/v2/qcs/update?',
+			params: params,
+			headers: { 
+				'Authorization': token, 
+				'Content-Type': 'application/json', 
+				'Cookie': '_denapi_session=ubcfq3AHCuVeTlxtg%2F1nyEa3Ktylg8nY1lIEPD7pgS3YAWwlKOxwA0S9pw7JhvZ2mNkrYl0j62wAWJWJZd7AbfolGuHCwXgEMeJH6EoLiQ%3D%3D--M%2BjBb0uJeHmOf%2B3o--%2F2Fjw57x0Fyr90Ec9FVibQ%3D%3D'
+			},
+			data : data
+		};
+		Axios(config)
+		.then(function (response){
+			console.log("Res: ", response.status, " Ok")
+			setLoading(true)
+			alert("Success Send Data!")
+			navigation.navigate('ShowProducts')
+		})
+		.catch(function (error){
+			alert("Failed Send Data!")
+			console.log(error)
+		})
 	}
 	const formOke = async() => {
+		setLoading(false)
 		const token = await AsyncStorage.getItem("key")
-		const headers = {
-			'Authorization': token
-		}
 		const name = await AsyncStorage.getItem('name')
 		const id = await AsyncStorage.getItem('id')
 		setCreatedBy(id)
@@ -70,9 +92,46 @@ const NextDay = ({route, navigation}) => {
 			setHours(hoursNow)
 			var select_shift_id = 4
 		}
+		const headers = {
+			'Authorization': token
+		}
+		const params = {
+			tbl: 'daily_inspection',
+			kind: 'continue_mp_next_day',
+			qc_daily_inspection_id: qc_daily_inspection_id,
+			app_version: app_version
+		}
+		Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
+		.then(response => {
+			setData(response.data.data)
+			setLoading(true)
+			console.log("List Data Continue MP Tomorrow: ", response.data.status, "OK")
+		})
+		.catch(error => {
+			console.log('List Data Continue MP Tomorrow: ', error)
+		})
   }
 
+	const buttonSubmit = () => {
+		if(data != null){
+			if(data.known_by != null && data.foreman_id != null){
+				return (
+					<Button onPress={() => submit()} style={{width: 172, borderRadius: 25, justifyContent: 'center'}}><Text>CONTINUE MP</Text></Button>
+				)
+			}else{
+				return(
+					<Button onPress={() => alert("Belum Ada Data Leader Produksi Dan Data Foreman")} style={{width: 172, borderRadius: 25, justifyContent: 'center', backgroundColor: '#b8b8b8', borderWidth: 1}}><Text>CONTINUE MP</Text></Button>
+				)
+			}
+		}else{
+			return(
+				<Button onPress={() => alert("Belum Ada Data Leader Produksi Dan Data Foreman")} style={{width: 172, borderRadius: 25, justifyContent: 'center', backgroundColor: '#b8b8b8', borderWidth: 1}}><Text>CONTINUE MP</Text></Button>
+			)
+		}
+	}
+
 	const content = () => {
+		console.log(data)
     return (
      <ScrollView>
       <View style={{paddingBottom: 40}}>
@@ -87,7 +146,7 @@ const NextDay = ({route, navigation}) => {
             <View style={{padding: 4, width: "50%"}}>
               <View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
                 <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, marginTop: 5, backgroundColor: '#b8b8b8'}}>
-                  <Text>GET API</Text>
+                  <Text>{data != null && data.known_by != null ? data.leader_name : "-"}</Text>
                 </View>
               </View>
             </View>
@@ -103,7 +162,7 @@ const NextDay = ({route, navigation}) => {
             <View style={{padding: 4, width: "50%"}}>
               <View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
                 <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, marginTop: 5, backgroundColor: '#b8b8b8'}}>
-                  <Text>GET API</Text>
+                  <Text>{data != null && data.foreman_id != null ? data.foreman_name : "-"}</Text>
                 </View>
               </View>
             </View>
@@ -111,7 +170,7 @@ const NextDay = ({route, navigation}) => {
           
 					<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
 						<View>
-              <Button onPress={() => submit()} style={{width: 172, borderRadius: 25, justifyContent: 'center'}}><Text>CONTINUE MP</Text></Button>
+							{buttonSubmit()}
 						</View>
 					</View>
         </TouchableOpacity>
@@ -147,7 +206,7 @@ const NextDay = ({route, navigation}) => {
 
 						<View style={{borderWidth: 0.5, flexDirection: 'row'}}>
 							<View style={{justifyContent: 'center', alignItems: 'center', paddingLeft: 5, height: 25, width: "50%", backgroundColor: '#dfe0df', borderBottomWidth: 0.3, borderRightWidth: 0.9}}>
-								<Text style={{fontWeight: 'bold', fontSize: 12}}>{tomorrow}</Text>
+								<Text style={{fontWeight: 'bold', fontSize: 12}}>{next_date}</Text>
 							</View>
 							<View style={{justifyContent: 'center', alignItems: 'center', paddingLeft: 5, height: 25, width: "50%", backgroundColor: '#dfe0df', borderBottomWidth: 0.3, borderRightWidth: 0.9}}>
 								<Text style={{fontWeight: 'bold', fontSize: 12}}>Shift Ke-{shift} / Jam {timeNow}</Text>

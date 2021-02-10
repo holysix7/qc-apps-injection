@@ -16,8 +16,6 @@ const ListForm = ({route, navigation}) => {
 			setLoading(true)
 		}, 1000);
 	}, [])
-	console.log("model :", model)
-	console.log("customer_part_number :", customer_part_number)
 
 	const session = async () => {
     try {

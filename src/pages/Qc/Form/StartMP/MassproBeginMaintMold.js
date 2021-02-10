@@ -393,6 +393,7 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 						itemTextStyle={{fontSize: 9}}
 						key="asdweq"
 						>
+							<Picker.Item label="Pilih" value="" />
 							<Picker.Item label="1" value="1" />
 							<Picker.Item label="2" value="2" />
 							<Picker.Item label="3" value="3" />
@@ -414,6 +415,7 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 						itemTextStyle={{fontSize: 9}}
 						key="asdweq"
 						>
+							<Picker.Item label="Pilih" value="" />
 							<Picker.Item label="1" value="1" />
 							<Picker.Item label="2" value="2" />
 							<Picker.Item label="3" value="3" />

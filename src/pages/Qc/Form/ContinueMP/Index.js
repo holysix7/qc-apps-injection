@@ -5,17 +5,18 @@ import { Container, Text, Button } from 'native-base';
 import styles from '../../../../components/styles/Styling';
 import AsyncStorage from "@react-native-community/async-storage";
 import moment from 'moment';
+import app_version from '../../../app_version/index';
+import Axios from 'axios';
 
 const ContinueMP = ({route, navigation}) => {
 	const {qc_daily_inspection_id, sys_plant_id, product_name, customer_name, machine_id, machine_name, machine_number, today, yesterday, daily_inspection_number, doc_number, customer_part_number, model, internal_part_id} = route.params
   const [featureUser, setFeature] = useState(null);
   const [user, setUser] = useState(null);
+  const [next_date, setNextDate] = useState(null);
 	const [loading, setLoading] = useState(false)
 	useEffect(() => {
 		session()
-		setTimeout(() => {
-			setLoading(true)
-		}, 1000);
+		formOke()
 	}, [])
 	var hariNow = moment()
 	var fixTomorrow = moment(hariNow, "Y-M-D").add(1, 'days')
@@ -32,10 +33,34 @@ const ContinueMP = ({route, navigation}) => {
       console.log('Multi Get Error: ', error.message)
     }
 	}
+
+	const formOke = async() => {
+		setLoading(false)
+		const token = await AsyncStorage.getItem("key")
+		const headers = {
+			'Authorization': token
+		}
+		const params = {
+			tbl: 'daily_inspection',
+			kind: 'continue_mp_next_day',
+			qc_daily_inspection_id: qc_daily_inspection_id,
+			app_version: app_version
+		}
+		Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
+		.then(response => {
+			setNextDate(response.data.data.next_date)
+			setLoading(true)
+			console.log("List Data Maint. Mold: ", response.data.status, "OK")
+		})
+		.catch(error => {
+			console.log('List Data Maint. Mold: ', error)
+		})
+	}
 	
 	const loopFeature = () => {
 		var data = []
 		var i
+		console.log(next_date)
 		for(i = 0; i < 4; i++){
 			if(featureUser != null){
 				if(sys_plant_id == i+1){
@@ -143,9 +168,10 @@ const ContinueMP = ({route, navigation}) => {
 					tomorrow: tomorrow,
 					customer_part_number: customer_part_number,
 					model: model,
-					internal_part_id: internal_part_id
+					internal_part_id: internal_part_id,
+					next_date: next_date
 				})} >
-					<Text> Continue MP | {tomorrow}</Text>   
+					<Text> Continue MP | {next_date}</Text>   
 				</Button>	: null}
 			</View>
 		</Container>
