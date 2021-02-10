@@ -15,6 +15,7 @@ const UpdateProductionLeader = ({route, navigation}) => {
 
   const [loading, setLoading] 	            = useState(true)
   //PARAMETER YANG AKAN DIKIRIM
+	const [dateApi, setDateApi]               = useState(null)
 	const [userName, setUserName]             = useState(null)
 	const [namaUser, setNama]                 = useState(null)
 	const [idUser, setIdUser]                 = useState(null)
@@ -160,8 +161,6 @@ const UpdateProductionLeader = ({route, navigation}) => {
     setNama(name)
     setIdUser(id)
     setUserName(id)
-    var timeNow 	= moment()
-    var hoursNow 	= parseInt(moment(timeNow).format("H"))
 		if(hoursNow >= 8 && hoursNow <= 15){
       setShiftId(1)
     }else if(hoursNow >= 16 && hoursNow <= 23){
@@ -192,6 +191,7 @@ const UpdateProductionLeader = ({route, navigation}) => {
     Axios(config)
     .then(response => {
       setLoading(true)
+      setDateApi(response.data.data.ipqc_date)
       setShift1(response.data.data.shift1)
       setShift2(response.data.data.shift2)
       setShift3(response.data.data.shift3)
@@ -213,210 +213,423 @@ const UpdateProductionLeader = ({route, navigation}) => {
 
   const contentShift = () => {
     var data = []
-    if(shiftId == 1){
-      data.push(
-        <View key="aksosk" style={{marginTop: 10, height: "100%", marginRight: 10, borderWidth: 1}}>
-          <View style={{justifyContent: 'center', alignItems: 'center', paddingTop: 10}}>
-            <View style={{alignItems: 'center', justifyContent: 'center', flexDirection: 'row', borderWidth: 1, borderRadius: 10, width: "80%"}}>
-              <Text>Shift 1</Text>
+    if(dateApi != null){
+      if(dateApi == timeNow.format("Y-MM-D")){
+        if(shiftId == 1){
+          data.push(
+            <View key="aksosk" style={{marginTop: 10, height: "100%", marginRight: 10, borderWidth: 1}}>
+              <View style={{justifyContent: 'center', alignItems: 'center', paddingTop: 10}}>
+                <View style={{alignItems: 'center', justifyContent: 'center', flexDirection: 'row', borderWidth: 1, borderRadius: 10, width: "80%"}}>
+                  <Text>Shift 1</Text>
+                </View>
+              </View>
+              <View style={{paddingTop: 20, flexDirection: 'row'}}>
+                <View style={{padding: 10, width: "44%"}}>
+                  <Text>Access</Text>
+                </View>
+                <View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+                  <Text style={{color: 'black'}}>:</Text>
+                </View>
+                <View style={{padding: 4, width: "50%"}}>
+                  <View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+                    <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+                      <Text style={{fontSize: 15}}>Production Leader</Text>
+                    </View>
+                  </View>
+                </View>
+              </View>
+
+              <View style={{paddingTop: 20, flexDirection: 'row'}}>
+                <View style={{padding: 10, width: "44%"}}>
+                  <Text>User</Text>
+                </View>
+                <View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+                  <Text style={{color: 'black'}}>:</Text>
+                </View>
+                <View style={{padding: 4, width: "50%"}}>
+                  <View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+                    <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+                      <Text style={{fontSize: 13}}>{namaUser}</Text>
+                    </View>
+                  </View>
+                </View>
+              </View>
+
+              {buttonSubmit()}
             </View>
-          </View>
-          <View style={{paddingTop: 20, flexDirection: 'row'}}>
-            <View style={{padding: 10, width: "44%"}}>
-              <Text>Access</Text>
+          )
+        }else if(shiftId == 2){
+          data.push(
+            <View key="aksosk" style={{marginTop: 10, height: "100%", marginRight: 10, borderWidth: 1}}>
+              <View style={{justifyContent: 'center', alignItems: 'center', paddingTop: 10}}>
+                <View style={{alignItems: 'center', justifyContent: 'center', flexDirection: 'row', borderWidth: 1, borderRadius: 10, width: "80%"}}>
+                  <Text>Shift 2</Text>
+                </View>
+              </View>
+              <View style={{paddingTop: 20, flexDirection: 'row'}}>
+                <View style={{padding: 10, width: "44%"}}>
+                  <Text>Access</Text>
+                </View>
+                <View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+                  <Text style={{color: 'black'}}>:</Text>
+                </View>
+                <View style={{padding: 4, width: "50%"}}>
+                  <View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+                    <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+                      <Text style={{fontSize: 15}}>Production Leader</Text>
+                    </View>
+                  </View>
+                </View>
+              </View>
+
+              <View style={{paddingTop: 20, flexDirection: 'row'}}>
+                <View style={{padding: 10, width: "44%"}}>
+                  <Text>User</Text>
+                </View>
+                <View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+                  <Text style={{color: 'black'}}>:</Text>
+                </View>
+                <View style={{padding: 4, width: "50%"}}>
+                  <View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+                    <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+                      <Text style={{fontSize: 13}}>{namaUser}</Text>
+                    </View>
+                  </View>
+                </View>
+              </View>
+
+              {buttonSubmit()}
             </View>
-            <View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-              <Text style={{color: 'black'}}>:</Text>
+          )
+        }else{
+          data.push(
+            <View key="aksosk" style={{marginTop: 10, height: "100%", marginRight: 10, borderWidth: 1}}>
+              <View style={{justifyContent: 'center', alignItems: 'center', paddingTop: 10}}>
+                <View style={{alignItems: 'center', justifyContent: 'center', flexDirection: 'row', borderWidth: 1, borderRadius: 10, width: "80%"}}>
+                  <Text>Shift 3</Text>
+                </View>
+              </View>
+              <View style={{paddingTop: 20, flexDirection: 'row'}}>
+                <View style={{padding: 10, width: "44%"}}>
+                  <Text>Access</Text>
+                </View>
+                <View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+                  <Text style={{color: 'black'}}>:</Text>
+                </View>
+                <View style={{padding: 4, width: "50%"}}>
+                  <View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+                    <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+                      <Text style={{fontSize: 15}}>Production Leader</Text>
+                    </View>
+                  </View>
+                </View>
+              </View>
+
+              <View style={{paddingTop: 20, flexDirection: 'row'}}>
+                <View style={{padding: 10, width: "44%"}}>
+                  <Text>User</Text>
+                </View>
+                <View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+                  <Text style={{color: 'black'}}>:</Text>
+                </View>
+                <View style={{padding: 4, width: "50%"}}>
+                  <View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+                    <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+                      <Text style={{fontSize: 13}}>{namaUser}</Text>
+                    </View>
+                  </View>
+                </View>
+              </View>
+
+              {buttonSubmit()}
             </View>
-            <View style={{padding: 4, width: "50%"}}>
-              <View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-                <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-                  <Text style={{fontSize: 15}}>Production Leader</Text>
+          )
+        }
+      }else if( dateApi < timeNow.format("Y-MM-D")){
+        
+        if(shiftId == 1){
+          data.push(
+            <View key="aksosk" style={{marginTop: 10, height: "100%", marginRight: 10, borderWidth: 1}}>
+              <View style={{justifyContent: 'center', alignItems: 'center', paddingTop: 10}}>
+                <View style={{alignItems: 'center', justifyContent: 'center', flexDirection: 'row', borderWidth: 1, borderRadius: 10, width: "80%"}}>
+                  <Text>Shift 1</Text>
+                </View>
+              </View>
+              <View style={{paddingTop: 20, flexDirection: 'row'}}>
+                <View style={{padding: 10, width: "44%"}}>
+                  <Text>Access</Text>
+                </View>
+                <View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+                  <Text style={{color: 'black'}}>:</Text>
+                </View>
+                <View style={{padding: 4, width: "50%"}}>
+                  <View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+                    <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+                      <Text style={{fontSize: 15}}>Production Leader</Text>
+                    </View>
+                  </View>
+                </View>
+              </View>
+
+              <View style={{paddingTop: 20, flexDirection: 'row'}}>
+                <View style={{padding: 10, width: "44%"}}>
+                  <Text>User</Text>
+                </View>
+                <View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+                  <Text style={{color: 'black'}}>:</Text>
+                </View>
+                <View style={{padding: 4, width: "50%"}}>
+                  <View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+                    <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+                      <Text style={{fontSize: 13}}>{shift1 != null && shift1.known_by != null ? shift1.leader_name : "-"}</Text>
+                    </View>
+                  </View>
                 </View>
               </View>
             </View>
-          </View>
+          )
+        }else if(shiftId == 2){
+          data.push(
+            <View key="aksosk" style={{marginTop: 10, height: "100%", marginRight: 10, borderWidth: 1}}>
+              <View style={{justifyContent: 'center', alignItems: 'center', paddingTop: 10}}>
+                <View style={{alignItems: 'center', justifyContent: 'center', flexDirection: 'row', borderWidth: 1, borderRadius: 10, width: "80%"}}>
+                  <Text>Shift 2</Text>
+                </View>
+              </View>
+              <View style={{paddingTop: 20, flexDirection: 'row'}}>
+                <View style={{padding: 10, width: "44%"}}>
+                  <Text>Access</Text>
+                </View>
+                <View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+                  <Text style={{color: 'black'}}>:</Text>
+                </View>
+                <View style={{padding: 4, width: "50%"}}>
+                  <View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+                    <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+                      <Text style={{fontSize: 15}}>Production Leader</Text>
+                    </View>
+                  </View>
+                </View>
+              </View>
 
-          <View style={{paddingTop: 20, flexDirection: 'row'}}>
-            <View style={{padding: 10, width: "44%"}}>
-              <Text>User</Text>
-            </View>
-            <View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-              <Text style={{color: 'black'}}>:</Text>
-            </View>
-            <View style={{padding: 4, width: "50%"}}>
-              <View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-                <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-                  <Text style={{fontSize: 13}}>{namaUser}</Text>
+              <View style={{paddingTop: 20, flexDirection: 'row'}}>
+                <View style={{padding: 10, width: "44%"}}>
+                  <Text>User</Text>
+                </View>
+                <View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+                  <Text style={{color: 'black'}}>:</Text>
+                </View>
+                <View style={{padding: 4, width: "50%"}}>
+                  <View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+                    <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+                      <Text style={{fontSize: 13}}>{shift2 != null && shift2.known_by != null ? shift2.leader_name : "-"}</Text>
+                    </View>
+                  </View>
                 </View>
               </View>
             </View>
-          </View>
+          )
+        }else{
+          data.push(
+            <View key="aksosk" style={{marginTop: 10, height: "100%", marginRight: 10, borderWidth: 1}}>
+              <View style={{justifyContent: 'center', alignItems: 'center', paddingTop: 10}}>
+                <View style={{alignItems: 'center', justifyContent: 'center', flexDirection: 'row', borderWidth: 1, borderRadius: 10, width: "80%"}}>
+                  <Text>Shift 3</Text>
+                </View>
+              </View>
+              <View style={{paddingTop: 20, flexDirection: 'row'}}>
+                <View style={{padding: 10, width: "44%"}}>
+                  <Text>Access</Text>
+                </View>
+                <View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+                  <Text style={{color: 'black'}}>:</Text>
+                </View>
+                <View style={{padding: 4, width: "50%"}}>
+                  <View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+                    <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+                      <Text style={{fontSize: 15}}>Production Leader</Text>
+                    </View>
+                  </View>
+                </View>
+              </View>
 
-          {buttonSubmit()}
-        </View>
-      )
-    }else if(shiftId == 2){
-      data.push(
-        <View key="aksosk" style={{marginTop: 10, height: "100%", marginRight: 10, borderWidth: 1}}>
-          <View style={{justifyContent: 'center', alignItems: 'center', paddingTop: 10}}>
-            <View style={{alignItems: 'center', justifyContent: 'center', flexDirection: 'row', borderWidth: 1, borderRadius: 10, width: "80%"}}>
-              <Text>Shift 2</Text>
-            </View>
-          </View>
-          <View style={{paddingTop: 20, flexDirection: 'row'}}>
-            <View style={{padding: 10, width: "44%"}}>
-              <Text>Access</Text>
-            </View>
-            <View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-              <Text style={{color: 'black'}}>:</Text>
-            </View>
-            <View style={{padding: 4, width: "50%"}}>
-              <View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-                <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-                  <Text style={{fontSize: 15}}>Production Leader</Text>
+              <View style={{paddingTop: 20, flexDirection: 'row'}}>
+                <View style={{padding: 10, width: "44%"}}>
+                  <Text>User</Text>
+                </View>
+                <View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+                  <Text style={{color: 'black'}}>:</Text>
+                </View>
+                <View style={{padding: 4, width: "50%"}}>
+                  <View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+                    <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+                      <Text style={{fontSize: 13}}>{shift3 != null && shift3.known_by != null ? shift3.leader_name : "-"}</Text>
+                    </View>
+                  </View>
                 </View>
               </View>
             </View>
-          </View>
-
-          <View style={{paddingTop: 20, flexDirection: 'row'}}>
-            <View style={{padding: 10, width: "44%"}}>
-              <Text>User</Text>
-            </View>
-            <View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-              <Text style={{color: 'black'}}>:</Text>
-            </View>
-            <View style={{padding: 4, width: "50%"}}>
-              <View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-                <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-                  <Text style={{fontSize: 13}}>{namaUser}</Text>
-                </View>
-              </View>
-            </View>
-          </View>
-
-          {buttonSubmit()}
-        </View>
-      )
+          )
+        }
+      }else{
+        console.log("aAAOwkaokwokaw")
+      }
     }else{
-      data.push(
-        <View key="aksosk" style={{marginTop: 10, height: "100%", marginRight: 10, borderWidth: 1}}>
-          <View style={{justifyContent: 'center', alignItems: 'center', paddingTop: 10}}>
-            <View style={{alignItems: 'center', justifyContent: 'center', flexDirection: 'row', borderWidth: 1, borderRadius: 10, width: "80%"}}>
-              <Text>Shift 3</Text>
-            </View>
-          </View>
-          <View style={{paddingTop: 20, flexDirection: 'row'}}>
-            <View style={{padding: 10, width: "44%"}}>
-              <Text>Access</Text>
-            </View>
-            <View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-              <Text style={{color: 'black'}}>:</Text>
-            </View>
-            <View style={{padding: 4, width: "50%"}}>
-              <View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-                <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-                  <Text style={{fontSize: 15}}>Production Leader</Text>
-                </View>
-              </View>
-            </View>
-          </View>
-
-          <View style={{paddingTop: 20, flexDirection: 'row'}}>
-            <View style={{padding: 10, width: "44%"}}>
-              <Text>User</Text>
-            </View>
-            <View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-              <Text style={{color: 'black'}}>:</Text>
-            </View>
-            <View style={{padding: 4, width: "50%"}}>
-              <View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-                <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-                  <Text style={{fontSize: 13}}>{namaUser}</Text>
-                </View>
-              </View>
-            </View>
-          </View>
-
-          {buttonSubmit()}
-        </View>
-      )
+      console.log("lg di load cuy")
     }
     return data
   }
 
   const sideTab = () => {
     var data = []
-    if(shiftId == 1){
-      data.push(
-        <View key="XlsksmS" style={{flexDirection: 'column', paddingTop: 10, paddingLeft: 10}}>
-          <Button style={{borderTopLeftRadius: 15, borderWidth: 1, borderBottomLeftRadius: 15}} onPress={() => changeShift(1)}>
-            <View style={{margin: 5, paddingRight: 10, paddingTop: 10}}>
-              <Text style={{margin: 5}}>1</Text>
-            </View>
-          </Button>
-          <View style={{paddingVertical: 10}}>
-            {/* <Button style={{backgroundColor: '#e3d0b9', borderTopLeftRadius: 15, borderWidth: 1, borderBottomLeftRadius: 15}} onPress={() => changeShift(2)}> */}
-            <Button style={{backgroundColor: '#e3d0b9', borderTopLeftRadius: 15, borderWidth: 1, borderBottomLeftRadius: 15}} onPress={() => { shift1Done == true ? changeShift(2) : alert("Masih Di Shift 1")}}>
-              <View style={{margin: 5, paddingRight: 5, paddingTop: 5}}>
-                <Text style={{margin: 5}}>2</Text>
+    if(dateApi != null){
+      if(dateApi == timeNow.format("Y-MM-D")){
+        if(shiftId == 1){
+          data.push(
+            <View key="XlsksmS" style={{flexDirection: 'column', paddingTop: 10, paddingLeft: 10}}>
+              <Button style={{borderTopLeftRadius: 15, borderWidth: 1, borderBottomLeftRadius: 15}} onPress={() => changeShift(1)}>
+                <View style={{margin: 5, paddingRight: 10, paddingTop: 10}}>
+                  <Text style={{margin: 5}}>1</Text>
+                </View>
+              </Button>
+              <View style={{paddingVertical: 10}}>
+                {/* <Button style={{backgroundColor: '#e3d0b9', borderTopLeftRadius: 15, borderWidth: 1, borderBottomLeftRadius: 15}} onPress={() => changeShift(2)}> */}
+                <Button style={{backgroundColor: '#e3d0b9', borderTopLeftRadius: 15, borderWidth: 1, borderBottomLeftRadius: 15}} onPress={() => { shift1Done == true ? changeShift(2) : alert("Masih Di Shift 1")}}>
+                  <View style={{margin: 5, paddingRight: 5, paddingTop: 5}}>
+                    <Text style={{margin: 5}}>2</Text>
+                  </View>
+                </Button>
               </View>
-            </Button>
-          </View>
-          {/* <Button style={{backgroundColor: '#e3d0b9', borderTopLeftRadius: 15, borderWidth: 1, borderBottomLeftRadius: 15}} onPress={() => changeShift(3)}> */}
-          <Button style={{backgroundColor: '#e3d0b9', borderTopLeftRadius: 15, borderWidth: 1, borderBottomLeftRadius: 15}} onPress={() => {shift1Done == true && shift2Done == true ? changeShift(3) : shift1Done == false && shift2Done == false ? alert("Masih Di Shift 1") : alert("Masih Di Shift 2") }}>
-            <View style={{margin: 5, paddingRight: 5, paddingTop: 5}}>
-              <Text style={{margin: 5}}>3</Text>
+              {/* <Button style={{backgroundColor: '#e3d0b9', borderTopLeftRadius: 15, borderWidth: 1, borderBottomLeftRadius: 15}} onPress={() => changeShift(3)}> */}
+              <Button style={{backgroundColor: '#e3d0b9', borderTopLeftRadius: 15, borderWidth: 1, borderBottomLeftRadius: 15}} onPress={() => {shift1Done == true && shift2Done == true ? changeShift(3) : shift1Done == false && shift2Done == false ? alert("Masih Di Shift 1") : alert("Masih Di Shift 2") }}>
+                <View style={{margin: 5, paddingRight: 5, paddingTop: 5}}>
+                  <Text style={{margin: 5}}>3</Text>
+                </View>
+              </Button>
             </View>
-          </Button>
-        </View>
-      )
-    }else if(shiftId == 2){
-      data.push(
-        <View key="XlsksmS" style={{flexDirection: 'column', paddingTop: 10, paddingLeft: 10}}>
-          <Button style={{backgroundColor: '#e3d0b9', borderTopLeftRadius: 15, borderWidth: 1, borderBottomLeftRadius: 15}} onPress={() => setShiftId(1)}>
-            <View style={{margin: 5, paddingRight: 5, paddingTop: 5}}>
-              <Text style={{margin: 5}}>1</Text>
-            </View>
-          </Button>
-          <View style={{paddingVertical: 10}}>
-            <Button style={{borderTopLeftRadius: 15, borderWidth: 1, borderBottomLeftRadius: 15}} onPress={() => setShiftId(2)}>
-              <View style={{margin: 5, paddingRight: 10, paddingTop: 10}}>
-                <Text style={{margin: 5}}>2</Text>
+          )
+        }else if(shiftId == 2){
+          data.push(
+            <View key="XlsksmS" style={{flexDirection: 'column', paddingTop: 10, paddingLeft: 10}}>
+              <Button style={{backgroundColor: '#e3d0b9', borderTopLeftRadius: 15, borderWidth: 1, borderBottomLeftRadius: 15}} onPress={() => setShiftId(1)}>
+                <View style={{margin: 5, paddingRight: 5, paddingTop: 5}}>
+                  <Text style={{margin: 5}}>1</Text>
+                </View>
+              </Button>
+              <View style={{paddingVertical: 10}}>
+                <Button style={{borderTopLeftRadius: 15, borderWidth: 1, borderBottomLeftRadius: 15}} onPress={() => setShiftId(2)}>
+                  <View style={{margin: 5, paddingRight: 10, paddingTop: 10}}>
+                    <Text style={{margin: 5}}>2</Text>
+                  </View>
+                </Button>
               </View>
-            </Button>
-          </View>
-          {/* <Button style={{backgroundColor: '#e3d0b9', borderTopLeftRadius: 15, borderWidth: 1, borderBottomLeftRadius: 15}} onPress={() => setShiftId(3)}> */}
-          <Button style={{backgroundColor: '#e3d0b9', borderTopLeftRadius: 15, borderWidth: 1, borderBottomLeftRadius: 15}} onPress={() => {shift2Done == true ? changeShift(3) : alert("Masih Di Shift 2")}}>
-            <View style={{margin: 5, paddingRight: 5, paddingTop: 5}}>
-              <Text style={{margin: 5}}>3</Text>
+              {/* <Button style={{backgroundColor: '#e3d0b9', borderTopLeftRadius: 15, borderWidth: 1, borderBottomLeftRadius: 15}} onPress={() => setShiftId(3)}> */}
+              <Button style={{backgroundColor: '#e3d0b9', borderTopLeftRadius: 15, borderWidth: 1, borderBottomLeftRadius: 15}} onPress={() => {shift2Done == true ? changeShift(3) : alert("Masih Di Shift 2")}}>
+                <View style={{margin: 5, paddingRight: 5, paddingTop: 5}}>
+                  <Text style={{margin: 5}}>3</Text>
+                </View>
+              </Button>
             </View>
-          </Button>
-        </View>
-      )
+          )
+        }else{
+          data.push(
+            <View key="XlsksmS" style={{flexDirection: 'column', paddingTop: 10, paddingLeft: 10}}>
+              <Button style={{backgroundColor: '#e3d0b9', borderTopLeftRadius: 15, borderWidth: 1, borderBottomLeftRadius: 15}} onPress={() => setShiftId(1)}>
+                <View style={{margin: 5, paddingRight: 5, paddingTop: 5}}>
+                  <Text style={{margin: 5}}>1</Text>
+                </View>
+              </Button>
+              <View style={{paddingVertical: 10}}>
+                <Button style={{backgroundColor: '#e3d0b9', borderTopLeftRadius: 15, borderWidth: 1, borderBottomLeftRadius: 15}} onPress={() => setShiftId(2)}>
+                  <View style={{margin: 5, paddingRight: 5, paddingTop: 5}}>
+                    <Text style={{margin: 5}}>2</Text>
+                  </View>
+                </Button>
+              </View>
+              <Button style={{borderTopLeftRadius: 15, borderWidth: 1, borderBottomLeftRadius: 15}} onPress={() => setShiftId(3)}>
+                <View style={{margin: 5, paddingRight: 10, paddingTop: 10}}>
+                  <Text style={{margin: 5}}>3</Text>
+                </View>
+              </Button>
+            </View>
+          )
+        }
+      }else if(dateApi < timeNow.format("Y-MM-D")){
+        if(shiftId == 1){
+          data.push(
+            <View key="XlsksmS" style={{flexDirection: 'column', paddingTop: 10, paddingLeft: 10}}>
+              <Button style={{borderTopLeftRadius: 15, borderWidth: 1, borderBottomLeftRadius: 15}} onPress={() => changeShift(1)}>
+                <View style={{margin: 5, paddingRight: 10, paddingTop: 10}}>
+                  <Text style={{margin: 5}}>1</Text>
+                </View>
+              </Button>
+              <View style={{paddingVertical: 10}}>
+                {/* <Button style={{backgroundColor: '#e3d0b9', borderTopLeftRadius: 15, borderWidth: 1, borderBottomLeftRadius: 15}} onPress={() => changeShift(2)}> */}
+                <Button style={{backgroundColor: '#e3d0b9', borderTopLeftRadius: 15, borderWidth: 1, borderBottomLeftRadius: 15}} onPress={() => changeShift(2)}>
+                  <View style={{margin: 5, paddingRight: 5, paddingTop: 5}}>
+                    <Text style={{margin: 5}}>2</Text>
+                  </View>
+                </Button>
+              </View>
+              {/* <Button style={{backgroundColor: '#e3d0b9', borderTopLeftRadius: 15, borderWidth: 1, borderBottomLeftRadius: 15}} onPress={() => changeShift(3)}> */}
+              <Button style={{backgroundColor: '#e3d0b9', borderTopLeftRadius: 15, borderWidth: 1, borderBottomLeftRadius: 15}} onPress={() => changeShift(3)}>
+                <View style={{margin: 5, paddingRight: 5, paddingTop: 5}}>
+                  <Text style={{margin: 5}}>3</Text>
+                </View>
+              </Button>
+            </View>
+          )
+        }else if(shiftId == 2){
+          data.push(
+            <View key="XlsksmS" style={{flexDirection: 'column', paddingTop: 10, paddingLeft: 10}}>
+              <Button style={{backgroundColor: '#e3d0b9', borderTopLeftRadius: 15, borderWidth: 1, borderBottomLeftRadius: 15}} onPress={() => setShiftId(1)}>
+                <View style={{margin: 5, paddingRight: 5, paddingTop: 5}}>
+                  <Text style={{margin: 5}}>1</Text>
+                </View>
+              </Button>
+              <View style={{paddingVertical: 10}}>
+                <Button style={{borderTopLeftRadius: 15, borderWidth: 1, borderBottomLeftRadius: 15}} onPress={() => setShiftId(2)}>
+                  <View style={{margin: 5, paddingRight: 10, paddingTop: 10}}>
+                    <Text style={{margin: 5}}>2</Text>
+                  </View>
+                </Button>
+              </View>
+              {/* <Button style={{backgroundColor: '#e3d0b9', borderTopLeftRadius: 15, borderWidth: 1, borderBottomLeftRadius: 15}} onPress={() => setShiftId(3)}> */}
+              <Button style={{backgroundColor: '#e3d0b9', borderTopLeftRadius: 15, borderWidth: 1, borderBottomLeftRadius: 15}} onPress={() => changeShift(3)}>
+                <View style={{margin: 5, paddingRight: 5, paddingTop: 5}}>
+                  <Text style={{margin: 5}}>3</Text>
+                </View>
+              </Button>
+            </View>
+          )
+        }else{
+          data.push(
+            <View key="XlsksmS" style={{flexDirection: 'column', paddingTop: 10, paddingLeft: 10}}>
+              <Button style={{backgroundColor: '#e3d0b9', borderTopLeftRadius: 15, borderWidth: 1, borderBottomLeftRadius: 15}} onPress={() => setShiftId(1)}>
+                <View style={{margin: 5, paddingRight: 5, paddingTop: 5}}>
+                  <Text style={{margin: 5}}>1</Text>
+                </View>
+              </Button>
+              <View style={{paddingVertical: 10}}>
+                <Button style={{backgroundColor: '#e3d0b9', borderTopLeftRadius: 15, borderWidth: 1, borderBottomLeftRadius: 15}} onPress={() => setShiftId(2)}>
+                  <View style={{margin: 5, paddingRight: 5, paddingTop: 5}}>
+                    <Text style={{margin: 5}}>2</Text>
+                  </View>
+                </Button>
+              </View>
+              <Button style={{borderTopLeftRadius: 15, borderWidth: 1, borderBottomLeftRadius: 15}} onPress={() => setShiftId(3)}>
+                <View style={{margin: 5, paddingRight: 10, paddingTop: 10}}>
+                  <Text style={{margin: 5}}>3</Text>
+                </View>
+              </Button>
+            </View>
+          )
+        }
+      }else{
+        console.log("aowkoakdowakodwkdaokwokawodk")
+      }
     }else{
-      data.push(
-        <View key="XlsksmS" style={{flexDirection: 'column', paddingTop: 10, paddingLeft: 10}}>
-          <Button style={{backgroundColor: '#e3d0b9', borderTopLeftRadius: 15, borderWidth: 1, borderBottomLeftRadius: 15}} onPress={() => setShiftId(1)}>
-            <View style={{margin: 5, paddingRight: 5, paddingTop: 5}}>
-              <Text style={{margin: 5}}>1</Text>
-            </View>
-          </Button>
-          <View style={{paddingVertical: 10}}>
-            <Button style={{backgroundColor: '#e3d0b9', borderTopLeftRadius: 15, borderWidth: 1, borderBottomLeftRadius: 15}} onPress={() => setShiftId(2)}>
-              <View style={{margin: 5, paddingRight: 5, paddingTop: 5}}>
-                <Text style={{margin: 5}}>2</Text>
-              </View>
-            </Button>
-          </View>
-          <Button style={{borderTopLeftRadius: 15, borderWidth: 1, borderBottomLeftRadius: 15}} onPress={() => setShiftId(3)}>
-            <View style={{margin: 5, paddingRight: 10, paddingTop: 10}}>
-              <Text style={{margin: 5}}>3</Text>
-            </View>
-          </Button>
-        </View>
-      )
+      console.log("lg di load cuy")
     }
     return data
   }
@@ -473,12 +686,12 @@ const UpdateProductionLeader = ({route, navigation}) => {
 							<View style={{flexDirection: 'column', width: "100%"}}>
 								<View style={{borderTopWidth: 0.3, height: 65, justifyContent: 'center', alignItems: 'center', width: "50%", flex: 1, flexDirection: 'column'}}>
                   <View style={{width: "100%", height: "100%"}}>
-                    <View style={{height: "50%", borderBottomWidth: 0.3, justifyContent: 'center', alignItems: 'center'}}>
+                    <View style={{height: "60%", borderBottomWidth: 0.3, justifyContent: 'center', alignItems: 'center', padding: 5}}>
                       {product_name != null ? productName : noProductName} 
                       {doc_number != null ?  docNumber : noDocNumber} 
                     </View>
-                    <View style={{height: "50%", justifyContent: 'center', alignItems: 'center'}}>
-                      <Text style={{marginTop: 1, fontWeight: 'bold', fontSize: 13}}>{date()}</Text>
+                    <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                      <Text style={{marginTop: 1, fontWeight: 'bold', fontSize: 10}}>{date()}</Text>
                     </View>
                   </View>
 								</View>

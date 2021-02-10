@@ -214,10 +214,10 @@ const NextDay = ({route, navigation}) => {
 						</View>
 
 						<View style={{flexDirection: 'row'}}>
-							<View style={{justifyContent: 'center', alignItems: 'center', paddingLeft: 5, height: 25, width: "50%", backgroundColor: '#dfe0df', borderBottomWidth: 0.3, borderRightWidth: 0.3}}>
+							<View style={{justifyContent: 'center', alignItems: 'center', paddingLeft: 5, height: 40, width: "50%", backgroundColor: '#dfe0df', borderBottomWidth: 0.3, borderRightWidth: 0.3}}>
 								<Text style={{fontWeight: 'bold', fontSize: 12}}>{customer_name}</Text>
 							</View>
-							<View style={{flex: 1, justifyContent: 'center', alignItems: 'center', height: 25, backgroundColor: '#dfe0df', borderBottomWidth: 0.3}}>
+							<View style={{flex: 1, justifyContent: 'center', alignItems: 'center', height: 40, backgroundColor: '#dfe0df', borderBottomWidth: 0.3, padding: 5}}>
 								<Text style={{fontWeight: 'bold', fontSize: 12}}>{product_name}</Text>
 							</View>
 						</View>

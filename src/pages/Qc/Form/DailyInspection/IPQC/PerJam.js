@@ -359,12 +359,11 @@ const PerJam = ({route, navigation}) => {
 	}
 		
 	const ngsDataFix = () => {
-		if(NGdata.length > 0)
-		{
+		if(NGdata.length > 0){
 			var dataNGs = []
-			if(checkPackaging == "NG" || status == "NG"){
+			if(checkPackaging == "ng" || status == "ng"){
 			dataNGs.push(
-				<Picker.Item label="--Pilih--" value={0} key="key1" />
+				<Picker.Item label="--Tidak NG--" value={0} key="key1" />
 			)
 			NGdata.map((element, key) => {
 				dataNGs.push(
@@ -427,8 +426,8 @@ const PerJam = ({route, navigation}) => {
 					onValueChange={(value) => setCheckPacking(value)}
 					>
 							<Picker.Item label="Pilih" value="" />
-							<Picker.Item label="OK" value="OK" />
-							<Picker.Item label="NG" value="NG" />
+							<Picker.Item label="OK" value="ok" />
+							<Picker.Item label="NG" value="ng" />
 					</Picker>
 				</View>
 			)
