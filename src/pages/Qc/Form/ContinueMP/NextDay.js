@@ -129,24 +129,6 @@ const NextDay = ({route, navigation}) => {
 		}
 	}
 
-	const buttonSubmit = () => {
-		if(data != null){
-			if(data.known_by != null && data.foreman_id != null){
-				return (
-					<Button onPress={() => submit()} style={{width: 172, borderRadius: 25, justifyContent: 'center'}}><Text>CONTINUE MP</Text></Button>
-				)
-			}else{
-				return(
-					<Button onPress={() => alert("Belum Ada Data Leader Produksi Dan Data Foreman")} style={{width: 172, borderRadius: 25, justifyContent: 'center', backgroundColor: '#b8b8b8', borderWidth: 1}}><Text>CONTINUE MP</Text></Button>
-				)
-			}
-		}else{
-			return(
-				<Button onPress={() => alert("Belum Ada Data Leader Produksi Dan Data Foreman")} style={{width: 172, borderRadius: 25, justifyContent: 'center', backgroundColor: '#b8b8b8', borderWidth: 1}}><Text>CONTINUE MP</Text></Button>
-			)
-		}
-	}
-
 	const content = () => {
 		console.log(data)
     return (

@@ -81,11 +81,15 @@ const ShowPlanning = ({route, navigation}) => {
         })}>
           <View style={{flexDirection: 'row'}}>
             <View style={{flexDirection: 'column'}}>
-              <Text style={{fontWeight: 'bold'}}>{element.product_name}</Text>
-              <Text style={{fontWeight: 'bold'}}>{element.product_customer_pn}</Text>
-            </View>
-            <View style={{flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-end', flex: 1}}>
-              <Text style={{fontSize: 15, fontWeight: 'bold'}}>{element.product_model}</Text>
+              <Text style={{fontWeight: 'bold'}}>{element.product_name}</Text> 
+              <View style={{flexDirection: 'row'}}>
+                <View style={{width: "50%", flexDirection: 'column'}}>
+                  <Text style={{fontWeight: 'bold'}}>{element.product_customer_pn}</Text> 
+                </View>
+                <View style={{width: "50%", flexDirection: 'column', alignItems: 'flex-end'}}>
+                  <Text style={{fontSize: 15, fontWeight: 'bold'}}>{element.product_model}</Text>
+                </View>
+              </View>
             </View>
           </View>
         </Button>

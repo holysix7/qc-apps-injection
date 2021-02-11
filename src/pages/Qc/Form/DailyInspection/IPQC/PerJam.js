@@ -107,8 +107,10 @@ const PerJam = ({route, navigation}) => {
 	const [updateStatusData, setUpdateStdT]		  		= useState("")
 	const [updateinspection_time, setUpdateIT]		  = useState(null)
 
+	const [operator_1_id, setOperatorId1]		  = useState("")
 	const [operatorNik1, setOperatorNik1]		  = useState("")
 	const [operatorName1, setOperatorName1]		= useState("")
+	const [operator_2_id, setOperatorId2]		  = useState("")
 	const [operatorNik2, setOperatorNik2]		  = useState("")
 	const [operatorName2, setOperatorName2]		= useState("")
 
@@ -145,6 +147,12 @@ const PerJam = ({route, navigation}) => {
 			noteUnnormal,
 			inspectionTime,
 			uploadedImage,
+			operator_1_id,
+			operatorNik1,
+			operatorName1,
+			operator_2_id,
+			operatorNik2,
+			operatorName2,
 			created_by,
 			created_at,
 			updated_by,
@@ -237,8 +245,10 @@ const PerJam = ({route, navigation}) => {
 			setIdButton(true)
 			setLoading(true)
 			setDataProduction(response.data.data.output_production.gross_prod)
+			setOperatorId1(response.data.data.output_production.operator_1_id)
 			setOperatorNik1(response.data.data.output_production.nik_operator_1)
 			setOperatorName1(response.data.data.output_production.name_operator_1)
+			setOperatorId2(response.data.data.output_production.operator_2_id)
 			setOperatorNik2(response.data.data.output_production.nik_operator_2)
 			setOperatorName2(response.data.data.output_production.name_operator_2)
 			setAppearance(response.data.data.output_production.appearance_n)
