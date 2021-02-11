@@ -135,13 +135,13 @@ const styles = StyleSheet.create({
     },
     bottomNavbar: {
         height: 60, 
-        backgroundColor: '#dfe0df', 
+        backgroundColor: '#19456b', 
         flexDirection: 'row', 
         borderWidth: 0.3
     },
     buttonNavbar: {
         height: 63, 
-        backgroundColor: '#dfe0df', 
+        backgroundColor: '#19456b', 
         justifyContent: 'center', 
         alignItems: 'center', 
         flex: 1
@@ -170,6 +170,13 @@ const styles = StyleSheet.create({
     massProButton: {
         marginTop: 5,
         width: "100%", 
+        borderRadius: 15, 
+        backgroundColor: '#1a508b'
+        // flexDirection: 'row'
+    },
+    listProductPlanning: {
+        marginTop: 5,
+        width: "100%",
         borderRadius: 15, 
         backgroundColor: '#1a508b'
         // flexDirection: 'row'
@@ -271,7 +278,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
     fontPlanning: {
-        fontSize: 15, 
+        fontSize: 18, 
         fontWeight: 'bold'
     },
     fontNoPlanning: {

@@ -3,9 +3,11 @@ import React, {useState, useEffect, useCallback } from 'react';
 import { Container, Text, Button, Picker} from 'native-base';
 import GeneralStatusBarColor from '../../components/GeneralStatusBarColor';
 import styles from '../../components/styles/Styling'
-import Home from '../../assets/FixHome.png'
-import Profile from '../../assets/FixProfile.png'
-import Cog from '../../assets/FixCog.png'
+import Home from '../../assets/FixHomeWhite.png'
+import Profile from '../../assets/FixProfileWhite.png'
+import Cog from '../../assets/FixCogWhite.png'
+import CalendarBlack from '../../assets/calendar.png'
+import CalendarWhite from '../../assets/calendarWhite.png'
 import AsyncStorage from "@react-native-community/async-storage";
 import axios from 'axios';
 import Header from '../API/Header';
@@ -116,8 +118,13 @@ const Qc = ({navigation}) => {
               })
             }}
             >
-              <Text style={styles.putihBold}>{element.number}</Text>
-              <Text style={{fontSize: 6}}>{element.name}</Text>
+              <View style={{flexDirection: 'column'}}>
+                <View style={{flexDirection: 'row', paddingRight: 12}}>
+                  <Text style={styles.putihBold}>{element.number}</Text>
+                  {element.product_id != null ? <Image source={CalendarWhite} style={{width: 20, height: 20}} /> : null}
+                </View>
+              </View>
+                <Text style={{fontSize: 6}}>{element.name}</Text>
             </Button>
           )
         }else if(element.status == 'no_load'){
@@ -132,8 +139,13 @@ const Qc = ({navigation}) => {
               })
             }}
             >
-              <Text style={styles.hitamBold}>{element.number}</Text>
-              <Text style={{color: 'black', fontSize: 6}}>{element.name}</Text>
+              <View style={{flexDirection: 'column'}}>
+                <View style={{flexDirection: 'row', paddingRight: 12}}>
+                  <Text style={styles.hitamBold}>{element.number}</Text>
+                  {element.product_id != null ? <Image source={CalendarBlack} style={{width: 20, height: 20}} /> : null}
+                </View>
+              </View>
+                <Text style={{fontSize: 6, color: 'black'}}>{element.name}</Text>
             </Button>
           )
         }else if(element.status == 'broken'){
@@ -148,8 +160,13 @@ const Qc = ({navigation}) => {
               })
             }}
             >
-              <Text style={styles.hitamBold}>{element.number}</Text>
-              <Text style={{color: 'black', fontSize: 6}}>{element.name}</Text>
+              <View style={{flexDirection: 'column'}}>
+                <View style={{flexDirection: 'row', paddingRight: 12}}>
+                  <Text style={styles.hitamBold}>{element.number}</Text>
+                  {element.product_id != null ? <Image source={CalendarBlack} style={{width: 20, height: 20}} /> : null}
+                </View>
+              </View>
+                <Text style={{fontSize: 6, color: 'black'}}>{element.name}</Text>
             </Button>
           )
         }else if(element.status == 'maintenance'){
@@ -164,8 +181,13 @@ const Qc = ({navigation}) => {
               })
             }}
             >
-              <Text style={styles.hitamBold}>{element.number}</Text>
-              <Text style={{color: 'black', fontSize: 6}}>{element.name}</Text>
+              <View style={{flexDirection: 'column'}}>
+                <View style={{flexDirection: 'row', paddingRight: 12}}>
+                  <Text style={styles.hitamBold}>{element.number}</Text>
+                  {element.product_id != null ? <Image source={CalendarBlack} style={{width: 20, height: 20}} /> : null}
+                </View>
+              </View>
+                <Text style={{fontSize: 6, color: 'black'}}>{element.name}</Text>
             </Button>
           )
   
@@ -181,8 +203,13 @@ const Qc = ({navigation}) => {
               })
             }}
             >
-              <Text style={styles.putihBold}>{element.number}</Text>
-              <Text style={{fontSize: 6}}>{element.name}</Text>
+              <View style={{flexDirection: 'column'}}>
+                <View style={{flexDirection: 'row', paddingRight: 12}}>
+                  <Text style={styles.putihBold}>{element.number}</Text>
+                  {element.product_id != null ? <Image source={CalendarWhite} style={{width: 20, height: 20}} /> : null}
+                </View>
+              </View>
+                <Text style={{fontSize: 6}}>{element.name}</Text>
             </Button>
           )
         }
@@ -246,6 +273,18 @@ const Qc = ({navigation}) => {
     }
   }
 
+  const headerContent = () => {
+    return (
+      <View>
+        <View style={{borderBottomWidth: 1, borderColor: 'gray', padding: 5, paddingLeft: 20,  backgroundColor: '#19456b'}}>
+          <View style={{height: 35, justifyContent: 'center', alignItems: 'center'}} >
+            <Text style={{color: 'white'}}>LIST MACHINES</Text>
+          </View>
+        </View>
+      </View>
+    )
+  }
+
   const onRefresh = useCallback(() => {
     setRefreshing(true);
     mesin(cekId);
@@ -256,7 +295,8 @@ const Qc = ({navigation}) => {
       <View>
         <GeneralStatusBarColor backgroundColor="#54c3f0" barStyle="light-content"/>
       </View>
-      <View >
+      {headerContent()}
+      <View>
         <View style={{padding: 5, backgroundColor: '#dfe0df'}}>
           <View style={{borderWidth: 1, borderColor: 'gray', height: 40, justifyContent: 'center'}} >
             <Picker 

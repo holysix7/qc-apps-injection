@@ -8,6 +8,7 @@ import {
 	ShowProducts,
 	ListForm,
 	ShowPlanning,
+	ListMasspro,
 	MassproBeginMaintMold,
 	MassproBeginMaterialPreparation,
 	MassproBeginMoldSetter,
@@ -50,6 +51,7 @@ const Router = () => {
 			<Stack.Screen name="ShowProducts" component={ShowProducts} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
 			<Stack.Screen name="ListForm" component={ListForm} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
 			<Stack.Screen name="ShowPlanning" component={ShowPlanning} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
+			<Stack.Screen name="ListMasspro" component={ListMasspro} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
 			<Stack.Screen name="MassproBeginMaintMold" component={MassproBeginMaintMold} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
 			<Stack.Screen name="MassproBeginMaterialPreparation" component={MassproBeginMaterialPreparation} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
 			<Stack.Screen name="MassproBeginMoldSetter" component={MassproBeginMoldSetter} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />

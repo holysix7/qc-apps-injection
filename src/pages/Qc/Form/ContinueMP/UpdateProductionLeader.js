@@ -468,6 +468,7 @@ const UpdateProductionLeader = ({route, navigation}) => {
                   </View>
                 </View>
               </View>
+              {buttonSubmit()}
             </View>
           )
         }

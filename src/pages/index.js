@@ -25,6 +25,7 @@ import ShowPlanning from './Qc/ShowPlanning';
  * START MP
  */
 
+import ListMasspro from './Qc/Form/StartMP/Index';
 import MassproBeginMaintMold from './Qc/Form/StartMP/MassproBeginMaintMold';
 import MassproBeginMaterialPreparation from './Qc/Form/StartMP/MassproBeginMaterialPreparation';
 import MassproBeginMoldSetter from './Qc/Form/StartMP/MassproBeginMoldSetter';
@@ -67,6 +68,7 @@ export {
     ShowProducts,
     ListForm,
     ShowPlanning,
+    ListMasspro,
     MassproBeginMaintMold,
     MassproBeginMaterialPreparation,
     MassproBeginMoldSetter,

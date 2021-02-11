@@ -3,9 +3,9 @@ import React from 'react';
 import { Container, Text, Button} from 'native-base';
 import GeneralStatusBarColor from '../../components/GeneralStatusBarColor';
 import styles from '../../components/styles/Styling';
-import Home from '../../assets/FixHome.png'
-import ImageProfile from '../../assets/FixProfile.png'
-import Cog from '../../assets/FixCog.png'
+import Home from '../../assets/FixHomeWhite.png'
+import ImageProfile from '../../assets/FixProfileWhite.png'
+import Cog from '../../assets/FixCogWhite.png'
 import AsyncStorage from "@react-native-community/async-storage";
 
 const Profile = ({route, navigation}) => {
@@ -75,10 +75,10 @@ const Profile = ({route, navigation}) => {
       <View>
         <GeneralStatusBarColor backgroundColor="#54c3f0" barStyle="light-content"/>
       </View>
-      <View style={{height: 50, backgroundColor: '#dfe0df', alignContent: 'center'}}>
+      <View style={{height: 50, backgroundColor: '#19456b', alignContent: 'center'}}>
         <View style={{flexDirection: 'row', justifyContent: 'center'}}>
           <View style={{paddingTop: 10, justifyContent: 'center', alignItems: 'center'}}>
-            <Text>Profile</Text>
+            <Text style={{color: 'white'}}>Profile</Text>
           </View>
         </View>
       </View>

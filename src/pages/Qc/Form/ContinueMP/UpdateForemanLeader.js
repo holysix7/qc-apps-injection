@@ -324,7 +324,7 @@ const UpdateForemanLeader = ({route, navigation}) => {
                   </View>
                 </View>
               </View>
-    
+            
               <View style={{paddingTop: 20, flexDirection: 'row'}}>
                 <View style={{padding: 10, width: "44%"}}>
                   <Text>User</Text>
@@ -340,18 +340,19 @@ const UpdateForemanLeader = ({route, navigation}) => {
                   </View>
                 </View>
               </View>
-    
+            
               {buttonSubmit()}
             </View>
           )
         }
       }else if(dateApi < timeNow.format("Y-MM-D")){
         if(shiftId == 1){
+          
           data.push(
             <View key="aksosk" style={{marginTop: 10, height: "100%", marginRight: 10, borderWidth: 1}}>
               <View style={{justifyContent: 'center', alignItems: 'center', paddingTop: 10}}>
                 <View style={{alignItems: 'center', justifyContent: 'center', flexDirection: 'row', borderWidth: 1, borderRadius: 10, width: "80%"}}>
-                  <Text>Shift 1</Text>
+                   <Text>Shift 1</Text>
                 </View>
               </View>
               <View style={{paddingTop: 20, flexDirection: 'row'}}>
@@ -426,6 +427,7 @@ const UpdateForemanLeader = ({route, navigation}) => {
               </View>
             </View>
           )
+          
         }else{
           data.push(
             <View key="aksosk" style={{marginTop: 10, height: "100%", marginRight: 10, borderWidth: 1}}>
@@ -464,8 +466,12 @@ const UpdateForemanLeader = ({route, navigation}) => {
                   </View>
                 </View>
               </View>
+
+              {buttonSubmit()}
+              
             </View>
           )
+          
         }
       }else{
         console.log("aowkaowkokw")
