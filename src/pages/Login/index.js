@@ -3,17 +3,18 @@ import {View, Image, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, A
 import LogoSIP from '../../assets/logo-sip3.png';
 import {Container, Button, Text, Form, Item, Label, Input} from "native-base";
 import GeneralStatusBarColor from '../../components/GeneralStatusBarColor';
-import Auth from '../API/Auth';
 import styles from "../../components/styles/Styling";
 import Axios from 'axios';
 import DeviceStorage from '../Login/DeviceStorage';
 import Session from '../Login/Session';
 import app_version from '../app_version/index';
+import messaging from '@react-native-firebase/messaging';
 
 const Login = ({navigation}) => {
 	const [user, setUser] = useState("");
 	const [password, setPassword] = useState("");
 	const [loading, setLoading] = useState(true)
+	const [registration_ids, setRegistration_ids] = useState("")
 
 	const backAction = () => {
     Alert.alert("Alert", "Apakah Anda Yakin Ingin Keluar?", [
@@ -28,11 +29,18 @@ const Login = ({navigation}) => {
 	};
 
   useEffect(() => {
+    messaging().getToken().then(token => {
+      // console.log(JSON.stringify(token));
+			setRegistration_ids(token)
+    });
+
     BackHandler.addEventListener("hardwareBackPress", backAction);
 
     return () =>
       BackHandler.removeEventListener("hardwareBackPress", backAction);
   }, []);
+
+	// console.log(registration_ids)
 
 	const submit = async() => {
 		setLoading(false)
@@ -40,7 +48,9 @@ const Login = ({navigation}) => {
 			user,
 			password,
 			app_version,
+			registration_ids
 		}
+		// console.log(data)
 		Axios.post('https://api.tri-saudara.com/signin', data)
 		.then(res => {
 			if (res.data.data.current_version == app_version) {

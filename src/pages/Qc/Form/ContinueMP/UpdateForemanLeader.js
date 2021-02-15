@@ -324,7 +324,8 @@ const UpdateForemanLeader = ({route, navigation}) => {
                   </View>
                 </View>
               </View>
-            
+    
+
               <View style={{paddingTop: 20, flexDirection: 'row'}}>
                 <View style={{padding: 10, width: "44%"}}>
                   <Text>User</Text>
@@ -340,7 +341,8 @@ const UpdateForemanLeader = ({route, navigation}) => {
                   </View>
                 </View>
               </View>
-            
+    
+
               {buttonSubmit()}
             </View>
           )

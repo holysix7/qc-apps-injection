@@ -498,7 +498,7 @@ const MassproBeginMoldSetter = ({route, navigation}) => {
 
 	const content = () => {
 		var dataContent = []
-		// if(qc_masspro_material_preparation_id != null){
+		if(qc_masspro_material_preparation_id != null){
 			dataContent.push(
 				<ScrollView key="23" style={{flex: 1}}>
 					<View style={{paddingTop: 20, flexDirection: 'row'}}>
@@ -591,15 +591,15 @@ const MassproBeginMoldSetter = ({route, navigation}) => {
 					
 				</ScrollView>
 			)
-		// }else{
-		// 	dataContent.push(
-		// 		<ScrollView key="3" style={{flex: 1}}>
-		// 			<View style={{marginVertical: 160, marginHorizontal: 40, padding: 40, backgroundColor: '#fff76a', borderWidth: 1, borderRadius: 25, flexDirection: 'row', alignItems: 'center'}}>
-		// 				<Text style={{fontSize: 12, textAlign: 'center', fontWeight: 'bold'}}>Hubungi Masspro Begin Material Preparation Untuk Segera Isi Form</Text>
-		// 			</View>
-		// 		</ScrollView>
-		// 	)
-		// }
+		}else{
+			dataContent.push(
+				<ScrollView key="3" style={{flex: 1}}>
+					<View style={{marginVertical: 160, marginHorizontal: 40, padding: 40, backgroundColor: '#fff76a', borderWidth: 1, borderRadius: 25, flexDirection: 'row', alignItems: 'center'}}>
+						<Text style={{fontSize: 12, textAlign: 'center', fontWeight: 'bold'}}>Hubungi Masspro Begin Material Preparation Untuk Segera Isi Form</Text>
+					</View>
+				</ScrollView>
+			)
+		}
 
 		return dataContent
 	}

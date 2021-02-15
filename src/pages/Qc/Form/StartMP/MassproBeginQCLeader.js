@@ -647,7 +647,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 	
 	const content = () => {
 		var dataContent = []
-		// if(qc_masspro_prod_leader_id != null){
+		if(qc_masspro_prod_leader_id != null){
 			dataContent.push(
 				<ScrollView key="29" style={{flex: 1}}>
 					<View style={{paddingTop: 20, flexDirection: 'row'}}>
@@ -778,15 +778,15 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 					</View>
 				</ScrollView>
 			)
-		// }else{
-		// 	dataContent.push(
-		// 		<ScrollView key="29" style={{flex: 1}}>
-		// 			<View style={{marginVertical: 160, marginHorizontal: 40, padding: 40, backgroundColor: '#fff76a', borderWidth: 1, borderRadius: 25, flexDirection: 'row', alignItems: 'center'}}>
-		// 				<Text style={{fontSize: 12, textAlign: 'center', fontWeight: 'bold'}}>Hubungi Masspro Begin Prod. Leader Untuk Segera Isi Form</Text>
-		// 			</View>
-		// 		</ScrollView>
-		// 	)
-		// }
+		}else{
+			dataContent.push(
+				<ScrollView key="29" style={{flex: 1}}>
+					<View style={{marginVertical: 160, marginHorizontal: 40, padding: 40, backgroundColor: '#fff76a', borderWidth: 1, borderRadius: 25, flexDirection: 'row', alignItems: 'center'}}>
+						<Text style={{fontSize: 12, textAlign: 'center', fontWeight: 'bold'}}>Hubungi Masspro Begin Prod. Leader Untuk Segera Isi Form</Text>
+					</View>
+				</ScrollView>
+			)
+		}
 		return dataContent
 	}
 

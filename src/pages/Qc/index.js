@@ -12,6 +12,7 @@ import AsyncStorage from "@react-native-community/async-storage";
 import axios from 'axios';
 import Header from '../API/Header';
 import app_version from '../app_version/index';
+import messaging from '@react-native-firebase/messaging';
 
 const Qc = ({navigation}) => {
   
@@ -25,6 +26,11 @@ const Qc = ({navigation}) => {
   const [refreshing, setRefreshing] = useState(false);
   useEffect(() => {
     session()
+    const unsubscribe = messaging().onMessage(async remoteMessage => {
+      console.log('A new FCM message arrived!', JSON.stringify(remoteMessage));
+    });
+    // Unmount FCM if done
+    return unsubscribe;
   }, [])
   
   const mesin = async(value) => {

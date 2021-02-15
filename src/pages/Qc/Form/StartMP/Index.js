@@ -26,11 +26,7 @@ const Index = ({route, navigation}) => {
   const [refreshing, setRefreshing] = useState(false);
 	useEffect(() => {
     session()
-		let isMounted = true;
 		products()
-		// return () => {
-		// 	isMounted = false
-		// }
 	}, [])
   
   const products = async () => {
@@ -43,7 +39,8 @@ const Index = ({route, navigation}) => {
       kind: 'list_masspro',
       sys_plant_id: sys_plant_id,
       machine_id: machine_id,
-      app_version: app_version
+      app_version: app_version,
+      eng_product_id: product_id
     }
     axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
     .then(response => {
