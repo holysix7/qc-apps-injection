@@ -1,4 +1,4 @@
-import {Image, View, TextInput, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, Keyboard, ScrollView, ActivityIndicator} from 'react-native';
+import {Image, View, TextInput, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, Keyboard, ScrollView, ActivityIndicator, Alert} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import { Container, Text, Button, Picker} from 'native-base';
 import AsyncStorage from "@react-native-community/async-storage";
@@ -6,66 +6,82 @@ import LogoSIP from '../../../../assets/logo-sip370x50.png';
 import Axios from 'axios';
 import moment from 'moment';
 import app_version from '../../../app_version/index';
+import base_url_submit from '../../../../API/BaseUrlSubmit';
 
 const MassproBeginMaterialPreparation = ({route, navigation}) => {
 	useEffect(() => {
 		formOke()
 	}, [])
 
-	const {sys_plant_id, machine_id, customer_name, machine_name, today, machine_number, eng_product_id} = route.params
-	const [material_standard, setConditionMaterial] = useState("")
-	const [cleaning_hopper, setHopper] 							= useState("")
-	const [hopper_temp, setConditionHopper] 				= useState("")
-	const [temp_hopper_val, setTempHopper] 					= useState("")
-	const [dataProduct1, setDataProduct1] 					= useState("")
-	const [created_by, setCreatedBy]								= useState("")
-	const [updated_by, setUpdatedBy]								= useState("")
+	const {sys_plant_id, machine_id, customer_name, machine_name, today, machine_number, eng_product_id, access_foreman} = route.params
+	const [material_standard, setConditionMaterial] = useState(null)
+	const [cleaning_hopper, setHopper] 							= useState(null)
+	const [hopper_temp, setConditionHopper] 				= useState(null)
+	const [temp_hopper_val, setTempHopper] 					= useState(null)
+	const [dataProduct1, setDataProduct1] 					= useState(null)
+	const [created_by, setCreatedBy]								= useState(null)
+	const [updated_by, setUpdatedBy]								= useState(null)
+	const [status_mp, setStatusMP]									= useState("Normal")
 	const [massproMP, setMassporMP]																						= useState(null)
-	const [massproMPCleaningHopper, setMassporMPCleanningHopper]							= useState(null)
-	const [massproMPMaterialStandard, setMassporMPMaterialStandard]						= useState(null)
-	const [massproMPTemperatureHopper, setMassporMPTemperaturHopper]					= useState(null)
-	const [massproMPTemperatureHopperNote, setMassporMPTemperaturHopperNote]	= useState(null)
 	const [massproMPRemark, setMassporMPRemark]																= useState(null)
-	const [massproMPInternalPartId, setMassporMPIPI]													= useState(null)
-	const [cavityAmount, setCavityAmount]						= useState("")
 	const prod_machine_id 													= machine_id
 	let dying_material 														  = moment().format("YYYY-MM-DD hh:mm:ss A")
 	let created_at 																	= moment().format("YYYY-MM-DD HH:mm:ss")
 	let updated_at 																	= moment().format("YYYY-MM-DD HH:mm:ss")
-	const [remark, setRemark] 											= useState("")
+	const [remark, setRemark] 											= useState(null)
 	const [qc_masspro_main_mold_id, setMaintMoldId]	= useState(null)
 	const [hours, setHours]		  										= useState(0)
 	const [shift, setShift]		  										= useState(0)
-	const [planningId, setPlanningId]		 		 				= useState("")
-	const [internal_part_id, setIPI]								= useState("")
+	const [planningId, setPlanningId]		 		 				= useState(null)
 	const status = "new"
-	const [tooling_num, setTooling]	= useState("")
-	const [dataMaterial, setMaterialData] = useState("")
-	const [temp_hopper, setTemperaturHopper] = useState("")
+	const [tooling_num, setTooling]	= useState(null)
+	const [dataMaterial, setMaterialData] = useState(null)
+	const [temp_hopper, setTemperaturHopper] = useState(null)
 	const planning_id = parseInt(planningId)
+	if(dataProduct1 != null){
+		var internal_part_id = dataProduct1.internal_part_id
+	}
+	// insert
+	const [lot_material, setLotMaterial] = useState(null)
 
 	const [loading, setLoading] = useState(false)
 
 	const submit = async() => {
 		setLoading(false)
-		const data = {
-			eng_product_id,
-			prod_machine_id,
-			sys_plant_id,
-			tooling_num,
-			temp_hopper_val,
-			cleaning_hopper,
-			planning_id,
-			internal_part_id,
-			material_standard,
-			qc_masspro_main_mold_id,
-			hopper_temp,
-			remark,
-			status,
-			created_by,
-			created_at,
-			updated_by,
-			updated_at
+		const id = await AsyncStorage.getItem('id')
+		const approved_by = id
+		if(massproMP != null){
+			if(massproMP.id != null){
+				const masspro_mp_id = massproMP.id
+				var data = {
+					masspro_mp_id,
+					status_mp,
+					access_foreman,
+					approved_by
+				}
+			}else{
+				var data = {
+					eng_product_id,
+					prod_machine_id,
+					sys_plant_id,
+					tooling_num,
+					temp_hopper_val,
+					cleaning_hopper,
+					planning_id,
+					internal_part_id,
+					material_standard,
+					qc_masspro_main_mold_id,
+					hopper_temp,
+					remark,
+					status,
+					created_by,
+					created_at,
+					updated_by,
+					updated_at,
+					access_foreman,
+					lot_material
+				}
+			}
 		}
 		const token = await AsyncStorage.getItem("key")
 		const params = {
@@ -75,7 +91,7 @@ const MassproBeginMaterialPreparation = ({route, navigation}) => {
 		}
 		var config = {
 			method: 'put',
-			url: 'https://api.tri-saudara.com/api/v2/qcs/update?',
+			url: base_url_submit,
 			params: params,
 			headers: { 
 				'Authorization': token, 
@@ -84,17 +100,53 @@ const MassproBeginMaterialPreparation = ({route, navigation}) => {
 			},
 		data : data
 		};
-		Axios(config)
-		.then(function (response){
+		if(lot_material != null && hopper_temp != null && cleaning_hopper != null && temp_hopper_val != null && material_standard != null){
+			Axios(config)
+			.then(function (response){
+				console.log("Res: ", response.status, " Ok")
+				setLoading(true)
+				Alert.alert(
+					"Success Send Data",
+					"Berhasil Menyimpan Data",
+					[
+						{ 
+							text: "OK", 
+							onPress: () => console.log('200 OK') 
+						}
+					],
+					{ cancelable: false }
+				)
+				navigation.navigate('ShowPlanning')
+			})
+			.catch(function (error){
+				setLoading(true)
+				Alert.alert(
+					"Failed Send Data",
+					"Gagal Kirim Data, Hubungi IT Department",
+					[
+						{ 
+							text: "OK", 
+							onPress: () => console.log('400 BAD') 
+						}
+					],
+					{ cancelable: false }
+				)
+				console.log(error)
+			})
+		}else{
 			setLoading(true)
-			console.log("Res: ", response.status, " Ok")
-			navigation.navigate('ShowPlanning')
-			alert("Success Send Data!")
-		})
-		.catch(function (error){
-			alert("Failed Send Data!")
-			console.log(error)
-		})
+			Alert.alert(
+				"Failed Send Data",
+				"Gagal Kirim Data, Periksa Kembali Form Input",
+				[
+					{ 
+						text: "OK", 
+						onPress: () => console.log('400 BAD') 
+					}
+				],
+				{ cancelable: false }
+			)
+		}
 	}
 
 	const formOke = async() => {
@@ -132,21 +184,14 @@ const MassproBeginMaterialPreparation = ({route, navigation}) => {
 		Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 		.then(response => {
 			setLoading(true)
+			console.log(response.data.data)
 			setDataProduct1(response.data.data.product_detail)
-			setIPI(response.data.data.product_detail.internal_part_id)
-			setCavityAmount(response.data.data.product_detail.cavity)
-			setMaintMoldId(response.data.data.qc_masspro_main_mold_id)
 			setTooling(response.data.data.tooling_num)
+			setMaintMoldId(response.data.data.qc_masspro_main_mold_id)
 			setMaterialData(response.data.data.material_detail)
 			setTemperaturHopper(response.data.data.temp_hopper_val)
 			setPlanningId(response.data.data.planning_id)
 			setMassporMP(response.data.data.masspro_mp)
-			setMassporMPCleanningHopper(response.data.data.masspro_mp.cleaning_hopper)
-			setMassporMPMaterialStandard(response.data.data.masspro_mp.material_standard)
-			setMassporMPTemperaturHopperNote(response.data.data.masspro_mp.temperature_hopper_note)
-			setMassporMPTemperaturHopper(response.data.data.masspro_mp.temperature_hopper)
-			setMassporMPRemark(response.data.data.masspro_mp.remark)
-			setMassporMPIPI(response.data.data.masspro_mp.internal_part_id)
 			console.log("List Data Material Preparation: ", response.data.status, "OK")
 		})
 		.catch(error => {
@@ -161,24 +206,18 @@ const MassproBeginMaterialPreparation = ({route, navigation}) => {
 	const hString = hours.toString()
 
 	const date = () => {
-		var date = []
-		if(today != null)
-		{
-			date.push(
-				<Text key={"key"} style={{marginTop: 1, fontWeight: 'bold', fontSize: 17}}>{today}</Text>
+		if(today != null){
+			return(
+				<Text style={{marginTop: 1, fontWeight: 'bold', fontSize: 17}}>{today}</Text>
 			)
 		}
-		return date
 	}
 
 	const updateCleaningHopper = () => {
-		const updateCleaning = massproMPCleaningHopper
-		const data = []
-		const mpData = massproMP
-		if(mpData != null){
-			if(updateCleaning != "OK" && updateCleaning != "NG"){
-				data.push(
-					<View key="123sdaw" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center'}}>
+		if(massproMP != null){
+			if(massproMP.cleaning_hopper != "OK" && massproMP.cleaning_hopper != "NG"){
+				return (
+					<View style={{borderWidth: 0.5, borderRadius: 10, height: 40, justifyContent: 'center'}}>
 						<Picker 
 						mode="dropdown"
 						selectedValue={cleaning_hopper}
@@ -191,15 +230,15 @@ const MassproBeginMaterialPreparation = ({route, navigation}) => {
 					</View>
 				)
 			}else{
-				data.push(
-					<View key="123sdaw" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-						<Text>{updateCleaning}</Text>
+				return (
+					<View style={{borderWidth: 0.5, borderRadius: 10, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+						<Text>{massproMP.cleaning_hopper}</Text>
 					</View>
 				)
 			}
 		}else{
-			data.push(
-				<View key="123sdaw" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center'}}>
+			return (
+				<View style={{borderWidth: 0.5, borderRadius: 10, height: 40, justifyContent: 'center'}}>
 					<Picker 
 					mode="dropdown"
 					selectedValue={cleaning_hopper}
@@ -212,17 +251,13 @@ const MassproBeginMaterialPreparation = ({route, navigation}) => {
 				</View>
 			)
 		}
-		return data
 	}
 
 	const updateMaterialStandard = () => {
-		const updateMS = massproMPMaterialStandard
-		const data = []
-		const mpData = massproMP
-		if(mpData != null){
-			if(updateMS != "OK" && updateMS != "NG"){
-				data.push(
-					<View key="asdwe1" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center'}}>
+		if(massproMP != null){
+			if(massproMP.material_standard == null){
+				return (
+					<View style={{borderWidth: 0.5, borderRadius: 10, height: 40, justifyContent: 'center'}}>
 						<Picker 
 						mode="dropdown"
 						selectedValue={material_standard}
@@ -235,15 +270,15 @@ const MassproBeginMaterialPreparation = ({route, navigation}) => {
 					</View>
 				)
 			}else{
-				data.push(
-					<View key="asdwe1" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-						<Text>{updateMS}</Text>
+				return (
+					<View style={{borderWidth: 0.5, borderRadius: 10, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+						<Text>{massproMP.material_standard}</Text>
 					</View>
 				)
 			}
 		}else{
-			data.push(
-				<View key="asdwe1" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center'}}>
+			return (
+				<View style={{borderWidth: 0.5, borderRadius: 10, height: 40, justifyContent: 'center'}}>
 					<Picker 
 					mode="dropdown"
 					selectedValue={material_standard}
@@ -256,45 +291,37 @@ const MassproBeginMaterialPreparation = ({route, navigation}) => {
 				</View>
 			)
 		}
-		return data
 	}
 
 	const updateTemperaturHopper = () => {
-		const updateMS = massproMPTemperatureHopperNote
-		const data = []
-		const mpData = massproMP
-		if(mpData != null){
-			if(updateMS != null){
-				data.push(
-					<View key="asd23" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', backgroundColor: '#b8b8b8', paddingLeft: 5}}>
-						<Text>{updateMS}</Text>
+		if(massproMP != null){
+			if(massproMP.temperature_hopper_note != null){
+				return (
+					<View style={{borderWidth: 0.5, borderRadius: 10, height: 40, justifyContent: 'center', backgroundColor: '#b8b8b8', paddingLeft: 5}}>
+						<Text>{massproMP.temperature_hopper_note}</Text>
 					</View>
 				)
 			}else{
-				data.push(
-					<View key="asd23" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center'}}>
-						<TextInput onChangeText={(value) => setTempHopper(value)} keyboardType='numeric' style={{borderWidth: 0.5, borderRadius: 25, paddingLeft: 5, height: 40}} placeholder="Type Here..." />
+				return (
+					<View style={{borderWidth: 0.5, borderRadius: 10, height: 40, justifyContent: 'center'}}>
+						<TextInput onChangeText={(value) => setTempHopper(value)} keyboardType='numeric' style={{borderWidth: 0.5, borderRadius: 10, paddingLeft: 5, height: 40}} placeholder="Type Here..." />
 					</View>
 				)
 			}
 		}else{
-			data.push(
-				<View key="asd23" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center'}}>
-					<TextInput onChangeText={(value) => setTempHopper(value)} keyboardType='numeric' style={{borderWidth: 0.5, borderRadius: 25, paddingLeft: 5, height: 40}} placeholder="Type Here..." />
+			return (
+				<View style={{borderWidth: 0.5, borderRadius: 10, height: 40, justifyContent: 'center'}}>
+					<TextInput onChangeText={(value) => setTempHopper(value)} keyboardType='numeric' style={{borderWidth: 0.5, borderRadius: 10, paddingLeft: 5, height: 40}} placeholder="Type Here..." />
 				</View>
 			)
 		}
-		return data
 	}
 
 	const updateTemperaturHopperSelect = () => {
-		const updateMS = massproMPTemperatureHopper
-		const data = []
-		const mpData = massproMP
-		if(mpData != null){
-			if(updateMS != "OK" && updateMS != "NG"){
-				data.push(
-					<View key="asdweq1" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center'}}>
+		if(massproMP != null){
+			if(massproMP.temperature_hopper != "OK" && massproMP.temperature_hopper != "NG"){
+				return (
+					<View style={{borderWidth: 0.5, borderRadius: 10, height: 40, justifyContent: 'center'}}>
 						<Picker 
 						mode="dropdown"
 						selectedValue={hopper_temp}
@@ -307,15 +334,15 @@ const MassproBeginMaterialPreparation = ({route, navigation}) => {
 					</View>
 				)
 			}else{
-				data.push(
-					<View key="asdweq1" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-						<Text>{updateMS}</Text>
+				return (
+					<View style={{borderWidth: 0.5, borderRadius: 10, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+						<Text>{massproMP.temperature_hopper}</Text>
 					</View>
 				)
 			}
 		}else{
-			data.push(
-				<View key="asdweq1" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center'}}>
+			return (
+				<View style={{borderWidth: 0.5, borderRadius: 10, height: 40, justifyContent: 'center'}}>
 					<Picker 
 					mode="dropdown"
 					selectedValue={hopper_temp}
@@ -328,67 +355,159 @@ const MassproBeginMaterialPreparation = ({route, navigation}) => {
 				</View>
 			)
 		}
-		return data
 	}
 
-	const updateRemark = () => {
-		const updateMS = massproMPRemark
-		const data = []
-		const mpData = massproMP
-		if(mpData != null){
-			if(updateMS != null){
-				data.push(
-					<View key="asd23" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', backgroundColor: '#b8b8b8', paddingLeft: 5}}>
-						<Text>{updateMS}</Text>
+	const lotMaterial = () => {
+		if(massproMP != null){
+			if(massproMP.lot_material != null){
+				return(
+					<View style={{borderWidth: 0.5, borderRadius: 10, height: 40, justifyContent: 'center', backgroundColor: '#b8b8b8', paddingLeft: 5}}>
+						<Text>{massproMP.lot_material}</Text>
 					</View>
 				)
 			}else{
-				data.push(
-					<View key="asd23" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+				return(
+					<View style={{borderWidth: 0.5, borderRadius: 10, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+						<TextInput onChangeText={(value) => setLotMaterial(value)} style={{paddingLeft: 5, height: 40}} placeholder="Type Here..." />
+					</View>
+				)
+			}
+		}else{
+			return(
+				<View style={{borderWidth: 0.5, borderRadius: 10, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<TextInput onChangeText={(value) => setLotMaterial(value)} style={{paddingLeft: 5, height: 40}} placeholder="Type Here..." />
+				</View>
+			)
+		}
+	}
+
+	const updateRemark = () => {
+		if(massproMP != null){
+			if(massproMP.remark != null){
+				return (
+					<View style={{borderWidth: 0.5, borderRadius: 10, height: 40, justifyContent: 'center', backgroundColor: '#b8b8b8', paddingLeft: 5}}>
+						<Text>{massproMP.remark}</Text>
+					</View>
+				)
+			}else{
+				return (
+					<View style={{borderWidth: 0.5, borderRadius: 10, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 						<TextInput value={remark} onChangeText={(value) => setRemark(value)} style={{paddingLeft: 5, height: 40}} placeholder="Type Here..." />
 					</View>
 				)
 			}
 		}else{
-			data.push(
-				<View key="asd23" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+			return (
+				<View style={{borderWidth: 0.5, borderRadius: 10, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 					<TextInput value={remark} onChangeText={(value) => setRemark(value)} style={{paddingLeft: 5, height: 40}} placeholder="Type Here..." />
 				</View>
 			)
 		}
-		return data
 	}
 
 	const updateButton = () => {
-		const updateMS = massproMP
-		const data = []
-		if(updateMS != null){
-			if(massproMPCleaningHopper != null){
-				data.push(
-					<View key="asd12q" style={{paddingTop: 10}}>
-						<Button style={{width: 172, borderRadius: 25, justifyContent: 'center', backgroundColor: '#05c46b'}} onPress={() => alert("Data Material Preparation Already Saved!")}><Text>SAVED</Text></Button>
+		if(access_foreman == true){
+			if(massproMP != null){
+				if(massproMP.approved_by != null){
+					return(
+						<View style={{paddingTop: 10}}>
+							<Button style={{width: 172, borderRadius: 10, justifyContent: 'center', backgroundColor: '#05c46b'}} onPress={() => alert("Data Material Preparation Already Approved!")}><Text>APPROVED</Text></Button>
+						</View>
+					)
+				}else{
+					return(
+						<View style={{paddingTop: 10}}>
+							<Button style={{width: 172, borderRadius: 10, justifyContent: 'center'}} onPress={() => 
+								Alert.alert(
+									"Info",
+									"Are You Sure?",
+									[
+										{ text: "Cancel", onPress: () => console.log('Cancel') },
+										{ text: "Yes", onPress: () => submit() }
+									],
+									{ cancelable: true }
+								)}
+							><Text>APPROVE</Text></Button>
+						</View>
+					)
+				}
+			}
+		}else{
+			if(massproMP != null){
+				if(massproMP.id != null){
+					return(
+						<View style={{paddingTop: 10}}>
+							<Button style={{width: 172, borderRadius: 10, justifyContent: 'center', backgroundColor: '#05c46b'}} onPress={() => alert("Data Material Preparation Already Saved!")}><Text>SAVED</Text></Button>
+						</View>
+					)
+				}else{
+					return(
+						<View style={{paddingTop: 10}}>
+							<Button style={{width: 172, borderRadius: 10, justifyContent: 'center'}} onPress={() => 
+								Alert.alert(
+									"Info",
+									"Are You Sure?",
+									[
+										{ text: "Cancel", onPress: () => console.log('Cancel') },
+										{ text: "Yes", onPress: () => submit() }
+									],
+									{ cancelable: true }
+								)}
+							><Text>SAVE</Text></Button>
+						</View>
+					)
+				}
+			}
+		}
+	}
+
+	const updateStatusForeman = () => {
+		if(massproMP != null){
+			if(massproMP.approved_by == null){
+				return (
+					<View key="asdw2"  style={{borderWidth: 0.5, borderRadius: 10, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+						<Picker 
+						mode="dropdown"
+						selectedValue={status_mp}
+						onValueChange={(value) => setStatusMP(value)}
+						>
+							<Picker.Item label="Normal" value="Normal" />
+							<Picker.Item label="Waiting" value="Waiting" />
+							<Picker.Item label="Next Planning" value="Next Planning" />
+						</Picker>
 					</View>
 				)
 			}else{
-				data.push(
-					<View key="asd12q" style={{paddingTop: 10}}>
-						<Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>
+				return(
+					<View key="aoij2o" style={{borderWidth: 0.5, borderRadius: 10, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+						<Text>{massproMP.status_mp}</Text>
 					</View>
 				)
 			}
-		}else{
-			data.push(
-				<View key="asd12q" style={{paddingTop: 10}}>
-					<Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>
+		}
+	}
+
+	const formKhususForeman = () => {
+		if(access_foreman == true){
+			return (
+				<View style={{paddingTop: 20, flexDirection: 'row'}}>
+					<View style={{padding: 10, width: "40%"}}>
+						<Text>Status</Text>
+					</View>
+					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+						<Text style={{color: 'black'}}>:</Text>
+					</View>
+					<View style={{padding: 4, width: "50%"}}>
+						{updateStatusForeman()}
+					</View>
 				</View>
 			)
 		}
-		return data
 	}
 
 	const content = () => {
 		var dataContent = []
-		if(qc_masspro_main_mold_id != null){
+		// if(qc_masspro_main_mold_id != null){
 			dataContent.push(
 				<ScrollView key="3" style={{flex: 1}}>
 					<View style={{paddingTop: 20, flexDirection: 'row'}}>
@@ -410,8 +529,8 @@ const MassproBeginMaterialPreparation = ({route, navigation}) => {
 							<Text>:</Text>
 						</View>
 						<View style={{padding: 4, width: "29%"}}>
-							<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-								<Text style={{fontSize: 9.5}}>{dataMaterial.name}</Text>
+							<View style={{borderWidth: 0.5, borderRadius: 10, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+								<Text style={{fontSize: 9.5}}>{dataMaterial != null ? dataMaterial.name : '-'}</Text>
 							</View>
 						</View>
 						<View style={{padding: 4, width: "25%"}}>
@@ -446,6 +565,18 @@ const MassproBeginMaterialPreparation = ({route, navigation}) => {
 							<Text style={{fontSize: 12}}>{dying_material}</Text>
 						</View>
 					</View>
+					{formKhususForeman()}
+					<View style={{paddingTop: 20, flexDirection: 'row'}}>
+						<View style={{padding: 10, width: "40%"}}>
+							<Text>Lot Material</Text>
+						</View>
+						<View style={{padding: 10, width: "6%"}}>
+							<Text>:</Text>
+						</View>
+						<View style={{padding: 4, width: "50%"}}>
+							{lotMaterial()}
+						</View>
+					</View>
 					<View style={{paddingTop: 20, flexDirection: 'row'}}>
 						<View style={{padding: 10, width: "40%"}}>
 							<Text>Remark</Text>
@@ -453,7 +584,7 @@ const MassproBeginMaterialPreparation = ({route, navigation}) => {
 						<View style={{padding: 10, width: "6%"}}>
 							<Text>:</Text>
 						</View>
-						<View style={{padding: 4, width: "54%"}}>
+						<View style={{padding: 4, width: "50%"}}>
 							{updateRemark()}
 						</View>
 					</View>
@@ -462,18 +593,20 @@ const MassproBeginMaterialPreparation = ({route, navigation}) => {
 					</View>
 				</ScrollView>
 			)
-		}else{
-			dataContent.push(
-				<ScrollView key="3" style={{flex: 1}}>
-					<View style={{marginVertical: 160, marginHorizontal: 40, padding: 40, backgroundColor: '#fff76a', borderWidth: 1, borderRadius: 25, flexDirection: 'row', alignItems: 'center'}}>
-						<Text style={{fontSize: 12, textAlign: 'center', fontWeight: 'bold'}}>Hubungi Masspro Begin Maintenance Mold Untuk Segera Isi Form</Text>
-					</View>
-				</ScrollView>
-			)
-		}
+		// }
+		// else{
+		// 	dataContent.push(
+		// 		<ScrollView key="3" style={{flex: 1}}>
+		// 			<View style={{marginVertical: 160, marginHorizontal: 40, padding: 40, backgroundColor: '#fff76a', borderWidth: 1, borderRadius: 10, flexDirection: 'row', alignItems: 'center'}}>
+		// 				<Text style={{fontSize: 12, textAlign: 'center', fontWeight: 'bold'}}>Hubungi Masspro Begin Maintenance Mold Untuk Segera Isi Form</Text>
+		// 			</View>
+		// 		</ScrollView>
+		// 	)
+		// }
 		return dataContent
 	}
 
+// abcd
 	return(
 		<KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={{flex:1}}>
 			<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -493,7 +626,7 @@ const MassproBeginMaterialPreparation = ({route, navigation}) => {
 							</View>
 							<View style={{flexDirection: 'column', width: "100%"}}>
 								<View style={{borderTopWidth: 0.3, height: 65, justifyContent: 'center', alignItems: 'center', width: "50%", flex: 1}}>
-									<Text style={{fontWeight: 'bold', fontSize: 17}}>({machine_number}) - {machine_name}</Text>
+									<Text style={{fontWeight: 'bold', fontSize: 17, textAlign: 'center'}}>({machine_number}) - {machine_name}</Text>
 									<View style={{borderWidth: 0.5, width: 150, height: 25, justifyContent: 'center'}}>
 										<Picker 
 										mode="dropdown"

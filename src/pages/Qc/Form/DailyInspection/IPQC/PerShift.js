@@ -6,9 +6,10 @@ import AsyncStorage from "@react-native-community/async-storage";
 import moment from 'moment';
 import Axios from 'axios';
 import app_version from '../../../../app_version/index';
+import base_url_submit from '../../../../../API/BaseUrlSubmit';
 
 const PerShift = ({route, navigation}) => {
-	const {qc_daily_inspection_id, qc_daily_inspection_method_id, sys_plant_id, product_name, customer_name, machine_id, machine_number, machine_name, today, yesterday, daily_inspection_number} = route.params
+	const {qc_daily_inspection_id, qc_daily_inspection_method_id, sys_plant_id, product_name, customer_name, machine_id, machine_number, machine_name, date, daily_inspection_number} = route.params
 	useEffect(() => {
 		formOke()
 		let isMounted = true
@@ -34,6 +35,7 @@ const PerShift = ({route, navigation}) => {
 	}, [])
 
 	
+// abcd
 	const [product_weight1, setproduct_weight1]	  			= useState("")
 	const [product_weight2, setproduct_weight2]   			= useState("")
 	const [product_weight3, setproduct_weight3]   			= useState("")
@@ -94,21 +96,9 @@ const PerShift = ({route, navigation}) => {
 	const [updateinspection_time, setinspection_timeupdate]		  		= useState("")
 	const [idButton, setIdButton]	= useState(true)
 	const [loading, setLoading]		= useState(false)
-	const date = []
 
 	var timeNow 	= moment()
 	var hoursNow	= parseInt(moment(timeNow).format("H"))
-
-	if(today != null){
-		date.push(
-			<Text key={"key"} style={{marginTop: 1, fontWeight: 'bold', fontSize: 17}}>{today}</Text>
-		)
-	}
-	if(yesterday != null){
-		date.push(
-			<Text key={"key"} style={{marginTop: 1, fontWeight: 'bold', fontSize: 17}}>{yesterday}</Text>
-		)
-	}
 
 	const formOke = async() => {
 		const token = await AsyncStorage.getItem("key")
@@ -333,6 +323,7 @@ const PerShift = ({route, navigation}) => {
 		},
 
 	}
+
 	const submit = async() => {
 		setLoading(false)
 		const el = {
@@ -358,7 +349,7 @@ const PerShift = ({route, navigation}) => {
 		}
 		var config = {
 			method: 'put',
-			url: 'https://api.tri-saudara.com/api/v2/qcs/update?',
+			url: base_url_submit,
 			params: params,
 			headers: { 
 				'Authorization': token, 
@@ -375,7 +366,7 @@ const PerShift = ({route, navigation}) => {
 			alert("Success Send Data!")
 		})
 		.catch(function (error){
-			alert("Failed Send Data!")
+			alert("Failed Send Data! API Call Error, Hubungi IT Dept.")
 			setLoading(true)
 			console.log(error)
 		})
@@ -383,8 +374,8 @@ const PerShift = ({route, navigation}) => {
 
 	const dataItem = () => {
 		const checkingCavity = dataCavity
-		console.log
 		var table1 = []
+		console.log(checkingCavity)
 		if(cavityDetail.length > 0){
 			if(cavityDetail[0].weight_product != null){
 				var i
@@ -1367,13 +1358,13 @@ const PerShift = ({route, navigation}) => {
 
 	const idButtonFix = () => {
 		if(cavityDetail.length > 0){
-			console.log(cavityDetail[0].weight_product)
+			console.log(updateinspection_time)
 			if(cavityDetail[0].weight_product != null){
 				return(
 					<View>
 						<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
 							<View key="SokemlIj2">
-								<Button style={{backgroundColor: 'green', width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => alert("Already Saved!")}><Text>SAVED</Text></Button>
+								<Button style={{backgroundColor: 'green', width: 172, borderRadius: 15, justifyContent: 'center'}} onPress={() => alert("Already Saved!")}><Text>SAVED</Text></Button>
 							</View>
 						</View>
 						<View style={{flexDirection: 'column', height: 50}}>
@@ -1395,7 +1386,7 @@ const PerShift = ({route, navigation}) => {
 					<View>
 						<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
 							<View key="SokemlIj2">
-								<Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>
+								<Button style={{width: 172, borderRadius: 15, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>
 							</View>
 						</View>
 		
@@ -1419,7 +1410,7 @@ const PerShift = ({route, navigation}) => {
 				<View>
 					<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
 						<View key="SokemlIj2">
-							<Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>
+							<Button style={{width: 172, borderRadius: 15, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>
 						</View>
 					</View>
 	
@@ -1454,7 +1445,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 						<View style={{padding: 4, width: "50%"}}>
 							<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-								<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+								<View style={{borderWidth: 0.5, borderRadius: 5, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
 									<Text>{data.daily_inspection != null ? data.daily_inspection.machine_status : "-"}</Text>
 								</View>
 							</View>
@@ -1470,7 +1461,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 						<View style={{padding: 4, width: "50%"}}>
 							<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-								<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+								<View style={{borderWidth: 0.5, borderRadius: 5, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
 									<Text>{tooling_num != null ? tooling_num : "-"}</Text>
 								</View>
 							</View>
@@ -1486,7 +1477,7 @@ const PerShift = ({route, navigation}) => {
 						</View>
 						<View style={{padding: 4, width: "50%"}}>
 							<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-								<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+								<View style={{borderWidth: 0.5, borderRadius: 5, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
 									{/* <Text>2</Text> */}
 									<Text>{dataCavity != null ? dataCavity : "-"}</Text>
 								</View>
@@ -1556,7 +1547,7 @@ const PerShift = ({route, navigation}) => {
 							</View>
 							<View style={{flexDirection: 'column', width: "100%"}}>
 								<View style={{borderTopWidth: 0.3, height: 65, justifyContent: 'center', alignItems: 'center', width: "50%", flex: 1}}>
-									<Text style={{fontWeight: 'bold', fontSize: 17}}>({machine_number}) - {machine_name}</Text>
+									<Text style={{fontWeight: 'bold', fontSize: 17, textAlign: 'center'}}>({machine_number}) - {machine_name}</Text>
 									<View style={{borderWidth: 0.5, width: 150, height: 25, justifyContent: 'center'}}>
 										<Picker 
 										mode="dropdown"

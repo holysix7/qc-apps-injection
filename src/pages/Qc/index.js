@@ -10,35 +10,37 @@ import CalendarBlack from '../../assets/calendar.png'
 import CalendarWhite from '../../assets/calendarWhite.png'
 import AsyncStorage from "@react-native-community/async-storage";
 import axios from 'axios';
-import Header from '../API/Header';
 import app_version from '../app_version/index';
 import messaging from '@react-native-firebase/messaging';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const Qc = ({navigation}) => {
   
-  const [cekId, setCekId]           = useState("");
-  const [name, setCekName]          = useState("");
-  const [deptName, setCekDeptName]  = useState("");
-  const [userNik, setUserNik]       = useState(null);
-  const [dutyId, setDutyId]         = useState([]);
-  const [loading, setLoading]       = useState(false);
-  const [data, setData]             = useState([]);
-  const [refreshing, setRefreshing] = useState(false);
+  const [cekId, setCekId]             = useState("");
+  const [name, setCekName]            = useState("");
+  const [deptName, setCekDeptName]    = useState("");
+  const [versionIQC, setVersionIQC]   = useState(null);
+  const [featureUser, setFeature]     = useState([]);
+  const [userNik, setUserNik]         = useState(null);
+  const [user_image, setImage]        = useState(null);
+  const [dutyId, setDutyId]           = useState([]);
+  const [loading, setLoading]         = useState(false);
+  const [data, setData]               = useState([]);
+  const [refreshing, setRefreshing]   = useState(false);
+
   useEffect(() => {
     session()
     const unsubscribe = messaging().onMessage(async remoteMessage => {
-      console.log('A new FCM message arrived!', JSON.stringify(remoteMessage));
     });
-    // Unmount FCM if done
     return unsubscribe;
   }, [])
-  
+
   const mesin = async(value) => {
     setCekId(value)
     setLoading(false)
-    const abs = await AsyncStorage.getItem("key")
+    const token = await AsyncStorage.getItem("key")
     const headers = {
-      'Authorization': abs
+      'Authorization': token
     }
     const params = {
       tbl: 'machine',
@@ -76,19 +78,23 @@ const Qc = ({navigation}) => {
 
   const session = async () => {
     try {
-      const UserSession = await AsyncStorage.multiGet(['user', 'name', 'department_name', 'sys_plant_id', 'duty_plant_option_select', 'feature'])
-      const id = await AsyncStorage.getItem('id')
-      const sys_plant_id = await AsyncStorage.getItem('sys_plant_id')
-      const duty = await AsyncStorage.getItem('duty_plant_option_select')
-      const deptName    = await AsyncStorage.getItem('department_name')
-      const name    = await AsyncStorage.getItem('name')
-      const user    = await AsyncStorage.getItem('user')
-      const feature    = await AsyncStorage.getItem('feature')
+      const sys_plant_id          = await AsyncStorage.getItem('sys_plant_id')
+      const duty                  = await AsyncStorage.getItem('duty_plant_option_select')
+      const deptName              = await AsyncStorage.getItem('department_name')
+      const name                  = await AsyncStorage.getItem('name')
+      const user                  = await AsyncStorage.getItem('user')
+      const feature               = await AsyncStorage.getItem('feature')
+      const current_version_iqc   = await AsyncStorage.getItem('current_version_iqc')
+      const image                 = await AsyncStorage.getItem('employee_image_base64')
+      console.log(image)
       setDutyId(JSON.parse(duty))
       setCekId(sys_plant_id)
       setUserNik(user)
+      setImage(image)
       setCekDeptName(deptName)
       setCekName(name)
+      setVersionIQC(current_version_iqc)
+      setFeature(JSON.parse(feature))
     } catch (error) {
       console.log('Multi Get Error: ', error.message)
     }
@@ -102,8 +108,6 @@ const Qc = ({navigation}) => {
           <Picker.Item label={element.plant_name} value={element.plant_id} key={key} />
         )
       })
-    }else{
-      console.log("Duty Id = Kosong")
     }
     return plantDuty
   }
@@ -112,7 +116,7 @@ const Qc = ({navigation}) => {
     const machines = []
     if(cekId != null){
       data.forEach(element => {
-        if(element.status  == 'loaded'){
+        if(element.status == 'loaded'){
           machines.push(
             <Button key={element.id} style={styles.machineLoaded}
             onPress={() => {
@@ -124,13 +128,15 @@ const Qc = ({navigation}) => {
               })
             }}
             >
-              <View style={{flexDirection: 'column'}}>
-                <View style={{flexDirection: 'row', paddingRight: 12}}>
-                  <Text style={styles.putihBold}>{element.number}</Text>
+              <View style={{flexDirection: 'row', flex: 1, width: "100%", justifyContent: 'center'}}>
+                <View style={{flexDirection: 'column'}}>
+                  <Text style={styles.putihBold}>{element.product_lot_out == true ? <Text style={styles.asterixMerah}>*</Text> : null} {element.number}</Text> 
+                </View>
+                <View style={{flexDirection: 'column'}}>
                   {element.product_id != null ? <Image source={CalendarWhite} style={{width: 20, height: 20}} /> : null}
                 </View>
               </View>
-                <Text style={{fontSize: 6}}>{element.name}</Text>
+              <Text style={{fontSize: 6}}>{element.name}</Text>
             </Button>
           )
         }else if(element.status == 'no_load'){
@@ -145,13 +151,15 @@ const Qc = ({navigation}) => {
               })
             }}
             >
-              <View style={{flexDirection: 'column'}}>
-                <View style={{flexDirection: 'row', paddingRight: 12}}>
-                  <Text style={styles.hitamBold}>{element.number}</Text>
+              <View style={{flexDirection: 'row', flex: 1, width: "100%", justifyContent: 'center'}}>
+                <View style={{flexDirection: 'column'}}>
+                  <Text style={styles.hitamBold}>{element.product_lot_out == true ? <Text style={styles.asterixMerah}>*</Text> : null} {element.number}</Text> 
+                </View>
+                <View style={{flexDirection: 'column'}}>
                   {element.product_id != null ? <Image source={CalendarBlack} style={{width: 20, height: 20}} /> : null}
                 </View>
               </View>
-                <Text style={{fontSize: 6, color: 'black'}}>{element.name}</Text>
+              <Text style={{fontSize: 6, color: 'black'}}>{element.name}</Text>
             </Button>
           )
         }else if(element.status == 'broken'){
@@ -166,13 +174,15 @@ const Qc = ({navigation}) => {
               })
             }}
             >
-              <View style={{flexDirection: 'column'}}>
-                <View style={{flexDirection: 'row', paddingRight: 12}}>
-                  <Text style={styles.hitamBold}>{element.number}</Text>
+              <View style={{flexDirection: 'row', flex: 1, width: "100%", justifyContent: 'center'}}>
+                <View style={{flexDirection: 'column'}}>
+                  <Text style={styles.hitamBold}>{element.product_lot_out == true ? <Text style={styles.asterixMerah}>*</Text> : null} {element.number}</Text> 
+                </View>
+                <View style={{flexDirection: 'column'}}>
                   {element.product_id != null ? <Image source={CalendarBlack} style={{width: 20, height: 20}} /> : null}
                 </View>
               </View>
-                <Text style={{fontSize: 6, color: 'black'}}>{element.name}</Text>
+              <Text style={{fontSize: 6, color: 'black'}}>{element.name}</Text>
             </Button>
           )
         }else if(element.status == 'maintenance'){
@@ -187,13 +197,15 @@ const Qc = ({navigation}) => {
               })
             }}
             >
-              <View style={{flexDirection: 'column'}}>
-                <View style={{flexDirection: 'row', paddingRight: 12}}>
-                  <Text style={styles.hitamBold}>{element.number}</Text>
+              <View style={{flexDirection: 'row', flex: 1, width: "100%", justifyContent: 'center'}}>
+                <View style={{flexDirection: 'column'}}>
+                  <Text style={styles.hitamBold}>{element.product_lot_out == true ? <Text style={styles.asterixMerah}>*</Text> : null} {element.number}</Text> 
+                </View>
+                <View style={{flexDirection: 'column'}}>
                   {element.product_id != null ? <Image source={CalendarBlack} style={{width: 20, height: 20}} /> : null}
                 </View>
               </View>
-                <Text style={{fontSize: 6, color: 'black'}}>{element.name}</Text>
+              <Text style={{fontSize: 6, color: 'black'}}>{element.name}</Text>
             </Button>
           )
   
@@ -209,13 +221,15 @@ const Qc = ({navigation}) => {
               })
             }}
             >
-              <View style={{flexDirection: 'column'}}>
-                <View style={{flexDirection: 'row', paddingRight: 12}}>
-                  <Text style={styles.putihBold}>{element.number}</Text>
+              <View style={{flexDirection: 'row', flex: 1, width: "100%", justifyContent: 'center'}}>
+                <View style={{flexDirection: 'column'}}>
+                  <Text style={styles.putihBold}>{element.product_lot_out == true ? <Text style={styles.asterixMerah}>*</Text> : null} {element.number}</Text> 
+                </View>
+                <View style={{flexDirection: 'column'}}>
                   {element.product_id != null ? <Image source={CalendarWhite} style={{width: 20, height: 20}} /> : null}
                 </View>
               </View>
-                <Text style={{fontSize: 6}}>{element.name}</Text>
+              <Text style={{fontSize: 6}}>{element.name}</Text>
             </Button>
           )
         }
@@ -224,59 +238,76 @@ const Qc = ({navigation}) => {
     return machines
   }
 
-  
-  const buttonNavbar = () => {
-    if(userNik == 32008107 || userNik == 21410012){
-      return (
-        <View style={styles.bottomNavbar}>
-          <Button style={styles.buttonNavbar}>
-            <Image source={Home} style={styles.homeButton}/>
-          </Button>
-      
-          <Button style={styles.buttonNavbar} onPress={() => {
-            navigation.navigate('OQC')
-          }}>
-            <Image source={Cog} style={styles.cogButton}/>
-          </Button>
+  const loopFeature = () => {
+    const iqcData = []
+    featureUser.map((element, key) => {
+      if(cekId == element.sys_plant_id){
+        if(element.qc_incoming != null){
+          if(element.qc_incoming.view_permissions != false){
+            if(versionIQC == "0.9.6.5.A"){
+              iqcData.push(
+                <TouchableOpacity key={key} style={{borderWidth: 1, borderRadius: 15, borderColor: 'white', width: 80, paddingVertical: 3, marginTop: 5, flexDirection: 'column', alignItems: 'center'}} onPress={() => {
+                  navigation.navigate('IQC', {
+                    sys_plant_id: cekId,
+                    qc_incoming: element.qc_incoming
+                  })
+                }}>
+                  <Image source={Cog} style={styles.cogButton}/>
+                  <Text style={{fontWeight: 'bold', fontSize: 11, color: 'white'}}>IQC</Text>
+                </TouchableOpacity>
+              )
+            }else{
+              iqcData.push(
+                <TouchableOpacity key={key} style={{borderWidth: 1, borderRadius: 15, borderColor: 'white', width: 80, paddingVertical: 3, marginTop: 5, flexDirection: 'column', alignItems: 'center'}} onPress={() => Alert.alert(
+                  "Info",
+                  "Silahkan Hubungi IT Karena Versi Yang Digunakan Tidak Sesuai",
+                  [
+                    { text: "OK", onPress: () => console.log('User Tidak Punya Akses') }
+                  ],
+                  { cancelable: false }
+                )}>
+                  <Image source={Cog} style={styles.cogButton}/>
+                  <Text style={{fontWeight: 'bold', fontSize: 11, color: 'white'}}>IQC</Text>
+                </TouchableOpacity>
+              )
+            }
+          }else{
+            iqcData.push(
+              <TouchableOpacity key={key} style={{borderWidth: 1, borderRadius: 15, borderColor: 'white', width: 80, paddingVertical: 3, marginTop: 5, flexDirection: 'column', alignItems: 'center'}} onPress={() => alert('Maaf Anda Tidak Memiliki Hak Akses Inprocess QC')}>
+                <Image source={Cog} style={styles.cogButton}/>
+                <Text style={{fontWeight: 'bold', fontSize: 11, color: 'white'}}>IQC</Text>
+              </TouchableOpacity>
+            )
+          }
+        }
+      }
+    })
+    return iqcData
+  }
 
-          <Button style={styles.buttonNavbar} onPress={() => {
-            navigation.navigate('IQC')
-          }}>
-            <Image source={Cog} style={styles.cogButton}/>
-          </Button>
+  const buttonNavbar = () => {
+    return (
+      <View style={styles.bottomNavbar}>
+        <Button style={styles.buttonNavbar}>
+          <Image source={Home} style={styles.homeButton}/>
+        </Button>
+        {/* </Button> */}
+      
+        {loopFeature()}
         
-          <Button style={styles.buttonNavbar} onPress={() => {
-            navigation.navigate('Profile', {
-              name: name,
-              deptName: deptName,
-              dutyId: dutyId,
-              userNik: userNik
-            })
-          }}>
-            <Image source={Profile} style={styles.profileButton}/>
-          </Button>
-        </View>
-      )
-    }else{
-      return (
-        <View style={styles.bottomNavbar}>
-          <Button style={styles.buttonNavbar}>
-            <Image source={Home} style={{width: 25, height: 25 }}/>
-          </Button>
-        
-          <Button style={styles.buttonNavbar} onPress={() => {
-            navigation.navigate('Profile', {
-              name: name,
-              deptName: deptName,
-              dutyId: dutyId,
-              userNik: userNik
-            })
-          }}>
-            <Image source={Profile} style={{width: 30, height: 30 }}/>
-          </Button>
-        </View>
-      )
-    }
+        <Button style={styles.buttonNavbar} onPress={() => {
+          navigation.navigate('Profile', {
+            name: name,
+            deptName: deptName,
+            dutyId: dutyId,
+            userNik: userNik,
+            user_image: user_image
+          })
+        }}>
+          <Image source={Profile} style={styles.profileButton}/>
+        </Button>
+      </View>
+    )
   }
 
   const headerContent = () => {
@@ -318,9 +349,7 @@ const Qc = ({navigation}) => {
         </View>
       </View>
       <View style={{flex: 1, backgroundColor: '#dfe0df'}}>
-        <ScrollView style={styles.contentFull}
-          refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
-        >
+        <ScrollView style={styles.contentFull} refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />} >
           {/* {loading == true ? <View><ActivityIndicator size="large" color='#0000ff'/></View> : null} */}
           <View style={styles.responsiveButtonLoop}>
             {loading ? listMachines() : <View style={{flex: 1, height: 500, justifyContent: 'center'}}><ActivityIndicator size="large" color="#0000ff"/></View> }
@@ -354,6 +383,14 @@ const Qc = ({navigation}) => {
                 </View>
                 <View style={{flexDirection: 'row', paddingVertical: 1}}>
                 </View>
+                <View style={{flexDirection: 'row', paddingVertical: 1}}>
+                  <View style={{paddingLeft: 8}}><Text style={{color: 'red'}}>* </Text></View>
+                  <View style={{justifyContent: 'center'}}>
+                    <Text style={{fontWeight: 'bold', fontSize: 8}}>  : Terdapat NG</Text>
+                  </View>
+                </View>
+                <View style={{flexDirection: 'row', paddingVertical: 1}}>
+                </View>
               </View>
               <View style={{width: '25%', flexDirection: 'column'}}>
                 {/* Column C */}
@@ -361,6 +398,14 @@ const Qc = ({navigation}) => {
                   <View style={{backgroundColor: '#ebae34', padding: 8, margin: 5}}></View>
                   <View style={{justifyContent: 'center'}}>
                     <Text style={{fontWeight: 'bold', fontSize: 8}}>: Maintenance</Text>
+                  </View>
+                </View>
+                <View style={{flexDirection: 'row', paddingVertical: 1}}>
+                </View>
+                <View style={{flexDirection: 'row', paddingVertical: 1}}>
+                  <Image source={CalendarBlack} style={{width: 20, height: 20, marginLeft: 4 }} />
+                  <View style={{justifyContent: 'center'}}>
+                    <Text style={{fontWeight: 'bold', fontSize: 8}}>: Terdapat Planning</Text>
                   </View>
                 </View>
                 <View style={{flexDirection: 'row', paddingVertical: 1}}>

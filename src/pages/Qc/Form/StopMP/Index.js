@@ -9,7 +9,7 @@ import Axios from 'axios';
 import checklist from '../../../../assets/check.png';
 
 const StopMP = ({route, navigation}) => {
-	const {qc_daily_inspection_id, qc_daily_inspection_item_id, qc_daily_inspection_method_id, sys_plant_id, product_name, customer_name, machine_id, machine_name, machine_number, today, yesterday, daily_inspection_number, doc_number} = route.params
+	const {qc_daily_inspection_id, qc_daily_inspection_item_id, qc_daily_inspection_method_id, sys_plant_id, product_name, customer_name, machine_id, machine_name, machine_number, date, daily_inspection_number, doc_number} = route.params
   const [featureUser, setFeature] = useState(null);
   const [user, setUser] = useState(null);
   const [lastShootQC, setLastShootQC] = useState(null);
@@ -70,9 +70,8 @@ const StopMP = ({route, navigation}) => {
 				machine_id: machine_id,
 				customer_name: customer_name,
 				machine_name: machine_name,
-				today: today,
+				date: date,
 				machine_number: machine_number,
-				yesterday: yesterday,
 				doc_number: doc_number
 			})
 		}else{
@@ -80,12 +79,14 @@ const StopMP = ({route, navigation}) => {
 		}
 	}
 	
+// abcd
 	const loopFeature = () => {
 		var data = []
 		var i
 		for(i = 0; i < 4; i++){
 			if(featureUser != null){
-				if(sys_plant_id == i+1){
+        var session_sys = featureUser[i] != null ? featureUser[i].sys_plant_id : null
+				if(sys_plant_id == session_sys){
 					if(featureUser[i] != null){
 						if(featureUser[i].qc_last_shoot_qc_leader != null){
 							if(featureUser[i].qc_last_shoot_qc_leader.view_permissions == true){
@@ -100,9 +101,8 @@ const StopMP = ({route, navigation}) => {
 										machine_id: machine_id,
 										customer_name: customer_name,
 										machine_name: machine_name,
-										today: today,
+										date: date,
 										machine_number: machine_number,
-										yesterday: yesterday,
 										doc_number: doc_number
 									})} >
 										<Text> Last Shoot Leader QC </Text>

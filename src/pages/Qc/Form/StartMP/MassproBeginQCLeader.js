@@ -1,4 +1,4 @@
-import {Image, View, ScrollView, TextInput, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, TouchableOpacity, ActivityIndicator} from 'react-native';
+import {Image, View, ScrollView, TextInput, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, TouchableOpacity, ActivityIndicator, Alert} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import { Container, Text, Button, Input, Picker } from 'native-base';
 import LogoSIP from '../../../../assets/logo-sip370x50.png';
@@ -6,6 +6,7 @@ import AsyncStorage from "@react-native-community/async-storage";
 import Axios from 'axios';
 import moment from 'moment';
 import app_version from '../../../app_version/index';
+import base_url_submit from '../../../../API/BaseUrlSubmit';
 
 const fixCavity = []
 
@@ -14,11 +15,11 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 		formOke()
 	}, [])
 	const {customer_name, sys_plant_id, machine_id, machine_number, machine_name, today, eng_product_id} = route.params
-	const [machine_engine_status, setItem] 															 = useState("")
-	const [compare_sample, setCopySample] 															 = useState("")
+	const [machine_engine_status, setItem] 															 = useState(null)
+	const [compare_sample, setCopySample] 															 = useState(null)
 	const [check_sheet, setSheetQc] 																		 = useState("")
 
-	const [updateMassproQlItem, setUpdateMassproQlItem] 								 = useState("")
+	const [updateMassproQlItem, setUpdateMassproQlItem] 								 = useState([])
 
 	const [judgement_first_piece1, setJudgement1] 											 = useState("")
 	const [judgement_first_piece2, setJudgement2] 											 = useState("")
@@ -324,61 +325,105 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 	const machine_status = "start-mp"
 	const submit = async() => {
 		setLoading(false)
-		const data = {
-			eng_product_id,
-			prod_machine_id,
-			sys_plant_id,
-			tooling_num,
-			planning_id,
-			internal_part_id,
-			qc_masspro_main_mold_id,
-			qc_masspro_material_preparation_id,
-			qc_masspro_mold_setter_id,
-			qc_masspro_prod_leader_id,
-			qc_masspro_prod_leader_id,
-			qc_masspro_tech_injection_id,
-			machine_status,
-			machine_engine_status,
-			tooling_num,
-			cavity,
-			remark,
-			compare_sample,
-			check_sheet,
-			item,
-			status,
-			created_by,
-			created_at,
-			updated_by,
-			updated_at
-		}
-		const token = await AsyncStorage.getItem("key")
-		const params = {
-			tbl: 'daily_inspection',
-			kind: 'masspro_ql',
-			app_version: app_version
-		}
-		var config = {
-			method: 'put',
-			url: 'https://api.tri-saudara.com/api/v2/qcs/update?',
-			params: params,
-			headers: { 
-					'Authorization': token, 
-					'Content-Type': 'application/json', 
-					'Cookie': '_denapi_session=ubcfq3AHCuVeTlxtg%2F1nyEa3Ktylg8nY1lIEPD7pgS3YAWwlKOxwA0S9pw7JhvZ2mNkrYl0j62wAWJWJZd7AbfolGuHCwXgEMeJH6EoLiQ%3D%3D--M%2BjBb0uJeHmOf%2B3o--%2F2Fjw57x0Fyr90Ec9FVibQ%3D%3D'
-			},
-			data : data
-		};
-		Axios(config)
-		.then(function (response){
+		if(data1 != null){
+			if(data1.cavity != null){
+				const data = {
+					eng_product_id,
+					prod_machine_id,
+					sys_plant_id,
+					tooling_num,
+					planning_id,
+					internal_part_id,
+					qc_masspro_main_mold_id,
+					qc_masspro_material_preparation_id,
+					qc_masspro_mold_setter_id,
+					qc_masspro_prod_leader_id,
+					qc_masspro_prod_leader_id,
+					qc_masspro_tech_injection_id,
+					tooling_num,
+					machine_status,
+					machine_engine_status,
+					compare_sample,
+					cavity,
+					status,
+					remark,
+					item,
+					created_by,
+					created_at,
+					updated_by,
+					updated_at
+				}
+				const token = await AsyncStorage.getItem("key")
+				const params = {
+					tbl: 'daily_inspection',
+					kind: 'masspro_ql',
+					app_version: app_version
+				}
+				var config = {
+					method: 'put',
+					url: base_url_submit,
+					params: params,
+					headers: { 
+							'Authorization': token, 
+							'Content-Type': 'application/json', 
+							'Cookie': '_denapi_session=ubcfq3AHCuVeTlxtg%2F1nyEa3Ktylg8nY1lIEPD7pgS3YAWwlKOxwA0S9pw7JhvZ2mNkrYl0j62wAWJWJZd7AbfolGuHCwXgEMeJH6EoLiQ%3D%3D--M%2BjBb0uJeHmOf%2B3o--%2F2Fjw57x0Fyr90Ec9FVibQ%3D%3D'
+					},
+					data : data
+				};
+				if(machine_engine_status != null && compare_sample != null){
+					Axios(config)
+					.then(function (response){
+						setLoading(true)
+						console.log("Res: ", response.status, " Ok")
+						navigation.navigate('ShowPlanning')
+						alert("Success Send Data!")
+					})
+					.catch(function (error){
+						alert("Failed Send Data!")
+						console.log(error)
+					})
+				}else{
+					setLoading(true)
+					Alert.alert(
+						"Failed Send Data",
+						"Gagal Kirim Data, Periksa Kembali Form Input",
+						[
+							{ 
+								text: "OK", 
+								onPress: () => console.log('400 BAD') 
+							}
+						],
+						{ cancelable: false }
+					)
+				}
+			}else{
+				setLoading(true)
+				Alert.alert(
+					"Failed Send Data",
+					"Gagal Kirim Data, Tidak Ada Nilai Cavity, Hubungi Engineering",
+					[
+						{ 
+							text: "OK", 
+							onPress: () => console.log('400 BAD') 
+						}
+					],
+					{ cancelable: false }
+				)
+			}
+		}else{
 			setLoading(true)
-			console.log("Res: ", response.status, " Ok")
-			navigation.navigate('ShowPlanning')
-			alert("Success Send Data!")
-		})
-		.catch(function (error){
-			alert("Failed Send Data!")
-			console.log(error)
-		})
+			Alert.alert(
+				"Failed Send Data",
+				"Gagal Kirim Data, Hubungi IT Department",
+				[
+					{ 
+						text: "OK", 
+						onPress: () => console.log('400 BAD') 
+					}
+				],
+				{ cancelable: false }
+			)
+		}
 	}
 
 	const formOke = async() => {
@@ -465,7 +510,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 		if(qclData != null){
 			if(updateQCL != "normal" && updateQCL != "unnormal"){
 				data.push(
-					<View key="LKASJ2asd" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, marginTop: 5}}>
+					<View key="LKASJ2asd" style={{borderWidth: 0.5, borderRadius: 10, height: 40, justifyContent: 'center', paddingLeft: 5, marginTop: 5}}>
 						<Picker 
 						mode="dropdown"
 						selectedValue={machine_engine_status}
@@ -479,14 +524,14 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				)
 			}else{
 				data.push(
-					<View key="asokWoqk" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, marginTop: 5, backgroundColor: '#b8b8b8'}}>
+					<View key="asokWoqk" style={{borderWidth: 0.5, borderRadius: 10, height: 40, justifyContent: 'center', paddingLeft: 5, marginTop: 5, backgroundColor: '#b8b8b8'}}>
 						<Text>{updateQCL}</Text>
 					</View>
 				)
 			}
 		}else{
 			data.push(
-				<View key="LKASJ2asd" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, marginTop: 5}}>
+				<View key="LKASJ2asd" style={{borderWidth: 0.5, borderRadius: 10, height: 40, justifyContent: 'center', paddingLeft: 5, marginTop: 5}}>
 					<Picker 
 					mode="dropdown"
 					selectedValue={machine_engine_status}
@@ -509,7 +554,7 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 		if(qclData != null){
 			if(updateQCL != "OK" && updateQCL != "NG"){
 				data.push(
-					<View key="asjh1uiKJlkjwk" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<View key="asjh1uiKJlkjwk" style={{borderWidth: 0.5, borderRadius: 10, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 						<Picker 
 						mode="dropdown"
 						selectedValue={compare_sample}
@@ -523,62 +568,18 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 				)
 			}else{
 				data.push(
-					<View key="asjh1uiKJlkjwk" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+					<View key="asjh1uiKJlkjwk" style={{borderWidth: 0.5, borderRadius: 10, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
 						<Text>{updateQCL}</Text>
 					</View>
 				)
 			}
 		}else{
 			data.push(
-				<View key="asjh1uiKJlkjwk" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+				<View key="asjh1uiKJlkjwk" style={{borderWidth: 0.5, borderRadius: 10, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 					<Picker 
 					mode="dropdown"
 					selectedValue={compare_sample}
 					onValueChange={(value) => setCopySample(value)}
-					>
-						<Picker.Item label="Pilih" value="" />
-						<Picker.Item label="OK" value="OK" />
-						<Picker.Item label="NG" value="NG" />
-					</Picker>
-				</View>
-			)
-		}
-		return data
-	}
-
-	const updateCheckSheetQC = () => {
-		const updateQCL = massproQCLCheckSheetQC
-		const data = []
-		const qclData = massproQCL
-		if(qclData != null){
-			if(updateQCL != "OK" && updateQCL != "NG"){
-				data.push(
-					<View key="sk291skW" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-						<Picker 
-						mode="dropdown"
-						selectedValue={check_sheet}
-						onValueChange={(value) => setSheetQc(value)}
-						>
-							<Picker.Item label="Pilih" value="" />
-							<Picker.Item label="OK" value="OK" />
-							<Picker.Item label="NG" value="NG" />
-						</Picker>
-					</View>
-				)
-			}else{
-				data.push(
-					<View key="sk291skW" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-						<Text>{updateQCL}</Text>
-					</View>
-				)
-			}
-		}else{
-			data.push(
-				<View key="sk291skW" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-					<Picker 
-					mode="dropdown"
-					selectedValue={check_sheet}
-					onValueChange={(value) => setSheetQc(value)}
 					>
 						<Picker.Item label="Pilih" value="" />
 						<Picker.Item label="OK" value="OK" />
@@ -597,20 +598,20 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 		if(qclData != null || qc_masspro_prod_leader_id == null){
 			if(updateQCL == null){
 				data.push(
-					<View key="sk291skW" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<View key="sk291skW" style={{borderWidth: 0.5, borderRadius: 10, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 						<TextInput onChangeText={(value) => setRemark(value)} style={{paddingLeft: 5, height: 40}} placeholder="Type Here..." />
 					</View>
 				)
 			}else{
 				data.push(
-					<View key="sk291skW" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingTop: 5, paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+					<View key="sk291skW" style={{borderWidth: 0.5, borderRadius: 10, height: 40, justifyContent: 'center', paddingTop: 5, paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
 						<Text>{updateQCL}</Text>
 					</View>
 				)
 			}
 		}else{
 			data.push(
-				<View key="sk291skW" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+				<View key="sk291skW" style={{borderWidth: 0.5, borderRadius: 10, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 					<TextInput onChangeText={(value) => setRemark(value)} style={{paddingLeft: 5, height: 40}} placeholder="Type Here..." />
 				</View>
 			)
@@ -625,20 +626,40 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 			if(massproQCLMachineStatus != null){
 				data.push(
 					<View key="asd12q" style={{paddingTop: 10}}>
-						<Button style={{width: 172, borderRadius: 25, justifyContent: 'center', backgroundColor: '#05c46b'}} onPress={() => alert("Data QC Leader Already Saved!")}><Text>SAVED</Text></Button>
+						<Button style={{width: 172, borderRadius: 10, justifyContent: 'center', backgroundColor: '#05c46b'}} onPress={() => alert("Data QC Leader Already Saved!")}><Text>SAVED</Text></Button>
 					</View>
 				)
 			}else{
 				data.push(
 					<View key="asd12q" style={{paddingTop: 10}}>
-						<Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>
+						<Button style={{width: 172, borderRadius: 10, justifyContent: 'center'}} onPress={() => 
+							Alert.alert(
+							"Info",
+							"Are You Sure?",
+							[
+								{ text: "Cancel", onPress: () => console.log('Cancel') },
+								{ text: "Yes", onPress: () => submit() }
+							],
+							{ cancelable: true }
+						)}
+					><Text>SAVE</Text></Button>
 					</View>
 				)
 			}
 		}else{
 			data.push(
 				<View key="asd12q" style={{paddingTop: 10}}>
-					<Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>
+					<Button style={{width: 172, borderRadius: 10, justifyContent: 'center'}} onPress={() => 
+						Alert.alert(
+							"Info",
+							"Are You Sure?",
+							[
+								{ text: "Cancel", onPress: () => console.log('Cancel') },
+								{ text: "Yes", onPress: () => submit() }
+							],
+							{ cancelable: true }
+						)}
+					><Text>SAVE</Text></Button>
 				</View>
 			)
 		}
@@ -646,148 +667,138 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 	}
 	
 	const content = () => {
-		var dataContent = []
-		if(qc_masspro_prod_leader_id != null){
-			dataContent.push(
-				<ScrollView key="29" style={{flex: 1}}>
-					<View style={{paddingTop: 20, flexDirection: 'row'}}>
-						<View style={{justifyContent: 'center', paddingLeft: 10, width: "44%"}}>
-							<Text>Machines Status</Text>
-						</View>
-						<View style={{padding: 10, width: "6%", justifyContent: 'center', alignItems: 'center'}}>
-							<Text style={{color: 'black'}}>:</Text>
-						</View>
-						<View style={{flexDirection: 'row', width: "50%"}}>
-							<View style={{padding: 4, width: "100%"}}>
-								<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-									<Text>{machine_status}</Text>
-								</View>
-								{updateMachineEngineStatus()}
+		var record = []
+		record.push(
+			<ScrollView key="29" style={{flex: 1}}>
+				<View style={{paddingTop: 20, flexDirection: 'row'}}>
+					<View style={{justifyContent: 'center', paddingLeft: 10, width: "44%"}}>
+						<Text>Machines Status</Text>
+					</View>
+					<View style={{padding: 10, width: "6%", justifyContent: 'center', alignItems: 'center'}}>
+						<Text style={{color: 'black'}}>:</Text>
+					</View>
+					<View style={{flexDirection: 'row', width: "50%"}}>
+						<View style={{padding: 4, width: "100%"}}>
+							<View style={{borderWidth: 0.5, borderRadius: 10, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+								<Text>{machine_status}</Text>
 							</View>
+							{updateMachineEngineStatus()}
 						</View>
 					</View>
+				</View>
 
-					<View style={{paddingTop: 20, flexDirection: 'row'}}>
-						<View style={{padding: 10, width: "44%"}}>
-							<Text>Tooling</Text>
-						</View>
-						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-							<Text style={{color: 'black'}}>:</Text>
-						</View>
-						<View style={{padding: 4, width: "50%"}}>
-							<View style={{height: 40, justifyContent: 'center'}}>
-								<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-									<Text>{tooling_num}</Text>
-								</View>
+				<View style={{paddingTop: 20, flexDirection: 'row'}}>
+					<View style={{padding: 10, width: "44%"}}>
+						<Text>Tooling</Text>
+					</View>
+					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+						<Text style={{color: 'black'}}>:</Text>
+					</View>
+					<View style={{padding: 4, width: "50%"}}>
+						<View style={{height: 40, justifyContent: 'center'}}>
+							<View style={{borderWidth: 0.5, borderRadius: 10, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+								<Text>{tooling_num}</Text>
 							</View>
 						</View>
 					</View>
-					
-					<View style={{paddingTop: 20, flexDirection: 'row'}}>
-						<View style={{padding: 10, width: "44%"}}>
-							<Text>Cavity Amount</Text>
-						</View>
-						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-							<Text style={{color: 'black'}}>:</Text>
-						</View>
-						<View style={{padding: 4, width: "50%"}}>
-							<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-								<Text>{cavity}</Text>
-							</View>
-						</View>
-					</View>
-					
-					<View style={{paddingTop: 20, flexDirection: 'row'}}>
-						<View style={{padding: 10, width: "44%"}}>
-							<Text>Compare Copy Sample</Text>
-						</View>
-						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-							<Text style={{color: 'black'}}>:</Text>
-						</View>
-						<View style={{padding: 4, width: "50%"}}>
-							{updateCompareCopySample()}
-						</View>
-					</View>
-					
-					<View style={{paddingTop: 20, flexDirection: 'row'}}>
-						<View style={{padding: 10, width: "44%"}}>
-							<Text>Check Sheet QC</Text>
-						</View>
-						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-							<Text style={{color: 'black'}}>:</Text>
-						</View>
-						<View style={{padding: 4, width: "50%"}}>
-							{updateCheckSheetQC()}
-						</View>
-					</View>
-					
-					<ScrollView horizontal>
-						<TouchableOpacity>
-							<View style={{flexDirection: 'row', height: 50, paddingTop: 10}}>
-								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
-									<Text style={{fontWeight: 'bold'}}>Cavity</Text>
-									<View style={{justifyContent: 'center'}}>
-									</View>
-								</View>
-								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
-									<Text style={{fontWeight: 'bold', fontSize: 15}}>Judgement 1st Piece</Text>
-									<View style={{justifyContent: 'center'}}>
-									</View>
-								</View>
-								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
-									<Text style={{fontWeight: 'bold'}}>Kategori NG</Text>
-									<View style={{justifyContent: 'center'}}>
-									</View>
-								</View>
-								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
-									<Text style={{fontWeight: 'bold'}}>Fitting Test</Text>
-									<View style={{justifyContent: 'center'}}>
-									</View>
-								</View>
-								<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
-									<Text style={{fontWeight: 'bold'}}>Product's Weight</Text>
-									<View style={{justifyContent: 'center'}}>
-									</View>
-								</View>
-								<View style={{paddingLeft: 5, alignItems: 'center', borderRightWidth: 0.5, borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 145}}>
-									<Text style={{fontWeight: 'bold'}}>Keterangan</Text>
-									<View style={{justifyContent: 'center'}}>
-									</View>
-								</View>
-							</View>
-							{uye()}
-						</TouchableOpacity>
-					</ScrollView>
-
-					<View style={{paddingTop: 5, flexDirection: 'row'}}>
-						<View style={{padding: 10, width: "44%"}}>
-							<Text>Remark</Text>
-						</View>
-						<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-							<Text style={{color: 'black'}}>:</Text>
-						</View>
-						<View style={{padding: 4, width: "50%"}}>
-							{updateRemark()}
-						</View>
-					</View>
+				</View>
 				
-					<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
-						<View>
-							{updateButton()}
+				<View style={{paddingTop: 20, flexDirection: 'row'}}>
+					<View style={{padding: 10, width: "44%"}}>
+						<Text>Cavity Amount</Text>
+					</View>
+					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+						<Text style={{color: 'black'}}>:</Text>
+					</View>
+					<View style={{padding: 4, width: "50%"}}>
+						<View style={{borderWidth: 0.5, borderRadius: 10, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+							<Text>{data1 != null ? data1.cavity != null ? data1.cavity : '0' : '0' }</Text>
 						</View>
 					</View>
-				</ScrollView>
-			)
-		}else{
-			dataContent.push(
-				<ScrollView key="29" style={{flex: 1}}>
-					<View style={{marginVertical: 160, marginHorizontal: 40, padding: 40, backgroundColor: '#fff76a', borderWidth: 1, borderRadius: 25, flexDirection: 'row', alignItems: 'center'}}>
-						<Text style={{fontSize: 12, textAlign: 'center', fontWeight: 'bold'}}>Hubungi Masspro Begin Prod. Leader Untuk Segera Isi Form</Text>
+				</View>
+				
+				<View style={{paddingTop: 20, flexDirection: 'row'}}>
+					<View style={{padding: 10, width: "44%"}}>
+						<Text>Compare Copy Sample</Text>
 					</View>
+					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+						<Text style={{color: 'black'}}>:</Text>
+					</View>
+					<View style={{padding: 4, width: "50%"}}>
+						{updateCompareCopySample()}
+					</View>
+				</View>
+				
+				{/* <View style={{paddingTop: 20, flexDirection: 'row'}}>
+					<View style={{padding: 10, width: "44%"}}>
+						<Text>Check Sheet QC</Text>
+					</View>
+					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+						<Text style={{color: 'black'}}>:</Text>
+					</View>
+					<View style={{padding: 4, width: "50%"}}>
+						{updateCheckSheetQC()}
+					</View>
+				</View> */}
+				
+				<ScrollView horizontal>
+					<TouchableOpacity>
+						<View style={{flexDirection: 'row', height: 50, paddingTop: 10}}>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 100}}>
+								<Text style={{fontWeight: 'bold'}}>Cavity</Text>
+								<View style={{justifyContent: 'center'}}>
+								</View>
+							</View>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 168.5}}>
+								<Text style={{fontWeight: 'bold', fontSize: 15}}>Judgement 1st Piece</Text>
+								<View style={{justifyContent: 'center'}}>
+								</View>
+							</View>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
+								<Text style={{fontWeight: 'bold'}}>Kategori NG</Text>
+								<View style={{justifyContent: 'center'}}>
+								</View>
+							</View>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
+								<Text style={{fontWeight: 'bold'}}>Fitting Test</Text>
+								<View style={{justifyContent: 'center'}}>
+								</View>
+							</View>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 165.5}}>
+								<Text style={{fontWeight: 'bold'}}>Product's Weight</Text>
+								<View style={{justifyContent: 'center'}}>
+								</View>
+							</View>
+							<View style={{paddingLeft: 5, alignItems: 'center', borderRightWidth: 0.5, borderLeftWidth: 0.5, borderTopWidth: 0.5, borderBottomWidth: 0.9, width: 145}}>
+								<Text style={{fontWeight: 'bold'}}>Keterangan</Text>
+								<View style={{justifyContent: 'center'}}>
+								</View>
+							</View>
+						</View>
+						{uye()}
+					</TouchableOpacity>
 				</ScrollView>
-			)
-		}
-		return dataContent
+
+				<View style={{paddingTop: 5, flexDirection: 'row'}}>
+					<View style={{padding: 10, width: "44%"}}>
+						<Text>Remark</Text>
+					</View>
+					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+						<Text style={{color: 'black'}}>:</Text>
+					</View>
+					<View style={{padding: 4, width: "50%"}}>
+						{updateRemark()}
+					</View>
+				</View>
+			
+				<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
+					<View>
+						{updateButton()}
+					</View>
+				</View>
+			</ScrollView>
+		)
+		return record
 	}
 
 	const updateStatus1 = (value) => {
@@ -2005,35 +2016,37 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 			}
 		}else{
 			if(updateMassproQlItem.length > 0){
-				var i
-				for (i = 1; i <= cavity; i++) {
+				// for (var i = 0; i <= cavity; i++) {
+				updateMassproQlItem.map((value, key) => {
+					// console.log(value)
 					table1.push(
-						<View key={i} style={{flexDirection: 'row', height: 50}}>
+						<View key={key} style={{flexDirection: 'row', height: 50}}>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, backgroundColor: '#b8b8b8', width: 100}}>
-								<Text>{updateMassproQlItem[i].cavity}</Text>
+								<Text>{value.cavity}</Text>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, backgroundColor: '#b8b8b8', width: 168.5}}>
-								<Text>{updateMassproQlItem[i].first_piece}</Text>
+								<Text>{value.first_piece}</Text>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, backgroundColor: '#b8b8b8', width: 165.5}}>
-								<Text>{updateMassproQlItem[i].ng_category_id == null ? "-" : updateMassproQlItem[i].ng_category_id}</Text>
+								<Text>{value.ng_category_id == null ? "-" : value.ng_category_id}</Text>
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, backgroundColor: '#b8b8b8', width: 165.5}}>
-								<Text>{updateMassproQlItem[i].fitting_test}</Text>							
+								<Text>{value.fitting_test}</Text>							
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, backgroundColor: '#b8b8b8', width: 165.5}}>
-								<Text>{updateMassproQlItem[i].product_weight}</Text>				
+								<Text>{value.product_weight}</Text>				
 							</View>
 							<View style={{paddingLeft: 5, alignItems: 'center', borderLeftWidth: 0.5, borderBottomWidth: 0.9, borderRightWidth: 0.9, backgroundColor: '#b8b8b8', width: 145}}>
-								<Text>{updateMassproQlItem[i].note}</Text>				
+								<Text>{value.note}</Text>				
 							</View>
 						</View>
-					)
-				}
+					)		
+				})
 			}
 		}
 		return table1
 	}	
+// abcd
 	
 	return(
 		<KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={{flex:1}}>
@@ -2049,12 +2062,12 @@ const MassproBeginQCLeader = ({route, navigation}) => {
 							<View style={{borderTopWidth: 0.3, borderRightWidth: 0.3, height: 100, justifyContent: 'center', alignItems: 'center', width: "50%", backgroundColor: '#dfe0df'}}>
 								<Text style={{marginTop: 5, fontWeight: 'bold', fontSize: 17}}>{date()}</Text>
 								<Text style={{marginTop: 1, fontWeight: 'bold', fontSize: 17}}>Edit Daily Inspection</Text>
-								<Text style={{marginTop: 1, fontWeight: 'bold', fontSize: 11}}>{eng_product_id}</Text>
+								<Text style={{marginTop: 1, fontWeight: 'bold', fontSize: 11}}>Masspro Begin QC Leader</Text>
 								<Text style={{marginTop: 1, fontWeight: 'bold', fontSize: 11}}>{customer_name}</Text>
 							</View>
 							<View style={{flexDirection: 'column', width: "100%"}}>
 								<View style={{borderTopWidth: 0.3, height: 65, justifyContent: 'center', alignItems: 'center', width: "50%", flex: 1}}>
-									<Text style={{fontWeight: 'bold', fontSize: 17}}>({machine_number}) - {machine_name}</Text>
+									<Text style={{fontWeight: 'bold', fontSize: 17, textAlign: 'center'}}>({machine_number}) - {machine_name}</Text>
 									<View style={{borderWidth: 0.5, width: 150, height: 25, justifyContent: 'center'}}>
 										<Picker 
 										mode="dropdown"

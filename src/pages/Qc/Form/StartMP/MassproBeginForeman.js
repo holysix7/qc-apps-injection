@@ -1,4 +1,4 @@
-import {Image, View, ScrollView, TextInput, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, TouchableOpacity, ActivityIndicator} from 'react-native';
+import {Image, View, ScrollView, TextInput, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, TouchableOpacity, ActivityIndicator,Alert} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import { Container, Text, Button, Picker } from 'native-base';
 import LogoSIP from '../../../../assets/logo-sip370x50.png';
@@ -7,6 +7,7 @@ import AsyncStorage from "@react-native-community/async-storage";
 import Axios from 'axios';
 import moment from 'moment';
 import app_version from '../../../app_version/index';
+import base_url_submit from '../../../../API/BaseUrlSubmit';
 
 const MassproBeginForeman = ({route, navigation}) => {
 	useEffect(() => {
@@ -19,8 +20,8 @@ const MassproBeginForeman = ({route, navigation}) => {
 	const [remark, setRemark] 			= useState(null)
 	const [hours, setHours]		  		= useState(0)
 	const [shift, setShift]		  		= useState(0)
-	const [data1, setData1]					= useState([])
-	const [cavity, setCavityData]		= useState([])
+	const [data1, setData1]					= useState("")
+	const [cavity, setCavityData]		= useState(null)
 
 	const [qc_masspro_main_mold_id, setMaintMoldId] 											= useState(null)
 	const [qc_masspro_material_preparation_id, setMaterialPreparationId] 	= useState(null)
@@ -29,12 +30,12 @@ const MassproBeginForeman = ({route, navigation}) => {
 	const [qc_masspro_prod_leader_id, setProdLeaderId] 										= useState(null)
 	const [qc_masspro_qc_leader_id, setQcLeaderId] 												= useState(null)
 
-	const [qc_masspro_main_mold_status, setMaintMoldStatus] 		= useState("")
-	const [qc_masspro_material_preparation_status, setMaterial] = useState("")
-	const [qc_masspro_mold_setter_status, setMoldSetterStatus]  = useState("")
-	const [qc_masspro_tech_injection_status, setTechInjection]  = useState("")
-	const [qc_masspro_prod_leader_status, setProdLeaderStatus]  = useState("")
-	const [qc_masspro_qc_leader_status, setQcLeaderStatus] 		  = useState("")
+	const [qc_masspro_main_mold_status, setMaintMoldStatus] 		= useState(null)
+	const [qc_masspro_material_preparation_status, setMaterial] = useState(null)
+	const [qc_masspro_mold_setter_status, setMoldSetterStatus]  = useState(null)
+	const [qc_masspro_tech_injection_status, setTechInjection]  = useState(null)
+	const [qc_masspro_prod_leader_status, setProdLeaderStatus]  = useState(null)
+	const [qc_masspro_qc_leader_status, setQcLeaderStatus] 		  = useState(null)
 	
 	const [created_by, setCreatedBy]	= useState("")
 	let created_at 										= moment().format("YYYY-MM-DD HH:mm:ss")
@@ -60,72 +61,81 @@ const MassproBeginForeman = ({route, navigation}) => {
 	const status 			= "approve"
 	
 	const [loading, setLoading] = useState(false)
-
 	const submit = async() => {
 		setLoading(false)
-		if(qc_masspro_main_mold_status != null && qc_masspro_material_preparation_status != null && qc_masspro_mold_setter_status != null && qc_masspro_tech_injection_status != null && qc_masspro_prod_leader_status != null && qc_masspro_qc_leader_status){
-			const data = {
-				sys_plant_id,
-				prod_machine_id,
-				eng_product_id,
-				tooling_num,
-				planning_id,
-				cavity,
-				internal_part_id,
-				qc_masspro_main_mold_id,
-				qc_masspro_material_preparation_id,
-				qc_masspro_mold_setter_id,
-				qc_masspro_tech_injection_id,
-				qc_masspro_prod_leader_id,
-				qc_masspro_qc_leader_id,
-				qc_masspro_main_mold_status,
-				qc_masspro_material_preparation_status,
-				qc_masspro_mold_setter_status,
-				qc_masspro_tech_injection_status,
-				qc_masspro_prod_leader_status,
-				qc_masspro_qc_leader_status,
-				remark,
-				status,
-				judgement,
-				created_by,
-				created_at,
-				updated_by,
-				updated_at
+		if(data1 != null){
+			if(data1.cavity != null){
+				if(qc_masspro_main_mold_status != null && qc_masspro_material_preparation_status != null && qc_masspro_mold_setter_status != null && qc_masspro_tech_injection_status != null && qc_masspro_prod_leader_status != null && qc_masspro_qc_leader_status){
+					const data = {
+						sys_plant_id,
+						prod_machine_id,
+						eng_product_id,
+						tooling_num,
+						planning_id,
+						cavity,
+						internal_part_id,
+						qc_masspro_main_mold_id,
+						qc_masspro_material_preparation_id,
+						qc_masspro_mold_setter_id,
+						qc_masspro_tech_injection_id,
+						qc_masspro_prod_leader_id,
+						qc_masspro_qc_leader_id,
+						qc_masspro_main_mold_status,
+						qc_masspro_material_preparation_status,
+						qc_masspro_mold_setter_status,
+						qc_masspro_tech_injection_status,
+						qc_masspro_prod_leader_status,
+						qc_masspro_qc_leader_status,
+						remark,
+						status,
+						judgement,
+						created_by,
+						created_at,
+						updated_by,
+						updated_at,
+						app_version
+					}
+					const token = await AsyncStorage.getItem("key")
+					const params = {
+						tbl: 'daily_inspection',
+						kind: 'masspro_fr',
+						app_version: app_version
+					}
+					var config = {
+						method: 'put',
+						url: base_url_submit,
+						params: params,
+						headers: { 
+							'Authorization': token, 
+							'Content-Type': 'application/json', 
+							'Cookie': '_denapi_session=ubcfq3AHCuVeTlxtg%2F1nyEa3Ktylg8nY1lIEPD7pgS3YAWwlKOxwA0S9pw7JhvZ2mNkrYl0j62wAWJWJZd7AbfolGuHCwXgEMeJH6EoLiQ%3D%3D--M%2BjBb0uJeHmOf%2B3o--%2F2Fjw57x0Fyr90Ec9FVibQ%3D%3D'
+						},
+						data : data
+					};
+					Axios(config)
+					.then(function (response){
+						setLoading(true)
+						console.log("Res: ", response.status, " Ok")
+						navigation.navigate('Qc')
+						alert("Success Send Data!")
+					})
+					.catch(function (error){
+						setLoading(true)
+						console.log(error)
+						alert("Failed Send Data!")
+					})
+				}else{
+					alert("Harap Perhatikan Form Input")
+				}
+			}else{
+				alert("Gagal Simpan Data, Tidak Ada Nilai Cavity. Harap Hubungi Engineering")
 			}
-			const token = await AsyncStorage.getItem("key")
-			const params = {
-				tbl: 'daily_inspection',
-				kind: 'masspro_fr',
-				app_version: app_version
-			}
-			var config = {
-				method: 'put',
-				url: 'https://api.tri-saudara.com/api/v2/qcs/update?',
-				params: params,
-				headers: { 
-					'Authorization': token, 
-					'Content-Type': 'application/json', 
-					'Cookie': '_denapi_session=ubcfq3AHCuVeTlxtg%2F1nyEa3Ktylg8nY1lIEPD7pgS3YAWwlKOxwA0S9pw7JhvZ2mNkrYl0j62wAWJWJZd7AbfolGuHCwXgEMeJH6EoLiQ%3D%3D--M%2BjBb0uJeHmOf%2B3o--%2F2Fjw57x0Fyr90Ec9FVibQ%3D%3D'
-				},
-				data : data
-			};
-			Axios(config)
-			.then(function (response){
-				setLoading(true)
-				console.log("Res: ", response.status, " Ok")
-				navigation.navigate('Qc')
-				alert("Success Send Data!")
-			})
-			.catch(function (error){
-				setLoading(true)
-				console.log(error)
-				alert("Failed Send Data!")
-			})
 		}else{
-			alert("Harap Perhatikan Form Input")
+			alert("Gagal Simpan Data, Hubungi IT Department.")
 		}
 	}
 
+// abcd
 	const formOke = async() => {
 		const token = await AsyncStorage.getItem("key")
 		const headers = {
@@ -213,7 +223,7 @@ const MassproBeginForeman = ({route, navigation}) => {
 		if(frData != null){
 			if(updateFR != "approved" && updateFR != "not_approved"){
 				data.push(
-					<View key="asiui2oj" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<View key="asiui2oj" style={{borderWidth: 0.5, borderRadius: 10, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 						<Picker 
 						mode="dropdown"
 						selectedValue={qc_masspro_main_mold_status}
@@ -227,14 +237,14 @@ const MassproBeginForeman = ({route, navigation}) => {
 				)
 			}else{
 				data.push(
-					<View key="asiui2oj" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+					<View key="asiui2oj" style={{borderWidth: 0.5, borderRadius: 10, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
 						<Text>{updateFR}</Text>
 					</View>
 				)
 			}
 		}else{
 			data.push(
-				<View key="asiui2oj" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+				<View key="asiui2oj" style={{borderWidth: 0.5, borderRadius: 10, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 					<Picker 
 					mode="dropdown"
 					selectedValue={qc_masspro_main_mold_status}
@@ -257,7 +267,7 @@ const MassproBeginForeman = ({route, navigation}) => {
 		if(frData != null){
 			if(updateFR != "approved" && updateFR != "not_approved"){
 				data.push(
-					<View key="askdhj2ijk" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<View key="askdhj2ijk" style={{borderWidth: 0.5, borderRadius: 10, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 						<Picker 
 						mode="dropdown"
 						selectedValue={qc_masspro_material_preparation_status}
@@ -271,14 +281,14 @@ const MassproBeginForeman = ({route, navigation}) => {
 				)
 			}else{
 				data.push(
-					<View key="askdhj2ijk" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+					<View key="askdhj2ijk" style={{borderWidth: 0.5, borderRadius: 10, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
 						<Text>{updateFR}</Text>
 					</View>
 				)
 			}
 		}else{
 			data.push(
-				<View key="askdhj2ijk" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+				<View key="askdhj2ijk" style={{borderWidth: 0.5, borderRadius: 10, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 					<Picker 
 					mode="dropdown"
 					selectedValue={qc_masspro_material_preparation_status}
@@ -301,7 +311,7 @@ const MassproBeginForeman = ({route, navigation}) => {
 		if(frData != null){
 			if(updateFR != 'approved' && 'not_approved'){
 				data.push(
-					<View key="osij2okms" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<View key="osij2okms" style={{borderWidth: 0.5, borderRadius: 10, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 						<Picker 
 						mode="dropdown"
 						selectedValue={qc_masspro_mold_setter_status}
@@ -315,14 +325,14 @@ const MassproBeginForeman = ({route, navigation}) => {
 				)
 			}else{
 				data.push(
-					<View key="osij2okms" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+					<View key="osij2okms" style={{borderWidth: 0.5, borderRadius: 10, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
 						<Text>{updateFR}</Text>
 					</View>
 				)
 			}
 		}else{
 			data.push(
-				<View key="osij2okms" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+				<View key="osij2okms" style={{borderWidth: 0.5, borderRadius: 10, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 					<Picker 
 					mode="dropdown"
 					selectedValue={qc_masspro_mold_setter_status}
@@ -345,7 +355,7 @@ const MassproBeginForeman = ({route, navigation}) => {
 		if(frData != null){
 			if(updateFR != 'approved' && updateFR != 'not_approved'){
 				data.push(
-					<View key="asoij2km" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<View key="asoij2km" style={{borderWidth: 0.5, borderRadius: 10, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 						<Picker 
 						mode="dropdown"
 						selectedValue={qc_masspro_tech_injection_status}
@@ -359,14 +369,14 @@ const MassproBeginForeman = ({route, navigation}) => {
 				)
 			}else{
 				data.push(
-					<View key="asoij2km" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+					<View key="asoij2km" style={{borderWidth: 0.5, borderRadius: 10, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
 						<Text>{updateFR}</Text>
 					</View>
 				)
 			}
 		}else{
 			data.push(
-				<View key="asoij2km" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+				<View key="asoij2km" style={{borderWidth: 0.5, borderRadius: 10, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 					<Picker 
 					mode="dropdown"
 					selectedValue={qc_masspro_tech_injection_status}
@@ -389,7 +399,7 @@ const MassproBeginForeman = ({route, navigation}) => {
 		if(frData != null){
 			if(updateFR != 'approved' && updateFR != 'not_approved'){
 				data.push(
-					<View key="asoidj2km" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<View key="asoidj2km" style={{borderWidth: 0.5, borderRadius: 10, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 						<Picker 
 						mode="dropdown"
 						selectedValue={qc_masspro_prod_leader_status}
@@ -403,14 +413,14 @@ const MassproBeginForeman = ({route, navigation}) => {
 				)
 			}else{
 				data.push(
-					<View key="asoidj2km" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+					<View key="asoidj2km" style={{borderWidth: 0.5, borderRadius: 10, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
 						<Text>{updateFR}</Text>
 					</View>
 				)
 			}
 		}else{
 			data.push(
-				<View key="asoidj2km" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+				<View key="asoidj2km" style={{borderWidth: 0.5, borderRadius: 10, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 					<Picker 
 					mode="dropdown"
 					selectedValue={qc_masspro_prod_leader_status}
@@ -433,7 +443,7 @@ const MassproBeginForeman = ({route, navigation}) => {
 		if(frData != null){
 			if(updateFR != 'approved' && updateFR != 'not_approved'){
 				data.push(
-					<View key="asdj2k" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<View key="asdj2k" style={{borderWidth: 0.5, borderRadius: 10, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 						<Picker 
 						mode="dropdown"
 						selectedValue={qc_masspro_qc_leader_status}
@@ -447,14 +457,14 @@ const MassproBeginForeman = ({route, navigation}) => {
 				)
 			}else{
 				data.push(
-					<View key="asdj2k" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+					<View key="asdj2k" style={{borderWidth: 0.5, borderRadius: 10, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
 						<Text>{updateFR}</Text>
 					</View>
 				)
 			}
 		}else{
 			data.push(
-				<View key="asdj2k" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+				<View key="asdj2k" style={{borderWidth: 0.5, borderRadius: 10, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 					<Picker 
 					mode="dropdown"
 					selectedValue={qc_masspro_qc_leader_status}
@@ -477,7 +487,7 @@ const MassproBeginForeman = ({route, navigation}) => {
 		if(frData != null){
 			if(updateFR != 'stop' && updateFR != 'running'){
 				data.push(
-					<View key="asjkdn2hj" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<View key="asjkdn2hj" style={{borderWidth: 0.5, borderRadius: 10, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 						<Picker 
 						mode="dropdown"
 						selectedValue={judgement}
@@ -491,14 +501,14 @@ const MassproBeginForeman = ({route, navigation}) => {
 				)
 			}else{
 				data.push(
-					<View key="asjkdn2hj" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+					<View key="asjkdn2hj" style={{borderWidth: 0.5, borderRadius: 10, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
 						<Text>{updateFR}</Text>
 					</View>
 				)
 			}
 		}else{
 			data.push(
-				<View key="asjkdn2hj" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+				<View key="asjkdn2hj" style={{borderWidth: 0.5, borderRadius: 10, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 					<Picker 
 					mode="dropdown"
 					selectedValue={judgement}
@@ -521,20 +531,20 @@ const MassproBeginForeman = ({route, navigation}) => {
 		if(frData != null || qc_masspro_qc_leader_id == null){
 			if(updateFR != null){
 				data.push(
-					<View key="asjkdn2hj" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+					<View key="asjkdn2hj" style={{borderWidth: 0.5, borderRadius: 10, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
 						<Text>{updateFR}</Text>
 					</View>
 				)
 			}else{
 				data.push(
-					<View key="asjkdn2hj" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<View key="asjkdn2hj" style={{borderWidth: 0.5, borderRadius: 10, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 						<TextInput onChangeText={(value) => setRemark(value)} style={{paddingLeft: 5, height: 40}} placeholder="Type Here..." />
 					</View>
 				)
 			}
 		}else{
 			data.push(
-				<View key="asjkdn2hj" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+				<View key="asjkdn2hj" style={{borderWidth: 0.5, borderRadius: 10, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 					<TextInput onChangeText={(value) => setRemark(value)} style={{paddingLeft: 5, height: 40}} placeholder="Type Here..." />
 				</View>
 			)
@@ -549,20 +559,40 @@ const MassproBeginForeman = ({route, navigation}) => {
 			if(updateMaint != null){
 				data.push(
 					<View key="asd12q" style={{paddingTop: 10}}>
-						<Button style={{width: 172, borderRadius: 25, justifyContent: 'center', backgroundColor: '#05c46b'}} onPress={() => alert("Data QC Leader Already Saved!")}><Text>SAVED</Text></Button>
+						<Button style={{width: 172, borderRadius: 10, justifyContent: 'center', backgroundColor: '#05c46b'}} onPress={() => alert("Data QC Leader Already Saved!")}><Text>SAVED</Text></Button>
 					</View>
 				)
 			}else{
 				data.push(
 					<View key="asd12q" style={{paddingTop: 10}}>
-						<Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>
+						<Button style={{width: 172, borderRadius: 10, justifyContent: 'center'}} onPress={() => 
+							Alert.alert(
+								"Info",
+								"Are You Sure?",
+								[
+									{ text: "Cancel", onPress: () => console.log('Cancel') },
+									{ text: "Yes", onPress: () => submit() }
+								],
+								{ cancelable: true }
+							)}
+						><Text>SAVE</Text></Button>
 					</View>
 				)
 			}
 		}else{
 			data.push(
 				<View key="asd12q" style={{paddingTop: 10}}>
-					<Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>
+					<Button style={{width: 172, borderRadius: 10, justifyContent: 'center'}} onPress={() => 
+						Alert.alert(
+								"Info",
+								"Are You Sure?",
+								[
+									{ text: "Cancel", onPress: () => console.log('Cancel') },
+									{ text: "Yes", onPress: () => submit() }
+								],
+								{ cancelable: true }
+							)}
+						><Text>SAVE</Text></Button>
 				</View>
 			)
 		}
@@ -583,7 +613,7 @@ const MassproBeginForeman = ({route, navigation}) => {
 								<Text style={{color: 'black'}}>:</Text>
 							</View>
 							<View style={{padding: 4, width: "50%"}}>
-								<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+								<View style={{borderWidth: 0.5, borderRadius: 10, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
 									<Text>{machine_status}</Text>
 								</View>
 							</View>
@@ -598,7 +628,7 @@ const MassproBeginForeman = ({route, navigation}) => {
 							</View>
 							<View style={{padding: 4, width: "50%"}}>
 								<View style={{height: 30, justifyContent: 'center'}}>
-									<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+									<View style={{borderWidth: 0.5, borderRadius: 10, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
 										<Text>{tooling_num}</Text>
 									</View>
 								</View>
@@ -613,8 +643,8 @@ const MassproBeginForeman = ({route, navigation}) => {
 								<Text style={{color: 'black'}}>:</Text>
 							</View>
 							<View style={{padding: 4, width: "50%"}}>
-								<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-									<Text>{data1 != null ? data1.cavity : "-"}</Text>
+								<View style={{borderWidth: 0.5, borderRadius: 10, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+									<Text>{data1 != null ? data1.cavity != null ? data1.cavity : "0" : "0" }</Text>
 								</View>
 							</View>
 						</View>
@@ -764,7 +794,7 @@ const MassproBeginForeman = ({route, navigation}) => {
 							</View>
 							<View style={{flexDirection: 'column', width: "100%"}}>
 								<View style={{borderTopWidth: 0.3, height: 65, justifyContent: 'center', alignItems: 'center', width: "50%", flex: 1}}>
-									<Text style={{fontWeight: 'bold', fontSize: 17}}>({machine_number}) - {machine_name}</Text>
+									<Text style={{fontWeight: 'bold', fontSize: 17, textAlign: 'center'}}>({machine_number}) - {machine_name}</Text>
 									<View style={{borderWidth: 0.5, width: 150, height: 25, justifyContent: 'center'}}>
 										<Picker 
 										mode="dropdown"

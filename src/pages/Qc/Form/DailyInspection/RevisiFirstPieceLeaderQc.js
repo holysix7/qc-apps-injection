@@ -6,13 +6,14 @@ import AsyncStorage from "@react-native-community/async-storage";
 import moment from 'moment';
 import Axios from 'axios';
 import app_version from '../../../app_version/index';
+import base_url_submit from '../../../../API/BaseUrlSubmit';
 
 const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 	useEffect(() => {
 		formOke()
 	}, [])
 
-	const {qc_daily_inspection_id, sys_plant_id, product_name, customer_name, machine_id, machine_number, machine_name, today, yesterday, daily_inspection_number} = route.params
+	const {qc_daily_inspection_id, sys_plant_id, product_name, customer_name, machine_id, machine_number, machine_name, daily_inspection_number, date} = route.params
 
 	const [statusCavity1, setStatusCavity1] 														 = useState("")
 	const [statusCavity2, setStatusCavity2] 														 = useState("")
@@ -139,7 +140,6 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 	const [remark, setRemark]		  									= useState("")
 	let created_at 																	= moment().format("YYYY-MM-DD HH:mm:ss")
 	let updated_at 																	= moment().format("YYYY-MM-DD HH:mm:ss")
-	const date = []
 	const [data, setData] 													= useState([])
 	const [dataQl, setDataQl] 						= useState("")
 	const [masspro_ql_id, setMassproQlId] 					= useState("")
@@ -158,17 +158,6 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 	var timeNow 	= moment()
 	var hoursNow 	= parseInt(moment(timeNow).format("H"))
 	const [idButton, setIdButton]	= useState(true)
-
-	if(today != null)	{
-		date.push(
-			<Text key={"key"} style={{marginTop: 1, fontWeight: 'bold', fontSize: 17}}>{today}</Text>
-		)
-	}
-	if(yesterday != null){
-		date.push(
-			<Text key={"key"} style={{marginTop: 1, fontWeight: 'bold', fontSize: 17}}>{yesterday}</Text>
-		)
-	}
 
 	const formOke = async() => {
 		const token = await AsyncStorage.getItem("key")
@@ -203,6 +192,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 			qc_daily_inspection_id: qc_daily_inspection_id,
 			app_version: app_version
 		}
+		console.log(params)
 		Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 		.then(response => {
 			setLoading(true)
@@ -230,6 +220,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 		})
 	}
 
+// abcd
 	const shiftFix = (value) => {
 		setHours(value)
 	}
@@ -602,7 +593,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 		}
 		var config = {
 			method: 'put',
-			url: 'https://api.tri-saudara.com/api/v2/qcs/update?',
+			url: base_url_submit,
 			params: params,
 			headers: { 
 				'Authorization': token, 
@@ -1882,7 +1873,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 		if(rfData != null){
 			if(updateRF != "OK" && updateRF != "NG"){
 				data.push(
-					<View key="askdj2nk" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<View key="askdj2nk" style={{borderWidth: 0.5, borderRadius: 5, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 						<Picker 
 						mode="dropdown"
 						selectedValue={compare_sample}
@@ -1896,14 +1887,14 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 				)
 			}else{
 				data.push(
-					<View key="askdj2nk" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+					<View key="askdj2nk" style={{borderWidth: 0.5, borderRadius: 5, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
 						<Text>{updateRF}</Text>
 					</View>
 				)
 			}
 		}else{
 			data.push(
-				<View key="askdj2nk" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+				<View key="askdj2nk" style={{borderWidth: 0.5, borderRadius: 5, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 					<Picker 
 					mode="dropdown"
 					selectedValue={compare_sample}
@@ -1926,7 +1917,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 		if(rfData != null){
 			if(updateRF != "OK" && updateRF != "NG"){
 				data.push(
-					<View key="Asoidjnj2" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<View key="Asoidjnj2" style={{borderWidth: 0.5, borderRadius: 5, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 						<Picker 
 						mode="dropdown"
 						selectedValue={check_sheet}
@@ -1939,13 +1930,13 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 					</View>
 				)
 			}else{
-				<View key="Asoidjnj2" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+				<View key="Asoidjnj2" style={{borderWidth: 0.5, borderRadius: 5, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
 					<Text>{updateRF}</Text>
 				</View>
 			}
 		}else{
 			data.push(
-				<View key="Asoidjnj2" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+				<View key="Asoidjnj2" style={{borderWidth: 0.5, borderRadius: 5, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 					<Picker 
 					mode="dropdown"
 					selectedValue={check_sheet}
@@ -1968,20 +1959,20 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 		if(rfData > 0){
 			if(updateRF != null){
 				data.push(
-					<View key="Asoidjnj2" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+					<View key="Asoidjnj2" style={{borderWidth: 0.5, borderRadius: 5, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
 						<Text>{updateRF}</Text>
 					</View>
 				)
 			}else{
 				data.push(
-					<View key="Asoidjnj2" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+					<View key="Asoidjnj2" style={{borderWidth: 0.5, borderRadius: 5, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 						<TextInput onChangeText={(value) => setRemark(value)} style={{paddingLeft: 5, height: 40}} value={remark} placeholder="Type Here..." />
 					</View>
 				)
 			}
 		}else{
 			data.push(
-				<View key="Asoidjnj2" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+				<View key="Asoidjnj2" style={{borderWidth: 0.5, borderRadius: 5, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 					<TextInput onChangeText={(value) => setRemark(value)} style={{paddingLeft: 5, height: 40}} value={remark} placeholder="Type Here..." />
 				</View>
 			)
@@ -1994,13 +1985,13 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 		if(idButton == true){
 			data.push(
 				<View key="asd12q" style={{paddingTop: 10}}>
-					<Button style={{width: 172, borderRadius: 25, justifyContent: 'center', backgroundColor: 'green'}} onPress={() => alert("Already Saved!")}><Text>SAVED</Text></Button>
+					<Button style={{width: 172, borderRadius: 5, justifyContent: 'center', backgroundColor: 'green'}} onPress={() => alert("Already Saved!")}><Text>SAVED</Text></Button>
 				</View>
 			)
 		}else{
 			data.push(
 				<View key="asd12q" style={{paddingTop: 10}}>
-					<Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>
+					<Button style={{width: 172, borderRadius: 5, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>
 				</View>
 			)
 		}
@@ -2021,7 +2012,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 						</View>
 						<View style={{padding: 4, width: "50%"}}>
 							<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-								<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+								<View style={{borderWidth: 0.5, borderRadius: 5, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
 									<Text>{dataQl != null ? dataQl.machine_status : "-"}</Text>
 								</View>
 							</View>
@@ -2037,7 +2028,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 						</View>
 						<View style={{padding: 4, width: "50%"}}>
 							<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-								<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+								<View style={{borderWidth: 0.5, borderRadius: 5, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
 									<Text>{tooling_num != null ? tooling_num : "-"}</Text>
 								</View>
 							</View>
@@ -2053,7 +2044,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 						</View>
 						<View style={{padding: 4, width: "50%"}}>
 							<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-								<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+								<View style={{borderWidth: 0.5, borderRadius: 5, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
 									<Text>{cavityCheck != null ? cavityCheck : "-"}</Text>
 								</View>
 							</View>
@@ -2096,7 +2087,9 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 							<Text style={{color: 'black'}}>:</Text>
 						</View>
 						<View style={{padding: 4, width: "50%"}}>
-							{updateRemarkFunc()}
+							<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
+								{updateRemarkFunc()}
+							</View>
 						</View>
 					</View>
 				<ScrollView horizontal>
@@ -2147,7 +2140,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 		}else{
 			dataContent.push(
 				<ScrollView key="29" style={{flex: 1}}>
-					<View style={{marginVertical: 160, marginHorizontal: 40, padding: 40, backgroundColor: '#fff76a', borderWidth: 1, borderRadius: 25, flexDirection: 'row', alignItems: 'center'}}>
+					<View style={{marginVertical: 160, marginHorizontal: 40, padding: 40, backgroundColor: '#fff76a', borderWidth: 1, borderRadius: 5, flexDirection: 'row', alignItems: 'center'}}>
 						<Text style={{fontSize: 12, textAlign: 'center', fontWeight: 'bold'}}>Hubungi Masspro Begin QC. Leader Untuk Segera Isi Form</Text>
 					</View>
 				</ScrollView>
@@ -2175,7 +2168,7 @@ const RevisiFirstPieceLeaderQc = ({route, navigation}) => {
 							</View>
 							<View style={{flexDirection: 'column', width: "100%"}}>
 								<View style={{borderTopWidth: 0.3, height: 65, justifyContent: 'center', alignItems: 'center', width: "50%", flex: 1}}>
-									<Text style={{fontWeight: 'bold', fontSize: 17}}>({machine_number}) - {machine_name}</Text>
+									<Text style={{fontWeight: 'bold', fontSize: 17, textAlign: 'center'}}>({machine_number}) - {machine_name}</Text>
 									<View style={{borderWidth: 0.5, width: 150, height: 25, justifyContent: 'center'}}>
 										<Picker 
 										mode="dropdown"

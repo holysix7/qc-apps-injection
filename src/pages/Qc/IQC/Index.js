@@ -1,539 +1,299 @@
-import {Image, View, TextInput, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, ScrollView, TouchableOpacity, ActivityIndicator, Dimensions} from 'react-native';
-import React, {useEffect, useRef, useState} from 'react';
-import { Container, Text, Button, Picker } from 'native-base';
+import {Image, View, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, ScrollView, RefreshControl, ActivityIndicator, TextInput} from 'react-native';
+import React, {useEffect, useState, useCallback} from 'react';
+import CalendarBlack from '../../../assets/calendar.png'
+import search from '../../../assets/search.png'
+import { Container, Text, Button } from 'native-base';
 import LogoSIP from '../../../assets/logo-sip370x50.png';
-import cameraIcons from '../../../assets/cameraicon.png';
-import ImagePicker from 'react-native-image-picker';
 import AsyncStorage from "@react-native-community/async-storage";
+import styles from '../../../components/styles/Styling';
 import Axios from 'axios';
 import moment from 'moment';
-import { RNCamera, FaceDetector } from 'react-native-camera';
+import app_version from '../../app_version';
+import DateTimePicker from '@react-native-community/datetimepicker';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import checklist from '../../../assets/check.png';
 
 const IQC = ({route, navigation}) => {
-	useEffect(() => {
+	const {sys_plant_id, qc_incoming} = route.params
+  // console.log(qc_incoming)
+  const [nama_plant, setPlant]      = useState(null)
+	// var nama_plant
+  var datetimenow = new Date()
+	var timeNow 	= moment()
+	var dateNow 	= moment(timeNow).format("YYYY-MM-DD")
+	const [loading, setLoading]       = useState(false);
+	const [loadingDua, setLoadingDua] = useState(null);
+  const [refreshing, setRefreshing] = useState(false);
+	const [data, setData]		          = useState([])
+	const [nik, setUser]		          = useState(null)
+	const [name, setName]		          = useState(null)
+	const [mode, setMode]		          = useState(null)
+	const [show, setShow]		          = useState(false)
+	const [start_date, setStart]		  = useState(new Date(timeNow))
+	const [end_date, setEnd]		      = useState(new Date(timeNow))
+	var startDateText 	= moment(start_date).format("YYYY-MM-DD")
+	var endDateText 	= moment(end_date).format("YYYY-MM-DD")
+  useEffect(() => {
     formOke()
-		let isMounted = true
-    FixInspectionTime()
-		return () => {
-			isMounted = false
-		}
-		function FixInspectionTime() {
-			let initialDate    = moment();
-			var inspection     = setInterval(() => {
-				var currentDate    = moment();    
-				var second         = parseInt((currentDate - initialDate)/1000);
-				var minutes        = parseInt(second/60);
-				var hour           = parseInt(minutes/60);
-				var second_kedua   = second - (minutes*60); 
-				var menit_kedua    = minutes - (hour*60);
-				var second_asli    = (second >= 60 ? second_kedua : second);
-				var menit_asli     = (minutes >= 60 ? menit_kedua : minutes);
-				var CombiningTime  = (hour + ":" + menit_asli + ":" + second_asli);
-				if(isMounted) setInspectionTime(CombiningTime)
-			}, 1000);
-		}
+    namaPlant()
+    setInterval(() => {
+      setLoading(true)
+    }, 1500);
   }, [])
 
-	const [inspectionTime, setInspectionTime]       = useState("")
-	const [loading, setLoading] 					          = useState(true)
-	const [created_by, setCreatedBy]		            = useState("")
-	const [updated_by, setUpdatedBy]		            = useState("")
-	const [hours, setHours]		                      = useState(null)
-	const [shift, setShift]		                      = useState(null)
-
-	const [spg_supplier, setSpgSupplier]		        = useState(null)
-	const [part_number_supplier, setPartNoSupplier]	= useState(null)
+  const namaPlant = () => {
+    if(sys_plant_id == 2){
+      setPlant("Techno (KB)")
+    }else{
+      setPlant("TSSI")
+    }
+  }
   
-	const [lot_produksi, setLotProduksi]		        = useState(null)
-	const [pn_value, setPNValue]		  		          = useState(null)
-	const [rohs_compliance, setRohsCompliance]      = useState(null)
-	const [dimension, setDimension]                 = useState(null)
-	const [fitting_test, setFittingTest]            = useState(null)
-	const [packing, setPacking]                     = useState(null)
-
-	const [bqics, setBqics]                         = useState(null)
-	const [item_khusus, setItemKhusu]               = useState(null)
-	const [ng_category, setNGCategory]              = useState(null)
-	const [note_unnormal, setNoteUnnormal]          = useState(null)
-  
-  const [uploadedImage, setImage]                 = useState(null)
-
-  let date_now   												          = moment().format("YYYY-MM-DD")
-	let created_at 												          = moment().format("YYYY-MM-DD HH:mm:ss")
-	let updated_at 												          = moment().format("YYYY-MM-DD HH:mm:ss")
-	var timeNow 	= moment()
-	var hoursNow 	= parseInt(moment(timeNow).format("H"))
-	
-	const submit = async() => {
-    alert("Telah Disubmit")
-	}
 	const formOke = async() => {
 		const token = await AsyncStorage.getItem("key")
 		const headers = {
-			'Authorization': token
+      'Authorization': token
 		}
-		const name = await AsyncStorage.getItem('name')
-		const id = await AsyncStorage.getItem('id')
-		setCreatedBy(id)
-		setUpdatedBy(id)
-		if(hoursNow >= 8 && hoursNow <= 15){
-			setShift(1)
-			setHours(hoursNow)
-			var select_shift_id = 2
-		}else if(hoursNow >= 16 && hoursNow <= 23){
-			setShift(2)
-			setHours(hoursNow)
-			var select_shift_id = 3
-		}else{
-			setShift(3)
-			setHours(hoursNow)
-			var select_shift_id = 4
-		}
+    const user = await AsyncStorage.getItem("user")
+    const name = await AsyncStorage.getItem("name")
+    setUser(user)
+    setName(name)
+    const params = {
+      'tbl': 'incoming',
+      'kind': 'get_spg_supplier',
+      'sys_plant_id': sys_plant_id,
+      'app_version': app_version,
+      'date': dateNow,
+    }
+		Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
+		.then(response => {
+			setData(response.data.data)
+			console.log('List Data SPG')
+			// setLoading(true)
+		})
+		.catch(error => {
+      console.log('List SPG: ', error)
+			// setLoading(true)
+		})		
   }
 
-	//images
-	const chooseImage = () => {
-		const options = {
-			title: 'Select Image',
-			storageOptions: {
-				skipBackup: true,
-				path: 'images',
-			},
-			mediaType: 'photo',
-			includeBase64: true,
-			maxHeight: 400,
-			maxWidth: 400
-		};
-		ImagePicker.showImagePicker(options, (response) => {
-			if (response.didCancel) {
-				console.log('User cancelled image picker');
-			} else if (response.error) {
-				console.log('ImagePicker Error: ', response.error);
-			} else if (response.customButton) {
-				console.log('User tapped custom button: ', response.customButton);
-			} else {
-				const source = { uri: 'data:image/jpeg;base64;,' + response.data }
-				setImage({source})
-			}
+  const searchData = async() => {
+		const token = await AsyncStorage.getItem("key")
+		const headers = {
+      'Authorization': token
+		}
+    setLoadingDua(false)
+    const user = await AsyncStorage.getItem("user")
+    const name = await AsyncStorage.getItem("name")
+    setUser(user)
+    setName(name)
+    const params = {
+      'tbl': 'incoming',
+      'kind': 'get_spg_supplier',
+      'sys_plant_id': sys_plant_id,
+      'app_version': app_version,
+      'begin_date': startDateText,
+      'end_date': endDateText
+    }
+    console.log(params)
+		Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
+		.then(response => {
+			setData(response.data.data)
+			console.log('Result Search Data SPG')
+			setLoadingDua(true)
 		})
+		.catch(error => {
+      console.log('List SPG: ', error)
+			setLoadingDua(true)
+		})	
   }
   
-  const resultImage = () => {
-		if(uploadedImage != null)
-		{
-			return <Image source={{uri: uploadedImage.source.uri}} style={{width: Dimensions.get('window').width,height:Dimensions.get('window').width, resizeMode: 'contain'}} onPress={() => chooseImage()}/>
-		}else{
-			return (
-  			<View style={{alignItems: 'center', justifyContent: 'center', height: 420, paddingTop: 20, width: 300}}>
-          <Text style={{height: '100%', width: "100%", textAlign: 'center', textAlignVertical: 'center'}} onPress={() => chooseImage()}><Image style={{height: 50, width: 50}} source={cameraIcons} /></Text>
-	  		</View>
-      )
-		}
-	}
+  const onRefresh = useCallback(() => {
+    setRefreshing(false);
+    searchData();
+  }, []);
 
-  const ListNGCategories = () => {
-    var data = []
-    var dataNG = [
-      {
-        "id" : 1,
-        "nama" : 'Bending',
-      },
-      {
-        "id" : 2,
-        "nama" : 'Dirty',
-        
-      },
-      {
-        "id" : 3,
-        "nama" : 'Broken',
+  const content = () => {
+    const arrData = []
+    if(data.length > 0){
+      data.map((val, key) => {
+        var style = {fontWeight: 'bold', fontSize: 13}
+        if(val.supplier_name.length > 21){
+          style = {fontWeight: 'bold', fontSize: 11}
+        }
+        if(val.supplier_name.length > 26){
+          style = {fontWeight: 'bold', fontSize: 10, textAlign: 'right'}
+        }
+        arrData.push(
+          <Button key={key} style={{marginTop: 10, alignItems: 'center', width: "100%", borderRadius: 15, backgroundColor: '#1a508b', flexDirection: 'row'}} onPress={() => {
+            navigation.navigate('ListPartNumber', {
+              sys_plant_id: sys_plant_id,
+              id: val.id,
+              code: val.code,
+              status: val.status,
+              date: val.date,
+              supplier_name: val.supplier_name,
+              nik: nik,
+              name: name,
+              nama_plant: nama_plant,
+              qc_incoming: qc_incoming
+            })
+          }}>
+            <View style={{flexDirection: 'column'}}>
+              <Text>{val.date}</Text>
+              <Text style={{fontWeight: 'bold'}}>{val.code}</Text>
+            </View>
+            <View style={{flexDirection: 'column', flex: 1, alignItems: 'flex-end'}}>
+              <Text style={style}>{val.supplier_name}</Text>
+            </View>
+            {val.iqc_status != false ? 
+              <Image source={checklist} style={{width: 30, height: 30, marginRight: 10}} />
+            : null}
+          </Button>
+        )
+      })
+    }else{
+      arrData.push(
+        <View key="as1" style={{backgroundColor: 'yellow', borderWidth: 1, borderRadius: 15, marginTop: 100, height: 100, justifyContent: 'center'}}>
+          <Text style={{textAlign: 'center'}}>Tidak Terdapat Data SPG Supplier Di Plant <Text style={{fontWeight: 'bold'}}>{nama_plant}</Text>, Pada Tanggal {startDateText} - {endDateText}.</Text>
+        </View>
+      )
+    }
+    return arrData
+  }
+
+  const onChange = (event, val) => {
+    const currentDate = val || start_date;
+    setShow(Platform.OS === 'ios');
+    setStart(currentDate)
+  };
+
+  const onChangeEnd = (event, val) => {
+    const currentDate = val || end_date;
+    setShow(Platform.OS === 'ios');
+    setEnd(currentDate)
+  };
+
+  const showDate = (val) => {
+    setShow(true)
+    setMode(val)
+  }
+
+  const functionUpdateMode = (value) => {
+    if(value == 1){
+      showDate('start-date')
+    }else{
+      showDate('end-date')
+    }
+  }
+
+  const showDateModal = () => {
+    if(show == true){
+      if(mode == 'start-date'){
+        return (
+          <DateTimePicker
+            testID="dateTimePicker"
+            value={start_date}
+            maximumDate={end_date}
+            mode={mode}
+            is24Hour={true}
+            display="calendar"
+            onChange={(evt, val) => onChange(evt, val)}
+          />
+        )
+      }else{
+        return (
+          <DateTimePicker
+            testID="dateTimePicker"
+            maximumDate={new Date(timeNow)}
+            minimumDate={start_date}
+            value={end_date}
+            mode={mode}
+            is24Hour={true}
+            display="calendar"
+            onChange={(evt, val) => onChangeEnd(evt, val)}
+          />
+        )
       }
-    ]
-    data.push(
-      <Picker.Item label="Pilih" value="" key="ASKSMANs" />
-    )
-    dataNG.map((value, key) => {
-      data.push(
-        <Picker.Item label={value.nama} value={value.id} key={key} />
-      )
-    })
-    return data
+    }
   }
 
-	const content = () => {
+  const searchContent = () => {
     return (
-     <ScrollView>
-      <View style={{paddingBottom: 40}}>
-        <TouchableOpacity>
-          <View style={{paddingTop: 20, flexDirection: 'row'}}>
-            <View style={{padding: 10, width: "44%"}}>
-              <Text>LOT Produksi</Text>
+      <View style={{marginTop: 10, paddingVertical: 10, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', borderTopWidth: 0.3, borderBottomWidth: 0.3}}>
+          
+          <View style={{borderWidth: 0.5, borderRadius: 10, height: 40, paddingHorizontal: 5, flexDirection: 'row', paddingTop: 5}}>
+            <View style={{flexDirection: 'column'}}>
+              <Text onPress={() => functionUpdateMode(1)}>{startDateText}</Text>
             </View>
-            <View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-              <Text style={{color: 'black'}}>:</Text>
-            </View>
-            <View style={{padding: 4, width: "50%"}}>
-              <View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-                <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, marginTop: 5}}>
-                  <TextInput value={lot_produksi} onChangeText={(value) => setLotProduksi(value)} style={{paddingLeft: 5, height: 40}} placeholder="Type Here..." />
-                </View>
-              </View>
-            </View>
-          </View>
-
-          <View style={{paddingTop: 20, flexDirection: 'row'}}>
-            <View style={{padding: 10, width: "44%"}}>
-              <Text>Jumlah Kedatangan</Text>
-            </View>
-            <View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-              <Text style={{color: 'black'}}>:</Text>
-            </View>
-            <View style={{padding: 4, width: "50%"}}>
-              <View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-                <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, marginTop: 5, backgroundColor: '#b8b8b8'}}>
-                  <Text>GET API</Text>
-                </View>
-              </View>
-            </View>
-          </View>
-
-          <View style={{paddingTop: 20, flexDirection: 'row'}}>
-            <View style={{padding: 10, width: "44%"}}>
-              <Text>Jumlah Packing</Text>
-            </View>
-            <View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-              <Text style={{color: 'black'}}>:</Text>
-            </View>
-            <View style={{padding: 4, width: "50%"}}>
-              <View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-                <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, marginTop: 5, backgroundColor: '#b8b8b8'}}>
-                  <Text>GET API</Text>
-                </View>
-              </View>
+            <View style={{flexDirection: 'column', alignItems: 'flex-end', width: 35, paddingTop: 2}}>
+              <TouchableOpacity onPress={() => functionUpdateMode(1)}>
+                <Image source={CalendarBlack} style={{width: 25, height: 25, marginLeft: 4}}/>
+              </TouchableOpacity>
             </View>
           </View>
           
-          <View style={{paddingTop: 20, flexDirection: 'row'}}>
-            <View style={{padding: 10, width: "44%"}}>
-              <Text>Check Appearance</Text>
+          <View style={{paddingHorizontal: 5}}>
+            <Text>-</Text>
+          </View>
+
+          <View style={{borderWidth: 0.5, borderRadius: 10, height: 40, paddingHorizontal: 5, flexDirection: 'row', paddingTop: 5}}>
+            <View style={{flexDirection: 'column'}}>
+              <Text onPress={() => functionUpdateMode(2)}>{endDateText}</Text>
             </View>
-            <View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-              <Text style={{color: 'black'}}>:</Text>
-            </View>
-            <View style={{width: "6%", height: 70, flexDirection: 'column', paddingLeft: 5, justifyContent: 'center'}}>
-              <View style={{height: 25}}>
-                <Text style={{fontSize: 12}}>PN</Text>                                    
-              </View>
-              <View style={{height: 25}}>
-                <Text style={{marginTop: 10, fontSize: 12}}>N</Text>
-              </View>
-            </View>
-            <View style={{paddingTop: 8, paddingHorizontal: 4, paddingBottom: 4, width: "44%"}}>
-              <View style={{paddingTop: 5, height: 50, justifyContent: 'center'}}>
-                <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, marginTop: 5}}>
-                  <TextInput value={pn_value} onChangeText={(value) => setPNValue(value)} style={{paddingLeft: 5, height: 40}} placeholder="Type Here..." />
-                </View>
-                <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, marginTop: 5, backgroundColor: '#b8b8b8'}}>
-                  <Text>GET API</Text>
-                </View>
-              </View>
+            <View style={{flexDirection: 'column', alignItems: 'flex-end', width: 35, paddingTop: 2}}>
+              <TouchableOpacity onPress={() => functionUpdateMode(2)}>
+                <Image source={CalendarBlack} style={{width: 25, height: 25, marginLeft: 4}}/>
+              </TouchableOpacity>
             </View>
           </View>
           
-          <View style={{paddingTop: 20, flexDirection: 'row'}}>
-            <View style={{padding: 10, width: "44%"}}>
-              <Text>ROHs Compliance</Text>
-            </View>
-            <View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-              <Text style={{color: 'black'}}>:</Text>
-            </View>
-            <View style={{padding: 4, width: "50%"}}>
-              <View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-                <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-                  <Picker 
-                  mode="dropdown"
-                  selectedValue={rohs_compliance}
-                  onValueChange={(value) => setRohsCompliance(value)}
-                  >
-                    <Picker.Item label="Pilih" value="" />
-                    <Picker.Item label="OK" value="ok" />
-                    <Picker.Item label="NG" value="ng" />
-                    <Picker.Item label="NA" value="na" />
-                  </Picker>
-                </View>
-              </View>
-            </View>
-          </View>
-          
-          <View style={{paddingTop: 20, flexDirection: 'row'}}>
-            <View style={{padding: 10, width: "44%"}}>
-              <Text>Dimension</Text>
-            </View>
-            <View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-              <Text style={{color: 'black'}}>:</Text>
-            </View>
-            <View style={{padding: 4, width: "50%"}}>
-              <View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-                <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-                  <Picker 
-                  mode="dropdown"
-                  selectedValue={dimension}
-                  onValueChange={(value) => setDimension(value)}
-                  >
-                    <Picker.Item label="Pilih" value="" />
-                    <Picker.Item label="OK" value="ok" />
-                    <Picker.Item label="NG" value="ng" />
-                    <Picker.Item label="NA" value="na" />
-                  </Picker>
-                </View>
-              </View>
-            </View>
-          </View>
-          
-          <View style={{paddingTop: 20, flexDirection: 'row'}}>
-            <View style={{padding: 10, width: "44%"}}>
-              <Text>Fitting Test</Text>
-            </View>
-            <View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-              <Text style={{color: 'black'}}>:</Text>
-            </View>
-            <View style={{padding: 4, width: "50%"}}>
-              <View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-                <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-                  <Picker 
-                  mode="dropdown"
-                  selectedValue={fitting_test}
-                  onValueChange={(value) => setFittingTest(value)}
-                  >
-                    <Picker.Item label="Pilih" value="" />
-                    <Picker.Item label="OK" value="ok" />
-                    <Picker.Item label="NG" value="ng" />
-                    <Picker.Item label="NA" value="na" />
-                  </Picker>
-                </View>
-              </View>
-            </View>
-          </View>
-          
-          <View style={{paddingTop: 20, flexDirection: 'row'}}>
-            <View style={{padding: 10, width: "44%"}}>
-              <Text>Packing</Text>
-            </View>
-            <View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-              <Text style={{color: 'black'}}>:</Text>
-            </View>
-            <View style={{padding: 4, width: "50%"}}>
-              <View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-                <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-                  <Picker 
-                  mode="dropdown"
-                  selectedValue={packing}
-                  onValueChange={(value) => setPacking(value)}
-                  >
-                    <Picker.Item label="Pilih" value="" />
-                    <Picker.Item label="OK" value="ok" />
-                    <Picker.Item label="NG" value="ng" />
-                  </Picker>
-                </View>
-              </View>
-            </View>
-          </View>
-          
-          <View style={{paddingTop: 20, flexDirection: 'row'}}>
-            <View style={{padding: 10, width: "44%"}}>
-              <Text>COA/MSDC/ICP Data</Text>
-            </View>
-            <View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-              <Text style={{color: 'black'}}>:</Text>
-            </View>
-            <View style={{padding: 4, width: "50%"}}>
-              <View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-                <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-                  <Picker 
-                  mode="dropdown"
-                  selectedValue={packing}
-                  onValueChange={(value) => setPacking(value)}
-                  >
-                    <Picker.Item label="Pilih" value="" />
-                    <Picker.Item label="OK" value="ok" />
-                    <Picker.Item label="NG" value="ng" />
-                    <Picker.Item label="NA" value="na" />
-                  </Picker>
-                </View>
-              </View>
-            </View>
-          </View>
+          {showDateModal()}
 
-          <View style={{paddingTop: 20, flexDirection: 'row'}}>
-            <View style={{padding: 10, width: "44%"}}>
-              <Text>Status</Text>
-            </View>
-            <View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-              <Text style={{color: 'black'}}>:</Text>
-            </View>
-            <View style={{padding: 4, width: "50%"}}>
-              <View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-                <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-                  <Text>Automatis</Text>
-                </View>
-              </View>
-            </View>
-          </View>
-
-          <View style={{paddingTop: 20, flexDirection: 'row'}}>
-            <View style={{padding: 10, width: "44%"}}>
-              <Text>NG Category</Text>
-            </View>
-            <View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-              <Text style={{color: 'black'}}>:</Text>
-            </View>
-            <View style={{padding: 4, width: "50%"}}>
-              <View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-                <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-                  <Picker 
-                  mode="dropdown"
-                  selectedValue={ng_category}
-                  onValueChange={(value) => setNGCategory(value)}
-                  >
-                    {ListNGCategories()}
-                  </Picker>
-                </View>
-              </View>
-            </View>
-          </View>
-
-          <View style={{paddingTop: 20, flexDirection: 'row'}}>
-            <View style={{padding: 10, width: "44%"}}>
-              <Text>Note Unnormal</Text>
-            </View>
-            <View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
-              <Text style={{color: 'black'}}>:</Text>
-            </View>
-            <View style={{padding: 4, width: "50%"}}>
-              <View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-                <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
-                  <TextInput value={note_unnormal} onChangeText={(value) => setNoteUnnormal(value)} style={{paddingLeft: 5, height: 40}} placeholder="Type Here..." />
-                </View>
-              </View>
-            </View>
-          </View>
-
-          <View style={{marginTop: 20, flexDirection: 'row', borderWidth: 0.3, justifyContent: 'center', alignItems: 'center'}}>
-            <View style={{padding: 10, justifyContent: 'center', alignItems: 'center', width: '33.3%', borderRightWidth: 0.3}}>
-              <Text style={{fontSize: 15, fontWeight: 'bold'}}>NIK Operator</Text>
-              <Text style={{fontSize: 12, fontWeight: 'bold'}}>2008107</Text>
-            </View>
-            <View style={{padding: 10, justifyContent: 'center', alignItems: 'center', width: '33.3%', borderRightWidth: 0.3}}>
-              <Text style={{fontSize: 15, fontWeight: 'bold'}}>IPQC CODE</Text>
-              <Text style={{fontSize: 12, fontWeight: 'bold'}}>2008107</Text>
-            </View>
-            <View style={{padding: 10, justifyContent: 'center', alignItems: 'center', width: '33.3%'}}>
-              <Text style={{fontSize: 15, fontWeight: 'bold'}}>IQC CODE</Text>
-              <Text style={{fontSize: 12, fontWeight: 'bold'}}>2008107</Text>
-            </View>
-          </View>
-
-          <View style={{marginTop: 20, flexDirection: 'row', height: 432, borderWidth: 0.3, justifyContent: 'center', alignItems: 'center'}}>
-            <View style={{padding: 10, justifyContent: 'center', alignItems: 'center', width: '77%'}}>
-              <View>
-                {resultImage()}
-              </View>
-            </View>
-            <View style={{padding: 10, marginRight: 5, height: "100%", flexDirection: 'column', borderLeftWidth: 0.3}}>
-              <View style={{height: "20%", width: 65, justifyContent: 'center'}}>
-                <Button onPress={() => submit()} style={{width: 65, borderRadius: 10, justifyContent: 'center'}}><Text style={{fontSize: 9}}>SAVE</Text></Button>
-              </View>
-              <View style={{height: "20%", width: 65, justifyContent: 'center'}}>
-                <Button onPress={() => alert("Kembali")} style={{width: 65, borderRadius: 10, justifyContent: 'center'}}><Text style={{fontSize: 9}}>BACK</Text></Button>
-              </View>
-              <View style={{flex:1, alignItems: 'center', justifyContent: 'flex-end'}}>
-                <Text>{inspectionTime}</Text>
-              </View>
-            </View>
-          </View>
-
-        </TouchableOpacity>
+        <View style={{justifyContent: 'center', alignItems: 'center', paddingLeft: 5}}>
+          <Button style={{backgroundColor: '#1a508b', borderRadius: 15, width: 50, justifyContent: 'center'}} onPress={() => searchData()}>
+            <Image source={search} style={{width: 25, height: 25, marginLeft: 4}}/>
+          </Button>
+        </View>
       </View>
-    </ScrollView>
     )
   }
 
-  const listSpg = () => {
-    return (
-      <Picker.Item label="PT. Uye Uye Uye" value="PT. Uye Uye Uye" />
-    )
+  const loadData = () => {
+    if(loadingDua == null){
+      null
+    }else if(loadingDua == true){
+      return content()
+    }else{
+      return <View style={{backgroundColor: '#dfe0df', alignItems: 'center', justifyContent: 'center', paddingTop: 100}}><ActivityIndicator size="large" color="#0000ff"/></View>
+    }
   }
 
 	return(
 		<KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={{flex:1}}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
 				<Container>
-					<View style={{flex: 1, height: 100, backgroundColor: '#dfe0df', borderWidth: 0.3, flexDirection: 'column'}}>
-						
-						<View style={{justifyContent: 'center', alignItems: 'center', backgroundColor: '#dfe0df'}}>
-							<Image source={LogoSIP}/>
-						</View>
-
-						<View style={{flexDirection: 'row'}}>
-							<View style={{borderTopWidth: 0.3, borderRightWidth: 0.3, height: 70, justifyContent: 'center', alignItems: 'center', width: "50%", backgroundColor: '#dfe0df'}}>
-								<Text style={{marginTop: 1, fontWeight: 'bold', fontSize: 17}}>Daily Inspection</Text>
-								<Text style={{marginTop: 1, fontWeight: 'bold', fontSize: 17}}>IQC</Text>
-							</View>
-							<View style={{flexDirection: 'column', width: "100%"}}>
-								<View style={{borderTopWidth: 0.3, height: 65, justifyContent: 'center', alignItems: 'center', width: "50%", flex: 1, flexDirection: 'column'}}>
-                  <View style={{width: "100%", height: "100%"}}>
-                    <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, margin: 2}}>
-                      <Picker 
-                      mode="dropdown"
-                      selectedValue={spg_supplier}
-                      onValueChange={(value) => setSpgSupplier(value)}
-                      >
-                        {listSpg()}
-                      </Picker>
-                    </View>
-                    <View style={{height: "50%", justifyContent: 'center', alignItems: 'center'}}>
-                      <Text style={{marginBottom: 2, fontWeight: 'bold', fontSize: 11}}>{date_now} / Shift Ke-{shift} / Jam {hoursNow}</Text>
-                    </View>
-                  </View>
-								</View>
-							</View>
-						</View>
-
-						<View style={{borderWidth: 0.5, flexDirection: 'row'}}>
-							<View style={{justifyContent: 'center', alignItems: 'center', paddingLeft: 5, height: 25, width: "50%", backgroundColor: '#dfe0df', borderBottomWidth: 0.3, borderRightWidth: 0.9, height: 50}}>
-								<Text style={{fontWeight: 'bold', fontSize: 12}}>- GET API SUPPLIER -</Text>
-							</View>
-							<View style={{flex: 1, height: 25, backgroundColor: '#dfe0df', borderBottomWidth: 0.3, height: 50}}>
-                <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, margin: 2, marginTop: 5}}>
-                  <Picker 
-                  mode="dropdown"
-                  selectedValue={part_number_supplier}
-                  onValueChange={(value) => setPartNoSupplier(value)}
-                  >
-                    {listSpg()}
-                  </Picker>
-                </View>
-							</View>
-						</View>
-
-						<View style={{flexDirection: 'row'}}>
-							<View style={{justifyContent: 'center', alignItems: 'center', paddingLeft: 5, height: 25, width: "50%", backgroundColor: '#dfe0df', borderBottomWidth: 0.3, borderRightWidth: 0.3}}>
-								<Text style={{fontWeight: 'bold', fontSize: 12}}>- GET API Part No Internal -</Text>
-							</View>
-							<View style={{flex: 1, justifyContent: 'center', alignItems: 'center', height: 25, backgroundColor: '#dfe0df', borderBottomWidth: 0.3}}>
-								<Text style={{fontWeight: 'bold', fontSize: 12}}>- GET API Part Name -</Text>
-							</View>
-						</View>
-						<View style={{flexDirection: 'row'}}>
-							<View style={{justifyContent: 'center', alignItems: 'center', paddingLeft: 5, height: 25, width: "50%", backgroundColor: '#dfe0df', borderBottomWidth: 0.3, borderRightWidth: 0.3}}>
-								<Text style={{fontWeight: 'bold', fontSize: 12}}>- GET API NIK Inspector -</Text>
-							</View>
-							<View style={{flex: 1, justifyContent: 'center', alignItems: 'center', height: 25, backgroundColor: '#dfe0df', borderBottomWidth: 0.3}}>
-								<Text style={{fontWeight: 'bold', fontSize: 12}}>- GET API Warna -</Text>
-							</View>
-						</View>
-
-						{loading ? content() : <View style={{justifyContent: 'center'}}><ActivityIndicator size="large" color="#0000ff"/></View>}
-					</View>
+          <View style={{height: 100, backgroundColor: '#dfe0df', flexDirection: 'column', justifyContent: 'center'}}>
+            <View style={styles.contentHeader}>
+              <Image source={LogoSIP}/>
+            </View>
+            <View style={styles.contentHeader}>
+              <Text style={{fontSize: 20, fontWeight: 'bold'}}>SPG SUPPLIER ({nama_plant})</Text>
+              {/* <Text style={styles.fontListProducts}>List SPG Supplier {nama_plant}</Text>  */}
+            </View>
+          </View>
+          
+          {loading ? null : <View style={{backgroundColor: '#dfe0df', alignItems: 'center', justifyContent: 'center'}}><ActivityIndicator size="large" color="#0000ff"/></View>}
+          <View style={{backgroundColor: '#dfe0df', }}>
+            {loading ? searchContent() : null}
+          </View>
+          <View style={styles.contentFullWithPadding}>
+            <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
+              {loadData()}
+            </ScrollView>
+          </View>
+        
+        
 				</Container>
 			</TouchableWithoutFeedback>
 		</KeyboardAvoidingView>

@@ -11,12 +11,10 @@ import app_version from '../app_version/index';
 
 const ShowPlanning = ({route, navigation}) => {
   const {machine_id, sys_plant_id, machine_number, machine_name} = route.params
-  const [featureUser, setFeature] = useState(null)
   const [loading, setLoading] = useState(false)
   const [refreshing, setRefreshing] = useState(false);
-  const [data, setData] = useState(null)
+  const [data, setData] = useState([])
 	useEffect(() => {
-    session()
 		products()
 	}, [])
   var today = moment()
@@ -36,9 +34,10 @@ const ShowPlanning = ({route, navigation}) => {
       machine_id: machine_id,
       app_version: app_version
     }
+    // console.log(params)
     axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
     .then(response => {
-      setData(response.data.data.product_list)
+      setData(response.data.data)
       setRefreshing(false)
       setLoading(true)
       console.log("Products List Data: ", response.data.status, response.data.message)
@@ -51,50 +50,84 @@ const ShowPlanning = ({route, navigation}) => {
     products();
   }, []);
 
-  const session = async () => {
-    try {
-      const UserSession = await AsyncStorage.multiGet(['user', 'name', 'department_name', 'sys_plant_id', 'duty_plant_option_select', 'feature'])
-      const feature    = await AsyncStorage.getItem('feature')
-			setFeature(JSON.parse(feature))
-    } catch (error) {
-      console.log('Multi Get Error: ', error.message)
-    }
-	}
-
+// abcd
   const loopFeature = () => {
 		var oke = []
 		var i
-    data.map((element, key) => {
-      oke.push(
-        <Button key={key} style={styles.listProductPlanning} onPress={() => navigation.navigate('ListMasspro', {
-          machine_id: machine_id,
-          sys_plant_id: sys_plant_id,
-          machine_name: machine_name,
-          machine_number: machine_number,
-          today: today,
-          yesterday: yesterday,
-          product_id: element.product_id,
-          product_name: element.product_name,
-          product_part_id: element.product_part_id,
-          product_customer_pn: element.product_customer_pn,
-          product_model: element.product_model
-        })}>
-          <View style={{flexDirection: 'row'}}>
-            <View style={{flexDirection: 'column'}}>
-              <Text style={{fontWeight: 'bold'}}>{element.product_name}</Text> 
-              <View style={{flexDirection: 'row'}}>
-                <View style={{width: "50%", flexDirection: 'column'}}>
-                  <Text style={{fontWeight: 'bold'}}>{element.product_customer_pn}</Text> 
+    if(data != null){
+      var planned = data.product_list
+      if(planned.length > 0){
+        planned.map((element, key) => {
+          const idPart   = element.product_part_id
+          const PIALogic = idPart.includes('PI')
+          const PBALogic = idPart.includes('PB')
+          // console.log(PBALogic)
+          const PSALogic = idPart.includes('PS')
+          if(PIALogic == true && PSALogic == false || PBALogic == true ){
+            oke.push(
+              <Button key={key} style={styles.listProductPlanning} onPress={() => navigation.navigate('ListMasspro', {
+                machine_id: machine_id,
+                sys_plant_id: sys_plant_id,
+                machine_name: machine_name,
+                machine_number: machine_number,
+                today: today,
+                yesterday: yesterday,
+                product_id: element.product_id,
+                product_name: element.product_name,
+                product_part_id: element.product_part_id,
+                product_customer_pn: element.product_customer_pn,
+                product_model: element.product_model
+              })}>
+                <View style={{flexDirection: 'row'}}>
+                  <View style={{flexDirection: 'column'}}>
+                    <Text style={{fontWeight: 'bold'}}>{element.product_name}</Text> 
+                    <View style={{flexDirection: 'row'}}>
+                      <View style={{width: "50%", flexDirection: 'column'}}>
+                        <Text style={{fontWeight: 'bold'}}>{element.product_customer_pn}</Text> 
+                      </View>
+                      <View style={{width: "50%", flexDirection: 'column', alignItems: 'flex-end'}}>
+                        <Text style={{fontSize: 15, fontWeight: 'bold'}}>{element.product_model}</Text>
+                      </View>
+                    </View>
+                  </View>
                 </View>
-                <View style={{width: "50%", flexDirection: 'column', alignItems: 'flex-end'}}>
-                  <Text style={{fontSize: 15, fontWeight: 'bold'}}>{element.product_model}</Text>
+              </Button>
+            )
+          }else{
+            oke.push(
+              <Button key={key} style={styles.listProductPlanning} onPress={() => alert("Product 2nd Process Tidak Bisa Proses Masspro, Hubungi PPIC")}>
+                <View style={{flexDirection: 'row'}}>
+                  <View style={{flexDirection: 'column'}}>
+                    <Text style={{fontWeight: 'bold'}}>{element.product_name}</Text> 
+                    <View style={{flexDirection: 'row'}}>
+                      <View style={{width: "50%", flexDirection: 'column'}}>
+                        <Text style={{fontWeight: 'bold'}}>{element.product_customer_pn}</Text> 
+                      </View>
+                      <View style={{width: "50%", flexDirection: 'column', alignItems: 'flex-end'}}>
+                        <Text style={{fontSize: 15, fontWeight: 'bold'}}>{element.product_model}</Text>
+                      </View>
+                    </View>
+                  </View>
                 </View>
-              </View>
-            </View>
+              </Button>
+            )
+          }
+        })
+      }else{
+        oke.push(
+          <View key="123qwe" style={styles.notifNoPlanning}>
+            <Text style={styles.fontNotifNoProducts}>Tidak Ada Planning Di Mesin <Text style={styles.fontNotifNoProductsChild}>{machine_number}</Text> </Text>
           </View>
-        </Button>
+        )
+      }
+    }else{
+      alert("API 404, Hubungi IT Dept.")
+      oke.push(
+        <View key="123qwe" style={styles.notifNoPlanning}>
+          <Text style={styles.fontNotifNoProducts}>Tidak Ada Planning Di Mesin <Text style={styles.fontNotifNoProductsChild}>{machine_number}</Text> </Text>
+        </View>
       )
-    })
+    }
 
 		return oke
   }

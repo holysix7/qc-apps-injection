@@ -6,9 +6,10 @@ import AsyncStorage from "@react-native-community/async-storage";
 import moment from 'moment';
 import Axios from 'axios';
 import app_version from '../../../../app_version/index';
+import base_url_submit from '../../../../../API/BaseUrlSubmit';
 
 const Per4Jam = ({route, navigation}) => {
-	const {qc_daily_inspection_id, qc_daily_inspection_method_id, sys_plant_id, product_name, customer_name, machine_id, machine_number, machine_name, today, yesterday, daily_inspection_number} = route.params
+	const {qc_daily_inspection_id, qc_daily_inspection_method_id, sys_plant_id, product_name, customer_name, machine_id, machine_number, machine_name, date, daily_inspection_number} = route.params
 	useEffect(() => {
 		// fixPer4Jam()
 		formOke()
@@ -114,19 +115,10 @@ const Per4Jam = ({route, navigation}) => {
 
 	const [data, setData] = useState("");
 	const [daily_inspection, setDaily] = useState("");
-	const date = []
-	if(today != null){
-		date.push(
-			<Text key={"key"} style={{marginTop: 1, fontWeight: 'bold', fontSize: 17}}>{today}</Text>
-		)
-	}
-	if(yesterday != null){
-		date.push(
-			<Text key={"key"} style={{marginTop: 1, fontWeight: 'bold', fontSize: 17}}>{yesterday}</Text>
-		)
-	}
+
 	var timeNow = moment()
 	var jam 		= parseInt(moment(timeNow).format("H"))
+
 	const formOke = async() => {
 		const token = await AsyncStorage.getItem("key")
 		const headers = {
@@ -159,6 +151,7 @@ const Per4Jam = ({route, navigation}) => {
 			qc_daily_inspection_id: qc_daily_inspection_id,
 			app_version: app_version
 		}
+		console.log(params)
 		Axios.get('https://api.tri-saudara.com/api/v2/qcs?', {params: params, headers: headers})
 		.then(response => {
 			setLoading(true)
@@ -177,6 +170,7 @@ const Per4Jam = ({route, navigation}) => {
 		})
 	}
 
+// abcd
 	const item = {
 		"cav_1": {
 			"cavity": 1,
@@ -311,7 +305,7 @@ const Per4Jam = ({route, navigation}) => {
 		}
 		var config = {
 			method: 'put',
-			url: 'https://api.tri-saudara.com/api/v2/qcs/update?',
+			url: base_url_submit,
 			params: params,
 			headers: { 
 					'Authorization': token, 
@@ -404,6 +398,7 @@ const Per4Jam = ({route, navigation}) => {
 	}
 
 	const hString = hours.toString()
+
 	const dataItem = () => {
 		const checkData = daily_inspection
 		var table1 = []
@@ -1287,7 +1282,7 @@ const Per4Jam = ({route, navigation}) => {
 				<View>
 					<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
 						<View>
-							<Button style={{width: 172, borderRadius: 25, justifyContent: 'center', backgroundColor: 'green'}} onPress={() => alert("Already Saved!")}><Text>SAVED</Text></Button>
+							<Button style={{width: 172, borderRadius: 5, justifyContent: 'center', backgroundColor: 'green'}} onPress={() => alert("Already Saved!")}><Text>SAVED</Text></Button>
 						</View>
 					</View>
 					<View style={{flexDirection: 'column', height: 50}}>
@@ -1309,7 +1304,7 @@ const Per4Jam = ({route, navigation}) => {
 				<View>
 					<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
 						<View>
-							<Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>
+							<Button style={{width: 172, borderRadius: 5, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>
 						</View>
 					</View>
 					<View style={{flexDirection: 'column', height: 50}}>
@@ -1341,7 +1336,7 @@ const Per4Jam = ({route, navigation}) => {
 					</View>
 					<View style={{padding: 4, width: "50%"}}>
 						<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-							<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+							<View style={{borderWidth: 0.5, borderRadius: 5, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
 								<Text>{daily_inspection != null ? daily_inspection.machine_status : "-"}</Text>
 							</View>
 						</View>
@@ -1357,7 +1352,7 @@ const Per4Jam = ({route, navigation}) => {
 					</View>
 					<View style={{padding: 4, width: "50%"}}>
 						<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-							<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+							<View style={{borderWidth: 0.5, borderRadius: 5, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
 								<Text>{tooling_num != null ? tooling_num : "-"}</Text>
 							</View>
 						</View>
@@ -1373,7 +1368,7 @@ const Per4Jam = ({route, navigation}) => {
 					</View>
 					<View style={{padding: 4, width: "50%"}}>
 						<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-							<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+							<View style={{borderWidth: 0.5, borderRadius: 5, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
 								{/* <Text>2</Text> */}
 								<Text>{cavityCheck != null ? cavityCheck : "-"}</Text>
 							</View>
@@ -1432,7 +1427,7 @@ const Per4Jam = ({route, navigation}) => {
 							</View>
 							<View style={{flexDirection: 'column', width: "100%"}}>
 								<View style={{borderTopWidth: 0.3, height: 65, justifyContent: 'center', alignItems: 'center', width: "50%", flex: 1}}>
-									<Text style={{fontWeight: 'bold', fontSize: 17}}>({machine_number}) - {machine_name}</Text>
+									<Text style={{fontWeight: 'bold', fontSize: 17, textAlign: 'center'}}>({machine_number}) - {machine_name}</Text>
 									<View style={{borderWidth: 0.5, width: 150, height: 25, justifyContent: 'center'}}>
 										<Picker 
 										mode="dropdown"

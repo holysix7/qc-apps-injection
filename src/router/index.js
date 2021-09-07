@@ -30,8 +30,15 @@ import {
 	ContinueMP,
 	StopMP,
 	OQC,
+	NextDay,
+	ShowNGProducts,
+	Rework,
+	ReworkProdLeader,
+	ReworkQCLeader,
+	ReworkOperator,
 	IQC,
-	NextDay
+	ListPartNumber,
+	FormIQC
 } from '../pages';
 
 const Stack = createStackNavigator();
@@ -72,8 +79,15 @@ const Router = () => {
 			<Stack.Screen name="ContinueMP" component={ContinueMP} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
 			<Stack.Screen name="StopMP" component={StopMP} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
 			<Stack.Screen name="OQC" component={OQC} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
-			<Stack.Screen name="IQC" component={IQC} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
 			<Stack.Screen name="NextDay" component={NextDay} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
+			<Stack.Screen name="ShowNGProducts" component={ShowNGProducts} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
+			<Stack.Screen name="Rework" component={Rework} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
+			<Stack.Screen name="ReworkProdLeader" component={ReworkProdLeader} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
+			<Stack.Screen name="ReworkQCLeader" component={ReworkQCLeader} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
+			<Stack.Screen name="ReworkOperator" component={ReworkOperator} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
+			<Stack.Screen name="IQC" component={IQC} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
+			<Stack.Screen name="ListPartNumber" component={ListPartNumber} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
+			<Stack.Screen name="FormIQC" component={FormIQC} options={{headerShown: false, ...TransitionPresets.ModalPresentationIOS}} />
 		</Stack.Navigator>
 	)
 }

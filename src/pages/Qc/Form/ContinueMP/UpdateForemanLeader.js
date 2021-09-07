@@ -6,6 +6,7 @@ import AsyncStorage from "@react-native-community/async-storage";
 import Axios from 'axios';
 import moment from 'moment';
 import app_version from '../../../app_version/index';
+import base_url_submit from '../../../../API/BaseUrlSubmit';
 
 const UpdateForemanLeader = ({route, navigation}) => {
 	const {sys_plant_id, qc_daily_inspection_id, product_name, today, yesterday, doc_number} = route.params
@@ -18,12 +19,7 @@ const UpdateForemanLeader = ({route, navigation}) => {
 	const [dateApi, setDateApi]           = useState(null)
 	const [namaUser, setNama]             = useState(null)
 	const [userName, setUserName]         = useState(null)
-	const [idUser, setIdUser]             = useState(null)
 	const [shiftId, setShiftId] 	        = useState(null)
-	const [created_by, setCreatedBy]      = useState(null)
-	const [updated_by, setUpdatedBy]      = useState(null)
-	let created_at 								        = moment().format("YYYY-MM-DD HH:mm:ss")
-	let updated_at 								        = moment().format("YYYY-MM-DD HH:mm:ss")
   //CONSUME API SHIFT
 	const [shift1, setShift1] 	          = useState(null)
 	const [shift2, setShift2] 	          = useState(null)
@@ -33,20 +29,9 @@ const UpdateForemanLeader = ({route, navigation}) => {
 	const [shift1Done, setShift1Done] 	  = useState(false)
   const [shift2Done, setShift2Done] 	  = useState(false)
 	var timeNow 	= moment()
-	var hoursNow 	= parseInt(moment(timeNow).format("H"))
-  if(hoursNow >= 8 && hoursNow <= 15){
-    var shiftNow = 1
-  }else if(hoursNow >= 16 && hoursNow <= 23){
-    var shiftNow = 2
-  }else{
-    var shiftNow = 3
-  }
 
 	const submit = async(value) => {
 		var token = await AsyncStorage.getItem("key") 
-		var headers = {
-			'Authorization': token
-    }
     var params = {
       tbl: "daily_inspection",
       kind: "update_fr",
@@ -55,97 +40,51 @@ const UpdateForemanLeader = ({route, navigation}) => {
     var foreman_id = userName
     if(value == 1){
       //SUBMIT KE DATA SHIFT 1
-      const qc_daily_inspection_item_id = shift1 != null ? shift1.qc_daily_inspection_item_id : null  
-      const data = {
+      var qc_daily_inspection_item_id = shift1 != null ? shift1.qc_daily_inspection_item_id : null  
+      var data = {
         qc_daily_inspection_item_id,
-        foreman_id
+        foreman_id,
+        app_version
       }
-      var config = {
-        method: 'put',
-        url: 'https://api.tri-saudara.com/api/v2/qcs/update?',
-        params: params,
-        headers: { 
-          'Authorization': token, 
-          'Content-Type': 'application/json', 
-          'Cookie': '_denapi_session=ubcfq3AHCuVeTlxtg%2F1nyEa3Ktylg8nY1lIEPD7pgS3YAWwlKOxwA0S9pw7JhvZ2mNkrYl0j62wAWJWJZd7AbfolGuHCwXgEMeJH6EoLiQ%3D%3D--M%2BjBb0uJeHmOf%2B3o--%2F2Fjw57x0Fyr90Ec9FVibQ%3D%3D'
-        },
-        data : data
-      };
-      Axios(config)
-      .then(function (response) {
-        console.log("Res: ", response.status, " Ok")
-        setLoading(true)
-        alert("Success Send Data!")
-        navigation.navigate('ListForm')
-      })
-      .catch(function (error) {
-				setLoading(true)
-				alert("Failed Send Data!")
-				console.log(error)
-      });
     }else if(value == 2){
       //SUBMIT KE DATA SHIFT 2
-      const qc_daily_inspection_item_id = shift2 != null ? shift2.qc_daily_inspection_item_id : null
-      const data = {
+      var qc_daily_inspection_item_id = shift2 != null ? shift2.qc_daily_inspection_item_id : null
+      var data = {
         qc_daily_inspection_item_id,
-        foreman_id
+        foreman_id,
+        app_version
       }
-      var config = {
-        method: 'put',
-        params: params,
-        url: 'https://api.tri-saudara.com/api/v2/qcs/update?',
-        params: params,
-        headers: { 
-          'Authorization': token, 
-          'Content-Type': 'application/json', 
-          'Cookie': '_denapi_session=ubcfq3AHCuVeTlxtg%2F1nyEa3Ktylg8nY1lIEPD7pgS3YAWwlKOxwA0S9pw7JhvZ2mNkrYl0j62wAWJWJZd7AbfolGuHCwXgEMeJH6EoLiQ%3D%3D--M%2BjBb0uJeHmOf%2B3o--%2F2Fjw57x0Fyr90Ec9FVibQ%3D%3D'
-        },
-        data : data
-      };
-      Axios(config)
-      .then(function (response) {
-        console.log("Res: ", response.status, " Ok")
-        setLoading(true)
-        alert("Success Send Data!")
-        navigation.navigate('ListForm')
-      })
-      .catch(function (error) {
-				setLoading(true)
-				alert("Failed Send Data!")
-				console.log(error)
-      });
     }else{
       //SUBMIT KE DATA SHIFT 3
-      const qc_daily_inspection_item_id = shift3 != null ? shift3.qc_daily_inspection_item_id : null
-      const data = {
+      var qc_daily_inspection_item_id = shift3 != null ? shift3.qc_daily_inspection_item_id : null
+      var data = {
         qc_daily_inspection_item_id,
-        foreman_id
+        foreman_id,
+        app_version
       }
-      var config = {
-        method: 'put',
-        params: params,
-        url: 'https://api.tri-saudara.com/api/v2/qcs/update?',
-        params: params,
-        headers: { 
-          'Authorization': token, 
-          'Content-Type': 'application/json', 
-          'Cookie': '_denapi_session=ubcfq3AHCuVeTlxtg%2F1nyEa3Ktylg8nY1lIEPD7pgS3YAWwlKOxwA0S9pw7JhvZ2mNkrYl0j62wAWJWJZd7AbfolGuHCwXgEMeJH6EoLiQ%3D%3D--M%2BjBb0uJeHmOf%2B3o--%2F2Fjw57x0Fyr90Ec9FVibQ%3D%3D'
-        },
-        data : data
-      };
-      Axios(config)
-      .then(function (response) {
-        console.log("Res: ", response.status, " Ok")
-        setLoading(true)
-        alert("Success Send Data!")
-        navigation.navigate('ListForm')
-      })
-      .catch(function (error) {
-				setLoading(true)
-				alert("Failed Send Data!")
-				console.log(error)
-      });
     }
+    var config = {
+      method: 'put',
+      url: base_url_submit,
+      params: params,
+      headers: { 
+        'Authorization': token, 
+        'Content-Type': 'application/json', 
+        'Cookie': '_denapi_session=ubcfq3AHCuVeTlxtg%2F1nyEa3Ktylg8nY1lIEPD7pgS3YAWwlKOxwA0S9pw7JhvZ2mNkrYl0j62wAWJWJZd7AbfolGuHCwXgEMeJH6EoLiQ%3D%3D--M%2BjBb0uJeHmOf%2B3o--%2F2Fjw57x0Fyr90Ec9FVibQ%3D%3D'
+      },
+      data : data
+    };
+    Axios(config)
+    .then(function (response) {
+      setLoading(true)
+      alert("Success Send Data!")
+      navigation.navigate('ListForm')
+    })
+    .catch(function (error) {
+      setLoading(true)
+      alert("Failed Send Data!")
+      console.log(error)
+    });
   }
 
   const changeShift = (value) => {
@@ -160,7 +99,6 @@ const UpdateForemanLeader = ({route, navigation}) => {
     const name = await AsyncStorage.getItem('name')
     setNama(name)
     setUserName(id)
-    setIdUser(id)
     let jam = moment().format("HH:mm:ss")
 		if(parseInt(jam) >= 8 && parseInt(jam) <= 15){
       setShiftId(1)
@@ -174,8 +112,6 @@ const UpdateForemanLeader = ({route, navigation}) => {
 		const headers = {
 			'Authorization': token
 		}
-		setCreatedBy(id)
-    setUpdatedBy(id)
     const params = {
 			tbl: 'daily_inspection',
 			kind: 'get_fr',
@@ -207,7 +143,7 @@ const UpdateForemanLeader = ({route, navigation}) => {
   const buttonSubmit = () => {
     return (
       <View key="1button" style={{paddingTop: 20, flexDirection: 'row', justifyContent: 'center'}}>
-        <Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit(shiftId)}><Text>Continue MP</Text></Button>
+        <Button style={{width: 172, borderRadius: 5, justifyContent: 'center'}} onPress={() => submit(shiftId)}><Text>Continue MP</Text></Button>
       </View>
     )
   }
@@ -215,7 +151,7 @@ const UpdateForemanLeader = ({route, navigation}) => {
   const contentShift = () => {
     var data = []
     if(dateApi != null){
-      if(dateApi == timeNow.format("Y-MM-D")){
+      if(dateApi == timeNow.format("Y-MM-DD")){
         if(shiftId == 1){
           data.push(
             <View key="aksosk" style={{marginTop: 10, height: "100%", marginRight: 10, borderWidth: 1}}>
@@ -233,7 +169,7 @@ const UpdateForemanLeader = ({route, navigation}) => {
                 </View>
                 <View style={{padding: 4, width: "50%"}}>
                   <View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-                    <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+                    <View style={{borderWidth: 0.5, borderRadius: 5, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
                       <Text>Foreman</Text>
                     </View>
                   </View>
@@ -249,7 +185,7 @@ const UpdateForemanLeader = ({route, navigation}) => {
                 </View>
                 <View style={{padding: 4, width: "50%"}}>
                   <View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-                    <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+                    <View style={{borderWidth: 0.5, borderRadius: 5, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
                       <Text style={{fontSize: 13}}>{namaUser}</Text>
                     </View>
                   </View>
@@ -276,7 +212,7 @@ const UpdateForemanLeader = ({route, navigation}) => {
                 </View>
                 <View style={{padding: 4, width: "50%"}}>
                   <View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-                    <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+                    <View style={{borderWidth: 0.5, borderRadius: 5, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
                       <Text>Foreman</Text>
                     </View>
                   </View>
@@ -292,7 +228,7 @@ const UpdateForemanLeader = ({route, navigation}) => {
                 </View>
                 <View style={{padding: 4, width: "50%"}}>
                   <View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-                    <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+                    <View style={{borderWidth: 0.5, borderRadius: 5, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
                       <Text style={{fontSize: 13}}>{namaUser}</Text>
                     </View>
                   </View>
@@ -318,14 +254,13 @@ const UpdateForemanLeader = ({route, navigation}) => {
                 </View>
                 <View style={{padding: 4, width: "50%"}}>
                   <View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-                    <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+                    <View style={{borderWidth: 0.5, borderRadius: 5, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
                       <Text>Foreman</Text>
                     </View>
                   </View>
                 </View>
               </View>
     
-
               <View style={{paddingTop: 20, flexDirection: 'row'}}>
                 <View style={{padding: 10, width: "44%"}}>
                   <Text>User</Text>
@@ -335,19 +270,18 @@ const UpdateForemanLeader = ({route, navigation}) => {
                 </View>
                 <View style={{padding: 4, width: "50%"}}>
                   <View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-                    <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+                    <View style={{borderWidth: 0.5, borderRadius: 5, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
                       <Text style={{fontSize: 13}}>{namaUser}</Text>
                     </View>
                   </View>
                 </View>
               </View>
     
-
               {buttonSubmit()}
             </View>
           )
         }
-      }else if(dateApi < timeNow.format("Y-MM-D")){
+      }else if(dateApi < timeNow.format("Y-MM-DD")){
         if(shiftId == 1){
           data.push(
             <View key="aksosk" style={{marginTop: 10, height: "100%", marginRight: 10, borderWidth: 1}}>
@@ -365,7 +299,7 @@ const UpdateForemanLeader = ({route, navigation}) => {
                 </View>
                 <View style={{padding: 4, width: "50%"}}>
                   <View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-                    <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+                    <View style={{borderWidth: 0.5, borderRadius: 5, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
                       <Text>Foreman</Text>
                     </View>
                   </View>
@@ -380,12 +314,15 @@ const UpdateForemanLeader = ({route, navigation}) => {
                 </View>
                 <View style={{padding: 4, width: "50%"}}>
                   <View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-                    <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-                      <Text style={{fontSize: 13}}>{shift1 != null && shift1.foreman_nik != null ? shift1.foreman_name : "-"}</Text>
+                    <View style={{borderWidth: 0.5, borderRadius: 5, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+                      <Text style={{fontSize: 13}}>{shift1 != null && shift1.foreman_nik != null ? shift1.foreman_name : userName}</Text>
                     </View>
                   </View>
                 </View>
               </View>
+
+              {shift1 != null ? shift1.foreman_nik != null ? null : buttonSubmit() : null}
+              
             </View>
           )
         }else if(shiftId == 2){
@@ -405,7 +342,7 @@ const UpdateForemanLeader = ({route, navigation}) => {
                 </View>
                 <View style={{padding: 4, width: "50%"}}>
                   <View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-                    <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+                    <View style={{borderWidth: 0.5, borderRadius: 5, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
                       <Text>Foreman</Text>
                     </View>
                   </View>
@@ -420,12 +357,14 @@ const UpdateForemanLeader = ({route, navigation}) => {
                 </View>
                 <View style={{padding: 4, width: "50%"}}>
                   <View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-                    <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-                      <Text style={{fontSize: 13}}>{shift2 != null && shift2.foreman_nik != null ? shift2.foreman_name : "-"}</Text>
+                    <View style={{borderWidth: 0.5, borderRadius: 5, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+                      <Text style={{fontSize: 13}}>{shift2 != null ? shift2.foreman_name != null ? shift2.foreman_name : namaUser : '-'}</Text>
                     </View>
                   </View>
                 </View>
               </View>
+              
+                {shift2 != null ? shift2.foreman_nik != null ? null : buttonSubmit() : null}
             </View>
           )
         }else{
@@ -445,7 +384,7 @@ const UpdateForemanLeader = ({route, navigation}) => {
                 </View>
                 <View style={{padding: 4, width: "50%"}}>
                   <View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-                    <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+                    <View style={{borderWidth: 0.5, borderRadius: 5, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
                       <Text>Foreman</Text>
                     </View>
                   </View>
@@ -460,8 +399,8 @@ const UpdateForemanLeader = ({route, navigation}) => {
                 </View>
                 <View style={{padding: 4, width: "50%"}}>
                   <View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-                    <View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-                      <Text style={{fontSize: 13}}>{shift3 != null && shift3.foreman_nik != null ? shift3.foreman_name : "-"}</Text>
+                    <View style={{borderWidth: 0.5, borderRadius: 5, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+                      <Text style={{fontSize: 13}}>{shift3 != null ? shift3.foreman_name != null ? shift3.foreman_name : namaUser : '-' }</Text>
                     </View>
                   </View>
                 </View>
@@ -481,10 +420,11 @@ const UpdateForemanLeader = ({route, navigation}) => {
     return data
   }
 
+// abcd
   const sideTab = () => {
     var data = []
     if(dateApi != null){
-      if(dateApi == timeNow.format("Y-MM-D")){
+      if(dateApi == timeNow.format("Y-MM-DD")){
         if(shiftId == 1){
           data.push(
             <View key="XlsksmS" style={{flexDirection: 'column', paddingTop: 10, paddingLeft: 10}}>
@@ -555,7 +495,7 @@ const UpdateForemanLeader = ({route, navigation}) => {
             </View>
           )
         }
-      }else if(dateApi < timeNow.format("Y-MM-D")){
+      }else if(dateApi < timeNow.format("Y-MM-DD")){
         if(shiftId == 1){
           data.push(
             <View key="XlsksmS" style={{flexDirection: 'column', paddingTop: 10, paddingLeft: 10}}>

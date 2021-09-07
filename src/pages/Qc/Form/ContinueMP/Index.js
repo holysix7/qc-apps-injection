@@ -60,14 +60,14 @@ const ContinueMP = ({route, navigation}) => {
 	const loopFeature = () => {
 		var data = []
 		var i
-		console.log(next_date)
+		console.log('ini tgl: ',next_date)
 		for(i = 0; i < 4; i++){
 			if(featureUser != null){
-				if(sys_plant_id == i+1){
+        var session_sys = featureUser[i] != null ? featureUser[i].sys_plant_id : null
+				if(sys_plant_id == session_sys){
 					if(featureUser[i] != null){
 						if(featureUser[i].qc_masspro_prod_leader != null || featureUser[i].qc_masspro_foreman != null){
 							if(featureUser[i].qc_masspro_prod_leader.view_permissions == true){
-							// if(featureUser[i].qc_masspro_prod_leader.view_permissions == true && user == 32008107 || featureUser[i].qc_masspro_foreman.view_permissions == true || user == 21410012){
 								data.push(
 									<Button key="AscvSacx" style={styles.dailyInspectionButton} onPress={() => navigation.navigate('UpdateProductionLeader', {
 										internal_part_id: internal_part_id,
@@ -83,7 +83,8 @@ const ContinueMP = ({route, navigation}) => {
 										yesterday: yesterday,
 										doc_number: doc_number,
 										customer_part_number: customer_part_number,
-										model: model
+										model: model,
+										next_date: next_date
 									})} >
 										<Text> Update Production Leader </Text>   
 									</Button>	
@@ -113,7 +114,8 @@ const ContinueMP = ({route, navigation}) => {
 										yesterday: yesterday,
 										doc_number: doc_number,
 										customer_part_number: customer_part_number,
-										model: model
+										model: model,
+										next_date: next_date
 									})} >
 										<Text> Update Foreman Leader </Text>
 									</Button>
@@ -133,6 +135,7 @@ const ContinueMP = ({route, navigation}) => {
 		return data
 	}	
 
+// abcd
 	return(
 		<Container>
 			<View style={styles.headerWithBorder}>

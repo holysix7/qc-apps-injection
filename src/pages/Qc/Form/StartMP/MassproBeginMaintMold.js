@@ -1,4 +1,4 @@
-import {Image, View, TextInput, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, ScrollView, ActivityIndicator} from 'react-native';
+import {Image, View, TextInput, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, ScrollView, ActivityIndicator, Alert} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import { Container, Text, Button, Picker } from 'native-base';
 import LogoSIP from '../../../../assets/logo-sip370x50.png';
@@ -6,108 +6,153 @@ import AsyncStorage from "@react-native-community/async-storage";
 import Axios from 'axios';
 import moment from 'moment';
 import app_version from	'../../../app_version/index';
+import base_url_submit from	'../../../../API/BaseUrlSubmit';
 
 const MassproBeginMaintMold = ({route, navigation}) => {
 	useEffect(() => {
 		formOke()
 	}, [])
 
-	const {sys_plant_id, machine_id, customer_name, machine_name, today, machine_number, eng_product_id} = route.params
-	const [mold_condition, setCondition] 	= useState("")
+	const {sys_plant_id, machine_id, customer_name, machine_name, today, machine_number, eng_product_id, access_foreman} = route.params
+	// console.log(access_foreman)
+	const [mold_condition, setCondition] 	= useState(null)
 	const [loading, setLoading] 					= useState(false)
-	const [neeple_cooling, setCooling] 		= useState("")
-	const [standard_part, setStandard] 		= useState("")
-	const [remark, setRemark] 						= useState("")
+	const [neeple_cooling, setCooling] 		= useState(null)
+	const [standard_part, setStandard] 		= useState(null)
+	const [remark, setRemark] 						= useState(null)
 	const [dataProduct1, setDataProduct1] = useState("")
 	const [created_by, setCreatedBy]		  = useState("")
 	const [updated_by, setUpdatedBy]		  = useState("")
+	const [status_mp, setStatusMP]		  	= useState("Normal")
 	const [tooling, setTooling]		  			= useState(null)
 	const [hours, setHours]		  					= useState(0)
 	const [shift, setShift]		  					= useState(0)
 	const date 														= []
 	const [planningId, setPlanningId]		  = useState("")
 	const [internal_part_id, setDataIPI] 	= useState("")
-	const [cavityAmount, setCavMount] 		= useState("")
+	const [cavityAmount, setCavMount] 		= useState(null)
 	const prod_machine_id 								= machine_id
 	const status 													= "new"
 	let created_at 												= moment().format("YYYY-MM-DD HH:mm:ss")
 	let updated_at 												= moment().format("YYYY-MM-DD HH:mm:ss")
-	const [massProMM, setMassProMM]		  	= useState(null)
-	const [massMold, setMassMold]		  		= useState(null)
-	const [massNeeple, setMassNeeple]		  = useState(null)
-	const [massStandard, setMassStandard]	= useState(null)
-	const [massRemark, setMassRemark]		  = useState(null)
-	const [massTooling, setMassTooling]		= useState(null)
-	const [massIPI, setMassIPI]		  			= useState(null)
-
+	const [massProMM, setmassProMM]		  	= useState(null)
 	const planning_id = parseInt(planningId)
-	
+
 	const submit = async() => {
-		if(tooling != null){
-			setLoading(false)
-			const data = {
-				eng_product_id,
-				prod_machine_id,
-				sys_plant_id,
-				internal_part_id,
-				mold_condition,
-				neeple_cooling,
-				standard_part,
-				tooling,
-				planning_id,
-				remark,
-				status,
-				created_by,
-				created_at,
-				updated_by,
-				updated_at
+		setLoading(false)
+		const id = await AsyncStorage.getItem('id')
+		const approved_by = id
+		if(massProMM != null){
+			if(massProMM.id != null){
+				const masspro_mm_id = massProMM.id
+				var data = {
+					masspro_mm_id,
+					status_mp,
+					access_foreman,
+					approved_by
+				}
+			}else{
+				if(parseInt(tooling) > 0 && mold_condition != null && neeple_cooling != null && standard_part != null){
+					var data = {
+						status_mp,
+						eng_product_id,
+						prod_machine_id,
+						sys_plant_id,
+						internal_part_id,
+						mold_condition,
+						neeple_cooling,
+						standard_part,
+						tooling,
+						planning_id,
+						remark,
+						status,
+						created_by,
+						created_at,
+						updated_by,
+						updated_at
+					}
+				}
 			}
-			const token = await AsyncStorage.getItem("key")
-			const params = {
-				tbl: 'daily_inspection',
-				kind: 'masspro_mm',
-				update_hour: sys_plant_id,
-				app_version: app_version
-			}
-			var config = {
-				method: 'put',
-				url: 'https://api.tri-saudara.com/api/v2/qcs/update?',
-				params: params,
-				headers: { 
-					'Authorization': token, 
-					'Content-Type': 'application/json', 
-					'Cookie': '_denapi_session=ubcfq3AHCuVeTlxtg%2F1nyEa3Ktylg8nY1lIEPD7pgS3YAWwlKOxwA0S9pw7JhvZ2mNkrYl0j62wAWJWJZd7AbfolGuHCwXgEMeJH6EoLiQ%3D%3D--M%2BjBb0uJeHmOf%2B3o--%2F2Fjw57x0Fyr90Ec9FVibQ%3D%3D'
-				},
-				data : data
-			};
+		}
+		console.log('data: ', data)
+		const token = await AsyncStorage.getItem("key")
+		const params = {
+			tbl: 'daily_inspection',
+			kind: 'masspro_mm',
+			update_hour: sys_plant_id,
+			app_version: app_version
+		}
+		var config = {
+			method: 'put',
+			url: base_url_submit,
+			params: params,
+			headers: { 
+				'Authorization': token, 
+				'Content-Type': 'application/json', 
+				'Cookie': '_denapi_session=ubcfq3AHCuVeTlxtg%2F1nyEa3Ktylg8nY1lIEPD7pgS3YAWwlKOxwA0S9pw7JhvZ2mNkrYl0j62wAWJWJZd7AbfolGuHCwXgEMeJH6EoLiQ%3D%3D--M%2BjBb0uJeHmOf%2B3o--%2F2Fjw57x0Fyr90Ec9FVibQ%3D%3D'
+			},
+			data : data
+		};
+		if(parseInt(tooling) > 0 && mold_condition != null && neeple_cooling != null && standard_part != null){
 			Axios(config)
 			.then(function (response){
 				console.log("Res: ", response.status, " Ok")
 				setLoading(true)
-				alert("Success Send Data!")
+				Alert.alert(
+					"Success Send Data",
+					"Berhasil Menyimpan Data",
+					[
+						{ 
+							text: "OK", 
+							onPress: () => console.log('200 OK') 
+						}
+					],
+					{ cancelable: false }
+				)
 				navigation.navigate('ShowPlanning')
 			})
 			.catch(function (error){
-				alert("Failed Send Data!")
+				setLoading(true)
+				Alert.alert(
+					"Failed Send Data",
+					"Gagal Kirim Data, Hubungi IT Department",
+					[
+						{ 
+							text: "OK", 
+							onPress: () => console.log('400 BAD') 
+						}
+					],
+					{ cancelable: false }
+				)
 				console.log(error)
 			})
 		}else{
-			alert("Harap Periksa Inputan Kembali")
+			console.log("Gabisa Save Bro")
+			setLoading(true)
+			Alert.alert(
+				"Failed Send Data",
+				"Gagal Kirim Data, Harap Perhatikan Form Input!",
+				[
+					{ 
+						text: "OK", 
+						onPress: () => console.log('400 BAD') 
+					}
+				],
+				{ cancelable: false }
+			)
 		}
 	}
+
 	const formOke = async() => {
 		const token = await AsyncStorage.getItem("key")
 		const headers = {
 			'Authorization': token
 		}
-		const name = await AsyncStorage.getItem('name')
 		const id = await AsyncStorage.getItem('id')
 		setCreatedBy(id)
 		setUpdatedBy(id)
-
 		let jam = moment().format("HH:mm:ss")
-		if(parseInt(jam) >= 8 && parseInt(jam) <= 15)
-		{
+		if(parseInt(jam) >= 8 && parseInt(jam) <= 15){
 			const nilaiJam = parseInt(jam)
 			setShift(2)
 			setHours(nilaiJam)
@@ -136,13 +181,7 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 			setCavMount(response.data.data.product_1_detail.cavity)
 			setTooling(response.data.data.planning.tooling_1)
 			setPlanningId(response.data.data.planning.id)
-			setMassProMM(response.data.data.masspro_mm)
-			setMassTooling(response.data.data.masspro_mm.tooling_num)
-			setMassMold(response.data.data.masspro_mm.mold_condition)
-			setMassNeeple(response.data.data.masspro_mm.neeple_cooling)
-			setMassStandard(response.data.data.masspro_mm.standard_part)
-			setMassRemark(response.data.data.masspro_mm.remark)
-			setMassIPI(response.data.data.masspro_mm.internal_part_id)
+			setmassProMM(response.data.data.masspro_mm)
 			console.log("List Data Maint. Mold: ", response.data.status, "OK")
 		})
 		.catch(error => {
@@ -153,29 +192,23 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 		setHours(value)
 	}
 	const hString = hours.toString()
-	if(today != null)
-	{
+	if(today != null){
 		date.push(
 			<Text key={"key"} style={{marginTop: 1, fontWeight: 'bold', fontSize: 17}}>{today}</Text>
 		)
 	}
 	var yesterday = null
-	if(yesterday != null)
-	{
+	if(yesterday != null)	{
 		date.push(
 			<Text key={"key"} style={{marginTop: 1, fontWeight: 'bold', fontSize: 17}}>{yesterday}</Text>
 		)
 	}
 
 	const statusMoldCondition = () => {
-		const mldCondition = massMold
-		const mpmmData = massProMM
-		const data = []
-		if(mpmmData != null){
-			if(mldCondition != "OK" && mldCondition != "NG")
-			{
-				data.push(
-					<View key="skehj2" style={{borderWidth: 0.5, borderRadius: 25, width: 177, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+		if(massProMM != null){
+			if(massProMM.mold_condition != "OK" && massProMM.mold_condition != "NG"){
+				return (
+					<View style={{borderWidth: 0.5, borderRadius: 10, width: 177, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 						<Picker 
 						mode="dropdown"
 						selectedValue={mold_condition}
@@ -191,15 +224,15 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 					</View>
 				)
 			}else{
-				data.push(
-					<View key="skehj2" style={{borderWidth: 0.5, borderRadius: 25, width: 177, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-						<Text>{mldCondition}</Text>
+				return (
+					<View style={{borderWidth: 0.5, borderRadius: 10, width: 177, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+						<Text>{massProMM.mold_condition}</Text>
 					</View>
 				)
 			}
 		}else{
-			data.push(
-				<View key="skehj2" style={{borderWidth: 0.5, borderRadius: 25, width: 177, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+			return (
+				<View style={{borderWidth: 0.5, borderRadius: 10, width: 177, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 					<Picker 
 					mode="dropdown"
 					selectedValue={mold_condition}
@@ -215,17 +248,14 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 				</View>
 			)
 		}
-		return data
 	}
+
 	const neepleCoolingMold = () => {
-		const neepleCooling = massNeeple
-		const data = []
-		const mpmmData = massProMM
-		if(mpmmData != null){
-			if(neepleCooling != "OK" && neepleCooling != "NG")
+		if(massProMM != null){
+			if(massProMM.neeple_cooling != "OK" && massProMM.neeple_cooling != "NG")
 			{
-				data.push(
-				<View key="sdw21" style={{borderWidth: 0.5, borderRadius: 25, width: 177, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+				return (
+				<View style={{borderWidth: 0.5, borderRadius: 10, width: 177, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 					<Picker 
 					mode="dropdown"
 					selectedValue={neeple_cooling}
@@ -241,15 +271,15 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 				</View>
 				)
 			}else{
-				data.push(
-					<View key="sdw21" style={{borderWidth: 0.5, borderRadius: 25, width: 177, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-						<Text>{neepleCooling}</Text>
+				return (
+					<View style={{borderWidth: 0.5, borderRadius: 10, width: 177, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+						<Text>{massProMM.neeple_cooling}</Text>
 					</View>
 				)
 			}
 		}else{
-			data.push(
-				<View key="sdw21" style={{borderWidth: 0.5, borderRadius: 25, width: 177, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+			return (
+				<View style={{borderWidth: 0.5, borderRadius: 10, width: 177, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 					<Picker 
 					mode="dropdown"
 					selectedValue={neeple_cooling}
@@ -265,17 +295,14 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 				</View>
 			)
 		}
-		return data
 	}
+
 	const standardPart = () => {
-		const standardPart = massStandard
-		const data = []
-		const mpmmData = massProMM
-		if(mpmmData != null){
-			if(standardPart != "OK" && standardPart != "NG")
+		if(massProMM != null){
+			if(massProMM.standard_part != "OK" && massProMM.standard_part != "NG")
 			{
-				data.push(
-					<View key="asdw2"  style={{borderWidth: 0.5, borderRadius: 25, width: 177, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+				return (
+					<View style={{borderWidth: 0.5, borderRadius: 10, width: 177, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 						<Picker 
 						mode="dropdown"
 						selectedValue={standard_part}
@@ -291,15 +318,15 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 					</View>
 				)
 			}else{
-				data.push(
-					<View key="asle21" style={{borderWidth: 0.5, borderRadius: 25, width: 177, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-						<Text>{standardPart}</Text>
+				return (
+					<View style={{borderWidth: 0.5, borderRadius: 10, width: 177, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+						<Text>{massProMM.standard_part}</Text>
 					</View>
 				)
 			}
 		}else{
-			data.push(
-				<View key="asdw2"  style={{borderWidth: 0.5, borderRadius: 25, width: 177, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+			return (
+				<View style={{borderWidth: 0.5, borderRadius: 10, width: 177, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 					<Picker 
 					mode="dropdown"
 					selectedValue={standard_part}
@@ -315,76 +342,144 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 				</View>
 			)
 		}
-		return data
 	}
+
 	const remarkData = () => {
-		const updateRemark = massRemark
-		const mpmmData = massProMM
-		const data = []
-		if(mpmmData != null){
-			if(updateRemark != null){
-				data.push(
-					<View key="123seqw" style={{borderWidth: 0.5, borderRadius: 25, width: 177, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
-						<Text>{updateRemark}</Text>
+		if(massProMM != null){
+			if(massProMM.remark != null){
+				return (
+					<View style={{borderWidth: 0.5, borderRadius: 10, width: 177, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+						<Text>{massProMM.remark}</Text>
 					</View>
 				)
 			}else{
-				data.push(
-					<View key="123seqw" style={{borderWidth: 0.5, borderRadius: 25, width: 177, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+				return (
+					<View style={{borderWidth: 0.5, borderRadius: 10, width: 177, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 						<TextInput value={remark} onChangeText={(value) => setRemark(value)} style={{paddingLeft: 5, height: 40, width: 177}} placeholder="Type Here..." />
 					</View>
 				)
 			}
 		}else{
-			data.push(
-				<View key="123seqw" style={{borderWidth: 0.5, borderRadius: 25, width: 177, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+			return (
+				<View style={{borderWidth: 0.5, borderRadius: 10, width: 177, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 					<TextInput value={remark} onChangeText={(value) => setRemark(value)} style={{paddingLeft: 5, height: 40, width: 177}} placeholder="Type Here..." />
 				</View>
 			)
 		}
-		return data
 	}
+
 	const updateButton = () => {
-		const updateMS = massIPI
-		const mpmmData = massProMM
-		const data = []
-		if(mpmmData != null)
-		{
-			if(updateMS != null){
-				data.push(
-					<View key="asd12q" style={{paddingTop: 10}}>
-						<Button style={{width: 172, borderRadius: 25, justifyContent: 'center', backgroundColor: '#05c46b'}} onPress={() => alert("Data Maintenance Mold Already Saved!")}><Text>SAVED</Text></Button>
+		if(access_foreman == true){
+			if(massProMM != null){
+				if(massProMM.approved_by != null){
+					return(
+						<View style={{paddingTop: 10}}>
+							<Button style={{width: 172, borderRadius: 10, justifyContent: 'center', backgroundColor: '#05c46b'}} onPress={() => alert("Data Material Preparation Already Approved!")}><Text>APPROVED</Text></Button>
+						</View>
+					)
+				}else{
+					return(
+						<View style={{paddingTop: 10}}>
+							<Button style={{width: 172, borderRadius: 10, justifyContent: 'center'}} onPress={() => 
+								Alert.alert(
+									"Info",
+									"Are You Sure?",
+									[
+										{ text: "Cancel", onPress: () => console.log('Cancel') },
+										{ text: "Yes", onPress: () => submit() }
+									],
+									{ cancelable: true }
+								)}
+							><Text>APPROVE</Text></Button>
+						</View>
+					)
+				}
+			}
+		}else{
+			if(massProMM != null){
+				if(massProMM.id != null){
+					return(
+						<View style={{paddingTop: 10}}>
+							<Button style={{width: 172, borderRadius: 10, justifyContent: 'center', backgroundColor: '#05c46b'}} onPress={() => alert("Data Material Preparation Already Saved!")}><Text>SAVED</Text></Button>
+						</View>
+					)
+				}else{
+					return(
+						<View key="asd12q" style={{paddingTop: 10}}>
+							<Button style={{width: 172, borderRadius: 10, justifyContent: 'center'}} onPress={() => 
+								Alert.alert(
+									"Info",
+									"Are You Sure?",
+									[
+										{ text: "Cancel", onPress: () => console.log('Cancel') },
+										{ text: "Yes", onPress: () => submit() }
+									],
+									{ cancelable: true }
+								)
+							}><Text>SAVE</Text></Button>
+						</View>
+					)
+				}
+			}
+		}
+	}
+
+	const updateStatusForeman = () => {
+		if(massProMM != null){
+			if(massProMM.approved_by == null){
+				return (
+					<View key="asdw2"  style={{borderWidth: 0.5, borderRadius: 10, width: 177, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+						<Picker 
+						mode="dropdown"
+						selectedValue={status_mp}
+						onValueChange={(value) => setStatusMP(value)}
+						>
+							<Picker.Item label="Normal" value="Normal" />
+							<Picker.Item label="Waiting" value="Waiting" />
+							<Picker.Item label="Next Planning" value="Next Planning" />
+						</Picker>
 					</View>
 				)
 			}else{
-				data.push(
-					<View key="asd12q" style={{paddingTop: 10}}>
-						<Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>
+				return(
+					<View key="aoij2o" style={{width: 177, borderWidth: 0.5, borderRadius: 10, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+						<Text>{massProMM.status_mp}</Text>
 					</View>
 				)
 			}
-		}else{
-			data.push(
-				<View key="asd12q" style={{paddingTop: 10}}>
-					<Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>
+		}
+	}
+
+	const formKhususForeman = () => {
+		if(access_foreman == true){
+			return (
+				<View style={{paddingTop: 20, flexDirection: 'row'}}>
+					<View style={{padding: 10, width: "44%"}}>
+						<Text>Status</Text>
+					</View>
+					<View style={{padding: 10, width: "6%", alignItems: 'flex-end'}}>
+						<Text style={{color: 'black'}}>:</Text>
+					</View>
+					<View style={{padding: 4, width: "50%"}}>
+						{updateStatusForeman()}
+					</View>
 				</View>
 			)
 		}
-		return data
 	}
 
+// abcd
 	const toolingUpdate = () => {
-		var data = []
 		if(massProMM != null){
-			if(massTooling != null){
-				data.push(
-					<View key="ss12" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, width: 177, backgroundColor: '#b8b8b8'}}>
-						<Text>{massTooling != null ? massTooling : "-"}</Text>
+			if(massProMM.tooling_num != null){
+				return (
+					<View style={{borderWidth: 0.5, borderRadius: 10, height: 40, justifyContent: 'center', paddingLeft: 5, width: 177, backgroundColor: '#b8b8b8'}}>
+						<Text>{massProMM.tooling_num}</Text>
 					</View>
 				)
 			}else{
-				data.push(
-					<View key="ss12" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, width: 177}}>
+				return (
+					<View style={{borderWidth: 0.5, borderRadius: 10, height: 40, justifyContent: 'center', paddingLeft: 5, width: 177}}>
 						<Picker 
 						mode="dropdown"
 						selectedValue={tooling}
@@ -400,13 +495,12 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 							<Picker.Item label="4" value="4" />
 							<Picker.Item label="5" value="5" />
 						</Picker>
-						{/* <TextInput value={tooling} onChangeText={(value) => setTooling(value)} style={{paddingLeft: 5, height: 40, width: 177}} placeholder="Type Here..." /> */}
 					</View>
 				)	
 			}
 		}else{
-			data.push(
-				<View key="ss12" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, width: 177}}>
+			return (
+				<View style={{borderWidth: 0.5, borderRadius: 10, height: 40, justifyContent: 'center', paddingLeft: 5, width: 177}}>
 					<Picker 
 						mode="dropdown"
 						selectedValue={tooling}
@@ -425,7 +519,6 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 				</View>
 			)	
 		}
-		return data
 	}
 
 	const content = () => {
@@ -451,7 +544,7 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 						<Text style={{color: 'black'}}>:</Text>
 					</View>
 					<View style={{padding: 4, width: "50%"}}>
-						<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8', width: 177}}>
+						<View style={{borderWidth: 0.5, borderRadius: 10, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8', width: 177}}>
 							<Text>{cavityAmount != null ? cavityAmount : "-"}</Text>
 						</View>
 					</View>
@@ -489,6 +582,7 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 						{standardPart()}
 					</View>
 				</View>
+				{formKhususForeman()}
 				<View style={{flexDirection: 'row'}}>
 					<View style={{padding: 10, width: "44%"}}>
 						<Text>Remark</Text>
@@ -506,6 +600,36 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 			</ScrollView>
 		)
 		return dataContent
+	}
+
+	const pickerItemFunc = () => {
+		var record = []
+		var data = []
+		var jam_ke = 0
+		for(var i = 0; i <= 23; i++){
+			var j = 8
+			jam_ke++
+			if(jam_ke == 9){
+				jam_ke = 0
+				jam_ke++
+			}
+			if(i < j){
+				j *= 2
+				var label = 'Shift 3 - ' + jam_ke
+			}else if(i < j){
+				var label = 'Shift 1 - ' + jam_ke
+			}else{
+				var label = 'Shift 2 - ' + jam_ke
+			}
+			data.push({
+				label: label,
+				value: i
+			})
+			record.push(
+				<Picker.Item key={i} label={label} value={i} />
+			)
+		}
+		return record
 	}
 
 	return(
@@ -527,7 +651,7 @@ const MassproBeginMaintMold = ({route, navigation}) => {
 							</View>
 							<View style={{flexDirection: 'column', width: "100%"}}>
 								<View style={{borderTopWidth: 0.3, height: 65, justifyContent: 'center', alignItems: 'center', width: "50%", flex: 1}}>
-									<Text style={{fontWeight: 'bold', fontSize: 17}}>({machine_number}) - {machine_name}</Text>
+									<Text style={{fontWeight: 'bold', fontSize: 17, textAlign: 'center'}}>({machine_number}) - {machine_name}</Text>
 									<View style={{borderWidth: 0.5, width: 150, height: 25, justifyContent: 'center'}}>
 										<Picker 
 										mode="dropdown"

@@ -6,12 +6,13 @@ import moment from 'moment';
 import AsyncStorage from "@react-native-community/async-storage";
 import Axios from 'axios';
 import app_version from '../../../app_version/index';
+import base_url_submit from '../../../../API/BaseUrlSubmit';
 
 const LastShootForeman = ({route, navigation}) => {
 	useEffect(() => {
 		formOke()
 	}, [])
-	const {qc_daily_inspection_id, sys_plant_id, machine_id, product_name, customer_name, machine_number, daily_inspection_number, machine_name, today, yesterday} = route.params
+	const {qc_daily_inspection_id, sys_plant_id, machine_id, product_name, customer_name, machine_number, daily_inspection_number, machine_name, date} = route.params
 	const [hours, setHours]		  										= useState(0)
 	const [shift, setShift]		  										= useState(0)
 	const [stop_category, setStopCategory]					= useState("")
@@ -24,10 +25,10 @@ const LastShootForeman = ({route, navigation}) => {
 	const [eng_product_id, setEngProdId]		  			= useState(0)
 	const [data, setData]	=	useState(null)
 	const prod_machine_id = machine_id
-	const date = []
 	const [loading, setLoading] = useState(false)
 	var timeNow 	= moment()
 	var hoursNow	= parseInt(moment(timeNow).format('H'))
+// abcd
 	const submit = async() => {
 		setLoading(false)
 		const data = {
@@ -51,7 +52,7 @@ const LastShootForeman = ({route, navigation}) => {
 		}
 		var config = {
 			method: 'put',
-			url: 'https://api.tri-saudara.com/api/v2/qcs/update?',
+			url: base_url_submit,
 			params: params,
 			headers: { 
 				'Authorization': token, 
@@ -127,33 +128,20 @@ const LastShootForeman = ({route, navigation}) => {
 	}
 
 	const hString = hours.toString()
-	
-	if(today != null)
-	{
-		date.push(
-			<Text key={"key"} style={{marginTop: 1, fontWeight: 'bold', fontSize: 17}}>{today}</Text>
-		)
-	}
-	if(yesterday != null)
-	{
-		date.push(
-			<Text key={"key"} style={{marginTop: 1, fontWeight: 'bold', fontSize: 17}}>{yesterday}</Text>
-		)
-	}
 
 	const updateStopCategory = () => {
 		var data = []
 		if(lastShootFR != null){
 			if(lastShootFR.stop_category != null){
 				data.push(
-					<View key="asjdnoi2" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', backgroundColor: '#b8b8b8'}}>
+					<View key="asjdnoi2" style={{borderWidth: 0.5, borderRadius: 5, height: 40, justifyContent: 'center', backgroundColor: '#b8b8b8'}}>
 						<Text style={{paddingLeft: 5}}>{lastShootFR.stop_category == null ? "-" : lastShootFR.stop_category}</Text>
 					</View>
 				)
 			}
 		}else{
 			data.push(
-				<View key="asjdnoi2" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center'}}>
+				<View key="asjdnoi2" style={{borderWidth: 0.5, borderRadius: 5, height: 40, justifyContent: 'center'}}>
 					<Picker 
 					mode="dropdown"
 					selectedValue={stop_category}
@@ -179,13 +167,13 @@ const LastShootForeman = ({route, navigation}) => {
 		if(lastShootFR != null){
 			data.push(
 				<View key="aPOkmw">
-					<Button style={{width: 172, borderRadius: 25, justifyContent: 'center', backgroundColor: '#05c46b'}} onPress={() => alert("Data Already Saved!")}><Text>SAVED</Text></Button>
+					<Button style={{width: 172, borderRadius: 5, justifyContent: 'center', backgroundColor: '#05c46b'}} onPress={() => alert("Data Already Saved!")}><Text>SAVED</Text></Button>
 				</View>
 			)
 		}else{
 			data.push(
 				<View key="asomaw312">
-					<Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>
+					<Button style={{width: 172, borderRadius: 5, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>
 				</View>
 			)
 		}
@@ -207,7 +195,7 @@ const LastShootForeman = ({route, navigation}) => {
 							</View>
 							<View style={{padding: 4, width: "50%"}}>
 								<View style={{height: 40, justifyContent: 'center'}}>
-									<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+									<View style={{borderWidth: 0.5, borderRadius: 5, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
 										<Text>{tooling_num != null ? tooling_num : "-"}</Text>
 									</View>
 								</View>
@@ -222,7 +210,7 @@ const LastShootForeman = ({route, navigation}) => {
 								<Text style={{color: 'black'}}>:</Text>
 							</View>
 							<View style={{padding: 4, width: "50%"}}>
-								<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+								<View style={{borderWidth: 0.5, borderRadius: 5, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
 									<Text>{data.cavity != null ? data.cavity : "-"}</Text>
 								</View>
 							</View>
@@ -248,7 +236,7 @@ const LastShootForeman = ({route, navigation}) => {
 			}else{
 				dataContent.push(
 					<ScrollView key="29" style={{flex: 1}}>
-						<View style={{marginVertical: 160, marginHorizontal: 40, padding: 40, backgroundColor: '#fff76a', borderWidth: 1, borderRadius: 25, flexDirection: 'row', alignItems: 'center'}}>
+						<View style={{marginVertical: 160, marginHorizontal: 40, padding: 40, backgroundColor: '#fff76a', borderWidth: 1, borderRadius: 5, flexDirection: 'row', alignItems: 'center'}}>
 							<Text style={{fontSize: 12, textAlign: 'center', fontWeight: 'bold'}}>Hubungi Leader QC Untuk Segera Isi Form Last Shoot Leader QC</Text>
 						</View>
 					</ScrollView>
@@ -257,7 +245,7 @@ const LastShootForeman = ({route, navigation}) => {
 		}else{
 			dataContent.push(
 				<ScrollView key="29" style={{flex: 1}}>
-					<View style={{marginVertical: 160, marginHorizontal: 40, padding: 40, backgroundColor: '#fff76a', borderWidth: 1, borderRadius: 25, flexDirection: 'row', alignItems: 'center'}}>
+					<View style={{marginVertical: 160, marginHorizontal: 40, padding: 40, backgroundColor: '#fff76a', borderWidth: 1, borderRadius: 5, flexDirection: 'row', alignItems: 'center'}}>
 						<Text style={{fontSize: 12, textAlign: 'center', fontWeight: 'bold'}}>Hubungi Leader QC Untuk Segera Isi Form Last Shoot Leader QC</Text>
 					</View>
 				</ScrollView>
@@ -285,7 +273,7 @@ const LastShootForeman = ({route, navigation}) => {
 							</View>
 							<View style={{flexDirection: 'column', width: "100%"}}>
 								<View style={{borderTopWidth: 0.3, height: 65, justifyContent: 'center', alignItems: 'center', width: "50%", flex: 1}}>
-									<Text style={{fontWeight: 'bold', fontSize: 17}}>({machine_number}) - {machine_name}</Text>
+									<Text style={{fontWeight: 'bold', fontSize: 17, textAlign: 'center'}}>({machine_number}) - {machine_name}</Text>
 									<View style={{borderWidth: 0.5, width: 150, height: 25, justifyContent: 'center'}}>
 										<Picker 
 										mode="dropdown"

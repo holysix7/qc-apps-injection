@@ -6,13 +6,14 @@ import AsyncStorage from "@react-native-community/async-storage";
 import moment from 'moment';
 import Axios from 'axios';
 import app_version from '../../../app_version/index';
+import base_url_submit from '../../../../API/BaseUrlSubmit';
 
 const LastShootLeaderQc = ({route, navigation}) => {
 	useEffect(() => {
 		formOke()
 	}, [])
 
-	const {qc_daily_inspection_id, qc_daily_inspection_item_id, qc_daily_inspection_method_id, sys_plant_id, product_name, customer_name, machine_id, machine_number, machine_name, daily_inspection_number, today, yesterday} = route.params
+	const {qc_daily_inspection_id, qc_daily_inspection_item_id, qc_daily_inspection_method_id, sys_plant_id, product_name, customer_name, machine_id, machine_number, machine_name, daily_inspection_number, date} = route.params
 
 	const [judgement_first_piece1, setJudgement1] 			= useState(null)
 	const [judgement_first_piece2, setJudgement2] 			= useState(null)
@@ -129,22 +130,10 @@ const LastShootLeaderQc = ({route, navigation}) => {
 	const [updated_by, setUpdatedBy]										= useState("")
 	let updated_at 																			= moment().format("YYYY-MM-DD HH:mm:ss")
 	const prod_machine_id = machine_id
-	const date = []
 
 	const [loading, setLoading]	= useState(false)
 	var timeNow 	= moment()
 	var hoursNow	= parseInt(moment(timeNow).format('H'))
-
-	if(today != null){
-	date.push(
-		<Text key={"key"} style={{marginTop: 1, fontWeight: 'bold', fontSize: 17}}>{today}</Text>
-	)
-	}
-	if(yesterday != null){
-		date.push(
-			<Text key={"key"} style={{marginTop: 1, fontWeight: 'bold', fontSize: 17}}>{yesterday}</Text>
-		)
-	}
 
 	const formOke = async() => {
 		const token = await AsyncStorage.getItem("key")
@@ -406,7 +395,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 		}
 		var config = {
 			method: 'put',
-			url: 'https://api.tri-saudara.com/api/v2/qcs/update?',
+			url: base_url_submit,
 			params: params,
 			headers: { 
 				'Authorization': token, 
@@ -1678,13 +1667,13 @@ const LastShootLeaderQc = ({route, navigation}) => {
 		var data = []
 		if(massproQCL != null){
 			data.push(
-				<View key="aoskdj2moi" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+				<View key="aoskdj2moi" style={{borderWidth: 0.5, borderRadius: 5, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
 					<Text>{massproQCL.copy_sample}</Text>
 				</View>
 			)
 		}else{
 			data.push(
-				<View key="aoskdj2moi" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+				<View key="aoskdj2moi" style={{borderWidth: 0.5, borderRadius: 5, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 					<Picker 
 					mode="dropdown"
 					selectedValue={copy_sample}
@@ -1704,13 +1693,13 @@ const LastShootLeaderQc = ({route, navigation}) => {
 		var data = []
 		if(massproQCL != null){
 			data.push(
-				<View key="askdnm2jk" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+				<View key="askdnm2jk" style={{borderWidth: 0.5, borderRadius: 5, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
 					<Text>{massproQCL.mtr_need}</Text>
 				</View>
 			)
 		}else{
 			data.push(
-				<View key="askdnm2jk" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+				<View key="askdnm2jk" style={{borderWidth: 0.5, borderRadius: 5, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 					<Picker 
 					mode="dropdown"
 					selectedValue={mtr_need}
@@ -1730,13 +1719,13 @@ const LastShootLeaderQc = ({route, navigation}) => {
 		var data = []
 		if(massproQCL != null){
 			data.push(
-				<View key="askdnm2jk" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+				<View key="askdnm2jk" style={{borderWidth: 0.5, borderRadius: 5, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
 					<Text>{massproQCL.remark}</Text>
 				</View>
 			)
 		}else{
 			data.push(
-				<View key="askdnm2jk" style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5}}>
+				<View key="askdnm2jk" style={{borderWidth: 0.5, borderRadius: 5, height: 40, justifyContent: 'center', paddingLeft: 5}}>
 					<TextInput value={remark} onChangeText={(value) => setRemark(value)} style={{paddingLeft: 5, height: 40, width: 177}} placeholder="Type Here..." />
 				</View>
 			)
@@ -1749,13 +1738,13 @@ const LastShootLeaderQc = ({route, navigation}) => {
 		if(massproQCL != null){
 			data.push(
 				<View key="asokdmo2">
-					<Button style={{width: 172, borderRadius: 25, justifyContent: 'center', backgroundColor: '#05c46b'}} onPress={() => alert('Data Already Saved!')}><Text>SAVED</Text></Button>
+					<Button style={{width: 172, borderRadius: 5, justifyContent: 'center', backgroundColor: '#05c46b'}} onPress={() => alert('Data Already Saved!')}><Text>SAVED</Text></Button>
 				</View>
 			)
 		}else{
 			data.push(
 				<View key="asokdmo2">
-					<Button style={{width: 172, borderRadius: 25, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>
+					<Button style={{width: 172, borderRadius: 5, justifyContent: 'center'}} onPress={() => submit()}><Text>SAVE</Text></Button>
 				</View>
 			)
 		}
@@ -1776,7 +1765,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 						</View>
 						<View style={{padding: 4, width: "50%"}}>
 							<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-								<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+								<View style={{borderWidth: 0.5, borderRadius: 5, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
 									<Text>{data != null ? data.machine_status : "-"}</Text>
 								</View>
 							</View>
@@ -1792,7 +1781,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 						</View>
 						<View style={{padding: 4, width: "50%"}}>
 							<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-								<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+								<View style={{borderWidth: 0.5, borderRadius: 5, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
 									<Text>{data != null ? data.tooling_num : "-"}</Text>
 								</View>
 							</View>
@@ -1808,7 +1797,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 						</View>
 						<View style={{padding: 4, width: "50%"}}>
 							<View style={{height: 30, justifyContent: 'center', paddingLeft: 5, paddingTop: 5}}>
-								<View style={{borderWidth: 0.5, borderRadius: 25, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
+								<View style={{borderWidth: 0.5, borderRadius: 5, height: 40, justifyContent: 'center', paddingLeft: 5, backgroundColor: '#b8b8b8'}}>
 									<Text>{dataCavity != null ? dataCavity : "-"}</Text>
 								</View>
 							</View>
@@ -1905,7 +1894,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 		}else{
 			dataContent.push(
 				<ScrollView key="29" style={{flex: 1}}>
-					<View style={{marginVertical: 160, marginHorizontal: 40, padding: 40, backgroundColor: '#fff76a', borderWidth: 1, borderRadius: 25, flexDirection: 'row', alignItems: 'center'}}>
+					<View style={{marginVertical: 160, marginHorizontal: 40, padding: 40, backgroundColor: '#fff76a', borderWidth: 1, borderRadius: 5, flexDirection: 'row', alignItems: 'center'}}>
 						<Text style={{fontSize: 12, textAlign: 'center', fontWeight: 'bold'}}>Hubungi Foreman Untuk Segera Isi Form Revisi First Piece Foreman</Text>
 					</View>
 				</ScrollView>
@@ -1933,7 +1922,7 @@ const LastShootLeaderQc = ({route, navigation}) => {
 							</View>
 							<View style={{flexDirection: 'column', width: "100%"}}>
 								<View style={{borderTopWidth: 0.3, height: 65, justifyContent: 'center', alignItems: 'center', width: "50%", flex: 1}}>
-									<Text style={{fontWeight: 'bold', fontSize: 17}}>({machine_number}) - {machine_name}</Text>
+									<Text style={{fontWeight: 'bold', fontSize: 17, textAlign: 'center'}}>({machine_number}) - {machine_name}</Text>
 									<View style={{borderWidth: 0.5, width: 150, height: 25, justifyContent: 'center'}}>
 										<Picker 
 										mode="dropdown"

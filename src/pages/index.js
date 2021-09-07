@@ -10,7 +10,6 @@ import Login from './Login';
  */
 import Profile from './Qc/Profile';
 import OQC from './Qc/OQC';
-import IQC from './Qc/IQC/Index';
 import Scanner from './Qc/OQC/Scanner';
 
 /**
@@ -20,7 +19,7 @@ import Qc from './Qc';
 import ShowProducts from './Qc/ShowProducts';
 import ListForm from './Qc/ListForm';
 import ShowPlanning from './Qc/ShowPlanning';
- 
+
 /**
  * START MP
  */
@@ -60,6 +59,22 @@ import NextDay from './Qc/Form/ContinueMP/NextDay';
 import UpdateProductionLeader from './Qc/Form/ContinueMP/UpdateProductionLeader';
 import UpdateForemanLeader from './Qc/Form/ContinueMP/UpdateForemanLeader';
 
+/**
+ * LAPORAN REWORK PRODUCT LOT OUT
+ */
+import ShowNGProducts from './Qc/ReworkLotOut/index';
+import Rework from './Qc/ReworkLotOut/LaporanReworkProductLotOut';
+import ReworkProdLeader from './Qc/ReworkLotOut/Form/ReworkProdLeader';
+import ReworkQCLeader from './Qc/ReworkLotOut/Form/ReworkQCLeader';
+import ReworkOperator from './Qc/ReworkLotOut/Form/ReworkOperator';
+
+/**
+ * IQC
+ */
+import IQC from './Qc/IQC/Index';
+import ListPartNumber from './Qc/IQC/ListPartNumber';
+import FormIQC from './Qc/IQC/FormIQC';
+
 export {
     SplashScreen,
     Login,
@@ -90,6 +105,13 @@ export {
     ContinueMP,
     StopMP,
     OQC,
+    NextDay,
+    ShowNGProducts,
+    Rework,
+    ReworkProdLeader,
+    ReworkQCLeader,
+    ReworkOperator,
     IQC,
-    NextDay
+    ListPartNumber,
+    FormIQC
 }

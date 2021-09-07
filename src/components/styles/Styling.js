@@ -17,6 +17,11 @@ const styles = StyleSheet.create({
         fontSize: 12, 
         fontWeight: 'bold'
     },
+    asterixMerah: {
+        fontSize: 12, 
+        color: 'red',
+        fontWeight: 'bold'
+    },
     hitamBold: {
         color: 'black', 
         fontSize: 12, 
@@ -29,6 +34,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 3, 
         height: 45, 
         width: "23%",
+        // width: 96.5,
         borderRadius: 5, 
         flexDirection: 'column'
     },
@@ -38,7 +44,7 @@ const styles = StyleSheet.create({
         marginVertical: 2, 
         marginHorizontal: 3, 
         height: 45, 
-        width: "23%", 
+        width: "23%",
         borderRadius: 5, 
         flexDirection: 'column'
     },
@@ -48,7 +54,7 @@ const styles = StyleSheet.create({
         marginVertical: 2, 
         marginHorizontal: 3, 
         height: 45, 
-        width: "23%", 
+        width: "23%",
         borderRadius: 5, 
         flexDirection: 'column'
     },
@@ -58,7 +64,7 @@ const styles = StyleSheet.create({
         marginVertical: 2,
         marginHorizontal: 3,
         height: 45, 
-        width: "23%", 
+        width: "23%",
         borderRadius: 5, 
         flexDirection: 'column'
     },
@@ -68,7 +74,7 @@ const styles = StyleSheet.create({
         marginVertical: 2, 
         marginHorizontal: 3,
         height: 45, 
-        width: "23%", 
+        width: "23%",
         borderRadius: 5, 
         flexDirection: 'column'
     },
@@ -158,6 +164,14 @@ const styles = StyleSheet.create({
         backgroundColor: '#1a508b',
         flexDirection: 'column'
     },
+    backButton: {
+        marginTop: 5, 
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 15,
+        backgroundColor: '#1a508b',
+        flexDirection: 'column'
+    },
     productsButtonStop: {
         backgroundColor: '#663f3f',
         marginTop: 5, 
@@ -180,6 +194,19 @@ const styles = StyleSheet.create({
         borderRadius: 15, 
         backgroundColor: '#1a508b'
         // flexDirection: 'row'
+    },
+    listNGProducts: {
+        marginTop: 5,
+        width: "100%",
+        borderRadius: 15, 
+        backgroundColor: '#1a508b'
+        // flexDirection: 'row'
+    },
+    listFormReworkLotOutNotAccess: {
+        marginTop: 5,
+        width: "100%",
+        borderRadius: 15, 
+        backgroundColor: '#726a95',
     },
     dailyInspectionButton: {
         marginTop: 5,
@@ -252,10 +279,28 @@ const styles = StyleSheet.create({
     },
     notifNoProducts: {
         borderWidth: 1, 
+        marginTop: 100,
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 250,
         borderRadius: 10, 
-        backgroundColor: '#c90d00'
+        backgroundColor: 'yellow'
     },
     fontNotifNoProducts: {
+        color: "black", 
+        paddingVertical: 10, 
+        textAlign: 'center', 
+        fontSize: 12
+    },
+    notifNoPlanning: {
+        borderWidth: 1, 
+        borderRadius: 10,
+        justifyContent: 'center',
+        width: 300,
+        height: 100,
+        backgroundColor: '#c90d00'
+    },
+    fontNotifNoPlanning: {
         color: "#c9c9c9", 
         paddingVertical: 10, 
         textAlign: 'center', 
@@ -279,6 +324,14 @@ const styles = StyleSheet.create({
     },
     fontPlanning: {
         fontSize: 18, 
+        fontWeight: 'bold'
+    },
+    fontReworkProduct: {
+        fontSize: 17, 
+        fontWeight: 'bold'
+    },
+    fontReworkProductChild: {
+        fontSize: 15, 
         fontWeight: 'bold'
     },
     fontNoPlanning: {
