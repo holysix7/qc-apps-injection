@@ -30,7 +30,6 @@ const Login = ({navigation}) => {
 
   useEffect(() => {
     messaging().getToken().then(token => {
-      // console.log(JSON.stringify(token));
 			setRegistration_ids(token)
     });
 
@@ -40,8 +39,6 @@ const Login = ({navigation}) => {
       BackHandler.removeEventListener("hardwareBackPress", backAction);
   }, []);
 
-	// console.log(registration_ids)
-
 	const submit = async() => {
 		setLoading(false)
 		const data = {
@@ -50,7 +47,6 @@ const Login = ({navigation}) => {
 			app_version,
 			registration_ids
 		}
-		// console.log(data)
 		Axios.post('https://api.tri-saudara.com/signin', data)
 		.then(res => {
 			if (res.data.data.current_version == app_version) {

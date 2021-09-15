@@ -86,7 +86,6 @@ const Qc = ({navigation}) => {
       const feature               = await AsyncStorage.getItem('feature')
       const current_version_iqc   = await AsyncStorage.getItem('current_version_iqc')
       const image                 = await AsyncStorage.getItem('employee_image_base64')
-      console.log(image)
       setDutyId(JSON.parse(duty))
       setCekId(sys_plant_id)
       setUserNik(user)

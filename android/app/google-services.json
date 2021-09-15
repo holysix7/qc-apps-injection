@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "406670932766",
-    "project_id": "qc-apps-af1ef",
-    "storage_bucket": "qc-apps-af1ef.appspot.com"
+    "project_number": "621421255987",
+    "project_id": "qc-apps-fdc18",
+    "storage_bucket": "qc-apps-fdc18.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:406670932766:android:82b0c557e2aadcf519670f",
+        "mobilesdk_app_id": "1:621421255987:android:44f0c8641dbfd857c7f246",
         "android_client_info": {
           "package_name": "com.qcfix"
         }
       },
       "oauth_client": [
         {
-          "client_id": "406670932766-rob2epmeqdrolgut332kf3qi5ms9cppm.apps.googleusercontent.com",
+          "client_id": "621421255987-d790ikjbslqau1u034sl1ok6g4g0lgdu.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBmsoO_mzoZXnS2oIQV09Telyq12PcGJzk"
+          "current_key": "AIzaSyBkIJgJDcM0Crc26V2Z8vDE7t3IH02e7Co"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "406670932766-rob2epmeqdrolgut332kf3qi5ms9cppm.apps.googleusercontent.com",
+              "client_id": "621421255987-d790ikjbslqau1u034sl1ok6g4g0lgdu.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
